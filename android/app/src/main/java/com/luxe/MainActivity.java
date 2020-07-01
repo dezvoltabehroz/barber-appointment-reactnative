@@ -1,4 +1,4 @@
-package com.barberappointmentapp;
+package com.luxe;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "BarberAppointmentApp";
+    return "Luxe";
   }
 }

@@ -44,8 +44,8 @@ def flipper_post_install(installer)
   end
 end
 
-target 'BarberAppointmentApp' do
-  # Pods for BarberAppointmentApp
+target 'Luxe' do
+  # Pods for Luxe
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -77,7 +77,7 @@ target 'BarberAppointmentApp' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  target 'BarberAppointmentAppTests' do
+  target 'LuxeTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -94,10 +94,10 @@ target 'BarberAppointmentApp' do
   end
 end
 
-target 'BarberAppointmentApp-tvOS' do
-  # Pods for BarberAppointmentApp-tvOS
+target 'Luxe-tvOS' do
+  # Pods for Luxe-tvOS
 
-  target 'BarberAppointmentApp-tvOSTests' do
+  target 'Luxe-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

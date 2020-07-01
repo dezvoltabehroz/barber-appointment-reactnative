@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface BarberAppointmentAppTests : XCTestCase
+@interface LuxeTests : XCTestCase
 
 @end
 
-@implementation BarberAppointmentAppTests
+@implementation LuxeTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
 {

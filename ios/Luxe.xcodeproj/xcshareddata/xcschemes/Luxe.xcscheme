@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "BarberAppointmentApp.app"
-               BlueprintName = "BarberAppointmentApp"
-               ReferencedContainer = "container:BarberAppointmentApp.xcodeproj">
+               BuildableName = "Luxe.app"
+               BlueprintName = "Luxe"
+               ReferencedContainer = "container:Luxe.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "BarberAppointmentAppTests.xctest"
-               BlueprintName = "BarberAppointmentAppTests"
-               ReferencedContainer = "container:BarberAppointmentApp.xcodeproj">
+               BuildableName = "LuxeTests.xctest"
+               BlueprintName = "LuxeTests"
+               ReferencedContainer = "container:Luxe.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "BarberAppointmentApp.app"
-            BlueprintName = "BarberAppointmentApp"
-            ReferencedContainer = "container:BarberAppointmentApp.xcodeproj">
+            BuildableName = "Luxe.app"
+            BlueprintName = "Luxe"
+            ReferencedContainer = "container:Luxe.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "BarberAppointmentApp.app"
-            BlueprintName = "BarberAppointmentApp"
-            ReferencedContainer = "container:BarberAppointmentApp.xcodeproj">
+            BuildableName = "Luxe.app"
+            BlueprintName = "Luxe"
+            ReferencedContainer = "container:Luxe.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
