@@ -26,8 +26,9 @@ class AuthScreen extends Component {
                             <View style={styles.optionContainer}>
                                 <Icon.Entypo
                                     name="user"
+                                    color={this.state.barber == false && this.state.customer ? "#fff" : '#000'}
                                     size={25} />
-                                <Text style={styles.optionTextStyle}>
+                                <Text style={[styles.optionTextStyle, this.state.barber == false && this.state.customer ? { color: "#fff" } : null]}>
                                     Customer
                                 </Text>
                             </View>
@@ -38,8 +39,9 @@ class AuthScreen extends Component {
                             <View style={styles.optionContainer}>
                                 <Icon.FontAwesome
                                     name="scissors"
+                                    color={this.state.customer == false && this.state.barber ? "#fff" : '#000'}
                                     size={25} />
-                                <Text style={styles.optionTextStyle}>
+                                <Text style={[styles.optionTextStyle, this.state.customer == false && this.state.barber ? { color: "#fff" } : null]}>
                                     Barber
                                 </Text>
                             </View>
