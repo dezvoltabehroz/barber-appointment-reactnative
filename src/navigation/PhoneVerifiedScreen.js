@@ -1,9 +1,9 @@
 /** @format */
 
 import React, { Component } from 'react'
-import { PhoneVerification } from '../screens';
+import { PhoneVerified } from '../screens';
 
-export default class PhoneVerificationScreen extends Component {
+export default class PhoneVerifiedScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })
@@ -11,7 +11,7 @@ export default class PhoneVerificationScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <PhoneVerification onVerify={()=>navigate('PhoneVerified')} />
+            <PhoneVerified onComplete={()=>navigate('')} />
         )
     }
 }

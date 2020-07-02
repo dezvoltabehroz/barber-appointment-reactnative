@@ -91,7 +91,6 @@ export default class PhoneNumber extends Component {
                     <View style={styles.gapHeight}></View>
                     <View style={styles.gapHeight}></View>
                 </View>
-                <View style={styles.designContainer}></View>
             </View>
         )
     }

@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import AuthScreen from './AuthScreen';
 import PhoneNumberScreen from './PhoneNumberScreen';
 import PhoneVerificatinScreen from './PhoneVerificationScreen'
+import { PhoneVerified } from '../screens';
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,9 @@ function AppRoutes() {
             }} /> */}
 
             <Stack.Screen name="Auth" component={AuthScreen} options={{
+                headerShown: false
+            }} />
+            <Stack.Screen name="PhoneVerified" component={PhoneVerified} options={{
                 headerShown: false
             }} />
 

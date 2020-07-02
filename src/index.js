@@ -6,10 +6,10 @@ import SplashScreen from 'react-native-splash-screen';
 import AppRoutes from './navigation'
 
 import THEME from './assets/styles/theme.style';
+
 class App extends Component {
     componentDidMount() {
         SplashScreen.hide()
-
     }
     render() {
         console.disableYellowBox = true;

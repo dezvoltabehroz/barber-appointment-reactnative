@@ -36,7 +36,7 @@ export default class PhoneVerfication extends Component {
                         codeInputStyle={styles.codeInput} />
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button title='Verify Number ' />
+                    <Button title='Verify Number ' onPress={onVerify} />
                 </View>
                 <View style={styles.resendContainer}>
                     <TouchableOpacity><Text style={styles.resendTextStyle}>Resend Code</Text></TouchableOpacity>
