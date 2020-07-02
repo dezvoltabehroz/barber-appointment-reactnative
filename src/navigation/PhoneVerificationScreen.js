@@ -11,7 +11,7 @@ export default class PhoneVerificationScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <PhoneVerification  />
+            <PhoneVerification onVerify={()=>navigate('')} />
         )
     }
 }

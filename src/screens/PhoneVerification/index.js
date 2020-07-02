@@ -21,7 +21,7 @@ export default class PhoneVerfication extends Component {
             <View style={styles.container}>
                 <View style={styles.textContainer}>
                     <Text style={styles.textStyle} >A verification code is sent to your number</Text>
-                    <Text style={styles.textStyle} >provided {number}</Text>
+                    <Text style={styles.textStyle} >provided<Text style={styles.numberTextStyle}>{number}</Text> </Text>
                 </View>
                 <View style={styles.codeContainer}>
                     <CodeInput

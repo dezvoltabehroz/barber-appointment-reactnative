@@ -17,6 +17,10 @@ export default StyleSheet.create({
         textAlign: 'center',
         fontFamily: 'Poppins-Regular'
     },
+    numberTextStyle: {
+        fontFamily: 'Poppins-Bold'
+    },
+
     codeContainer: {
         justifyContent: 'center',
         paddingTop: "5%",
