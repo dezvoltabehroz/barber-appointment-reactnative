@@ -17,7 +17,7 @@ export default class PhoneNumberScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <PhoneNumber />
+            <PhoneNumber onSendCode={()=>navigate('PhoneVerification')} />
         )
     }
 }

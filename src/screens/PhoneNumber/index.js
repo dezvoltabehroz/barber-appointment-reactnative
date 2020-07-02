@@ -49,9 +49,10 @@ export default class PhoneNumber extends Component {
     };
 
     render() {
+        const { onSendCode } = this.props
         return (
             <View style={styles.container}>
-                <View style={{flex:2,marginTop:'25%'}}>
+                <View style={{ flex: 2, marginTop: '25%' }}>
                     <View style={styles.labelHeadingStyle}>
                         <Text style={styles.countryLabelHeading}>Choose Country</Text>
                         <CountryPicker
@@ -79,7 +80,7 @@ export default class PhoneNumber extends Component {
                     <View style={styles.gapHeight}></View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.buttonContainer}>
-                        <Button title="Send Verification" />
+                        <Button title="Send Verification" onPress={onSendCode} />
                     </View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.textContainer}>

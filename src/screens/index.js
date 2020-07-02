@@ -6,3 +6,6 @@ export const Auth = _Auth;
 
 import _PhoneNumber from './PhoneNumber';
 export const PhoneNumber = _PhoneNumber;
+
+import _PhoneVerification from './PhoneVerification';
+export const PhoneVerification = _PhoneVerification;

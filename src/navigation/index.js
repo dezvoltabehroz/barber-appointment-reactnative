@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 // import SplashScreen from './SplashScreen'
 import AuthScreen from './AuthScreen';
 import PhoneNumberScreen from './PhoneNumberScreen';
+import PhoneVerificatinScreen from './PhoneVerificationScreen'
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,13 @@ function AppRoutes() {
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter your phone number</Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+             <Stack.Screen name="PhoneVerification" component={PhoneVerificatinScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Phone Verification</Text></View>),
                 headerTitleAlign: 'center',
             }} />
         </Stack.Navigator>
