@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input as ElementInput } from 'react-native-elements';
 import inputStyles from './style';
-import THEME from '../../styles/theme.style';
+import THEME from '../../assets/styles/theme.style';
 
 const Input = (props) => {
     return (

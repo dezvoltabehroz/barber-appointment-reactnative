@@ -1,18 +1,23 @@
 /** @format */
 
 import React, { Component } from 'react'
-import { Splash } from '@screens';
-import { SafeAreaView } from 'react-navigation';
+import { Splash } from '../screens';
 
 export default class SplashScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
         header: null,
     })
 
-    render() {
+    componentDidMount() {
         const { navigate, goBack } = this.props.navigation
+        setTimeout(() => {
+            navigate('Auth')
+        }, 4000);
+    }
+    render() {
+
         return (
-            <Splash onAuth={() => console.log('I am OnAuth')} />
+            <Splash />
         )
     }
 }
