@@ -16,7 +16,8 @@ class AuthScreen extends Component {
         return (
             <>
                 <View style={styles.container}>
-                    <View style={styles.imageContainer}>
+                   <View style={styles.upperContainer}>
+                   <View style={styles.imageContainer}>
                         <Image style={styles.imageStyle}
                             source={require('../../assets/images/logo.png')}
                             resizeMode='contain' />
@@ -59,7 +60,8 @@ class AuthScreen extends Component {
                         <Input placeholder='Enter password' />
                         <Button title="Login" />
                     </View>
-                    <View style={{ flex: 1, justifyContent: "flex-end" }}>
+                   </View>
+                    <View style={styles.lowerContainer}>
                         <Text style={styles.signUpAndLoginTextStyle}>Sign up with:</Text>
 
                         {/* <TouchableOpacity style={styles.faceBookButton} >

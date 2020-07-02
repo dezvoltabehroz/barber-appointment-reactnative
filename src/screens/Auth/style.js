@@ -5,13 +5,21 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        // justifyContent: "center",
 
+    },
+    upperContainer: {
+        flex: 1.5,
+        justifyContent: "center",
+        alignItems: "center"
     },
     imageContainer: {
         marginVertical: "2%",
         alignItems: "center",
         paddingHorizontal: "15%"
+    },
+    lowerContainer: {
+        flex: 0.5,
+        justifyContent: "flex-end"
     },
     imageStyle: {
         height: 100,
@@ -97,7 +105,7 @@ export default StyleSheet.create({
     facebookTextContainer: { flexDirection: "column", marginHorizontal: "18%", },
     continueContainer: { alignItems: "center", width: "100%" },
     continueContainerStyle: { flexDirection: 'row', alignItems: "center", },
-    buttonContainer:{
-        marginHorizontal:'10%'
+    buttonContainer: {
+        marginHorizontal: '10%'
     },
 })
