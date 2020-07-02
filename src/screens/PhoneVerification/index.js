@@ -30,7 +30,7 @@ export default class PhoneVerfication extends Component {
                         keyboardType='numeric'
                         className="border-box"
                         inputPosition='center'
-                        size={31}
+                        size={40}
                         placeholder={"*"}
                         onFulfill={(value) => this.setState({ verificationCode: value })}
                         codeInputStyle={styles.codeInput} />

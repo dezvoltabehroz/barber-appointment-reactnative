@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Platform } from 'react-native';
 import { Icon, PhoneInput, Button } from '../../components'
 import styles from "./style";
 import CountryPicker, { FlagButton } from 'react-native-country-picker-modal';
@@ -52,7 +52,7 @@ export default class PhoneNumber extends Component {
         const { onSendCode } = this.props
         return (
             <View style={styles.container}>
-                <View style={{ flex: 2, marginTop: '25%' }}>
+                <View style={styles.innerContainer}>
                     <View style={styles.labelHeadingStyle}>
                         <Text style={styles.countryLabelHeading}>Choose Country</Text>
                         <CountryPicker

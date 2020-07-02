@@ -1,11 +1,11 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Platform } from 'react-native'
 import THEME from '../../assets/styles/theme.style'
 
 export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: '15%'
+        paddingTop: Platform.OS == 'ios' ? '20%' : '15%'
     },
     textContainer: {
         paddingVertical: "5%",

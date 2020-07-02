@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Platform } from 'react-native'
 import THEME from '../../assets/styles/theme.style'
 
 export default StyleSheet.create({
@@ -7,6 +7,7 @@ export default StyleSheet.create({
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
         justifyContent: "center",
     },
+    innerContainer: { flex: 2, marginTop: Platform.OS == 'ios' ? '30%' : '25%' },
     flagContainer: {
         flexDirection: "row",
         borderRadius: 5,
@@ -70,20 +71,20 @@ export default StyleSheet.create({
         marginHorizontal: '10%',
         borderRadius: 5
     },
-    buttonContainer:{
-        marginHorizontal:'10%'
+    buttonContainer: {
+        marginHorizontal: '10%'
     },
-    textContainer:{
-        marginHorizontal:'10%'
+    textContainer: {
+        marginHorizontal: '10%'
     },
-    textStyle:{
-        color:"#9FACBD",
-        fontFamily:"Poppins-Regular",
-        textAlign:'center'
+    textStyle: {
+        color: "#9FACBD",
+        fontFamily: "Poppins-Regular",
+        textAlign: 'center'
     },
-    designContainer:{
-        flex:0.8,
-        backgroundColor:'#1E2023'
+    designContainer: {
+        flex: 0.8,
+        backgroundColor: '#1E2023'
     }
 
 })
