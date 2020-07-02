@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import { Icon } from "../../components";
+import { Icon, Button, Input } from "../../components";
 import styles from './style';
 
 class AuthScreen extends Component {
@@ -12,14 +12,17 @@ class AuthScreen extends Component {
         }
     }
     render() {
+        const { onPhone } = this.props
         return (
             <>
                 <View style={styles.container}>
-                    <View style={styles.imageContainer}>
+                   <View style={styles.upperContainer}>
+                   <View style={styles.imageContainer}>
                         <Image style={styles.imageStyle}
                             source={require('../../assets/images/logo.png')}
                             resizeMode='contain' />
                     </View>
+                    <Text style={styles.signUpAndLoginTextStyle}>Login as:</Text>
                     <View style={styles.customerAndBarberContainer}>
                         <TouchableOpacity onPress={() => this.setState({ customer: !this.state.customer, barber: false })}
                             style={[styles.CustomerContainer, this.state.barber == false && this.state.customer ? { backgroundColor: "#00A9A5" } : null]}>
@@ -47,52 +50,62 @@ class AuthScreen extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.TextContainer}>
+                    {/* <View style={styles.TextContainer}>
                         <Text style={styles.headingTextStyle}>Enhance your experience with</Text>
                         <Text style={styles.babeoTextStyle}>LUXE!</Text>
+                    </View> */}
+
+                    <View style={styles.buttonContainer}>
+                        <Input placeholder='Enter email' />
+                        <Input placeholder='Enter password' />
+                        <Button title="Login" />
                     </View>
-                    <Text style={styles.signUpAndLoginTextStyle}>Sign up or Log in with:</Text>
+                   </View>
+                    <View style={styles.lowerContainer}>
+                        <Text style={styles.signUpAndLoginTextStyle}>Sign up with:</Text>
 
-                    <TouchableOpacity style={styles.faceBookButton} >
-                        <View style={{ flexDirection: "row" }}>
-                            <View style={styles.iconContainer}>
-                                <Icon.FontAwesome
-                                    name="facebook"
-                                    color="#fff"
-                                    style={{ marginRight: '5%' }}
-                                    size={25} />
-                            </View>
-                            <View style={styles.facebookTextContainer}>
-                                <Text style={styles.buttonTextStyle}>Facebook</Text>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
+                        {/* <TouchableOpacity style={styles.faceBookButton} >
+    <View style={{ flexDirection: "row" }}>
+        <View style={styles.iconContainer}>
+            <Icon.FontAwesome
+                name="facebook"
+                color="#fff"
+                style={{ marginRight: '5%' }}
+                size={25} />
+        </View>
+        <View style={styles.facebookTextContainer}>
+            <Text style={styles.buttonTextStyle}>Facebook</Text>
+        </View>
+    </View>
+</TouchableOpacity> */}
 
-                    <TouchableOpacity style={styles.phoneNumberButton} >
-                        <View style={{ flexDirection: "row" }}>
-                            <View style={styles.iconContainer}>
-                                <Icon.FontAwesome
-                                    name="phone"
-                                    color="#fff"
-                                    style={{ marginRight: '5%', }}
-                                    size={25} />
+                        <TouchableOpacity onPress={onPhone} style={styles.phoneNumberButton} >
+                            <View style={{ flexDirection: "row" }}>
+                                <View style={styles.iconContainer}>
+                                    <Icon.FontAwesome
+                                        name="phone"
+                                        color="#fff"
+                                        style={{ marginRight: '5%', }}
+                                        size={25} />
+                                </View>
+                                <View style={styles.phoneTextContainer}>
+                                    <Text style={styles.buttonTextStyle}>Phone Number</Text>
+                                </View>
                             </View>
-                            <View style={styles.phoneTextContainer}>
-                                <Text style={styles.buttonTextStyle}>Phone Number</Text>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-
-                    <View style={styles.continueContainer}>
-                        <TouchableOpacity style={styles.continueContainerStyle} >
-                            <Text style={styles.continueWithoutTextStyle}>Continue without Sign in </Text>
-                            <Icon.AntDesign
-                                name="arrowright"
-                                color='#9FACBD'
-                                style={{}}
-                                size={25} />
                         </TouchableOpacity>
+
+                        <View style={styles.continueContainer}>
+                            <TouchableOpacity style={styles.continueContainerStyle} >
+                                <Text style={styles.continueWithoutTextStyle}>Continue without Sign in </Text>
+                                <Icon.AntDesign
+                                    name="arrowright"
+                                    color='#9FACBD'
+                                    style={{}}
+                                    size={25} />
+                            </TouchableOpacity>
+                        </View>
                     </View>
+
 
                 </View>
             </>

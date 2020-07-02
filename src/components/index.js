@@ -10,4 +10,7 @@ export const Icon = _Icon;
 
 // Input Text Field Component
 import _Input from './Input';
-export const Input = _Input; 
+export const Input = _Input;
+
+import _PhoneInput from './Input/phoneInput';
+export const PhoneInput = _PhoneInput;

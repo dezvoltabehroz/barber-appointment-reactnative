@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, Component } from 'react'
-import { StatusBar, View } from 'react-native'
+import { View } from 'react-native'
 import SplashView from './splashView'
 import styles from './style'
 
@@ -20,7 +20,6 @@ class Splash extends Component {
     render() {
         return (
             <>
-                {/* <StatusBar backgroundColor="#1E2023" /> */}
                 <View style={styles.container}>
                     <SplashView />
                 </View>

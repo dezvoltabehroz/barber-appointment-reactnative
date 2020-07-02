@@ -1,9 +1,9 @@
 /** @format */
 
 import React, { Component } from 'react'
-import { Auth } from '../screens';
+import { PhoneVerification } from '../screens';
 
-export default class AuthScreen extends Component {
+export default class PhoneVerificationScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })
@@ -11,7 +11,7 @@ export default class AuthScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <Auth onPhone={()=>navigate('PhoneNumber')} />
+            <PhoneVerification onVerify={()=>navigate('')} />
         )
     }
 }
