@@ -11,7 +11,7 @@ export default class AuthScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <Auth />
+            <Auth onPhone={()=>navigate('PhoneNumber')} />
         )
     }
 }

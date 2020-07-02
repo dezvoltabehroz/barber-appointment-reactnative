@@ -5,7 +5,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        justifyContent: "center",
+        // justifyContent: "center",
 
     },
     imageContainer: {
@@ -14,7 +14,7 @@ export default StyleSheet.create({
         paddingHorizontal: "15%"
     },
     imageStyle: {
-        height: 150,
+        height: 100,
         width: 150
     },
     TextContainer: {
@@ -33,8 +33,8 @@ export default StyleSheet.create({
     },
     customerAndBarberContainer: {
         borderRadius: 5,
-        // marginBottom: 10,
-        marginVertical: "5%",
+        marginBottom: 15,
+        // marginVertical: "2%",
         marginHorizontal: '10%',
         flexDirection: 'row',
         justifyContent: "center",
@@ -77,11 +77,11 @@ export default StyleSheet.create({
         borderRadius: 5,
         marginHorizontal: '10%',
         justifyContent: "center",
-        marginBottom: 10,
+        // marginBottom: 10,
         backgroundColor: THEME.PRIMARY_COLOR
     },
     signUpAndLoginTextStyle: {
-        marginVertical: "5%",
+        marginVertical: "1%",
         fontFamily: "Poppins-Regular",
         textAlign: "center",
         color: THEME.COLOR_WHITE
@@ -96,5 +96,8 @@ export default StyleSheet.create({
     phoneTextContainer: { flexDirection: "column", marginHorizontal: "10%", },
     facebookTextContainer: { flexDirection: "column", marginHorizontal: "18%", },
     continueContainer: { alignItems: "center", width: "100%" },
-    continueContainerStyle: { flexDirection: 'row', alignItems: "center", }
+    continueContainerStyle: { flexDirection: 'row', alignItems: "center", },
+    buttonContainer:{
+        marginHorizontal:'10%'
+    },
 })

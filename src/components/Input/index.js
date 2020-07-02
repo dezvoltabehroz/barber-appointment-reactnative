@@ -7,6 +7,7 @@ const Input = (props) => {
     return (
         <ElementInput
             {...props}
+            containerStyle={inputStyles.containerStyle}
             placeholderTextColor={THEME.INPUT_PRIMARY_TEXT_COLOR}
             inputContainerStyle={inputStyles.inputContainerStyle}
             inputStyle={inputStyles.inputStyle}
