@@ -38,6 +38,8 @@ export default StyleSheet.create({
         flex: 0.5,
     },
     inputContainerStyle: {
+        borderWidth: 2,
+        borderColor: THEME.PRIMARY_COLOR,
         marginHorizontal: '10%',
         flexDirection: "row",
         justifyContent: "center",

@@ -1,27 +1,31 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, Alert } from 'react-native';
 import THEME from '../../assets/styles/theme.style';
 import { Icon, FloatingInput, Button } from '../../components'
 import styles from './style';
 import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
 
+import Geolocation from '@react-native-community/geolocation';
+import Geocoder from 'react-native-geocoder';
 export default class UpdateProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
             male: true, female: false,
             profile_Url: '',
-            filePath: {}
+            data: "HI HOW are you",
+            avatar: null, location: ''
         };
     }
 
+    componentDidMount = () => {
+        this.findCoordinates();
+    }
     chooseFile = () => {
         var options = {
             title: 'Select Avatar',
-            customButtons: [
-                { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
-            ],
+
             storageOptions: {
                 skipBackup: true,
                 path: 'images',
@@ -41,10 +45,29 @@ export default class UpdateProfile extends Component {
             } else {
                 let source = response;
                 this.setState({
-                    filePath: source,
+                    avatar: source,
                 });
             }
         });
+    };
+
+
+    findCoordinates = () => {
+        Geolocation.getCurrentPosition(
+            position => {
+                let pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                }
+
+                Geocoder.geocodePosition(pos).then(res => {
+                    this.setState({ location: res[0].formattedAddress })
+                })
+                    .catch(error => alert(error));
+            },
+            error => Alert.alert(error.message),
+            { enableHighAccuracy: true, timeout: 50000, maximumAge: 1000 }
+        );
     };
 
 
@@ -57,7 +80,7 @@ export default class UpdateProfile extends Component {
                             <View style={styles.avatarContainer}>
                                 <Avatar
                                     avatarStyle={styles.avatarStyle}
-                                    source={require('../../assets/images/avatar.png')}
+                                    source={this.state.avatar ? this.state.avatar : require('../../assets/images/avatar.png')}
                                     rounded
                                     // showEditButton
                                     // onEditPress={this.chooseFile}
@@ -103,8 +126,10 @@ export default class UpdateProfile extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.inputContainerStyle}>
-                        <FloatingInput label='Your Location' iconInput />
+                        <FloatingInput label='Your Location' iconInput val={this.state.location} />
+                        {/* <TouchableOpacity onPress={this.findCoordinates}> */}
                         <Icon.SimpleLineIcons name='location-pin' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
+                        {/* </TouchableOpacity> */}
                     </View>
                     <View style={styles.lineStyle}></View>
                     <View style={styles.gapHeight}></View>
