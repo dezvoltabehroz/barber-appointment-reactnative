@@ -74,7 +74,8 @@ export default class PhoneNumber extends Component {
                         <View style={styles.countryCodeContainer} >
                             <Text style={styles.coutryCodeTextStyle} >{this.state.callingCode != '' ? '+' + this.state.callingCode : null}</Text>
                         </View>
-                        <PhoneInput label={"Phone Number"} onChangeText={(val)=>console.log(val)} />
+                        <PhoneInput label={"Phone Number"} updateText={(val) => console.log(val)} />
+                        
                         {/* <PhoneInput placeholder='Phone Number' /> */}
                     </View>
                     <View style={styles.gapHeight}></View>

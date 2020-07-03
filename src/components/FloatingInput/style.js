@@ -11,13 +11,14 @@ export default StyleSheet.create({
         fontFamily: 'Poppins-Regular'
     },
     inputStyle: {
-        fontSize:14,
+        fontSize: 14,
         paddingLeft: 10,
         marginTop: 10,
         borderWidth: 0,
         fontFamily: 'Poppins-Regular'
     },
     container: { width: '100%' },
-    
+    phoneContainer: { width: '79.5%' }
+
 
 });

@@ -122,5 +122,7 @@ export default StyleSheet.create({
         width: screenWidth * 0.8,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
-    }
+    },
+    iconStyle:{ marginRight: '5%' },
+    row:{ flexDirection: "row" }
 })

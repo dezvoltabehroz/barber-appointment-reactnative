@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
 import { Icon, Button, FloatingInput } from "../../components";
 import styles from './style';
+import THEME from '../../assets/styles/theme.style';
 
 class AuthScreen extends Component {
     constructor(props) {
@@ -58,13 +59,16 @@ class AuthScreen extends Component {
 
                             <View style={styles.buttonContainer}>
                                 <View style={styles.inputContainerStyle}>
-                                    <FloatingInput label={"Email"} ></FloatingInput>
+                                    <FloatingInput
+                                        label={"Email"}
+                                        updateText={(email) => console.log(email)} />
                                 </View>
                                 <View style={styles.inputContainerStyle}>
-                                    <FloatingInput label={"Password"}></FloatingInput>
+                                    <FloatingInput
+                                        label={"Password"}
+                                        secureEntry={true}
+                                        updateText={(password) => console.log(password)} />
                                 </View>
-                                {/* <Input placeholder='Enter email' />
-                                <Input placeholder='Enter password' /> */}
                                 <Button title="Login" />
                             </View>
                         </View>
@@ -72,12 +76,12 @@ class AuthScreen extends Component {
                             <Text style={styles.signUpAndLoginTextStyle}>Sign up with:</Text>
 
                             <TouchableOpacity style={styles.faceBookButton} >
-                                <View style={{ flexDirection: "row" }}>
+                                <View style={styles.row}>
                                     <View style={styles.iconContainer}>
                                         <Icon.FontAwesome
                                             name="facebook"
-                                            color="#fff"
-                                            style={{ marginRight: '5%' }}
+                                            color={THEME.COLOR_WHITE}
+                                            style={styles.iconStyle}
                                             size={25} />
                                     </View>
                                     <View style={styles.facebookTextContainer}>
@@ -86,12 +90,12 @@ class AuthScreen extends Component {
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.googleButton} >
-                                <View style={{ flexDirection: "row" }}>
+                                <View style={styles.row}>
                                     <View style={styles.iconContainer}>
                                         <Icon.FontAwesome
                                             name="google"
-                                            color="#fff"
-                                            style={{ marginRight: '5%' }}
+                                            color={THEME.COLOR_WHITE}
+                                            style={styles.iconStyle}
                                             size={25} />
                                     </View>
                                     <View style={styles.facebookTextContainer}>
@@ -101,12 +105,12 @@ class AuthScreen extends Component {
                             </TouchableOpacity>
 
                             <TouchableOpacity onPress={onPhone} style={styles.phoneNumberButton} >
-                                <View style={{ flexDirection: "row" }}>
+                                <View style={styles.row}>
                                     <View style={styles.iconContainer}>
                                         <Icon.FontAwesome
                                             name="phone"
-                                            color="#fff"
-                                            style={{ marginRight: '5%', }}
+                                            color={THEME.COLOR_WHITE}
+                                            style={styles.iconStyle}
                                             size={25} />
                                     </View>
                                     <View style={styles.phoneTextContainer}>
@@ -120,7 +124,7 @@ class AuthScreen extends Component {
                                     <Text style={styles.continueWithoutTextStyle}>Continue without Sign in </Text>
                                     <Icon.AntDesign
                                         name="arrowright"
-                                        color='#9FACBD'
+                                        color={THEME.COLOR_GREY}
                                         // style={{}}
                                         size={25} />
                                 </TouchableOpacity>
