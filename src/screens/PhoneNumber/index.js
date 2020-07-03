@@ -26,11 +26,12 @@ export default class PhoneNumber extends Component {
                         onOpen={() => this.setState({ isVisible: !this.state.isVisible })}
                         onClose={() => this.setState({ isVisible: !this.state.isVisible })}
                         placeholder="Select Country"
-                        withEmoji={true}
-
+                        withEmoji={false}
+                        withFlagButton={false}
                         countryCode={this.state.countryCode}
                         withCountryNameButton={this.state.country.name}
-                        containerButtonStyle={styles.flagInnerContainer} />
+                        containerButtonStyle={styles.flagInnerContainer}
+                    />
                 </View>
                 <View style={styles.column1}>
                     <Icon.AntDesign name="down" color="#00A9A5" size={15} />
@@ -59,12 +60,13 @@ export default class PhoneNumber extends Component {
                             theme={{ fontSize: 12, fontFamily: 'Poppins-Bold' }}
                             withFilter={true}
                             visible={this.state.isVisible}
-                            withFlag={true}
-                            withFlagButton={true}
+                            // withFlag={true}
+                            // withFlagButton={true}
                             onSelect={(country) => this.onSelect(country)}
                             withAlphaFilter={true}
                             withCountryNameButton={true}
-                            renderFlagButton={this._flagButton} />
+                            renderFlagButton={this._flagButton}
+                        />
                     </View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.gapHeight}></View>
@@ -72,7 +74,8 @@ export default class PhoneNumber extends Component {
                         <View style={styles.countryCodeContainer} >
                             <Text style={styles.coutryCodeTextStyle} >{this.state.callingCode != '' ? '+' + this.state.callingCode : null}</Text>
                         </View>
-                        <PhoneInput placeholder='Phone Number' />
+                        <PhoneInput label={"Phone Number"} onChangeText={(val)=>console.log(val)} />
+                        {/* <PhoneInput placeholder='Phone Number' /> */}
                     </View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.gapHeight}></View>

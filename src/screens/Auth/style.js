@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 import THEME from '../../assets/styles/theme.style'
-
+const screenWidth = Dimensions.get('window').width;
 export default StyleSheet.create({
     container: {
         flex: 1,
@@ -79,6 +79,14 @@ export default StyleSheet.create({
         marginBottom: 10,
         backgroundColor: "#1281E3"
     },
+    googleButton: {
+        height: 54,
+        borderRadius: 5,
+        marginHorizontal: '10%',
+        justifyContent: "center",
+        marginBottom: 10,
+        backgroundColor: "#EE4266"
+    },
     iconContainer: { flexDirection: "column", marginLeft: '15%' },
     phoneNumberButton: {
         height: 54,
@@ -108,4 +116,11 @@ export default StyleSheet.create({
     buttonContainer: {
         marginHorizontal: '10%'
     },
+    inputContainerStyle: {
+        height:54,
+        marginBottom:'4%',
+        width: screenWidth * 0.8,
+        borderRadius: 5,
+        backgroundColor: THEME.COLOR_WHITE
+    }
 })

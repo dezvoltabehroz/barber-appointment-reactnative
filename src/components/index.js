@@ -12,5 +12,11 @@ export const Icon = _Icon;
 import _Input from './Input';
 export const Input = _Input;
 
-import _PhoneInput from './Input/phoneInput';
+// import _PhoneInput from './Input/phoneInput';
+// export const PhoneInput = _PhoneInput;
+
+import _FloatInput from './FloatingInput';
+export const FloatingInput = _FloatInput;
+
+import _PhoneInput from './FloatingInput/phoneInputFloat';
 export const PhoneInput = _PhoneInput;
