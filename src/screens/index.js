@@ -11,4 +11,7 @@ import _PhoneVerification from './PhoneVerification';
 export const PhoneVerification = _PhoneVerification;
 
 import _PhoneVerified from './PhoneVerified';
-export const PhoneVerified = _PhoneVerified
+export const PhoneVerified = _PhoneVerified;
+
+import _UpdateProfile from './UpdateProfile';
+export const UpdateProfile = _UpdateProfile;

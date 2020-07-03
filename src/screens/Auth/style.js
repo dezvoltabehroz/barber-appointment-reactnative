@@ -85,7 +85,7 @@ export default StyleSheet.create({
         marginHorizontal: '10%',
         justifyContent: "center",
         marginBottom: 10,
-        backgroundColor: "#EE4266"
+        backgroundColor: "#f0592a"
     },
     iconContainer: { flexDirection: "column", marginLeft: '15%' },
     phoneNumberButton: {

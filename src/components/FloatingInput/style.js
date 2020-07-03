@@ -6,7 +6,7 @@ export default StyleSheet.create({
     labelTextStyle: {
         marginTop: 17,
         paddingLeft: 9,
-        color: '#1E2023',
+        color: THEME.COLOR_GREY,
         fontSize: 12,
         fontFamily: 'Poppins-Regular'
     },
@@ -15,9 +15,10 @@ export default StyleSheet.create({
         paddingLeft: 10,
         marginTop: 10,
         borderWidth: 0,
-        fontFamily: 'Poppins-Regular'
+        fontFamily: 'Poppins-Medium'
     },
     container: { width: '100%' },
+    iconContainerStyle: { width: "80%" },
     phoneContainer: { width: '79.5%' }
 
 

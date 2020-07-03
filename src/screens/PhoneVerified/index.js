@@ -14,6 +14,7 @@ export default class PhoneVerfied extends Component {
 
 
     render() {
+        const { onComplete } = this.props;
         return (
             <View style={styles.container}>
                 <View style={styles.imageContainer}>
@@ -26,7 +27,7 @@ export default class PhoneVerfied extends Component {
                     <Text style={styles.textStyle}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</Text>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button title='Complete Your Profile' />
+                    <Button title='Complete Your Profile' onPress={onComplete} />
                 </View>
             </View>
         )

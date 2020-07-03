@@ -1,7 +1,7 @@
 import React from 'react';
 import FloatingInput from 'react-native-floating-labels';
 import styles from './style'
-const FloatInput = ({ label, updateText,secureEntry }) => {
+const FloatInput = ({ label, updateText,secureEntry,iconInput }) => {
 
     return (
         <FloatingInput
@@ -9,7 +9,7 @@ const FloatInput = ({ label, updateText,secureEntry }) => {
             password={secureEntry}
             labelStyle={styles.labelTextStyle}
             inputStyle={styles.inputStyle}
-            style={styles.container}
+            style={iconInput?styles.iconContainerStyle:styles.container}
         >
             {label}
         </FloatingInput >
