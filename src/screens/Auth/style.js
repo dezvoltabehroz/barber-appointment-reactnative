@@ -31,7 +31,7 @@ export default StyleSheet.create({
         marginBottom: 10
     },
     loginASContainer: {
-        marginTop: '15%'
+        marginTop: '5%'
     },
     headingTextStyle: {
         fontSize: THEME.FONT_SIZE_LARGE,
