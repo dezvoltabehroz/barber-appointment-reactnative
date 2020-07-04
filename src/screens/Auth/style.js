@@ -18,7 +18,8 @@ export default StyleSheet.create({
         paddingHorizontal: "15%"
     },
     lowerContainer: {
-        flex: 0.8,
+        flex: 0.5,
+        marginTop: "15%",
         justifyContent: "flex-end"
     },
     imageStyle: {
@@ -117,12 +118,12 @@ export default StyleSheet.create({
         marginHorizontal: '10%'
     },
     inputContainerStyle: {
-        height:54,
-        marginBottom:'4%',
+        height: 54,
+        marginBottom: '4%',
         width: screenWidth * 0.8,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
     },
-    iconStyle:{ marginRight: '5%' },
-    row:{ flexDirection: "row" }
+    iconStyle: { marginRight: '5%' },
+    row: { flexDirection: "row" }
 })
