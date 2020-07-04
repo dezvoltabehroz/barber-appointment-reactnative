@@ -1,9 +1,9 @@
 /** @format */
 
 import React, { Component } from 'react'
-import { UpdateProfile } from '../screens';
+import { Home } from '../screens';
 
-export default class PhoneVerifiedScreen extends Component {
+export default class HomeScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })
@@ -11,7 +11,7 @@ export default class PhoneVerifiedScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <UpdateProfile onUpdate={()=>navigate('Home')} />
+            <Home  />
         )
     }
 }

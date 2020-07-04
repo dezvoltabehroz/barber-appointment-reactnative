@@ -18,7 +18,7 @@ export default StyleSheet.create({
         paddingHorizontal: "15%"
     },
     lowerContainer: {
-        flex: 0.5,
+        flex: 0.8,
         justifyContent: "flex-end"
     },
     imageStyle: {

@@ -7,6 +7,7 @@ import PhoneNumberScreen from './PhoneNumberScreen';
 import PhoneVerificatinScreen from './PhoneVerificationScreen'
 import PhoneVerifiedScreen from './PhoneVerifiedScreen';
 import UpdateProfileScreen from './UpdateProfileScreen';
+import HomeScreen from './HomeScreen';
 
 const Stack = createStackNavigator();
 
@@ -35,6 +36,9 @@ function AppRoutes() {
                 headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="UpdateProfile" component={UpdateProfileScreen} options={{
+                headerShown: false
+            }} />
+             <Stack.Screen name="Home" component={HomeScreen} options={{
                 headerShown: false
             }} />
         </Stack.Navigator>

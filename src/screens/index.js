@@ -15,3 +15,6 @@ export const PhoneVerified = _PhoneVerified;
 
 import _UpdateProfile from './UpdateProfile';
 export const UpdateProfile = _UpdateProfile;
+
+import _Home from './Home';
+export const Home = _Home;

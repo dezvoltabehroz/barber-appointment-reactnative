@@ -72,6 +72,8 @@ export default class UpdateProfile extends Component {
 
 
     render() {
+        const { onUpdate } = this.props;
+        
         return (
             <View style={styles.container}>
                 <View style={styles.upperContainer}>
@@ -134,7 +136,7 @@ export default class UpdateProfile extends Component {
                     <View style={styles.lineStyle}></View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.buttonContainer}>
-                        <Button title='Update & Finish' />
+                        <Button title='Update & Finish' onPress={onUpdate} />
                     </View>
                 </View>
             </View>
