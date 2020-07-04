@@ -18,7 +18,15 @@ export default class AuthScreen extends Component {
         const { navigate, goBack } = this.props.navigation
         const { customer, barber } = this.state;
         return (
-            <MainScreenPaths.Auth onLogin={() =>customer? navigate('Customer'):navigate('Barber')} onPhone={() => navigate('Customer')}
+            <MainScreenPaths.Auth
+                onLogin={() => customer ?
+                    navigate('Customer')
+                    :
+                    navigate('Barber')}
+                onPhone={() => customer ?
+                    navigate('Customer', { screen: 'PhoneNumber' })
+                    :
+                    navigate('Barber', { screen: 'PhoneNumber' })}
                 onPressCustomer={() => this.setState({ customer: true, barber: false })}
                 onPressBarber={() => this.setState({ barber: true, customer: false })}
                 customer={customer}

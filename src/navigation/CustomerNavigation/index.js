@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+// import { MainScreenPaths } from '../../screens';
 import PhoneNumberScreen from './PhoneNumberScreen';
 import PhoneVerificatinScreen from './PhoneVerificationScreen'
 import PhoneVerifiedScreen from './PhoneVerifiedScreen';
@@ -12,11 +13,11 @@ const Stack = createStackNavigator();
 
 function CustomerRoutes() {
     return (
-        <Stack.Navigator initialRouteName="PhoneNumber" >
+        <Stack.Navigator >
             <Stack.Screen name="Home" component={HomeScreen} options={{
                 headerShown: false
             }} />
-               <Stack.Screen name="PhoneVerified" component={PhoneVerifiedScreen} options={{
+            <Stack.Screen name="PhoneVerified" component={PhoneVerifiedScreen} options={{
                 headerShown: false
             }} />
             <Stack.Screen name="PhoneNumber" component={PhoneNumberScreen} options={{
@@ -36,18 +37,13 @@ function CustomerRoutes() {
             <Stack.Screen name="UpdateProfile" component={UpdateProfileScreen} options={{
                 headerShown: false
             }} />
-             {/* <Stack.Screen name="CustomerHome" component={CustomerRoutes} options={{
-                headerShown: false
-            }} /> */}
-             <Stack.Screen name="CustomerHome" component={HomeScreen} options={{
-                headerShown: false
-            }} />
-          
         </Stack.Navigator>
     );
 }
 
 export default CustomerRoutes;
+
+
 const styles = StyleSheet.create({
     headerTitleStyle: {
         fontSize: 16,
