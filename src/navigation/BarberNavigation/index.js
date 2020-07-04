@@ -13,11 +13,11 @@ const Stack = createStackNavigator();
 
 function BarberRoutes() {
     return (
-        <Stack.Navigator initialRouteName="PhoneNumber" >
+        <Stack.Navigator >
             <Stack.Screen name="Home" component={HomeScreen} options={{
                 headerShown: false
             }} />
-               <Stack.Screen name="PhoneVerified" component={PhoneVerifiedScreen} options={{
+            <Stack.Screen name="PhoneVerified" component={PhoneVerifiedScreen} options={{
                 headerShown: false
             }} />
             <Stack.Screen name="PhoneNumber" component={PhoneNumberScreen} options={{
@@ -37,13 +37,6 @@ function BarberRoutes() {
             <Stack.Screen name="UpdateProfile" component={UpdateProfileScreen} options={{
                 headerShown: false
             }} />
-             {/* <Stack.Screen name="CustomerHome" component={CustomerRoutes} options={{
-                headerShown: false
-            }} /> */}
-             <Stack.Screen name="BarberHome" component={HomeScreen} options={{
-                headerShown: false
-            }} />
-          
         </Stack.Navigator>
     );
 }
