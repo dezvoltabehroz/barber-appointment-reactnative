@@ -19,7 +19,7 @@ export default StyleSheet.create({
     },
     lowerContainer: {
         flex: 0.5,
-        marginTop: "15%",
+        marginTop: "5%",
         justifyContent: "flex-end"
     },
     imageStyle: {
