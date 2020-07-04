@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { Component } from 'react'
-import { Home } from '../../screens';
+import { MainScreenPaths } from '../../screens';
 
 export default class HomeScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -11,7 +11,7 @@ export default class HomeScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <Home  />
+            <MainScreenPaths.Customer.Home />
         )
     }
 }

@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { Component } from 'react'
-import { PhoneVerified } from '../../screens';
+import { MainScreenPaths } from '../../screens';
 
 export default class PhoneVerifiedScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -11,7 +11,7 @@ export default class PhoneVerifiedScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <PhoneVerified onComplete={()=>navigate('UpdateProfile')} />
+            <MainScreenPaths.Customer.PhoneVerified onComplete={()=>navigate('UpdateProfile')} />
         )
     }
 }

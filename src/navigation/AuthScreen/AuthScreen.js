@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { Component } from 'react'
-import { Auth } from '../../screens';
+import { MainScreenPaths } from '../../screens';
 
 export default class AuthScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -18,7 +18,7 @@ export default class AuthScreen extends Component {
         const { navigate, goBack } = this.props.navigation
         const { customer, barber } = this.state;
         return (
-            <Auth onLogin={() =>customer? navigate('Customer'):navigate('Barber')} onPhone={() => navigate('Customer')}
+            <MainScreenPaths.Auth onLogin={() =>customer? navigate('Customer'):navigate('Barber')} onPhone={() => navigate('Customer')}
                 onPressCustomer={() => this.setState({ customer: true, barber: false })}
                 onPressBarber={() => this.setState({ barber: true, customer: false })}
                 customer={customer}

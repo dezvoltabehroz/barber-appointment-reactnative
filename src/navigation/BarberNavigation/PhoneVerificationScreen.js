@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { Component } from 'react'
-import { BarberPhoneVerification } from '../../screens';
+import { MainScreenPaths } from '../../screens';
 
 export default class PhoneVerificationScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -11,7 +11,7 @@ export default class PhoneVerificationScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <BarberPhoneVerification onVerify={()=>navigate('PhoneVerified')} />
+            <MainScreenPaths.Barber.BarberPhoneVerification onVerify={()=>navigate('PhoneVerified')} />
         )
     }
 }

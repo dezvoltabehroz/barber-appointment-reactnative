@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
-import { PhoneNumber } from '../../screens';
+import { MainScreenPaths } from '../../screens';
 
 export default class PhoneNumberScreen extends Component {
     navigationOptions = ({ navigation }) => ({
@@ -17,7 +17,7 @@ export default class PhoneNumberScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <PhoneNumber onSendCode={()=>navigate('PhoneVerification')} />
+            <MainScreenPaths.Customer.PhoneNumber onSendCode={() => navigate('PhoneVerification')} />
         )
     }
 }
