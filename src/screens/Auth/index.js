@@ -3,18 +3,22 @@ import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
 import { Icon, Button, FloatingInput } from "../../components";
 import styles from './style';
 import THEME from '../../assets/styles/theme.style';
-import style from '../Home/style';
 
 class AuthScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             customer: true,
-            barber: false
+            barber: false, email: '', password: '', isEmailFocus: null, isPasswordFocus: null
         }
     }
     render() {
-        const { onPhone } = this.props
+        const { onPhone, onLogin, onPressCustomer, onPressBarber, customer, barber } = this.props
+        const { email, password, isEmailFocus, isPasswordFocus } = this.state;
+        const borderStyle = {
+            borderWidth: 2,
+            borderColor: THEME.PRIMARY_COLOR,
+        }
         return (
             <>
                 <View style={styles.container}>
@@ -30,29 +34,29 @@ class AuthScreen extends Component {
                                 <Text style={styles.babeoTextStyle}>LUXE!</Text>
                             </View>
                             <View style={styles.customerAndBarberContainer}>
-                                <TouchableOpacity onPress={() => this.setState({ customer: !this.state.customer, barber: false })}
-                                    style={[styles.CustomerContainer, this.state.barber == false && this.state.customer ? { backgroundColor: "#00A9A5" } : null]}>
+                                <TouchableOpacity onPress={onPressCustomer}
+                                    style={[styles.CustomerContainer, barber == false && customer ? { backgroundColor: THEME.PRIMARY_COLOR } : null]}>
                                     <View style={styles.optionContainer}>
                                         <Icon.Entypo
                                             name="user"
-                                            color={this.state.barber == false && this.state.customer ? "#fff" : '#000'}
+                                            color={barber == false && customer ? THEME.COLOR_WHITE : THEME.COLOR_BLACK}
                                             size={25} />
-                                        <Text style={[styles.optionTextStyle, this.state.barber == false && this.state.customer ? { color: "#fff" } : null]}>
+                                        <Text style={[styles.optionTextStyle, barber == false && customer ? { color: THEME.COLOR_WHITE } : null]}>
                                             Customer
                                 </Text>
                                     </View>
                                 </TouchableOpacity>
                                 <View style={styles.gap}></View>
-                                <TouchableOpacity onPress={() => this.setState({ barber: !this.state.barber, customer: false })}
-                                    style={[styles.barberContainer, this.state.customer == false && this.state.barber ? { backgroundColor: "#00A9A5" } : null]} >
+                                <TouchableOpacity onPress={onPressBarber}
+                                    style={[styles.barberContainer, customer == false && barber ? { backgroundColor: THEME.PRIMARY_COLOR } : null]} >
                                     <View style={styles.optionContainer}>
                                         <Icon.FontAwesome
                                             name="scissors"
-                                            color={this.state.customer == false && this.state.barber ? "#fff" : '#000'}
+                                            color={customer == false && barber ? THEME.COLOR_WHITE : THEME.COLOR_BLACK}
                                             size={25} />
-                                        <Text style={[styles.optionTextStyle, this.state.customer == false && this.state.barber ? { color: "#fff" } : null]}>
+                                        <Text style={[styles.optionTextStyle, customer == false && barber ? { color: THEME.COLOR_WHITE } : null]}>
                                             Barber
-                                </Text>
+                                        </Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
@@ -60,18 +64,30 @@ class AuthScreen extends Component {
                                 <Text style={styles.signUpAndLoginTextStyle}>Login as:</Text>
                             </View>
                             <View style={styles.buttonContainer}>
-                                <View style={styles.inputContainerStyle}>
+                                <View style={[styles.inputContainerStyle, isEmailFocus || email != '' ? {
+                                    borderWidth: 2,
+                                    borderColor: THEME.PRIMARY_COLOR,
+                                } : {}]}>
                                     <FloatingInput
                                         label={"Email"}
-                                        updateText={(email) => console.log(email)} />
+                                        val={email}
+                                        onActive={() => this.setState({ isEmailFocus: true })}
+                                        onInActive={() => this.setState({ isEmailFocus: false })}
+                                        updateText={(email) => this.setState({ email })} />
                                 </View>
-                                <View style={styles.inputContainerStyle}>
+                                <View style={[styles.inputContainerStyle, isPasswordFocus || password != '' ? {
+                                    borderWidth: 2,
+                                    borderColor: THEME.PRIMARY_COLOR,
+                                } : {}]}>
                                     <FloatingInput
                                         label={"Password"}
+                                        val={password}
+                                        onActive={() => this.setState({ isPasswordFocus: true })}
+                                        onInActive={() => this.setState({ isPasswordFocus: false })}
                                         secureEntry={true}
-                                        updateText={(password) => console.log(password)} />
+                                        updateText={(password) => this.setState({ password }, () => { console.log(password) })} />
                                 </View>
-                                <Button title="Login" />
+                                <Button title="Login" onPress={onLogin} />
                             </View>
                         </View>
                         <View style={styles.lowerContainer}>

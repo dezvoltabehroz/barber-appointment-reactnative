@@ -3,6 +3,7 @@ import MaterialCommunityIconsI from 'react-native-vector-icons/MaterialCommunity
 import SimpleLineIconsI from 'react-native-vector-icons/SimpleLineIcons'
 import MaterialIconsI from 'react-native-vector-icons/MaterialIcons'
 import FontAwesomeI from 'react-native-vector-icons/FontAwesome'
+import FontAwesome5I from 'react-native-vector-icons/FontAwesome5'
 import FoundationI from 'react-native-vector-icons/Foundation'
 import EvilIconsI from 'react-native-vector-icons/EvilIcons'
 import OcticonsI from 'react-native-vector-icons/Octicons'
@@ -17,6 +18,7 @@ const SimpleLineIcons = props => <SimpleLineIconsI {...props}/>
 const AntDesign =props => <AntDesignI {...props}/>
 const MaterialIcons = props => <MaterialIconsI {...props}/>
 const FontAwesome = props => <FontAwesomeI {...props}/>
+const FontAwesome5 = props => <FontAwesome5I {...props}/>
 const Foundation = props => <FoundationI {...props}/>
 const EvilIcons = props => <EvilIconsI {...props}/>
 const Ionicons = props => <IoniconsI {...props}/>
@@ -30,6 +32,7 @@ export default  {
     SimpleLineIcons,
     MaterialIcons,
     FontAwesome,
+    FontAwesome5,
     Foundation,
     EvilIcons,
     Ionicons,

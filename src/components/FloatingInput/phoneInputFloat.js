@@ -1,13 +1,16 @@
 import React from 'react';
 import FloatingInput from 'react-native-floating-labels';
 import styles from './style'
-const PhoneInput = ({ label,updateText }) => {
+const PhoneInput = ({ label,updateText,val,onActive,onInActive }) => {
 
     return (
         <FloatingInput
             keyboardType={'phone-pad'} 
-            labelStyle={styles.labelTextStyle}
-            inputStyle={styles.inputStyle}
+            value={val}
+            onFocus={onActive}
+            onBlur={onInActive}
+            labelStyle={styles.phonelabelTextStyle}
+            inputStyle={styles.phoneinputStyle}
             style={styles.phoneContainer}
             onChangeText={updateText}
         >

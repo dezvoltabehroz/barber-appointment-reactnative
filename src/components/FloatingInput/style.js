@@ -17,6 +17,20 @@ export default StyleSheet.create({
         borderWidth: 0,
         fontFamily: 'Poppins-Medium'
     },
+    phonelabelTextStyle: {
+        marginTop: 15,
+        paddingLeft: 9,
+        color: THEME.COLOR_GREY,
+        fontSize: 12,
+        fontFamily: 'Poppins-Regular'
+    },
+    phoneinputStyle: {
+        fontSize: 14,
+        paddingLeft: 10,
+        marginTop: 14,
+        borderWidth: 0,
+        fontFamily: 'Poppins-Medium'
+    },
     container: { width: '100%' },
     iconContainerStyle: { width: "80%" },
     phoneContainer: { width: '79.5%' }
