@@ -30,6 +30,9 @@ export default StyleSheet.create({
         paddingHorizontal: "10%",
         marginBottom: 10
     },
+    loginASContainer: {
+        marginTop: '15%'
+    },
     headingTextStyle: {
         fontSize: THEME.FONT_SIZE_LARGE,
         fontFamily: 'Poppins-Regular',

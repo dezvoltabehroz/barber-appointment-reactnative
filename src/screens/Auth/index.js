@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
 import { Icon, Button, FloatingInput } from "../../components";
 import styles from './style';
 import THEME from '../../assets/styles/theme.style';
+import style from '../Home/style';
 
 class AuthScreen extends Component {
     constructor(props) {
@@ -28,7 +29,6 @@ class AuthScreen extends Component {
                                 <Text style={styles.headingTextStyle}>Enhance your experience with</Text>
                                 <Text style={styles.babeoTextStyle}>LUXE!</Text>
                             </View>
-                            <Text style={styles.signUpAndLoginTextStyle}>Login as:</Text>
                             <View style={styles.customerAndBarberContainer}>
                                 <TouchableOpacity onPress={() => this.setState({ customer: !this.state.customer, barber: false })}
                                     style={[styles.CustomerContainer, this.state.barber == false && this.state.customer ? { backgroundColor: "#00A9A5" } : null]}>
@@ -56,7 +56,9 @@ class AuthScreen extends Component {
                                     </View>
                                 </TouchableOpacity>
                             </View>
-
+                            <View style={styles.loginASContainer}>
+                                <Text style={styles.signUpAndLoginTextStyle}>Login as:</Text>
+                            </View>
                             <View style={styles.buttonContainer}>
                                 <View style={styles.inputContainerStyle}>
                                     <FloatingInput
