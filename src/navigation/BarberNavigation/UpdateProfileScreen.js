@@ -11,7 +11,7 @@ export default class PhoneVerifiedScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Barber.BarberUpdateProfile onUpdate={() => navigate('BarberHome')} />
+            <MainScreenPaths.Barber.BarberUpdateProfile onUpdate={() => navigate('Home')} />
         )
     }
 }

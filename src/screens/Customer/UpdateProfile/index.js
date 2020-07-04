@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, Alert, KeyboardAvoidingView } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 import { Icon, FloatingInput, Button } from '../../../components'
 import styles from './style';
@@ -12,7 +12,7 @@ export default class UpdateProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            male: true, female: false, name: '', isNameFocus: false,isLocationFocus:false,
+            male: true, female: false, name: '', isNameFocus: false, isLocationFocus: false,
             profile_Url: '',
             data: "HI HOW are you",
             avatar: null, location: ''
@@ -73,10 +73,10 @@ export default class UpdateProfile extends Component {
 
     render() {
         const { onUpdate } = this.props;
-        const { isNameFocus, name,isLocationFocus,location } = this.state;
+        const { isNameFocus, name, isLocationFocus, location } = this.state;
 
         return (
-            
+
             <View style={styles.container}>
                 <View style={styles.upperContainer}>
                     <View style={styles.imageContainer}>
@@ -86,8 +86,6 @@ export default class UpdateProfile extends Component {
                                     avatarStyle={styles.avatarStyle}
                                     source={this.state.avatar ? this.state.avatar : require('../../../assets/images/avatar.png')}
                                     rounded
-                                    // showEditButton
-                                    // onEditPress={this.chooseFile}
                                     size={180} />
                                 <TouchableOpacity onPress={this.chooseFile}>
                                     <Text style={styles.profileTextStyle}>Choose Profile Photo</Text>
@@ -98,6 +96,7 @@ export default class UpdateProfile extends Component {
                     </View>
                 </View>
                 <View style={styles.lowerContainer}>
+
                     <View style={[styles.inputContainerStyle, isNameFocus || name != '' ? {
                         borderWidth: 2,
                         borderColor: THEME.PRIMARY_COLOR,
@@ -141,12 +140,10 @@ export default class UpdateProfile extends Component {
                         borderColor: THEME.PRIMARY_COLOR,
                     } : {}]}>
                         <FloatingInput val={location}
-                         onInActive={()=>this.setState({isLocationFocus:false})}
-                         onActive={()=>this.setState({isLocationFocus:true})}
-                          label='Your Location' iconInput val={this.state.location} />
-                        {/* <TouchableOpacity onPress={this.findCoordinates}> */}
+                            onInActive={() => this.setState({ isLocationFocus: false })}
+                            onActive={() => this.setState({ isLocationFocus: true })}
+                            label='Your Location' iconInput val={this.state.location} />
                         <Icon.SimpleLineIcons name='location-pin' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
-                        {/* </TouchableOpacity> */}
                     </View>
                     <View style={styles.lineStyle}></View>
                     <View style={styles.gapHeight}></View>

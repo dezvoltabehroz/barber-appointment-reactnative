@@ -2,26 +2,26 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from "./style";
 import CodeInput from 'react-native-confirmation-code-input';
-import { Button } from '../../../components'
+import { Button } from '../../../components';
+import THEME from "../../../assets/styles/theme.style";
 
 
 export default class PhoneVerfication extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isFocus: false,
             value: ''
         }
     }
-    fulFil=(isvalid)=>{
-        
+    fulFil = (isvalid) => {
+
         console.log("Code is valid =", isvalid)
-        this.setState({isvalid});
+        this.setState({ isvalid });
     }
 
     render() {
         const { number, onVerify } = this.props
-        const { value, isFocus } = this.state;
+        const { value } = this.state;
         return (
             <View style={styles.container}>
                 <View style={styles.textContainer}>
@@ -30,26 +30,21 @@ export default class PhoneVerfication extends Component {
                 </View>
                 <View style={styles.codeContainer}>
                     <CodeInput
-                        // ref="codeInputRefs"
-                        onFocus={() => this.setState({ isFocus: true })}
-                        // onBlur={() => this.setState({ isFocus: false })}
                         codeLength={6}
-                        compareWithCode={"123456"}
                         autoFocus={false}
                         cellBorderWidth={2}
-                        activeColor='#00A9A5'
-                        // inactiveColor='#fff'
+                        activeColor={THEME.PRIMARY_COLOR}
+                        inactiveColor={THEME.COLOR_WHITE}
                         keyboardType='numeric'
                         className="border-box"
                         inputPosition='center'
                         value={value}
                         size={40}
                         placeholder={"*"}
-                        onFulfill={(isvalid) => this.fulFil(isvalid) }
-                        // onCodeChange={(code) => console(code)}
-                        codeInputStyle={[styles.codeInput, isFocus || value != '' ? {
+                        onFulfill={(value) => this.setState({ value })}
+                        codeInputStyle={[styles.codeInput, value != '' ? {
                             borderWidth: 2,
-                            borderColor: '#00A9A5',
+                            borderColor: THEME.PRIMARY_COLOR,
                         } : {}]} />
                 </View>
                 <View style={styles.buttonContainer}>

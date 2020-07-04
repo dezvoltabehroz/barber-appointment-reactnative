@@ -6,11 +6,6 @@ import { MainScreenPaths } from '../../screens';
 
 export default class PhoneNumberScreen extends Component {
     navigationOptions = ({ navigation }) => ({
-        // headerBackTitleVisible: false,
-        // headerTintColor: 'white',
-        // headerTransparent: true,
-        // headerTitleAlign: 'center',
-        // headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter your phone number</Text></View>),
 
     })
 
@@ -21,11 +16,3 @@ export default class PhoneNumberScreen extends Component {
         )
     }
 }
-
-// const styles = StyleSheet.create({
-//     headerTitleStyle: {
-//         fontSize: 16,
-//         color: "#fff",
-//         fontFamily: 'Poppins-Medium'
-//     }
-// })
