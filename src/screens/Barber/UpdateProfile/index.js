@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, Alert, KeyboardAvoidingView, ScrollView } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 import { Icon, FloatingInput, Button } from '../../../components'
 import styles from './style';
 import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoder';
@@ -12,16 +13,32 @@ export default class UpdateProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            male: true, female: false, name: '', isNameFocus: false,isLocationFocus:false,
+            male: true, female: false, name: '', isNameFocus: false, isLocationFocus: false,
             profile_Url: '',
+            dateValue: new Date(),
             data: "HI HOW are you",
-            avatar: null, location: ''
+            avatar: null, location: '',
+            date: '',
+            showDatePicker: false,
         };
     }
 
     componentDidMount = () => {
         this.findCoordinates();
     }
+
+    onChangeDate = (event, selectedDate) => {
+        var date = selectedDate.getDate();
+        date += "/";
+        date += (selectedDate.getMonth() + 1);
+        date += "/";
+        date += (selectedDate.getYear() + 1900);
+        this.setState({
+            date,
+            showDatePicker: false,
+        })
+    };
+
     chooseFile = () => {
         var options = {
             title: 'Select Avatar',
@@ -72,88 +89,109 @@ export default class UpdateProfile extends Component {
 
 
     render() {
-        const { onUpdate } = this.props;
-        const { isNameFocus, name,isLocationFocus,location } = this.state;
+        const { onNext } = this.props;
+        const { isNameFocus, name, isLocationFocus, location, date, dateValue, showDatePicker } = this.state;
 
         return (
-            
-            <View style={styles.container}>
-                <View style={styles.upperContainer}>
-                    <View style={styles.imageContainer}>
-                        <ImageBackground style={styles.imageStyle} resizeMode="contain" source={require('../../../assets/images/decor.png')}>
-                            <View style={styles.avatarContainer}>
-                                <Avatar
-                                    avatarStyle={styles.avatarStyle}
-                                    source={this.state.avatar ? this.state.avatar : require('../../../assets/images/avatar.png')}
-                                    rounded
-                                    // showEditButton
-                                    // onEditPress={this.chooseFile}
-                                    size={180} />
-                                <TouchableOpacity onPress={this.chooseFile}>
-                                    <Text style={styles.profileTextStyle}>Choose Profile Photo</Text>
-                                </TouchableOpacity>
-                            </View>
 
-                        </ImageBackground>
+            <View style={styles.container}>
+                <ScrollView>
+
+                    <View style={styles.upperContainer}>
+                        <View style={styles.imageContainer}>
+                            <ImageBackground style={styles.imageStyle} resizeMode="contain" source={require('../../../assets/images/decor.png')}>
+                                <View style={styles.avatarContainer}>
+                                    <Avatar
+                                        avatarStyle={styles.avatarStyle}
+                                        source={this.state.avatar ? this.state.avatar : require('../../../assets/images/avatar.png')}
+                                        rounded
+                                        size={180} />
+                                    <TouchableOpacity onPress={this.chooseFile}>
+                                        <Text style={styles.profileTextStyle}>Choose Profile Photo</Text>
+                                    </TouchableOpacity>
+                                </View>
+
+                            </ImageBackground>
+                        </View>
                     </View>
-                </View>
-                <View style={styles.lowerContainer}>
-                    <View style={[styles.inputContainerStyle, isNameFocus || name != '' ? {
-                        borderWidth: 2,
-                        borderColor: THEME.PRIMARY_COLOR,
-                    } : {}]}>
-                        <FloatingInput
-                            val={name}
-                            onActive={() => this.setState({ isNameFocus: true })}
-                            onInActive={() => this.setState({ isNameFocus: false })}
-                            label='Your Name' iconInput updateText={(name) => this.setState({ name })} />
-                        <Icon.Feather name='user' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
-                    </View>
-                    <View style={styles.customerAndBarberContainer}>
-                        <TouchableOpacity onPress={() => this.setState({ male: !this.state.male, female: false })}
-                            style={[styles.CustomerContainer, this.state.female == false && this.state.male ? { backgroundColor: THEME.PRIMARY_COLOR } : null]}>
-                            <View style={styles.optionContainer}>
-                                <Icon.Ionicons
-                                    name="md-male"
-                                    color={this.state.female == false && this.state.male ? THEME.COLOR_WHITE : THEME.COLOR_GREY}
-                                    size={25} />
-                                <Text style={[styles.optionTextStyle, this.state.female == false && this.state.male ? { color: THEME.COLOR_WHITE } : null]}>
-                                    Male
+                    <View style={styles.lowerContainer}>
+                        {/* <ScrollView contentContainerStyle={{flex:5}}> */}
+                        <View style={[styles.inputContainerStyle, isNameFocus || name != '' ? {
+                            borderWidth: 2,
+                            borderColor: THEME.PRIMARY_COLOR,
+                        } : {}]}>
+                            <FloatingInput
+                                val={name}
+                                onActive={() => this.setState({ isNameFocus: true })}
+                                onInActive={() => this.setState({ isNameFocus: false })}
+                                label='Your Name' iconInput updateText={(name) => this.setState({ name })} />
+                            <Icon.Feather name='user' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
+                        </View>
+                        <View style={styles.dateContainer}>
+                            <TouchableOpacity onPress={() => this.setState({ showDatePicker: true })}>
+                                <View style={[styles.dateContainer, showDatePicker || date != '' ? {
+                                    borderWidth: 2,
+                                    borderColor: THEME.PRIMARY_COLOR,
+                                } : {}]}>
+                                    <Text style={[styles.dateTextStyle, date ? { color: THEME.COLOR_BLACK } : {}]}>{date && date != "" ? date : "Date of Birth"}</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        {showDatePicker ?
+                            <DateTimePicker
+                                value={dateValue}
+                                mode={'date'}
+                                is24Hour={true}
+                                display="spinner"
+                                onChange={this.onChangeDate}
+                            />
+                            : null}
+                        <View style={styles.customerAndBarberContainer}>
+                            <TouchableOpacity onPress={() => this.setState({ male: !this.state.male, female: false })}
+                                style={[styles.CustomerContainer, this.state.female == false && this.state.male ? { backgroundColor: THEME.PRIMARY_COLOR } : null]}>
+                                <View style={styles.optionContainer}>
+                                    <Icon.Ionicons
+                                        name="md-male"
+                                        color={this.state.female == false && this.state.male ? THEME.COLOR_WHITE : THEME.COLOR_GREY}
+                                        size={25} />
+                                    <Text style={[styles.optionTextStyle, this.state.female == false && this.state.male ? { color: THEME.COLOR_WHITE } : null]}>
+                                        Male
                                 </Text>
-                            </View>
-                        </TouchableOpacity>
-                        <View style={styles.gap}></View>
-                        <TouchableOpacity onPress={() => this.setState({ female: !this.state.female, male: false })}
-                            style={[styles.barberContainer, this.state.male == false && this.state.female ? { backgroundColor: THEME.PRIMARY_COLOR } : null]} >
-                            <View style={styles.optionContainer}>
-                                <Icon.Ionicons
-                                    name="md-female"
-                                    color={this.state.male == false && this.state.female ? THEME.COLOR_WHITE : THEME.COLOR_GREY}
-                                    size={25} />
-                                <Text style={[styles.optionTextStyle, this.state.male == false && this.state.female ? { color: THEME.COLOR_WHITE } : null]}>
-                                    Female
+                                </View>
+                            </TouchableOpacity>
+                            <View style={styles.gap}></View>
+                            <TouchableOpacity onPress={() => this.setState({ female: !this.state.female, male: false })}
+                                style={[styles.barberContainer, this.state.male == false && this.state.female ? { backgroundColor: THEME.PRIMARY_COLOR } : null]} >
+                                <View style={styles.optionContainer}>
+                                    <Icon.Ionicons
+                                        name="md-female"
+                                        color={this.state.male == false && this.state.female ? THEME.COLOR_WHITE : THEME.COLOR_GREY}
+                                        size={25} />
+                                    <Text style={[styles.optionTextStyle, this.state.male == false && this.state.female ? { color: THEME.COLOR_WHITE } : null]}>
+                                        Female
                                 </Text>
-                            </View>
-                        </TouchableOpacity>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={[styles.inputLocationContainerStyle, isLocationFocus || location != '' ? {
+                            borderWidth: 2,
+                            borderColor: THEME.PRIMARY_COLOR,
+                        } : {}]}>
+                            <FloatingInput val={location}
+                                onInActive={() => this.setState({ isLocationFocus: false })}
+                                onActive={() => this.setState({ isLocationFocus: true })}
+                                label='Your Location' iconInput val={this.state.location} />
+                            <Icon.SimpleLineIcons name='location-pin' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
+                        </View>
+                        <View style={styles.lineStyle}></View>
+                        <View style={styles.gapHeight}></View>
+                        <View style={styles.buttonContainer}>
+                            <Button title='Next' onPress={onNext} />
+                        </View>
+                        {/* </ScrollView> */}
                     </View>
-                    <View style={[styles.inputContainerStyle, isLocationFocus || location != '' ? {
-                        borderWidth: 2,
-                        borderColor: THEME.PRIMARY_COLOR,
-                    } : {}]}>
-                        <FloatingInput val={location}
-                         onInActive={()=>this.setState({isLocationFocus:false})}
-                         onActive={()=>this.setState({isLocationFocus:true})}
-                          label='Your Location' iconInput val={this.state.location} />
-                        {/* <TouchableOpacity onPress={this.findCoordinates}> */}
-                        <Icon.SimpleLineIcons name='location-pin' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
-                        {/* </TouchableOpacity> */}
-                    </View>
-                    <View style={styles.lineStyle}></View>
-                    <View style={styles.gapHeight}></View>
-                    <View style={styles.buttonContainer}>
-                        <Button title='Update & Finish' onPress={onUpdate} />
-                    </View>
-                </View>
+                </ScrollView>
+
             </View>
         );
     }

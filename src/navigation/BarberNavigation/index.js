@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-// import AuthScreen from './AuthScreen/AuthScreen';
+import EmailandPasswordScreen from './EmailandPasswordScreen';
 import PhoneNumberScreen from './PhoneNumberScreen';
 import PhoneVerificatinScreen from './PhoneVerificationScreen'
 import PhoneVerifiedScreen from './PhoneVerifiedScreen';
@@ -36,6 +36,13 @@ function BarberRoutes() {
             }} />
             <Stack.Screen name="UpdateProfile" component={UpdateProfileScreen} options={{
                 headerShown: false
+            }} />
+              <Stack.Screen name="EmailandPassword" component={EmailandPasswordScreen} options={{
+                 headerBackTitleVisible: false,
+                 headerTintColor: 'white',
+                 headerTransparent: true,
+                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter Email and Password </Text></View>),
+                 headerTitleAlign: 'center',
             }} />
         </Stack.Navigator>
     );

@@ -1,29 +1,27 @@
-import { StyleSheet, Dimensions, Platform } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 const screenWidth = Dimensions.get('window').width;
-const screenHeight = Dimensions.get('window').height;
 
 export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' ? '15%' : '5%'
+        paddingTop: '15%'
     },
 
     // Upper Container Style
     upperContainer: {
-        // flex: 0.45,
+        flex: 1
 
     },
     imageContainer: {
         marginTop: '10%',
-        justifyContent: "flex-start",
+        justifyContent: "center",
         alignItems: 'center'
     },
     imageStyle: {
-        // width:screenWidth*0.6,
-        // height:screenHeight*0.4,
-        height: 300, width: 300
+        width: 300,
+        height: 300
     },
     avatarContainer: {
         justifyContent: "center",
@@ -37,21 +35,9 @@ export default StyleSheet.create({
     },
     //Lower Container Style
     lowerContainer: {
-        // flex: 0.5,
+        flex: 0.5,
     },
     inputContainerStyle: {
-        // borderWidth: 2,
-        // borderColor: THEME.PRIMARY_COLOR,
-        marginHorizontal: '10%',
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        height: 54,
-        width: screenWidth * 0.8,
-        borderRadius: 5,
-        backgroundColor: THEME.COLOR_WHITE
-    },
-    inputLocationContainerStyle: {
         // borderWidth: 2,
         // borderColor: THEME.PRIMARY_COLOR,
         marginHorizontal: '10%',
@@ -70,6 +56,7 @@ export default StyleSheet.create({
     customerAndBarberContainer: {
         borderRadius: 5,
         marginBottom: 15,
+        // marginVertical: "2%",
         marginHorizontal: '10%',
         flexDirection: 'row',
         justifyContent: "center",
@@ -109,20 +96,5 @@ export default StyleSheet.create({
     },
     buttonContainer: {
         marginHorizontal: '10%'
-    },
-    dateContainer: {
-        backgroundColor: THEME.COLOR_WHITE,
-        borderRadius: 5,
-        marginVertical: '4%',
-        marginHorizontal: '10%',
-        justifyContent: 'center',
-        alignItems: "center",
-        height: 54
-    },
-    dateTextStyle: {
-        width: screenWidth * 0.765,
-        color: THEME.COLOR_GREY,
-        marginLeft: 11,
-        fontFamily: 'Poppins-Regular'
     },
 })

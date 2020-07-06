@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { MainScreenPaths } from '../../screens';
 
-export default class UpdateProfileScreen extends Component {
+export default class EmailandPasswordScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })
@@ -11,7 +11,7 @@ export default class UpdateProfileScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Customer.UpdateProfile onNext={()=>navigate('EmailandPassword')} />
+            <MainScreenPaths.Barber.BarberEmailandPassword onUpdate={() => navigate('Home')} />
         )
     }
 }

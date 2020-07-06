@@ -8,6 +8,7 @@ import PhoneVerificatinScreen from './PhoneVerificationScreen'
 import PhoneVerifiedScreen from './PhoneVerifiedScreen';
 import UpdateProfileScreen from './UpdateProfileScreen';
 import HomeScreen from './HomeScreen';
+import EmailandPasswordScreen from './EmailandPasswordScreen';
 
 const Stack = createStackNavigator();
 
@@ -36,6 +37,13 @@ function CustomerRoutes() {
             }} />
             <Stack.Screen name="UpdateProfile" component={UpdateProfileScreen} options={{
                 headerShown: false
+            }} />
+             <Stack.Screen name="EmailandPassword" component={EmailandPasswordScreen} options={{
+                 headerBackTitleVisible: false,
+                 headerTintColor: 'white',
+                 headerTransparent: true,
+                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter Email and Password </Text></View>),
+                 headerTitleAlign: 'center',
             }} />
         </Stack.Navigator>
     );
