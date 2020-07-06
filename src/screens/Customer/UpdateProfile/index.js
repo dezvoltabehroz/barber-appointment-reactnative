@@ -192,7 +192,7 @@ export default class UpdateProfile extends Component {
 
 
                 </ScrollView>
-                <View style={{marginBottom:"5%"}}>
+                <View>
                     <View style={styles.lineStyle}></View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.buttonContainer}>

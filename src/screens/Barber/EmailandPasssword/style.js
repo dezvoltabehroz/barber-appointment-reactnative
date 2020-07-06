@@ -93,7 +93,6 @@ export default StyleSheet.create({
         height: 15
     },
     buttonContainer: {
-        marginHorizontal: '10%',
-        marginBottom: '5%'
+        marginHorizontal: '10%'
     },
 })

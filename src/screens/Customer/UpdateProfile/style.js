@@ -5,7 +5,7 @@ const screenHeight = Dimensions.get('window').height;
 
 export default StyleSheet.create({
     container: {
-        flex: 0.9,
+        flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
         paddingTop: Platform.OS == 'ios' ? '15%' : null
     },
