@@ -11,7 +11,7 @@ export default StyleSheet.create({
 
     // Upper Container Style
     upperContainer: {
-    flex:0.8,
+    flex:0.7,
     marginTop:Platform.OS=='ios'?'10%':null,
 
     },
@@ -57,7 +57,6 @@ export default StyleSheet.create({
     customerAndBarberContainer: {
         borderRadius: 5,
         marginBottom: 15,
-        // marginVertical: "2%",
         marginHorizontal: '10%',
         flexDirection: 'row',
         justifyContent: "center",

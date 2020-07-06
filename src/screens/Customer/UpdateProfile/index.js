@@ -105,7 +105,7 @@ export default class UpdateProfile extends Component {
                                         avatarStyle={styles.avatarStyle}
                                         source={this.state.avatar ? this.state.avatar : require('../../../assets/images/avatar.png')}
                                         rounded
-                                        size={180} />
+                                        size={120} />
                                     <TouchableOpacity onPress={this.chooseFile}>
                                         <Text style={styles.profileTextStyle}>Choose Profile Photo</Text>
                                     </TouchableOpacity>
@@ -127,25 +127,7 @@ export default class UpdateProfile extends Component {
                                 label='Your Name' iconInput updateText={(name) => this.setState({ name })} />
                             <Icon.Feather name='user' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
                         </View>
-                        <View style={styles.dateContainer}>
-                            <TouchableOpacity onPress={() => this.setState({ showDatePicker: true })}>
-                                <View style={[styles.dateContainer, showDatePicker || date != '' ? {
-                                    borderWidth: 2,
-                                    borderColor: THEME.PRIMARY_COLOR,
-                                } : {}]}>
-                                    <Text style={[styles.dateTextStyle, date ? { color: THEME.COLOR_BLACK } : {}]}>{date && date != "" ? date : "Date of Birth"}</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                        {showDatePicker ?
-                            <DateTimePicker
-                                value={dateValue}
-                                mode={'date'}
-                                is24Hour={true}
-                                display="spinner"
-                                onChange={this.onChangeDate}
-                            />
-                            : null}
+
                         <View style={styles.customerAndBarberContainer}>
                             <TouchableOpacity onPress={() => this.setState({ male: !this.state.male, female: false })}
                                 style={[styles.CustomerContainer, this.state.female == false && this.state.male ? { backgroundColor: THEME.PRIMARY_COLOR } : null]}>
@@ -173,6 +155,27 @@ export default class UpdateProfile extends Component {
                                 </View>
                             </TouchableOpacity>
                         </View>
+                        <View>
+                            <View style={styles.dateContainer}>
+                                <TouchableOpacity onPress={() => this.setState({ showDatePicker: true })}>
+                                    <View style={[styles.dateContainer, showDatePicker || date != '' ? {
+                                        borderWidth: 2,
+                                        borderColor: THEME.PRIMARY_COLOR,
+                                    } : {}]}>
+                                        <Text style={[styles.dateTextStyle, date ? { color: THEME.COLOR_BLACK } : {}]}>{date && date != "" ? date : "Date of Birth"}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                            {showDatePicker ?
+                                <DateTimePicker
+                                    value={dateValue}
+                                    mode={'date'}
+                                    is24Hour={true}
+                                    display="spinner"
+                                    onChange={this.onChangeDate}
+                                />
+                                : null}
+                        </View>
                         <View style={[styles.inputLocationContainerStyle, isLocationFocus || location != '' ? {
                             borderWidth: 2,
                             borderColor: THEME.PRIMARY_COLOR,
@@ -183,15 +186,19 @@ export default class UpdateProfile extends Component {
                                 label='Your Location' iconInput val={this.state.location} />
                             <Icon.SimpleLineIcons name='location-pin' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
                         </View>
-                        <View style={styles.lineStyle}></View>
-                        <View style={styles.gapHeight}></View>
-                        <View style={styles.buttonContainer}>
-                            <Button title='Next' onPress={onNext} />
-                        </View>
+
                         {/* </ScrollView> */}
                     </View>
-                </ScrollView>
 
+
+                </ScrollView>
+                <View>
+                    <View style={styles.lineStyle}></View>
+                    <View style={styles.gapHeight}></View>
+                    <View style={styles.buttonContainer}>
+                        <Button title='Next' onPress={onNext} />
+                    </View>
+                </View>
             </View>
         );
     }

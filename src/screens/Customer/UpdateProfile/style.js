@@ -7,25 +7,24 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' ? '15%' : '5%'
+        paddingTop: Platform.OS == 'ios' ? '15%' : null
     },
 
     // Upper Container Style
     upperContainer: {
         // flex: 0.45,
-
     },
     imageContainer: {
         marginTop: '10%',
-        justifyContent: "flex-start",
+        justifyContent: "center",
         alignItems: 'center'
     },
     imageStyle: {
-        // width:screenWidth*0.6,
-        // height:screenHeight*0.4,
-        height: 300, width: 300
+        width:screenWidth*0.8,
+        height:screenHeight*0.3,
     },
     avatarContainer: {
+        marginTop: '8%',
         justifyContent: "center",
         alignItems: 'center'
     },
@@ -37,7 +36,10 @@ export default StyleSheet.create({
     },
     //Lower Container Style
     lowerContainer: {
-        // flex: 0.5,
+        // flex: 0.4,
+        // marginTop: '15%',
+        justifyContent: "center",
+        alignItems: "center"
     },
     inputContainerStyle: {
         // borderWidth: 2,
@@ -69,7 +71,8 @@ export default StyleSheet.create({
     },
     customerAndBarberContainer: {
         borderRadius: 5,
-        marginBottom: 15,
+        marginTop: 15,
+        width: screenWidth * 0.8,
         marginHorizontal: '10%',
         flexDirection: 'row',
         justifyContent: "center",
@@ -99,6 +102,7 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     lineStyle: {
+        // marginTop: '10%',
         borderColor: '#44495C',
         borderWidth: 2,
         marginHorizontal: '10%',
@@ -117,7 +121,8 @@ export default StyleSheet.create({
         marginHorizontal: '10%',
         justifyContent: 'center',
         alignItems: "center",
-        height: 54
+        height: 54,
+        width: screenWidth * 0.8,
     },
     dateTextStyle: {
         width: screenWidth * 0.765,
