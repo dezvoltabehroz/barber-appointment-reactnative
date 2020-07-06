@@ -94,6 +94,6 @@ export default StyleSheet.create({
     },
     buttonContainer: {
         marginHorizontal: '10%',
-        // marginBottom: '5%'
+        marginBottom: '5%'
     },
 })
