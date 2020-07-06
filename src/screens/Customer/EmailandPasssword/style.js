@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 const screenWidth = Dimensions.get('window').width;
 
@@ -11,7 +11,8 @@ export default StyleSheet.create({
 
     // Upper Container Style
     upperContainer: {
-        flex: 1
+    flex:0.8,
+    marginTop:Platform.OS=='ios'?'10%':null,
 
     },
     imageContainer: {
