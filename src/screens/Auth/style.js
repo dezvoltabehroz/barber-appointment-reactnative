@@ -1,11 +1,11 @@
-import { StyleSheet, Dimensions } from 'react-native'
+import { StyleSheet, Dimensions, Platform } from 'react-native'
 import THEME from '../../assets/styles/theme.style'
 const screenWidth = Dimensions.get('window').width;
 export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-
+        paddingTop: Platform.OS == 'ios' ? "15%" : "5%"
     },
     upperContainer: {
         flex: 1.5,

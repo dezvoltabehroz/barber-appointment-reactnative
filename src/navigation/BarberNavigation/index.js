@@ -19,7 +19,10 @@ function BarberRoutes() {
                 headerShown: false
             }} />
             <Stack.Screen name="PhoneVerified" component={PhoneVerifiedScreen} options={{
-                headerShown: false
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (null),
             }} />
             <Stack.Screen name="PhoneNumber" component={PhoneNumberScreen} options={{
                 headerBackTitleVisible: false,
@@ -36,21 +39,24 @@ function BarberRoutes() {
                 headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="UpdateProfile" component={UpdateProfileScreen} options={{
-                headerShown: false
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (null),
             }} />
-              <Stack.Screen name="EmailandPassword" component={EmailandPasswordScreen} options={{
-                 headerBackTitleVisible: false,
-                 headerTintColor: 'white',
-                 headerTransparent: true,
-                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter Email and Password </Text></View>),
-                 headerTitleAlign: 'center',
+            <Stack.Screen name="EmailandPassword" component={EmailandPasswordScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter Email and Password </Text></View>),
+                headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="Resume" component={ResumeScreen} options={{
-                 headerBackTitleVisible: false,
-                 headerTintColor: 'white',
-                 headerTransparent: true,
-                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter Your Resume </Text></View>),
-                 headerTitleAlign: 'center',
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter Your Resume </Text></View>),
+                headerTitleAlign: 'center',
             }} />
         </Stack.Navigator>
     );
