@@ -12,7 +12,6 @@ export default StyleSheet.create({
     // Upper Container Style
     upperContainer: {
         flex: 1
-
     },
     imageContainer: {
         marginTop: '10%',

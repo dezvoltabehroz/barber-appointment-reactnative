@@ -11,7 +11,7 @@ export default StyleSheet.create({
 
     // Upper Container Style
     upperContainer: {
-    flex:0.7,
+    flex:0.8,
     marginTop:Platform.OS=='ios'?'10%':null,
 
     },

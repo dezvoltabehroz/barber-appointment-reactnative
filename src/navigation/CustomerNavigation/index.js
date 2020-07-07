@@ -36,7 +36,10 @@ function CustomerRoutes() {
                 headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="UpdateProfile" component={UpdateProfileScreen} options={{
-                headerShown: false
+                 headerBackTitleVisible: false,
+                 headerTintColor: 'white',
+                 headerTransparent: true,
+                 headerTitle: () => (null),
             }} />
              <Stack.Screen name="EmailandPassword" component={EmailandPasswordScreen} options={{
                  headerBackTitleVisible: false,
