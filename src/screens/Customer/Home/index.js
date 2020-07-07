@@ -62,15 +62,18 @@ export default class Home extends Component {
                         </View>
                         <View style={styles.line}></View>
                         <View style={styles.buttonContainer}>
-                            <View style={styles.row}>
+                            <View style={styles.buttonRow}>
                                 <View style={styles.column}>
-                                    <Icon.MaterialCommunityIcons name="wallet-plus" color={THEME.PRIMARY_COLOR} />
+                                    <Icon.MaterialCommunityIcons name="wallet" size={THEME.ICON_SIZE} color={THEME.PRIMARY_COLOR} />
+                                    <Text>Add Money</Text>
                                 </View>
                                 <View style={styles.column2}>
-
+                                    <Icon.MaterialCommunityIcons name="ticket" size={THEME.ICON_SIZE} color={THEME.PRIMARY_COLOR} />
+                                    <Text>Add Money</Text>
                                 </View>
                                 <View style={styles.column}>
-
+                                    <Icon.MaterialCommunityIcons name="wallet" size={THEME.ICON_SIZE} color={THEME.PRIMARY_COLOR} />
+                                    <Text>Add Money</Text>
                                 </View>
                             </View>
                         </View>

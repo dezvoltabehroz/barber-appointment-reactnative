@@ -2,7 +2,7 @@ import { StyleSheet, Dimensions } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 
 const screenWidth = Dimensions.get('window').width;
-
+const screenHieght = Dimensions.get('window').height;
 export default StyleSheet.create({
     container: {
         flex: 1
@@ -39,6 +39,7 @@ export default StyleSheet.create({
         fontSize: THEME.FONT_SIZE_MEDIUM
     },
     row: { flexDirection: 'row' },
+    buttonRow: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center' },
     vipTagStyle: {
         marginTop: '2%',
         height: 20, width: 30,
@@ -109,19 +110,22 @@ export default StyleSheet.create({
         color: THEME.PRIMARY_COLOR
     },
     buttonContainer: {
-        flex: 0.6
+        flex: 0.4,
+        paddingTop:"3%"
     },
     column: {
+        flex: 0.4,
+        paddingTop: '5%',
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center"
     },
     column2: {
-        borderRightWidth: 1,
-        borderLeftWidth: 1,
+        flex: 0.4,
+        paddingTop: '5%',
+        borderRightWidth: 2,
+        borderLeftWidth: 2,
         borderColor: '#44495C',
-        // borderWidth: 1,
-        borderRadius: 5,
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center"

@@ -97,5 +97,5 @@ export default StyleSheet.create({
     buttonContainer: {
         marginHorizontal: '10%'
     },
-    footerStyle: { flex: 0.2, justifyContent: 'center', paddingBottom: "4%" }
+    footerStyle: { flex: 0.2, justifyContent: 'flex-end' }
 })
