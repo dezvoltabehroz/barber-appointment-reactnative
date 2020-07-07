@@ -9,6 +9,7 @@ import PhoneVerifiedScreen from './PhoneVerifiedScreen';
 import UpdateProfileScreen from './UpdateProfileScreen';
 import HomeScreen from './HomeScreen';
 import ResumeScreen from './ResumeScreen';
+import PortfolioScreen from './PortfolioScreen';
 
 const Stack = createStackNavigator();
 
@@ -45,17 +46,23 @@ function BarberRoutes() {
                 headerTitle: () => (null),
             }} />
             <Stack.Screen name="EmailandPassword" component={EmailandPasswordScreen} options={{
-                headerBackTitleVisible: false,
-                headerTintColor: 'white',
-                headerTransparent: true,
-                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter Email and Password </Text></View>),
-                headerTitleAlign: 'center',
+                 headerBackTitleVisible: false,
+                 headerTintColor: 'white',
+                 headerTransparent: true,
+                 headerTitle: () => (null),
             }} />
             <Stack.Screen name="Resume" component={ResumeScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
-                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter Your Resume </Text></View>),
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}> Resume </Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+            <Stack.Screen name="Portfolio" component={PortfolioScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}> Portfolio</Text></View>),
                 headerTitleAlign: 'center',
             }} />
         </Stack.Navigator>
@@ -67,7 +74,7 @@ const styles = StyleSheet.create({
     headerTitleStyle: {
         fontSize: 16,
         color: "#fff",
-        fontFamily: 'Poppins-Medium'
+        fontFamily: 'Poppins-Bold'
     }
 })
 

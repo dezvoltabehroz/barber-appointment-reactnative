@@ -88,7 +88,6 @@ export default class Resume extends Component {
     chooseFile = (value) => {
         var options = {
             title: 'Select an Image',
-
             storageOptions: {
                 skipBackup: true,
                 path: 'images',

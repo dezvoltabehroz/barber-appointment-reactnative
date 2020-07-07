@@ -5,6 +5,8 @@ import _BarberUpdateProfile from './UpdateProfile';
 import _BarberEmailandPassword from './EmailandPasssword'
 import _BarberHome from './Home';
 import _BarberResume from './Resume';
+import _BarberPortfolio from './Portfolio';
+
 export const BarberScreenPaths = {
     BarberPhoneNumber: _BarberPhoneNumber,
     BarberPhoneVerification: _BarberPhoneVerification,
@@ -12,5 +14,6 @@ export const BarberScreenPaths = {
     BarberUpdateProfile: _BarberUpdateProfile,
     BarberEmailandPassword: _BarberEmailandPassword,
     BarberResume: _BarberResume,
+    BarberPortfolio:_BarberPortfolio,
     BarberHome: _BarberHome
 }
