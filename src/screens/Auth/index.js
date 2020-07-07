@@ -69,7 +69,7 @@ class AuthScreen extends Component {
                                     borderColor: THEME.PRIMARY_COLOR,
                                 } : {}]}>
                                     <FloatingInput
-                                        label={"Email / Phonenumber"}
+                                        label={"Email"}
                                         val={email}
                                         onActive={() => this.setState({ isEmailFocus: true })}
                                         onInActive={() => this.setState({ isEmailFocus: false })}

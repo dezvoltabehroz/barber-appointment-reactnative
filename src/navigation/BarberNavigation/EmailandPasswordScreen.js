@@ -11,7 +11,7 @@ export default class EmailandPasswordScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Barber.BarberEmailandPassword onUpdate={() => navigate('Resume')} />
+            <MainScreenPaths.Barber.BarberEmailandPassword onUpdate={() => navigate('Home')} />
         )
     }
 }
