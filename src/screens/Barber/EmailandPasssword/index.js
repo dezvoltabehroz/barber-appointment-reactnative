@@ -34,7 +34,7 @@ export default class EmailandPassword extends Component {
                             val={email}
                             onActive={() => this.setState({ isEmailFocus: true })}
                             onInActive={() => this.setState({ isEmailFocus: false })}
-                            label='Email / Phonenumber' updateText={(email) => this.setState({ email })} />
+                            label='Email' updateText={(email) => this.setState({ email })} />
                     </View>
                     <View style={[styles.inputContainerStyle, isPasswordFocus || password != '' ? {
                         borderWidth: 2,
@@ -63,7 +63,7 @@ export default class EmailandPassword extends Component {
                     <View style={styles.lineStyle}></View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.buttonContainer}>
-                        <Button title='Update & Finish' onPress={onUpdate} />
+                        <Button title='Next' onPress={onUpdate} />
                     </View>
                 </View>
             </View>

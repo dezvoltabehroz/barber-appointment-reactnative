@@ -8,6 +8,7 @@ import PhoneVerificatinScreen from './PhoneVerificationScreen'
 import PhoneVerifiedScreen from './PhoneVerifiedScreen';
 import UpdateProfileScreen from './UpdateProfileScreen';
 import HomeScreen from './HomeScreen';
+import ResumeScreen from './ResumeScreen';
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,13 @@ function BarberRoutes() {
                  headerTintColor: 'white',
                  headerTransparent: true,
                  headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter Email and Password </Text></View>),
+                 headerTitleAlign: 'center',
+            }} />
+            <Stack.Screen name="Resume" component={ResumeScreen} options={{
+                 headerBackTitleVisible: false,
+                 headerTintColor: 'white',
+                 headerTransparent: true,
+                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter Your Resume </Text></View>),
                  headerTitleAlign: 'center',
             }} />
         </Stack.Navigator>
