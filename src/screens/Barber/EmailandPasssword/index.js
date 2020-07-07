@@ -26,7 +26,6 @@ export default class EmailandPassword extends Component {
 
             <View style={styles.container}>
                 <View style={styles.upperContainer}>
-
                     <View style={[styles.inputContainerStyle, isEmailFocus || email != '' ? {
                         borderWidth: 2,
                         borderColor: THEME.PRIMARY_COLOR,
@@ -35,7 +34,7 @@ export default class EmailandPassword extends Component {
                             val={email}
                             onActive={() => this.setState({ isEmailFocus: true })}
                             onInActive={() => this.setState({ isEmailFocus: false })}
-                            label='Email' updateText={(email) => this.setState({ email })} />
+                            label='Email / Phonenumber' updateText={(email) => this.setState({ email })} />
                     </View>
                     <View style={[styles.inputContainerStyle, isPasswordFocus || password != '' ? {
                         borderWidth: 2,
@@ -60,7 +59,7 @@ export default class EmailandPassword extends Component {
                             label='Confirm Password' updateText={(confirmPassword) => this.setState({ confirmPassword })} />
                     </View>
                 </View>
-                <View style={{ flex: 0.2, justifyContent: 'center' }}>
+                <View style={styles.footerStyle}>
                     <View style={styles.lineStyle}></View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.buttonContainer}>
