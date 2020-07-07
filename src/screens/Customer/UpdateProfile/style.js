@@ -130,5 +130,5 @@ export default StyleSheet.create({
         marginLeft: 11,
         fontFamily: 'Poppins-Regular'
     },
-    footerStyle: { flex: 0.2, justifyContent: 'flex-end' }
+    footerStyle: { flex: 0.2, justifyContent: 'flex-end', paddingBottom: '4%' }
 })

@@ -11,8 +11,8 @@ export default StyleSheet.create({
 
     // Upper Container Style
     upperContainer: {
-    flex:0.8,
-    marginTop:Platform.OS=='ios'?'10%':null,
+        flex: 0.8,
+        marginTop: Platform.OS == 'ios' ? '10%' : null,
 
     },
     imageContainer: {
@@ -97,5 +97,5 @@ export default StyleSheet.create({
     buttonContainer: {
         marginHorizontal: '10%'
     },
-    footerStyle: { flex: 0.2, justifyContent: 'flex-end' }
+    footerStyle: { flex: 0.2, justifyContent: 'flex-end', paddingBottom: '4%' }
 })
