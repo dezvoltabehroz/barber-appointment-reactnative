@@ -274,7 +274,7 @@ export default class Resume extends Component {
                     </View>
 
                     <View style={{ flex: 1, backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, paddingVertical: '3%', justifyContent: "center" }}>
-                        {/* <View style={styles.columnStyle1}> */}
+
                         <View style={[styles.inputContainerStyle, isEmployerFocus || employerName != '' ? {
                             borderWidth: 2,
                             borderColor: THEME.PRIMARY_COLOR,
@@ -285,8 +285,6 @@ export default class Resume extends Component {
                                 onInActive={() => this.setState({ isEmployerFocus: false })}
                                 label='Employer Name' updateText={(employerName) => this.setState({ employerName })} />
                         </View>
-                        {/* </View> */}
-                        {/* <View style={styles.columnStyle}> */}
                         <View style={[styles.inputContainerStyle, isStartDate || startDate != '' ? {
                             borderWidth: 2,
                             borderColor: THEME.PRIMARY_COLOR,
@@ -308,8 +306,6 @@ export default class Resume extends Component {
                                     : null}
                             </View>
                         </View>
-                        {/* </View> */}
-                        {/* <View style={styles.columnStyle1}> */}
                         <View style={[styles.inputContainerStyle, isEndDate || endDate != '' ? {
                             borderWidth: 2,
                             borderColor: THEME.PRIMARY_COLOR,
@@ -337,8 +333,6 @@ export default class Resume extends Component {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    {/* </View> */}
-
                 </Modal>
             </>
         );

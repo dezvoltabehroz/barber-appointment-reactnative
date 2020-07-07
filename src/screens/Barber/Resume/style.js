@@ -113,7 +113,6 @@ export default StyleSheet.create({
 
     // FOoter StylEs
     lineStyle: {
-        // marginTop: '10%',
         borderColor: '#44495C',
         borderWidth: 2,
         marginHorizontal: '10%',
