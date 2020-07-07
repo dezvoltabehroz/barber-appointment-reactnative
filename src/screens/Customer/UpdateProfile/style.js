@@ -12,7 +12,7 @@ export default StyleSheet.create({
 
     // Upper Container Style
     upperContainer: {
-        // flex: 0.45,
+        flex: 0.8,
     },
     imageContainer: {
         marginTop: '10%',
@@ -20,8 +20,8 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     imageStyle: {
-        width:screenWidth*0.8,
-        height:screenHeight*0.3,
+        width: screenWidth * 0.8,
+        height: screenHeight * 0.3,
     },
     avatarContainer: {
         marginTop: '8%',
@@ -130,4 +130,5 @@ export default StyleSheet.create({
         marginLeft: 11,
         fontFamily: 'Poppins-Regular'
     },
+    footerStyle: { flex: 0.2, justifyContent: 'center', paddingBottom: "4%" }
 })

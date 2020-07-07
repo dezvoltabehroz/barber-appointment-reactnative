@@ -27,7 +27,7 @@ export default class PhoneVerfied extends Component {
                     <Text style={styles.textStyle}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</Text>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button title='Next' onPress={onComplete} />
+                    <Button title='Complete Your Profile' onPress={onComplete} />
                 </View>
             </View>
         )

@@ -60,7 +60,7 @@ export default class EmailandPassword extends Component {
                             label='Confirm Password' updateText={(confirmPassword) => this.setState({ confirmPassword })} />
                     </View>
                 </View>
-                <View style={{ flex: 0.2, justifyContent: "center",paddingBottom:"4%" }}>
+                <View style={styles.footerStyle}>
                     <View style={styles.lineStyle}></View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.buttonContainer}>

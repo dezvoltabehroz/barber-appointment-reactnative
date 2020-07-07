@@ -19,7 +19,10 @@ function CustomerRoutes() {
                 headerShown: false
             }} />
             <Stack.Screen name="PhoneVerified" component={PhoneVerifiedScreen} options={{
-                headerShown: false
+                 headerBackTitleVisible: false,
+                 headerTintColor: 'white',
+                 headerTransparent: true,
+                 headerTitle: () => (null),
             }} />
             <Stack.Screen name="PhoneNumber" component={PhoneNumberScreen} options={{
                 headerBackTitleVisible: false,
