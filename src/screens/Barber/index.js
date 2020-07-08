@@ -7,6 +7,7 @@ import _BarberHome from './Home';
 import _BarberResume from './Resume';
 import _BarberPortfolio from './Portfolio';
 import _BarberServices from './Services';
+import _BarberPriceAndTime from './PriceAndTime';
 
 export const BarberScreenPaths = {
     BarberPhoneNumber: _BarberPhoneNumber,
@@ -17,5 +18,6 @@ export const BarberScreenPaths = {
     BarberResume: _BarberResume,
     BarberPortfolio: _BarberPortfolio,
     BarberServices: _BarberServices,
+    BarberPriceAndTime: _BarberPriceAndTime,
     BarberHome: _BarberHome
 }

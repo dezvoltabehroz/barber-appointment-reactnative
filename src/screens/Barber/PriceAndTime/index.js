@@ -10,38 +10,11 @@ export default class Services extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            val: false,
-            selectedService: [],
-            barberServices: [
-                { id: 1, serviceName: 'Hair Cuttuing', selected: false },
-                { id: 2, serviceName: 'Hair Trimming', selected: false },
-                { id: 3, serviceName: 'Blowout', selected: false },
-                { id: 4, serviceName: 'Hair Color', selected: false },
-                { id: 5, serviceName: 'Double process hair color', selected: false },
-                { id: 6, serviceName: 'Shave', selected: false },
-                { id: 7, serviceName: 'Beard Trim', selected: false },
-                { id: 8, serviceName: 'Braids & Twist', selected: false },
-                { id: 9, serviceName: 'Hair color touch ups', selected: false },
-                { id: 10, serviceName: 'Scalp Conditioning Treatment', selected: false },
-                { id: 11, serviceName: 'Permanent Hair Retexturizing', selected: false }
-            ],
+            
         }
     }
+    componentDidMount=()=>{
 
-    handleSelected = (val) => {
-        const objIndex = this.state.barberServices.findIndex((obj => obj.id == val.id));
-        let items = [...this.state.barberServices];
-        if (items[objIndex].selected) {
-            items[objIndex] = { ...items[objIndex], selected: false };
-            this.setState({ barberServices: items });
-            if (!items[objIndex].selected) {
-                this.setState({ selectedService: this.state.selectedService.filter(item => item.id != val.id) })
-            }
-        } else {
-            items[objIndex] = { ...items[objIndex], selected: true };
-            this.setState({ barberServices: items });
-            this.state.selectedService.push(items[objIndex]);
-        }
     }
 
     _renderSeparator = () => {
@@ -55,9 +28,9 @@ export default class Services extends Component {
             <>
                 <View style={styles.contentContainer}>
                     <View style={styles.nameContainer}>
-                        <View style={{ marginHorizontal: 8 }}>
+                        {/* <View style={{ marginHorizontal: 8 }}>
                             <Text style={styles.idTextLabel}>{item.id}.</Text>
-                        </View>
+                        </View> */}
                         <View>
                             <Text style={styles.textStyle}>{item.serviceName}</Text>
                         </View>
