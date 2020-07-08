@@ -85,7 +85,7 @@ export default class Portfolio extends Component {
                     <View style={styles.lineStyle}></View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.buttonContainer}>
-                        <Button title='Next' onPress={onNext} />
+                        <Button title='Save & Continue' onPress={onNext} />
                     </View>
                 </View>
             </View>
