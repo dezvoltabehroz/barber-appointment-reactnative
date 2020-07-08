@@ -13,17 +13,17 @@ export default class Services extends Component {
             val: false,
             selectedService: [],
             barberServices: [
-                { id: 1, serviceName: 'Hair Cuttuing', selected: false },
-                { id: 2, serviceName: 'Hair Trimming', selected: false },
-                { id: 3, serviceName: 'Blowout', selected: false },
-                { id: 4, serviceName: 'Hair Color', selected: false },
-                { id: 5, serviceName: 'Double process hair color', selected: false },
-                { id: 6, serviceName: 'Shave', selected: false },
-                { id: 7, serviceName: 'Beard Trim', selected: false },
-                { id: 8, serviceName: 'Braids & Twist', selected: false },
-                { id: 9, serviceName: 'Hair color touch ups', selected: false },
-                { id: 10, serviceName: 'Scalp Conditioning Treatment', selected: false },
-                { id: 11, serviceName: 'Permanent Hair Retexturizing', selected: false }
+                { id: 1, serviceName: 'Hair Cuttuing', selected: false, price: '', time: '' },
+                { id: 2, serviceName: 'Hair Trimming', selected: false, price: '', time: '' },
+                { id: 3, serviceName: 'Blowout', selected: false, price: '', time: '' },
+                { id: 4, serviceName: 'Hair Color', selected: false, price: '', time: '' },
+                { id: 5, serviceName: 'Double process hair color', selected: false, price: '', time: '' },
+                { id: 6, serviceName: 'Shave', selected: false, price: '', time: '' },
+                { id: 7, serviceName: 'Beard Trim', selected: false, price: '', time: '' },
+                { id: 8, serviceName: 'Braids & Twist', selected: false, price: '', time: '' },
+                { id: 9, serviceName: 'Hair color touch ups', selected: false, price: '', time: '' },
+                { id: 10, serviceName: 'Scalp Conditioning Treatment', selected: false, price: '', time: '' },
+                { id: 11, serviceName: 'Permanent Hair Retexturizing', selected: false, price: '', time: '' }
             ],
         }
     }
@@ -96,7 +96,7 @@ export default class Services extends Component {
                         <View style={styles.lineStyle}></View>
                         <View style={styles.gapHeight}></View>
                         <View style={styles.buttonContainer}>
-                            <Button title='Next' onPress={onNext} />
+                            <Button title='Next' onPress={() => onNext(this.state.selectedService)} />
                         </View>
                     </View>
                 </View>

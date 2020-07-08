@@ -8,10 +8,11 @@ export default class ServicesScreen extends Component {
 
     })
 
+
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Barber.BarberServices onNext={() => navigate('PriceandTime')} />
+            <MainScreenPaths.Barber.BarberServices onNext={(data) => navigate('PriceandTime', { item: data })} />
         )
     }
 }
