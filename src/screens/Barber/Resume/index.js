@@ -312,7 +312,7 @@ export default class Resume extends Component {
                             </Table>
                         </ScrollView>
                     </View>
-                    <View style={styles.footerContainer}>
+                    <View style={styles.footerStyle}>
                         <View style={styles.lineStyle}></View>
                         <View style={styles.gapHeight}></View>
                         <View style={styles.buttonContainer}>

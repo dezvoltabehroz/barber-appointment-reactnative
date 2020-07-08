@@ -155,7 +155,7 @@ export default class PriceAndTime extends Component {
                             renderItem={({ item, index }) => this._renderItems({ item, index })}
                             keyExtractor={item => item} />
                     </View>
-                    <View style={styles.footerContainer}>
+                    <View style={styles.footerStyle}>
                         <View style={styles.lineStyle}></View>
                         <View style={styles.gapHeight}></View>
                         <View style={styles.buttonContainer}>
