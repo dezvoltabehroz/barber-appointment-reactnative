@@ -14,6 +14,17 @@ export default StyleSheet.create({
         flex: 0.8,
         marginHorizontal: '10%'
     },
+    idTextLabel: {
+        color: THEME.COLOR_WHITE,
+        fontFamily: 'Poppins-Bold'
+    },
+    textStyle: {
+        color: THEME.COLOR_WHITE,
+        fontFamily: 'Poppins-Regular'
+    },
+    seperatorStyle: {
+        height: 15,
+    },
 
     // FOoter StylEs
     lineStyle: {
