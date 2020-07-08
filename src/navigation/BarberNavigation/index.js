@@ -10,6 +10,7 @@ import UpdateProfileScreen from './UpdateProfileScreen';
 import HomeScreen from './HomeScreen';
 import ResumeScreen from './ResumeScreen';
 import PortfolioScreen from './PortfolioScreen';
+import ServicesScreen from './ServicesScreen';
 
 const Stack = createStackNavigator();
 
@@ -46,23 +47,30 @@ function BarberRoutes() {
                 headerTitle: () => (null),
             }} />
             <Stack.Screen name="EmailandPassword" component={EmailandPasswordScreen} options={{
-                 headerBackTitleVisible: false,
-                 headerTintColor: 'white',
-                 headerTransparent: true,
-                 headerTitle: () => (null),
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (null),
             }} />
             <Stack.Screen name="Resume" component={ResumeScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
-                headerTitle: () => (<View><Text style={styles.headerTitleStyle}> Resume </Text></View>),
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Resume</Text></View>),
                 headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="Portfolio" component={PortfolioScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
-                headerTitle: () => (<View><Text style={styles.headerTitleStyle}> Portfolio</Text></View>),
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Portfolio</Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+            <Stack.Screen name="Services" component={ServicesScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Services</Text></View>),
                 headerTitleAlign: 'center',
             }} />
         </Stack.Navigator>
