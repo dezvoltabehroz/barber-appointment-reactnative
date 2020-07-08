@@ -23,6 +23,13 @@ export default StyleSheet.create({
         justifyContent: "space-between"
 
     },
+    certificationContainer1: {
+        // marginVertical: '3%',
+        height: 54,
+        flexDirection: 'row',
+        justifyContent: "space-between"
+
+    },
     labelContainer: {
         flexDirection: 'column',
         flex: 0.5
@@ -103,6 +110,10 @@ export default StyleSheet.create({
         color: THEME.COLOR_WHITE,
         fontFamily: "Poppins-Regular",
     },
+    seperatorStyle: {
+        width: 5
+      },
+
 
 
 

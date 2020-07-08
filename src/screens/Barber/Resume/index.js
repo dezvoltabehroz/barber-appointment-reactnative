@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView, Modal } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView, Modal, FlatList } from 'react-native';
 import { Button, Icon, FloatingInput } from '../../../components';
 import styles from './style';
 import ImagePicker from 'react-native-image-picker';
+
+import ImageCropPicker from 'react-native-image-crop-picker';
 import THEME from '../../../assets/styles/theme.style';
 import LightBox from "react-native-lightbox";
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -15,7 +17,7 @@ export default class Resume extends Component {
         super(props);
 
         this.state = {
-            imageCertification: '',
+            imageCertification: [],
             drivingLicense: '',
             passportImage: '',
             nationalIdImage: '',
@@ -85,6 +87,54 @@ export default class Resume extends Component {
         })
     };
 
+    takePics = () => {
+        ImageCropPicker.openPicker({
+            width: 200,
+            height: 200, compressImageMaxHeight: 400,
+            compressImageMaxWidth: 400, cropping: true, multiple: true
+        })
+            .then(response => {
+                let tempArray = []
+                // console.log("responseimage-------" + response)
+                // this.setState({ ImageSource: response })
+                // console.log("responseimagearray" + this.state.ImageSource)
+                response.forEach((item) => {
+                    let image = {
+                        uri: item.path,
+                    }
+                    // console.log("imagpath==========" + image)
+                    tempArray.push(image)
+                    this.setState({ imageCertification: tempArray })
+                    // console.log("imagpath==========" + image)
+                })
+            })
+    };
+
+    renderImages = (image) => {
+        return (
+            <Image style={styles.renderImageStyle}
+                resizeMode='contain'
+                source={image} />
+        )
+    }
+
+    _renderSeparator = () => {
+        return (
+            <View style={styles.seperatorStyle}></View>
+        )
+    }
+
+    _renderItems = (image) => {
+        return (
+            <>
+                <View style={styles.gapHeight}></View>
+                <LightBox renderContent={() => this.renderImages(image)}  >
+                    <Image source={image} resizeMode='cover' style={styles.imageStyle} />
+                </LightBox>
+            </>
+        )
+    }
+
     chooseFile = (value) => {
         var options = {
             title: 'Select an Image',
@@ -106,11 +156,7 @@ export default class Resume extends Component {
                 alert(response.customButton);
             } else {
                 let source = response;
-                if (value == 'certificate') {
-                    this.setState({
-                        imageCertification: source,
-                    });
-                } else if (value == 'driver') {
+                if (value == 'driver') {
                     this.setState({
                         drivingLicense: source,
                     });
@@ -164,19 +210,27 @@ export default class Resume extends Component {
                     <View style={styles.upperContainer}>
                         <ScrollView showsVerticalScrollIndicator={false}>
 
-                            <View style={styles.certificationContainer}>
-                                <View style={styles.labelContainer}  >
-                                    <Text style={styles.labelTextStyle}>Certification</Text>
+                            <View>
+                                <View style={styles.certificationContainer1}>
+                                    <View style={styles.labelContainer}  >
+                                        <Text style={styles.labelTextStyle}>Certification</Text>
+                                    </View>
+                                    <TouchableOpacity style={styles.iconContainer} onPress={this.takePics}>
+                                        <Icon.Entypo name="attachment" size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} />
+                                    </TouchableOpacity>
                                 </View>
-                                <TouchableOpacity style={styles.iconContainer} onPress={() => this.chooseFile('certificate')}>
-                                    <Icon.Entypo name="attachment" size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} />
-                                </TouchableOpacity>
-                                {imageCertification != '' ?
-                                    <LightBox style={styles.imageContainer} renderContent={() => this.renderImage('certifcate')}  >
-                                        <Image source={imageCertification} resizeMode='cover' style={styles.imageStyle} />
-                                    </LightBox>
+                                {imageCertification != null ?
+                                    <FlatList
+                                        data={imageCertification}
+                                        horizontal={true}
+                                        showsHorizontalScrollIndicator={false}
+                                        ItemSeparatorComponent={this._renderSeparator}
+                                        renderItem={({ item }) => this._renderItems(item)}
+                                        keyExtractor={item => item}
+                                    />
                                     : null}
                             </View>
+
                             <View style={styles.certificationContainer}>
                                 <View style={styles.labelContainer} >
                                     <Text style={styles.labelTextStyle}>Driving License</Text>
