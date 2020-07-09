@@ -23,6 +23,7 @@ export default StyleSheet.create({
     },
     textStyle: {
         color: THEME.COLOR_WHITE,
+        fontSize:THEME.FONT_SIZE_MEDIUM,
         fontFamily: 'Poppins-Regular'
     },
     seperatorStyle: {
