@@ -167,6 +167,7 @@ export default class UpdateProfile extends Component {
                                     <DateTimePicker
                                         value={dateValue}
                                         mode={'date'}
+                                        textColor={THEME.COLOR_WHITE}
                                         is24Hour={true}
                                         display="spinner"
                                         onChange={this.onChangeDate}

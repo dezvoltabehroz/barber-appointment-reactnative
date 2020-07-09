@@ -93,6 +93,7 @@ export default class PriceAndTime extends Component {
                                                 value={dateValue}
                                                 mode={'time'}
                                                 is24Hour={true}
+                                                textColor={THEME.COLOR_WHITE}
                                                 display="spinner"
                                                 onChange={(event, selectedDate) => {
                                                     var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());

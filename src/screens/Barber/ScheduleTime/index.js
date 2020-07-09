@@ -70,6 +70,7 @@ export default class ScheduleTime extends Component {
                                             <DateTimePicker
                                                 value={dateValue}
                                                 mode={'time'}
+                                                textColor={THEME.COLOR_WHITE}
                                                 is24Hour={false}
                                                 display="spinner"
                                                 onChange={(event, selectedDate) => {
@@ -107,6 +108,7 @@ export default class ScheduleTime extends Component {
                                             <DateTimePicker
                                                 value={dateValue}
                                                 mode={'time'}
+                                                textColor={THEME.COLOR_WHITE}
                                                 is24Hour={false}
                                                 display="spinner"
                                                 onChange={(event, selectedDate) => {
