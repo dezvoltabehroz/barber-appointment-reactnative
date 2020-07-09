@@ -21,6 +21,7 @@ export default class Resume extends Component {
             drivingLicense: '',
             passportImage: '',
             nationalIdImage: '',
+            cv: '',
             isVisible: false,
             isEmployerFocus: false,
             employerName: '',
@@ -50,42 +51,18 @@ export default class Resume extends Component {
             drivingLicense,
             passportImage,
             nationalIdImage,
-
+            cv
         } = this.state;
         return (
             <Image style={styles.renderImageStyle}
                 resizeMode='contain'
-                source={value == 'certifcate' ?
-                    imageCertification : value == 'driver' ?
+                source={value == 'cv' ?
+                    cv : value == 'driver' ?
                         drivingLicense : value == 'passport' ?
                             passportImage : nationalIdImage} />
         )
     }
 
-    onChangeStartDate = (event, selectedDate) => {
-        var date = selectedDate.getDate();
-        date += "/";
-        date += (selectedDate.getMonth() + 1);
-        date += "/";
-        date += (selectedDate.getYear() + 1900);
-        this.setState({
-            startDate: date,
-            showDatePicker: false,
-        })
-
-    };
-
-    onChangeEndDate = (event, selectedDate) => {
-        var date = selectedDate.getDate();
-        date += "/";
-        date += (selectedDate.getMonth() + 1);
-        date += "/";
-        date += (selectedDate.getYear() + 1900);
-        this.setState({
-            endDate: date,
-            showEndDatePicker: false,
-        })
-    };
 
     takePics = () => {
         ImageCropPicker.openPicker({
@@ -168,6 +145,10 @@ export default class Resume extends Component {
                     this.setState({
                         nationalIdImage: source,
                     });
+                } else if (value === 'cv') {
+                    this.setState({
+                        cv: source,
+                    });
                 }
 
             }
@@ -194,6 +175,7 @@ export default class Resume extends Component {
             drivingLicense,
             passportImage,
             nationalIdImage,
+            cv,
             isEmployerFocus,
             isEndDate,
             isStartDate,
@@ -270,46 +252,19 @@ export default class Resume extends Component {
                                     </LightBox>
                                     : null}
                             </View>
-                            <Text style={styles.employmentLabelStyle}>Employment History</Text>
-                            <TouchableOpacity style={styles.addContainer} onPress={this.showInput}>
-                                <Icon.Ionicons name='md-add-circle' size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} style={{ marginHorizontal: 5 }} />
-                                <Text style={styles.labelTextStyle}>History</Text>
-                            </TouchableOpacity>
-                            {/* <View style={{ flexDirection: 'row', justifyContent: "space-between" }}>
-                                <View style={{ flex: 0.45, flexDirection: 'column', marginHorizontal: 5 }}>
-                                    <Text style={styles.labelTextStyle}>Employer Name</Text>
+                            <View style={styles.certificationContainer}>
+                                <View style={styles.labelContainer} >
+                                    <Text style={styles.labelTextStyle}>Upload CV/Resume</Text>
                                 </View>
-                                <View style={{ flex: 0.3, flexDirection: 'column', marginHorizontal: 5 }}>
-                                    <Text style={styles.labelTextStyle}>Start Date</Text>
-                                </View>
-                                <View style={{ flex: 0.25, flexDirection: 'column', marginHorizontal: 5 }}>
-                                    <Text style={styles.labelTextStyle}>End Date</Text>
-                                </View>
+                                <TouchableOpacity style={styles.iconContainer} onPress={() => this.chooseFile('cv')}>
+                                    <Icon.Entypo name="attachment" size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} />
+                                </TouchableOpacity>
+                                {cv != '' ?
+                                    <LightBox style={styles.imageContainer} renderContent={() => this.renderImage('cv')}  >
+                                        <Image source={cv} resizeMode='cover' style={styles.imageStyle} />
+                                    </LightBox>
+                                    : null}
                             </View>
-                            {
-                                this.state.employmentHistory.map((history) => {
-                                    return (
-                                        <View style={{ flexDirection: 'row', justifyContent: "space-between" }}>
-                                            <View style={{ flexDirection: 'column', marginHorizontal: 5 }}>
-                                            <Text style={styles.labelTextStyle}>Employer Name</Text>
-                                                <Text style={styles.labelTextStyle}>{history.employerName}</Text>
-                                            </View>
-                                            <View style={{ flexDirection: 'column', marginHorizontal: 5 }}>
-                                            <Text style={styles.labelTextStyle}>Employer Name</Text>
-                                                <Text style={styles.labelTextStyle}>{history.startDate}</Text>
-                                            </View>
-                                            <View style={{ flexDirection: 'column', marginHorizontal: 5 }}>
-                                            <Text style={styles.labelTextStyle}>Employer Name</Text>
-                                                <Text style={styles.labelTextStyle}>{history.endDate}</Text>
-                                            </View>
-                                        </View>
-                                    )
-                                })
-                            } */}
-                            <Table borderStyle={{ borderWidth: 0.5, borderColor: THEME.COLOR_WHITE }}>
-                                <Row data={this.state.tableHead} style={styles.result_textStyle} textStyle={styles.text1Style} />
-                                <Rows data={this.state.tableData} style={styles.result_textStyle} textStyle={styles.textStyle} />
-                            </Table>
                         </ScrollView>
                     </View>
                     <View style={styles.footerStyle}>

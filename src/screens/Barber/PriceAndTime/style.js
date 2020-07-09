@@ -25,14 +25,14 @@ export default StyleSheet.create({
         color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Bold'
     },
-    inputContainer:{ flexDirection: 'row', justifyContent: 'space-between' },
+    inputContainer: { flexDirection: 'row', justifyContent: 'space-between' },
     textStyle: {
         color: THEME.COLOR_WHITE,
         // textAlign: 'center',
         fontFamily: 'Poppins-Regular',
         fontSize: THEME.FONT_SIZE_LARGE,
     },
-    timeTextStyle:{
+    timeTextStyle: {
         color: THEME.COLOR_WHITE,
         textAlign: 'center',
         fontFamily: 'Poppins-Regular',
@@ -59,6 +59,22 @@ export default StyleSheet.create({
         width: screenWidth * 0.3,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
+    },
+    dateContainer: {
+        backgroundColor: THEME.COLOR_WHITE,
+        borderRadius: 5,
+        // marginVertical: '4%',
+        marginHorizontal: '10%',
+        justifyContent: 'center',
+        alignItems: "center",
+        height: 54,
+        width: screenWidth * 0.3,
+    },
+    dateTextStyle: {
+        width: screenWidth * 0.3,
+        color: THEME.COLOR_GREY,
+        marginLeft: 11,
+        fontFamily: 'Poppins-Regular'
     },
     textPriceStyle: {
         fontSize: THEME.FONT_SIZE_SMALL,

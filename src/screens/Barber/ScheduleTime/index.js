@@ -18,7 +18,11 @@ export default class ScheduleTime extends Component {
     }
 
     componentDidMount = () => {
-        this.setState({ selectedDays: this.props.data })
+        if (this.props.data != []) {
+            this.setState({ selectedDays: this.props.data })
+            console.log(this.state.selectedDays);
+        }
+
     }
 
     _renderSeparator = () => {
@@ -57,77 +61,73 @@ export default class ScheduleTime extends Component {
                     <View style={styles.inputContainer}>
                         {item.startTime == '' ?
                             <>
-                                <View style={[styles.inputDateContainerStyle, startTime[index] == null && startTime[index] != '' ? {
-                                    borderWidth: 2,
-                                    borderColor: THEME.PRIMARY_COLOR,
-                                } : {}]}>
-                                    <FloatingInput
-                                        val={startTime[index]}
-                                        onActive={() => this.setState({ showStartTimePicker: true })}
-                                        label='Start Time' />
-                                    <View>
-                                        {showStartTimePicker ?
-                                            <DateTimePicker
-                                                value={dateValue}
-                                                mode={'time'}
-                                                textColor={THEME.COLOR_WHITE}
-                                                is24Hour={false}
-                                                display="spinner"
-                                                onChange={(event, selectedDate) => {
-                                                    var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());
-                                                    timeValue += ":";
-                                                    timeValue += selectedDate.getMinutes() < 10 ? ('0' + selectedDate.getMinutes()) : (JSON.stringify(selectedDate.getMinutes()));
-                                                    this.setState({ showStartTimePicker: false });
-                                                    startTime[index] = timeValue;
-                                                    console.log(startTime[index])
-                                                    this.setState({ startTime });
-                                                    const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
-                                                    let items = [...this.state.selectedDays];
-                                                    items[objIndex] = { ...items[objIndex], startTime: startTime[index] };
-                                                    this.setState({ selectedDays: items });
-                                                }}
-                                            />
-                                            : null}
+                                <TouchableOpacity onPress={() => this.setState({ showStartTimePicker: true })}>
+                                    <View style={[styles.dateContainer, showStartTimePicker || endTime[index] != '' ? {
+                                        borderWidth: 2,
+                                        borderColor: THEME.PRIMARY_COLOR,
+                                    } : {}]}>
+                                        <Text style={styles.dateTextStyle}>{startTime[index] && startTime[index] != "" ? startTime[index] : "Start Time"}</Text>
                                     </View>
-
+                                </TouchableOpacity>
+                                <View>
+                                    {showStartTimePicker ?
+                                        <DateTimePicker
+                                            value={dateValue}
+                                            mode={'time'}
+                                            textColor={THEME.COLOR_WHITE}
+                                            is24Hour={false}
+                                            display="spinner"
+                                            onChange={(event, selectedDate) => {
+                                                var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());
+                                                timeValue += ":";
+                                                timeValue += selectedDate.getMinutes() < 10 ? ('0' + selectedDate.getMinutes()) : (JSON.stringify(selectedDate.getMinutes()));
+                                                this.setState({ showStartTimePicker: false });
+                                                startTime[index] = timeValue;
+                                                console.log(startTime[index])
+                                                this.setState({ startTime });
+                                                const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
+                                                let items = [...this.state.selectedDays];
+                                                items[objIndex] = { ...items[objIndex], startTime: startTime[index] };
+                                                this.setState({ selectedDays: items });
+                                            }}
+                                        />
+                                        : null}
                                 </View>
                             </> : null}
 
                         {item.endTime == '' ?
                             <>
-                                <View style={[styles.inputDateContainerStyle, endTime[index] == null && endTime[index] != '' ? {
-                                    borderWidth: 2,
-                                    borderColor: THEME.PRIMARY_COLOR,
-                                } : {}]}>
-                                    <FloatingInput
-                                        val={endTime[index]}
-                                        onActive={() => this.setState({ showEndTimePicker: true })}
-                                        label='End Time' />
-                                    <View>
-                                        {showEndTimePicker ?
-                                            <DateTimePicker
-                                                value={dateValue}
-                                                mode={'time'}
-                                                textColor={THEME.COLOR_WHITE}
-                                                is24Hour={false}
-                                                display="spinner"
-                                                onChange={(event, selectedDate) => {
-                                                    var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());
-                                                    timeValue += ":";
-                                                    timeValue += selectedDate.getMinutes() < 10 ? ('0' + selectedDate.getMinutes()) : (JSON.stringify(selectedDate.getMinutes()));
-                                                    this.setState({ showEndTimePicker: false });
-                                                    endTime[index] = timeValue;
-                                                    console.log(endTime[index])
-                                                    this.setState({ endTime });
-                                                    const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
-                                                    let items = [...this.state.selectedDays];
-                                                    items[objIndex] = { ...items[objIndex], endTime: endTime[index] };
-                                                    this.setState({ selectedDays: items });
-                                                }}
-                                            />
-                                            : null}
+                                <TouchableOpacity onPress={() => this.setState({ showEndTimePicker: true })}>
+                                    <View style={[styles.dateContainer, showEndTimePicker || endTime[index] != '' ? {
+                                        borderWidth: 2,
+                                        borderColor: THEME.PRIMARY_COLOR,
+                                    } : {}]}>
+                                        <Text style={styles.dateTextStyle}>{endTime[index] && endTime[index] != "" ? endTime[index] : "End Time"}</Text>
                                     </View>
-
+                                </TouchableOpacity>
+                                <View>
+                                    {showEndTimePicker ?
+                                        <DateTimePicker
+                                            value={dateValue}
+                                            mode={'time'}
+                                            textColor={THEME.COLOR_WHITE}
+                                            is24Hour={false}
+                                            display="spinner"
+                                            onChange={(event, selectedDate) => {
+                                                var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());
+                                                timeValue += ":";
+                                                timeValue += selectedDate.getMinutes() < 10 ? ('0' + selectedDate.getMinutes()) : (JSON.stringify(selectedDate.getMinutes()));
+                                                this.setState({ showEndTimePicker: false });
+                                                endTime[index] = timeValue;
+                                                console.log(endTime[index])
+                                                this.setState({ endTime });
+                                                const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
+                                                let items = [...this.state.selectedDays];
+                                                items[objIndex] = { ...items[objIndex], endTime: endTime[index] };
+                                                this.setState({ selectedDays: items });
+                                            }}
+                                        />
+                                        : null}
                                 </View>
                             </> : null}
                     </View>
@@ -139,23 +139,27 @@ export default class ScheduleTime extends Component {
 
 
     render() {
-        const { onNext } = this.props;
+        const { onNext, data } = this.props;
         const { selectedDays } = this.state;
+        let emptyArray = [];
         return (
             <>
                 <View style={styles.container}>
                     <View style={styles.upperContainer}>
-                        <View style={styles.headingContainer}>
-                            <View style={styles.dayContainer}>
-                                <Text style={styles.headingTextStyle}>Days</Text>
-                            </View>
-                            <View style={styles.startTimeContainer} >
-                                <Text style={styles.headingTextStyle}>Start</Text>
-                            </View>
-                            <View style={styles.endTimeContainer}>
-                                <Text style={styles.headingTextStyle}>End</Text>
-                            </View>
-                        </View>
+
+                        {selectedDays.length == 0 || selectedDays[0].startTime != '' || selectedDays[0].endTime != '' ?
+                            <View style={styles.headingContainer}>
+                                <View style={styles.dayContainer}>
+                                    <Text style={styles.headingTextStyle}>Days</Text>
+                                </View>
+                                <View style={styles.startTimeContainer} >
+                                    <Text style={styles.headingTextStyle}>Start Time</Text>
+                                </View>
+                                <View style={styles.endTimeContainer}>
+                                    <Text style={styles.headingTextStyle}>End Time</Text>
+                                </View>
+                            </View> : null}
+                        <View style={styles.seperatorStyle}></View>
                         <FlatList
                             data={selectedDays}
                             showsVerticalScrollIndicator={false}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, Alert, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, Alert, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 import { Icon, FloatingInput, Button } from '../../../components'
 import styles from './style';
@@ -33,10 +33,7 @@ export default class UpdateProfile extends Component {
         date += (selectedDate.getMonth() + 1);
         date += "/";
         date += (selectedDate.getYear() + 1900);
-        this.setState({
-            date,
-            showDatePicker: false,
-        })
+        this.setState({ date, showDatePicker: (Platform.OS == 'android') ? false : true });
     };
 
     chooseFile = () => {
@@ -153,26 +150,31 @@ export default class UpdateProfile extends Component {
                                 </TouchableOpacity>
                             </View>
                             <View>
-                                <View style={styles.dateContainer}>
-                                    <TouchableOpacity onPress={() => this.setState({ showDatePicker: true })}>
-                                        <View style={[styles.dateContainer, showDatePicker || date != '' ? {
-                                            borderWidth: 2,
-                                            borderColor: THEME.PRIMARY_COLOR,
-                                        } : {}]}>
-                                            <Text style={[styles.dateTextStyle, date ? { color: THEME.COLOR_BLACK } : {}]}>{date && date != "" ? date : "Date of Birth"}</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
+                                <TouchableOpacity onPress={() => this.setState({ showDatePicker: true })}>
+                                    <View style={[styles.dateContainer, showDatePicker || date != '' ? {
+                                        borderWidth: 2,
+                                        borderColor: THEME.PRIMARY_COLOR,
+                                    } : {}]}>
+                                        <Text style={[styles.dateTextStyle, date ? { color: THEME.COLOR_BLACK } : {}]}>{date && date != "" ? date : "Date of Birth"}</Text>
+                                    </View>
+                                </TouchableOpacity>
                                 {showDatePicker ?
-                                    <DateTimePicker
-                                        value={dateValue}
-                                        mode={'date'}
-                                        textColor={THEME.COLOR_WHITE}
-                                        is24Hour={true}
-                                        display="spinner"
-                                        onChange={this.onChangeDate}
-                                    />
-                                    : null}
+                                    <>
+                                        <View>
+                                            <DateTimePicker
+                                                value={dateValue}
+                                                mode={'date'}
+                                                textColor={THEME.COLOR_WHITE}
+                                                is24Hour={true}
+                                                display="spinner"
+                                                onChange={this.onChangeDate}
+                                            />
+                                        </View>
+                                        {Platform.OS == 'ios' ?
+                                            <View style={styles.buttonContainer}>
+                                                <Button title='Save' onPress={() => this.setState({ showDatePicker: false })} />
+                                            </View> : null}
+                                    </> : null}
                             </View>
                             <View style={[styles.inputLocationContainerStyle, isLocationFocus || location != '' ? {
                                 borderWidth: 2,

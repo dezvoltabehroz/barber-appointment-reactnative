@@ -16,10 +16,10 @@ export default StyleSheet.create({
     },
 
     contentContainer: {},
-    dayContainer: { flex: 0.6, flexDirection: 'column' },
+    dayContainer: { flex: 0.4, flexDirection: 'column' },
     priceAndTimeContainer: { marginHorizontal: 5 },
-    startTimeContainer: { flex: 0.2, flexDirection: 'column', alignItems: 'center' },
-    endTimeContainer: { flex: 0.2, flexDirection: 'column', alignItems: 'center' },
+    startTimeContainer: { flex: 0.3, flexDirection: 'column', alignItems: 'center' },
+    endTimeContainer: { flex: 0.3, flexDirection: 'column', alignItems: 'center' },
     headingContainer: { flexDirection: 'row', },
     idTextLabel: {
         color: THEME.COLOR_WHITE,
@@ -30,13 +30,13 @@ export default StyleSheet.create({
         color: THEME.COLOR_WHITE,
         // textAlign: 'center',
         fontFamily: 'Poppins-Regular',
-        fontSize: THEME.FONT_SIZE_LARGE,
+        fontSize: THEME.FONT_SIZE_MEDIUM,
     },
     headingTextStyle: {
         color: THEME.COLOR_WHITE,
         // textAlign: 'center',
         fontFamily: 'Poppins-Medium',
-        fontSize: THEME.FONT_SIZE_LARGE,
+        fontSize: THEME.FONT_SIZE_MEDIUM,
     },
     inputContainerStyle: {
         height: 54,
@@ -53,6 +53,20 @@ export default StyleSheet.create({
         width: screenWidth * 0.3,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
+    },
+    dateContainer: {
+        justifyContent: "center",
+        alignItems: "center",
+        height: 54,
+        width: screenWidth * 0.3,
+        borderRadius: 5,
+        backgroundColor: THEME.COLOR_WHITE
+    },
+    dateTextStyle: {
+        width: screenWidth * 0.3,
+        color: THEME.COLOR_GREY,
+        marginLeft: 11,
+        fontFamily: 'Poppins-Regular'
     },
     textPriceStyle: {
         fontSize: THEME.FONT_SIZE_SMALL,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Platform } from 'react-native';
 import { Button, Icon, FloatingInput } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
@@ -79,16 +79,17 @@ export default class PriceAndTime extends Component {
                             </View> : null}
                         {item.time == '' ?
                             <>
-                                <View style={[styles.inputDateContainerStyle, time[index] == null && time[index] != '' ? {
-                                    borderWidth: 2,
-                                    borderColor: THEME.PRIMARY_COLOR,
-                                } : {}]}>
-                                    <FloatingInput
-                                        val={time[index]}
-                                        onActive={() => this.setState({ showTimePicker: true })}
-                                        label='Time' />
-                                    <View>
-                                        {showTimePicker ?
+                                <TouchableOpacity onPress={() => this.setState({ showTimePicker: true })}>
+                                    <View style={[styles.dateContainer, showTimePicker || time[index] != '' ? {
+                                        borderWidth: 2,
+                                        borderColor: THEME.PRIMARY_COLOR,
+                                    } : {}]}>
+                                        <Text style={styles.dateTextStyle}>{time[index] && time[index] != "" ? time[index] : "Duration"}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                {showTimePicker ?
+                                    <>
+                                        <View>
                                             <DateTimePicker
                                                 value={dateValue}
                                                 mode={'time'}
@@ -99,7 +100,9 @@ export default class PriceAndTime extends Component {
                                                     var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());
                                                     timeValue += ":";
                                                     timeValue += selectedDate.getMinutes() < 10 ? ('0' + selectedDate.getMinutes()) : (JSON.stringify(selectedDate.getMinutes()));
-                                                    this.setState({ showTimePicker: false });
+                                                    if (Platform.OS == 'android') {
+                                                        this.setState({ showTimePicker: false });
+                                                    }
                                                     time[index] = timeValue;
                                                     console.log(time[index])
                                                     this.setState({ time });
@@ -109,16 +112,15 @@ export default class PriceAndTime extends Component {
                                                     this.setState({ selectedArray: items });
                                                 }}
                                             />
+                                        </View>
+                                        {Platform.OS == 'ios' ?
+                                            <View style={styles.buttonContainer}>
+                                                <Button title='Save' onPress={() => this.setState({ showDatePicker: false })} />
+                                            </View>
                                             : null}
-                                    </View>
-
-                                </View>
+                                    </> : null}
                             </> : null}
-
-
                     </View>
-
-
                 </View>
             </>
         )
@@ -133,18 +135,20 @@ export default class PriceAndTime extends Component {
             <>
                 <View style={styles.container}>
                     <View style={styles.upperContainer}>
-                        <View style={styles.headingContainer}>
-                            <View style={styles.nameContainer}>
-                                <Text style={styles.headingTextStyle}>Services</Text>
-                            </View>
-                            <View style={styles.priceContainer} >
-                                <Text style={styles.headingTextStyle}>Price</Text>
-                            </View>
-                            <View style={styles.timeContainer}>
-                                <Text style={styles.headingTextStyle}>Est.Time</Text>
-                            </View>
-
-                        </View>
+                        {
+                            selectedArray.length == 0 || selectedArray[0].price != '' || selectedArray[0].time != '' ?
+                                <View style={styles.headingContainer}>
+                                    <View style={styles.nameContainer}>
+                                        <Text style={styles.headingTextStyle}>Services</Text>
+                                    </View>
+                                    <View style={styles.priceContainer} >
+                                        <Text style={styles.headingTextStyle}>Price</Text>
+                                    </View>
+                                    <View style={styles.timeContainer}>
+                                        <Text style={styles.headingTextStyle}>Est.Time</Text>
+                                    </View>
+                                </View> : null}
+                        <View style={styles.seperatorStyle}></View>
                         <FlatList
                             data={selectedArray}
                             showsVerticalScrollIndicator={false}
