@@ -47,23 +47,25 @@ export default class PriceAndTime extends Component {
                         <View style={styles.nameContainer}>
                             <Text style={styles.textStyle}>{item.serviceName}</Text>
                         </View>
-                        <View style={styles.priceTimeContainer} >
+                        <View style={styles.priceContainer} >
                             {item.price != '' ?
                                 <View style={styles.priceAndTimeContainer}>
                                     <Text style={styles.textStyle}>{item.price}</Text>
                                 </View>
                                 : null
                             }
+                        </View>
+                        <View style={styles.timeContainer}>
                             {item.time != '' ?
                                 <View style={styles.priceAndTimeContainer}>
-                                    <Text style={styles.textStyle}>{item.time}</Text>
+                                    <Text style={styles.timeTextStyle}>{item.time}</Text>
                                 </View>
                                 : null
                             }
                         </View>
                     </View>
 
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <View style={styles.inputContainer}>
                         {item.price == '' ?
                             <View style={[styles.inputContainerStyle, price[index] == null ? {
                                 borderWidth: 2,
@@ -130,21 +132,15 @@ export default class PriceAndTime extends Component {
             <>
                 <View style={styles.container}>
                     <View style={styles.upperContainer}>
-                        <View style={{ flexDirection: 'row', justifyContent: "space-between" }}>
-                            <View style={styles.headingnameContainer}>
+                        <View style={styles.headingContainer}>
+                            <View style={styles.nameContainer}>
                                 <Text style={styles.headingTextStyle}>Services</Text>
                             </View>
-                            <View style={styles.headingpriceTimeContainer} >
-
-                                <View style={styles.headingpriceAndTimeContainer}>
-                                    <Text style={styles.headingTextStyle}>Price</Text>
-                                </View>
-
-
-                                <View style={styles.headingpriceAndTimeContainer}>
-                                    <Text style={styles.headingTextStyle}>Est.Time</Text>
-                                </View>
-
+                            <View style={styles.priceContainer} >
+                                <Text style={styles.headingTextStyle}>Price</Text>
+                            </View>
+                            <View style={styles.timeContainer}>
+                                <Text style={styles.headingTextStyle}>Est.Time</Text>
                             </View>
 
                         </View>

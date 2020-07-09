@@ -12,7 +12,7 @@ export default class WorkingDaysScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Barber.BarberWorkingDays onNext={(data) => navigate('Home', { item: data })} />
+            <MainScreenPaths.Barber.BarberWorkingDays onNext={(data) => navigate('ScheduleTime', { itemDays: data })} />
         )
     }
 }

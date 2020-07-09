@@ -13,6 +13,7 @@ import PortfolioScreen from './PortfolioScreen';
 import ServicesScreen from './ServicesScreen';
 import PriceAndTimeScreen from './PriceAndTimeScreen';
 import WorkingDaysScreen from './WorkingDaysScreen';
+import ScheduleTimeScreen from './ScheduleTimeScreen';
 
 const Stack = createStackNavigator();
 
@@ -87,6 +88,13 @@ function BarberRoutes() {
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Working Days</Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+            <Stack.Screen name="ScheduleTime" component={ScheduleTimeScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Schedule Time</Text></View>),
                 headerTitleAlign: 'center',
             }} />
         </Stack.Navigator>

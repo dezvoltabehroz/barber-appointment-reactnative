@@ -16,25 +16,19 @@ export default StyleSheet.create({
     },
 
     contentContainer: {},
-    nameContainer: { flex: 0.6, flexDirection: 'column' },
+    dayContainer: { flex: 0.6, flexDirection: 'column' },
     priceAndTimeContainer: { marginHorizontal: 5 },
-    priceContainer: { flex: 0.2, flexDirection: 'column' },
-    timeContainer: { flex: 0.3, flexDirection: 'column' },
+    startTimeContainer: { flex: 0.2, flexDirection: 'column', alignItems: 'center' },
+    endTimeContainer: { flex: 0.2, flexDirection: 'column', alignItems: 'center' },
     headingContainer: { flexDirection: 'row', },
     idTextLabel: {
         color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Bold'
     },
-    inputContainer:{ flexDirection: 'row', justifyContent: 'space-between' },
+    inputContainer: { flexDirection: 'row', justifyContent: 'space-between' },
     textStyle: {
         color: THEME.COLOR_WHITE,
         // textAlign: 'center',
-        fontFamily: 'Poppins-Regular',
-        fontSize: THEME.FONT_SIZE_LARGE,
-    },
-    timeTextStyle:{
-        color: THEME.COLOR_WHITE,
-        textAlign: 'center',
         fontFamily: 'Poppins-Regular',
         fontSize: THEME.FONT_SIZE_LARGE,
     },
