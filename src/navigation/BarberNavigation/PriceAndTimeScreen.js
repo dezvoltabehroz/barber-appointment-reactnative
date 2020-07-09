@@ -11,9 +11,9 @@ export default class PriceAndTimeScreen extends Component {
     render() {
         const { navigate } = this.props.navigation;
         const { item } = this.props.route.params;
-        console.log(JSON.stringify(item));
+        // console.log(JSON.stringify(item));
         return (
-            <MainScreenPaths.Barber.BarberPriceAndTime data={(item)} onNext={() => navigate('Home')} />
+            <MainScreenPaths.Barber.BarberPriceAndTime data={(item)} onNext={() => navigate('WorkingDays')} />
         )
     }
 }
