@@ -69,7 +69,7 @@ export default class Portfolio extends Component {
             <View style={styles.container}>
                 <View style={styles.upperContainer}>
                     <TouchableOpacity style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center" }} onPress={this.takePics}>
-                        <Text style={styles.uploadImagesTextStyle}>Upload Images</Text>
+                        <Text style={styles.uploadImagesTextStyle}>Upload Portfolio</Text>
                         <Icon.Entypo name='attachment' size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} style={{ marginHorizontal: 5 }} />
                     </TouchableOpacity>
                     {portfolioImagesArray !== null ?

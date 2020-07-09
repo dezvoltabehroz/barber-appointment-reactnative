@@ -1,12 +1,13 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 const screenWidth = Dimensions.get('window').width;
-
+const screenHeight = Dimensions.get('window').height;
+console.log(screenHeight);
 export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: '15%'
+        paddingTop: Platform.OS == 'ios' && screenHeight == 812 ? '30%' : '20%'
     },
 
     // Upper Container Style
