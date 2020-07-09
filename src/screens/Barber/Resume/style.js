@@ -75,6 +75,18 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignItems: 'center'
     },
+    cancelContainer: {
+        height: 54,
+        width: screenWidth * 0.8,
+        borderRadius: 5,
+        backgroundColor: 'rgb(240,89,42)',
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: 'center'
+    },
+    modalContainer: {
+        height: screenHeight, paddingVertical: '3%', justifyContent: "center"
+    },
 
     columnStyle: { flexDirection: 'column', marginHorizontal: '0.5%' },
     columnStyle1: { flexDirection: 'column' },
@@ -112,16 +124,10 @@ export default StyleSheet.create({
     },
     seperatorStyle: {
         width: 5
-      },
+    },
+    addButtonContainer: { paddingVertical: '3%', justifyContent: 'center', alignItems: 'center' },
 
-
-
-
-
-
-
-
-
+    cancelButtonContainer: { justifyContent: 'center', alignItems: 'center' },
     // FOoter StylEs
     lineStyle: {
         borderColor: '#44495C',
