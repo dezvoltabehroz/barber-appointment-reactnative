@@ -33,7 +33,8 @@ export default class UpdateProfile extends Component {
         date += (selectedDate.getMonth() + 1);
         date += "/";
         date += (selectedDate.getYear() + 1900);
-        this.setState({ date, showDatePicker: (Platform.OS == 'android') ? false : true });
+        console.log(date);
+        this.setState({ date, showDatePicker: Platform.OS == 'android'? !this.state.showDatePicker : this.state.showDatePicker });
     };
 
     chooseFile = () => {
@@ -170,10 +171,12 @@ export default class UpdateProfile extends Component {
                                                 onChange={this.onChangeDate}
                                             />
                                         </View>
-                                        {Platform.OS == 'ios' ?
-                                            <View style={styles.buttonContainer}>
-                                                <Button title='Save' onPress={() => this.setState({ showDatePicker: false })} />
-                                            </View> : null}
+                                        {
+                                            Platform.OS == 'ios' ?
+                                                <View style={styles.buttonContainer}>
+                                                    <Button title='Save' onPress={() => this.setState({ showDatePicker: false })} />
+                                                </View> : null
+                                        }
                                     </> : null}
                             </View>
                             <View style={[styles.inputLocationContainerStyle, isLocationFocus || location != '' ? {

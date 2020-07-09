@@ -78,7 +78,7 @@ export default class PriceAndTime extends Component {
                                     label='Price' updateText={(val) => this.setState({ val })} />
                             </View> : null}
                         {item.time == '' ?
-                            <>
+                            <View>
                                 <TouchableOpacity onPress={() => this.setState({ showTimePicker: true })}>
                                     <View style={[styles.dateContainer, showTimePicker || time[index] != '' ? {
                                         borderWidth: 2,
@@ -87,40 +87,43 @@ export default class PriceAndTime extends Component {
                                         <Text style={styles.dateTextStyle}>{time[index] && time[index] != "" ? time[index] : "Duration"}</Text>
                                     </View>
                                 </TouchableOpacity>
-                                {showTimePicker ?
-                                    <>
-                                        <View>
-                                            <DateTimePicker
-                                                value={dateValue}
-                                                mode={'time'}
-                                                is24Hour={true}
-                                                textColor={THEME.COLOR_WHITE}
-                                                display="spinner"
-                                                onChange={(event, selectedDate) => {
-                                                    var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());
-                                                    timeValue += ":";
-                                                    timeValue += selectedDate.getMinutes() < 10 ? ('0' + selectedDate.getMinutes()) : (JSON.stringify(selectedDate.getMinutes()));
-                                                    if (Platform.OS == 'android') {
-                                                        this.setState({ showTimePicker: false });
-                                                    }
-                                                    time[index] = timeValue;
-                                                    console.log(time[index])
-                                                    this.setState({ time });
-                                                    const objIndex = this.state.selectedArray.findIndex((obj => obj.id == item.id));
-                                                    let items = [...this.state.selectedArray];
-                                                    items[objIndex] = { ...items[objIndex], time: time[index] };
-                                                    this.setState({ selectedArray: items });
-                                                }}
-                                            />
-                                        </View>
-                                        {Platform.OS == 'ios' ?
-                                            <View style={styles.buttonContainer}>
-                                                <Button title='Save' onPress={() => this.setState({ showDatePicker: false })} />
-                                            </View>
-                                            : null}
-                                    </> : null}
-                            </> : null}
+
+
+                            </View>
+                            : null}
                     </View>
+                    {showTimePicker ?
+                        <>
+                            <View>
+                                <DateTimePicker
+                                    value={dateValue}
+                                    mode={'time'}
+                                    is24Hour={true}
+                                    textColor={THEME.COLOR_WHITE}
+                                    display="spinner"
+                                    onChange={(event, selectedDate) => {
+                                        var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());
+                                        timeValue += ":";
+                                        timeValue += selectedDate.getMinutes() < 10 ? ('0' + selectedDate.getMinutes()) : (JSON.stringify(selectedDate.getMinutes()));
+                                        if (Platform.OS == 'android') {
+                                            this.setState({ showTimePicker: false });
+                                        }
+                                        time[index] = timeValue;
+                                        console.log(time[index])
+                                        this.setState({ time });
+                                        const objIndex = this.state.selectedArray.findIndex((obj => obj.id == item.id));
+                                        let items = [...this.state.selectedArray];
+                                        items[objIndex] = { ...items[objIndex], time: time[index] };
+                                        this.setState({ selectedArray: items });
+                                    }}
+                                />
+                            </View>
+                            {Platform.OS == 'ios' ?
+                                <View style={styles.buttonContainer}>
+                                    <Button title='Save' onPress={() => this.setState({ showTimePicker: false })} />
+                                </View>
+                                : null}
+                        </> : null}
                 </View>
             </>
         )
