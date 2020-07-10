@@ -1,82 +1,131 @@
 import React, { Component } from 'react';
-import { View, StatusBar, Text, TouchableOpacity } from "react-native";
+import { View, StatusBar, Text, Dimensions, FlatList, ImageBackground, TouchableOpacity } from "react-native";
 import styles from './style';
-import { Avatar } from 'react-native-elements';
-import { Icon } from '../../../components'
 import THEME from '../../../assets/styles/theme.style';
+import style from './style';
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 export default class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            date: `${new Date().getDate()} / ${new Date().getMonth()} / ${new Date().getFullYear()}`,
-            name: "Alexender Powell",
-            avatar: "",
-            totalPoints: 150
+            servicelist: [
+                {
+                    name: 'Appointment',
+                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                },
+                {
+                    name: 'About us',
+                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                },
+                {
+                    name: 'Testimonials',
+                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                },
+                {
+                    name: 'Contact us',
+                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                },
+            ],
+            ourAppointment: [
+                {
+                    appointmentName: 'Make Up',
+                    image_url: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                },
+                {
+                    appointmentName: 'Hair Care',
+                    image_url: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                },
+                {
+                    appointmentName: 'Bridal',
+                    image_url: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                },
+                {
+                    appointmentName: 'Groom',
+                    image_url: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                },
+                {
+                    appointmentName: 'Other',
+                    image_url: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                },
+            ]
+
         }
     }
 
-    render() {
-        const { date, name, totalPoints } = this.state
+    _renderSeparator = () => {
+        return (
+            <View style={styles.seperatorHeightStyle}></View>
+        )
+    }
+
+    _renderItems = (item) => {
         return (
             <>
-                <StatusBar backgroundColor='#1E2023' />
+                <TouchableOpacity style={styles.upperListItemContainer}>
+                    <ImageBackground source={{ uri: `${item.imageUrl}` }}
+                        style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }}>
+                        <View style={styles.upperListTitleContainer}>
+                            <Text style={styles.upperListTitleStyle} >{item.name}</Text>
+                        </View>
+                    </ImageBackground>
+                </TouchableOpacity>
+
+
+            </>
+        )
+    }
+
+    _renderAppointmentItems = (item) => {
+        return (
+            <>
+                <TouchableOpacity style={styles.lowerListItemContainer}>
+                    <ImageBackground source={{ uri: `${item.image_url}` }}
+                        style={styles.lowerListImageStyle} imageStyle={{ borderRadius: 10 }}>
+                        <View style={styles.lowerListTitleContainer}>
+                            <Text style={styles.lowerListTitleStyle} >{item.appointmentName}</Text>
+                            <View style={styles.line}></View>
+                        </View>
+                    </ImageBackground>
+                </TouchableOpacity>
+
+
+            </>
+        )
+    }
+
+
+
+
+    render() {
+        const { ourAppointment, servicelist } = this.state
+        return (
+            <>
+                {/* <StatusBar backgroundColor={THEME.PRIMARY_BACKGROUND_COLOR} /> */}
                 <View style={styles.container}>
-                    <View style={styles.upperBackStyle}>
-                        <View style={styles.upperContainerStyle}>
-                            <View style={styles.avatarContainer}>
-                                <Avatar
-                                    avatarStyle={styles.avatarStyle}
-                                    source={this.state.avatar ? this.state.avatar : require('../../../assets/images/avatar.png')}
-                                    rounded
-                                    size={60} />
-                            </View>
-                            <View style={styles.textContainer}>
-                                <View style={styles.row}>
-                                    <Text style={styles.nameTextStyle}>{name}</Text>
-                                    <View style={styles.vipTagStyle}><Text style={styles.vipTagTextStyle}>VIP</Text></View>
-                                </View>
-                                <Text style={styles.vipTextStyle}>Vip Expire: <Text style={styles.dateStyle}>{date}</Text></Text>
-                            </View>
-                            <View style={styles.notificationStyle}>
-                                <View style={styles.iconContainer}>
-                                    <Icon.FontAwesome name="bell" color={THEME.COLOR_WHITE} size={20} />
-                                </View>
-                            </View>
-                        </View>
+                    <View style={styles.nameContainer}>
+                        <Text style={styles.appNameTextStyle} >Luxe</Text>
                     </View>
-                    <View style={styles.middleContainerStyle}>
-                        <View style={styles.loyalityPointsContainer}>
-                            <View style={styles.justifyCenter}>
-                                <Text style={styles.loyalText}>Loyalty Points:</Text>
-                            </View>
-                            <View style={styles.gap}></View>
-                            <TouchableOpacity style={styles.row}>
-                                <View style={styles.justifyCenter}>
-                                    <Text style={styles.loyalText}><Text style={styles.pointText}>{totalPoints}</Text>  Point</Text>
-                                </View>
-                                <View style={styles.iconContainerStyle}>
-                                    <Icon.AntDesign name="right" color={THEME.COLOR_GREY} />
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.line}></View>
-                        <View style={styles.buttonContainer}>
-                            <View style={styles.buttonRow}>
-                                <View style={styles.column}>
-                                    <Icon.MaterialCommunityIcons name="wallet" size={THEME.ICON_SIZE} color={THEME.PRIMARY_COLOR} />
-                                    <Text>Add Money</Text>
-                                </View>
-                                <View style={styles.column2}>
-                                    <Icon.MaterialCommunityIcons name="ticket" size={THEME.ICON_SIZE} color={THEME.PRIMARY_COLOR} />
-                                    <Text>Add Money</Text>
-                                </View>
-                                <View style={styles.column}>
-                                    <Icon.MaterialCommunityIcons name="wallet" size={THEME.ICON_SIZE} color={THEME.PRIMARY_COLOR} />
-                                    <Text>Add Money</Text>
-                                </View>
-                            </View>
-                        </View>
+                    <View style={styles.upperListContainer}>
+                        <FlatList
+                            data={servicelist}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            // ItemSeparatorComponent={this._renderSeparator}
+                            renderItem={({ item }) => this._renderItems(item)}
+                            keyExtractor={item => item} />
+                    </View>
+                    <View style={styles.nameContainer}>
+                        <Text style={styles.appointmentTextStyle}>Make an Appointment</Text>
+                    </View>
+                    <View style={styles.lowerListContainer}>
+                        <FlatList
+                            data={ourAppointment}
+                            showsVerticalScrollIndicator={false}
+                            ItemSeparatorComponent={this._renderSeparator}
+                            renderItem={({ item }) => this._renderAppointmentItems(item)}
+                            keyExtractor={item => item} />
                     </View>
                 </View>
             </>
