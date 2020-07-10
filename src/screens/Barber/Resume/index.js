@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView, Modal, FlatList, Dimensions } from 'react-native';
-import { Button, Icon, FloatingInput } from '../../../components';
+import { View, Text, Image, TouchableOpacity, ScrollView, FlatList, } from 'react-native';
+import { Button, Icon } from '../../../components';
 import styles from './style';
 import ImagePicker from 'react-native-image-picker';
-
+import Modal from 'react-native-modal'
 import ImageCropPicker from 'react-native-image-crop-picker';
 import THEME from '../../../assets/styles/theme.style';
 import LightBox from "react-native-lightbox";
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { Table, Row, Rows } from 'react-native-table-component';
-const screenHeight = Dimensions.get('window').height;
 
 export default class Resume extends Component {
 
@@ -33,14 +30,8 @@ export default class Resume extends Component {
             showEndDatePicker: false,
             dateValue: new Date(),
             employmentHistory: [],
-            tableHead: ['Employer Name', 'Start Date', 'End Date'],
-            tableData: [
-                ['Beauty Saloon', '7/7/2015', '7/7/2020'],
-                ['Paradise Saloon', '7/7/2015', '7/7/2020'],
-                ['Men`s Saloon', '7/7/2015', '7/7/2020'],
-                ['Buddy Cuts', '7/7/2015', '7/7/2020'],
-                ['Neew Looks', '7/7/2015', '7/7/2020'],
-            ]
+            modalView: false,
+
         }
     }
 
@@ -62,9 +53,35 @@ export default class Resume extends Component {
                             passportImage : nationalIdImage} />
         )
     }
+    takePicsWithCamera = () => {
+
+        ImageCropPicker.openCamera({
+            width: 200,
+            height: 200, compressImageMaxHeight: 400,
+            compressImageMaxWidth: 400, cropping: true,
+        })
+            .then(response => {
+                let tempArray = []
+                console.log("responseimage-------" + response)
+                this.setState({ ImageSource: response })
+                console.log("responseimagearray" + this.state.ImageSource)
+                // response.forEach((item) => {
+                let image = {
+                    uri: response.path,
+                }
+
+
+                //     // console.log("imagpath==========" + image)
+                tempArray.push(image)
+                this.setState({ imageCertification: response.path, modalView: false })
+                //     // console.log("imagpath==========" + image)
+                // })
+            })
+    };
 
 
     takePics = () => {
+
         ImageCropPicker.openPicker({
             width: 200,
             height: 200, compressImageMaxHeight: 400,
@@ -81,7 +98,7 @@ export default class Resume extends Component {
                     }
                     // console.log("imagpath==========" + image)
                     tempArray.push(image)
-                    this.setState({ imageCertification: tempArray })
+                    this.setState({ imageCertification: tempArray, modalView: false })
                     // console.log("imagpath==========" + image)
                 })
             })
@@ -197,9 +214,21 @@ export default class Resume extends Component {
                                     <View style={styles.labelContainer}  >
                                         <Text style={styles.labelTextStyle}>Certification</Text>
                                     </View>
-                                    <TouchableOpacity style={styles.iconContainer} onPress={this.takePics}>
+                                    <TouchableOpacity style={styles.iconContainer} onPress={() => this.setState({ modalView: true })}>
                                         <Icon.Entypo name="attachment" size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} />
                                     </TouchableOpacity>
+                                    <Modal isVisible={this.state.modalView}>
+                                        <View style={styles.modalContainer}>
+                                            <TouchableOpacity style={styles.iconModalContainer} onPress={this.takePicsWithCamera}>
+                                                <Icon.Entypo name="camera" size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} />
+                                                <Text style={styles.modalTextStyle}>Take a photo</Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity style={styles.iconModalContainer} onPress={this.takePics}>
+                                                <Icon.Entypo name="images" size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} />
+                                                <Text style={styles.modalTextStyle}>Choose from gallery</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </Modal>
                                 </View>
                                 {imageCertification != null ?
                                     <FlatList
@@ -275,80 +304,6 @@ export default class Resume extends Component {
                         </View>
                     </View>
                 </View>
-                <Modal visible={isVisible}>
-                    <View style={{ backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, }}>
-                        {/* <View style={{ marginTop: '10%', paddingVertical: '3%', padding: 10, justifyContent: "center" }}>
-                            <Icon.AntDesign name='arrowleft' onPress={() => this.setState({ isVisible: false })} size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} style={{ marginHorizontal: 5 }} />
-                        </View> */}
-
-                        <View style={styles.modalContainer}>
-
-                            <View style={[styles.inputContainerStyle, isEmployerFocus || employerName != '' ? {
-                                borderWidth: 2,
-                                borderColor: THEME.PRIMARY_COLOR,
-                            } : {}]}>
-                                <FloatingInput
-                                    val={employerName}
-                                    onActive={() => this.setState({ isEmployerFocus: true })}
-                                    onInActive={() => this.setState({ isEmployerFocus: false })}
-                                    label='Employer Name' updateText={(employerName) => this.setState({ employerName })} />
-                            </View>
-                            <View style={[styles.inputContainerStyle, isStartDate || startDate != '' ? {
-                                borderWidth: 2,
-                                borderColor: THEME.PRIMARY_COLOR,
-                            } : {}]}>
-                                <FloatingInput
-                                    val={startDate}
-                                    onActive={() => this.setState({ isStartDate: true, showDatePicker: true })}
-                                    onInActive={() => this.setState({ isStartDate: false })}
-                                    label='Start Date' />
-                                <View>
-                                    {showDatePicker ?
-                                        <DateTimePicker
-                                            value={dateValue}
-                                            mode={'date'}
-                                            is24Hour={true}
-                                            display="spinner"
-                                            onChange={this.onChangeStartDate}
-                                        />
-                                        : null}
-                                </View>
-                            </View>
-                            <View style={[styles.inputContainerStyle, isEndDate || endDate != '' ? {
-                                borderWidth: 2,
-                                borderColor: THEME.PRIMARY_COLOR,
-                            } : {}]}>
-                                <FloatingInput
-                                    val={endDate}
-                                    onActive={() => this.setState({ isEndDate: true, showEndDatePicker: true })}
-                                    onInActive={() => this.setState({ isEndDate: false })}
-                                    label='End Date' updateText={(endDate) => this.setState({ endDate })} />
-                                <View>
-                                    {showEndDatePicker ?
-                                        <DateTimePicker
-                                            value={dateValue}
-                                            mode={'date'}
-                                            is24Hour={true}
-                                            display="spinner"
-                                            onChange={this.onChangeEndDate}
-                                        />
-                                        : null}
-                                </View>
-                            </View>
-                            <View style={styles.addButtonContainer}>
-                                <TouchableOpacity style={styles.addDetailContainer} onPress={this.addDetails}>
-                                    <Text style={styles.labelTextStyle}>Add Details</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.cancelButtonContainer}>
-                                <TouchableOpacity style={styles.cancelContainer} onPress={() => this.setState({ isVisible: false })}>
-                                    <Text style={styles.labelTextStyle}>Cancel</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-
-                </Modal>
             </>
         );
     }

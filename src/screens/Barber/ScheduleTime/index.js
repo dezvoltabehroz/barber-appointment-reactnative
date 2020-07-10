@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, } from 'react-native';
 import { Button, FloatingInput } from '../../../components';
 import styles from './style';
+import Modal from "react-native-modal";
 import THEME from '../../../assets/styles/theme.style';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -13,7 +14,6 @@ export default class ScheduleTime extends Component {
         this.state = {
             selectedDays: [],
             startTime: [], endTime: [], showStartTimePicker: false, showEndTimePicker: false, dateValue: new Date(),
-            // isTime: false, val: ''
         }
     }
 
@@ -61,56 +61,111 @@ export default class ScheduleTime extends Component {
                     <View style={styles.inputContainer}>
                         {item.startTime == '' ?
                             <>
-                                <TouchableOpacity onPress={() => this.setState({ showStartTimePicker: true })}>
-                                    <View style={[styles.dateContainer, showStartTimePicker || endTime[index] != '' ? {
-                                        borderWidth: 2,
-                                        borderColor: THEME.PRIMARY_COLOR,
-                                    } : {}]}>
-                                        <Text style={styles.dateTextStyle}>{startTime[index] && startTime[index] != "" ? startTime[index] : "Start Time"}</Text>
-                                    </View>
-                                </TouchableOpacity>
-                                
+                                <View style={[styles.inputDateContainerStyle, startTime[index] == null && startTime[index] != '' ? {
+                                    borderWidth: 2,
+                                    borderColor: THEME.PRIMARY_COLOR,
+                                } : {}]}>
+                                    <FloatingInput
+                                        val={startTime[index]}
+                                        onActive={() => this.setState({ showStartTimePicker: true })}
+                                        label='Start Time' />
+                                    {Platform.OS == 'ios' ?
+                                        <Modal isVisible={showStartTimePicker}>
+                                            <View style={{ height: 300, width: 300, backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR }} >
+                                                <DateTimePicker
+                                                    value={dateValue}
+                                                    mode={'time'}
+                                                    textColor={THEME.COLOR_WHITE}
+                                                    is24Hour={false}
+                                                    display="spinner"
+                                                    onChange={(event, selectedDate) => {
+                                                        var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());
+                                                        timeValue += ":";
+                                                        timeValue += selectedDate.getMinutes() < 10 ? ('0' + selectedDate.getMinutes()) : (JSON.stringify(selectedDate.getMinutes()));
+                                                        startTime[index] = timeValue;
+                                                        console.log(startTime[index])
+                                                        this.setState({ startTime });
+                                                        const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
+                                                        let items = [...this.state.selectedDays];
+                                                        items[objIndex] = { ...items[objIndex], startTime: startTime[index] };
+                                                        this.setState({ selectedDays: items });
+                                                    }}
+                                                />
+                                            </View>
+                                            <View style={styles.buttonContainer}>
+                                                <Button title='Save' onPress={() => this.setState({ showStartTimePicker: false })} />
+                                            </View>
+                                        </Modal>
+                                        :
+                                        showStartTimePicker ?
+                                            <DateTimePicker
+                                                value={dateValue}
+                                                mode={'time'}
+                                                textColor={THEME.COLOR_WHITE}
+                                                is24Hour={false}
+                                                display="spinner"
+                                                onChange={(event, selectedDate) => {
+                                                    var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());
+                                                    timeValue += ":";
+                                                    timeValue += selectedDate.getMinutes() < 10 ? ('0' + selectedDate.getMinutes()) : (JSON.stringify(selectedDate.getMinutes()));
+                                                    startTime[index] = timeValue;
+                                                    this.setState({ showStartTimePicker: false });
+                                                    console.log(startTime[index])
+                                                    this.setState({ startTime });
+                                                    const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
+                                                    let items = [...this.state.selectedDays];
+                                                    items[objIndex] = { ...items[objIndex], startTime: startTime[index] };
+                                                    this.setState({ selectedDays: items });
+
+                                                }}
+                                            />
+                                            :
+                                            null}
+
+                                </View>
+
                             </> : null}
 
                         {item.endTime == '' ?
-                            <>
-                                <TouchableOpacity onPress={() => this.setState({ showEndTimePicker: true })}>
-                                    <View style={[styles.dateContainer, showEndTimePicker || endTime[index] != '' ? {
-                                        borderWidth: 2,
-                                        borderColor: THEME.PRIMARY_COLOR,
-                                    } : {}]}>
-                                        <Text style={styles.dateTextStyle}>{endTime[index] && endTime[index] != "" ? endTime[index] : "End Time"}</Text>
-                                    </View>
-                                </TouchableOpacity>
 
-                            </> : null}
-                    </View>
-                    <View>
-                        {showEndTimePicker ?
-                            <DateTimePicker
-                                value={dateValue}
-                                mode={'time'}
-                                textColor={THEME.COLOR_WHITE}
-                                is24Hour={false}
-                                display="spinner"
-                                onChange={(event, selectedDate) => {
-                                    var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());
-                                    timeValue += ":";
-                                    timeValue += selectedDate.getMinutes() < 10 ? ('0' + selectedDate.getMinutes()) : (JSON.stringify(selectedDate.getMinutes()));
-                                    this.setState({ showEndTimePicker: false });
-                                    endTime[index] = timeValue;
-                                    console.log(endTime[index])
-                                    this.setState({ endTime });
-                                    const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
-                                    let items = [...this.state.selectedDays];
-                                    items[objIndex] = { ...items[objIndex], endTime: endTime[index] };
-                                    this.setState({ selectedDays: items });
-                                }}
-                            />
-                            : null}
-                    </View>
-                    <View>
-                                    {showStartTimePicker ?
+                            <View style={[styles.inputDateContainerStyle, endTime[index] == null && endTime[index] != '' ? {
+                                borderWidth: 2,
+                                borderColor: THEME.PRIMARY_COLOR,
+                            } : {}]}>
+                                <FloatingInput
+                                    val={endTime[index]}
+                                    onActive={() => this.setState({ showEndTimePicker: true })}
+                                    label='End Time' />
+                                {Platform.OS == 'ios' ?
+                                    <Modal isVisible={showEndTimePicker}>
+                                        <View style={{ width: '90%', alignSelf: 'center', borderRadius: 12, backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR }} >
+                                            <DateTimePicker
+                                                value={dateValue}
+                                                mode={'time'}
+                                                textColor={THEME.COLOR_WHITE}
+                                                is24Hour={false}
+                                                display="spinner"
+                                                onChange={(event, selectedDate) => {
+                                                    var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());
+                                                    timeValue += ":";
+                                                    timeValue += selectedDate.getMinutes() < 10 ? ('0' + selectedDate.getMinutes()) : (JSON.stringify(selectedDate.getMinutes()));
+                                                    // this.setState({ showEndTimePicker: false });
+                                                    endTime[index] = timeValue;
+                                                    console.log(endTime[index])
+                                                    this.setState({ endTime });
+                                                    const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
+                                                    let items = [...this.state.selectedDays];
+                                                    items[objIndex] = { ...items[objIndex], endTime: endTime[index] };
+                                                    this.setState({ selectedDays: items });
+                                                }}
+                                            />
+                                        </View>
+                                        <View style={styles.buttonContainer}>
+                                            <Button title='Save' onPress={() => this.setState({ showEndTimePicker: false })} />
+                                        </View>
+                                    </Modal>
+                                    :
+                                    showEndTimePicker ?
                                         <DateTimePicker
                                             value={dateValue}
                                             mode={'time'}
@@ -121,18 +176,22 @@ export default class ScheduleTime extends Component {
                                                 var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());
                                                 timeValue += ":";
                                                 timeValue += selectedDate.getMinutes() < 10 ? ('0' + selectedDate.getMinutes()) : (JSON.stringify(selectedDate.getMinutes()));
-                                                this.setState({ showStartTimePicker: false });
-                                                startTime[index] = timeValue;
-                                                console.log(startTime[index])
-                                                this.setState({ startTime });
+                                                endTime[index] = timeValue;
+                                                this.setState({ showEndTimePicker: false });
+                                                console.log(endTime[index])
+                                                this.setState({ endTime });
                                                 const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
                                                 let items = [...this.state.selectedDays];
-                                                items[objIndex] = { ...items[objIndex], startTime: startTime[index] };
+                                                items[objIndex] = { ...items[objIndex], endTime: endTime[index] };
                                                 this.setState({ selectedDays: items });
+
                                             }}
                                         />
-                                        : null}
-                                </View>
+                                        : null
+                                }
+                            </View>
+                            : null}
+                    </View>
                 </View>
             </>
         )
@@ -141,9 +200,8 @@ export default class ScheduleTime extends Component {
 
 
     render() {
-        const { onNext, data } = this.props;
+        const { onNext } = this.props;
         const { selectedDays } = this.state;
-        let emptyArray = [];
         return (
             <>
                 <View style={styles.container}>
@@ -161,7 +219,6 @@ export default class ScheduleTime extends Component {
                                     <Text style={styles.headingTextStyle}>End Time</Text>
                                 </View>
                             </View> : null}
-                        <View style={styles.seperatorStyle}></View>
                         <FlatList
                             data={selectedDays}
                             showsVerticalScrollIndicator={false}

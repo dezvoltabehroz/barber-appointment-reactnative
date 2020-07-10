@@ -49,6 +49,18 @@ export default StyleSheet.create({
         flex: 0.2,
         flexDirection: 'column'
     },
+    modalContainer: {
+        flexDirection: 'row',
+        marginHorizontal: '10%'
+    },
+    modalTextStyle: {
+        color: THEME.COLOR_WHITE
+    },
+    iconModalContainer: {
+        alignItems: 'center',
+        // flexDirection: 'row',
+        marginHorizontal: '5%'
+    },
     labelTextStyle: {
         color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Medium'
@@ -84,9 +96,9 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignItems: 'center'
     },
-    modalContainer: {
-        height: screenHeight, paddingVertical: '3%', justifyContent: "center"
-    },
+    // modalContainer: {
+    //     height: screenHeight, paddingVertical: '3%', justifyContent: "center"
+    // },
 
     columnStyle: { flexDirection: 'column', marginHorizontal: '0.5%' },
     columnStyle1: { flexDirection: 'column' },
