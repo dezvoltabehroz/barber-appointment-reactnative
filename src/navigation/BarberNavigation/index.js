@@ -27,7 +27,8 @@ function BarberRoutes() {
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
-                headerTitle: () => (null),
+                headerTitleAlign: 'center',
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Phone Verified</Text></View>),
             }} />
             <Stack.Screen name="PhoneNumber" component={PhoneNumberScreen} options={{
                 headerBackTitleVisible: false,
@@ -47,13 +48,15 @@ function BarberRoutes() {
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
-                headerTitle: () => (null),
+                headerTitleAlign: 'center',
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Profile</Text></View>),
             }} />
             <Stack.Screen name="EmailandPassword" component={EmailandPasswordScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
-                headerTitle: () => (null),
+                headerTitleAlign: 'center',
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Email and Password</Text></View>),
             }} />
             <Stack.Screen name="Resume" component={ResumeScreen} options={{
                 headerBackTitleVisible: false,

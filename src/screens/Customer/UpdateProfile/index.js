@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, Alert, KeyboardAvoidingView, ScrollView } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
-import { Icon, FloatingInput, Button } from '../../../components'
+import { Icon, FloatingInput, Button, DateTime } from '../../../components'
 import styles from './style';
 import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
@@ -164,13 +164,9 @@ export default class UpdateProfile extends Component {
                                     </TouchableOpacity>
                                 </View>
                                 {showDatePicker ?
-                                    <DateTimePicker
-                                        value={dateValue}
-                                        mode={'date'}
-                                        textColor={THEME.COLOR_WHITE}
-                                        is24Hour={true}
-                                        display="spinner"
-                                        onChange={this.onChangeDate}
+                                    <DateTime
+                                        date
+                                        onChangeDate={this.onChangeDate}
                                     />
                                     : null}
                             </View>

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, Platform } from 'react-native';
-import { Button, FloatingInput } from '../../../components';
+import { Button, FloatingInput, DateTime } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
 import Modal from 'react-native-modal';
-import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 export default class PriceAndTime extends Component {
@@ -13,7 +12,7 @@ export default class PriceAndTime extends Component {
         super(props);
         this.state = {
             selectedArray: [],
-            price: [], time: [], showTimePicker: false, dateValue: new Date(),
+            price: [], time: [], showTimePicker: false,
             isTime: false, val: ''
         }
     }
@@ -39,7 +38,7 @@ export default class PriceAndTime extends Component {
     }
 
     _renderItems = ({ item, index }) => {
-        const { price, time, showTimePicker, dateValue } = this.state;
+        const { price, time, showTimePicker, } = this.state;
         return (
             <>
                 <View style={styles.contentContainer}>
@@ -92,13 +91,8 @@ export default class PriceAndTime extends Component {
                                     {Platform.OS == 'ios' ?
                                         <Modal isVisible={showTimePicker}>
                                             <View style={{ height: 300, width: 300, backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR }} >
-                                                <DateTimePicker
-                                                    value={dateValue}
-                                                    mode={'time'}
-                                                    is24Hour={true}
-                                                    textColor={THEME.COLOR_WHITE}
-                                                    display="spinner"
-                                                    onChange={(event, selectedDate) => {
+                                                <DateTime
+                                                    onChangeDate={(event, selectedDate) => {
                                                         var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());
                                                         timeValue += ":";
                                                         timeValue += selectedDate.getMinutes() < 10 ? ('0' + selectedDate.getMinutes()) : (JSON.stringify(selectedDate.getMinutes()));
@@ -119,14 +113,8 @@ export default class PriceAndTime extends Component {
                                         </Modal>
                                         :
                                         showTimePicker ?
-
-                                            <DateTimePicker
-                                                value={dateValue}
-                                                mode={'time'}
-                                                is24Hour={true}
-                                                textColor={THEME.COLOR_WHITE}
-                                                display="spinner"
-                                                onChange={(event, selectedDate) => {
+                                            <DateTime
+                                                onChangeDate={(event, selectedDate) => {
                                                     var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());
                                                     timeValue += ":";
                                                     timeValue += selectedDate.getMinutes() < 10 ? ('0' + selectedDate.getMinutes()) : (JSON.stringify(selectedDate.getMinutes()));

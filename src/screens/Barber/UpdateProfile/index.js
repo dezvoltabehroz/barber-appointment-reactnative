@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, Alert, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
-import { Icon, FloatingInput, Button } from '../../../components'
+import { Icon, FloatingInput, Button, DateTime } from '../../../components'
 import styles from './style';
 import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
-import DateTimePicker from '@react-native-community/datetimepicker';
 
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoder';
@@ -34,7 +33,7 @@ export default class UpdateProfile extends Component {
         date += "/";
         date += (selectedDate.getYear() + 1900);
         console.log(date);
-        this.setState({ date, showDatePicker: Platform.OS == 'android'? !this.state.showDatePicker : this.state.showDatePicker });
+        this.setState({ date, showDatePicker: Platform.OS == 'android' ? !this.state.showDatePicker : this.state.showDatePicker });
     };
 
     chooseFile = () => {
@@ -162,14 +161,9 @@ export default class UpdateProfile extends Component {
                                 {showDatePicker ?
                                     <>
                                         <View>
-                                            <DateTimePicker
-                                                value={dateValue}
-                                                mode={'date'}
-                                                textColor={THEME.COLOR_WHITE}
-                                                is24Hour={true}
-                                                display="spinner"
-                                                onChange={this.onChangeDate}
-                                            />
+                                            <DateTime
+                                                date
+                                                onChangeDate={this.onChangeDate} />
                                         </View>
                                         {
                                             Platform.OS == 'ios' ?

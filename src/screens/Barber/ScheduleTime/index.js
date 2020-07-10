@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, } from 'react-native';
-import { Button, FloatingInput } from '../../../components';
+import { Button, FloatingInput, DateTime } from '../../../components';
 import styles from './style';
 import Modal from "react-native-modal";
 import THEME from '../../../assets/styles/theme.style';
-import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 export default class ScheduleTime extends Component {
@@ -13,7 +12,7 @@ export default class ScheduleTime extends Component {
         super(props);
         this.state = {
             selectedDays: [],
-            startTime: [], endTime: [], showStartTimePicker: false, showEndTimePicker: false, dateValue: new Date(),
+            startTime: [], endTime: [], showStartTimePicker: false, showEndTimePicker: false,
         }
     }
 
@@ -32,7 +31,7 @@ export default class ScheduleTime extends Component {
     }
 
     _renderItems = ({ item, index }) => {
-        const { startTime, endTime, showStartTimePicker, dateValue, showEndTimePicker } = this.state;
+        const { startTime, endTime, showStartTimePicker, showEndTimePicker } = this.state;
         return (
             <>
                 <View style={styles.contentContainer}>
@@ -71,14 +70,9 @@ export default class ScheduleTime extends Component {
                                         label='Start Time' />
                                     {Platform.OS == 'ios' ?
                                         <Modal isVisible={showStartTimePicker}>
-                                            <View style={{ height: 300, width: 300, backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR }} >
-                                                <DateTimePicker
-                                                    value={dateValue}
-                                                    mode={'time'}
-                                                    textColor={THEME.COLOR_WHITE}
-                                                    is24Hour={false}
-                                                    display="spinner"
-                                                    onChange={(event, selectedDate) => {
+                                            <View style={{ width: '90%', backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR }} >
+                                                <DateTime
+                                                    onChangeDate={(event, selectedDate) => {
                                                         var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());
                                                         timeValue += ":";
                                                         timeValue += selectedDate.getMinutes() < 10 ? ('0' + selectedDate.getMinutes()) : (JSON.stringify(selectedDate.getMinutes()));
@@ -98,13 +92,8 @@ export default class ScheduleTime extends Component {
                                         </Modal>
                                         :
                                         showStartTimePicker ?
-                                            <DateTimePicker
-                                                value={dateValue}
-                                                mode={'time'}
-                                                textColor={THEME.COLOR_WHITE}
-                                                is24Hour={false}
-                                                display="spinner"
-                                                onChange={(event, selectedDate) => {
+                                            <DateTime
+                                                onChangeDate={(event, selectedDate) => {
                                                     var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());
                                                     timeValue += ":";
                                                     timeValue += selectedDate.getMinutes() < 10 ? ('0' + selectedDate.getMinutes()) : (JSON.stringify(selectedDate.getMinutes()));
@@ -139,13 +128,8 @@ export default class ScheduleTime extends Component {
                                 {Platform.OS == 'ios' ?
                                     <Modal isVisible={showEndTimePicker}>
                                         <View style={{ width: '90%', alignSelf: 'center', borderRadius: 12, backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR }} >
-                                            <DateTimePicker
-                                                value={dateValue}
-                                                mode={'time'}
-                                                textColor={THEME.COLOR_WHITE}
-                                                is24Hour={false}
-                                                display="spinner"
-                                                onChange={(event, selectedDate) => {
+                                            <DateTime
+                                                onChangeDate={(event, selectedDate) => {
                                                     var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());
                                                     timeValue += ":";
                                                     timeValue += selectedDate.getMinutes() < 10 ? ('0' + selectedDate.getMinutes()) : (JSON.stringify(selectedDate.getMinutes()));
@@ -166,13 +150,8 @@ export default class ScheduleTime extends Component {
                                     </Modal>
                                     :
                                     showEndTimePicker ?
-                                        <DateTimePicker
-                                            value={dateValue}
-                                            mode={'time'}
-                                            textColor={THEME.COLOR_WHITE}
-                                            is24Hour={false}
-                                            display="spinner"
-                                            onChange={(event, selectedDate) => {
+                                        <DateTime
+                                            onChangeDate={(event, selectedDate) => {
                                                 var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());
                                                 timeValue += ":";
                                                 timeValue += selectedDate.getMinutes() < 10 ? ('0' + selectedDate.getMinutes()) : (JSON.stringify(selectedDate.getMinutes()));

@@ -20,3 +20,6 @@ export const FloatingInput = _FloatInput;
 
 import _PhoneInput from './FloatingInput/phoneInputFloat';
 export const PhoneInput = _PhoneInput;
+
+import _DateTime from './DatePicker';
+export const DateTime = _DateTime;
