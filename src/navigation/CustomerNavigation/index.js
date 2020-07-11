@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image,Dimensions } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // import { MainScreenPaths } from '../../screens';
@@ -9,6 +9,10 @@ import PhoneVerifiedScreen from './PhoneVerifiedScreen';
 import UpdateProfileScreen from './UpdateProfileScreen';
 import HomeScreen from './HomeScreen';
 import EmailandPasswordScreen from './EmailandPasswordScreen';
+import HairCareScreen from './HairCareScreen';
+
+const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
 
 const Stack = createStackNavigator();
 
@@ -19,10 +23,11 @@ function CustomerRoutes() {
                 headerShown: false
             }} />
             <Stack.Screen name="PhoneVerified" component={PhoneVerifiedScreen} options={{
-                 headerBackTitleVisible: false,
-                 headerTintColor: 'white',
-                 headerTransparent: true,
-                 headerTitle: () => (null),
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Phone Verified</Text></View>),
+                headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="PhoneNumber" component={PhoneNumberScreen} options={{
                 headerBackTitleVisible: false,
@@ -39,17 +44,26 @@ function CustomerRoutes() {
                 headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="UpdateProfile" component={UpdateProfileScreen} options={{
-                 headerBackTitleVisible: false,
-                 headerTintColor: 'white',
-                 headerTransparent: true,
-                 headerTitle: () => (null),
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitleAlign: 'center',
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Profile</Text></View>),
             }} />
-             <Stack.Screen name="EmailandPassword" component={EmailandPasswordScreen} options={{
-                 headerBackTitleVisible: false,
-                 headerTintColor: 'white',
-                 headerTransparent: true,
-                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter Email and Password </Text></View>),
-                 headerTitleAlign: 'center',
+            <Stack.Screen name="EmailandPassword" component={EmailandPasswordScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter Email and Password </Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+            <Stack.Screen name="HairCare" component={HairCareScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                // headerTransparent: true,
+                headerBackground: () => (<Image source={{ uri: 'https://d3e5kk0afz85hq.cloudfront.net/278138-preview.jpg' }} style={{height:70,width:screenWidth}} resizeMode='cover' />),
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Hair Care</Text></View>),
+                headerTitleAlign: 'center',
             }} />
         </Stack.Navigator>
     );
@@ -62,7 +76,7 @@ const styles = StyleSheet.create({
     headerTitleStyle: {
         fontSize: 16,
         color: "#fff",
-        fontFamily: 'Poppins-Medium'
+        fontFamily: 'Poppins-Bold'
     }
 })
 

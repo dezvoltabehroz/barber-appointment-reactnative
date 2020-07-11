@@ -1,37 +1,14 @@
-import { StyleSheet, Dimensions } from 'react-native';
-import THEME from '../../../assets/styles/theme.style';
+import { StyleSheet, Dimensions } from "react-native";
+import THEME from "../../../assets/styles/theme.style";
 
-const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
+
 export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '20%' : '5%'
-
-    },
-    upperListContainer: { marginVertical: '5%', justifyContent: "center" },
-    upperListItemContainer: {
-        flex: 0.1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingLeft: 10,
-        paddingRight: 10
-    },
-    upperListImageStyle: {
-        height: 70,
-        width: 120
-    },
-    upperListTitleContainer: {
-        flex: 1,
-        paddingTop: '20%',
-        marginHorizontal: '10%',
-        justifyContent: 'center',
-        alignItems: 'flex-start'
-    },
-    upperListTitleStyle: {
-        color: THEME.COLOR_WHITE,
-        fontFamily: 'Poppins-Medium'
+        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '5%'
     },
     lowerListContainer: { flex: 1, paddingTop: '5%', marginBottom: '1%', justifyContent: "center" },
     lowerListItemContainer: {
@@ -49,6 +26,7 @@ export default StyleSheet.create({
         flex: 1,
         paddingTop: '10%',
         backgroundColor: 'rgba(0,0,0,.4)',
+        // opacity: 0.7,
         paddingHorizontal: '10%',
         justifyContent: 'flex-start',
         alignItems: 'flex-start'
@@ -57,6 +35,16 @@ export default StyleSheet.create({
         fontSize: THEME.FONT_SIZE_LARGE,
         color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Medium'
+    },
+    opacityContainer: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,.4)',
+        opacity: 0.7,
+        width: '70%',
+        // borderRadius: 10,
+        borderTopStartRadius: 10,
+        borderBottomStartRadius: 10,
+        paddingHorizontal: '10%',
     },
     line: { borderWidth: 1, borderColor: THEME.COLOR_WHITE, width: 43 },
     nameContainer: {
@@ -71,9 +59,6 @@ export default StyleSheet.create({
         color: THEME.COLOR_WHITE,
         fontSize: THEME.FONT_SIZE_LARGE,
         fontFamily: 'Poppins-Medium'
-    },
-    seperatorWidthStyle: {
-        width: 15
     },
     seperatorHeightStyle: {
         height: 10

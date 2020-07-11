@@ -7,7 +7,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' ? '15%' : null
+        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '20%'
     },
 
     // Upper Container Style
@@ -130,7 +130,9 @@ export default StyleSheet.create({
         marginLeft: 11,
         fontFamily: 'Poppins-Regular'
     },
-    footerStyle: { flex: 0.2,
-         justifyContent: 'flex-end',
-          paddingBottom: '8%' }
+    footerStyle: {
+        flex: 0.2,
+        justifyContent: 'flex-end',
+        paddingBottom: '8%'
+    }
 })

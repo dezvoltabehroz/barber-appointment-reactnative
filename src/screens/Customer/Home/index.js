@@ -61,9 +61,11 @@ export default class Home extends Component {
     }
 
     _renderItems = (item) => {
+        const { onItemPress } = this.props;
         return (
             <>
-                <TouchableOpacity style={styles.upperListItemContainer}>
+                <TouchableOpacity
+                    onPress={onItemPress} style={styles.upperListItemContainer}>
                     <ImageBackground source={{ uri: `${item.imageUrl}` }}
                         style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }}>
                         <View style={styles.upperListTitleContainer}>
@@ -78,9 +80,10 @@ export default class Home extends Component {
     }
 
     _renderAppointmentItems = (item) => {
+        const { onItemPress } = this.props;
         return (
             <>
-                <TouchableOpacity style={styles.lowerListItemContainer}>
+                <TouchableOpacity onPress={onItemPress} style={styles.lowerListItemContainer}>
                     <ImageBackground source={{ uri: `${item.image_url}` }}
                         style={styles.lowerListImageStyle} imageStyle={{ borderRadius: 10 }}>
                         <View style={styles.lowerListTitleContainer}>
