@@ -60,8 +60,8 @@ function CustomerRoutes() {
             <Stack.Screen name="HairCare" component={HairCareScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
-                // headerTransparent: true,
-                headerBackground: () => (<Image source={{ uri: 'https://d3e5kk0afz85hq.cloudfront.net/278138-preview.jpg' }} style={{height:70,width:screenWidth}} resizeMode='cover' />),
+                headerTransparent: true,
+                // headerBackground: () => (<Image source={{ uri: 'https://d3e5kk0afz85hq.cloudfront.net/278138-preview.jpg' }} style={{height:70,width:screenWidth}} resizeMode='cover' />),
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Hair Care</Text></View>),
                 headerTitleAlign: 'center',
             }} />

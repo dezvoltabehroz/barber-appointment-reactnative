@@ -8,7 +8,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '5%'
+        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '15%'
     },
     lowerListContainer: { flex: 1, paddingTop: '5%', marginBottom: '1%', justifyContent: "center" },
     lowerListItemContainer: {
@@ -19,7 +19,7 @@ export default StyleSheet.create({
         paddingRight: 10
     },
     lowerListImageStyle: {
-        height: screenHeight * 0.2,
+        height: screenHeight * 0.15,
         width: screenWidth * 0.9
     },
     lowerListTitleContainer: {
@@ -61,7 +61,7 @@ export default StyleSheet.create({
         fontFamily: 'Poppins-Medium'
     },
     seperatorHeightStyle: {
-        height: 10
+        height: 15
     }
 
 })

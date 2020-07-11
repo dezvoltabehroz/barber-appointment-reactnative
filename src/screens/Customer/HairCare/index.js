@@ -60,7 +60,7 @@ export default class HairCare extends Component {
                         style={styles.lowerListImageStyle} imageStyle={{ borderRadius: 10 }}>
                         <View style={styles.lowerListTitleContainer}>
                             <Text style={styles.lowerListTitleStyle} >{item.name}</Text>
-                            <View style={styles.line}></View>
+                            {/* <View style={styles.line}></View> */}
                         </View>
                     </ImageBackground>
                 </TouchableOpacity>
