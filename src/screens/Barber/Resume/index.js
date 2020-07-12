@@ -3,11 +3,9 @@ import { View, Text, Image, TouchableOpacity, ScrollView, FlatList, } from 'reac
 import { Button, Icon } from '../../../components';
 import styles from './style';
 import ImagePicker from 'react-native-image-picker';
-import Modal from 'react-native-modal'
-import ImageCropPicker from 'react-native-image-crop-picker';
 import THEME from '../../../assets/styles/theme.style';
 import LightBox from "react-native-lightbox";
-
+let tempArr = [];
 export default class Resume extends Component {
 
     constructor(props) {
@@ -16,6 +14,7 @@ export default class Resume extends Component {
         this.state = {
             imageCertification: [],
             drivingLicense: '',
+            imageSource: '',
             passportImage: '',
             nationalIdImage: '',
             cv: '',
@@ -53,32 +52,6 @@ export default class Resume extends Component {
                             passportImage : nationalIdImage} />
         )
     }
-    takePicsWithCamera = () => {
-
-        ImageCropPicker.openCamera({
-            width: 200,
-            height: 200, compressImageMaxHeight: 400,
-            compressImageMaxWidth: 400, cropping: true,
-        })
-            .then(response => {
-                let tempArray = []
-                console.log("responseimage-------" + response)
-                this.setState({ ImageSource: response })
-                console.log("responseimagearray" + this.state.ImageSource)
-                // response.forEach((item) => {
-                let image = {
-                    uri: response.path,
-                }
-
-
-                //     // console.log("imagpath==========" + image)
-                tempArray.push(image)
-                this.setState({ imageCertification: response.path, modalView: false })
-                //     // console.log("imagpath==========" + image)
-                // })
-            })
-    };
-
 
     takePics = () => {
 
@@ -129,7 +102,7 @@ export default class Resume extends Component {
         )
     }
 
-    chooseFile = (value) => {
+    chooseFile = (value, index) => {
         var options = {
             title: 'Select an Image',
             storageOptions: {
@@ -150,6 +123,8 @@ export default class Resume extends Component {
                 alert(response.customButton);
             } else {
                 let source = response;
+                // const source = { uri: `data:image/jpeg;base64,${response.data}` };
+                this.setState({ imageSource: source })
                 if (value == 'driver') {
                     this.setState({
                         drivingLicense: source,
@@ -166,25 +141,16 @@ export default class Resume extends Component {
                     this.setState({
                         cv: source,
                     });
+                } else if (value === 'certification') {
+                    let tempArray = this.state.imageCertification;
+                    tempArray.push(source);
+                    this.setState({ imageCertification: tempArray })
                 }
 
             }
         });
     };
 
-    showInput = () => {
-        this.setState({ isVisible: true });
-    }
-
-    addDetails = () => {
-        let employmentDetail = {
-            employerName: this.state.employerName,
-            startDate: this.state.startDate,
-            endDate: this.state.endDate
-        }
-        this.state.employmentHistory.push(employmentDetail);
-        this.setState({ isVisible: false, employerName: '', startDate: '', endDate: '' });
-    }
 
     render() {
         const { onNext } = this.props;
@@ -192,17 +158,7 @@ export default class Resume extends Component {
             drivingLicense,
             passportImage,
             nationalIdImage,
-            cv,
-            isEmployerFocus,
-            isEndDate,
-            isStartDate,
-            isVisible,
-            startDate,
-            employerName,
-            endDate,
-            dateValue,
-            showDatePicker,
-            showEndDatePicker } = this.state;
+            cv } = this.state;
         return (
             <>
                 <View style={styles.container}>
@@ -214,23 +170,11 @@ export default class Resume extends Component {
                                     <View style={styles.labelContainer}  >
                                         <Text style={styles.labelTextStyle}>Certification</Text>
                                     </View>
-                                    <TouchableOpacity style={styles.iconContainer} onPress={() => this.setState({ modalView: true })}>
+                                    <TouchableOpacity style={styles.iconContainer} onPress={() => this.chooseFile('certification')}>
                                         <Icon.Entypo name="attachment" size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} />
                                     </TouchableOpacity>
-                                    <Modal isVisible={this.state.modalView}>
-                                        <View style={styles.modalContainer}>
-                                            <TouchableOpacity style={styles.iconModalContainer} onPress={this.takePicsWithCamera}>
-                                                <Icon.Entypo name="camera" size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} />
-                                                <Text style={styles.modalTextStyle}>Take a photo</Text>
-                                            </TouchableOpacity>
-                                            <TouchableOpacity style={styles.iconModalContainer} onPress={this.takePics}>
-                                                <Icon.Entypo name="images" size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} />
-                                                <Text style={styles.modalTextStyle}>Choose from gallery</Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                    </Modal>
                                 </View>
-                                {imageCertification != null ?
+                                {imageCertification != null || imageCertification[0] != 'undefined' ?
                                     <FlatList
                                         data={imageCertification}
                                         horizontal={true}
@@ -238,6 +182,7 @@ export default class Resume extends Component {
                                         ItemSeparatorComponent={this._renderSeparator}
                                         renderItem={({ item }) => this._renderItems(item)}
                                         keyExtractor={item => item}
+                                        extraData={this.state.imageCertification}
                                     />
                                     : null}
                             </View>

@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, FlatList, Image, ScrollView } from 'react
 import { Button, Icon } from '../../../components'
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
-import ImagePicker from 'react-native-image-crop-picker';
+import ImagePicker from 'react-native-image-picker';
 import LightBox from "react-native-lightbox";
 
 export default class Portfolio extends Component {
@@ -14,27 +14,33 @@ export default class Portfolio extends Component {
         }
     }
 
-    takePics = () => {
-        ImagePicker.openPicker({
-            width: 200,
-            height: 200, compressImageMaxHeight: 400,
-            compressImageMaxWidth: 400, cropping: true, multiple: true
-        })
-            .then(response => {
-                let tempArray = []
-                // console.log("responseimage-------" + response)
-                // this.setState({ ImageSource: response })
-                // console.log("responseimagearray" + this.state.ImageSource)
-                response.forEach((item) => {
-                    let image = {
-                        uri: item.path,
-                    }
-                    // console.log("imagpath==========" + image)
-                    tempArray.push(image)
-                    this.setState({ portfolioImagesArray: tempArray })
-                    // console.log("imagpath==========" + image)
-                })
-            })
+    chooseFile = () => {
+        var options = {
+            title: 'Select an Image',
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+        };
+
+        ImagePicker.showImagePicker(options, response => {
+            console.log('response  ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+                alert(response.customButton);
+            } else {
+                let source = response;
+                let tempArray = this.state.portfolioImagesArray;
+                tempArray.push(source);
+                this.setState({ portfolioImagesArray: tempArray })
+
+            }
+        });
     };
 
     renderImage = (image) => {
@@ -68,7 +74,7 @@ export default class Portfolio extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.upperContainer}>
-                    <TouchableOpacity style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center" }} onPress={this.takePics}>
+                    <TouchableOpacity style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center" }} onPress={this.chooseFile}>
                         <Text style={styles.uploadImagesTextStyle}>Upload Portfolio</Text>
                         <Icon.Entypo name='attachment' size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} style={{ marginHorizontal: 5 }} />
                     </TouchableOpacity>
