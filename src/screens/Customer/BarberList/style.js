@@ -10,17 +10,18 @@ export default StyleSheet.create({
         paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '20%'
     },
     listItemContainer: {
-        flex: 0.2,
+        // flex: 0.3,
         borderRadius: 10,
-        marginHorizontal: '5%'
+        marginHorizontal: '5%',
+        // marginVertical:'3%'
     },
     cardStyle: {
         paddingTop: '2%',
         flexDirection: 'row',
         backgroundColor: THEME.COLOR_WHITE,
         borderRadius: 10,
-        height: screenHeight * 0.2,
-        width: screenWidth * 0.9
+        paddingVertical: '2%'
+
     },
     nameContainer: {
         flex: 1,
@@ -49,17 +50,18 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
+    daycontainer: { flexDirection: 'row', width: screenWidth * 0.3 },
     daysContainer: {
         borderWidth: 1,
         borderColor: '#000',
         borderRadius: 20,
-        marginHorizontal: '1%'
+        marginHorizontal: '0.5%'
     },
     textStyle: {
         fontSize: 10,
         paddingTop: '1%',
         height: 15,
-        width: 18,
+        width: 20,
         textAlign: 'center',
         justifyContent: 'center',
         fontFamily: 'Poppins-Regular'

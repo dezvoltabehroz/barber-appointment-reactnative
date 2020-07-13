@@ -18,23 +18,18 @@ export default class BarberList extends Component {
                     photo: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png',
                     portfolio: [
                         {
-                            images: ''
+                            image_url: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png'
                         },
                         {
-                            images: ''
+                            image_url: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png'
                         },
                         {
-                            images: ''
+                            image_url: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png'
                         },
                         {
-                            images: ''
+                            image_url: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png'
                         },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
+                       
                     ],
                     certifcations: [
                         {
@@ -205,7 +200,7 @@ export default class BarberList extends Component {
                             <Text style={styles.dateTextStyle} >Age: {totalAge}</Text>
                             <Text style={styles.dateTextStyle} >Est.Time: {item.estTime}</Text>
                             <Text style={styles.dateTextStyle} >Charges: {item.charges}</Text>
-                            <View style={{ flexDirection: 'row' }}>
+                            <View style={styles.daycontainer}>
                                 <View>
                                     <Text style={styles.dateTextStyle} >Working Days: </Text>
                                 </View>

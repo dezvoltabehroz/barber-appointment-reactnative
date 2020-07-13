@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView, Image, LayoutAnimation, UIManager, TouchableOpacity } from 'react-native';
 import styles from './style';
 import { Avatar } from 'react-native-elements';
-import { Button } from '../../../components'
+import { Button, ExpandView } from '../../../components';
 
 export default class BarberProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            portfolio: [],
         }
+
+    }
+    componentDidMount = () => {
+        const { items } = this.props;
+        this.setState({ portfolio: items.portfolio },()=>{console.log(this.state.portfolio)});
     }
     render() {
         const { items } = this.props;
@@ -20,22 +25,26 @@ export default class BarberProfile extends Component {
         const totalAge = Math.abs(new Date().getFullYear() - age.getUTCFullYear());
         return (
             <View style={styles.container}>
-                <View style={styles.barberProfileContainer}>
-                    <View style={styles.cardStyle} >
-                        <View style={styles.avatarContainer}>
-                            <Avatar source={{ uri: items.photo }} size={80} />
+                <ScrollView >
+                    <View style={styles.barberProfileContainer}>
+                        <View style={styles.cardStyle} >
+                            <View style={styles.avatarContainer}>
+                                <Avatar source={{ uri: items.photo }} size={80} />
+                            </View>
+                            <View style={styles.nameContainer}>
+                                <Text style={styles.nameTextStyle} >{items.name}</Text>
+                                <Text style={styles.dateTextStyle} >Age: {totalAge}</Text>
+                                {/* <Text style={styles.dateTextStyle} >{items.tagLine}</Text> */}
+                            </View>
                         </View>
-                        <View style={styles.nameContainer}>
-                            <Text style={styles.nameTextStyle} >{items.name}</Text>
-                            <Text style={styles.dateTextStyle} >Age: {totalAge}</Text>
-                            <Text style={styles.dateTextStyle} >{items.tagLine}</Text>
+                        <View style={styles.buttonContainer}>
+                            <Button title='Book Now' />
                         </View>
                     </View>
-                    <View style={styles.buttonContainer}>
-                        <Button title='Book Now' />
+                    <View>
+                        <ExpandView portfolio={(this.state.portfolio)} />
                     </View>
-                </View>
-
+                </ScrollView>
             </View>
         );
     }
