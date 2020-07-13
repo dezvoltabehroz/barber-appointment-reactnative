@@ -19,8 +19,9 @@ export default StyleSheet.create({
         flexDirection: 'row',
         paddingTop: '5%',
         borderRadius: 10,
+        paddingLeft:'10%',
         backgroundColor: THEME.COLOR_WHITE,
-        justifyContent: "center",
+        justifyContent: "flex-start",
         // alignItems: 'center'
     },
     nameContainer: {

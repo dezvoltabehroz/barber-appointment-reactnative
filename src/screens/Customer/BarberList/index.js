@@ -202,7 +202,6 @@ export default class BarberList extends Component {
                         </View>
                         <View style={styles.nameContainer}>
                             <Text style={styles.nameTextStyle} >{item.name}</Text>
-                            {/* <Text style={styles.dateTextStyle} >Age: {item.age}</Text> */}
                             <Text style={styles.dateTextStyle} >Age: {totalAge}</Text>
                             <Text style={styles.dateTextStyle} >Est.Time: {item.estTime}</Text>
                             <Text style={styles.dateTextStyle} >Charges: {item.charges}</Text>

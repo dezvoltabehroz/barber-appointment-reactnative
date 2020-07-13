@@ -13,6 +13,11 @@ export default class BarberProfile extends Component {
     }
     render() {
         const { items } = this.props;
+        var arr = items.age.split("/");
+        const birthDate = new Date(arr[2], arr[1], arr[0]);
+        const difference = Date.now() - birthDate.getTime();
+        const age = new Date(difference);
+        const totalAge = Math.abs(new Date().getFullYear() - age.getUTCFullYear());
         return (
             <View style={styles.container}>
                 <View style={styles.barberProfileContainer}>
@@ -22,7 +27,7 @@ export default class BarberProfile extends Component {
                         </View>
                         <View style={styles.nameContainer}>
                             <Text style={styles.nameTextStyle} >{items.name}</Text>
-                            <Text style={styles.dateTextStyle} >Birthday: {items.age}</Text>
+                            <Text style={styles.dateTextStyle} >Age: {totalAge}</Text>
                             <Text style={styles.dateTextStyle} >{items.tagLine}</Text>
                         </View>
                     </View>
