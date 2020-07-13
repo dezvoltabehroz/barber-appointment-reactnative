@@ -10,6 +10,7 @@ import UpdateProfileScreen from './UpdateProfileScreen';
 import HomeScreen from './HomeScreen';
 import EmailandPasswordScreen from './EmailandPasswordScreen';
 import HairCareScreen from './HairCareScreen';
+import BarberListScreen from './BarberListScreen';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -61,8 +62,14 @@ function CustomerRoutes() {
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
-                // headerBackground: () => (<Image source={{ uri: 'https://d3e5kk0afz85hq.cloudfront.net/278138-preview.jpg' }} style={{height:70,width:screenWidth}} resizeMode='cover' />),
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Hair Care</Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+             <Stack.Screen name="BarberList" component={BarberListScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Barber List</Text></View>),
                 headerTitleAlign: 'center',
             }} />
         </Stack.Navigator>

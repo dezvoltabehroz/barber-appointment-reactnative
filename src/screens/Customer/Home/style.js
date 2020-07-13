@@ -48,6 +48,7 @@ export default StyleSheet.create({
     lowerListTitleContainer: {
         flex: 1,
         paddingTop: '10%',
+        borderRadius:10,
         backgroundColor: 'rgba(0,0,0,.4)',
         paddingHorizontal: '10%',
         justifyContent: 'flex-start',

@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { MainScreenPaths } from '../../screens';
 
-export default class HairCareScreen extends Component {
+export default class BarberListScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })
@@ -11,7 +11,7 @@ export default class HairCareScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Customer.HairCare onItemPress={() => navigate('BarberList')} />
+            <MainScreenPaths.Customer.BarberList onBarberPress={() => navigate('BarberProfile')} />
         )
     }
 }
