@@ -18,18 +18,18 @@ export default class BarberList extends Component {
                     photo: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png',
                     portfolio: [
                         {
-                            image_url: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png'
+                            image_url: 'https://lh3.googleusercontent.com/-2wgQRhgOjtY/W1nPuug4iCI/AAAAAAAAbms/hZpxv8laryAVIpuKSriv0o8orNh7PZESACHMYCw/s0/30.jpg'
                         },
                         {
-                            image_url: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png'
+                            image_url: 'https://www.vippng.com/png/detail/49-493960_fade-cut-male-hair-cutting-style.png'
                         },
                         {
-                            image_url: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png'
+                            image_url: 'https://www.pngitem.com/pimgs/m/218-2181295_paradise-grooming-for-men-hair-styles-cortes-de.png'
                         },
                         {
-                            image_url: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png'
+                            image_url: 'https://content3.jdmagicbox.com/comp/goa/x7/0832px832.x832.181210164520.c7x7/catalogue/max-hair-cutting-salon-zuarinagar-goa-salons-s4tj5qnjqs.jpg'
                         },
-                       
+
                     ],
                     certifcations: [
                         {
@@ -79,7 +79,21 @@ export default class BarberList extends Component {
                     charges: '$80',
                     estTime: '00:45',
                     photo: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png',
-
+                    portfolio: [
+                        {
+                            image_url: 'https://lh3.googleusercontent.com/-2wgQRhgOjtY/W1nPuug4iCI/AAAAAAAAbms/hZpxv8laryAVIpuKSriv0o8orNh7PZESACHMYCw/s0/30.jpg'
+                        },
+                        {
+                            image_url: 'https://www.vippng.com/png/detail/49-493960_fade-cut-male-hair-cutting-style.png'
+                        },
+                        {
+                            image_url: 'https://www.pngitem.com/pimgs/m/218-2181295_paradise-grooming-for-men-hair-styles-cortes-de.png'
+                        },
+                        {
+                            image_url: 'https://content3.jdmagicbox.com/comp/goa/x7/0832px832.x832.181210164520.c7x7/catalogue/max-hair-cutting-salon-zuarinagar-goa-salons-s4tj5qnjqs.jpg'
+                        },
+                       
+                    ],
                     workingDays: [
                         {
                             day: 'Monday'
@@ -101,7 +115,21 @@ export default class BarberList extends Component {
                     charges: '$80',
                     estTime: '00:45',
                     photo: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png',
+                    portfolio: [
+                        {
+                            image_url: 'https://lh3.googleusercontent.com/-2wgQRhgOjtY/W1nPuug4iCI/AAAAAAAAbms/hZpxv8laryAVIpuKSriv0o8orNh7PZESACHMYCw/s0/30.jpg'
+                        },
+                        {
+                            image_url: 'https://www.vippng.com/png/detail/49-493960_fade-cut-male-hair-cutting-style.png'
+                        },
+                        {
+                            image_url: 'https://www.pngitem.com/pimgs/m/218-2181295_paradise-grooming-for-men-hair-styles-cortes-de.png'
+                        },
+                        {
+                            image_url: 'https://content3.jdmagicbox.com/comp/goa/x7/0832px832.x832.181210164520.c7x7/catalogue/max-hair-cutting-salon-zuarinagar-goa-salons-s4tj5qnjqs.jpg'
+                        },
 
+                    ],
                     workingDays: [
                         {
                             day: 'Monday'
@@ -123,7 +151,21 @@ export default class BarberList extends Component {
                     charges: '$80',
                     estTime: '00:45',
                     photo: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png',
+                    portfolio: [
+                        {
+                            image_url: 'https://lh3.googleusercontent.com/-2wgQRhgOjtY/W1nPuug4iCI/AAAAAAAAbms/hZpxv8laryAVIpuKSriv0o8orNh7PZESACHMYCw/s0/30.jpg'
+                        },
+                        {
+                            image_url: 'https://www.vippng.com/png/detail/49-493960_fade-cut-male-hair-cutting-style.png'
+                        },
+                        {
+                            image_url: 'https://www.pngitem.com/pimgs/m/218-2181295_paradise-grooming-for-men-hair-styles-cortes-de.png'
+                        },
+                        {
+                            image_url: 'https://content3.jdmagicbox.com/comp/goa/x7/0832px832.x832.181210164520.c7x7/catalogue/max-hair-cutting-salon-zuarinagar-goa-salons-s4tj5qnjqs.jpg'
+                        },
 
+                    ],
                     workingDays: [
                         {
                             day: 'Monday'
@@ -145,7 +187,21 @@ export default class BarberList extends Component {
                     photo: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png',
                     charges: '$80',
                     estTime: '00:45',
+                    portfolio: [
+                        {
+                            image_url: 'https://lh3.googleusercontent.com/-2wgQRhgOjtY/W1nPuug4iCI/AAAAAAAAbms/hZpxv8laryAVIpuKSriv0o8orNh7PZESACHMYCw/s0/30.jpg'
+                        },
+                        {
+                            image_url: 'https://www.vippng.com/png/detail/49-493960_fade-cut-male-hair-cutting-style.png'
+                        },
+                        {
+                            image_url: 'https://www.pngitem.com/pimgs/m/218-2181295_paradise-grooming-for-men-hair-styles-cortes-de.png'
+                        },
+                        {
+                            image_url: 'https://content3.jdmagicbox.com/comp/goa/x7/0832px832.x832.181210164520.c7x7/catalogue/max-hair-cutting-salon-zuarinagar-goa-salons-s4tj5qnjqs.jpg'
+                        },
 
+                    ],
                     workingDays: [
                         {
                             day: 'Monday'

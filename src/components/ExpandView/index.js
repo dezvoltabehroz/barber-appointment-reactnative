@@ -75,7 +75,7 @@ export default class ExpandingView extends Component {
             <View style={styles.activities_container}>
                 <TouchableOpacity activeOpacity={0.8} onPress={this.changePhotoLayout}>
                     <View style={styles.country_container}>
-                        <Text style={styles.text_panel_heading}>Certification</Text>
+                        <Text style={styles.text_panel_heading}>Portfolio</Text>
                         {this.state.expandedPhoto &&
                             <Icon.AntDesign name="up" size={25} />
                         }
