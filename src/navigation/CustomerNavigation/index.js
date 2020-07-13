@@ -11,6 +11,7 @@ import HomeScreen from './HomeScreen';
 import EmailandPasswordScreen from './EmailandPasswordScreen';
 import HairCareScreen from './HairCareScreen';
 import BarberListScreen from './BarberListScreen';
+import BarberProfileScreen from './BarberProfileScreen';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -70,6 +71,13 @@ function CustomerRoutes() {
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Barber List</Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+             <Stack.Screen name="BarberProfile" component={BarberProfileScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Barber Profile</Text></View>),
                 headerTitleAlign: 'center',
             }} />
         </Stack.Navigator>

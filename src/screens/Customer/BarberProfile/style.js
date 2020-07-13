@@ -1,0 +1,52 @@
+import { StyleSheet, Dimensions } from 'react-native';
+import THEME from '../../../assets/styles/theme.style';
+const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
+
+export default StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
+        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '20%'
+    },
+    barberProfileContainer: {
+        marginHorizontal: '5%',
+        flex: 0.33,
+        borderRadius: 10,
+        backgroundColor: THEME.COLOR_WHITE
+    },
+    cardStyle: {
+        flexDirection: 'row',
+        paddingTop: '5%',
+        borderRadius: 10,
+        backgroundColor: THEME.COLOR_WHITE,
+        justifyContent: "center",
+        // alignItems: 'center'
+    },
+    nameContainer: {
+        // flex: 1,
+        paddingHorizontal: '6%',
+        justifyContent: 'center',
+
+    },
+    nameTextStyle: {
+        fontSize: THEME.FONT_SIZE_LARGE,
+        color: THEME.COLOR_BLACK,
+        fontFamily: 'Poppins-Medium'
+    },
+    dateTextStyle: {
+        color: THEME.COLOR_BLACK,
+        fontFamily: 'Poppins-Medium'
+    },
+    avatarContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: '3%'
+    },
+    buttonContainer: {
+        flex: 1,
+        marginHorizontal: '10%',
+        // paddingVertical: '5%',
+        justifyContent: "flex-end"
+    }
+})

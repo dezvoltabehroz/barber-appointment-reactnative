@@ -8,25 +8,22 @@ export default StyleSheet.create({
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
         paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '20%'
-    }, lowerListContainer: { flex: 1, paddingTop: '5%', marginBottom: '1%', justifyContent: "center" },
-    lowerListItemContainer: {
-        flex: 0.1,
-        justifyContent: 'center',
-        alignItems: 'center',
+    },
+    listItemContainer: {
+        flex: 0.2,
         borderRadius: 10,
-        paddingLeft: 10,
-        paddingRight: 10
+        marginHorizontal: '5%'
     },
     cardStyle: {
+        paddingTop: '2%',
         flexDirection: 'row',
         backgroundColor: THEME.COLOR_WHITE,
         borderRadius: 10,
-        height: screenHeight * 0.15,
+        height: screenHeight * 0.2,
         width: screenWidth * 0.9
     },
     nameContainer: {
         flex: 1,
-        paddingHorizontal: '6%',
         justifyContent: 'center',
     },
     nameTextStyle: {
@@ -35,12 +32,36 @@ export default StyleSheet.create({
         fontFamily: 'Poppins-Medium'
     },
     dateTextStyle: {
-        // fontSize: THEME.FONT_SIZE_MEDIUM,
         color: THEME.COLOR_BLACK,
-        fontFamily: 'Poppins-Medium'
+        fontFamily: 'Poppins-Regular'
     },
     seperatorHeightStyle: {
         height: 15
     },
-    avatarContainer: { justifyContent: 'center', alignItems: 'center', marginLeft: '6%' },
+    avatarContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    buttonStyle: {
+        backgroundColor: THEME.PRIMARY_COLOR,
+        borderRadius: 7,
+        height: 40,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    daysContainer: {
+        borderWidth: 1,
+        borderColor: '#000',
+        borderRadius: 20,
+        marginHorizontal: '1%'
+    },
+    textStyle: {
+        fontSize: 10,
+        paddingTop: '1%',
+        height: 15,
+        width: 18,
+        textAlign: 'center',
+        justifyContent: 'center',
+        fontFamily: 'Poppins-Regular'
+    },
 })
