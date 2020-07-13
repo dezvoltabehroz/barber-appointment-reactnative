@@ -23,7 +23,7 @@ export default class ExpandingView extends Component {
     componentDidMount = () => {
         const { portfolio } = this.props;
         let photosArray = [];
-        if (portfolio == null && portfolio.length == 0)
+        if (portfolio == null || portfolio.length == 0)
             this.setState({ isPhotoNull: true });
         else {
             var data = JSON.stringify(portfolio)
@@ -35,7 +35,7 @@ export default class ExpandingView extends Component {
             this.setState({ isPhotoNull: false, photos: photosArray });
         }
     }
-    
+
     changePhotoLayout = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({ expandedPhoto: !this.state.expandedPhoto });
