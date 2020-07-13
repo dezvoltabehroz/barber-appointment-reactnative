@@ -12,10 +12,7 @@ export default class BarberProfile extends Component {
         }
 
     }
-    componentDidMount = () => {
-        const { items } = this.props;
-        this.setState({ portfolio: items.portfolio },()=>{console.log(this.state.portfolio)});
-    }
+    
     render() {
         const { items } = this.props;
         var arr = items.age.split("/");
@@ -34,7 +31,6 @@ export default class BarberProfile extends Component {
                             <View style={styles.nameContainer}>
                                 <Text style={styles.nameTextStyle} >{items.name}</Text>
                                 <Text style={styles.dateTextStyle} >Age: {totalAge}</Text>
-                                {/* <Text style={styles.dateTextStyle} >{items.tagLine}</Text> */}
                             </View>
                         </View>
                         <View style={styles.buttonContainer}>
@@ -42,7 +38,7 @@ export default class BarberProfile extends Component {
                         </View>
                     </View>
                     <View>
-                        <ExpandView portfolio={(this.state.portfolio)} />
+                        <ExpandView portfolio={(items.portfolio)} />
                     </View>
                 </ScrollView>
             </View>

@@ -52,5 +52,12 @@ export default StyleSheet.create({
     buttonContainer: {
         marginHorizontal: '10%'
     },
-    footerStyle: { flex: 0.2, justifyContent: 'flex-end', paddingBottom: '8%' }
+    footerStyle: { flex: 0.2, justifyContent: 'flex-end', paddingBottom: '8%' },
+    postImage: {
+        width: 100,
+        height: 100,
+        borderColor: '#BBBAB9',
+        borderWidth: 1,
+        resizeMode: 'center'
+    },
 })
