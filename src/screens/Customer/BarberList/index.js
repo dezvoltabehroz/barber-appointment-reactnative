@@ -84,53 +84,7 @@ export default class BarberList extends Component {
                     charges: '$80',
                     estTime: '00:45',
                     photo: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png',
-                    portfolio: [
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                    ],
-                    certifcations: [
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                    ],
-                    services: [
-                        {
-                            serviceName: '',
-                            serviceCost: '',
-                            serviceEstTime: ''
-                        }
-                    ],
+
                     workingDays: [
                         {
                             day: 'Monday'
@@ -152,53 +106,7 @@ export default class BarberList extends Component {
                     charges: '$80',
                     estTime: '00:45',
                     photo: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png',
-                    portfolio: [
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                    ],
-                    certifcations: [
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                    ],
-                    services: [
-                        {
-                            serviceName: '',
-                            serviceCost: '',
-                            serviceEstTime: ''
-                        }
-                    ],
+
                     workingDays: [
                         {
                             day: 'Monday'
@@ -220,53 +128,7 @@ export default class BarberList extends Component {
                     charges: '$80',
                     estTime: '00:45',
                     photo: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png',
-                    portfolio: [
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                    ],
-                    certifcations: [
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                    ],
-                    services: [
-                        {
-                            serviceName: '',
-                            serviceCost: '',
-                            serviceEstTime: ''
-                        }
-                    ],
+
                     workingDays: [
                         {
                             day: 'Monday'
@@ -288,53 +150,7 @@ export default class BarberList extends Component {
                     photo: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png',
                     charges: '$80',
                     estTime: '00:45',
-                    portfolio: [
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                    ],
-                    certifcations: [
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                    ],
-                    services: [
-                        {
-                            serviceName: '',
-                            serviceCost: '',
-                            serviceEstTime: ''
-                        }
-                    ],
+
                     workingDays: [
                         {
                             day: 'Monday'
@@ -364,20 +180,12 @@ export default class BarberList extends Component {
 
     _renderItems = (item) => {
         const { onPress } = this.props;
+        var arr = item.age.split("/");
+        const birthDate = new Date(arr[2], arr[1], arr[0]);
+        const difference = Date.now() - birthDate.getTime();
+        const age = new Date(difference);
+        const totalAge = Math.abs(new Date().getFullYear() - age.getUTCFullYear());
 
-        const calculateAge = (dob1) => {
-
-            var today = new Date();
-            var birthDate = new Date(dob1);
-            console.log(birthDate);
-            var age_now = today.getFullYear() - birthDate.getFullYear();
-            var m = today.getMonth() - birthDate.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                age_now--;
-            }
-            console.log(age_now);
-            return age_now;
-        }
         return (
             <>
                 <TouchableOpacity onPress={() => onPress(item)} style={styles.listItemContainer}>
@@ -394,8 +202,8 @@ export default class BarberList extends Component {
                         </View>
                         <View style={styles.nameContainer}>
                             <Text style={styles.nameTextStyle} >{item.name}</Text>
-                            <Text style={styles.dateTextStyle} >Age: {item.age}</Text>
-                            {/* <Text style={styles.dateTextStyle} >Age: {calculateAge(item.age)}</Text> */}
+                            {/* <Text style={styles.dateTextStyle} >Age: {item.age}</Text> */}
+                            <Text style={styles.dateTextStyle} >Age: {totalAge}</Text>
                             <Text style={styles.dateTextStyle} >Est.Time: {item.estTime}</Text>
                             <Text style={styles.dateTextStyle} >Charges: {item.charges}</Text>
                             <View style={{ flexDirection: 'row' }}>
