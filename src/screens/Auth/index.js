@@ -31,7 +31,7 @@ class AuthScreen extends Component {
                             </View>
                             <View style={styles.TextContainer}>
                                 <Text style={styles.headingTextStyle}>Enhance your experience with</Text>
-                                <Text style={styles.babeoTextStyle}>LUXE!</Text>
+                                <Text style={styles.babeoTextStyle}>FLEEK!</Text>
                             </View>
                             <View style={styles.customerAndBarberContainer}>
                                 <TouchableOpacity onPress={onPressCustomer}

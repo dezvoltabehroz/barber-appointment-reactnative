@@ -105,17 +105,15 @@ export default class Home extends Component {
         const { ourAppointment, servicelist } = this.state
         return (
             <>
-                {/* <StatusBar backgroundColor={THEME.PRIMARY_BACKGROUND_COLOR} /> */}
                 <View style={styles.container}>
                     <View style={styles.nameContainer}>
-                        <Text style={styles.appNameTextStyle} >Luxe</Text>
+                        <Text style={styles.appNameTextStyle} >Fleek</Text>
                     </View>
                     <View style={styles.upperListContainer}>
                         <FlatList
                             data={servicelist}
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}
-                            // ItemSeparatorComponent={this._renderSeparator}
                             renderItem={({ item }) => this._renderItems(item)}
                             keyExtractor={item => item} />
                     </View>

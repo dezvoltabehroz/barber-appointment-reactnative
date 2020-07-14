@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import styles from './style';
 import { Avatar } from "react-native-elements";
-import Button from "../../../components/Button";
+
 export default class BarberList extends Component {
     constructor(props) {
         super(props);

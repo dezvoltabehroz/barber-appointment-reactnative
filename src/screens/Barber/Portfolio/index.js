@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, FlatList, Image } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { Button, Icon } from '../../../components'
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
 import ImagePicker from 'react-native-image-crop-picker';
 // import LightBox from "react-native-lightbox";
-// import Image from 'react-native-fast-image';
+import Image from 'react-native-fast-image';
 import ImageView from 'react-native-image-view';
 
 export default class Portfolio extends Component {
