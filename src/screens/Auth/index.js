@@ -14,28 +14,10 @@ class AuthScreen extends Component {
         }
     }
 
-    loginFunction = () => {
-        console.log('inFunction')
-        this.setState({ loading: true });
-        const { onLogin } = this.props
-        if (this.state.email != '' && this.state.password != '') {
-            setTimeout(() => {
-                this.setState({ loading: false });
-                onLogin
-            }, 3000);
-        }
-        else {
-            alert('Incorrect Email or Password');
-        }
-    }
-
+   
     render() {
         const { onPhone, onLogin, onPressCustomer, onPressBarber, customer, barber } = this.props
         const { email, password, isEmailFocus, isPasswordFocus } = this.state;
-        const borderStyle = {
-            borderWidth: 2,
-            borderColor: THEME.PRIMARY_COLOR,
-        }
         return (
             <>
                 <View style={styles.container}>

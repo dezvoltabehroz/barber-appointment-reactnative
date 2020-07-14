@@ -16,10 +16,9 @@ export default StyleSheet.create({
     },
 
     contentContainer: {},
-    nameContainer: { flex: 0.6, flexDirection: 'column' },
-    priceAndTimeContainer: { marginHorizontal: 5 },
-    priceContainer: { flex: 0.2, flexDirection: 'column' },
-    timeContainer: { flex: 0.3, flexDirection: 'column' },
+    nameContainer: { flex: 0.5, flexDirection: 'column', justifyContent: 'center' },
+    priceContainer: { flex: 0.3, flexDirection: 'column', justifyContent: 'center' },
+    timeContainer: { flex: 0.3, width: screenWidth * 0.2, flexDirection: 'column', justifyContent: 'center' },
     headingContainer: { flexDirection: 'row', },
     idTextLabel: {
         color: THEME.COLOR_WHITE,
@@ -28,7 +27,6 @@ export default StyleSheet.create({
     inputContainer: { flexDirection: 'row', justifyContent: 'space-between' },
     textStyle: {
         color: THEME.COLOR_WHITE,
-        // textAlign: 'center',
         fontFamily: 'Poppins-Regular',
         fontSize: THEME.FONT_SIZE_LARGE,
     },
@@ -36,17 +34,15 @@ export default StyleSheet.create({
         color: THEME.COLOR_WHITE,
         textAlign: 'center',
         fontFamily: 'Poppins-Regular',
-        fontSize: THEME.FONT_SIZE_LARGE,
+        fontSize: THEME.FONT_SIZE_MEDIUM,
     },
     headingTextStyle: {
         color: THEME.COLOR_WHITE,
-        // textAlign: 'center',
         fontFamily: 'Poppins-Medium',
         fontSize: THEME.FONT_SIZE_LARGE,
     },
     inputContainerStyle: {
         height: 54,
-        // marginBottom: '4%',
         width: screenWidth * 0.45,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
@@ -55,7 +51,6 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         height: 54,
-        // marginBottom: '4%',
         width: screenWidth * 0.3,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
@@ -63,7 +58,6 @@ export default StyleSheet.create({
     dateContainer: {
         backgroundColor: THEME.COLOR_WHITE,
         borderRadius: 5,
-        // marginVertical: '4%',
         marginHorizontal: '10%',
         justifyContent: 'center',
         alignItems: "center",
@@ -96,7 +90,28 @@ export default StyleSheet.create({
         height: 15
     },
     buttonContainer: {
-        marginHorizontal: '10%'
+        marginHorizontal: '10%',
+    },
+    modalContainer: {
+        height: screenHeight,
+        justifyContent: "center",
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
+    },
+    modalUpperContainer: {
+        flexDirection: 'row',
+        justifyContent: "space-evenly",
+        alignItems: 'center',
+        marginHorizontal: "10%"
+    },
+    modalInput: {
+        flex: 1,
+        justifyContent: "center"
+    },
+    modalText: {
+        color: THEME.COLOR_WHITE,
+        textAlign: 'center',
+        fontFamily: 'Poppins-Medium',
+        fontSize: THEME.FONT_SIZE_LARGE,
     },
     footerStyle: { flex: 0.2, justifyContent: 'flex-end', paddingBottom: '8%' }
 

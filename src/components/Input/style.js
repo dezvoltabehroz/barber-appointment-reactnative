@@ -1,25 +1,22 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import THEME from '../../assets/styles/theme.style';
-
+const screenWidth = Dimensions.get('window').width;
 export default StyleSheet.create({
     containerStyle: {
         height: 70,
-        // width:'10%'
     },
     inputContainerStyle: {
         height: 54,
-        width:'100%',
+        width: '100%',
         borderBottomWidth: 0,
-        // marginVertical: 3,
         backgroundColor: '#FFFFFF',
         borderRadius: 5,
-        // elevation: 2,
-        // marginHorizontal: 15
     },
     inputStyle: {
         flex: 1,
-        marginLeft: 10,
-        fontSize: 12,
+        textAlign: 'center',
+        // marginLeft: 10,
+        fontSize: THEME.FONT_SIZE_XLARGE,
         fontFamily: 'Poppins-Regular',
         color: THEME.INPUT_PRIMARY_TEXT_COLOR,
     },

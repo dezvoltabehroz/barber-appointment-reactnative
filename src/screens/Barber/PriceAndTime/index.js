@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, Platform } from 'react-native';
-import { Button, FloatingInput, DateTime } from '../../../components';
+import { View, Text, FlatList, Platform, Modal } from 'react-native';
+import { Button, FloatingInput, DateTime, Icon } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
-import Modal from 'react-native-modal';
+import Input from '../../../components/Input';
+// import Modal from 'react-native-modal';
 
+var indexValue;
 
 export default class PriceAndTime extends Component {
 
@@ -12,13 +14,57 @@ export default class PriceAndTime extends Component {
         super(props);
         this.state = {
             selectedArray: [],
-            price: [], time: [], showTimePicker: false,
-            isTime: false, val: ''
+            price: [],
+            time: [],
+            showTimePicker: false,
+            isTime: false,
+            val: '',
+            hours: '',
+            minutes: '',
+            indexValue: null,
+            item: null
         }
+
     }
     componentDidMount = () => {
         this.setState({ selectedArray: this.props.data })
     }
+
+
+    setTime = (index, item) => {
+        this.setState({ showTimePicker: true, indexValue: index, item: item })
+    }
+    handleMinutes = (val) => {
+        if (val < 60) {
+            this.setState({ minutes: val })
+        }
+        else {
+            alert(`Invalid Minutes ${val} `)
+        }
+    }
+    handleHours = (val) => {
+        if (val <= 12) {
+            this.setState({ hours: val })
+
+        }
+        else {
+            alert(`Invalid Hours ${val} `)
+        }
+
+    }
+
+    setTimeChange = () => {
+        const { time, hours, minutes, indexValue, item } = this.state;
+        var timeValue = hours == '00' || hours == '' || hours == '0' ? '' : hours + ' hr ';
+        timeValue += minutes == '' || minutes == '0' || minutes == '00' ? '' : minutes + " min"
+        time[indexValue] = timeValue;
+        const objIndex = this.state.selectedArray.findIndex((obj => obj.id == item.id));
+        let items = [...this.state.selectedArray];
+        items[objIndex] = { ...items[objIndex], time: time[indexValue] };
+        this.setState({ showTimePicker: false, selectedArray: items, hours: '', minutes: '', indexValue: null, item: null });
+    }
+
+
     addPrice = ({ index, item }) => {
         const { price, val } = this.state;
         const priceValue = val;
@@ -85,51 +131,8 @@ export default class PriceAndTime extends Component {
                                 } : {}]}>
                                     <FloatingInput
                                         val={time[index]}
-                                        onActive={() => this.setState({ showTimePicker: true })}
+                                        onActive={() => this.setTime(index, item)}
                                         label='Time' />
-
-                                    {Platform.OS == 'ios' ?
-                                        <Modal isVisible={showTimePicker}>
-                                            <View style={{ height: 300, width: 300, backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR }} >
-                                                <DateTime
-                                                    onChangeDate={(event, selectedDate) => {
-                                                        var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());
-                                                        timeValue += ":";
-                                                        timeValue += selectedDate.getMinutes() < 10 ? ('0' + selectedDate.getMinutes()) : (JSON.stringify(selectedDate.getMinutes()));
-                                                        // this.setState({ showTimePicker: false });
-                                                        time[index] = timeValue;
-                                                        console.log(time[index])
-                                                        this.setState({ time });
-                                                        const objIndex = this.state.selectedArray.findIndex((obj => obj.id == item.id));
-                                                        let items = [...this.state.selectedArray];
-                                                        items[objIndex] = { ...items[objIndex], time: time[index] };
-                                                        this.setState({ selectedArray: items });
-                                                    }}
-                                                />
-                                            </View>
-                                            <View style={styles.buttonContainer}>
-                                                <Button title='Save' onPress={() => this.setState({ showTimePicker: false })} />
-                                            </View>
-                                        </Modal>
-                                        :
-                                        showTimePicker ?
-                                            <DateTime
-                                                onChangeDate={(event, selectedDate) => {
-                                                    var timeValue = selectedDate.getHours() < 10 ? ('0' + selectedDate.getHours()) : (selectedDate.getHours());
-                                                    timeValue += ":";
-                                                    timeValue += selectedDate.getMinutes() < 10 ? ('0' + selectedDate.getMinutes()) : (JSON.stringify(selectedDate.getMinutes()));
-                                                    this.setState({ showTimePicker: false });
-                                                    time[index] = timeValue;
-                                                    console.log(time[index])
-                                                    this.setState({ time });
-                                                    const objIndex = this.state.selectedArray.findIndex((obj => obj.id == item.id));
-                                                    let items = [...this.state.selectedArray];
-                                                    items[objIndex] = { ...items[objIndex], time: time[index] };
-                                                    this.setState({ selectedArray: items });
-                                                }}
-                                            />
-                                            :
-                                            null}
                                 </View>
                             </> : null}
                     </View>
@@ -144,7 +147,7 @@ export default class PriceAndTime extends Component {
 
     render() {
         const { onNext } = this.props;
-        const { selectedArray } = this.state;
+        const { selectedArray, showTimePicker, hours, minutes, val } = this.state;
         return (
             <>
                 <View style={styles.container}>
@@ -177,7 +180,38 @@ export default class PriceAndTime extends Component {
                         </View>
                     </View>
                 </View>
+                <Modal visible={showTimePicker} onRequestClose={() => this.setState({ showTimePicker: false })} >
+                    <View style={styles.modalContainer} >
+                        <View style={styles.modalUpperContainer}>
+                            <View style={styles.modalInput}>
+                                <Input
+                                    value={hours}
+                                    maxLength={2}
+                                    keyboardType="numeric"
+                                    onChangeText={(val) => this.handleHours(val)}
+                                />
+                                <Text style={styles.modalText}>HH</Text>
+                            </View>
+                            <View style={{ bottom: 20, }}>
+                                <Icon.Entypo name="dots-two-vertical" color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
 
+                            </View>
+                            <View style={styles.modalInput}>
+                                <Input
+                                    value={minutes}
+                                    maxLength={2}
+                                    keyboardType="numeric"
+                                    onChangeText={(val) => this.handleMinutes(val)}
+                                />
+                                <Text style={styles.modalText}>MM</Text>
+                            </View>
+                        </View>
+                        <View style={styles.buttonContainer}>
+                            <Button title='Set' onPress={this.setTimeChange} />
+                            <Button title='Cancel' onPress={() => this.setState({ showTimePicker: false })} />
+                        </View>
+                    </View>
+                </Modal>
             </>
         );
     }

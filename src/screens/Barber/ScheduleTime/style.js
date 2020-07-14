@@ -76,6 +76,27 @@ export default StyleSheet.create({
     seperatorStyle: {
         height: 15,
     },
+    modalContainer: {
+        height: screenHeight,
+        justifyContent: "center",
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
+    },
+    modalUpperContainer: {
+        flexDirection: 'row',
+        justifyContent: "space-evenly",
+        alignItems: 'center',
+        marginHorizontal: "10%"
+    },
+    modalInput: {
+        flex: 1,
+        justifyContent: "center"
+    },
+    modalText: {
+        color: THEME.COLOR_WHITE,
+        textAlign: 'center',
+        fontFamily: 'Poppins-Medium',
+        fontSize: THEME.FONT_SIZE_LARGE,
+    },
 
     // FOoter StylEs
     lineStyle: {
