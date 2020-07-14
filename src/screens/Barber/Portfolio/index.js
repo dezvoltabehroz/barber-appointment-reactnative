@@ -24,19 +24,13 @@ export default class Portfolio extends Component {
             compressImageMaxWidth: 400, cropping: true, multiple: true
         })
             .then(response => {
-                let tempArray = []
-                // console.log("responseimage-------" + JSON.stringify(response))
-                // this.setState({ ImageSource: response })
-                // console.log("responseimagearray" + this.state.ImageSource)
+                let tempArray = this.state.portfolioImagesArray;
                 response.forEach((item) => {
-                    // console.log(item)
                     let image = {
                         uri: `${item.path}`,
                     }
-                    // console.log("imagpath==========" + image)
                     tempArray.push(image)
                     this.setState({ portfolioImagesArray: tempArray })
-                    // console.log("imagpath==========" + image)
                 })
             })
     };
