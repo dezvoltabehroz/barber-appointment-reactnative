@@ -26,12 +26,20 @@ export default class AuthScreen extends Component {
                 navigate('Customer');
             }
             else {
-                alert('Incorrect Email or Password');
+                alert('Incorrect Username or Password');
                 this.setState({loading:false})
             }
         }
         else {
-            // navigate('')
+            this.setState({loading:true})
+            if (email != '' && password != '') {
+                this.setState({loading:false})
+                // navigate('Customer');
+            }
+            else {
+                alert('Incorrect Username or Password');
+                this.setState({loading:false})
+            }
         }
     }
 
