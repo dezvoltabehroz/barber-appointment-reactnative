@@ -83,7 +83,7 @@ export default class BarberList extends Component {
                         {
                             image_url: 'https://content3.jdmagicbox.com/comp/goa/x7/0832px832.x832.181210164520.c7x7/catalogue/max-hair-cutting-salon-zuarinagar-goa-salons-s4tj5qnjqs.jpg'
                         },
-                       
+
                     ],
                     workingDays: [
                         {
@@ -221,7 +221,7 @@ export default class BarberList extends Component {
 
 
     _renderItems = (item) => {
-        const { onPress } = this.props;
+        const { onPress, bookNow } = this.props;
         var arr = item.age.split("/");
         const birthDate = new Date(arr[2], arr[1], arr[0]);
         const difference = Date.now() - birthDate.getTime();
@@ -235,7 +235,7 @@ export default class BarberList extends Component {
                         <View style={styles.avatarContainer}>
                             <Avatar source={{ uri: item.photo }} size={70} />
                             <View style={{ paddingVertical: '5%' }} >
-                                <TouchableOpacity style={styles.buttonStyle}>
+                                <TouchableOpacity onPress={bookNow} style={styles.buttonStyle}>
                                     <Text style={{ marginHorizontal: '10%', color: '#fff', fontFamily: 'Poppins-Medium' }}>
                                         Book Now
                                 </Text>

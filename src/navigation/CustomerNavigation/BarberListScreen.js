@@ -11,7 +11,7 @@ export default class BarberListScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Customer.BarberList onPress={(data) => navigate('BarberProfile',{data})} />
+            <MainScreenPaths.Customer.BarberList bookNow={()=>navigate('Auth')} onPress={(data) => navigate('BarberProfile',{data})} />
         )
     }
 }

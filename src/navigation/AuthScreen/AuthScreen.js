@@ -4,25 +4,44 @@ import React, { Component } from 'react'
 import { MainScreenPaths } from '../../screens';
 
 export default class AuthScreen extends Component {
-    static navigationOptions = ({ navigation }) => ({
+    // static navigationOptions = ({ navigation }) => ({
 
-    })
+    // })
     constructor(props) {
         super(props);
         this.state = {
             customer: true,
-            barber: false
+            barber: false, loading: false
         }
     }
-    render() {
+
+    loginFunction = (email, password) => {
         const { navigate, goBack } = this.props.navigation
         const { customer, barber } = this.state;
+
+        if (customer) {
+            this.setState({loading:true})
+            if (email != '' && password != '') {
+                this.setState({loading:false})
+                navigate('Customer');
+            }
+            else {
+                alert('Incorrect Email or Password');
+                this.setState({loading:false})
+            }
+        }
+        else {
+            navigate('Barber')
+        }
+    }
+
+    render() {
+        const { navigate, goBack } = this.props.navigation
+        const { customer, barber, loading } = this.state;
         return (
             <MainScreenPaths.Auth
-                onLogin={() => customer ?
-                    navigate('Customer')
-                    :
-                    navigate('Barber')}
+                loading={loading}
+                onLogin={(email, password) => this.loginFunction(email, password)}
                 onPhone={() => customer ?
                     navigate('Customer', { screen: 'PhoneNumber' })
                     :

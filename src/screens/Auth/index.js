@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, Image, TouchableOpacity, ScrollView, Alert } from 'react-native'
 import { Icon, Button, FloatingInput } from "../../components";
 import styles from './style';
 import THEME from '../../assets/styles/theme.style';
@@ -8,10 +8,27 @@ class AuthScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            customer: true,
-            barber: false, email: '', password: '', isEmailFocus: null, isPasswordFocus: null
+            email: '', password: '', loading: false,
+            isEmailFocus: null,
+            isPasswordFocus: null
         }
     }
+
+    loginFunction = () => {
+        console.log('inFunction')
+        this.setState({ loading: true });
+        const { onLogin } = this.props
+        if (this.state.email != '' && this.state.password != '') {
+            setTimeout(() => {
+                this.setState({ loading: false });
+                onLogin
+            }, 3000);
+        }
+        else {
+            alert('Incorrect Email or Password');
+        }
+    }
+
     render() {
         const { onPhone, onLogin, onPressCustomer, onPressBarber, customer, barber } = this.props
         const { email, password, isEmailFocus, isPasswordFocus } = this.state;
@@ -85,9 +102,9 @@ class AuthScreen extends Component {
                                         onActive={() => this.setState({ isPasswordFocus: true })}
                                         onInActive={() => this.setState({ isPasswordFocus: false })}
                                         secureEntry={true}
-                                        updateText={(password) => this.setState({ password }, () => { console.log(password) })} />
+                                        updateText={(password) => this.setState({ password })} />
                                 </View>
-                                <Button title="Login" onPress={onLogin} />
+                                <Button title="Login" loading={this.props.loading} onPress={() => onLogin(this.state.email, this.state.password)} />
                             </View>
                         </View>
                         <View style={styles.lowerContainer}>
@@ -138,7 +155,7 @@ class AuthScreen extends Component {
                             </TouchableOpacity>
 
                             <View style={styles.continueContainer}>
-                                <TouchableOpacity style={styles.continueContainerStyle} >
+                                <TouchableOpacity onPress={onLogin} style={styles.continueContainerStyle} >
                                     <Text style={styles.continueWithoutTextStyle}>Continue without Sign in </Text>
                                     <Icon.AntDesign
                                         name="arrowright"

@@ -13,7 +13,7 @@ export default class BarberProfile extends Component {
     }
     
     render() {
-        const { items } = this.props;
+        const { items ,bookNow} = this.props;
         var arr = items.age.split("/");
         const birthDate = new Date(arr[2], arr[1], arr[0]);
         const difference = Date.now() - birthDate.getTime();
@@ -33,7 +33,7 @@ export default class BarberProfile extends Component {
                             </View>
                         </View>
                         <View style={styles.buttonContainer}>
-                            <Button title='Book Now' />
+                            <Button title='Book Now' onPress={bookNow} />
                         </View>
                     </View>
                     <View>
