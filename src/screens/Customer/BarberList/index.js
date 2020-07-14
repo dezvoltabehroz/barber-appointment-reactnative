@@ -33,23 +33,14 @@ export default class BarberList extends Component {
                     ],
                     certifcations: [
                         {
-                            images: ''
+                            image_url: 'https://www.diplomasandmore.com/images/Bar1.jpg'
                         },
                         {
-                            images: ''
+                            image_url: 'https://americanbarber.org/AIPB/wp-content/uploads/2019/12/aba-award-template-barber-apprentice.jpg'
                         },
                         {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
-                        {
-                            images: ''
-                        },
+                            image_url: 'https://image.slidesharecdn.com/268e137c-9c59-482c-9e5e-962a4ae9f040-161006162544/95/barber-gmd-staff-course-certificate-1-638.jpg?cb=1475771188'
+                        }
                     ],
                     services: [
                         {

@@ -8,7 +8,6 @@ export default class BarberProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            portfolio: [],
         }
 
     }
@@ -38,7 +37,7 @@ export default class BarberProfile extends Component {
                         </View>
                     </View>
                     <View>
-                        <ExpandView portfolio={(items.portfolio)} />
+                        <ExpandView portfolio={(items.portfolio)} certification={(items.certifcations)} />
                     </View>
                 </ScrollView>
             </View>
