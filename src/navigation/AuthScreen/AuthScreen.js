@@ -31,7 +31,7 @@ export default class AuthScreen extends Component {
             }
         }
         else {
-            navigate('')
+            // navigate('')
         }
     }
 
