@@ -62,11 +62,11 @@ export default class ScheduleTime extends Component {
         const { val, startTime, endTime, hours, minutes, indexValue, item } = this.state;
         if (val == '1') {
             var timeValue = hours == '00' || hours == '' || hours == '0' ? '00' : hours;
-            timeValue += minutes == '' || minutes == '0' || minutes == '00' ? '' + ' AM ' : minutes + ' AM '
+            timeValue += minutes == '' || minutes == '0' || minutes == '00' ? '' + ' AM ' : ":" + minutes + ' AM '
         }
         else {
             var timeValue = hours == '00' || hours == '' || hours == '0' ? '' : hours;
-            timeValue += minutes == '' || minutes == '0' || minutes == '00' ? '' + ' PM ' : minutes + ' PM '
+            timeValue += minutes == '' || minutes == '0' || minutes == '00' ? '' + ' PM ' : ":" + minutes + ' PM '
         }
         if (val == '1') { startTime[indexValue] = timeValue; }
         else { endTime[indexValue] = timeValue; }
