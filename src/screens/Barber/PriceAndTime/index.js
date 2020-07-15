@@ -55,6 +55,8 @@ export default class PriceAndTime extends Component {
 
     setTimeChange = (data) => {
         const { time, hours, minutes, indexValue, item } = this.state;
+        // this.setState({ time[]: data })
+        console.log(data);
         var timeValue = hours == '00' || hours == '' || hours == '0' ? '' : hours + ' hr ';
         timeValue += minutes == '' || minutes == '0' || minutes == '00' ? '' : minutes + " min"
         time[indexValue] = timeValue;
@@ -181,7 +183,7 @@ export default class PriceAndTime extends Component {
                 </View>
                 <DateTimeModal showTimePicker={showTimePicker}
                     onCancel={() => this.setState({ showTimePicker: false })}
-                    onSet={(time) => console.log(time)} />
+                    onSet={(time) => {console.log(time)}} />
             </>
         );
     }

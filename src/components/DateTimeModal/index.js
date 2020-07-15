@@ -3,7 +3,8 @@ import { View, Text, Modal } from 'react-native';
 import { Button, Input, Icon } from '../index';
 import styles from './style';
 import THEME from '../../assets/styles/theme.style';
-import { Value } from 'react-native-reanimated';
+
+var timeValue = null;
 
 export default class DateTimeModal extends Component {
 
@@ -15,12 +16,8 @@ export default class DateTimeModal extends Component {
             React.createRef(),
             React.createRef()
         ]
-        this.num = React.createRef();
-        this.num2 = React.createRef();
-        this.num3 = React.createRef();
-        this.num4 = React.createRef();
         this.state = {
-            time: []
+            time: ''
         }
         this.handleKeyPress = this.handleKeyPress.bind(this);
     }
@@ -40,29 +37,32 @@ export default class DateTimeModal extends Component {
         }
     }
 
-    handleChangeText = (value, index) => {
-        let timeValue = [];
-        timeValue.push(value);
+    handleChangeText = (value) => {
+        timeValue += value;
         this.setState({ time: timeValue });
-
     }
 
     render() {
         const { showTimePicker, onCancel, onSet } = this.props;
+        const { time } = this.state;
         return (
             <>
                 <Modal visible={showTimePicker} >
                     <View style={styles.modalContainer} >
+                        < View style={{position:'relative',top:40, alignItems: 'center' }}>
+                            <Icon.Entypo name="dots-two-vertical" color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
+                        </View>
                         <View style={styles.modalUpperContainer}>
                             {
                                 this.inputRefs.map((k, idx) => (
                                     <View style={styles.modalInput}>
                                         <Input
                                             inputRef={ref => this.inputRefs[idx] = ref}
+                                            // value={time[idx]}
                                             maxLength={1}
                                             keyboardType="numeric"
                                             blurOnSubmit={true}
-                                            onChange={val => this.handleChangeText(val, idx)}
+                                            onChange={val => this.handleChangeText(val)}
                                             onKeyPress={({ nativeEvent: { key: keyValue } }) => this.handleKeyPress(keyValue, idx)}
 
                                         />
@@ -76,11 +76,11 @@ export default class DateTimeModal extends Component {
                                 ))
                             }
                         </View>
-                        < View style={{ bottom: 85, justifyContent: 'center', alignItems: 'center' }}>
+                        {/* < View style={{ justifyContent: 'center', alignItems: 'center' }}>
                             <Icon.Entypo name="dots-two-vertical" color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
-                        </View>
+                        </View> */}
                         <View style={styles.buttonContainer}>
-                            <Button title='Set' onPress={onSet} />
+                            <Button title='Set' onPress={() => onSet(time)} />
                             <Button title='Cancel' onPress={onCancel} />
                         </View>
                     </View>
