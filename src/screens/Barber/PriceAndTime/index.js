@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, Platform, Modal } from 'react-native';
+import { View, Text, FlatList, TextInput, Modal } from 'react-native';
 import { Button, FloatingInput, DateTime, Icon } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
 import Input from '../../../components/Input';
 // import Modal from 'react-native-modal';
 
-var indexValue;
 
 export default class PriceAndTime extends Component {
 
     constructor(props) {
         super(props);
+
+        this.num2 = React.createRef();
+        this.num3 = React.createRef();
+        this.num4 = React.createRef();
         this.state = {
             selectedArray: [],
             price: [],
@@ -22,9 +25,8 @@ export default class PriceAndTime extends Component {
             hours: '',
             minutes: '',
             indexValue: null,
-            item: null
+            item: null,
         }
-
     }
     componentDidMount = () => {
         this.setState({ selectedArray: this.props.data })
@@ -143,11 +145,10 @@ export default class PriceAndTime extends Component {
         )
     }
 
-
-
     render() {
         const { onNext } = this.props;
         const { selectedArray, showTimePicker, hours, minutes, val } = this.state;
+
         return (
             <>
                 <View style={styles.container}>
@@ -185,27 +186,47 @@ export default class PriceAndTime extends Component {
                         <View style={styles.modalUpperContainer}>
                             <View style={styles.modalInput}>
                                 <Input
-                                    value={hours}
-                                    maxLength={2}
+                                    maxLength={1}
                                     keyboardType="numeric"
-                                    onChangeText={(val) => this.handleHours(val)}
+                                    autoFocus={true}
+                                    blurOnSubmit={false}
+                                    onChange={() => this.num2.focus()}
                                 />
-                                <Text style={styles.modalText}>HH</Text>
-                            </View>
-                            <View style={{ bottom: 20, }}>
-                                <Icon.Entypo name="dots-two-vertical" color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
-
+                                <Text style={styles.modalText}>H</Text>
                             </View>
                             <View style={styles.modalInput}>
                                 <Input
-                                    value={minutes}
-                                    maxLength={2}
+                                    inputRef={ref => this.num2 = ref}
+                                    maxLength={1}
                                     keyboardType="numeric"
-                                    onChangeText={(val) => this.handleMinutes(val)}
+                                    onChange={() => this.num3.focus()}
                                 />
-                                <Text style={styles.modalText}>MM</Text>
+                                <Text style={styles.modalText}>H</Text>
+                            </View>
+
+                            < View style={{ bottom: 20, }}>
+                                <Icon.Entypo name="dots-two-vertical" color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
+                            </View>
+                            <View style={styles.modalInput}>
+                                <Input
+                                    inputRef={ref => this.num3 = ref}
+                                    maxLength={1}
+                                    keyboardType="numeric"
+                                    onChange={() => this.num4.focus()}
+                                />
+                                <Text style={styles.modalText}>M</Text>
+                            </View>
+                            <View style={styles.modalInput}>
+                                <Input
+                                    inputRef={ref => this.num4 = ref}
+                                    maxLength={1}
+                                    keyboardType="numeric"
+                                    onChange={(val) => { }}
+                                />
+                                <Text style={styles.modalText}>M</Text>
                             </View>
                         </View>
+
                         <View style={styles.buttonContainer}>
                             <Button title='Set' onPress={this.setTimeChange} />
                             <Button title='Cancel' onPress={() => this.setState({ showTimePicker: false })} />
