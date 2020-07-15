@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, } from 'react-native';
-import { Button, FloatingInput, Input, Icon } from '../../../components';
+import { Button, FloatingInput, DateTimeModal } from '../../../components';
 import styles from './style';
-import Modal from "react-native-modal";
 import THEME from '../../../assets/styles/theme.style';
 
 export default class ScheduleTime extends Component {
@@ -189,57 +188,7 @@ export default class ScheduleTime extends Component {
                         </View>
                     </View>
                 </View>
-                <Modal visible={showTimePicker} onRequestClose={() => this.setState({ showTimePicker: false })} >
-                    <View style={styles.modalContainer} >
-                        <View style={styles.modalUpperContainer}>
-                            <View style={styles.modalInput}>
-                                <Input
-                                    maxLength={1}
-                                    keyboardType="numeric"
-                                    autoFocus={true}
-                                    blurOnSubmit={false}
-                                    onChange={() => this.num2.focus()}
-                                />
-                                <Text style={styles.modalText}>H</Text>
-                            </View>
-                            <View style={styles.modalInput}>
-                                <Input
-                                    inputRef={ref => this.num2 = ref}
-                                    maxLength={1}
-                                    keyboardType="numeric"
-                                    onChange={() => this.num3.focus()}
-                                />
-                                <Text style={styles.modalText}>H</Text>
-                            </View>
-
-                            < View style={{ bottom: 20, }}>
-                                <Icon.Entypo name="dots-two-vertical" color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
-                            </View>
-                            <View style={styles.modalInput}>
-                                <Input
-                                    inputRef={ref => this.num3 = ref}
-                                    maxLength={1}
-                                    keyboardType="numeric"
-                                    onChange={() => this.num4.focus()}
-                                />
-                                <Text style={styles.modalText}>M</Text>
-                            </View>
-                            <View style={styles.modalInput}>
-                                <Input
-                                    inputRef={ref => this.num4 = ref}
-                                    maxLength={1}
-                                    keyboardType="numeric"
-                                    onChange={(val) => { }}
-                                />
-                                <Text style={styles.modalText}>M</Text>
-                            </View>
-                        </View>
-                        <View style={styles.buttonContainer}>
-                            <Button title='Set' onPress={this.setTimeChange} />
-                            <Button title='Cancel' onPress={() => this.setState({ showTimePicker: false })} />
-                        </View>
-                    </View>
-                </Modal>
+                <DateTimeModal showTimePicker={showTimePicker} onCancel={() => this.setState({ showTimePicker: false })} />
             </>
         );
     }

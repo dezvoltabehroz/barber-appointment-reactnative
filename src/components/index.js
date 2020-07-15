@@ -23,6 +23,8 @@ export const PhoneInput = _PhoneInput;
 
 import _DateTime from './DatePicker';
 export const DateTime = _DateTime;
+import _DateTimeModal from './DateTimeModal';
+export const DateTimeModal = _DateTimeModal;
 
 import _ExpandView from './ExpandView';
 export const ExpandView = _ExpandView;

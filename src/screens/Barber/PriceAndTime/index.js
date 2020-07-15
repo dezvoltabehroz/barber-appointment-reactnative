@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TextInput, Modal } from 'react-native';
-import { Button, FloatingInput, DateTime, Icon } from '../../../components';
+import { View, Text, FlatList, } from 'react-native';
+import { Button, FloatingInput, DateTimeModal, } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
-import Input from '../../../components/Input';
-// import Modal from 'react-native-modal';
 
 
 export default class PriceAndTime extends Component {
@@ -55,7 +53,7 @@ export default class PriceAndTime extends Component {
 
     }
 
-    setTimeChange = () => {
+    setTimeChange = (data) => {
         const { time, hours, minutes, indexValue, item } = this.state;
         var timeValue = hours == '00' || hours == '' || hours == '0' ? '' : hours + ' hr ';
         timeValue += minutes == '' || minutes == '0' || minutes == '00' ? '' : minutes + " min"
@@ -181,58 +179,9 @@ export default class PriceAndTime extends Component {
                         </View>
                     </View>
                 </View>
-                <Modal visible={showTimePicker} onRequestClose={() => this.setState({ showTimePicker: false })} >
-                    <View style={styles.modalContainer} >
-                        <View style={styles.modalUpperContainer}>
-                            <View style={styles.modalInput}>
-                                <Input
-                                    maxLength={1}
-                                    keyboardType="numeric"
-                                    autoFocus={true}
-                                    blurOnSubmit={false}
-                                    onChange={() => this.num2.focus()}
-                                />
-                                <Text style={styles.modalText}>H</Text>
-                            </View>
-                            <View style={styles.modalInput}>
-                                <Input
-                                    inputRef={ref => this.num2 = ref}
-                                    maxLength={1}
-                                    keyboardType="numeric"
-                                    onChange={() => this.num3.focus()}
-                                />
-                                <Text style={styles.modalText}>H</Text>
-                            </View>
-
-                            < View style={{ bottom: 20, }}>
-                                <Icon.Entypo name="dots-two-vertical" color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
-                            </View>
-                            <View style={styles.modalInput}>
-                                <Input
-                                    inputRef={ref => this.num3 = ref}
-                                    maxLength={1}
-                                    keyboardType="numeric"
-                                    onChange={() => this.num4.focus()}
-                                />
-                                <Text style={styles.modalText}>M</Text>
-                            </View>
-                            <View style={styles.modalInput}>
-                                <Input
-                                    inputRef={ref => this.num4 = ref}
-                                    maxLength={1}
-                                    keyboardType="numeric"
-                                    onChange={(val) => { }}
-                                />
-                                <Text style={styles.modalText}>M</Text>
-                            </View>
-                        </View>
-
-                        <View style={styles.buttonContainer}>
-                            <Button title='Set' onPress={this.setTimeChange} />
-                            <Button title='Cancel' onPress={() => this.setState({ showTimePicker: false })} />
-                        </View>
-                    </View>
-                </Modal>
+                <DateTimeModal showTimePicker={showTimePicker}
+                    onCancel={() => this.setState({ showTimePicker: false })}
+                    onSet={(time) => console.log(time)} />
             </>
         );
     }
