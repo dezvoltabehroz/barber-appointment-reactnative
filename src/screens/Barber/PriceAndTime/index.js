@@ -71,8 +71,6 @@ export default class PriceAndTime extends Component {
         let items = [...this.state.selectedArray];
         items[objIndex] = { ...items[objIndex], price: price[index] };
         this.setState({ selectedArray: items });
-        this.setState({ price });
-
     }
 
     _renderSeparator = () => {
@@ -84,60 +82,54 @@ export default class PriceAndTime extends Component {
     _renderItems = ({ item, index }) => {
         const { price, time, showTimePicker, } = this.state;
         return (
-            <>
-                <View style={styles.contentContainer}>
-
-                    <View style={{ flexDirection: 'row', justifyContent: "space-between" }}>
-                        <View style={styles.nameContainer}>
-                            <Text style={styles.textStyle}>{item.serviceName}</Text>
-                        </View>
-                        <View style={styles.priceContainer} >
-                            {item.price != '' ?
-                                <View style={styles.priceAndTimeContainer}>
-                                    <Text style={styles.textStyle}>{item.price}</Text>
-                                </View>
-                                : null
-                            }
-                        </View>
-                        <View style={styles.timeContainer}>
-                            {item.time != '' ?
-                                <View style={styles.priceAndTimeContainer}>
-                                    <Text style={styles.timeTextStyle}>{item.time}</Text>
-                                </View>
-                                : null
-                            }
-                        </View>
+            <View style={styles.contentContainer}>
+                <View style={{ flexDirection: 'row', justifyContent: "space-between" }}>
+                    <View style={styles.nameContainer}>
+                        <Text style={styles.textStyle}>{item.serviceName}</Text>
                     </View>
-
-                    <View style={styles.inputContainer}>
-                        {item.price == '' ?
-                            <View style={[styles.inputContainerStyle, price[index] == null ? {
+                    <View style={styles.priceContainer} >
+                        {item.price != '' ?
+                            <View style={styles.priceAndTimeContainer}>
+                                <Text style={styles.textStyle}>{item.price}</Text>
+                            </View>
+                            : null
+                        }
+                    </View>
+                    <View style={styles.timeContainer}>
+                        {item.time != '' ?
+                            <View style={styles.priceAndTimeContainer}>
+                                <Text style={styles.timeTextStyle}>{item.time}</Text>
+                            </View>
+                            : null
+                        }
+                    </View>
+                </View>
+                <View style={styles.inputContainer}>
+                    {item.price == '' ?
+                        <View style={[styles.inputContainerStyle, price[index] == null ? {
+                            borderWidth: 2,
+                            borderColor: THEME.PRIMARY_COLOR,
+                        } : {}]}>
+                            <FloatingInput
+                                val={price[index]}
+                                keyboardtype="number-pad"
+                                onInActive={() => this.addPrice({ item, index })}
+                                label='Price' updateText={(val) => this.setState({ val })} />
+                        </View> : null}
+                    {item.time == '' ?
+                        <>
+                            <View style={[styles.inputDateContainerStyle, time[index] == null ? {
                                 borderWidth: 2,
                                 borderColor: THEME.PRIMARY_COLOR,
                             } : {}]}>
                                 <FloatingInput
-                                    val={price[index]}
-                                    keyboardtype="number-pad"
-                                    onInActive={() => this.addPrice({ item, index })}
-                                    label='Price' updateText={(val) => this.setState({ val })} />
-                            </View> : null}
-                        {item.time == '' ?
-                            <>
-                                <View style={[styles.inputDateContainerStyle, time[index] == null ? {
-                                    borderWidth: 2,
-                                    borderColor: THEME.PRIMARY_COLOR,
-                                } : {}]}>
-                                    <FloatingInput
-                                        val={time[index]}
-                                        onActive={() => this.setTime(index, item)}
-                                        label='Time' />
-                                </View>
-                            </> : null}
-                    </View>
-
-
+                                    val={time[index]}
+                                    onActive={() => this.setTime(index, item)}
+                                    label='Time' />
+                            </View>
+                        </> : null}
                 </View>
-            </>
+            </View>
         )
     }
 
