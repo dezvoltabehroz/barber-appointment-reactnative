@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, Modal } from 'react-native';
+import { View, Text, Modal, TouchableOpacity } from 'react-native';
 import { Button, Input, Icon } from '../index';
 import styles from './style';
 import THEME from '../../assets/styles/theme.style';
 
-var timeValue = [];
 
 export default class DateTimeModal extends Component {
 
@@ -19,6 +18,8 @@ export default class DateTimeModal extends Component {
         this.state = {
             time: [],
             timeStr: '',
+            am: true,
+            pm: false
         }
         this.handleKeyPress = this.handleKeyPress.bind(this);
     }
@@ -58,32 +59,44 @@ export default class DateTimeModal extends Component {
             }
         }
         if (str[2] != "undefined") {
-            if (str[2] > 6) {
-                alert("Invalid Minutes")
+            if (str[2] > 5) {
+                alert("Invalid Minutes,")
             } else {
                 timeStr = str[0] + str[1] + ":" + str[2] + str[3];
+
             }
         }
-        // var timeStr = str[0] + str[1] + ':' + str[2] + str[3];
-        console.log(timeStr);
         this.setState({ timeStr });
     }
 
     handleSet = () => {
-        const { onSet } = this.props;
-        const { timeStr } = this.state;
+        const { onSet, dayNight } = this.props;
+        const { timeStr, am, pm } = this.state;
         if (timeStr.includes("undefined") || timeStr === '') {
             alert("Invalid Time")
         }
         else {
-            onSet(timeStr);
-            this.setState({ timeStr: '' })
+            if (dayNight) {
+                if (am == true && pm == false) {
+                    var value = timeStr + " AM";
+                    onSet(value);
+                }
+                else {
+                    var value = timeStr + " PM";
+                    onSet(value);
+                }
+            } else {
+                onSet(timeStr);
+            }
+
+            this.setState({ timeStr: '', am: true, pm: false })
         }
 
     }
 
     render() {
-        const { showTimePicker, onCancel } = this.props;
+        const { showTimePicker, onCancel, dayNight } = this.props;
+        const { am, pm } = this.state;
         return (
             <View style={styles.centeredView}>
                 <Modal visible={showTimePicker}
@@ -118,11 +131,33 @@ export default class DateTimeModal extends Component {
                                     ))
                                 }
                             </View>
-
-                        </View>
-                        <View style={styles.buttonContainer}>
-                            <Button title='Set' onPress={this.handleSet} />
-                            <Button title='Cancel' onPress={onCancel} />
+                            {dayNight ?
+                                <View style={styles.customerAndBarberContainer}>
+                                    <TouchableOpacity onPress={() => this.setState({ am: true, pm: false })}
+                                        style={[styles.CustomerContainer, pm == false && am ? { backgroundColor: THEME.PRIMARY_COLOR } : null]}>
+                                        <View style={styles.optionContainer}>
+                                            <Text style={[styles.optionTextStyle, pm == false && am ? { color: THEME.COLOR_WHITE } : null]}>
+                                                AM
+                                        </Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                    <View style={styles.gap}></View>
+                                    <TouchableOpacity onPress={() => this.setState({ am: false, pm: true })}
+                                        style={[styles.barberContainer, am == false && pm ? { backgroundColor: THEME.PRIMARY_COLOR } : null]} >
+                                        <View style={styles.optionContainer}>
+                                            <Text style={[styles.optionTextStyle, am == false && pm ? { color: THEME.COLOR_WHITE } : null]}>
+                                                PM
+                                        </Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                                :
+                                null
+                            }
+                            <View style={styles.buttonContainer}>
+                                <Button title='Set' onPress={this.handleSet} />
+                                <Button title='Cancel' onPress={onCancel} />
+                            </View>
                         </View>
                     </View>
                 </Modal>

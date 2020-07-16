@@ -17,25 +17,55 @@ export default StyleSheet.create({
         height: screenHeight * 0.45,
         width: screenWidth * 0.8,
         justifyContent: "center",
-        // alignItems: 'center',
         alignSelf: "center",
-
-        // alignContent: "center",
-        //  marginTop: '25%',
-        // backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
     },
-    modalInputContainer:{ marginHorizontal: "10%", backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR },
-    iconContainer:{ 
+    customerAndBarberContainer: {
+        borderRadius: 5,
+        marginBottom: 15,
+        marginHorizontal: '10%',
+        flexDirection: 'row',
+        justifyContent: "center",
+        backgroundColor: THEME.COLOR_WHITE,
+        height: 54,
+    },
+    CustomerContainer: {
+        margin: 3,
+        borderRadius: 5,
+        width: "45%",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: 'center'
+
+    },
+    optionContainer: { flexDirection: "row", marginHorizontal: 10 },
+    optionTextStyle: { fontFamily: 'Poppins-Regular', fontSize: 15, marginHorizontal: 10, marginTop: 5 },
+    gap: {
+        width: THEME.GAP_BETWEEN_ELEMENT
+    },
+    barberContainer: {
+        margin: 3,
+        borderRadius: 5,
+        width: "45%",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: 'center'
+    },
+    modalInputContainer: {
+        marginHorizontal: "5%",
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
+        paddingVertical: '3%',
+        borderRadius: 10,
+    },
+    iconContainer: {
         position: 'relative',
-         top: 40,
-          alignItems: 'center' 
-        },
+        top: 40,
+        alignItems: 'center'
+    },
     modalUpperContainer: {
         flexDirection: 'row',
         justifyContent: "space-evenly",
         alignItems: 'center',
-        // marginHorizontal: "10%",
-        //  backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
+        marginHorizontal: "5%",
     },
     modalInput: {
         flex: 1,
@@ -59,7 +89,7 @@ export default StyleSheet.create({
         height: 15
     },
     buttonContainer: {
-        marginHorizontal: '10%'
+        marginHorizontal: '5%'
     },
     footerStyle: { flex: 0.2, justifyContent: 'flex-end', paddingBottom: '8%' }
 

@@ -24,8 +24,6 @@ export default class ScheduleTime extends Component {
         }
     }
 
-
-
     componentDidMount = () => {
         if (this.props.data != []) {
             this.setState({ selectedDays: this.props.data })
@@ -42,14 +40,13 @@ export default class ScheduleTime extends Component {
         this.setState({ showTimePicker: true, indexValue: index, item: item, val: '2' })
     }
 
-
     setTimeChange = (data) => {
         const { val, startTime, endTime, indexValue, item } = this.state;
         if (val == '1') {
-            startTime[indexValue] = data + " AM";
+            startTime[indexValue] = data;
         }
         else {
-            endTime[indexValue] = data + " PM";
+            endTime[indexValue] = data;
         }
         const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
         let items = [...this.state.selectedDays];
@@ -59,9 +56,8 @@ export default class ScheduleTime extends Component {
         else {
             items[objIndex] = { ...items[objIndex], endTime: endTime[indexValue] };
         }
-        this.setState({ showTimePicker: false, selectedDays: items, val: '',  indexValue: null, item: null });
+        this.setState({ showTimePicker: false, selectedDays: items, val: '', indexValue: null, item: null });
     }
-
 
     _renderSeparator = () => {
         return (
@@ -72,60 +68,57 @@ export default class ScheduleTime extends Component {
     _renderItems = ({ item, index }) => {
         const { startTime, endTime } = this.state;
         return (
-            <>
-                <View style={styles.contentContainer}>
-                    <View style={styles.headingContainer}>
-                        <View style={styles.dayContainer}>
-                            <Text style={styles.textStyle}>{item.day}</Text>
-                        </View>
-                        <View style={styles.startTimeContainer} >
-                            {
-                                item.startTime != '' ?
-                                    <View style={styles.priceAndTimeContainer}>
-                                        <Text style={styles.textStyle}>{item.startTime}</Text>
-                                    </View>
-                                    :
-                                    null
-                            }
-                        </View>
-                        <View style={styles.endTimeContainer}>
-                            {
-                                item.endTime != '' ?
-                                    <View style={styles.priceAndTimeContainer}>
-                                        <Text style={styles.textStyle}>{item.endTime}</Text>
-                                    </View>
-                                    :
-                                    null
-                            }
-                        </View>
+            <View style={styles.contentContainer}>
+                <View style={styles.headingContainer}>
+                    <View style={styles.dayContainer}>
+                        <Text style={styles.textStyle}>{item.day}</Text>
                     </View>
-
-                    <View style={styles.inputContainer}>
+                    <View style={styles.startTimeContainer} >
                         {
-                            item.startTime == '' ?
-                                <View style={[styles.inputDateContainerStyle, startTime[index] == null && startTime[index] != '' ? { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR } : {}]}>
-                                    <FloatingInput
-                                        val={startTime[index]}
-                                        onActive={() => this.setStartTime(index, item)}
-                                        label='Start Time' />
+                            item.startTime != '' ?
+                                <View style={styles.priceAndTimeContainer}>
+                                    <Text style={styles.textStyle}>{item.startTime}</Text>
                                 </View>
                                 :
                                 null
                         }
+                    </View>
+                    <View style={styles.endTimeContainer}>
                         {
-                            item.endTime == '' ?
-                                <View style={[styles.inputDateContainerStyle, endTime[index] == null && endTime[index] != '' ? { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR } : {}]}>
-                                    <FloatingInput
-                                        val={endTime[index]}
-                                        onActive={() => this.setEndTime(index, item)}
-                                        label='End Time' />
+                            item.endTime != '' ?
+                                <View style={styles.priceAndTimeContainer}>
+                                    <Text style={styles.textStyle}>{item.endTime}</Text>
                                 </View>
                                 :
                                 null
                         }
                     </View>
                 </View>
-            </>
+                <View style={styles.inputContainer}>
+                    {
+                        item.startTime == '' ?
+                            <View style={[styles.inputDateContainerStyle, startTime[index] == null && startTime[index] != '' ? { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR } : {}]}>
+                                <FloatingInput
+                                    val={startTime[index]}
+                                    onActive={() => this.setStartTime(index, item)}
+                                    label='Start Time' />
+                            </View>
+                            :
+                            null
+                    }
+                    {
+                        item.endTime == '' ?
+                            <View style={[styles.inputDateContainerStyle, endTime[index] == null && endTime[index] != '' ? { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR } : {}]}>
+                                <FloatingInput
+                                    val={endTime[index]}
+                                    onActive={() => this.setEndTime(index, item)}
+                                    label='End Time' />
+                            </View>
+                            :
+                            null
+                    }
+                </View>
+            </View>
         )
     }
 
@@ -166,6 +159,7 @@ export default class ScheduleTime extends Component {
                     </View>
                 </View>
                 <DateTimeModal showTimePicker={showTimePicker}
+                    dayNight={true}
                     onCancel={() => this.setState({ showTimePicker: false })}
                     onSet={(time) => this.setTimeChange(time)} />
             </>
