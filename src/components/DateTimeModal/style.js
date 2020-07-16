@@ -51,7 +51,7 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     modalInputContainer: {
-        marginHorizontal: "5%",
+        // marginHorizontal: "%",
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
         paddingVertical: '3%',
         borderRadius: 10,
@@ -74,6 +74,7 @@ export default StyleSheet.create({
     modalText: {
         color: THEME.COLOR_WHITE,
         textAlign: 'center',
+        paddingVertical: '3%',
         fontFamily: 'Poppins-Medium',
         fontSize: THEME.FONT_SIZE_LARGE,
     },

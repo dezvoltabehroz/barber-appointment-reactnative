@@ -12,6 +12,7 @@ export default class ExpandingView extends Component {
             isPhotoNull: false,
             expandedPhoto: false,
             isImageViewVisible: false,
+            isPorfolioImageViewVisible: false,
             portfolio: [],
             isCertificationPhotoNull: false,
             expandedCertificationPhoto: false,
@@ -74,6 +75,20 @@ export default class ExpandingView extends Component {
         })
     }
 
+    renderPortfolioImages = (images) => {
+        return images.map((image) => {
+            return <TouchableOpacity onPress={() =>
+                this.setState({  isPorfolioImageViewVisible: true })
+            }>
+                <Image
+                    source={image}
+                    style={styles.postImage}
+                    resizeMode='center'
+                />
+            </TouchableOpacity>
+        })
+    }
+
     render() {
         const { portfolio, certification } = this.state;
         const images: Array<Object> = portfolio.map((img: Object) => ({
@@ -118,15 +133,15 @@ export default class ExpandingView extends Component {
                             <>
                                 <View style={{ flexDirection: 'row' }}>
                                     <View style={styles.postImagesContainer}>
-                                        {this.renderImages(images)}
+                                        {this.renderPortfolioImages(images)}
                                     </View>
                                 </View>
                                 <ImageView
                                     images={imageURLs}
                                     imageIndex={0}
-                                    isVisible={this.state.isImageViewVisible}
+                                    isVisible={this.state.isPorfolioImageViewVisible}
                                     isSwipeCloseEnabled={true}
-                                    onClose={() => { this.setState({ isImageViewVisible: false }) }}
+                                    onClose={() => { this.setState({ isPorfolioImageViewVisible: false }) }}
                                 />
                             </>
                         }

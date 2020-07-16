@@ -102,9 +102,15 @@ export default class DateTimeModal extends Component {
                 <Modal visible={showTimePicker}
                     animationType="slide"
                     transparent={true}>
-
                     <View style={styles.modalContainer}  >
+
                         <View style={styles.modalInputContainer}>
+                            {
+                                dayNight ?
+                                    < Text style={styles.modalText}>Set Time</Text>
+                                    :
+                                    < Text style={styles.modalText}>Set Duration Time</Text>
+                            }
                             < View style={styles.iconContainer}>
                                 <Icon.Entypo name="dots-two-vertical" color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
                             </View>

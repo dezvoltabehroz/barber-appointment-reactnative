@@ -8,13 +8,18 @@ class AuthScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: '', password: '', loading: false,
+            email: '',
+            password: '',
+            loading: false,
             isEmailFocus: null,
             isPasswordFocus: null
         }
     }
+    handleLogin = () => {
+        this.props.onLogin(this.state.email, this.state.password)
+        this.setState({ email: '', password: '', isEmailFocus: null, isPasswordFocus: null })
+    }
 
-   
     render() {
         const { onPhone, onLogin, onPressCustomer, onPressBarber, customer, barber } = this.props
         const { email, password, isEmailFocus, isPasswordFocus } = this.state;
@@ -86,7 +91,7 @@ class AuthScreen extends Component {
                                         secureEntry={true}
                                         updateText={(password) => this.setState({ password })} />
                                 </View>
-                                <Button title="Login" loading={this.props.loading} onPress={() => onLogin(this.state.email, this.state.password)} />
+                                <Button title="Login" loading={this.props.loading} onPress={this.handleLogin} />
                             </View>
                         </View>
                         <View style={styles.lowerContainer}>
