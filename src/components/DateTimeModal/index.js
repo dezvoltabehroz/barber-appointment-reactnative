@@ -4,7 +4,7 @@ import { Button, Input, Icon } from '../index';
 import styles from './style';
 import THEME from '../../assets/styles/theme.style';
 
-var timeValue = null;
+var timeValue = [];
 
 export default class DateTimeModal extends Component {
 
@@ -17,7 +17,8 @@ export default class DateTimeModal extends Component {
             React.createRef()
         ]
         this.state = {
-            time: ''
+            time: [],
+            timeStr: '',
         }
         this.handleKeyPress = this.handleKeyPress.bind(this);
     }
@@ -37,55 +38,95 @@ export default class DateTimeModal extends Component {
         }
     }
 
-    handleChangeText = (value) => {
-        timeValue += value;
-        this.setState({ time: timeValue });
+    handleChangeText = (value, index) => {
+        const { time } = this.state;
+        time[index] = value;
+        var str = time.join('');
+        var timeStr = '';
+        if (str[0] != "undefined") {
+            if (str[0] > 1) {
+                alert("Invalid Hours")
+            } else {
+                timeStr = str[0];
+            }
+        }
+        if (str[1] != "undefined") {
+            if (str[0] == 1 && str[1] > 2) {
+                alert("Invalid Hours")
+            } else {
+                timeStr = str[0] + str[1];
+            }
+        }
+        if (str[2] != "undefined") {
+            if (str[2] > 6) {
+                alert("Invalid Minutes")
+            } else {
+                timeStr = str[0] + str[1] + ":" + str[2] + str[3];
+            }
+        }
+        // var timeStr = str[0] + str[1] + ':' + str[2] + str[3];
+        console.log(timeStr);
+        this.setState({ timeStr });
+    }
+
+    handleSet = () => {
+        const { onSet } = this.props;
+        const { timeStr } = this.state;
+        if (timeStr.includes("undefined") || timeStr === '') {
+            alert("Invalid Time")
+        }
+        else {
+            onSet(timeStr);
+            this.setState({ timeStr: '' })
+        }
+
     }
 
     render() {
-        const { showTimePicker, onCancel, onSet } = this.props;
-        const { time } = this.state;
+        const { showTimePicker, onCancel } = this.props;
         return (
-            <>
-                <Modal visible={showTimePicker} >
-                    <View style={styles.modalContainer} >
-                        < View style={{position:'relative',top:40, alignItems: 'center' }}>
-                            <Icon.Entypo name="dots-two-vertical" color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
-                        </View>
-                        <View style={styles.modalUpperContainer}>
-                            {
-                                this.inputRefs.map((k, idx) => (
-                                    <View style={styles.modalInput}>
-                                        <Input
-                                            inputRef={ref => this.inputRefs[idx] = ref}
-                                            // value={time[idx]}
-                                            maxLength={1}
-                                            keyboardType="numeric"
-                                            blurOnSubmit={true}
-                                            onChange={val => this.handleChangeText(val)}
-                                            onKeyPress={({ nativeEvent: { key: keyValue } }) => this.handleKeyPress(keyValue, idx)}
+            <View style={styles.centeredView}>
+                <Modal visible={showTimePicker}
+                    animationType="slide"
+                    transparent={true}>
 
-                                        />
-                                        {
-                                            idx > 1 ?
-                                                < Text style={styles.modalText}>M</Text>
-                                                :
-                                                <Text style={styles.modalText}>H</Text>
-                                        }
-                                    </View>
-                                ))
-                            }
+                    <View style={styles.modalContainer}  >
+                        <View style={styles.modalInputContainer}>
+                            < View style={styles.iconContainer}>
+                                <Icon.Entypo name="dots-two-vertical" color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
+                            </View>
+                            <View style={styles.modalUpperContainer}>
+                                {
+                                    this.inputRefs.map((k, idx) => (
+                                        <View style={styles.modalInput}>
+                                            <Input
+                                                inputRef={ref => this.inputRefs[idx] = ref}
+                                                maxLength={1}
+                                                keyboardType="numeric"
+                                                blurOnSubmit={true}
+                                                onChangeText={val => this.handleChangeText(val, idx, k)}
+                                                onKeyPress={({ nativeEvent: { key: keyValue } }) => this.handleKeyPress(keyValue, idx)}
+
+                                            />
+                                            {
+                                                idx > 1 ?
+                                                    < Text style={styles.modalText}>M</Text>
+                                                    :
+                                                    <Text style={styles.modalText}>H</Text>
+                                            }
+                                        </View>
+                                    ))
+                                }
+                            </View>
+
                         </View>
-                        {/* < View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                            <Icon.Entypo name="dots-two-vertical" color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
-                        </View> */}
                         <View style={styles.buttonContainer}>
-                            <Button title='Set' onPress={() => onSet(time)} />
+                            <Button title='Set' onPress={this.handleSet} />
                             <Button title='Cancel' onPress={onCancel} />
                         </View>
                     </View>
                 </Modal>
-            </>
+            </View>
         );
     }
 }

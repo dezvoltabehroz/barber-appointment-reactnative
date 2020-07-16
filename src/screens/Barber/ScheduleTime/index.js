@@ -42,46 +42,24 @@ export default class ScheduleTime extends Component {
         this.setState({ showTimePicker: true, indexValue: index, item: item, val: '2' })
     }
 
-    handleMinutes = (val) => {
-        if (val < 60) {
-            this.setState({ minutes: val })
-        }
-        else {
-            alert(`Invalid Minutes ${val} `)
-        }
-    }
 
-    handleHours = (val) => {
-        if (val <= 12) {
-            this.setState({ hours: val })
-        }
-        else {
-            alert(`Invalid Hours ${val} `)
-        }
-    }
-
-    setTimeChange = () => {
-        const { val, startTime, endTime, hours, minutes, indexValue, item } = this.state;
+    setTimeChange = (data) => {
+        const { val, startTime, endTime, indexValue, item } = this.state;
         if (val == '1') {
-            var timeValue = hours == '00' || hours == '' || hours == '0' ? '00' : hours;
-            timeValue += minutes == '' || minutes == '0' || minutes == '00' ? '' + ' AM ' : ":" + minutes + ' AM '
+            startTime[indexValue] = data + " AM";
         }
         else {
-            var timeValue = hours == '00' || hours == '' || hours == '0' ? '' : hours;
-            timeValue += minutes == '' || minutes == '0' || minutes == '00' ? '' + ' PM ' : ":" + minutes + ' PM '
+            endTime[indexValue] = data + " PM";
         }
-        if (val == '1') { startTime[indexValue] = timeValue; }
-        else { endTime[indexValue] = timeValue; }
         const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
         let items = [...this.state.selectedDays];
         if (val == '1') {
             items[objIndex] = { ...items[objIndex], startTime: startTime[indexValue] };
-            this.setState({ showTimePicker: false, selectedDays: items, val: null, hours: '', minutes: '', indexValue: null, item: null });
         }
         else {
             items[objIndex] = { ...items[objIndex], endTime: endTime[indexValue] };
-            this.setState({ showTimePicker: false, selectedDays: items, val: '', hours: '', minutes: '', indexValue: null, item: null });
         }
+        this.setState({ showTimePicker: false, selectedDays: items, val: '',  indexValue: null, item: null });
     }
 
 
@@ -155,12 +133,11 @@ export default class ScheduleTime extends Component {
 
     render() {
         const { onNext } = this.props;
-        const { selectedDays, showTimePicker, hours, minutes } = this.state;
+        const { selectedDays, showTimePicker, } = this.state;
         return (
             <>
                 <View style={styles.container}>
                     <View style={styles.upperContainer}>
-
                         {selectedDays.length == 0 || selectedDays[0].startTime != '' || selectedDays[0].endTime != '' ?
                             <View style={styles.headingContainer}>
                                 <View style={styles.dayContainer}>
@@ -188,7 +165,9 @@ export default class ScheduleTime extends Component {
                         </View>
                     </View>
                 </View>
-                <DateTimeModal showTimePicker={showTimePicker} onCancel={() => this.setState({ showTimePicker: false })} />
+                <DateTimeModal showTimePicker={showTimePicker}
+                    onCancel={() => this.setState({ showTimePicker: false })}
+                    onSet={(time) => this.setTimeChange(time)} />
             </>
         );
     }
