@@ -21,9 +21,11 @@ export default class ExpandingView extends Component {
             isWorkingDays: false,
             isServices: false,
             isImageViewVisible: false,
+            expandedResume: false,
+            isResume: false,
             certification: [],
             workingDays: [],
-            services: []
+            services: [],
 
         }
         if (Platform.OS === 'android') {
@@ -87,6 +89,12 @@ export default class ExpandingView extends Component {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({ expandedServices: !this.state.expandedServices });
     }
+
+    changeResumeLayout = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        this.setState({ expandedResume: !this.state.expandedResume });
+    }
+
 
     renderImages = (images) => {
         return images.map((image) => {
@@ -161,6 +169,7 @@ export default class ExpandingView extends Component {
 
     render() {
         const { portfolio, certification, workingDays, services } = this.state;
+        const { onDownload } = this.props;
         const images: Array<Object> = portfolio.map((img: Object) => ({
             uri: img
         }))
@@ -323,6 +332,28 @@ export default class ExpandingView extends Component {
                                     renderItem={({ item, index }) => this._renderServicesItems({ item, index })}
                                     keyExtractor={item => item} />
                             </>
+                        }
+                    </View>
+                </View>
+                <View style={styles.activities_container}>
+                    <TouchableOpacity activeOpacity={0.8} onPress={this.changeResumeLayout}>
+                        <View style={styles.country_container}>
+                            <Text style={styles.text_panel_heading}>Resume</Text>
+                            {this.state.expandedResume &&
+                                <Icon.AntDesign name="up" size={25} />
+                            }
+                            {!this.state.expandedResume &&
+                                <Icon.AntDesign name="down" size={25} />
+                            }
+                        </View>
+                    </TouchableOpacity>
+                    <View style={{ height: this.state.expandedResume ? 100 : 0, flexDirection: 'column', overflow: 'hidden' }}>
+                        {this.state.isResume ?
+                            <Text style={{ fontWeight: 'bold', marginHorizontal: 10 }} >No Resume Found</Text>
+                            :
+                            <TouchableOpacity onPress={onDownload} style={styles.linkContainer}>
+                                <Text style={styles.linkTextStyle}>Click Here to download</Text>
+                            </TouchableOpacity>
                         }
                     </View>
                 </View>

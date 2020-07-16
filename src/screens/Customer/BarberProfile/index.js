@@ -1,20 +1,31 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Image, LayoutAnimation, UIManager, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, Alert, Linking } from 'react-native';
 import styles from './style';
 import { Avatar } from 'react-native-elements';
 import { Button, ExpandView } from '../../../components';
+import RNFetchBlob from 'rn-fetch-blob';
 
 export default class BarberProfile extends Component {
     constructor(props) {
         super(props);
+        const { items } = this.props;
         this.state = {
+            portfolio: items.portfolio,
+            certifcations: items.certifcations,
+            services: items.services,
+            workingDays: items.workingDays,
+            resume: items.resume,
         }
+    }
 
+
+    downloadPDF = () => {
+        Linking.openURL(this.state.resume);
     }
 
     render() {
         const { items, bookNow } = this.props;
-        // console.log(items.workingDays);
+        const { portfolio, certifcations, services, workingDays } = this.state;
         var arr = items.age.split("/");
         const birthDate = new Date(arr[2], arr[1], arr[0]);
         const difference = Date.now() - birthDate.getTime();
@@ -38,10 +49,11 @@ export default class BarberProfile extends Component {
                         </View>
                     </View>
                     <ExpandView
-                        portfolio={(items.portfolio)}
-                        certification={(items.certifcations)}
-                        service={(items.services)}
-                        workingDay={(items.workingDays)} />
+                        portfolio={portfolio}
+                        certification={certifcations}
+                        service={services}
+                        workingDay={workingDays}
+                        onDownload={this.downloadPDF} />
                 </ScrollView>
             </View>
         );
