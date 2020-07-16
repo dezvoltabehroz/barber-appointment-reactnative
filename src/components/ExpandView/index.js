@@ -307,7 +307,7 @@ export default class ExpandingView extends Component {
                             <>
                                 <View style={styles.headingContainer}>
                                     <View style={styles.dayContainer}>
-                                        <Text style={styles.headingTextStyle}>Services</Text>
+                                        <Text style={styles.headingTextStyle}>Name</Text>
                                     </View>
                                     <View style={styles.startTimeContainer} >
                                         <Text style={styles.headingTextStyle}>Price</Text>
