@@ -55,10 +55,6 @@ export default class PriceAndTime extends Component {
 
     setTimeChange = (data) => {
         const { time, indexValue, item } = this.state;
-        // console.log(data);
-        // var timeValue = hours == '00' || hours == '' || hours == '0' ? '' : hours + ' hr ';
-        // timeValue += minutes == '' || minutes == '0' || minutes == '00' ? '' : minutes + " min";
-        // console.log(hours);
         time[indexValue] = data;
         const objIndex = this.state.selectedArray.findIndex((obj => obj.id == item.id));
         let items = [...this.state.selectedArray];

@@ -32,7 +32,6 @@ export default class UpdateProfile extends Component {
         date += (selectedDate.getMonth() + 1);
         date += "/";
         date += (selectedDate.getYear() + 1900);
-        console.log(date);
         this.setState({ date, showDatePicker: Platform.OS == 'android' ? !this.state.showDatePicker : this.state.showDatePicker });
     };
 

@@ -62,17 +62,13 @@ export default class Resume extends Component {
         })
             .then(response => {
                 let tempArray = []
-                // console.log("responseimage-------" + response)
-                // this.setState({ ImageSource: response })
-                // console.log("responseimagearray" + this.state.ImageSource)
+              
                 response.forEach((item) => {
                     let image = {
                         uri: item.path,
                     }
-                    // console.log("imagpath==========" + image)
                     tempArray.push(image)
                     this.setState({ imageCertification: tempArray, modalView: false })
-                    // console.log("imagpath==========" + image)
                 })
             })
     };
@@ -123,7 +119,6 @@ export default class Resume extends Component {
                 alert(response.customButton);
             } else {
                 let source = response;
-                // const source = { uri: `data:image/jpeg;base64,${response.data}` };
                 this.setState({ imageSource: source })
                 if (value == 'driver') {
                     this.setState({

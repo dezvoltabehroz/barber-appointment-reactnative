@@ -2,7 +2,6 @@ import { StyleSheet, Dimensions, Platform } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
-console.log(screenHeight);
 export default StyleSheet.create({
     container: {
         flex: 1,

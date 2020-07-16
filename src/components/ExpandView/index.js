@@ -45,8 +45,6 @@ export default class ExpandingView extends Component {
             JSON.parse(data, (key, value) => {
                 if (typeof (value) != "object") {
                     certificationArray.push(value);
-                    console.log(certification);
-                    console.log(certificationArray);
                 }
             });
             this.setState({ isCertificationPhotoNull: false, certification: certificationArray });
@@ -71,7 +69,6 @@ export default class ExpandingView extends Component {
                     source={image}
                     style={styles.postImage}
                     resizeMode='center'
-                    onProgress={e => console.log(e.nativeEvent.loaded / e.nativeEvent.total)}
                 />
             </TouchableOpacity>
         })
@@ -79,7 +76,6 @@ export default class ExpandingView extends Component {
 
     render() {
         const { portfolio, certification } = this.state;
-        console.log(certification)
         const images: Array<Object> = portfolio.map((img: Object) => ({
             uri: img
         }))

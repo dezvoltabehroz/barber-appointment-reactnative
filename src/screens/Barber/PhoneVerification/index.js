@@ -29,16 +29,12 @@ export default class PhoneVerfication extends Component {
                 </View>
                 <View style={styles.codeContainer}>
                     <CodeInput
-                        // ref="codeInputRefs"
                         onFocus={() => 
                             this.setState({ isFocus: true })
                         }
-                        // onBlur={() => this.setState({ isFocus: false })}
                         codeLength={6}
                         autoFocus={false}
                         cellBorderWidth={2}
-                        // caretHidden={true}
-                        // underlineColorAndroid=
                         activeColor='#00A9A5'
                         inactiveColor='#fff'
                         keyboardType='numeric'

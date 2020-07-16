@@ -27,9 +27,7 @@ export default class ScheduleTime extends Component {
     componentDidMount = () => {
         if (this.props.data != []) {
             this.setState({ selectedDays: this.props.data })
-            console.log(this.state.selectedDays);
         }
-
     }
 
     setStartTime = (index, item) => {
