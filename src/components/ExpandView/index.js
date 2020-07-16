@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, LayoutAnimation, UIManager, TouchableOpacity } from 'react-native';
+import { View, Text, LayoutAnimation, UIManager, FlatList, TouchableOpacity } from 'react-native';
 import styles from './style';
 import { Icon } from '../../components';
 import ImageView from 'react-native-image-view';
@@ -16,8 +16,14 @@ export default class ExpandingView extends Component {
             portfolio: [],
             isCertificationPhotoNull: false,
             expandedCertificationPhoto: false,
+            expandedWorkingDays: false,
+            expandedServices: false,
+            isWorkingDays: false,
+            isServices: false,
             isImageViewVisible: false,
             certification: [],
+            workingDays: [],
+            services: []
 
         }
         if (Platform.OS === 'android') {
@@ -25,7 +31,7 @@ export default class ExpandingView extends Component {
         }
     }
     componentDidMount = () => {
-        const { portfolio, certification } = this.props;
+        const { portfolio, certification, workingDay, service } = this.props;
         let portfolioArray = [];
         if (portfolio == null || portfolio.length == 0)
             this.setState({ isPhotoNull: true });
@@ -50,6 +56,17 @@ export default class ExpandingView extends Component {
             });
             this.setState({ isCertificationPhotoNull: false, certification: certificationArray });
         }
+        if (workingDay == null || workingDay.length == 0)
+            this.setState({ isWorkingDays: true });
+        else {
+            this.setState({ isWorkingDays: false, workingDays: workingDay });
+        }
+        if (service == null || service.length == 0)
+            this.setState({ isServices: true });
+        else {
+            this.setState({ isServices: false, services: service });
+        }
+
     }
 
     changePhotoLayout = () => {
@@ -59,6 +76,16 @@ export default class ExpandingView extends Component {
     changeCertificationLayout = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({ expandedCertificationPhoto: !this.state.expandedCertificationPhoto });
+    }
+
+    changeWorkingDaysLayout = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        this.setState({ expandedWorkingDays: !this.state.expandedWorkingDays });
+    }
+
+    changeServiceLayout = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        this.setState({ expandedServices: !this.state.expandedServices });
     }
 
     renderImages = (images) => {
@@ -78,7 +105,7 @@ export default class ExpandingView extends Component {
     renderPortfolioImages = (images) => {
         return images.map((image) => {
             return <TouchableOpacity onPress={() =>
-                this.setState({  isPorfolioImageViewVisible: true })
+                this.setState({ isPorfolioImageViewVisible: true })
             }>
                 <Image
                     source={image}
@@ -89,8 +116,51 @@ export default class ExpandingView extends Component {
         })
     }
 
+    _renderSeparator = () => {
+        return (
+            <View style={styles.seperatorStyle}></View>
+        )
+    }
+
+    _renderItems = ({ item, index }) => {
+        return (
+            <View style={styles.headingContainer}>
+                <View style={styles.dayContainer}>
+                    <Text style={styles.textStyle}>{item.day}</Text>
+                </View>
+                <View style={styles.startTimeContainer} >
+                    <View style={styles.priceAndTimeContainer}>
+                        <Text style={styles.textStyle}>{item.startTime}</Text>
+                    </View>
+                </View>
+                <View style={styles.endTimeContainer}>
+                    <View style={styles.priceAndTimeContainer}>
+                        <Text style={styles.textStyle}>{item.endTime}</Text>
+                    </View>
+                </View>
+            </View>
+        )
+    }
+
+    _renderServicesItems = ({ item, index }) => {
+        return (
+            <View style={styles.headingContainer}>
+                <View style={styles.nameContainer}>
+                    <Text style={styles.textStyle}>{item.serviceName}</Text>
+                </View>
+                <View style={styles.priceContainer} >
+                    <Text style={styles.textStyle}>{item.serviceCost}</Text>
+                </View>
+                <View style={styles.timeContainer}>
+                    <Text style={styles.timeTextStyle}>{item.serviceEstTime}</Text>
+                </View>
+            </View>
+        )
+    }
+
+
     render() {
-        const { portfolio, certification } = this.state;
+        const { portfolio, certification, workingDays, services } = this.state;
         const images: Array<Object> = portfolio.map((img: Object) => ({
             uri: img
         }))
@@ -176,6 +246,82 @@ export default class ExpandingView extends Component {
                                     isSwipeCloseEnabled={true}
                                     onClose={() => { this.setState({ isImageViewVisible: false }) }}
                                 />
+                            </>
+                        }
+                    </View>
+                </View>
+                <View style={styles.activities_container}>
+                    <TouchableOpacity activeOpacity={0.8} onPress={this.changeWorkingDaysLayout}>
+                        <View style={styles.country_container}>
+                            <Text style={styles.text_panel_heading}>Working Days</Text>
+                            {this.state.expandedWorkingDays &&
+                                <Icon.AntDesign name="up" size={25} />
+                            }
+                            {!this.state.expandedWorkingDays &&
+                                <Icon.AntDesign name="down" size={25} />
+                            }
+                        </View>
+                    </TouchableOpacity>
+                    <View style={{ height: this.state.expandedWorkingDays ? null : 0, flexDirection: 'column', overflow: 'hidden' }}>
+                        {this.state.isWorkingDays ?
+                            <Text style={{ fontWeight: 'bold', marginHorizontal: 10 }} >No Record Found</Text>
+                            :
+                            <>
+                                <View style={styles.headingContainer}>
+                                    <View style={styles.dayContainer}>
+                                        <Text style={styles.headingTextStyle}>Days</Text>
+                                    </View>
+                                    <View style={styles.startTimeContainer} >
+                                        <Text style={styles.headingTextStyle}>Start Time</Text>
+                                    </View>
+                                    <View style={styles.endTimeContainer}>
+                                        <Text style={styles.headingTextStyle}>End Time</Text>
+                                    </View>
+                                </View>
+                                <FlatList
+                                    data={workingDays}
+                                    showsVerticalScrollIndicator={false}
+                                    ItemSeparatorComponent={this._renderSeparator}
+                                    renderItem={({ item, index }) => this._renderItems({ item, index })}
+                                    keyExtractor={item => item} />
+                            </>
+                        }
+                    </View>
+                </View>
+                <View style={styles.activities_container}>
+                    <TouchableOpacity activeOpacity={0.8} onPress={this.changeServiceLayout}>
+                        <View style={styles.country_container}>
+                            <Text style={styles.text_panel_heading}>Services</Text>
+                            {this.state.expandedServices &&
+                                <Icon.AntDesign name="up" size={25} />
+                            }
+                            {!this.state.expandedServices &&
+                                <Icon.AntDesign name="down" size={25} />
+                            }
+                        </View>
+                    </TouchableOpacity>
+                    <View style={{ height: this.state.expandedServices ? null : 0, flexDirection: 'column', overflow: 'hidden' }}>
+                        {this.state.isServices ?
+                            <Text style={{ fontWeight: 'bold', marginHorizontal: 10 }} >No Record Found</Text>
+                            :
+                            <>
+                                <View style={styles.headingContainer}>
+                                    <View style={styles.dayContainer}>
+                                        <Text style={styles.headingTextStyle}>Services</Text>
+                                    </View>
+                                    <View style={styles.startTimeContainer} >
+                                        <Text style={styles.headingTextStyle}>Price</Text>
+                                    </View>
+                                    <View style={styles.endTimeContainer}>
+                                        <Text style={styles.headingTextStyle}>Est.Time</Text>
+                                    </View>
+                                </View>
+                                <FlatList
+                                    data={services}
+                                    showsVerticalScrollIndicator={false}
+                                    ItemSeparatorComponent={this._renderSeparator}
+                                    renderItem={({ item, index }) => this._renderServicesItems({ item, index })}
+                                    keyExtractor={item => item} />
                             </>
                         }
                     </View>

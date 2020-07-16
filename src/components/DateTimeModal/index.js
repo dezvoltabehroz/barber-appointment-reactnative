@@ -105,12 +105,7 @@ export default class DateTimeModal extends Component {
                     <View style={styles.modalContainer}  >
 
                         <View style={styles.modalInputContainer}>
-                            {
-                                dayNight ?
-                                    < Text style={styles.modalText}>Set Time</Text>
-                                    :
-                                    < Text style={styles.modalText}>Set Duration Time</Text>
-                            }
+                            < Text style={styles.modalText}>Set Time</Text>
                             < View style={styles.iconContainer}>
                                 <Icon.Entypo name="dots-two-vertical" color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
                             </View>

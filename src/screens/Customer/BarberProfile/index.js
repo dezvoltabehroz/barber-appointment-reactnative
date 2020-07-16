@@ -11,9 +11,10 @@ export default class BarberProfile extends Component {
         }
 
     }
-    
+
     render() {
-        const { items ,bookNow} = this.props;
+        const { items, bookNow } = this.props;
+        // console.log(items.workingDays);
         var arr = items.age.split("/");
         const birthDate = new Date(arr[2], arr[1], arr[0]);
         const difference = Date.now() - birthDate.getTime();
@@ -36,9 +37,11 @@ export default class BarberProfile extends Component {
                             <Button title='Book Now' onPress={bookNow} />
                         </View>
                     </View>
-                    <View>
-                        <ExpandView portfolio={(items.portfolio)} certification={(items.certifcations)} />
-                    </View>
+                    <ExpandView
+                        portfolio={(items.portfolio)}
+                        certification={(items.certifcations)}
+                        service={(items.services)}
+                        workingDay={(items.workingDays)} />
                 </ScrollView>
             </View>
         );

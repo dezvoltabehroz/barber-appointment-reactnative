@@ -42,4 +42,56 @@ export default StyleSheet.create({
         borderWidth: 1,
         resizeMode: 'center'
     },
+    dayContainer: {
+        flex: 0.4,
+        flexDirection: 'column'
+    },
+    startTimeContainer: {
+        flex: 0.3,
+        flexDirection: 'column',
+        alignItems: 'center'
+    },
+    endTimeContainer: {
+        flex: 0.3,
+        flexDirection: 'column',
+        alignItems: 'center'
+    },
+    nameContainer: {
+        flex: 0.57,
+        flexDirection: 'column',
+        justifyContent: 'center'
+    },
+    priceContainer: {
+        flex: 0.3,
+        flexDirection: 'column',
+        justifyContent: 'center'
+    },
+    timeContainer: {
+        flex: 0.3, width: screenWidth * 0.2,
+        flexDirection: 'column',
+        justifyContent: 'center'
+    },
+
+    headingContainer: {
+        flexDirection: 'row',
+        paddingTop: '5%'
+    },
+    headingServiceContainer: {
+        flexDirection: 'row',
+        paddingTop: '5%',
+        justifyContent: 'space-between'
+    },
+    headingTextStyle: {
+        fontFamily: 'Poppins-Medium',
+        fontSize: THEME.FONT_SIZE_MEDIUM,
+    },
+    textStyle: {
+        fontFamily: 'Poppins-Regular',
+        fontSize: THEME.FONT_SIZE_MEDIUM,
+    },
+    timeTextStyle: {
+        fontFamily: 'Poppins-Regular',
+        textAlign: 'center',
+        fontSize: THEME.FONT_SIZE_MEDIUM,
+    },
 })
