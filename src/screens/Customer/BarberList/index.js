@@ -68,17 +68,17 @@ export default class BarberList extends Component {
                         {
                             day: 'Monday',
                             startTime:'08:00 AM',
-                            endeTime:'03:00 PM'
+                            endTime:'03:00 PM'
                         },
                         {
                             day: 'Thursday',
                             startTime:'10:00 AM',
-                            endeTime:'05:00 PM'
+                            endTime:'05:00 PM'
                         },
                         {
                             day: 'Saturday',
                             startTime:'11:00 AM',
-                            endeTime:'09:00 PM'
+                            endTime:'09:00 PM'
                         },
 
                     ]
@@ -121,17 +121,17 @@ export default class BarberList extends Component {
                         {
                             day: 'Monday',
                             startTime:'08:00 AM',
-                            endeTime:'03:00 PM'
+                            endTime:'03:00 PM'
                         },
                         {
                             day: 'Thursday',
                             startTime:'10:00 AM',
-                            endeTime:'05:00 PM'
+                            endTime:'05:00 PM'
                         },
                         {
                             day: 'Saturday',
                             startTime:'11:00 AM',
-                            endeTime:'09:00 PM'
+                            endTime:'09:00 PM'
                         },
 
                     ],
@@ -218,17 +218,17 @@ export default class BarberList extends Component {
                         {
                             day: 'Monday',
                             startTime:'08:00 AM',
-                            endeTime:'03:00 PM'
+                            endTime:'03:00 PM'
                         },
                         {
                             day: 'Thursday',
                             startTime:'10:00 AM',
-                            endeTime:'05:00 PM'
+                            endTime:'05:00 PM'
                         },
                         {
                             day: 'Saturday',
                             startTime:'11:00 AM',
-                            endeTime:'09:00 PM'
+                            endTime:'09:00 PM'
                         },
 
                     ]
@@ -293,17 +293,17 @@ export default class BarberList extends Component {
                         {
                             day: 'Monday',
                             startTime:'08:00 AM',
-                            endeTime:'03:00 PM'
+                            endTime:'03:00 PM'
                         },
                         {
                             day: 'Thursday',
                             startTime:'10:00 AM',
-                            endeTime:'05:00 PM'
+                            endTime:'05:00 PM'
                         },
                         {
                             day: 'Saturday',
                             startTime:'11:00 AM',
-                            endeTime:'09:00 PM'
+                            endTime:'09:00 PM'
                         },
 
                     ]
@@ -373,12 +373,12 @@ export default class BarberList extends Component {
                         {
                             day: 'Thursday',
                             startTime:'10:00 AM',
-                            endeTime:'05:00 PM'
+                            endTime:'05:00 PM'
                         },
                         {
                             day: 'Saturday',
                             startTime:'11:00 AM',
-                            endeTime:'09:00 PM'
+                            endTime:'09:00 PM'
                         },
 
                     ]
