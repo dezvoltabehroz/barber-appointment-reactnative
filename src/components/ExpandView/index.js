@@ -4,6 +4,7 @@ import styles from './style';
 import { Icon } from '../../components';
 import ImageView from 'react-native-image-view';
 import Image from 'react-native-fast-image';
+import THEME from '../../assets/styles/theme.style'
 
 export default class ExpandingView extends Component {
     constructor(props) {
@@ -352,7 +353,8 @@ export default class ExpandingView extends Component {
                             <Text style={{ fontWeight: 'bold', marginHorizontal: 10 }} >No Resume Found</Text>
                             :
                             <TouchableOpacity onPress={onDownload} style={styles.linkContainer}>
-                                <Text style={styles.linkTextStyle}>Click Here to download</Text>
+                                <Icon.Feather name="download" size={40} color={THEME.PRIMARY_COLOR} />
+                                <Text style={styles.linkTextStyle}>Download</Text>
                             </TouchableOpacity>
                         }
                     </View>

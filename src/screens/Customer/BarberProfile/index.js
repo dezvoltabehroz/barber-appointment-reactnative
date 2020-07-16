@@ -3,7 +3,6 @@ import { View, Text, ScrollView, Alert, Linking } from 'react-native';
 import styles from './style';
 import { Avatar } from 'react-native-elements';
 import { Button, ExpandView } from '../../../components';
-import RNFetchBlob from 'rn-fetch-blob';
 
 export default class BarberProfile extends Component {
     constructor(props) {

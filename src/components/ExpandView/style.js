@@ -74,7 +74,7 @@ export default StyleSheet.create({
 
     headingContainer: {
         flexDirection: 'row',
-        paddingTop: '5%',marginHorizontal:'2%'
+        paddingTop: '5%', marginHorizontal: '2%'
     },
     headingServiceContainer: {
         flexDirection: 'row',
@@ -96,11 +96,12 @@ export default StyleSheet.create({
     },
     linkContainer: {
         flex: 1,
+        // flexDirection: "row",
         justifyContent: 'center',
         alignItems: 'center'
     },
     linkTextStyle: {
-        color: THEME.PRIMARY_FOOTER_COLOR,
+        color: THEME.PRIMARY_COLOR,
         fontFamily: 'Poppins-Medium',
         fontSize: THEME.FONT_SIZE_MEDIUM,
         textAlign: 'center',
