@@ -14,6 +14,7 @@ export default class BarberProfile extends Component {
             services: items.services,
             workingDays: items.workingDays,
             resume: items.resume,
+            rating: items.rating
         }
     }
 
@@ -24,7 +25,7 @@ export default class BarberProfile extends Component {
 
     render() {
         const { items, bookNow } = this.props;
-        const { portfolio, certifcations, services, workingDays } = this.state;
+        const { portfolio, certifcations, services, workingDays, rating } = this.state;
         var arr = items.age.split("/");
         const birthDate = new Date(arr[2], arr[1], arr[0]);
         const difference = Date.now() - birthDate.getTime();
@@ -52,7 +53,8 @@ export default class BarberProfile extends Component {
                         certification={certifcations}
                         service={services}
                         workingDay={workingDays}
-                        onDownload={this.downloadPDF} />
+                        onDownload={this.downloadPDF}
+                        rating={rating} />
                 </ScrollView>
             </View>
         );

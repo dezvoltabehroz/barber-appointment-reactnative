@@ -96,7 +96,6 @@ export default StyleSheet.create({
     },
     linkContainer: {
         flex: 1,
-        // flexDirection: "row",
         justifyContent: 'center',
         alignItems: 'center'
     },
@@ -106,5 +105,18 @@ export default StyleSheet.create({
         fontSize: THEME.FONT_SIZE_MEDIUM,
         textAlign: 'center',
         textDecorationLine: 'underline'
+    },
+    lineStyle: {
+        flex: 1,
+        borderRadius: 5,
+        borderWidth: 1
+    },
+    ratingContainer: {
+        justifyContent: 'center',
+        paddingVertical: '5%'
+    },
+    starContainer: {
+        flex: 0.4,
+        flexDirection: "row"
     }
 })

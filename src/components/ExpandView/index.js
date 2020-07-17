@@ -5,6 +5,7 @@ import { Icon } from '../../components';
 import ImageView from 'react-native-image-view';
 import Image from 'react-native-fast-image';
 import THEME from '../../assets/styles/theme.style'
+import StarRating from 'react-native-star-rating';
 
 export default class ExpandingView extends Component {
     constructor(props) {
@@ -23,10 +24,13 @@ export default class ExpandingView extends Component {
             isServices: false,
             isImageViewVisible: false,
             expandedResume: false,
+            expandedReviews: false,
             isResume: false,
+            isReviews: false,
             certification: [],
             workingDays: [],
             services: [],
+            reviews: []
 
         }
         if (Platform.OS === 'android') {
@@ -34,7 +38,7 @@ export default class ExpandingView extends Component {
         }
     }
     componentDidMount = () => {
-        const { portfolio, certification, workingDay, service } = this.props;
+        const { portfolio, certification, workingDay, service, rating } = this.props;
         let portfolioArray = [];
         if (portfolio == null || portfolio.length == 0)
             this.setState({ isPhotoNull: true });
@@ -69,6 +73,11 @@ export default class ExpandingView extends Component {
         else {
             this.setState({ isServices: false, services: service });
         }
+        if (rating == null || rating.length == 0)
+            this.setState({ isReviews: true });
+        else {
+            this.setState({ isReviews: false, reviews: rating });
+        }
 
     }
 
@@ -96,6 +105,10 @@ export default class ExpandingView extends Component {
         this.setState({ expandedResume: !this.state.expandedResume });
     }
 
+    changeReviewsLayout = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        this.setState({ expandedReviews: !this.state.expandedReviews });
+    }
 
     renderImages = (images) => {
         return images.map((image) => {
@@ -167,9 +180,30 @@ export default class ExpandingView extends Component {
         )
     }
 
+    _renderReviewsItem = ({ item, index }) => {
+        return (
+            <>
+                <View style={styles.lineStyle}></View>
+                <View style={styles.ratingContainer}>
+                    <Text style={styles.textStyle}>{item.comment}</Text>
+                    <View style={styles.starContainer}>
+                        <StarRating
+                            disabled={true}
+                            maxStars={5}
+                            starSize={20}
+                            rating={item.ratingCount}
+                            selectedStar={(rating) => this.onStarRatingPress(rating)}
+                            fullStarColor={THEME.PRIMARY_COLOR}
+                        />
+                    </View>
+
+                </View>
+            </>)
+    }
+
 
     render() {
-        const { portfolio, certification, workingDays, services } = this.state;
+        const { portfolio, certification, workingDays, services, reviews } = this.state;
         const { onDownload } = this.props;
         const images: Array<Object> = portfolio.map((img: Object) => ({
             uri: img
@@ -199,10 +233,10 @@ export default class ExpandingView extends Component {
                         <View style={styles.country_container}>
                             <Text style={styles.text_panel_heading}>Portfolio</Text>
                             {this.state.expandedPhoto &&
-                                <Icon.AntDesign name="up" size={25} />
+                                <Icon.AntDesign name="up" size={THEME.ICON_SIZE} />
                             }
                             {!this.state.expandedPhoto &&
-                                <Icon.AntDesign name="down" size={25} />
+                                <Icon.AntDesign name="down" size={THEME.ICON_SIZE} />
                             }
                         </View>
                     </TouchableOpacity>
@@ -232,10 +266,10 @@ export default class ExpandingView extends Component {
                         <View style={styles.country_container}>
                             <Text style={styles.text_panel_heading}>Certification</Text>
                             {this.state.expandedCertificationPhoto &&
-                                <Icon.AntDesign name="up" size={25} />
+                                <Icon.AntDesign name="up" size={THEME.ICON_SIZE} />
                             }
                             {!this.state.expandedCertificationPhoto &&
-                                <Icon.AntDesign name="down" size={25} />
+                                <Icon.AntDesign name="down" size={THEME.ICON_SIZE} />
                             }
                         </View>
                     </TouchableOpacity>
@@ -265,10 +299,10 @@ export default class ExpandingView extends Component {
                         <View style={styles.country_container}>
                             <Text style={styles.text_panel_heading}>Working Days</Text>
                             {this.state.expandedWorkingDays &&
-                                <Icon.AntDesign name="up" size={25} />
+                                <Icon.AntDesign name="up" size={THEME.ICON_SIZE} />
                             }
                             {!this.state.expandedWorkingDays &&
-                                <Icon.AntDesign name="down" size={25} />
+                                <Icon.AntDesign name="down" size={THEME.ICON_SIZE} />
                             }
                         </View>
                     </TouchableOpacity>
@@ -303,10 +337,10 @@ export default class ExpandingView extends Component {
                         <View style={styles.country_container}>
                             <Text style={styles.text_panel_heading}>Services</Text>
                             {this.state.expandedServices &&
-                                <Icon.AntDesign name="up" size={25} />
+                                <Icon.AntDesign name="up" size={THEME.ICON_SIZE} />
                             }
                             {!this.state.expandedServices &&
-                                <Icon.AntDesign name="down" size={25} />
+                                <Icon.AntDesign name="down" size={THEME.ICON_SIZE} />
                             }
                         </View>
                     </TouchableOpacity>
@@ -341,10 +375,10 @@ export default class ExpandingView extends Component {
                         <View style={styles.country_container}>
                             <Text style={styles.text_panel_heading}>Resume</Text>
                             {this.state.expandedResume &&
-                                <Icon.AntDesign name="up" size={25} />
+                                <Icon.AntDesign name="up" size={THEME.ICON_SIZE} />
                             }
                             {!this.state.expandedResume &&
-                                <Icon.AntDesign name="down" size={25} />
+                                <Icon.AntDesign name="down" size={THEME.ICON_SIZE} />
                             }
                         </View>
                     </TouchableOpacity>
@@ -356,6 +390,37 @@ export default class ExpandingView extends Component {
                                 <Icon.Feather name="download" size={40} color={THEME.PRIMARY_COLOR} />
                                 <Text style={styles.linkTextStyle}>Download</Text>
                             </TouchableOpacity>
+                        }
+                    </View>
+                </View>
+                <View style={styles.activities_container}>
+                    <TouchableOpacity activeOpacity={0.8} onPress={this.changeReviewsLayout}>
+                        <View style={styles.country_container}>
+                            <Text style={styles.text_panel_heading}>Reviews & Ratings</Text>
+                            {this.state.expandedReviews &&
+                                <Icon.AntDesign name="up" size={THEME.ICON_SIZE} />
+                            }
+                            {!this.state.expandedReviews &&
+                                <Icon.AntDesign name="down" size={THEME.ICON_SIZE} />
+                            }
+                        </View>
+                    </TouchableOpacity>
+                    <View style={{ height: this.state.expandedReviews ? null : 0, flexDirection: 'column', overflow: 'hidden' }}>
+                        {this.state.isReviews ?
+                            <Text style={{ fontWeight: 'bold', marginHorizontal: 10 }} >No Resume Found</Text>
+                            :
+                            <>
+                                <View style={{ marginHorizontal: '5%' }}>
+                                    {/* <Text style={styles.textStyle}>Description</Text> */}
+                                    <FlatList
+                                        data={reviews}
+                                        showsVerticalScrollIndicator={false}
+                                        ItemSeparatorComponent={this._renderSeparator}
+                                        renderItem={({ item, index }) => this._renderReviewsItem({ item, index })}
+                                        keyExtractor={item => item} />
+                                    <View style={{ flex: 1, borderRadius: 5, borderWidth: 1 }}></View>
+                                </View>
+                            </>
                         }
                     </View>
                 </View>
