@@ -28,3 +28,6 @@ export const DateTimeModal = _DateTimeModal;
 
 import _ExpandView from './ExpandView';
 export const ExpandView = _ExpandView;
+
+import _BarberService from './BarberServices';
+export const BarberServices = _BarberService

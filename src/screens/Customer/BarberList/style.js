@@ -10,10 +10,8 @@ export default StyleSheet.create({
         paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '20%'
     },
     listItemContainer: {
-        // flex: 0.3,
         borderRadius: 10,
         marginHorizontal: '5%',
-        // marginVertical:'3%'
     },
     cardStyle: {
         paddingTop: '2%',
@@ -59,8 +57,8 @@ export default StyleSheet.create({
     },
     textStyle: {
         fontSize: 10,
-        paddingTop: '1%',
-        height: 15,
+        padding: '3%',
+        height: 18,
         width: 20,
         textAlign: 'center',
         justifyContent: 'center',

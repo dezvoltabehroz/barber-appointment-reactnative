@@ -7,6 +7,7 @@ import _EmailandPassword from './EmailandPasssword';
 import _HairCare from './HairCare';
 import _BarberList from './BarberList';
 import _BarberProfile from './BarberProfile';
+import _Booking from './Booking';
 
 export const CustomerScreenPaths = {
     PhoneNumber: _PhoneNumber,
@@ -17,5 +18,6 @@ export const CustomerScreenPaths = {
     HairCare: _HairCare,
     BarberList: _BarberList,
     BarberProfile: _BarberProfile,
+    Booking: _Booking,
     Home: _Home
 }
