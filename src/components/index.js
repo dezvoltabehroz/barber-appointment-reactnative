@@ -30,4 +30,7 @@ import _ExpandView from './ExpandView';
 export const ExpandView = _ExpandView;
 
 import _BarberService from './BarberServices';
-export const BarberServices = _BarberService
+export const BarberServices = _BarberService;
+
+import _SearchandMapView from './Search&MapView';
+export const SearchandMapView = _SearchandMapView;
