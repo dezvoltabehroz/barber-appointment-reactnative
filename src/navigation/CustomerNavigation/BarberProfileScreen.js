@@ -12,7 +12,7 @@ export default class BarberProfileScreen extends Component {
         const { navigate, goBack } = this.props.navigation
         const { data } = this.props.route.params;
         return (
-            <MainScreenPaths.Customer.BarberProfile items={(data)} bookNow={()=>navigate('Auth')} onBarberPress={() => navigate('')} />
+            <MainScreenPaths.Customer.BarberProfile items={(data)} bookNow={()=>navigate('Booking')} onBarberPress={() => navigate('')} />
         )
     }
 }

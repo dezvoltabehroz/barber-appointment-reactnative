@@ -102,7 +102,7 @@ export default class BarberServices extends Component {
     }
 
 
-    _renderItems = (item) => {
+    _renderItems = ({ item, index }) => {
         return (
             <>
                 <View style={styles.contentContainer}>
@@ -161,7 +161,7 @@ export default class BarberServices extends Component {
                     data={this.state.services}
                     showsVerticalScrollIndicator={false}
                     ItemSeparatorComponent={this._renderSeparator}
-                    renderItem={({ item, index }) => this._renderItems(item)}
+                    renderItem={({ item, index }) => this._renderItems({ item, index })}
                     keyExtractor={item => item} />
             </View>
         );
