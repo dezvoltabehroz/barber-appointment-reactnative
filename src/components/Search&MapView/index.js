@@ -70,6 +70,7 @@ class SearchandMapView extends Component {
     };
 
     onRegionChange = (region) => {
+        this.setState({ region });
     }
 
     render() {
