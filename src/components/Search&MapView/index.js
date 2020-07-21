@@ -81,7 +81,7 @@ class SearchandMapView extends Component {
                         <GooglePlacesAutocomplete
                             placeholder='Search'
                             minLength={2} // minimum length of text to search
-                            autoFocus={true}
+                            autoFocus={false}
                             returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
                             listViewDisplayed='auto'  // true/false/undefined
                             fetchDetails={true}
@@ -105,12 +105,12 @@ class SearchandMapView extends Component {
                                     backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
                                 },
                                 textInput: {
+                                    marginTop: '4%',
                                     height: 54,
-                                    width: '80%'
                                 },
                                 textInputContainer: {
                                     width: '100%',
-                                    height: 70,
+                                    height: 80,
                                     backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
                                 },
                                 description: {
@@ -119,7 +119,6 @@ class SearchandMapView extends Component {
                                 },
                                 powered: {
                                     backgroundColor: THEME.COLOR_WHITE,
-                                    width: 40
                                 }
 
                             }}
