@@ -93,13 +93,11 @@ export default class BarberServices extends Component {
             this.setState({ services: items });
             if (!items[objIndex].selected) {
                 this.setState({ selectedService: this.state.selectedService.filter(item => item.id != val.id) })
-                // console.log("++++++++++filtered",this.state.selectedService);
             }
         } else {
             items[objIndex] = { ...items[objIndex], selected: true };
             this.setState({ services: items });
             this.state.selectedService.push(items[objIndex]);
-            // console.log("++++++++++Pushed",this.state.selectedService);
         }
     }
 
