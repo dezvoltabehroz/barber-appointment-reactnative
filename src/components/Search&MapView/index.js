@@ -15,6 +15,7 @@ import Geolocation from '@react-native-community/geolocation';
 import styles from './style';
 import THEME from '../../assets/styles/theme.style';
 import Geocoder from 'react-native-geocoder';
+import MAPSTYLE from '../../assets/styles/common.style';
 
 class SearchandMapView extends Component {
     constructor(prop) {
@@ -26,6 +27,7 @@ class SearchandMapView extends Component {
                 latitudeDelta: 0.9922,
                 longitudeDelta: 0.9421,
             },
+            isFocus: true,
 
         }
 
@@ -81,19 +83,27 @@ class SearchandMapView extends Component {
 
 
     render() {
+        
+        const { isFocus } = this.state;
         return (
             <>
-                <View style={styles.searchBarContainer}>
+                <View style={[styles.searchBarContainer, isFocus ? styles.height : null]}>
                     <GooglePlacesAutocomplete
                         placeholder='Search'
                         minLength={2} // minimum length of text to search
-                        autoFocus={true}
+                        autoFocus={false}
+                        textInputProps={{
+                            onFocus: () => this.setState({ isFocus: true }),
+                            onBlur: () => this.setState({ isFocus: false }),
+                            // onChangeText: (text) => onChange(text)
+                        }}
                         returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
                         listViewDisplayed='auto'  // true/false/undefined
                         fetchDetails={true}
                         renderDescription={row => row.description} // custom description render
                         textInputProps={{ clearButtonMode: 'while-editing' }}
                         onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+                            this.setState({ isFocus: false })
                             this.goMap(data, details);
                         }}
 
@@ -156,8 +166,9 @@ class SearchandMapView extends Component {
                         loadingEnabled
                         showsMyLocationButton={true}
                         style={styles.mapStyle}
+                        customMapStyle={THEME.mapStyle}
                         region={this.state.region}
-                        onRegionChangeComplete={this.onRegionChange}
+                    // onRegionChangeComplete={this.onRegionChange}
                     // onRegionChange={onRegionChange}
                     //onPanDrag={onPanDrag}
                     // onMapReady={() => this.setState({ marginBottom: 1 })}
@@ -166,7 +177,7 @@ class SearchandMapView extends Component {
                             ref={marker => {
                                 this.marker = marker;
                             }}
-                            image={require('../../assets/images/green_pin.png')}
+
                             coordinate={new AnimatedRegion({
                                 latitude: this.state.region.latitude,
                                 longitude: this.state.region.longitude,

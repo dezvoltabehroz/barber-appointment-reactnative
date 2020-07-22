@@ -4,13 +4,14 @@ const screenWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
     mapStyle: {
-        height: screenHeight < 600 ? screenHeight * 0.45 : screenHeight * 0.55,
+        height: screenHeight < 600 ? screenHeight * 0.45 : screenHeight * 0.54,
         width: screenWidth,
-        position: 'relative'
     },
     searchBarContainer: {
-        height: screenHeight * 0.2,
+        height: screenHeight * 0.12,
         width: screenWidth,
-        position: 'relative'
+    },
+    height:{
+        height: screenHeight * 0.2,
     }
 })
