@@ -1,17 +1,28 @@
 import { StyleSheet, Dimensions } from 'react-native';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
+import THEME from '../../assets/styles/theme.style';
 
 export default StyleSheet.create({
     mapStyle: {
-        height: screenHeight < 600 ? screenHeight * 0.45 : screenHeight * 0.54,
+        marginTop: "2%",
+        height: screenHeight < 600 ? screenHeight * 0.45 : screenHeight * 0.55,
         width: screenWidth,
     },
-    searchBarContainer: {
-        height: screenHeight * 0.12,
-        width: screenWidth,
+    modalContainer: {
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
+        paddingHorizontal: "5%"
     },
-    height:{
-        height: screenHeight * 0.2,
+    searchBarStyle: {
+        marginTop: "5%",
+        marginHorizontal: "5%",
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        height: 54,
+        justifyContent: "center"
+    },
+    barTextStyle: {
+        color: THEME.COLOR_GREY,
+        marginLeft: "5%"
     }
 })

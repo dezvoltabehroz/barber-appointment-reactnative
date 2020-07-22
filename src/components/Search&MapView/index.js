@@ -2,20 +2,20 @@
 
 import React, { Component } from 'react';
 import {
-    StyleSheet,
-    StatusBar,
     View,
-    Dimensions,
     Alert,
-    ScrollView
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    Modal
 } from 'react-native';
-import MapView, { PROVIDER_GOOGLE, Marker, AnimatedRegion, Heatmap } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker, AnimatedRegion, Circle } from 'react-native-maps';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 import Geolocation from '@react-native-community/geolocation';
 import styles from './style';
 import THEME from '../../assets/styles/theme.style';
 import Geocoder from 'react-native-geocoder';
-import MAPSTYLE from '../../assets/styles/common.style';
+import { Icon } from '..';
 
 class SearchandMapView extends Component {
     constructor(prop) {
@@ -27,10 +27,13 @@ class SearchandMapView extends Component {
                 latitudeDelta: 0.9922,
                 longitudeDelta: 0.9421,
             },
-            isFocus: true,
-
+            modalView: false,
+            name: '',
+            currentLocation: {
+                lat: 0,
+                lng: 0
+            }
         }
-
     }
 
     goMap(data, details) {
@@ -44,7 +47,9 @@ class SearchandMapView extends Component {
                 longitude: searchObj.searchDetails.geometry.location.lng,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
-            }
+            },
+            modalView: false,
+            name: searchObj.searchDetails.formatted_address
         })
     }
 
@@ -65,6 +70,10 @@ class SearchandMapView extends Component {
                         longitude: pos.lng,
                         latitudeDelta: this.state.region.latitudeDelta,
                         longitudeDelta: this.state.region.longitudeDelta,
+                    },
+                    currentLocation: {
+                        lat: pos.lat,
+                        lng: pos.lng,
                     }
                 })
                 Geocoder.geocodePosition(pos).then(res => {
@@ -81,13 +90,47 @@ class SearchandMapView extends Component {
         this.setState({ region });
     }
 
-
     render() {
-        
-        const { isFocus } = this.state;
+        const { modalView, name } = this.state;
         return (
             <>
-                <View style={[styles.searchBarContainer, isFocus ? styles.height : null]}>
+                <TouchableOpacity onPress={() => this.setState({ modalView: true })}>
+                    <View style={styles.searchBarStyle} >
+                        <Text style={styles.barTextStyle}>{name != '' ? name : "Search"}</Text>
+                    </View>
+                </TouchableOpacity>
+                <MapView
+
+                    provider={PROVIDER_GOOGLE}
+                    showsUserLocation={true}
+                    loadingEnabled
+                    showsMyLocationButton={true}
+                    style={styles.mapStyle}
+                    customMapStyle={THEME.mapStyle}
+                    region={this.state.region}
+                // onRegionChangeComplete={this.onRegionChange}
+                // onRegionChange={onRegionChange}
+                //onPanDrag={onPanDrag}
+                // onMapReady={() => this.setState({ marginBottom: 1 })}
+                >
+                    <Marker.Animated
+                        ref={marker => {
+                            this.marker = marker;
+                        }}
+                        coordinate={new AnimatedRegion({
+                            latitude: this.state.region.latitude,
+                            longitude: this.state.region.longitude,
+                            latitudeDelta: this.state.region.latitudeDelta,
+                            longitudeDelta: this.state.region.longitudeDelta,
+                        })}
+                    ></Marker.Animated>
+                </MapView>
+                <Modal visible={modalView}>
+                    <View style={styles.modalContainer}>
+                        <TouchableOpacity onPress={() => this.setState({ modalView: false })} style={{ marginVertical: "5%" }}>
+                            <Icon.Feather name="arrow-left" size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} />
+                        </TouchableOpacity>
+                    </View>
                     <GooglePlacesAutocomplete
                         placeholder='Search'
                         minLength={2} // minimum length of text to search
@@ -106,9 +149,7 @@ class SearchandMapView extends Component {
                             this.setState({ isFocus: false })
                             this.goMap(data, details);
                         }}
-
                         getDefaultValue={() => ''}
-
                         query={{
                             // available options: https://developers.google.com/places/web-service/autocomplete
                             key: 'AIzaSyCpNZMa_0hP9txbsGZVu2gNMqcZqHHRCbY',
@@ -117,28 +158,17 @@ class SearchandMapView extends Component {
                             // components: "country:ng", // country name
 
                         }}
-
-
                         styles={{
-                            container: {
-                                // marginTop: Platform.OS == 'android' ? StatusBar.currentHeight : 44,
-                                backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
-                            },
-                            textInput: {
-                                marginTop: '4%',
-                                height: 54,
-                            },
+                            container: { backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, },
+                            textInput: { marginHorizontal: "5%", height: 54, },
                             textInputContainer: {
                                 width: '100%',
-                                height: 80,
-                                backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
+                                height: 54,
+                                borderBottomWidth: 0,
+                                borderTopWidth: 0,
+                                backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, borderWidth: 0
                             },
-                            description: {
-                                fontWeight: 'bold',
-                            },
-                            description: {
-                                color: '#fff'
-                            },
+                            description: { fontWeight: 'bold', color: THEME.COLOR_WHITE },
                         }}
                         renderDescription={(row) => row.description || row.formatted_address || row.name}
                         currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
@@ -154,39 +184,9 @@ class SearchandMapView extends Component {
                             rankby: 'distance',
                             types: 'establishment'
                         }}
-
                         debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
                     />
-
-                </View>
-                <ScrollView>
-                    <MapView
-                        provider={PROVIDER_GOOGLE}
-                        showsUserLocation={true}
-                        loadingEnabled
-                        showsMyLocationButton={true}
-                        style={styles.mapStyle}
-                        customMapStyle={THEME.mapStyle}
-                        region={this.state.region}
-                    // onRegionChangeComplete={this.onRegionChange}
-                    // onRegionChange={onRegionChange}
-                    //onPanDrag={onPanDrag}
-                    // onMapReady={() => this.setState({ marginBottom: 1 })}
-                    >
-                        <Marker.Animated
-                            ref={marker => {
-                                this.marker = marker;
-                            }}
-
-                            coordinate={new AnimatedRegion({
-                                latitude: this.state.region.latitude,
-                                longitude: this.state.region.longitude,
-                                latitudeDelta: this.state.region.latitudeDelta,
-                                longitudeDelta: this.state.region.longitudeDelta,
-                            })}
-                        ></Marker.Animated>
-                    </MapView>
-                </ScrollView>
+                </Modal>
 
             </>
         );
