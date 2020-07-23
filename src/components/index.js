@@ -34,3 +34,7 @@ export const BarberServices = _BarberService;
 
 import _SearchandMapView from './Search&MapView';
 export const SearchandMapView = _SearchandMapView;
+
+import _BookAppointment from './BookAppointment';
+export const BookAppointment = _BookAppointment;
+

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, } from 'react-native';
 import styles from './style';
-import { Button, BarberServices, SearchandMapView } from '../../../components';
+import { Button, BarberServices, SearchandMapView, BookAppointment } from '../../../components';
 import StepProgress from 'react-native-step-progress';
 import THEME from '../../../assets/styles/theme.style';
 import BarberList from '../BarberList'
@@ -79,7 +79,7 @@ export default class Booking extends Component {
                     }
                     {
                         this.state.currentPosition == 2 ?
-                            <BarberList />
+                            <BookAppointment />
                             :
                             null
                     }
