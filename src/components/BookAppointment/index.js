@@ -12,27 +12,7 @@ import styles from './style';
 const screenHeight = Math.round(Dimensions.get('window').height);
 const screenWidth = Math.round(Dimensions.get('window').width)
 const jsonData = {
-  "slots": [
-    { "slot": "9:00am - 9:30am" },
-    { "slot": "9:30am - 10:00am" },
-    { "slot": "10:00am - 11:00am" },
-    { "slot": "11:00am - 11:30am" },
-    { "slot": "11:30am - 12:00pm" },
-    { "slot": "12:00pm - 12:30pm" },
-    { "slot": "1:00pm - 01:30pm" },
-    { "slot": "01:30pm - 02:00pm" },
-    { "slot": "02:00pm - 02:30pm" },
-    { "slot": "02:30pm - 03:00pm" },
-    { "slot": "03:00pm - 03:30pm" },
-    { "slot": "03:30pm - 04:00pm" },
-    { "slot": "04:00pm - 04:30pm" },
-    { "slot": "04:30pm - 05:00pm" },
-  ],
-  "myBookings": [
-    { "booking": "10:30am - 11:00am" },
-    { "booking": "12:30pm - 01:00pm" },
-    { "booking": "01:30pm - 02:00pm" },
-  ],
+
 }
 
 export default class BookAppointment extends Component {
@@ -80,7 +60,28 @@ export default class BookAppointment extends Component {
       daysName: [],
       other: true,
       myBooking: false,
-      slotArray: []
+      slotArray: [],
+      slots: [
+        { "slot": "9:00am - 9:30am" },
+        { "slot": "9:30am - 10:00am" },
+        { "slot": "10:00am - 11:00am" },
+        { "slot": "11:00am - 11:30am" },
+        { "slot": "11:30am - 12:00pm" },
+        { "slot": "12:00pm - 12:30pm" },
+        { "slot": "1:00pm - 01:30pm" },
+        { "slot": "01:30pm - 02:00pm" },
+        { "slot": "02:00pm - 02:30pm" },
+        { "slot": "02:30pm - 03:00pm" },
+        { "slot": "03:00pm - 03:30pm" },
+        { "slot": "03:30pm - 04:00pm" },
+        { "slot": "04:00pm - 04:30pm" },
+        { "slot": "04:30pm - 05:00pm" },
+      ],
+      myBookings: [
+        { "booking": "10:30am - 11:00am" },
+        { "booking": "12:30pm - 01:00pm" },
+        { "booking": "01:30pm - 02:00pm" },
+      ],
     }
 
   }
@@ -110,7 +111,7 @@ export default class BookAppointment extends Component {
       var currentDate = new Date();
       currentDate.setDate(startDate.getDate() + i);
       dayNameArr.push(this.DayAsString(currentDate.getDay()))
-      aryDates.push(dayDate = currentDate.getDate());
+      aryDates.push(currentDate.getDate());
     }
     this.setState({ daysDate: aryDates, daysName: dayNameArr })
   }
@@ -161,7 +162,7 @@ export default class BookAppointment extends Component {
                       <Text style={item.isSelected ? styles.textStyle : styles.unSelectedText}>
                         {item.dayName[0]}{item.dayName[1]}{item.dayName[2]}
                       </Text>}
-                    <View style={{ marginVertical: "10%" }}>
+                    <View style={{ paddingTop:'20%' }}>
                       <TouchableOpacity onPress={() => this.handlePressDate({ item, index })}
                         style={item.isSelected ? styles.selectedDate : styles.unSelectedDate} >
                         <Text style={styles.textStyle} >{item.date}</Text>
@@ -173,35 +174,36 @@ export default class BookAppointment extends Component {
             }
           </View>
           <View style={styles.lineStyle}></View>
-          {
-            this.state.myBooking ?
-              <FlatList data={jsonData.myBookings}
-                keyExtractor={item => item}
-                ItemSeparatorComponent={this.renderSeparator}
-                numColumns={3}
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={styles.contentContainer}
-                renderItem={({ index, item }) => this._renderBookingItems({ index, item })} />
+            {
+              this.state.myBooking ?
 
-              :
-              <FlatList data={jsonData.slots}
-                keyExtractor={item => item}
-                ItemSeparatorComponent={this.renderSeparator}
-                numColumns={3}
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={styles.contentContainer}
-                renderItem={({ index, item }) => this._renderItems({ index, item })} />
-          }
+                <FlatList data={this.state.myBookings}
+                  keyExtractor={item => item}
+                  ItemSeparatorComponent={this.renderSeparator}
+                  numColumns={3}
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={styles.contentContainer}
+                  renderItem={({ index, item }) => this._renderBookingItems({ index, item })} />
+
+                :
+                <FlatList data={this.state.slots}
+                  keyExtractor={item => item}
+                  ItemSeparatorComponent={this.renderSeparator}
+                  numColumns={3}
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={styles.contentContainer}
+                  renderItem={({ index, item }) => this._renderItems({ index, item })} />
+            }
           <View style={styles.lineStyle}></View>
           <View style={styles.bookingRowContainer}>
             <TouchableOpacity
-              onPress={() => this.setState({ myBooking: true, other: false })}
+              onPress={() => this.setState({ myBooking: !this.state.myBooking })}
               style={this.state.myBooking ? styles.selected : styles.unSelected}>
             </TouchableOpacity>
             <View style={styles.justify}>
               <Text style={styles.textStyle} >My Booking</Text>
             </View>
-            <TouchableOpacity onPress={() => this.setState({ myBooking: false, other: true })}
+            <TouchableOpacity onPress={() => this.setState({ other: !this.state.other })}
               style={this.state.other ? styles.selected : styles.unSelected}>
             </TouchableOpacity>
             <View style={styles.justify}>

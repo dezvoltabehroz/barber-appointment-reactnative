@@ -70,7 +70,8 @@ export default StyleSheet.create({
         flexDirection: 'column',
         flex: 0.15,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        paddingVertical: "3%"
     },
     selectedDate: {
         backgroundColor: THEME.PRIMARY_COLOR,
@@ -92,8 +93,8 @@ export default StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         width: screenWidth,
-        justifyContent: 'center',
-        alignItems: 'center'
+        paddingVertical: "5%",
+        paddingLeft: "5%"
     },
     unSelectedText: {
         color: THEME.COLOR_GREY,
