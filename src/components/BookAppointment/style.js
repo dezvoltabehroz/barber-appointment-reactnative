@@ -96,6 +96,15 @@ export default StyleSheet.create({
         paddingVertical: "5%",
         paddingLeft: "5%"
     },
+    contentBOOKContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        height:"100%",
+        width: screenWidth,
+        paddingTop: "5%",
+        paddingBottom: "5%",
+        paddingLeft: "5%"
+    },
     unSelectedText: {
         color: THEME.COLOR_GREY,
         fontSize: THEME.FONT_SIZE_SMALL,

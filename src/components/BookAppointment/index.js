@@ -9,11 +9,6 @@ import {
 } from 'react-native';
 import { Button } from '..';
 import styles from './style';
-const screenHeight = Math.round(Dimensions.get('window').height);
-const screenWidth = Math.round(Dimensions.get('window').width)
-const jsonData = {
-
-}
 
 export default class BookAppointment extends Component {
   constructor(prop) {
@@ -162,7 +157,7 @@ export default class BookAppointment extends Component {
                       <Text style={item.isSelected ? styles.textStyle : styles.unSelectedText}>
                         {item.dayName[0]}{item.dayName[1]}{item.dayName[2]}
                       </Text>}
-                    <View style={{ paddingTop:'20%' }}>
+                    <View style={{ paddingTop: '20%' }}>
                       <TouchableOpacity onPress={() => this.handlePressDate({ item, index })}
                         style={item.isSelected ? styles.selectedDate : styles.unSelectedDate} >
                         <Text style={styles.textStyle} >{item.date}</Text>
@@ -174,26 +169,24 @@ export default class BookAppointment extends Component {
             }
           </View>
           <View style={styles.lineStyle}></View>
-            {
-              this.state.myBooking ?
-
-                <FlatList data={this.state.myBookings}
-                  keyExtractor={item => item}
-                  ItemSeparatorComponent={this.renderSeparator}
-                  numColumns={3}
-                  showsVerticalScrollIndicator={false}
-                  contentContainerStyle={styles.contentContainer}
-                  renderItem={({ index, item }) => this._renderBookingItems({ index, item })} />
-
-                :
-                <FlatList data={this.state.slots}
-                  keyExtractor={item => item}
-                  ItemSeparatorComponent={this.renderSeparator}
-                  numColumns={3}
-                  showsVerticalScrollIndicator={false}
-                  contentContainerStyle={styles.contentContainer}
-                  renderItem={({ index, item }) => this._renderItems({ index, item })} />
-            }
+          {
+            this.state.myBooking ?
+              <FlatList data={this.state.myBookings}
+                keyExtractor={item => item}
+                ItemSeparatorComponent={this.renderSeparator}
+                numColumns={3}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={styles.contentContainer}
+                renderItem={({ index, item }) => this._renderBookingItems({ index, item })} />
+              :
+              <FlatList data={this.state.slots}
+                keyExtractor={item => item}
+                ItemSeparatorComponent={this.renderSeparator}
+                numColumns={3}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={styles.contentContainer}
+                renderItem={({ index, item }) => this._renderItems({ index, item })} />
+          }
           <View style={styles.lineStyle}></View>
           <View style={styles.bookingRowContainer}>
             <TouchableOpacity
