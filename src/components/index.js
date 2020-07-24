@@ -38,3 +38,5 @@ export const SearchandMapView = _SearchandMapView;
 import _BookAppointment from './BookAppointment';
 export const BookAppointment = _BookAppointment;
 
+import _Summary from './Summary';
+export const Summary = _Summary;

@@ -10,8 +10,12 @@ export default StyleSheet.create({
         paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '15%'
     },
     textStyles: {
-        fontSize: 10,
-        color: "#fff"
+        fontFamily: "Poppins-Regular",
+        color: THEME.COLOR_GREY
+    },
+    coloredTextStyles: {
+        fontFamily: "Poppins-Bold",
+        color: THEME.PRIMARY_COLOR
     },
     lineStyle: {
         borderColor: '#44495C',

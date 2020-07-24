@@ -9,7 +9,7 @@ import {
     TouchableOpacity,
     Modal
 } from 'react-native';
-import MapView, { PROVIDER_GOOGLE, Marker, AnimatedRegion, Circle } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker, AnimatedRegion } from 'react-native-maps';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 import Geolocation from '@react-native-community/geolocation';
 import styles from './style';
@@ -51,6 +51,8 @@ class SearchandMapView extends Component {
             modalView: false,
             name: searchObj.searchDetails.formatted_address
         })
+        this.props.address(this.state.name);
+        this.props.getRegion(this.state.region);
     }
 
     componentDidMount = () => {

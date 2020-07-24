@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, } from 'react-native';
+import { View, Text } from 'react-native';
 import styles from './style';
-import { Button, BarberServices, SearchandMapView, BookAppointment } from '../../../components';
+import { Button, BarberServices, SearchandMapView, BookAppointment, Summary } from '../../../components';
 import StepProgress from 'react-native-step-progress';
 import THEME from '../../../assets/styles/theme.style';
 import BarberList from '../BarberList'
@@ -10,6 +10,15 @@ export default class Booking extends Component {
         super(props);
         this.state = {
             currentPosition: 0,
+            selectedServices: [],
+            location: '',
+            region: {
+                latitude: 0,
+                longitude: 0,
+                latitudeDelta: 0.9922,
+                longitudeDelta: 0.9421,
+            },
+            totalPrice: 0,
         }
     }
 
@@ -22,12 +31,38 @@ export default class Booking extends Component {
 
     }
 
-    onPageChange = () => {
+    onPageChange = (position) => {
+        this.setState({ currentPosition: position });
+    }
+
+    onNextPageChange = () => {
         if (this.state.currentPosition == 4) {
             this.setState({ currentPosition: this.state.currentPosition });
         } else {
             this.setState({ currentPosition: this.state.currentPosition + 1 });
         }
+    }
+    handleSelectedServices = (data) => {
+        const { selectedServices } = this.state;
+        this.setState({ selectedServices: data });
+        var totalPrice = 0;
+        for (var i = 0; i < selectedServices.length; i++) {
+            totalPrice = (totalPrice + selectedServices[i].serviceCost);
+        }
+        this.setState({ totalPrice });
+        console.log("--------TotalPrice", totalPrice)
+    }
+
+    handleOnChange = () => {
+        this.setState({ currentPosition: 0 })
+    }
+
+    handleLocation = (location) => {
+        this.setState({ location })
+    }
+
+    handleRegion = (region) => {
+        this.setState({ region })
     }
 
     render() {
@@ -56,7 +91,8 @@ export default class Booking extends Component {
             currentStepLabelColor: THEME.COLOR_WHITE
         }
 
-        const { currentPosition } = this.state
+        const { currentPosition, selectedServices, totalPrice } = this.state
+
         return (
             <View style={styles.container}>
                 <View style={{ flex: 1 }}>
@@ -64,16 +100,19 @@ export default class Booking extends Component {
                         customStyles={customStyles}
                         currentPosition={currentPosition}
                         labels={labels}
+                        onPress={this.onPageChange}
                     />
                     {
                         this.state.currentPosition == 0 ?
-                            <BarberServices />
+                            <BarberServices selectedService={(selectedServices)} markedServices={(data) => this.handleSelectedServices(data)} />
                             :
                             null
                     }
                     {
                         this.state.currentPosition == 1 ?
-                            <SearchandMapView />
+                            <SearchandMapView
+                                address={(location) => this.handleLocation(location)}
+                                getRegion={(region) => this.handleRegion(region)} />
                             :
                             null
                     }
@@ -85,7 +124,11 @@ export default class Booking extends Component {
                     }
                     {
                         this.state.currentPosition == 3 ?
-                            <BarberList />
+                            <Summary
+                                addresslocation={(this.state.location)}
+                                onChangePress={this.handleOnChange}
+                                services={(this.state.selectedServices)}
+                                region={(this.state.region)} />
                             :
                             null
                     }
@@ -101,10 +144,17 @@ export default class Booking extends Component {
                     <View style={styles.gapHeight}></View>
                     <View style={{ flexDirection: 'row' }}>
                         <View style={styles.buttonContainer}>
-                            <Button title='Back' onPress={this.onPeriviousPageChange} />
+                            {
+                                totalPrice != 0 ?
+                                    <View style={{ height: 54, justifyContent: "center", alignItems: "center" }}>
+                                        <Text style={styles.coloredTextStyles}>${totalPrice}.00<Text style={styles.textStyles}> Total</Text></Text>
+                                    </View>
+                                    :
+                                    null
+                            }
                         </View>
                         <View style={styles.buttonContainer}>
-                            <Button title='Next' onPress={this.onPageChange} />
+                            <Button title='Next' onPress={this.onNextPageChange} />
                         </View>
                     </View>
 

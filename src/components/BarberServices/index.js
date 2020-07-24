@@ -14,7 +14,7 @@ export default class BarberServices extends Component {
                 {
                     id: 1,
                     serviceName: 'Hair Styling',
-                    serviceCost: '$100',
+                    serviceCost: 100,
                     serviceEstTime: '00:30',
                     selected: false,
                     description: 'All haircuts include eyebrows, nose, and ears groomed.'
@@ -22,7 +22,7 @@ export default class BarberServices extends Component {
                 {
                     id: 2,
                     serviceName: 'Hair Color',
-                    serviceCost: '$50',
+                    serviceCost: 50,
                     serviceEstTime: '00:45',
                     selected: false,
                     description: 'Any type of haircut + beard + eyebrows and nose and ears Groomed.'
@@ -30,7 +30,7 @@ export default class BarberServices extends Component {
                 {
                     id: 3,
                     serviceName: 'Shave',
-                    serviceCost: '$50',
+                    serviceCost: 50,
                     serviceEstTime: '00:30',
                     selected: false,
                     description: 'Includes whole head shaped up and back tapered, eyebrows, nose, ears groomed.'
@@ -38,7 +38,7 @@ export default class BarberServices extends Component {
                 {
                     id: 4,
                     serviceName: 'Blow Out',
-                    serviceCost: '$50',
+                    serviceCost: 50,
                     serviceEstTime: '00:20',
                     selected: false,
                     description: 'Any type of haircut + beard + eyebrows and nose and ears Groomed.'
@@ -46,7 +46,7 @@ export default class BarberServices extends Component {
                 {
                     id: 5,
                     serviceName: 'Hair Styling',
-                    serviceCost: '$100',
+                    serviceCost: 100,
                     serviceEstTime: '01:00',
                     selected: false,
                     description: 'Includes whole head shaped up and back tapered, eyebrows, nose, ears groomed.'
@@ -54,7 +54,7 @@ export default class BarberServices extends Component {
                 {
                     id: 6,
                     serviceName: 'Hair Color',
-                    serviceCost: '$50',
+                    serviceCost: 50,
                     serviceEstTime: '00:45',
                     selected: false,
                     description: 'Includes Chips or choice of Beverage'
@@ -62,7 +62,7 @@ export default class BarberServices extends Component {
                 {
                     id: 7,
                     serviceName: 'Shave',
-                    serviceCost: '$50',
+                    serviceCost: 50,
                     serviceEstTime: '00:30',
                     selected: false,
                     description: 'Any type of haircut + beard + eyebrows and nose and ears Groomed.'
@@ -70,13 +70,17 @@ export default class BarberServices extends Component {
                 {
                     id: 8,
                     serviceName: 'Blow Out',
-                    serviceCost: '$50',
+                    serviceCost: 50,
                     serviceEstTime: '00:20',
                     selected: false,
                     description: 'Includes Chips or choice of Beverage'
                 }
             ]
         }
+    }
+
+    componentDidMount = () => {
+        this.setState({ selectedService: this.props.selectedService });
     }
 
     _renderSeparator = () => {
@@ -93,11 +97,14 @@ export default class BarberServices extends Component {
             this.setState({ services: items });
             if (!items[objIndex].selected) {
                 this.setState({ selectedService: this.state.selectedService.filter(item => item.id != val.id) })
+                this.props.markedServices(this.state.selectedService);
             }
-        } else {
+        }
+        else {
             items[objIndex] = { ...items[objIndex], selected: true };
             this.setState({ services: items });
             this.state.selectedService.push(items[objIndex]);
+            this.props.markedServices(this.state.selectedService);
         }
     }
 
@@ -137,7 +144,7 @@ export default class BarberServices extends Component {
                         </View>
                         <View style={styles.serviceCostContainer}>
                             <Text style={{ color: THEME.PRIMARY_COLOR, fontFamily: 'Poppins-Medium' }}>
-                                {item.serviceCost}
+                                ${item.serviceCost}
                             </Text>
                         </View>
                     </View>
