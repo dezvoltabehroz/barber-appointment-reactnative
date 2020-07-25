@@ -41,6 +41,11 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    buttonTextStyle: {
+        marginHorizontal: '10%',
+        color: '#fff',
+        fontFamily: 'Poppins-Medium'
+    },
     buttonStyle: {
         backgroundColor: THEME.PRIMARY_COLOR,
         borderRadius: 7,
@@ -48,7 +53,10 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
-    daycontainer: { flexDirection: 'row', width: screenWidth * 0.3 },
+    daycontainer: {
+        flexDirection: 'row',
+        width: screenWidth * 0.3
+    },
     daysContainer: {
         borderWidth: 1,
         borderColor: '#000',

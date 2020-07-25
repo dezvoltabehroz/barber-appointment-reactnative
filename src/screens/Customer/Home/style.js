@@ -10,7 +10,10 @@ export default StyleSheet.create({
         paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '20%' : '5%'
 
     },
-    upperListContainer: { marginVertical: '5%', justifyContent: "center" },
+    upperListContainer: {
+        marginVertical: '5%',
+        justifyContent: "center"
+    },
     upperListItemContainer: {
         flex: 0.1,
         justifyContent: 'center',
@@ -33,7 +36,12 @@ export default StyleSheet.create({
         color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Medium'
     },
-    lowerListContainer: { flex: 1, paddingTop: '5%', marginBottom: '1%', justifyContent: "center" },
+    lowerListContainer: {
+        flex: 1,
+        paddingTop: '5%',
+        marginBottom: '1%',
+        justifyContent: "center"
+    },
     lowerListItemContainer: {
         flex: 0.1,
         justifyContent: 'center',
@@ -48,7 +56,7 @@ export default StyleSheet.create({
     lowerListTitleContainer: {
         flex: 1,
         paddingTop: '10%',
-        borderRadius:10,
+        borderRadius: 10,
         backgroundColor: 'rgba(0,0,0,.4)',
         paddingHorizontal: '10%',
         justifyContent: 'flex-start',

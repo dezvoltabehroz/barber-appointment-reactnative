@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, Alert, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, Alert, ScrollView } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 import { Icon, FloatingInput, Button, DateTime } from '../../../components'
 import styles from './style';
 import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
-import DateTimePicker from '@react-native-community/datetimepicker';
 
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoder';
@@ -113,10 +112,11 @@ export default class UpdateProfile extends Component {
                             </ImageBackground>
                         </View>
                         <View style={styles.lowerContainer}>
-                            <View style={[styles.inputContainerStyle, isNameFocus || name != '' ? {
-                                borderWidth: 2,
-                                borderColor: THEME.PRIMARY_COLOR,
-                            } : {}]}>
+                            <View style={[styles.inputContainerStyle,
+                            isNameFocus || name != '' ?
+                                { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
+                                :
+                                {}]}>
                                 <FloatingInput
                                     val={name}
                                     onActive={() => this.setState({ isNameFocus: true })}
@@ -155,10 +155,11 @@ export default class UpdateProfile extends Component {
                             <View>
                                 <View style={styles.dateContainer}>
                                     <TouchableOpacity onPress={() => this.setState({ showDatePicker: true })}>
-                                        <View style={[styles.dateContainer, showDatePicker || date != '' ? {
-                                            borderWidth: 2,
-                                            borderColor: THEME.PRIMARY_COLOR,
-                                        } : {}]}>
+                                        <View style={[styles.dateContainer,
+                                        showDatePicker || date != '' ?
+                                            { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
+                                            :
+                                            {}]}>
                                             <Text style={[styles.dateTextStyle, date ? { color: THEME.COLOR_BLACK } : {}]}>{date && date != "" ? date : "Date of Birth"}</Text>
                                         </View>
                                     </TouchableOpacity>
@@ -170,10 +171,11 @@ export default class UpdateProfile extends Component {
                                     />
                                     : null}
                             </View>
-                            <View style={[styles.inputLocationContainerStyle, isLocationFocus || location != '' ? {
-                                borderWidth: 2,
-                                borderColor: THEME.PRIMARY_COLOR,
-                            } : {}]}>
+                            <View style={[styles.inputLocationContainerStyle,
+                             isLocationFocus || location != '' ? 
+                             { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
+                             :
+                             {}]}>
                                 <FloatingInput val={location}
                                     onInActive={() => this.setState({ isLocationFocus: false })}
                                     onActive={() => this.setState({ isLocationFocus: true })}

@@ -46,7 +46,6 @@ export default StyleSheet.create({
     customerAndBarberContainer: {
         borderRadius: 5,
         marginBottom: 15,
-        // marginVertical: "2%",
         marginHorizontal: '10%',
         flexDirection: 'row',
         justifyContent: "center",
@@ -62,8 +61,16 @@ export default StyleSheet.create({
         alignItems: 'center'
 
     },
-    optionContainer: { flexDirection: "row", marginHorizontal: 10 },
-    optionTextStyle: { fontFamily: 'Poppins-Regular', fontSize: 15, marginHorizontal: 10, marginTop: 5 },
+    optionContainer: {
+        flexDirection: "row",
+        marginHorizontal: 10
+    },
+    optionTextStyle: {
+        fontFamily: 'Poppins-Regular',
+        fontSize: 15,
+        marginHorizontal: 10,
+        marginTop: 5
+    },
     gap: {
         width: THEME.GAP_BETWEEN_ELEMENT
     },
@@ -91,13 +98,15 @@ export default StyleSheet.create({
         marginBottom: 10,
         backgroundColor: "#f0592a"
     },
-    iconContainer: { flexDirection: "column", marginLeft: '15%' },
+    iconContainer: {
+        flexDirection: "column",
+        marginLeft: '15%'
+    },
     phoneNumberButton: {
         height: 54,
         borderRadius: 5,
         marginHorizontal: '10%',
         justifyContent: "center",
-        // marginBottom: 10,
         backgroundColor: THEME.PRIMARY_COLOR
     },
     signUpAndLoginTextStyle: {
@@ -112,11 +121,28 @@ export default StyleSheet.create({
         textAlign: "center",
         color: '#9FACBD'
     },
-    buttonTextStyle: { color: "#fff", fontSize: 15, textAlign: "center", fontFamily: "Poppins-Medium" },
-    phoneTextContainer: { flexDirection: "column", marginHorizontal: "10%", },
-    facebookTextContainer: { flexDirection: "column", marginHorizontal: "18%", },
-    continueContainer: { alignItems: "center", width: "100%" },
-    continueContainerStyle: { flexDirection: 'row', alignItems: "center", },
+    buttonTextStyle: {
+        color: "#fff",
+        fontSize: 15,
+        textAlign: "center",
+        fontFamily: "Poppins-Medium"
+    },
+    phoneTextContainer: {
+        flexDirection: "column",
+        marginHorizontal: "10%",
+    },
+    facebookTextContainer: {
+        flexDirection: "column",
+        marginHorizontal: "18%",
+    },
+    continueContainer: {
+        alignItems: "center",
+        width: "100%"
+    },
+    continueContainerStyle: {
+        flexDirection: 'row',
+        alignItems: "center",
+    },
     buttonContainer: {
         marginHorizontal: '10%'
     },
@@ -127,6 +153,10 @@ export default StyleSheet.create({
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
     },
-    iconStyle: { marginRight: '5%' },
-    row: { flexDirection: "row" }
+    iconStyle: {
+        marginRight: '5%'
+    },
+    row: {
+        flexDirection: "row"
+    }
 })

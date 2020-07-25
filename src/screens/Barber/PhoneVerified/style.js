@@ -10,10 +10,12 @@ export default StyleSheet.create({
     imageContainer: {
         flex: 0.5,
         marginVertical: "5%",
-        justifyContent: "center", alignItems: "center"
+        justifyContent: "center",
+        alignItems: "center"
     },
     imageStyle: {
-        height: 250, width: 250
+        height: 250,
+        width: 250
     },
     phoneTextContainer: {
         flex: 0.25,
@@ -37,7 +39,6 @@ export default StyleSheet.create({
         marginHorizontal: "10%"
     },
     textContainer: {
-        // flex: 0.2,
         justifyContent: "center",
         paddingVertical: '5%',
         marginHorizontal: "10%"

@@ -7,7 +7,10 @@ export default StyleSheet.create({
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
         justifyContent: "center",
     },
-    innerContainer: { flex: 2, marginTop: Platform.OS == 'ios' ? '30%' : '25%' },
+    innerContainer: {
+        flex: 2,
+        marginTop: Platform.OS == 'ios' ? '30%' : '25%'
+    },
     flagContainer: {
         flexDirection: "row",
         borderRadius: 5,
@@ -29,7 +32,6 @@ export default StyleSheet.create({
         flexDirection: 'column',
     },
     labelHeadingStyle: {
-        // flex:1,
         marginHorizontal: '10%',
         backgroundColor: "#FAFAFA",
         borderRadius: 5,
@@ -44,12 +46,11 @@ export default StyleSheet.create({
         marginTop: 5
     },
     callingCodeAndPhoneNumberConatiner: {
-        // paddingTop:5,
-        marginBottom:5,
+        marginBottom: 5,
         flexDirection: "row",
         marginHorizontal: '10%',
         borderRadius: 5,
-        overflow:"hidden",
+        overflow: "hidden",
         height: 54,
         backgroundColor: '#fff'
     },
@@ -58,7 +59,7 @@ export default StyleSheet.create({
     },
     countryCodeContainer: {
         borderRightWidth: 1,
-        paddingTop:10,
+        paddingTop: 10,
         borderColor: "#9FACBD",
         justifyContent: "center",
         alignItems: "center",
@@ -89,6 +90,10 @@ export default StyleSheet.create({
     designContainer: {
         flex: 0.8,
         backgroundColor: '#1E2023'
+    },
+    themeText: {
+        fontSize: 12,
+        fontFamily: 'Poppins-Bold'
     }
 
 })

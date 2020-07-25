@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import styles from './style';
-import { Button, BarberServices, SearchandMapView, BookAppointment, Summary } from '../../../components';
+import { Button, BarberServices, SearchandMapView, BookAppointment, Summary, Payment } from '../../../components';
 import StepProgress from 'react-native-step-progress';
 import THEME from '../../../assets/styles/theme.style';
-import BarberList from '../BarberList'
 export default class Booking extends Component {
     constructor(props) {
         super(props);
@@ -50,7 +49,6 @@ export default class Booking extends Component {
             totalPrice = (totalPrice + selectedServices[i].serviceCost);
         }
         this.setState({ totalPrice });
-        console.log("--------TotalPrice", totalPrice)
     }
 
     handleOnChange = () => {
@@ -74,8 +72,8 @@ export default class Booking extends Component {
             currentStepStrokeWidth: 1,
             stepStrokeCurrentColor: THEME.COLOR_WHITE,
             stepStrokeWidth: 0,
-            stepStrokeFinishedColor: '#1E2023',
-            stepStrokeUnFinishedColor: '#1E2023',
+            stepStrokeFinishedColor: THEME.PRIMARY_BACKGROUND_COLOR,
+            stepStrokeUnFinishedColor: THEME.PRIMARY_BACKGROUND_COLOR,
             separatorFinishedColor: '#3B3F52',
             separatorUnFinishedColor: '#1E2023',
             stepIndicatorFinishedColor: '#3B3F52',
@@ -104,7 +102,9 @@ export default class Booking extends Component {
                     />
                     {
                         this.state.currentPosition == 0 ?
-                            <BarberServices selectedService={(selectedServices)} markedServices={(data) => this.handleSelectedServices(data)} />
+                            <BarberServices
+                                selectedService={(selectedServices)}
+                                markedServices={(data) => this.handleSelectedServices(data)} />
                             :
                             null
                     }
@@ -134,7 +134,7 @@ export default class Booking extends Component {
                     }
                     {
                         this.state.currentPosition == 4 ?
-                            <BarberList />
+                            <Payment />
                             :
                             null
                     }
@@ -142,11 +142,11 @@ export default class Booking extends Component {
                 <View style={styles.footerStyle}>
                     <View style={styles.lineStyle}></View>
                     <View style={styles.gapHeight}></View>
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={styles.row}>
                         <View style={styles.buttonContainer}>
                             {
                                 totalPrice != 0 ?
-                                    <View style={{ height: 54, justifyContent: "center", alignItems: "center" }}>
+                                    <View style={styles.textContainer}>
                                         <Text style={styles.coloredTextStyles}>${totalPrice}.00<Text style={styles.textStyles}> Total</Text></Text>
                                     </View>
                                     :

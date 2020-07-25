@@ -15,7 +15,6 @@ export default StyleSheet.create({
     inputStyle: {
         flex: 1,
         textAlign: 'center',
-        // marginLeft: 10,
         fontSize: THEME.FONT_SIZE_XLARGE,
         fontFamily: 'Poppins-Regular',
         color: THEME.INPUT_PRIMARY_TEXT_COLOR,

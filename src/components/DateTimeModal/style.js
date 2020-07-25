@@ -7,7 +7,6 @@ const screenWidth = Dimensions.get('window').width;
 export default StyleSheet.create({
 
     centeredView: {
-        // flex: 1,
         justifyContent: "center",
         alignItems: "center",
 
@@ -37,8 +36,16 @@ export default StyleSheet.create({
         alignItems: 'center'
 
     },
-    optionContainer: { flexDirection: "row", marginHorizontal: 10 },
-    optionTextStyle: { fontFamily: 'Poppins-Regular', fontSize: 15, marginHorizontal: 10, marginTop: 5 },
+    optionContainer: {
+        flexDirection: "row",
+        marginHorizontal: 10
+    },
+    optionTextStyle: {
+        fontFamily: 'Poppins-Regular',
+        fontSize: 15,
+        marginHorizontal: 10,
+        marginTop: 5
+    },
     gap: {
         width: THEME.GAP_BETWEEN_ELEMENT
     },
@@ -51,7 +58,6 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     modalInputContainer: {
-        // marginHorizontal: "%",
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
         paddingVertical: '3%',
         borderRadius: 10,
@@ -92,6 +98,10 @@ export default StyleSheet.create({
     buttonContainer: {
         marginHorizontal: '5%'
     },
-    footerStyle: { flex: 0.2, justifyContent: 'flex-end', paddingBottom: '8%' }
+    footerStyle: {
+        flex: 0.2,
+        justifyContent: 'flex-end',
+        paddingBottom: '8%'
+    }
 
 })

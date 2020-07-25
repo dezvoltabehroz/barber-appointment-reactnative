@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import {
     View,
     Alert,
-    ScrollView,
     Text,
     TouchableOpacity,
     Modal
@@ -139,8 +138,7 @@ class SearchandMapView extends Component {
                         autoFocus={false}
                         textInputProps={{
                             onFocus: () => this.setState({ isFocus: true }),
-                            onBlur: () => this.setState({ isFocus: false }),
-                            // onChangeText: (text) => onChange(text)
+                            onBlur: () => this.setState({ isFocus: false })
                         }}
                         returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
                         listViewDisplayed='auto'  // true/false/undefined
@@ -189,7 +187,6 @@ class SearchandMapView extends Component {
                         debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
                     />
                 </Modal>
-
             </>
         );
     }

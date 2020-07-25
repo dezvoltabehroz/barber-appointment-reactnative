@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  Dimensions,
   TouchableOpacity,
   FlatList,
 } from 'react-native';
@@ -157,7 +156,7 @@ export default class BookAppointment extends Component {
                       <Text style={item.isSelected ? styles.textStyle : styles.unSelectedText}>
                         {item.dayName[0]}{item.dayName[1]}{item.dayName[2]}
                       </Text>}
-                    <View style={{ paddingTop: '20%' }}>
+                    <View style={styles.paddingTop}>
                       <TouchableOpacity onPress={() => this.handlePressDate({ item, index })}
                         style={item.isSelected ? styles.selectedDate : styles.unSelectedDate} >
                         <Text style={styles.textStyle} >{item.date}</Text>

@@ -14,33 +14,46 @@ export default StyleSheet.create({
         flex: 0.8,
         marginHorizontal: '10%'
     },
-
-    contentContainer: {},
-    dayContainer: { flex: 0.4, flexDirection: 'column' },
-    priceAndTimeContainer: { marginHorizontal: 5 },
-    startTimeContainer: { flex: 0.3, flexDirection: 'column', alignItems: 'center' },
-    endTimeContainer: { flex: 0.3, flexDirection: 'column', alignItems: 'center' },
-    headingContainer: { flexDirection: 'row', },
+    dayContainer: {
+        flex: 0.4,
+        flexDirection: 'column'
+    },
+    priceAndTimeContainer: {
+        marginHorizontal: 5
+    },
+    startTimeContainer: {
+        flex: 0.3,
+        flexDirection: 'column',
+        alignItems: 'center'
+    },
+    endTimeContainer: {
+        flex: 0.3,
+        flexDirection: 'column',
+        alignItems: 'center'
+    },
+    headingContainer: {
+        flexDirection: 'row',
+    },
     idTextLabel: {
         color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Bold'
     },
-    inputContainer: { flexDirection: 'row', justifyContent: 'space-between' },
+    inputContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
     textStyle: {
         color: THEME.COLOR_WHITE,
-        // textAlign: 'center',
         fontFamily: 'Poppins-Regular',
         fontSize: THEME.FONT_SIZE_MEDIUM,
     },
     headingTextStyle: {
         color: THEME.COLOR_WHITE,
-        // textAlign: 'center',
         fontFamily: 'Poppins-Medium',
         fontSize: THEME.FONT_SIZE_MEDIUM,
     },
     inputContainerStyle: {
         height: 54,
-        // marginBottom: '4%',
         width: screenWidth * 0.45,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
@@ -49,7 +62,6 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         height: 54,
-        // marginBottom: '4%',
         width: screenWidth * 0.3,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
@@ -111,6 +123,10 @@ export default StyleSheet.create({
     buttonContainer: {
         marginHorizontal: '10%'
     },
-    footerStyle: { flex: 0.2, justifyContent: 'flex-end', paddingBottom: '8%' }
+    footerStyle: {
+        flex: 0.2,
+        justifyContent: 'flex-end',
+        paddingBottom: '8%'
+    }
 
 })

@@ -30,5 +30,7 @@ export default StyleSheet.create({
         width: '40%',
         marginHorizontal: '5%'
     },
+    row: { flexDirection: 'row' },
+    textContainer: { height: 54, justifyContent: "center", alignItems: "center" },
     footerStyle: { flex: 0.2, justifyContent: 'flex-end', paddingBottom: '8%' }
 })

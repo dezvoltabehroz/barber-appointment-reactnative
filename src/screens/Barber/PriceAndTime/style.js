@@ -14,17 +14,33 @@ export default StyleSheet.create({
         flex: 0.8,
         marginHorizontal: '10%'
     },
-
-    contentContainer: {},
-    nameContainer: { flex: 0.5, flexDirection: 'column', justifyContent: 'center' },
-    priceContainer: { flex: 0.3, flexDirection: 'column', justifyContent: 'center' },
-    timeContainer: { flex: 0.3, width: screenWidth * 0.2, flexDirection: 'column', justifyContent: 'center' },
-    headingContainer: { flexDirection: 'row', },
+    nameContainer: {
+        flex: 0.5,
+        flexDirection: 'column',
+        justifyContent: 'center'
+    },
+    priceContainer: {
+        flex: 0.3,
+        flexDirection: 'column',
+        justifyContent: 'center'
+    },
+    timeContainer: {
+        flex: 0.3,
+        width: screenWidth * 0.2,
+        flexDirection: 'column',
+        justifyContent: 'center'
+    },
+    headingContainer: {
+        flexDirection: 'row',
+    },
     idTextLabel: {
         color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Bold'
     },
-    inputContainer: { flexDirection: 'row', justifyContent: 'space-between' },
+    inputContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
     textStyle: {
         color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Regular',
@@ -113,6 +129,10 @@ export default StyleSheet.create({
         fontFamily: 'Poppins-Medium',
         fontSize: THEME.FONT_SIZE_LARGE,
     },
-    footerStyle: { flex: 0.2, justifyContent: 'flex-end', paddingBottom: '8%' }
+    footerStyle: {
+        flex: 0.2,
+        justifyContent: 'flex-end',
+        paddingBottom: '8%'
+    }
 
 })

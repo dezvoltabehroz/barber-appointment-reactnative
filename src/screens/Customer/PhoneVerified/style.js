@@ -37,7 +37,6 @@ export default StyleSheet.create({
         marginHorizontal: "10%"
     },
     textContainer: {
-        // flex: 0.2,
         justifyContent: "center",
         paddingVertical: '5%',
         marginHorizontal: "10%"

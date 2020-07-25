@@ -10,7 +10,12 @@ export default StyleSheet.create({
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
         paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '15%'
     },
-    lowerListContainer: { flex: 1, paddingTop: '5%', marginBottom: '1%', justifyContent: "center" },
+    lowerListContainer: {
+        flex: 1,
+        paddingTop: '5%',
+        marginBottom: '1%',
+        justifyContent: "center"
+    },
     lowerListItemContainer: {
         flex: 0.1,
         justifyContent: 'center',
@@ -25,7 +30,7 @@ export default StyleSheet.create({
     lowerListTitleContainer: {
         flex: 1,
         paddingTop: '10%',
-        borderRadius:10,
+        borderRadius: 10,
         backgroundColor: 'rgba(0,0,0,.4)',
         paddingHorizontal: '10%',
         justifyContent: 'flex-start',
@@ -41,12 +46,16 @@ export default StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,.4)',
         opacity: 0.7,
         width: '70%',
-        // borderRadius: 10,
         borderTopStartRadius: 10,
         borderBottomStartRadius: 10,
         paddingHorizontal: '10%',
     },
-    line: { borderWidth: 1, borderColor: THEME.COLOR_WHITE, width: 43 },
+    line: {
+        borderWidth: 1,
+        borderColor:
+            THEME.COLOR_WHITE,
+        width: 43
+    },
     nameContainer: {
         marginHorizontal: '5%'
     },

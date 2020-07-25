@@ -581,7 +581,7 @@ export default class BarberList extends Component {
                             <Avatar source={{ uri: item.photo }} size={70} />
                             <View style={{ paddingVertical: '5%' }} >
                                 <TouchableOpacity onPress={bookNow} style={styles.buttonStyle}>
-                                    <Text style={{ marginHorizontal: '10%', color: '#fff', fontFamily: 'Poppins-Medium' }}>
+                                    <Text style={styles.buttonTextSTyle}>
                                         Book Now
                                 </Text>
                                 </TouchableOpacity>

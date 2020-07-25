@@ -27,20 +27,22 @@ export default class EmailandPassword extends Component {
             <View style={styles.container}>
                 <View style={styles.upperContainer}>
 
-                    <View style={[styles.inputContainerStyle, isEmailFocus || email != '' ? {
-                        borderWidth: 2,
-                        borderColor: THEME.PRIMARY_COLOR,
-                    } : {}]}>
+                    <View style={[styles.inputContainerStyle,
+                    isEmailFocus || email != '' ?
+                        { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
+                        :
+                        {}]}>
                         <FloatingInput
                             val={email}
                             onActive={() => this.setState({ isEmailFocus: true })}
                             onInActive={() => this.setState({ isEmailFocus: false })}
                             label='Email' updateText={(email) => this.setState({ email })} />
                     </View>
-                    <View style={[styles.inputContainerStyle, isPasswordFocus || password != '' ? {
-                        borderWidth: 2,
-                        borderColor: THEME.PRIMARY_COLOR,
-                    } : {}]}>
+                    <View style={[styles.inputContainerStyle,
+                    isPasswordFocus || password != '' ?
+                        { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
+                        :
+                        {}]}>
                         <FloatingInput
                             val={password}
                             secureEntry
@@ -48,16 +50,18 @@ export default class EmailandPassword extends Component {
                             onInActive={() => this.setState({ isPasswordFocus: false })}
                             label='Password' updateText={(password) => this.setState({ password })} />
                     </View>
-                    <View style={[styles.inputContainerStyle, isConfirmPasswordFocus || confirmPassword != '' ? {
-                        borderWidth: 2,
-                        borderColor: THEME.PRIMARY_COLOR,
-                    } : {}]}>
+                    <View style={[styles.inputContainerStyle,
+                    isConfirmPasswordFocus || confirmPassword != '' ?
+                        { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
+                        :
+                        {}]}>
                         <FloatingInput
                             val={confirmPassword}
                             secureEntry
                             onActive={() => this.setState({ isConfirmPasswordFocus: true })}
                             onInActive={() => this.setState({ isConfirmPasswordFocus: false })}
-                            label='Confirm Password' updateText={(confirmPassword) => this.setState({ confirmPassword })} />
+                            label='Confirm Password'
+                            updateText={(confirmPassword) => this.setState({ confirmPassword })} />
                     </View>
                 </View>
                 <View style={styles.footerStyle}>

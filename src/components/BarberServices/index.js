@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import styles from './style';
-import { Icon } from '../../components'
+import { Icon } from '..';
 import THEME from '../../assets/styles/theme.style';
 
 
@@ -115,7 +115,8 @@ export default class BarberServices extends Component {
                 <View style={styles.contentContainer}>
                     <View style={styles.rowContainer}>
                         <View style={styles.checkBoxContainer}>
-                            <TouchableOpacity onPress={() => this.onPressCheckedItem(item)} style={{ padding: '5%' }} >
+                            <TouchableOpacity onPress={() => this.onPressCheckedItem(item)}
+                                style={{ padding: '5%' }} >
                                 {
                                     item.selected == true ?
                                         <Icon.MaterialIcons
@@ -132,18 +133,18 @@ export default class BarberServices extends Component {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.serviceNameContainer}>
-                            <Text style={{ color: THEME.COLOR_WHITE, fontFamily: 'Poppins-Medium' }} >
+                            <Text style={styles.textWhite} >
                                 {item.serviceName}
                             </Text>
                         </View>
 
                         <View style={styles.serviceEstTimeContainer}>
-                            <Text style={{ color: THEME.COLOR_GREY, fontFamily: 'Poppins-Regular' }}>
+                            <Text style={styles.textGrey}>
                                 {item.serviceEstTime[3]}{item.serviceEstTime[4]} minutes
                             </Text>
                         </View>
                         <View style={styles.serviceCostContainer}>
-                            <Text style={{ color: THEME.PRIMARY_COLOR, fontFamily: 'Poppins-Medium' }}>
+                            <Text style={styles.coloredText}>
                                 ${item.serviceCost}
                             </Text>
                         </View>
@@ -153,7 +154,7 @@ export default class BarberServices extends Component {
                     <View style={styles.gapHeight}></View>
                     <View style={styles.descriptionContainer}>
                         <View style={styles.gapHeight}></View>
-                        <Text style={{ fontSize: THEME.FONT_SIZE_SMALL, color: THEME.COLOR_GREY, fontFamily: 'Poppins-Regular' }}>{item.description}</Text>
+                        <Text style={styles.descriptionText}>{item.description}</Text>
                     </View>
                     <View style={styles.gapHeight}></View>
                 </View>

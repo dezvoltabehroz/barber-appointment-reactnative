@@ -4,9 +4,6 @@ import React, { Component } from 'react'
 import { MainScreenPaths } from '../../screens';
 
 export default class AuthScreen extends Component {
-    // static navigationOptions = ({ navigation }) => ({
-
-    // })
     constructor(props) {
         super(props);
         this.state = {

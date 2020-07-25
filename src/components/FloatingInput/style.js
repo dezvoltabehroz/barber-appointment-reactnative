@@ -33,6 +33,7 @@ export default StyleSheet.create({
     },
     container: { width: '100%' },
     iconContainerStyle: { width: "80%" },
+    iconSmallContainerStyle: { width: "70%" },
     phoneContainer: { width: '79.5%' }
 
 

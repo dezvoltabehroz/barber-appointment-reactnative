@@ -19,7 +19,6 @@ import MapView, { PROVIDER_GOOGLE, Marker, AnimatedRegion } from 'react-native-m
 class Summary extends Component {
     constructor(prop) {
         super(prop);
-
     }
 
     _renderItems = ({ index, item }) => {
@@ -143,7 +142,6 @@ class Summary extends Component {
                         </View>
                     </View>
                 </ScrollView>
-
             </>
         );
     }

@@ -45,7 +45,6 @@ export default StyleSheet.create({
         borderRadius: 5,
         marginHorizontal: '3%',
         backgroundColor: THEME.PRIMARY_COLOR,
-        // justifyContent: "center",
         alignItems: "center",
     },
     vipTagTextStyle: {
@@ -63,7 +62,6 @@ export default StyleSheet.create({
     },
     notificationStyle: {
         flex: 0.3,
-        // marginHorizontal: '3%',
         justifyContent: "center",
         alignItems: 'flex-end'
     },
@@ -120,7 +118,6 @@ export default StyleSheet.create({
         borderRightWidth: 1,
         borderLeftWidth: 1,
         borderColor: '#44495C',
-        // borderWidth: 1,
         borderRadius: 5,
         flexDirection: "column",
         justifyContent: "center",

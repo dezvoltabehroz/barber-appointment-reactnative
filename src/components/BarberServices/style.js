@@ -59,5 +59,22 @@ export default StyleSheet.create({
         marginLeft: '10%',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    descriptionText: {
+        fontSize: THEME.FONT_SIZE_SMALL,
+        color: THEME.COLOR_GREY,
+        fontFamily: 'Poppins-Regular'
+    },
+    textWhite: {
+        color: THEME.COLOR_WHITE,
+        fontFamily: 'Poppins-Medium'
+    },
+    textGrey: {
+        color: THEME.COLOR_GREY,
+        fontFamily: 'Poppins-Regular'
+    },
+    coloredText: {
+        color: THEME.PRIMARY_COLOR,
+        fontFamily: 'Poppins-Medium'
     }
 })

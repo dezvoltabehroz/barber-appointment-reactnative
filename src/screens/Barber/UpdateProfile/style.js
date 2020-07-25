@@ -36,14 +36,10 @@ export default StyleSheet.create({
     },
     //Lower Container Style
     lowerContainer: {
-        // flex: 0.4,
-        // marginTop: '15%',
         justifyContent: "center",
         alignItems: "center"
     },
     inputContainerStyle: {
-        // borderWidth: 2,
-        // borderColor: THEME.PRIMARY_COLOR,
         marginHorizontal: '10%',
         flexDirection: "row",
         justifyContent: "center",
@@ -54,8 +50,6 @@ export default StyleSheet.create({
         backgroundColor: THEME.COLOR_WHITE
     },
     inputLocationContainerStyle: {
-        // borderWidth: 2,
-        // borderColor: THEME.PRIMARY_COLOR,
         marginHorizontal: '10%',
         flexDirection: "row",
         justifyContent: "center",
@@ -102,7 +96,6 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     lineStyle: {
-        // marginTop: '10%',
         borderColor: '#44495C',
         borderWidth: 2,
         marginHorizontal: '10%',

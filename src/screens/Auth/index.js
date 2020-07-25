@@ -68,10 +68,11 @@ class AuthScreen extends Component {
                                 <Text style={styles.signUpAndLoginTextStyle}>Login as:</Text>
                             </View>
                             <View style={styles.buttonContainer}>
-                                <View style={[styles.inputContainerStyle, isEmailFocus || email != '' ? {
-                                    borderWidth: 2,
-                                    borderColor: THEME.PRIMARY_COLOR,
-                                } : {}]}>
+                                <View style={[styles.inputContainerStyle,
+                                isEmailFocus || email != '' ?
+                                    { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
+                                    :
+                                    {}]}>
                                     <FloatingInput
                                         label={"Email / Phonenumber"}
                                         val={email}
@@ -79,10 +80,11 @@ class AuthScreen extends Component {
                                         onInActive={() => this.setState({ isEmailFocus: false })}
                                         updateText={(email) => this.setState({ email })} />
                                 </View>
-                                <View style={[styles.inputContainerStyle, isPasswordFocus || password != '' ? {
-                                    borderWidth: 2,
-                                    borderColor: THEME.PRIMARY_COLOR,
-                                } : {}]}>
+                                <View style={[styles.inputContainerStyle,
+                                isPasswordFocus || password != '' ?
+                                    { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
+                                    :
+                                    {}]}>
                                     <FloatingInput
                                         label={"Password"}
                                         val={password}
@@ -147,7 +149,6 @@ class AuthScreen extends Component {
                                     <Icon.AntDesign
                                         name="arrowright"
                                         color={THEME.COLOR_GREY}
-                                        // style={{}}
                                         size={25} />
                                 </TouchableOpacity>
                             </View>

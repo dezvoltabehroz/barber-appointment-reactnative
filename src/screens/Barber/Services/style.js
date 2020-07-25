@@ -14,9 +14,20 @@ export default StyleSheet.create({
         flex: 0.8,
         marginHorizontal: '10%'
     },
-    contentContainer: { flexDirection: 'row', justifyContent: "space-between", alignItems: 'center' },
-    nameContainer: { flexDirection: 'row', flex: 0.8 },
-    iconContainer: { flex: 0.2, justifyContent: "center", alignItems: 'flex-end' },
+    contentContainer: {
+        flexDirection: 'row',
+        justifyContent: "space-between",
+        alignItems: 'center'
+    },
+    nameContainer: {
+        flexDirection: 'row',
+        flex: 0.8
+    },
+    iconContainer: {
+        flex: 0.2,
+        justifyContent: "center",
+        alignItems: 'flex-end'
+    },
     idTextLabel: {
         color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Bold'
@@ -42,6 +53,10 @@ export default StyleSheet.create({
     buttonContainer: {
         marginHorizontal: '10%'
     },
-    footerStyle: { flex: 0.2, justifyContent: 'flex-end', paddingBottom: '8%' }
+    footerStyle: {
+        flex: 0.2,
+        justifyContent: 'flex-end',
+        paddingBottom: '8%'
+    }
 
 })

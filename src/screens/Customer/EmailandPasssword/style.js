@@ -40,8 +40,6 @@ export default StyleSheet.create({
         flex: 0.5,
     },
     inputContainerStyle: {
-        // borderWidth: 2,
-        // borderColor: THEME.PRIMARY_COLOR,
         marginHorizontal: '10%',
         flexDirection: "row",
         justifyContent: "center",
@@ -73,8 +71,17 @@ export default StyleSheet.create({
         alignItems: 'center'
 
     },
-    optionContainer: { flexDirection: "row", marginHorizontal: 10 },
-    optionTextStyle: { color: '#1E2023', fontFamily: 'Poppins-Regular', fontSize: 15, marginHorizontal: 10, marginTop: 5 },
+    optionContainer: {
+        flexDirection: "row",
+        marginHorizontal: 10
+    },
+    optionTextStyle: {
+        color: '#1E2023',
+        fontFamily: 'Poppins-Regular',
+        fontSize: 15,
+        marginHorizontal: 10,
+        marginTop: 5
+    },
     gap: {
         width: THEME.GAP_BETWEEN_ELEMENT
     },
@@ -98,5 +105,9 @@ export default StyleSheet.create({
     buttonContainer: {
         marginHorizontal: '10%'
     },
-    footerStyle: { flex: 0.2, justifyContent: 'flex-end', paddingBottom: '8%' }
+    footerStyle: {
+        flex: 0.2,
+        justifyContent: 'flex-end',
+        paddingBottom: '8%'
+    }
 })

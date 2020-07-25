@@ -88,7 +88,6 @@ export default class DateTimeModal extends Component {
             } else {
                 onSet(timeStr);
             }
-
             this.setState({ timeStr: '', am: true, pm: false })
         }
 
@@ -120,7 +119,6 @@ export default class DateTimeModal extends Component {
                                                 blurOnSubmit={true}
                                                 onChangeText={val => this.handleChangeText(val, idx, k)}
                                                 onKeyPress={({ nativeEvent: { key: keyValue } }) => this.handleKeyPress(keyValue, idx)}
-
                                             />
                                             {
                                                 idx > 1 ?
@@ -132,28 +130,29 @@ export default class DateTimeModal extends Component {
                                     ))
                                 }
                             </View>
-                            {dayNight ?
-                                <View style={styles.customerAndBarberContainer}>
-                                    <TouchableOpacity onPress={() => this.setState({ am: true, pm: false })}
-                                        style={[styles.CustomerContainer, pm == false && am ? { backgroundColor: THEME.PRIMARY_COLOR } : null]}>
-                                        <View style={styles.optionContainer}>
-                                            <Text style={[styles.optionTextStyle, pm == false && am ? { color: THEME.COLOR_WHITE } : null]}>
-                                                AM
-                                        </Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                    <View style={styles.gap}></View>
-                                    <TouchableOpacity onPress={() => this.setState({ am: false, pm: true })}
-                                        style={[styles.barberContainer, am == false && pm ? { backgroundColor: THEME.PRIMARY_COLOR } : null]} >
-                                        <View style={styles.optionContainer}>
-                                            <Text style={[styles.optionTextStyle, am == false && pm ? { color: THEME.COLOR_WHITE } : null]}>
-                                                PM
-                                        </Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                                :
-                                null
+                            {
+                                dayNight ?
+                                    <View style={styles.customerAndBarberContainer}>
+                                        <TouchableOpacity onPress={() => this.setState({ am: true, pm: false })}
+                                            style={[styles.CustomerContainer,
+                                            pm == false && am ? { backgroundColor: THEME.PRIMARY_COLOR } : null]}>
+                                            <View style={styles.optionContainer}>
+                                                <Text style={[styles.optionTextStyle,
+                                                pm == false && am ? { color: THEME.COLOR_WHITE } : null]}>AM</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                        <View style={styles.gap}></View>
+                                        <TouchableOpacity onPress={() => this.setState({ am: false, pm: true })}
+                                            style={[styles.barberContainer,
+                                            am == false && pm ? { backgroundColor: THEME.PRIMARY_COLOR } : null]} >
+                                            <View style={styles.optionContainer}>
+                                                <Text style={[styles.optionTextStyle,
+                                                am == false && pm ? { color: THEME.COLOR_WHITE } : null]}>PM</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                    :
+                                    null
                             }
                             <View style={styles.buttonContainer}>
                                 <Button title='Set' onPress={this.handleSet} />

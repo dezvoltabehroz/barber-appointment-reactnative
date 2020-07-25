@@ -14,6 +14,11 @@ export default StyleSheet.create({
         flex: 0.8,
         marginHorizontal: '10%'
     },
+    rowContainer: {
+        flexDirection: 'row',
+        justifyContent: "center",
+        alignItems: "center"
+    },
     uploadImagesTextStyle: {
         fontFamily: 'Poppins-Medium',
         textAlign: "center",
@@ -33,11 +38,11 @@ export default StyleSheet.create({
     renderImageStyle: {
         height: screenHeight,
         width: screenWidth,
-        backgroundColor:THEME.PRIMARY_BACKGROUND_COLOR
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
     },
     seperatorStyle: {
         height: 10
-      },
+    },
 
     // FOoter StylEs
     lineStyle: {

@@ -61,11 +61,9 @@ export default class PhoneNumber extends Component {
                     <View style={styles.labelHeadingStyle}>
                         <Text style={styles.countryLabelHeading}>Choose Country</Text>
                         <CountryPicker
-                            theme={{ fontSize: 12, fontFamily: 'Poppins-Bold' }}
+                            theme={styles.themeText}
                             withFilter={true}
                             visible={this.state.isVisible}
-                            // withFlag={true}
-                            // withFlagButton={true}
                             onSelect={(country) => this.onSelect(country)}
                             withAlphaFilter={true}
                             withCountryNameButton={true}
@@ -74,10 +72,11 @@ export default class PhoneNumber extends Component {
                     </View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.gapHeight}></View>
-                    <View style={[styles.callingCodeAndPhoneNumberConatiner, isNumberFocus || number != '' ? {
-                        borderWidth: 2,
-                        borderColor: THEME.PRIMARY_COLOR,
-                    } : {}]}>
+                    <View style={[styles.callingCodeAndPhoneNumberConatiner,
+                    isNumberFocus || number != '' ?
+                        { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
+                        :
+                        {}]}>
                         <View style={styles.countryCodeContainer} >
                             <Text style={styles.coutryCodeTextStyle} >{this.state.callingCode != '' ? '+' + this.state.callingCode : null}</Text>
                         </View>

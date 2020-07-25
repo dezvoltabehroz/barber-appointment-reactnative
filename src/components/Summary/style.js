@@ -45,19 +45,6 @@ export default StyleSheet.create({
         flexDirection: "column",
         alignItems: 'center'
     },
-    columnArrow: {
-        flex: 0.25,
-        flexDirection: "column",
-        alignItems: 'flex-end'
-    },
-    columnLocation: {
-        flex: 0.45,
-        flexDirection: "column"
-    },
-    columnTimeAndDate: {
-        flex: 0.25,
-        flexDirection: "column"
-    },
     row: {
         flexDirection: "row",
         alignItems: "center"

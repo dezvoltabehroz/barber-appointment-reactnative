@@ -24,7 +24,6 @@ export default StyleSheet.create({
 
     },
     certificationContainer1: {
-        // marginVertical: '3%',
         height: 54,
         flexDirection: 'row',
         justifyContent: "space-between"
@@ -58,7 +57,6 @@ export default StyleSheet.create({
     },
     iconModalContainer: {
         alignItems: 'center',
-        // flexDirection: 'row',
         marginHorizontal: '5%'
     },
     labelTextStyle: {
@@ -96,12 +94,15 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignItems: 'center'
     },
-    // modalContainer: {
-    //     height: screenHeight, paddingVertical: '3%', justifyContent: "center"
-    // },
 
-    columnStyle: { flexDirection: 'column', marginHorizontal: '0.5%' },
-    columnStyle1: { flexDirection: 'column' },
+
+    columnStyle: {
+        flexDirection: 'column',
+        marginHorizontal: '0.5%'
+    },
+    columnStyle1: {
+        flexDirection: 'column'
+    },
     inputContainerStyle: {
         marginHorizontal: '10%',
         justifyContent: "center",
@@ -137,9 +138,17 @@ export default StyleSheet.create({
     seperatorStyle: {
         width: 5
     },
-    addButtonContainer: { paddingVertical: '3%', justifyContent: 'center', alignItems: 'center' },
+    addButtonContainer: {
+        paddingVertical: '3%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
 
-    cancelButtonContainer: { justifyContent: 'center', alignItems: 'center' },
+    cancelButtonContainer: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
     // FOoter StylEs
     lineStyle: {
         borderColor: '#44495C',
@@ -153,6 +162,10 @@ export default StyleSheet.create({
     buttonContainer: {
         marginHorizontal: '10%'
     },
-    footerStyle: { flex: 0.2, justifyContent: 'flex-end', paddingBottom: '8%' }
+    footerStyle: {
+        flex: 0.2,
+        justifyContent: 'flex-end',
+        paddingBottom: '8%'
+    }
 
 })

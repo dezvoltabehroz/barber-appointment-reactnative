@@ -2,7 +2,6 @@ import { StyleSheet, Dimensions } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-const plusWidth = screenWidth * .3;
 export default StyleSheet.create({
     container: {
         flex: 1,
@@ -11,7 +10,6 @@ export default StyleSheet.create({
     },
     barberProfileContainer: {
         marginHorizontal: '5%',
-        // flex: 0.5,
         borderRadius: 10,
         backgroundColor: THEME.COLOR_WHITE
     },
@@ -19,13 +17,11 @@ export default StyleSheet.create({
         flexDirection: 'row',
         paddingTop: '5%',
         borderRadius: 10,
-        // paddingLeft:'10%',
         backgroundColor: THEME.COLOR_WHITE,
         justifyContent: "flex-start",
         alignItems: 'center'
     },
     nameContainer: {
-        // flex: 1,
         marginHorizontal: '7%',
         justifyContent: 'center',
 

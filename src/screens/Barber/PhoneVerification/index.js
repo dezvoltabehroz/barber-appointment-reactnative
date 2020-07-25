@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import styles from "./style";
 import CodeInput from 'react-native-confirmation-code-input';
 import { Button } from '../../../components'
-
+import THEME from '../../../assets/styles/theme.style'
 
 export default class PhoneVerfication extends Component {
     constructor(props) {
@@ -29,14 +29,14 @@ export default class PhoneVerfication extends Component {
                 </View>
                 <View style={styles.codeContainer}>
                     <CodeInput
-                        onFocus={() => 
+                        onFocus={() =>
                             this.setState({ isFocus: true })
                         }
                         codeLength={6}
                         autoFocus={false}
                         cellBorderWidth={2}
-                        activeColor='#00A9A5'
-                        inactiveColor='#fff'
+                        activeColor={THEME.PRIMARY_COLOR}
+                        inactiveColor={THEME.COLOR_WHITE}
                         keyboardType='numeric'
                         className="border-box"
                         inputPosition='center'
@@ -45,10 +45,11 @@ export default class PhoneVerfication extends Component {
                         placeholder={"*"}
                         onFulfill={(value) => this.fullFillCode(value)}
                         onCodeChange={(code) => console(code)}
-                        codeInputStyle={[styles.codeInput, isFocus  ? {
-                            borderWidth: 2,
-                            borderColor: '#00A9A5',
-                        } : {}]} />
+                        codeInputStyle={[styles.codeInput,
+                        isFocus ?
+                            { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
+                            :
+                            {}]} />
                 </View>
                 <View style={styles.buttonContainer}>
                     <Button title='Verify Number ' onPress={onVerify} />

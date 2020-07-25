@@ -106,22 +106,27 @@ export default class PriceAndTime extends Component {
                 </View>
                 <View style={styles.inputContainer}>
                     {item.price == '' ?
-                        <View style={[styles.inputContainerStyle, price[index] == null ? {
-                            borderWidth: 2,
-                            borderColor: THEME.PRIMARY_COLOR,
-                        } : {}]}>
+                        <View style={[styles.inputContainerStyle,
+                        price[index] == null ?
+                            { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
+                            :
+                            {}]}>
                             <FloatingInput
                                 val={price[index]}
                                 keyboardtype="number-pad"
                                 onInActive={() => this.addPrice({ item, index })}
                                 label='Price' updateText={(val) => this.setState({ val })} />
-                        </View> : null}
+                        </View>
+                        :
+                        null
+                    }
                     {item.time == '' ?
                         <>
-                            <View style={[styles.inputDateContainerStyle, time[index] == null ? {
-                                borderWidth: 2,
-                                borderColor: THEME.PRIMARY_COLOR,
-                            } : {}]}>
+                            <View style={[styles.inputDateContainerStyle,
+                            time[index] == null ?
+                                { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
+                                :
+                                {}]}>
                                 <FloatingInput
                                     val={time[index]}
                                     onActive={() => this.setTime(index, item)}

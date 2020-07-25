@@ -62,7 +62,7 @@ export default class Resume extends Component {
         })
             .then(response => {
                 let tempArray = []
-              
+
                 response.forEach((item) => {
                     let image = {
                         uri: item.path,
@@ -165,8 +165,13 @@ export default class Resume extends Component {
                                     <View style={styles.labelContainer}  >
                                         <Text style={styles.labelTextStyle}>Certification</Text>
                                     </View>
-                                    <TouchableOpacity style={styles.iconContainer} onPress={() => this.chooseFile('certification')}>
-                                        <Icon.Entypo name="attachment" size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} />
+                                    <TouchableOpacity
+                                        style={styles.iconContainer}
+                                        onPress={() => this.chooseFile('certification')}>
+                                        <Icon.Entypo
+                                            name="attachment"
+                                            size={THEME.ICON_SIZE}
+                                            color={THEME.COLOR_WHITE} />
                                     </TouchableOpacity>
                                 </View>
                                 {imageCertification != null || imageCertification[0] != 'undefined' ?
@@ -186,12 +191,22 @@ export default class Resume extends Component {
                                 <View style={styles.labelContainer} >
                                     <Text style={styles.labelTextStyle}>Driving License</Text>
                                 </View>
-                                <TouchableOpacity style={styles.iconContainer} onPress={() => this.chooseFile('driver')}>
-                                    <Icon.Entypo name="attachment" size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} />
+                                <TouchableOpacity
+                                    style={styles.iconContainer}
+                                    onPress={() => this.chooseFile('driver')}>
+                                    <Icon.Entypo
+                                        name="attachment"
+                                        size={THEME.ICON_SIZE}
+                                        color={THEME.COLOR_WHITE} />
                                 </TouchableOpacity>
                                 {drivingLicense != '' ?
-                                    <LightBox style={styles.imageContainer} renderContent={() => this.renderImage('driver')}  >
-                                        <Image source={drivingLicense} resizeMode='cover' style={styles.imageStyle} />
+                                    <LightBox
+                                        style={styles.imageContainer}
+                                        renderContent={() => this.renderImage('driver')}  >
+                                        <Image
+                                            source={drivingLicense}
+                                            resizeMode='cover'
+                                            style={styles.imageStyle} />
                                     </LightBox>
                                     : null}
                             </View>
@@ -199,12 +214,22 @@ export default class Resume extends Component {
                                 <View style={styles.labelContainer}>
                                     <Text style={styles.labelTextStyle}>Passport</Text>
                                 </View>
-                                <TouchableOpacity style={styles.iconContainer} onPress={() => this.chooseFile('passport')}>
-                                    <Icon.Entypo name="attachment" size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} />
+                                <TouchableOpacity
+                                    style={styles.iconContainer}
+                                    onPress={() => this.chooseFile('passport')}>
+                                    <Icon.Entypo
+                                        name="attachment"
+                                        size={THEME.ICON_SIZE}
+                                        color={THEME.COLOR_WHITE} />
                                 </TouchableOpacity>
                                 {passportImage != '' ?
-                                    <LightBox style={styles.imageContainer} renderContent={() => this.renderImage('passport')}  >
-                                        <Image source={passportImage} resizeMode='cover' style={styles.imageStyle} />
+                                    <LightBox
+                                        style={styles.imageContainer}
+                                        renderContent={() => this.renderImage('passport')}  >
+                                        <Image
+                                            source={passportImage}
+                                            resizeMode='cover'
+                                            style={styles.imageStyle} />
                                     </LightBox>
                                     : null}
                             </View>
@@ -212,12 +237,22 @@ export default class Resume extends Component {
                                 <View style={styles.labelContainer} >
                                     <Text style={styles.labelTextStyle}>National Identification No:</Text>
                                 </View>
-                                <TouchableOpacity style={styles.iconContainer} onPress={() => this.chooseFile('nic')}>
-                                    <Icon.Entypo name="attachment" size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} />
+                                <TouchableOpacity
+                                    style={styles.iconContainer}
+                                    onPress={() => this.chooseFile('nic')}>
+                                    <Icon.Entypo
+                                        name="attachment"
+                                        size={THEME.ICON_SIZE}
+                                        color={THEME.COLOR_WHITE} />
                                 </TouchableOpacity>
                                 {nationalIdImage != '' ?
-                                    <LightBox style={styles.imageContainer} renderContent={() => this.renderImage('nic')}  >
-                                        <Image source={nationalIdImage} resizeMode='cover' style={styles.imageStyle} />
+                                    <LightBox
+                                        style={styles.imageContainer}
+                                        renderContent={() => this.renderImage('nic')}  >
+                                        <Image
+                                            source={nationalIdImage}
+                                            resizeMode='cover'
+                                            style={styles.imageStyle} />
                                     </LightBox>
                                     : null}
                             </View>
@@ -225,12 +260,22 @@ export default class Resume extends Component {
                                 <View style={styles.labelContainer} >
                                     <Text style={styles.labelTextStyle}>Upload CV/Resume</Text>
                                 </View>
-                                <TouchableOpacity style={styles.iconContainer} onPress={() => this.chooseFile('cv')}>
-                                    <Icon.Entypo name="attachment" size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} />
+                                <TouchableOpacity
+                                    style={styles.iconContainer}
+                                    onPress={() => this.chooseFile('cv')}>
+                                    <Icon.Entypo
+                                        name="attachment"
+                                        size={THEME.ICON_SIZE}
+                                        color={THEME.COLOR_WHITE} />
                                 </TouchableOpacity>
                                 {cv != '' ?
-                                    <LightBox style={styles.imageContainer} renderContent={() => this.renderImage('cv')}  >
-                                        <Image source={cv} resizeMode='cover' style={styles.imageStyle} />
+                                    <LightBox
+                                        style={styles.imageContainer}
+                                        renderContent={() => this.renderImage('cv')}  >
+                                        <Image
+                                            source={cv}
+                                            resizeMode='cover'
+                                            style={styles.imageStyle} />
                                     </LightBox>
                                     : null}
                             </View>

@@ -240,12 +240,12 @@ export default class ExpandingView extends Component {
                             }
                         </View>
                     </TouchableOpacity>
-                    <View style={{ height: this.state.expandedPhoto ? null : 0, flexDirection: 'column', overflow: 'hidden' }}>
+                    <View style={[{ height: this.state.expandedPhoto ? null : 0},styles.columnStyle]}>
                         {this.state.isPhotoNull ?
-                            <Text style={{ fontWeight: 'bold', marginHorizontal: 10 }} >No Record Found</Text>
+                            <Text style={styles.noRecord} >No Record Found</Text>
                             :
                             <>
-                                <View style={{ flexDirection: 'row' }}>
+                                <View style={styles.row}>
                                     <View style={styles.postImagesContainer}>
                                         {this.renderPortfolioImages(images)}
                                     </View>
@@ -273,12 +273,12 @@ export default class ExpandingView extends Component {
                             }
                         </View>
                     </TouchableOpacity>
-                    <View style={{ height: this.state.expandedCertificationPhoto ? null : 0, flexDirection: 'column', overflow: 'hidden' }}>
+                    <View style={[{ height: this.state.expandedCertificationPhoto ? null : 0 },styles.columnStyle]}>
                         {this.state.isCertificationPhotoNull ?
-                            <Text style={{ fontWeight: 'bold', marginHorizontal: 10 }} >No Record Found</Text>
+                            <Text style={styles.noRecord} >No Record Found</Text>
                             :
                             <>
-                                <View style={{ flexDirection: 'row' }}>
+                                <View style={styles.row}>
                                     <View style={styles.postImagesContainer}>
                                         {this.renderImages(imagesCertification)}
                                     </View>
@@ -306,9 +306,9 @@ export default class ExpandingView extends Component {
                             }
                         </View>
                     </TouchableOpacity>
-                    <View style={{ height: this.state.expandedWorkingDays ? null : 0, flexDirection: 'column', overflow: 'hidden' }}>
+                    <View style={[{ height: this.state.expandedWorkingDays ? null : 0 },styles.columnStyle]}>
                         {this.state.isWorkingDays ?
-                            <Text style={{ fontWeight: 'bold', marginHorizontal: 10 }} >No Record Found</Text>
+                            <Text style={styles.noRecord} >No Record Found</Text>
                             :
                             <>
                                 <View style={styles.headingContainer}>
@@ -344,9 +344,9 @@ export default class ExpandingView extends Component {
                             }
                         </View>
                     </TouchableOpacity>
-                    <View style={{ height: this.state.expandedServices ? null : 0, flexDirection: 'column', overflow: 'hidden' }}>
+                    <View style={[{ height: this.state.expandedServices ? null : 0 },styles.columnStyle]}>
                         {this.state.isServices ?
-                            <Text style={{ fontWeight: 'bold', marginHorizontal: 10 }} >No Record Found</Text>
+                            <Text style={styles.noRecord} >No Record Found</Text>
                             :
                             <>
                                 <View style={styles.headingContainer}>
@@ -382,9 +382,9 @@ export default class ExpandingView extends Component {
                             }
                         </View>
                     </TouchableOpacity>
-                    <View style={{ height: this.state.expandedResume ? 100 : 0, flexDirection: 'column', overflow: 'hidden' }}>
+                    <View style={[{ height: this.state.expandedResume ? 100 : 0},styles.columnStyle]}>
                         {this.state.isResume ?
-                            <Text style={{ fontWeight: 'bold', marginHorizontal: 10 }} >No Resume Found</Text>
+                            <Text style={styles.noRecord} >No Resume Found</Text>
                             :
                             <TouchableOpacity onPress={onDownload} style={styles.linkContainer}>
                                 <Icon.Feather name="download" size={40} color={THEME.PRIMARY_COLOR} />
@@ -405,20 +405,19 @@ export default class ExpandingView extends Component {
                             }
                         </View>
                     </TouchableOpacity>
-                    <View style={{ height: this.state.expandedReviews ? null : 0, flexDirection: 'column', overflow: 'hidden' }}>
+                    <View style={[{ height: this.state.expandedReviews ? null : 0 },styles.columnStyle]}>
                         {this.state.isReviews ?
-                            <Text style={{ fontWeight: 'bold', marginHorizontal: 10 }} >No Resume Found</Text>
+                            <Text style={styles.noRecord} >No Resume Found</Text>
                             :
                             <>
                                 <View style={{ marginHorizontal: '5%' }}>
-                                    {/* <Text style={styles.textStyle}>Description</Text> */}
                                     <FlatList
                                         data={reviews}
                                         showsVerticalScrollIndicator={false}
                                         ItemSeparatorComponent={this._renderSeparator}
                                         renderItem={({ item, index }) => this._renderReviewsItem({ item, index })}
                                         keyExtractor={item => item} />
-                                    <View style={{ flex: 1, borderRadius: 5, borderWidth: 1 }}></View>
+                                    <View style={styles.borderLine}></View>
                                 </View>
                             </>
                         }

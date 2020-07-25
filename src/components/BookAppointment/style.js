@@ -3,7 +3,6 @@ import { StyleSheet, Dimensions } from 'react-native';
 import THEME from '../../assets/styles/theme.style';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-const plusWidth = screenWidth * .3;
 export default StyleSheet.create({
     container: {
         flex: 1,
@@ -52,7 +51,6 @@ export default StyleSheet.create({
         fontSize: 10,
         fontFamily: "Poppins-Regular",
         margin: 7
-
     },
     flatlistContainer: {
         backgroundColor: THEME.PRIMARY_COLOR,
@@ -62,7 +60,9 @@ export default StyleSheet.create({
         borderRadius: 5,
         marginHorizontal: 5,
     },
-    marginHorizontal: { marginHorizontal: "2%" },
+    marginHorizontal: {
+        marginHorizontal: "2%"
+    },
     gapHeight: {
         height: 10
     },
@@ -99,7 +99,7 @@ export default StyleSheet.create({
     contentBOOKContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        height:"100%",
+        height: "100%",
         width: screenWidth,
         paddingTop: "5%",
         paddingBottom: "5%",
@@ -114,8 +114,14 @@ export default StyleSheet.create({
         marginHorizontal: "20%",
         paddingTop: "4%"
     },
-    bookingRowContainer: { flexDirection: 'row', paddingTop: "4%" },
+    bookingRowContainer: {
+        flexDirection: 'row',
+        paddingTop: "4%"
+    },
     justify: {
         justifyContent: 'center'
+    },
+    paddingTop: {
+        paddingTop: "20%"
     }
 })

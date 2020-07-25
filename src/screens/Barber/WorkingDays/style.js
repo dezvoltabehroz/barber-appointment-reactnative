@@ -14,16 +14,27 @@ export default StyleSheet.create({
         flex: 0.8,
         marginHorizontal: '10%'
     },
-    contentContainer: { flexDirection: 'row', justifyContent: "space-between", alignItems: 'center' },
-    nameContainer: { flexDirection: 'row', flex: 0.8 },
-    iconContainer: { flex: 0.2, justifyContent: "center", alignItems: 'flex-end' },
+    contentContainer: {
+        flexDirection: 'row',
+        justifyContent: "space-between",
+        alignItems: 'center'
+    },
+    nameContainer: {
+        flexDirection: 'row',
+        flex: 0.8
+    },
+    iconContainer: {
+        flex: 0.2,
+        justifyContent: "center",
+        alignItems: 'flex-end'
+    },
     idTextLabel: {
         color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Bold'
     },
     textStyle: {
         color: THEME.COLOR_WHITE,
-        fontSize:THEME.FONT_SIZE_MEDIUM,
+        fontSize: THEME.FONT_SIZE_MEDIUM,
         fontFamily: 'Poppins-Regular'
     },
     seperatorStyle: {

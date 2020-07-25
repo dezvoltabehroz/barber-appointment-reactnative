@@ -4,9 +4,7 @@ import { Button, Icon } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
 
-
 export default class Services extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -69,8 +67,6 @@ export default class Services extends Component {
                                 color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
                         </TouchableOpacity>
                     </View>
-
-
                 </View>
             </>
         )
