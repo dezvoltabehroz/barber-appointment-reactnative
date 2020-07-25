@@ -40,3 +40,6 @@ export const BookAppointment = _BookAppointment;
 
 import _Summary from './Summary';
 export const Summary = _Summary;
+
+import _Payment from './Payment';
+export const Payment = _Payment;

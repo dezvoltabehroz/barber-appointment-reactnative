@@ -118,5 +118,21 @@ export default StyleSheet.create({
     starContainer: {
         flex: 0.4,
         flexDirection: "row"
+    },
+    noRecord: {
+        fontWeight: 'bold',
+        marginHorizontal: 10
+    },
+    row: {
+        flexDirection: "row"
+    },
+    borderLine: {
+        flex: 1,
+        borderRadius: 5,
+        borderWidth: 1
+    },
+    columnStyle: {
+        flexDirection: 'column',
+        overflow: 'hidden'
     }
 })
