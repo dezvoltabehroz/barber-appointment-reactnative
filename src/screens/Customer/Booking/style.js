@@ -1,8 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 const screenHeight = Dimensions.get('window').height;
-const screenWidth = Dimensions.get('window').width;
-const plusWidth = screenWidth * .3;
+
 export default StyleSheet.create({
     container: {
         flex: 1,
@@ -30,7 +29,17 @@ export default StyleSheet.create({
         width: '40%',
         marginHorizontal: '5%'
     },
-    row: { flexDirection: 'row' },
-    textContainer: { height: 54, justifyContent: "center", alignItems: "center" },
-    footerStyle: { flex: 0.2, justifyContent: 'flex-end', paddingBottom: '8%' }
+    row: {
+        flexDirection: 'row'
+    },
+    textContainer: {
+        height: 54,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    footerStyle: {
+        flex: 0.2,
+        justifyContent: 'flex-end',
+        paddingBottom: '8%'
+    }
 })

@@ -7,7 +7,6 @@ export default class EmailandPassword extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            male: true, female: false,
             email: '',
             password: '',
             confirmPassword: '',

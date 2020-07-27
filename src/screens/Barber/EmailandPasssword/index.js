@@ -26,10 +26,10 @@ export default class EmailandPassword extends Component {
 
             <View style={styles.container}>
                 <View style={styles.upperContainer}>
-                    <View style={[styles.inputContainerStyle, isEmailFocus || email != '' ? {
-                        borderWidth: 2,
-                        borderColor: THEME.PRIMARY_COLOR,
-                    } : {}]}>
+                    <View style={[styles.inputContainerStyle, isEmailFocus || email != '' ?
+                        { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
+                        :
+                        {}]}>
                         <FloatingInput
                             val={email}
                             onActive={() => this.setState({ isEmailFocus: true })}

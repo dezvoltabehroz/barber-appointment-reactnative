@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import { View, StatusBar, Text, Dimensions, FlatList, ImageBackground, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, ImageBackground, TouchableOpacity } from "react-native";
 import styles from './style';
-import THEME from '../../../assets/styles/theme.style';
-import style from './style';
-const screenWidth = Dimensions.get('window').width;
-const screenHeight = Dimensions.get('window').height;
 
 export default class Home extends Component {
     constructor(props) {

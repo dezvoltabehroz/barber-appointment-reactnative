@@ -34,24 +34,7 @@ export default class PriceAndTime extends Component {
     setTime = (index, item) => {
         this.setState({ showTimePicker: true, indexValue: index, item: item })
     }
-    handleMinutes = (val) => {
-        if (val < 60) {
-            this.setState({ minutes: val })
-        }
-        else {
-            alert(`Invalid Minutes ${val} `)
-        }
-    }
-    handleHours = (val) => {
-        if (val <= 12) {
-            this.setState({ hours: val })
 
-        }
-        else {
-            alert(`Invalid Hours ${val} `)
-        }
-
-    }
 
     setTimeChange = (data) => {
         const { time, indexValue, item } = this.state;
@@ -80,10 +63,10 @@ export default class PriceAndTime extends Component {
     }
 
     _renderItems = ({ item, index }) => {
-        const { price, time, showTimePicker, } = this.state;
+        const { price, time } = this.state;
         return (
             <View style={styles.contentContainer}>
-                <View style={{ flexDirection: 'row', justifyContent: "space-between" }}>
+                <View style={styles.row}>
                     <View style={styles.nameContainer}>
                         <Text style={styles.textStyle}>{item.serviceName}</Text>
                     </View>
@@ -140,7 +123,7 @@ export default class PriceAndTime extends Component {
 
     render() {
         const { onNext } = this.props;
-        const { selectedArray, showTimePicker, hours, minutes, val } = this.state;
+        const { selectedArray, showTimePicker } = this.state;
 
         return (
             <>

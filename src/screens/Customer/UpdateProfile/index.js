@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, Alert, ScrollView } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
-import { Icon, FloatingInput, Button, DateTime } from '../../../components'
+import { Icon, FloatingInput, Button, DateTime, RadioButton } from '../../../components'
 import styles from './style';
 import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
@@ -12,12 +12,16 @@ export default class UpdateProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            male: true, female: false, name: '', isNameFocus: false, isLocationFocus: false,
+            male: true,
+            female: false,
+            name: '',
+            isNameFocus: false,
+            isLocationFocus: false,
             profile_Url: '',
             data: "HI HOW are you",
-            avatar: null, location: '',
+            avatar: null,
+            location: '',
             date: '',
-            dateValue: new Date(),
             showDatePicker: false,
         };
     }
@@ -75,7 +79,6 @@ export default class UpdateProfile extends Component {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 }
-
                 Geocoder.geocodePosition(pos).then(res => {
                     this.setState({ location: res[0].formattedAddress })
                 })
@@ -89,7 +92,7 @@ export default class UpdateProfile extends Component {
 
     render() {
         const { onNext } = this.props;
-        const { isNameFocus, name, isLocationFocus, location, date, dateValue, showDatePicker } = this.state;
+        const { isNameFocus, name, isLocationFocus, location, date, showDatePicker } = this.state;
 
         return (
 
@@ -125,33 +128,11 @@ export default class UpdateProfile extends Component {
                                 <Icon.Feather name='user' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
                             </View>
 
-                            <View style={styles.customerAndBarberContainer}>
-                                <TouchableOpacity onPress={() => this.setState({ male: !this.state.male, female: false })}
-                                    style={[styles.CustomerContainer, this.state.female == false && this.state.male ? { backgroundColor: THEME.PRIMARY_COLOR } : null]}>
-                                    <View style={styles.optionContainer}>
-                                        <Icon.Ionicons
-                                            name="md-male"
-                                            color={this.state.female == false && this.state.male ? THEME.COLOR_WHITE : THEME.COLOR_GREY}
-                                            size={25} />
-                                        <Text style={[styles.optionTextStyle, this.state.female == false && this.state.male ? { color: THEME.COLOR_WHITE } : null]}>
-                                            Male
-                                </Text>
-                                    </View>
-                                </TouchableOpacity>
-                                <View style={styles.gap}></View>
-                                <TouchableOpacity onPress={() => this.setState({ female: !this.state.female, male: false })}
-                                    style={[styles.barberContainer, this.state.male == false && this.state.female ? { backgroundColor: THEME.PRIMARY_COLOR } : null]} >
-                                    <View style={styles.optionContainer}>
-                                        <Icon.Ionicons
-                                            name="md-female"
-                                            color={this.state.male == false && this.state.female ? THEME.COLOR_WHITE : THEME.COLOR_GREY}
-                                            size={25} />
-                                        <Text style={[styles.optionTextStyle, this.state.male == false && this.state.female ? { color: THEME.COLOR_WHITE } : null]}>
-                                            Female
-                                </Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
+                            <RadioButton gender
+                                option1={this.state.male} option2={this.state.female}
+                                option1Text="Male" option2Text="female"
+                                onPressOption1={() => this.setState({ male: true, female: false })}
+                                onPressOption2={() => this.setState({ female: true, male: false })} />
                             <View>
                                 <View style={styles.dateContainer}>
                                     <TouchableOpacity onPress={() => this.setState({ showDatePicker: true })}>
@@ -172,10 +153,10 @@ export default class UpdateProfile extends Component {
                                     : null}
                             </View>
                             <View style={[styles.inputLocationContainerStyle,
-                             isLocationFocus || location != '' ? 
-                             { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
-                             :
-                             {}]}>
+                            isLocationFocus || location != '' ?
+                                { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
+                                :
+                                {}]}>
                                 <FloatingInput val={location}
                                     onInActive={() => this.setState({ isLocationFocus: false })}
                                     onActive={() => this.setState({ isLocationFocus: true })}

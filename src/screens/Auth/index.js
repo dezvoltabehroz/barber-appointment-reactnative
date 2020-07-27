@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, Image, TouchableOpacity, ScrollView, Alert } from 'react-native'
-import { Icon, Button, FloatingInput } from "../../components";
+import { Icon, Button, FloatingInput, RadioButton } from "../../components";
 import styles from './style';
 import THEME from '../../assets/styles/theme.style';
 
@@ -12,7 +12,8 @@ class AuthScreen extends Component {
             password: '',
             loading: false,
             isEmailFocus: null,
-            isPasswordFocus: null
+            isPasswordFocus: null,
+            disabled: true
         }
     }
     handleLogin = () => {
@@ -20,9 +21,16 @@ class AuthScreen extends Component {
         this.setState({ email: '', password: '', isEmailFocus: null, isPasswordFocus: null })
     }
 
+    handleEmail = (email) => {
+        const regex = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
+        if (email.match(regex)) {
+            this.setState({ email, disabled: false })
+        }
+    }
+
     render() {
         const { onPhone, onLogin, onPressCustomer, onPressBarber, customer, barber } = this.props
-        const { email, password, isEmailFocus, isPasswordFocus } = this.state;
+        const { email, password, isEmailFocus, isPasswordFocus, disabled } = this.state;
         return (
             <>
                 <View style={styles.container}>
@@ -37,33 +45,13 @@ class AuthScreen extends Component {
                                 <Text style={styles.headingTextStyle}>Enhance your experience with</Text>
                                 <Text style={styles.babeoTextStyle}>FLEEK!</Text>
                             </View>
-                            <View style={styles.customerAndBarberContainer}>
-                                <TouchableOpacity onPress={onPressCustomer}
-                                    style={[styles.CustomerContainer, barber == false && customer ? { backgroundColor: THEME.PRIMARY_COLOR } : null]}>
-                                    <View style={styles.optionContainer}>
-                                        <Icon.Entypo
-                                            name="user"
-                                            color={barber == false && customer ? THEME.COLOR_WHITE : THEME.COLOR_BLACK}
-                                            size={25} />
-                                        <Text style={[styles.optionTextStyle, barber == false && customer ? { color: THEME.COLOR_WHITE } : null]}>
-                                            Customer
-                                </Text>
-                                    </View>
-                                </TouchableOpacity>
-                                <View style={styles.gap}></View>
-                                <TouchableOpacity onPress={onPressBarber}
-                                    style={[styles.barberContainer, customer == false && barber ? { backgroundColor: THEME.PRIMARY_COLOR } : null]} >
-                                    <View style={styles.optionContainer}>
-                                        <Icon.FontAwesome
-                                            name="scissors"
-                                            color={customer == false && barber ? THEME.COLOR_WHITE : THEME.COLOR_BLACK}
-                                            size={25} />
-                                        <Text style={[styles.optionTextStyle, customer == false && barber ? { color: THEME.COLOR_WHITE } : null]}>
-                                            Barber
-                                        </Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
+                            <RadioButton auth
+                                option1={customer}
+                                option2={barber}
+                                option1Text="Customer"
+                                option2Text="Barber"
+                                onPressOption1={onPressCustomer}
+                                onPressOption2={onPressBarber} />
                             <View style={styles.loginASContainer}>
                                 <Text style={styles.signUpAndLoginTextStyle}>Login as:</Text>
                             </View>
@@ -78,7 +66,7 @@ class AuthScreen extends Component {
                                         val={email}
                                         onActive={() => this.setState({ isEmailFocus: true })}
                                         onInActive={() => this.setState({ isEmailFocus: false })}
-                                        updateText={(email) => this.setState({ email })} />
+                                        updateText={(email) => this.handleEmail(email)} />
                                 </View>
                                 <View style={[styles.inputContainerStyle,
                                 isPasswordFocus || password != '' ?
@@ -93,7 +81,7 @@ class AuthScreen extends Component {
                                         secureEntry={true}
                                         updateText={(password) => this.setState({ password })} />
                                 </View>
-                                <Button title="Login" loading={this.props.loading} onPress={this.handleLogin} />
+                                <Button title="Login" disabled={disabled} loading={this.props.loading} onPress={this.handleLogin} />
                             </View>
                         </View>
                         <View style={styles.lowerContainer}>

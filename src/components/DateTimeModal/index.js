@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Modal, TouchableOpacity } from 'react-native';
-import { Button, Input, Icon } from '../index';
+import { Button, Input, Icon, RadioButton } from '../index';
 import styles from './style';
 import THEME from '../../assets/styles/theme.style';
 
@@ -132,25 +132,13 @@ export default class DateTimeModal extends Component {
                             </View>
                             {
                                 dayNight ?
-                                    <View style={styles.customerAndBarberContainer}>
-                                        <TouchableOpacity onPress={() => this.setState({ am: true, pm: false })}
-                                            style={[styles.CustomerContainer,
-                                            pm == false && am ? { backgroundColor: THEME.PRIMARY_COLOR } : null]}>
-                                            <View style={styles.optionContainer}>
-                                                <Text style={[styles.optionTextStyle,
-                                                pm == false && am ? { color: THEME.COLOR_WHITE } : null]}>AM</Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                        <View style={styles.gap}></View>
-                                        <TouchableOpacity onPress={() => this.setState({ am: false, pm: true })}
-                                            style={[styles.barberContainer,
-                                            am == false && pm ? { backgroundColor: THEME.PRIMARY_COLOR } : null]} >
-                                            <View style={styles.optionContainer}>
-                                                <Text style={[styles.optionTextStyle,
-                                                am == false && pm ? { color: THEME.COLOR_WHITE } : null]}>PM</Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                    </View>
+                                    <RadioButton
+                                        option1={am}
+                                        option2={pm}
+                                        option1Text="AM"
+                                        option2Text="PM"
+                                        onPressOption1={() => this.setState({ am: true, pm: false })}
+                                        onPressOption2={() => this.setState({ am: false, pm: true })} />
                                     :
                                     null
                             }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, Alert, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
-import { Icon, FloatingInput, Button, DateTime } from '../../../components'
+import { Icon, FloatingInput, Button, DateTime, RadioButton } from '../../../components'
 import styles from './style';
 import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
@@ -120,34 +120,11 @@ export default class UpdateProfile extends Component {
                                     label='Your Name' iconInput updateText={(name) => this.setState({ name })} />
                                 <Icon.Feather name='user' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
                             </View>
-
-                            <View style={styles.customerAndBarberContainer}>
-                                <TouchableOpacity onPress={() => this.setState({ male: !this.state.male, female: false })}
-                                    style={[styles.CustomerContainer, this.state.female == false && this.state.male ? { backgroundColor: THEME.PRIMARY_COLOR } : null]}>
-                                    <View style={styles.optionContainer}>
-                                        <Icon.Ionicons
-                                            name="md-male"
-                                            color={this.state.female == false && this.state.male ? THEME.COLOR_WHITE : THEME.COLOR_GREY}
-                                            size={25} />
-                                        <Text style={[styles.optionTextStyle, this.state.female == false && this.state.male ? { color: THEME.COLOR_WHITE } : null]}>
-                                            Male
-                                </Text>
-                                    </View>
-                                </TouchableOpacity>
-                                <View style={styles.gap}></View>
-                                <TouchableOpacity onPress={() => this.setState({ female: !this.state.female, male: false })}
-                                    style={[styles.barberContainer, this.state.male == false && this.state.female ? { backgroundColor: THEME.PRIMARY_COLOR } : null]} >
-                                    <View style={styles.optionContainer}>
-                                        <Icon.Ionicons
-                                            name="md-female"
-                                            color={this.state.male == false && this.state.female ? THEME.COLOR_WHITE : THEME.COLOR_GREY}
-                                            size={25} />
-                                        <Text style={[styles.optionTextStyle, this.state.male == false && this.state.female ? { color: THEME.COLOR_WHITE } : null]}>
-                                            Female
-                                </Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
+                            <RadioButton gender
+                                option1={this.state.male} option2={this.state.female}
+                                option1Text="Male" option2Text="female"
+                                onPressOption1={() => this.setState({ male: true, female: false })}
+                                onPressOption2={() => this.setState({ female: true, male: false })} />
                             <View>
                                 <TouchableOpacity onPress={() => this.setState({ showDatePicker: true })}>
                                     <View style={[styles.dateContainer,

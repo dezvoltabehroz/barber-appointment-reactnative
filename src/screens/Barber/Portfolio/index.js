@@ -77,23 +77,27 @@ export default class Portfolio extends Component {
                         <Text style={styles.uploadImagesTextStyle}>Upload Portfolio</Text>
                         <Icon.Entypo name='attachment' size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} style={{ marginHorizontal: 5 }} />
                     </TouchableOpacity>
-                    {portfolioImagesArray !== null ?
-                        <>
-                            <FlatList
-                                data={portfolioImagesArray}
-                                showsVerticalScrollIndicator={false}
-                                ItemSeparatorComponent={this._renderSeparator}
-                                renderItem={({ item }) => this._renderItems(item)}
-                                keyExtractor={item => item}
-                            />
-                            <ImageView
-                                images={imageURLs}
-                                imageIndex={0}
-                                isVisible={this.state.isImageViewVisible}
-                                isSwipeCloseEnabled={true}
-                                onClose={() => { this.setState({ isImageViewVisible: false }) }}
-                            />
-                        </> : null}
+                    {
+                        portfolioImagesArray !== null ?
+                            <>
+                                <FlatList
+                                    data={portfolioImagesArray}
+                                    showsVerticalScrollIndicator={false}
+                                    ItemSeparatorComponent={this._renderSeparator}
+                                    renderItem={({ item }) => this._renderItems(item)}
+                                    keyExtractor={item => item}
+                                />
+                                <ImageView
+                                    images={imageURLs}
+                                    imageIndex={0}
+                                    isVisible={this.state.isImageViewVisible}
+                                    isSwipeCloseEnabled={true}
+                                    onClose={() => { this.setState({ isImageViewVisible: false }) }}
+                                />
+                            </>
+                            :
+                            null
+                    }
                 </View>
                 <View style={styles.footerStyle}>
                     <View style={styles.lineStyle}></View>

@@ -32,7 +32,6 @@ export default StyleSheet.create({
         flexDirection: 'column',
     },
     labelHeadingStyle: {
-        // flex:1,
         marginHorizontal: '10%',
         backgroundColor: "#FAFAFA",
         borderRadius: 5,
@@ -47,7 +46,6 @@ export default StyleSheet.create({
         marginTop: 5
     },
     callingCodeAndPhoneNumberConatiner: {
-        // paddingTop:5,
         marginBottom: 5,
         flexDirection: "row",
         marginHorizontal: '10%',

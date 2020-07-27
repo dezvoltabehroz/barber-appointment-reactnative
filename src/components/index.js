@@ -43,3 +43,6 @@ export const Summary = _Summary;
 
 import _Payment from './Payment';
 export const Payment = _Payment;
+
+import _RadioButton from './RadioButton';
+export const RadioButton = _RadioButton;

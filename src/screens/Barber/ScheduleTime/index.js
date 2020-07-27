@@ -16,8 +16,6 @@ export default class ScheduleTime extends Component {
             startTime: [],
             endTime: [],
             showTimePicker: false,
-            hours: '',
-            minutes: '',
             indexValue: null,
             item: null,
             val: ''
@@ -95,11 +93,11 @@ export default class ScheduleTime extends Component {
                 <View style={styles.inputContainer}>
                     {
                         item.startTime == '' ?
-                            <View style={[styles.inputDateContainerStyle, 
+                            <View style={[styles.inputDateContainerStyle,
                             startTime[index] == null && startTime[index] != '' ?
-                             { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
-                              :
-                               {}]}>
+                                { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
+                                :
+                                {}]}>
                                 <FloatingInput
                                     val={startTime[index]}
                                     onActive={() => this.setStartTime(index, item)}
@@ -111,10 +109,10 @@ export default class ScheduleTime extends Component {
                     {
                         item.endTime == '' ?
                             <View style={[styles.inputDateContainerStyle,
-                             endTime[index] == null && endTime[index] != '' ? 
-                             { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
-                              : 
-                              {}]}>
+                            endTime[index] == null && endTime[index] != '' ?
+                                { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
+                                :
+                                {}]}>
                                 <FloatingInput
                                     val={endTime[index]}
                                     onActive={() => this.setEndTime(index, item)}

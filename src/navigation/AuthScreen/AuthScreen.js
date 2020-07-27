@@ -13,35 +13,21 @@ export default class AuthScreen extends Component {
     }
 
     loginFunction = (email, password) => {
-        const { navigate, goBack } = this.props.navigation
-        const { customer, barber } = this.state;
+        const { navigate } = this.props.navigation
+        const { customer } = this.state;
 
-        if (customer) {
-            this.setState({loading:true})
-            if (email != '' && password != '') {
-                this.setState({loading:false})
-                navigate('Customer');
-            }
-            else {
-                alert('Incorrect Username or Password');
-                this.setState({loading:false})
-            }
+        if (email != '' && password != '') {
+            this.setState({ loading: false })
+            customer ? navigate('Customer') : null /*navigate('Barber');*/
         }
         else {
-            this.setState({loading:true})
-            if (email != '' && password != '') {
-                this.setState({loading:false})
-                // navigate('Customer');
-            }
-            else {
-                alert('Incorrect Username or Password');
-                this.setState({loading:false})
-            }
+            alert('Incorrect Username or Password');
+            this.setState({ loading: false })
         }
     }
 
     render() {
-        const { navigate, goBack } = this.props.navigation
+        const { navigate } = this.props.navigation
         const { customer, barber, loading } = this.state;
         return (
             <MainScreenPaths.Auth

@@ -14,6 +14,10 @@ export default StyleSheet.create({
         flex: 0.8,
         marginHorizontal: '10%'
     },
+    row: {
+        flexDirection: 'row',
+        justifyContent: "space-between"
+    },
     nameContainer: {
         flex: 0.5,
         flexDirection: 'column',

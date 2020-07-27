@@ -5,12 +5,12 @@ import styles from './style';
 import ImagePicker from 'react-native-image-picker';
 import THEME from '../../../assets/styles/theme.style';
 import LightBox from "react-native-lightbox";
-let tempArr = [];
+import ImageView from 'react-native-image-view';
+
 export default class Resume extends Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
             imageCertification: [],
             drivingLicense: '',
@@ -18,26 +18,13 @@ export default class Resume extends Component {
             passportImage: '',
             nationalIdImage: '',
             cv: '',
-            isVisible: false,
-            isEmployerFocus: false,
-            employerName: '',
-            isStartDate: false,
-            startDate: '',
-            isEndDate: false,
-            endDate: '',
-            showDatePicker: false,
-            showEndDatePicker: false,
-            dateValue: new Date(),
-            employmentHistory: [],
-            modalView: false,
-
+            isImageViewVisible: false,
         }
     }
 
 
     renderImage = (value) => {
         const {
-            imageCertification,
             drivingLicense,
             passportImage,
             nationalIdImage,
@@ -53,25 +40,6 @@ export default class Resume extends Component {
         )
     }
 
-    takePics = () => {
-
-        ImageCropPicker.openPicker({
-            width: 200,
-            height: 200, compressImageMaxHeight: 400,
-            compressImageMaxWidth: 400, cropping: true, multiple: true
-        })
-            .then(response => {
-                let tempArray = []
-
-                response.forEach((item) => {
-                    let image = {
-                        uri: item.path,
-                    }
-                    tempArray.push(image)
-                    this.setState({ imageCertification: tempArray, modalView: false })
-                })
-            })
-    };
 
     renderImages = (image) => {
         return (
@@ -91,9 +59,11 @@ export default class Resume extends Component {
         return (
             <>
                 <View style={styles.gapHeight}></View>
-                <LightBox renderContent={() => this.renderImages(image)}  >
+                <TouchableOpacity onPress={() =>
+                    this.setState({ isImageViewVisible: true })
+                }>
                     <Image source={image} resizeMode='cover' style={styles.imageStyle} />
-                </LightBox>
+                </TouchableOpacity>
             </>
         )
     }
@@ -154,6 +124,11 @@ export default class Resume extends Component {
             passportImage,
             nationalIdImage,
             cv } = this.state;
+        const imageURLs: Array<Object> = imageCertification.map((img: Object, index: number) => ({
+            source: { uri: img.uri },
+            title: img + index,
+            width: 806
+        }))
         return (
             <>
                 <View style={styles.container}>
@@ -174,17 +149,29 @@ export default class Resume extends Component {
                                             color={THEME.COLOR_WHITE} />
                                     </TouchableOpacity>
                                 </View>
-                                {imageCertification != null || imageCertification[0] != 'undefined' ?
-                                    <FlatList
-                                        data={imageCertification}
-                                        horizontal={true}
-                                        showsHorizontalScrollIndicator={false}
-                                        ItemSeparatorComponent={this._renderSeparator}
-                                        renderItem={({ item }) => this._renderItems(item)}
-                                        keyExtractor={item => item}
-                                        extraData={this.state.imageCertification}
-                                    />
-                                    : null}
+                                {
+                                    imageCertification != null || imageCertification[0] != 'undefined' ?
+                                        <>
+                                            <FlatList
+                                                data={imageCertification}
+                                                horizontal={true}
+                                                showsHorizontalScrollIndicator={false}
+                                                ItemSeparatorComponent={this._renderSeparator}
+                                                renderItem={({ item }) => this._renderItems(item)}
+                                                keyExtractor={item => item}
+                                                extraData={this.state.imageCertification}
+                                            />
+                                            <ImageView
+                                                images={imageURLs}
+                                                imageIndex={0}
+                                                isVisible={this.state.isImageViewVisible}
+                                                isSwipeCloseEnabled={true}
+                                                onClose={() => { this.setState({ isImageViewVisible: false }) }}
+                                            />
+                                        </>
+                                        :
+                                        null
+                                }
                             </View>
 
                             <View style={styles.certificationContainer}>
@@ -199,16 +186,19 @@ export default class Resume extends Component {
                                         size={THEME.ICON_SIZE}
                                         color={THEME.COLOR_WHITE} />
                                 </TouchableOpacity>
-                                {drivingLicense != '' ?
-                                    <LightBox
-                                        style={styles.imageContainer}
-                                        renderContent={() => this.renderImage('driver')}  >
-                                        <Image
-                                            source={drivingLicense}
-                                            resizeMode='cover'
-                                            style={styles.imageStyle} />
-                                    </LightBox>
-                                    : null}
+                                {
+                                    drivingLicense != '' ?
+                                        <LightBox
+                                            style={styles.imageContainer}
+                                            renderContent={() => this.renderImage('driver')}  >
+                                            <Image
+                                                source={drivingLicense}
+                                                resizeMode='cover'
+                                                style={styles.imageStyle} />
+                                        </LightBox>
+                                        :
+                                        null
+                                }
                             </View>
                             <View style={styles.certificationContainer}>
                                 <View style={styles.labelContainer}>
@@ -222,16 +212,19 @@ export default class Resume extends Component {
                                         size={THEME.ICON_SIZE}
                                         color={THEME.COLOR_WHITE} />
                                 </TouchableOpacity>
-                                {passportImage != '' ?
-                                    <LightBox
-                                        style={styles.imageContainer}
-                                        renderContent={() => this.renderImage('passport')}  >
-                                        <Image
-                                            source={passportImage}
-                                            resizeMode='cover'
-                                            style={styles.imageStyle} />
-                                    </LightBox>
-                                    : null}
+                                {
+                                    passportImage != '' ?
+                                        <LightBox
+                                            style={styles.imageContainer}
+                                            renderContent={() => this.renderImage('passport')}  >
+                                            <Image
+                                                source={passportImage}
+                                                resizeMode='cover'
+                                                style={styles.imageStyle} />
+                                        </LightBox>
+                                        :
+                                        null
+                                }
                             </View>
                             <View style={styles.certificationContainer}>
                                 <View style={styles.labelContainer} >
@@ -245,16 +238,19 @@ export default class Resume extends Component {
                                         size={THEME.ICON_SIZE}
                                         color={THEME.COLOR_WHITE} />
                                 </TouchableOpacity>
-                                {nationalIdImage != '' ?
-                                    <LightBox
-                                        style={styles.imageContainer}
-                                        renderContent={() => this.renderImage('nic')}  >
-                                        <Image
-                                            source={nationalIdImage}
-                                            resizeMode='cover'
-                                            style={styles.imageStyle} />
-                                    </LightBox>
-                                    : null}
+                                {
+                                    nationalIdImage != '' ?
+                                        <LightBox
+                                            style={styles.imageContainer}
+                                            renderContent={() => this.renderImage('nic')}  >
+                                            <Image
+                                                source={nationalIdImage}
+                                                resizeMode='cover'
+                                                style={styles.imageStyle} />
+                                        </LightBox>
+                                        :
+                                        null
+                                }
                             </View>
                             <View style={styles.certificationContainer}>
                                 <View style={styles.labelContainer} >
@@ -268,16 +264,19 @@ export default class Resume extends Component {
                                         size={THEME.ICON_SIZE}
                                         color={THEME.COLOR_WHITE} />
                                 </TouchableOpacity>
-                                {cv != '' ?
-                                    <LightBox
-                                        style={styles.imageContainer}
-                                        renderContent={() => this.renderImage('cv')}  >
-                                        <Image
-                                            source={cv}
-                                            resizeMode='cover'
-                                            style={styles.imageStyle} />
-                                    </LightBox>
-                                    : null}
+                                {
+                                    cv != '' ?
+                                        <LightBox
+                                            style={styles.imageContainer}
+                                            renderContent={() => this.renderImage('cv')}  >
+                                            <Image
+                                                source={cv}
+                                                resizeMode='cover'
+                                                style={styles.imageStyle} />
+                                        </LightBox>
+                                        :
+                                        null
+                                }
                             </View>
                         </ScrollView>
                     </View>
