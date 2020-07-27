@@ -99,44 +99,4 @@ export default StyleSheet.create({
         height: 15,
     },
 
-    // FOoter StylEs
-    lineStyle: {
-        borderColor: '#44495C',
-        borderWidth: 2,
-        marginHorizontal: '10%',
-        borderRadius: 5
-    },
-    gapHeight: {
-        height: 15
-    },
-    buttonContainer: {
-        marginHorizontal: '10%',
-    },
-    modalContainer: {
-        height: screenHeight,
-        justifyContent: "center",
-        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
-    },
-    modalUpperContainer: {
-        flexDirection: 'row',
-        justifyContent: "space-evenly",
-        alignItems: 'center',
-        marginHorizontal: "10%"
-    },
-    modalInput: {
-        flex: 1,
-        justifyContent: "center"
-    },
-    modalText: {
-        color: THEME.COLOR_WHITE,
-        textAlign: 'center',
-        fontFamily: 'Poppins-Medium',
-        fontSize: THEME.FONT_SIZE_LARGE,
-    },
-    footerStyle: {
-        flex: 0.2,
-        justifyContent: 'flex-end',
-        paddingBottom: '8%'
-    }
-
 })

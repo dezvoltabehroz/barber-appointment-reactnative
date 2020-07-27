@@ -39,24 +39,4 @@ export default StyleSheet.create({
     seperatorStyle: {
         height: 15,
     },
-
-    // FOoter StylEs
-    lineStyle: {
-        borderColor: '#44495C',
-        borderWidth: 2,
-        marginHorizontal: '10%',
-        borderRadius: 5
-    },
-    gapHeight: {
-        height: 15
-    },
-    buttonContainer: {
-        marginHorizontal: '10%'
-    },
-    footerStyle: {
-        flex: 0.2,
-        justifyContent: 'flex-end',
-        paddingBottom: '8%'
-    }
-
 })
