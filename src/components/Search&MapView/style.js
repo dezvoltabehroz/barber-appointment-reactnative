@@ -7,7 +7,8 @@ export default StyleSheet.create({
     mapStyle: {
         marginTop: "2%",
         height: screenHeight < 600 ? screenHeight * 0.45 : screenHeight * 0.55,
-        width: screenWidth,
+        width: screenWidth * 0.9,
+        marginHorizontal: "5%",
     },
     modalContainer: {
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
