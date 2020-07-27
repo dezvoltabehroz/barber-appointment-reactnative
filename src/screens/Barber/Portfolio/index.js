@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
-import { Button, Icon } from '../../../components'
+import { FooterButton, Icon } from '../../../components'
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -98,13 +98,7 @@ export default class Portfolio extends Component {
                             null
                     }
                 </View>
-                <View style={styles.footerStyle}>
-                    <View style={styles.lineStyle}></View>
-                    <View style={styles.gapHeight}></View>
-                    <View style={styles.buttonContainer}>
-                        <Button title='Save & Continue' onPress={onNext} />
-                    </View>
-                </View>
+                <FooterButton title='Save & Continue' onPress={onNext} />
             </View>
 
         );

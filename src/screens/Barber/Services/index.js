@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
-import { Button, Icon } from '../../../components';
+import { FooterButton, Icon } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
 
@@ -88,13 +88,7 @@ export default class Services extends Component {
                             renderItem={({ item }) => this._renderItems(item)}
                             keyExtractor={item => item} />
                     </View>
-                    <View style={styles.footerStyle}>
-                        <View style={styles.lineStyle}></View>
-                        <View style={styles.gapHeight}></View>
-                        <View style={styles.buttonContainer}>
-                            <Button title='Next' onPress={() => onNext(this.state.selectedService)} />
-                        </View>
-                    </View>
+                    <FooterButton title='Next' onPress={() => onNext(this.state.selectedService)} />
                 </View>
 
             </>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView, FlatList, } from 'react-native';
-import { Button, Icon } from '../../../components';
+import { FooterButton, Icon } from '../../../components';
 import styles from './style';
 import ImagePicker from 'react-native-image-picker';
 import THEME from '../../../assets/styles/theme.style';
@@ -280,13 +280,7 @@ export default class Resume extends Component {
                             </View>
                         </ScrollView>
                     </View>
-                    <View style={styles.footerStyle}>
-                        <View style={styles.lineStyle}></View>
-                        <View style={styles.gapHeight}></View>
-                        <View style={styles.buttonContainer}>
-                            <Button title='Next' onPress={onNext} />
-                        </View>
-                    </View>
+                    <FooterButton title='Next' onPress={onNext} />
                 </View>
             </>
         );

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
-import { FloatingInput, Button } from '../../../components'
+import { FloatingInput, FooterButton } from '../../../components'
 import styles from './style';;
 export default class EmailandPassword extends Component {
     constructor(props) {
@@ -59,13 +59,7 @@ export default class EmailandPassword extends Component {
                             label='Confirm Password' updateText={(confirmPassword) => this.setState({ confirmPassword })} />
                     </View>
                 </View>
-                <View style={styles.footerStyle}>
-                    <View style={styles.lineStyle}></View>
-                    <View style={styles.gapHeight}></View>
-                    <View style={styles.buttonContainer}>
-                        <Button title='Next' onPress={onUpdate} />
-                    </View>
-                </View>
+                <FooterButton title='Next' onPress={onUpdate} />
             </View>
         );
     }

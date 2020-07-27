@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, Alert, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
-import { Icon, FloatingInput, Button, DateTime, RadioButton } from '../../../components'
+import { Icon, FloatingInput, FooterButton, DateTime, RadioButton } from '../../../components'
 import styles from './style';
 import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
@@ -155,14 +155,7 @@ export default class UpdateProfile extends Component {
                         </View>
                     </ScrollView>
                 </View>
-
-                <View style={styles.footerStyle}>
-                    <View style={styles.lineStyle}></View>
-                    <View style={styles.gapHeight}></View>
-                    <View style={styles.buttonContainer}>
-                        <Button title='Next' onPress={onNext} />
-                    </View>
-                </View>
+                <FooterButton title='Next' onPress={onNext} />
             </View>
         );
     }

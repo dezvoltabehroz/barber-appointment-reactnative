@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, } from 'react-native';
-import { Button, FloatingInput, DateTimeModal } from '../../../components';
+import { FooterButton, FloatingInput, DateTimeModal } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
 
@@ -148,13 +148,7 @@ export default class ScheduleTime extends Component {
                             renderItem={({ item, index }) => this._renderItems({ item, index })}
                             keyExtractor={item => item} />
                     </View>
-                    <View style={styles.footerStyle}>
-                        <View style={styles.lineStyle}></View>
-                        <View style={styles.gapHeight}></View>
-                        <View style={styles.buttonContainer}>
-                            <Button title='Next' onPress={onNext} />
-                        </View>
-                    </View>
+                    <FooterButton title='Next' onPress={onNext} />
                 </View>
                 <DateTimeModal showTimePicker={showTimePicker}
                     dayNight={true}
