@@ -46,3 +46,6 @@ export const Payment = _Payment;
 
 import _RadioButton from './RadioButton';
 export const RadioButton = _RadioButton;
+
+import _FooterButton from './FooterButton';
+export const FooterButton = _FooterButton;
