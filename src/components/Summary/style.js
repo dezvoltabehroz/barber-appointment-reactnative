@@ -59,7 +59,7 @@ export default StyleSheet.create({
         fontSize: 10
     },
     mapStyle: {
-        height: screenHeight < 600 ? screenHeight * 0.35 : screenHeight * 0.45,
+        height: screenHeight < 600 ? screenHeight * 0.35 : screenHeight * 0.35,
         width: screenWidth * 0.9,
     },
     marginVertical: {
