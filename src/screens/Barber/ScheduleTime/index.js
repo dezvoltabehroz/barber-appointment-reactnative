@@ -94,10 +94,7 @@ export default class ScheduleTime extends Component {
                     {
                         item.startTime == '' ?
                             <View style={[styles.inputDateContainerStyle,
-                            startTime[index] == null && startTime[index] != '' ?
-                                { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
-                                :
-                                {}]}>
+                            startTime[index] == null && startTime[index] != '' ? THEME.inputBorder : {}]}>
                                 <FloatingInput
                                     val={startTime[index]}
                                     onActive={() => this.setStartTime(index, item)}
@@ -109,10 +106,7 @@ export default class ScheduleTime extends Component {
                     {
                         item.endTime == '' ?
                             <View style={[styles.inputDateContainerStyle,
-                            endTime[index] == null && endTime[index] != '' ?
-                                { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
-                                :
-                                {}]}>
+                            endTime[index] == null && endTime[index] != '' ? THEME.inputBorder : {}]}>
                                 <FloatingInput
                                     val={endTime[index]}
                                     onActive={() => this.setEndTime(index, item)}

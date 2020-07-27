@@ -46,10 +46,7 @@ export default class PhoneVerfication extends Component {
                         onFulfill={(value) => this.fullFillCode(value)}
                         onCodeChange={(code) => console(code)}
                         codeInputStyle={[styles.codeInput,
-                        isFocus ?
-                            { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
-                            :
-                            {}]} />
+                        isFocus ? THEME.inputBorder:{}]} />
                 </View>
                 <View style={styles.buttonContainer}>
                     <Button title='Verify Number ' onPress={onVerify} />

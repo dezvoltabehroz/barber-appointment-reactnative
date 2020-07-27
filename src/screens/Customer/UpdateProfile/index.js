@@ -116,10 +116,7 @@ export default class UpdateProfile extends Component {
                         </View>
                         <View style={styles.lowerContainer}>
                             <View style={[styles.inputContainerStyle,
-                            isNameFocus || name != '' ?
-                                { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
-                                :
-                                {}]}>
+                            isNameFocus || name != '' ? THEME.inputBorder : {}]}>
                                 <FloatingInput
                                     val={name}
                                     onActive={() => this.setState({ isNameFocus: true })}
@@ -137,10 +134,7 @@ export default class UpdateProfile extends Component {
                                 <View style={styles.dateContainer}>
                                     <TouchableOpacity onPress={() => this.setState({ showDatePicker: true })}>
                                         <View style={[styles.dateContainer,
-                                        showDatePicker || date != '' ?
-                                            { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
-                                            :
-                                            {}]}>
+                                        showDatePicker || date != '' ? THEME.inputBorder : {}]}>
                                             <Text style={[styles.dateTextStyle, date ? { color: THEME.COLOR_BLACK } : {}]}>{date && date != "" ? date : "Date of Birth"}</Text>
                                         </View>
                                     </TouchableOpacity>
@@ -153,10 +147,7 @@ export default class UpdateProfile extends Component {
                                     : null}
                             </View>
                             <View style={[styles.inputLocationContainerStyle,
-                            isLocationFocus || location != '' ?
-                                { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
-                                :
-                                {}]}>
+                            isLocationFocus || location != '' ? THEME.inputBorder : {}]}>
                                 <FloatingInput val={location}
                                     onInActive={() => this.setState({ isLocationFocus: false })}
                                     onActive={() => this.setState({ isLocationFocus: true })}

@@ -50,12 +50,7 @@ export default class WorkingDays extends Component {
             <>
                 <View style={styles.contentContainer}>
                     <View style={styles.nameContainer}>
-                        {/* <View style={{ marginHorizontal: 8 }}>
-                            <Text style={styles.idTextLabel}>{item.id}.</Text>
-                        </View> */}
-                        <View>
-                            <Text style={styles.textStyle}>{item.day}</Text>
-                        </View>
+                        <Text style={styles.textStyle}>{item.day}</Text>
                     </View>
                     <View style={styles.iconContainer}>
                         <TouchableOpacity onPress={() => this.handleSelected(item)}>

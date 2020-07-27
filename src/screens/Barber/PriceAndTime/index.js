@@ -90,10 +90,7 @@ export default class PriceAndTime extends Component {
                 <View style={styles.inputContainer}>
                     {item.price == '' ?
                         <View style={[styles.inputContainerStyle,
-                        price[index] == null ?
-                            { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
-                            :
-                            {}]}>
+                        price[index] == null ? THEME.inputBorder : {}]}>
                             <FloatingInput
                                 val={price[index]}
                                 keyboardtype="number-pad"
@@ -106,10 +103,7 @@ export default class PriceAndTime extends Component {
                     {item.time == '' ?
                         <>
                             <View style={[styles.inputDateContainerStyle,
-                            time[index] == null ?
-                                { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
-                                :
-                                {}]}>
+                            time[index] == null ? THEME.inputBorder : {}]}>
                                 <FloatingInput
                                     val={time[index]}
                                     onActive={() => this.setTime(index, item)}
@@ -141,7 +135,10 @@ export default class PriceAndTime extends Component {
                                     <View style={styles.timeContainer}>
                                         <Text style={styles.headingTextStyle}>Est.Time</Text>
                                     </View>
-                                </View> : null}
+                                </View>
+                                :
+                                null
+                        }
                         <FlatList
                             data={selectedArray}
                             showsVerticalScrollIndicator={false}

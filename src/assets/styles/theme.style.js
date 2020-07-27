@@ -25,6 +25,10 @@ export default {
     FONT_SIZE_LARGE: 18,
     FONT_SIZE_XLARGE: 22,
     COLOR_GREY: '#9FACBD',
+    inputBorder: {
+        borderWidth: 2,
+        borderColor: '#00A9A5'
+    },
     mapStyle: [
         {
             "elementType": "geometry",
@@ -63,7 +67,7 @@ export default {
             "elementType": "geometry",
             "stylers": [
                 {
-                    "color":  "#ffffff"
+                    "color": "#ffffff"
                 }
             ]
         },
@@ -72,7 +76,7 @@ export default {
             "elementType": "labels.text.fill",
             "stylers": [
                 {
-                    "color":  "#ffffff"
+                    "color": "#ffffff"
                 }
             ]
         },
@@ -109,7 +113,7 @@ export default {
             "elementType": "labels.text.fill",
             "stylers": [
                 {
-                    "color":  "#ffffff"
+                    "color": "#ffffff"
                 }
             ]
         },
@@ -136,7 +140,7 @@ export default {
             "elementType": "geometry",
             "stylers": [
                 {
-                    "color":'#1A1B25'
+                    "color": '#1A1B25'
                 }
             ]
         },
@@ -145,7 +149,7 @@ export default {
             "elementType": "labels.text.fill",
             "stylers": [
                 {
-                    "color":  "#ffffff"
+                    "color": "#ffffff"
                 }
             ]
         },
@@ -154,7 +158,7 @@ export default {
             "elementType": "labels.text.fill",
             "stylers": [
                 {
-                    "color":  "#ffffff"
+                    "color": "#ffffff"
                 }
             ]
         },
