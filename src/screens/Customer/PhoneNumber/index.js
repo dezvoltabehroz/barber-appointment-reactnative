@@ -54,7 +54,7 @@ export default class PhoneNumber extends Component {
 
     render() {
         const { onSendCode } = this.props;
-        const { countryCode, callingCode, number, isVisible, isNumberFocus } = this.state;
+        const { number, isNumberFocus } = this.state;
         return (
             <View style={styles.container}>
                 <View style={styles.innerContainer}>
@@ -73,10 +73,7 @@ export default class PhoneNumber extends Component {
                     <View style={styles.gapHeight}></View>
                     <View style={styles.gapHeight}></View>
                     <View style={[styles.callingCodeAndPhoneNumberConatiner,
-                    isNumberFocus || number != '' ?
-                        { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
-                        :
-                        {}]}>
+                    isNumberFocus || number != '' ? THEME.inputBorder : {}]}>
                         <View style={styles.countryCodeContainer} >
                             <Text style={styles.coutryCodeTextStyle} >{this.state.callingCode != '' ? '+' + this.state.callingCode : null}</Text>
                         </View>

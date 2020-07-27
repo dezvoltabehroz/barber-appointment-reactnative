@@ -90,7 +90,7 @@ class Summary extends Component {
                                     <Text style={styles.textStyle}> {addresslocation}</Text>
                                 </View>
                             </View>
-                            <View style={styles.lineStyle}></View>
+                            {/* <View style={styles.lineStyle}></View>
                             <View style={{ marginBottom: "1%" }}>
                                 <MapView
                                     provider={PROVIDER_GOOGLE}
@@ -117,7 +117,7 @@ class Summary extends Component {
                                         })}
                                     ></Marker.Animated>
                                 </MapView>
-                            </View>
+                            </View> */}
                         </View>
                     </View>
                     <View style={styles.borderStyle}></View>

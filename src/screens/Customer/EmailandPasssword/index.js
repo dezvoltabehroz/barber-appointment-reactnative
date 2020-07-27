@@ -27,10 +27,7 @@ export default class EmailandPassword extends Component {
                 <View style={styles.upperContainer}>
 
                     <View style={[styles.inputContainerStyle,
-                    isEmailFocus || email != '' ?
-                        { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
-                        :
-                        {}]}>
+                    isEmailFocus || email != '' ? THEME.inputBorder : {}]}>
                         <FloatingInput
                             val={email}
                             onActive={() => this.setState({ isEmailFocus: true })}
@@ -38,10 +35,7 @@ export default class EmailandPassword extends Component {
                             label='Email' updateText={(email) => this.setState({ email })} />
                     </View>
                     <View style={[styles.inputContainerStyle,
-                    isPasswordFocus || password != '' ?
-                        { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
-                        :
-                        {}]}>
+                    isPasswordFocus || password != '' ? THEME.inputBorder : {}]}>
                         <FloatingInput
                             val={password}
                             secureEntry
@@ -50,10 +44,7 @@ export default class EmailandPassword extends Component {
                             label='Password' updateText={(password) => this.setState({ password })} />
                     </View>
                     <View style={[styles.inputContainerStyle,
-                    isConfirmPasswordFocus || confirmPassword != '' ?
-                        { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
-                        :
-                        {}]}>
+                    isConfirmPasswordFocus || confirmPassword != '' ? THEME.inputBorder : {}]}>
                         <FloatingInput
                             val={confirmPassword}
                             secureEntry

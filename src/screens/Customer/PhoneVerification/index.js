@@ -42,10 +42,7 @@ export default class PhoneVerfication extends Component {
                         size={40}
                         placeholder={"*"}
                         onFulfill={(value) => this.setState({ value })}
-                        codeInputStyle={[styles.codeInput, value != '' ? {
-                            borderWidth: 2,
-                            borderColor: THEME.PRIMARY_COLOR,
-                        } : {}]} />
+                        codeInputStyle={[styles.codeInput, value != '' ? THEME.inputBorder : {}]} />
                 </View>
                 <View style={styles.buttonContainer}>
                     <Button title='Verify Number ' onPress={onVerify} />

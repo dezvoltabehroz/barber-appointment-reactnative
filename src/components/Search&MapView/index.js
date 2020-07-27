@@ -51,7 +51,6 @@ class SearchandMapView extends Component {
             name: searchObj.searchDetails.formatted_address
         })
         this.props.address(this.state.name);
-        this.props.getRegion(this.state.region);
     }
 
     componentDidMount = () => {

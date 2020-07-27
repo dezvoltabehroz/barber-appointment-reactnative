@@ -57,10 +57,7 @@ class AuthScreen extends Component {
                             </View>
                             <View style={styles.buttonContainer}>
                                 <View style={[styles.inputContainerStyle,
-                                isEmailFocus || email != '' ?
-                                    { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
-                                    :
-                                    {}]}>
+                                isEmailFocus || email != '' ? THEME.inputBorder : {}]}>
                                     <FloatingInput
                                         label={"Email / Phonenumber"}
                                         val={email}
@@ -69,10 +66,7 @@ class AuthScreen extends Component {
                                         updateText={(email) => this.handleEmail(email)} />
                                 </View>
                                 <View style={[styles.inputContainerStyle,
-                                isPasswordFocus || password != '' ?
-                                    { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
-                                    :
-                                    {}]}>
+                                isPasswordFocus || password != '' ? THEME.inputBorder : {}]}>
                                     <FloatingInput
                                         label={"Password"}
                                         val={password}

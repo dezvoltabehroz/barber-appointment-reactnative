@@ -112,7 +112,7 @@ export default class Booking extends Component {
                         this.state.currentPosition == 1 ?
                             <SearchandMapView
                                 address={(location) => this.handleLocation(location)}
-                                getRegion={(region) => this.handleRegion(region)} />
+                            />
                             :
                             null
                     }
@@ -128,7 +128,7 @@ export default class Booking extends Component {
                                 addresslocation={(this.state.location)}
                                 onChangePress={this.handleOnChange}
                                 services={(this.state.selectedServices)}
-                                region={(this.state.region)} />
+                            />
                             :
                             null
                     }

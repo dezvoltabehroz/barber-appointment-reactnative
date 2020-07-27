@@ -78,10 +78,7 @@ class Payment extends Component {
                         <View style={styles.contentContainer}>
                             <View style={{ alignItems: "center" }}>
                                 <View style={[styles.inputContainerStyle,
-                                isNumberFocus || number != '' ? {
-                                    borderWidth: 2,
-                                    borderColor: THEME.PRIMARY_COLOR,
-                                } : {}]}>
+                                isNumberFocus || number != '' ? THEME.inputBorder : {}]}>
                                     <FloatingInput
                                         val={number}
                                         keyboardtype={"number-pad"}
@@ -97,7 +94,7 @@ class Payment extends Component {
                                         color={THEME.COLOR_GREY} />
                                 </View>
                                 <View style={[styles.inputContainerStyle,
-                                isNameFocus || name != '' ? { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR } : {}]}>
+                                isNameFocus || name != '' ? THEME.inputBorder : {}]}>
                                     <FloatingInput
                                         val={name}
                                         onActive={() => this.setState({ isNameFocus: true })}
@@ -114,7 +111,7 @@ class Payment extends Component {
                             </View>
                             <View style={styles.row}>
                                 <View style={[styles.inputRowContainerStyle,
-                                isexpDateFocus || expDate != '' ? { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR } : {}]}>
+                                isexpDateFocus || expDate != '' ? THEME.inputBorder : {}]}>
                                     <FloatingInput
                                         val={expDate}
                                         onActive={() => this.setState({ isexpDateFocus: true, showDatePicker: true })}
@@ -125,7 +122,7 @@ class Payment extends Component {
                                     <Icon.Feather name='calendar' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
                                 </View>
                                 <View style={[styles.inputRowContainerStyle,
-                                isCvvFocus || cvv != '' ? { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR } : {}]}>
+                                isCvvFocus || cvv != '' ? THEME.inputBorder : {}]}>
                                     <FloatingInput
                                         val={cvv}
                                         maxLength={3}
