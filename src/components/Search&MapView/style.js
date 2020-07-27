@@ -6,7 +6,7 @@ import THEME from '../../assets/styles/theme.style';
 export default StyleSheet.create({
     mapStyle: {
         marginTop: "2%",
-        height: screenHeight < 600 ? screenHeight * 0.45 : screenHeight * 0.55,
+        height: screenHeight < 600 ? screenHeight * 0.4 : screenHeight * 0.45,
         width: screenWidth,
     },
     modalContainer: {
