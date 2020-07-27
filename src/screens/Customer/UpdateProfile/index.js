@@ -127,7 +127,7 @@ export default class UpdateProfile extends Component {
 
                             <RadioButton gender
                                 option1={this.state.male} option2={this.state.female}
-                                option1Text="Male" option2Text="female"
+                                option1Text="Male" option2Text="Female"
                                 onPressOption1={() => this.setState({ male: true, female: false })}
                                 onPressOption2={() => this.setState({ female: true, male: false })} />
                             <View>
