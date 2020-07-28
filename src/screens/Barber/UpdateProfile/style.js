@@ -15,7 +15,7 @@ export default StyleSheet.create({
         flex: 0.8,
     },
     imageContainer: {
-        marginTop: '10%',
+        marginTop: '5%',
         justifyContent: "center",
         alignItems: 'center'
     },
@@ -45,6 +45,7 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         height: 54,
+        marginBottom: '-2%',
         width: screenWidth * 0.8,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
@@ -52,13 +53,13 @@ export default StyleSheet.create({
     distanceContainerStyle: {
         marginHorizontal: '10%',
         justifyContent: "center",
-        marginBottom: "2%",
-        height: 150,
+        height: 60,
         width: screenWidth * 0.8,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
     },
     distanceHeadingContainer: {
+        paddingTop: "5%",
         flexDirection: "row", justifyContent: "space-between"
     },
     sliderContainer: {
@@ -66,7 +67,8 @@ export default StyleSheet.create({
     },
     sliderStyle: {
         width: screenWidth * 0.75,
-        height: 100,
+        height: 50,
+        bottom: 35,
     },
     inputLocationContainerStyle: {
         marginHorizontal: '10%',
@@ -74,7 +76,7 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         height: 54,
-        marginBottom: '4%',
+        marginBottom: '2%',
         width: screenWidth * 0.8,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
@@ -126,7 +128,7 @@ export default StyleSheet.create({
     dateContainer: {
         backgroundColor: THEME.COLOR_WHITE,
         borderRadius: 5,
-        marginVertical: '4%',
+        marginVertical: '2%',
         marginHorizontal: '10%',
         justifyContent: 'center',
         alignItems: "center",
