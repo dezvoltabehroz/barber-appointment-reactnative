@@ -140,6 +140,7 @@ export default class BookAppointment extends Component {
   }
 
   render() {
+    const { onBookingPress } = this.props;
     return (
       <>
         <View style={styles.container}>
@@ -203,7 +204,7 @@ export default class BookAppointment extends Component {
             </View>
           </View>
           <View style={styles.buttonContainer}>
-            <Button title="Book" onPress={() => alert('Your Booking is in progress')} />
+            <Button title="Make Booking" onPress={onBookingPress} />
 
           </View>
         </View>

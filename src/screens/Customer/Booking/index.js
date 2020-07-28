@@ -18,6 +18,7 @@ export default class Booking extends Component {
                 longitudeDelta: 0.9421,
             },
             totalPrice: 0,
+            disabled: true
         }
     }
 
@@ -31,16 +32,26 @@ export default class Booking extends Component {
     }
 
     onPageChange = (position) => {
-        this.setState({ currentPosition: position });
+        if (position === 3 || position === 4)
+            this.setState({ currentPosition: position, disabled: false });
+        else this.setState({ currentPosition: position, disabled: true })
     }
 
     onNextPageChange = () => {
         if (this.state.currentPosition == 4) {
-            this.setState({ currentPosition: this.state.currentPosition });
+            this.setState({ currentPosition: this.state.currentPosition, disabled: false });
         } else {
-            this.setState({ currentPosition: this.state.currentPosition + 1 });
+            this.setState({ currentPosition: this.state.currentPosition + 1 }, () => {
+                if (this.state.currentPosition === 3 || this.state.currentPosition === 4) {
+                    this.setState({ disabled: false })
+                }
+                else {
+                    this.setState({ disabled: true })
+                }
+            })
         }
     }
+
     handleSelectedServices = (data) => {
         const { selectedServices } = this.state;
         this.setState({ selectedServices: data });
@@ -48,15 +59,16 @@ export default class Booking extends Component {
         for (var i = 0; i < selectedServices.length; i++) {
             totalPrice = (totalPrice + selectedServices[i].serviceCost);
         }
-        this.setState({ totalPrice });
+        this.setState({ totalPrice, disabled: false });
     }
 
     handleOnChange = () => {
-        this.setState({ currentPosition: 0 })
+        this.setState({ currentPosition: 0, disabled: true })
     }
 
     handleLocation = (location) => {
-        this.setState({ location })
+        if (location != '' && location != null)
+            this.setState({ location, disabled: false })
     }
 
     handleRegion = (region) => {
@@ -89,7 +101,7 @@ export default class Booking extends Component {
             currentStepLabelColor: THEME.COLOR_WHITE
         }
 
-        const { currentPosition, selectedServices, totalPrice } = this.state
+        const { currentPosition, selectedServices, totalPrice, disabled } = this.state
 
         return (
             <View style={styles.container}>
@@ -118,7 +130,10 @@ export default class Booking extends Component {
                     }
                     {
                         this.state.currentPosition == 2 ?
-                            <BookAppointment />
+                            <BookAppointment onBookingPress={() => {
+                                alert("your booking is in Progress");
+                                this.setState({ disabled: false })
+                            }} />
                             :
                             null
                     }
@@ -154,7 +169,7 @@ export default class Booking extends Component {
                             }
                         </View>
                         <View style={styles.buttonContainer}>
-                            <Button title='Next' onPress={this.onNextPageChange} />
+                            <Button disabled={disabled} title='Next' onPress={this.onNextPageChange} />
                         </View>
                     </View>
 
