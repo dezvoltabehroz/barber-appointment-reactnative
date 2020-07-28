@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Image, TouchableOpacity, ScrollView, Alert } from 'react-native'
+import { View, Text, Image, TouchableOpacity, ScrollView, LayoutAnimation } from 'react-native'
 import { Icon, Button, FloatingInput, RadioButton } from "../../components";
 import styles from './style';
 import THEME from '../../assets/styles/theme.style';
@@ -11,9 +11,9 @@ class AuthScreen extends Component {
             email: '',
             password: '',
             loading: false,
-            isEmailFocus: null,
+            isEmailFocus: false,
             isPasswordFocus: null,
-            disabled: true
+            emailValid: true,
         }
     }
     handleLogin = () => {
@@ -21,16 +21,21 @@ class AuthScreen extends Component {
         this.setState({ email: '', password: '', isEmailFocus: null, isPasswordFocus: null })
     }
 
-    handleEmail = (email) => {
-        const regex = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
-        if (email.match(regex)) {
-            this.setState({ email, disabled: false })
-        }
+    validateEmail() {
+        const { email } = this.state
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        const emailValid = re.test(email)
+        LayoutAnimation.easeInEaseOut()
+        this.setState({ emailValid }, () => {
+            if (!this.state.emailValid) {
+                alert("Email is Incorrect")
+            }
+        })
     }
 
     render() {
         const { onPhone, onLogin, onPressCustomer, onPressBarber, customer, barber } = this.props
-        const { email, password, isEmailFocus, isPasswordFocus, disabled } = this.state;
+        const { email, password, isEmailFocus, isPasswordFocus } = this.state;
         return (
             <>
                 <View style={styles.container}>
@@ -61,9 +66,10 @@ class AuthScreen extends Component {
                                     <FloatingInput
                                         label={"Email / Phonenumber"}
                                         val={email}
+                                        onSubmit={() => { this.validateEmail() }}
                                         onActive={() => this.setState({ isEmailFocus: true })}
                                         onInActive={() => this.setState({ isEmailFocus: false })}
-                                        updateText={(email) => this.handleEmail(email)} />
+                                        updateText={(email) => this.setState({ email })} />
                                 </View>
                                 <View style={[styles.inputContainerStyle,
                                 isPasswordFocus || password != '' ? THEME.inputBorder : {}]}>
@@ -75,7 +81,7 @@ class AuthScreen extends Component {
                                         secureEntry={true}
                                         updateText={(password) => this.setState({ password })} />
                                 </View>
-                                <Button title="Login" disabled={disabled} loading={this.props.loading} onPress={this.handleLogin} />
+                                <Button title="Login" loading={this.props.loading} onPress={this.handleLogin} />
                             </View>
                         </View>
                         <View style={styles.lowerContainer}>

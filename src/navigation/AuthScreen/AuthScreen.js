@@ -18,10 +18,17 @@ export default class AuthScreen extends Component {
 
         if (email != '' && password != '') {
             this.setState({ loading: false })
-            customer ? navigate('Customer') : null /*navigate('Barber');*/
+            const regex = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
+            if (email.match(regex)) {
+                customer ? navigate('Customer') : null /*navigate('Barber');*/
+            }
+            else {
+                alert("Email is Incorrect");
+            }
+
         }
         else {
-            alert('Incorrect Username or Password');
+            alert('Username/Email and Password null');
             this.setState({ loading: false })
         }
     }
