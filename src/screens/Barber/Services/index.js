@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
-import { FooterButton, Icon } from '../../../components';
+import { View, Text, FlatList, TouchableOpacity, Modal } from 'react-native';
+import { FooterButton, Icon, Button, FloatingInput } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
 
@@ -10,18 +10,23 @@ export default class Services extends Component {
         this.state = {
             val: false,
             selectedService: [],
+            showAddService: false,
+            serviceName: '',
+            serviceDescription: '',
+            isServiceNameFocus: false,
+            isServiceDescriptionFocus: false,
             barberServices: [
-                { id: 1, serviceName: 'Hair Cuttuing', selected: false, price: '', time: '' },
-                { id: 2, serviceName: 'Hair Trimming', selected: false, price: '', time: '' },
-                { id: 3, serviceName: 'Blowout', selected: false, price: '', time: '' },
-                { id: 4, serviceName: 'Hair Color', selected: false, price: '', time: '' },
-                { id: 5, serviceName: 'Double process hair color', selected: false, price: '', time: '' },
-                { id: 6, serviceName: 'Shave', selected: false, price: '', time: '' },
-                { id: 7, serviceName: 'Beard Trim', selected: false, price: '', time: '' },
-                { id: 8, serviceName: 'Braids & Twist', selected: false, price: '', time: '' },
-                { id: 9, serviceName: 'Hair color touch ups', selected: false, price: '', time: '' },
-                { id: 10, serviceName: 'Scalp Conditioning Treatment', selected: false, price: '', time: '' },
-                { id: 11, serviceName: 'Permanent Hair Retexturizing', selected: false, price: '', time: '' }
+                { id: 1, serviceName: 'Hair Cuttuing', serviceDescription: '', selected: false, price: '', time: '' },
+                { id: 2, serviceName: 'Hair Trimming', serviceDescription: '', selected: false, price: '', time: '' },
+                { id: 3, serviceName: 'Blowout', serviceDescription: '', selected: false, price: '', time: '' },
+                { id: 4, serviceName: 'Hair Color', serviceDescription: '', selected: false, price: '', time: '' },
+                { id: 5, serviceName: 'Double process hair color', serviceDescription: '', selected: false, price: '', time: '' },
+                { id: 6, serviceName: 'Shave', serviceDescription: '', selected: false, price: '', time: '' },
+                { id: 7, serviceName: 'Beard Trim', serviceDescription: '', selected: false, price: '', time: '' },
+                { id: 8, serviceName: 'Braids & Twist', serviceDescription: '', selected: false, price: '', time: '' },
+                { id: 9, serviceName: 'Hair color touch ups', serviceDescription: '', selected: false, price: '', time: '' },
+                { id: 10, serviceName: 'Scalp Conditioning Treatment', serviceDescription: '', selected: false, price: '', time: '' },
+                { id: 11, serviceName: 'Permanent Hair Retexturizing', serviceDescription: '', selected: false, price: '', time: '' }
             ],
         }
     }
@@ -72,11 +77,24 @@ export default class Services extends Component {
         )
     }
 
+    handleAddService = () => {
+        const { barberServices, serviceName, serviceDescription } = this.state;
+        let userService = {
+            id: barberServices.length + 1,
+            serviceName: serviceName,
+            serviceDescription: serviceDescription,
+            selected: false,
+            price: '',
+            time: ''
+        };
+        this.state.barberServices.push(userService);
+        this.setState({ showAddService: false, serviceDescription: '', serviceName: '' })
 
+    }
 
     render() {
         const { onNext } = this.props;
-        const { barberServices } = this.state;
+        const { barberServices, showAddService, serviceName, serviceDescription, isServiceNameFocus, isServiceDescriptionFocus } = this.state;
         return (
             <>
                 <View style={styles.container}>
@@ -88,8 +106,49 @@ export default class Services extends Component {
                             renderItem={({ item }) => this._renderItems(item)}
                             keyExtractor={item => item} />
                     </View>
+                    <View style={styles.addServiceContainer}>
+                        <View style={styles.buttonContainer}>
+                            <Button title="Add Service" onPress={() => this.setState({ showAddService: true })} />
+                        </View>
+                    </View>
+
                     <FooterButton title='Next' onPress={() => onNext(this.state.selectedService)} />
                 </View>
+                <Modal visible={showAddService}
+                    animationType="slide"
+                    transparent={true}>
+                    <View style={styles.modalContainer}  >
+                        <View style={styles.modalInputContainer}>
+                            <View style={[styles.inputContainerStyle,
+                            serviceName != '' || isServiceNameFocus ? THEME.inputBorder : {}]}>
+                                <FloatingInput
+                                    val={serviceName}
+                                    onActive={() => this.setState({ isServiceNameFocus: true })}
+                                    onInActive={() => this.setState({ isServiceNameFocus: false })}
+                                    label='Service Name'
+                                    updateText={(serviceName) => this.setState({ serviceName })} />
+                            </View>
+                            <View style={[styles.inputContainerStyle,
+                            serviceDescription != '' || isServiceDescriptionFocus ? THEME.inputBorder : {}]}>
+                                <FloatingInput
+                                    val={serviceDescription}
+                                    onActive={() => this.setState({ isServiceDescriptionFocus: true })}
+                                    onInActive={() => this.setState({ isServiceDescriptionFocus: false })}
+                                    label='Service Description'
+                                    updateText={(serviceDescription) => this.setState({ serviceDescription })} />
+                            </View>
+                            <View style={styles.buttonContainer}>
+                                <Button title="Submit" onPress={this.handleAddService} />
+                            </View>
+                            <View style={styles.buttonContainer}>
+                                <Button title="Cancel" onPress={() => this.setState({ showAddService: false })} />
+                            </View>
+                        </View>
+
+
+                    </View>
+                </Modal>
+
 
             </>
         );
