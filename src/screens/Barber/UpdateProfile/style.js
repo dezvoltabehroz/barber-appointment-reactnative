@@ -60,7 +60,8 @@ export default StyleSheet.create({
     },
     distanceHeadingContainer: {
         paddingTop: "5%",
-        flexDirection: "row", justifyContent: "space-between"
+        flexDirection: "row",
+        justifyContent: "space-between"
     },
     sliderContainer: {
         alignItems: "center"

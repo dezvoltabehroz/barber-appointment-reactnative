@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import styles from './style';
 import { Button, BarberServices, SearchandMapView, BookAppointment, Summary, Payment } from '../../../components';
 import StepProgress from 'react-native-step-progress';
@@ -34,7 +34,7 @@ export default class Booking extends Component {
     onPageChange = (position) => {
         if (position === 3 || position === 4)
             this.setState({ currentPosition: position, disabled: false });
-        else this.setState({ currentPosition: position, disabled: true })
+        else this.setState({ currentPosition: position, })
     }
 
     onNextPageChange = () => {
@@ -55,12 +55,6 @@ export default class Booking extends Component {
     handleSelectedServices = (data) => {
         const { selectedServices } = this.state;
         this.setState({ selectedServices: data });
-        var totalPrice = 0;
-        for (var i = 0; i < selectedServices.length; i++) {
-            totalPrice = (totalPrice + selectedServices[i].serviceCost);
-        }
-
-        this.setState({ totalPrice, disabled: false });
     }
 
     handleOnChange = () => {
@@ -75,6 +69,7 @@ export default class Booking extends Component {
     handleRegion = (region) => {
         this.setState({ region })
     }
+
 
     render() {
         const labels = ["Service", "Location", "Time", "Summary", "Payment"];
@@ -117,9 +112,8 @@ export default class Booking extends Component {
                         this.state.currentPosition == 0 ?
                             <BarberServices
                                 customerSelectedServices={(selectedServices)}
-                                isDisabled={(disable) => this.setState({ disabled: disable }, () => {
-                                    console.log(this.state.disabled)
-                                })}
+                                price={(price) => this.setState({ totalPrice: price })}
+                                isDisable={(data) => this.setState({ disabled: data == "true" ? true : false })}
                                 markedServices={(data) => this.handleSelectedServices(data)} />
                             :
                             null

@@ -4,13 +4,13 @@ import styles from './style';
 import { Icon } from '..';
 import THEME from '../../assets/styles/theme.style';
 
-
 export default class BarberServices extends Component {
     constructor(props) {
         super(props);
         this.state = {
             selectedService: [],
             disabled: true,
+            totalPrice: 0,
             services: [
                 {
                     id: 1,
@@ -91,28 +91,32 @@ export default class BarberServices extends Component {
     }
 
     onPressCheckedItem = (val) => {
+        const { totalPrice } = this.state;
+        let price = totalPrice;
         const objIndex = this.state.services.findIndex((obj => obj.id == val.id));
         let items = [...this.state.services];
         if (items[objIndex].selected) {
             items[objIndex] = { ...items[objIndex], selected: false };
             this.setState({ services: items });
-            if (!items[objIndex].selected) {
-                this.setState({ selectedService: this.state.selectedService.filter(item => item.id != val.id) })
-                this.props.markedServices(this.state.selectedService);
-                if (this.state.selectedService.length == 0) {
-                    this.props.isDisabled(true)
+            this.setState({ selectedService: this.state.selectedService.filter(item => item.id != val.id) }, () => {
+                price = (price - val.serviceCost)
+                this.props.price(price);
+                if (this.state.selectedService.length === 0) {
+                    this.props.isDisable("true")
+                    this.props.markedServices(this.state.selectedService);
                 }
-                else {
-                    this.props.isDisabled(false)
-                }
-            }
-
+                this.setState({ totalPrice: price })
+            })
         }
         else {
             items[objIndex] = { ...items[objIndex], selected: true };
             this.setState({ services: items });
             this.state.selectedService.push(items[objIndex]);
+            price = (price + val.serviceCost)
+            this.props.price(price);
+            this.props.isDisable("false")
             this.props.markedServices(this.state.selectedService);
+            this.setState({ totalPrice: price });
         }
     }
 
