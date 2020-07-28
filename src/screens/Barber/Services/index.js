@@ -115,10 +115,13 @@ export default class Services extends Component {
                     <FooterButton title='Next' onPress={() => onNext(this.state.selectedService)} />
                 </View>
                 <Modal visible={showAddService}
-                    animationType="slide"
-                    transparent={true}>
+                    animationType="slide">
                     <View style={styles.modalContainer}  >
                         <View style={styles.modalInputContainer}>
+                            <View style={styles.headingContainer}>
+                                <Text style={styles.headingTextStyle}>Add a Service</Text>
+                            </View>
+
                             <View style={[styles.inputContainerStyle,
                             serviceName != '' || isServiceNameFocus ? THEME.inputBorder : {}]}>
                                 <FloatingInput
@@ -137,11 +140,13 @@ export default class Services extends Component {
                                     label='Service Description'
                                     updateText={(serviceDescription) => this.setState({ serviceDescription })} />
                             </View>
-                            <View style={styles.buttonContainer}>
-                                <Button title="Submit" onPress={this.handleAddService} />
-                            </View>
-                            <View style={styles.buttonContainer}>
-                                <Button title="Cancel" onPress={() => this.setState({ showAddService: false })} />
+                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                <View style={styles.rowButtonContainer}>
+                                    <Button title="Submit" onPress={this.handleAddService} />
+                                </View>
+                                <View style={styles.rowButtonContainer}>
+                                    <Button title="Cancel" onPress={() => this.setState({ showAddService: false })} />
+                                </View>
                             </View>
                         </View>
 

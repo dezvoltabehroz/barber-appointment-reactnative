@@ -18,6 +18,10 @@ export default StyleSheet.create({
     buttonContainer: {
         marginHorizontal: '10%'
     },
+    rowButtonContainer: {
+        width: '46%',
+        paddingHorizontal: '6%'
+    },
     contentContainer: {
         flexDirection: 'row',
         justifyContent: "space-between",
@@ -40,6 +44,16 @@ export default StyleSheet.create({
         color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Regular'
     },
+    headingContainer: {
+        marginVertical: "2%",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    headingTextStyle: {
+        fontSize: THEME.FONT_SIZE_LARGE,
+        color: THEME.COLOR_WHITE,
+        fontFamily: 'Poppins-Medium'
+    },
     addServiceContainer: {
         justifyContent: 'flex-end',
         top: screenHeight < 600 ? 0 : 25
@@ -49,15 +63,15 @@ export default StyleSheet.create({
     },
     modalContainer: {
         flex: 1,
-        height: screenHeight * 0.45,
-        width: screenWidth * 0.8,
-        justifyContent: "center",
-        alignItems: 'center',
+        height: screenHeight * 1,
+        width: screenWidth * 1,
+        paddingTop: "40%",
         alignSelf: "center",
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
     },
     inputContainerStyle: {
         height: 54,
-        width: screenWidth * 0.7,
+        width: screenWidth * 0.8,
         borderRadius: 5,
         marginHorizontal: '3%',
         marginBottom: '5%',
@@ -67,5 +81,6 @@ export default StyleSheet.create({
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
         paddingVertical: '3%',
         borderRadius: 10,
+        alignItems: "center",
     },
 })
