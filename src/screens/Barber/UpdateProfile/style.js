@@ -49,6 +49,25 @@ export default StyleSheet.create({
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
     },
+    distanceContainerStyle: {
+        marginHorizontal: '10%',
+        justifyContent: "center",
+        marginBottom: "2%",
+        height: 150,
+        width: screenWidth * 0.8,
+        borderRadius: 5,
+        backgroundColor: THEME.COLOR_WHITE
+    },
+    distanceHeadingContainer: {
+        flexDirection: "row", justifyContent: "space-between"
+    },
+    sliderContainer: {
+        alignItems: "center"
+    },
+    sliderStyle: {
+        width: screenWidth * 0.75,
+        height: 100,
+    },
     inputLocationContainerStyle: {
         marginHorizontal: '10%',
         flexDirection: "row",
@@ -118,6 +137,16 @@ export default StyleSheet.create({
         width: screenWidth * 0.765,
         color: THEME.COLOR_GREY,
         marginLeft: 11,
+        fontFamily: 'Poppins-Regular'
+    },
+    distanceTextStyle: {
+        color: THEME.COLOR_GREY,
+        marginLeft: 11,
+        fontFamily: 'Poppins-Regular'
+    },
+    distanceStyle: {
+        color: THEME.COLOR_GREY,
+        marginRight: 11,
         fontFamily: 'Poppins-Regular'
     },
 })

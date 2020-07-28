@@ -1,6 +1,7 @@
 /** @format */
 
 import React, { Component } from 'react'
+import { Alert } from 'react-native';
 import { MainScreenPaths } from '../../screens';
 
 export default class AuthScreen extends Component {
@@ -20,10 +21,10 @@ export default class AuthScreen extends Component {
             this.setState({ loading: false })
             const regex = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
             if (email.match(regex)) {
-                customer ? navigate('Customer') : null /*navigate('Barber');*/
+                customer ? navigate('Customer') : navigate('Customer')//null /*navigate('Barber');*/
             }
             else {
-                alert("Email is Incorrect");
+                Alert.alert("Email is Incorrect");
             }
 
         }
@@ -44,6 +45,7 @@ export default class AuthScreen extends Component {
                     navigate('Customer', { screen: 'PhoneNumber' })
                     :
                     navigate('Barber', { screen: 'PhoneNumber' })}
+                onContinueWithOutLogin={() => customer ? navigate('Customer') : navigate('Barber')}
                 onPressCustomer={() => this.setState({ customer: true, barber: false })}
                 onPressBarber={() => this.setState({ barber: true, customer: false })}
                 customer={customer}

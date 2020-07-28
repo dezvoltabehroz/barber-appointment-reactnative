@@ -10,6 +10,7 @@ export default class BarberServices extends Component {
         super(props);
         this.state = {
             selectedService: [],
+            disabled: true,
             services: [
                 {
                     id: 1,
@@ -80,7 +81,7 @@ export default class BarberServices extends Component {
     }
 
     componentDidMount = () => {
-        this.setState({ selectedService: this.props.selectedService });
+        this.setState({ selectedService: this.props.customerSelectedServices });
     }
 
     _renderSeparator = () => {
@@ -98,7 +99,14 @@ export default class BarberServices extends Component {
             if (!items[objIndex].selected) {
                 this.setState({ selectedService: this.state.selectedService.filter(item => item.id != val.id) })
                 this.props.markedServices(this.state.selectedService);
+                if (this.state.selectedService.length == 0) {
+                    this.props.isDisabled(true)
+                }
+                else {
+                    this.props.isDisabled(false)
+                }
             }
+
         }
         else {
             items[objIndex] = { ...items[objIndex], selected: true };

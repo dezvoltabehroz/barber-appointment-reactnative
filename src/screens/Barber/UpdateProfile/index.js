@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, Alert, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, Alert, Dimensions, ScrollView, Platform } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 import { Icon, FloatingInput, FooterButton, DateTime, RadioButton } from '../../../components'
 import styles from './style';
 import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
-
+import RangeSlider from 'rn-range-slider';
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoder';
+
+const screenWidth = Dimensions.get('window').width;
 export default class UpdateProfile extends Component {
     constructor(props) {
         super(props);
@@ -18,6 +20,8 @@ export default class UpdateProfile extends Component {
             data: "HI HOW are you",
             avatar: null, location: '',
             date: '',
+            maxDistance: 5,
+            maxDistance: 50,
             showDatePicker: false,
         };
     }
@@ -86,7 +90,7 @@ export default class UpdateProfile extends Component {
 
     render() {
         const { onNext } = this.props;
-        const { isNameFocus, name, isLocationFocus, location, date, showDatePicker } = this.state;
+        const { isNameFocus, name, isLocationFocus, location, date, showDatePicker, maxDistance, minDistance } = this.state;
 
         return (
 
@@ -152,7 +156,33 @@ export default class UpdateProfile extends Component {
                                     label='Your Location' iconInput val={this.state.location} />
                                 <Icon.SimpleLineIcons name='location-pin' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
                             </View>
+                            <View style={styles.distanceContainerStyle}>
+                                <View style={styles.distanceHeadingContainer}>
+                                    <Text style={styles.distanceTextStyle}>Maximum Distance</Text>
+                                    <Text style={styles.distanceStyle}>{minDistance} - {maxDistance} miles</Text>
+                                </View>
+                                <View style={styles.sliderContainer}>
+                                    <RangeSlider
+                                        style={styles.sliderStyle}
+                                        gravity={"top"}
+                                        min={5}
+                                        max={50}
+                                        step={5}
+                                        thumbColor={THEME.PRIMARY_COLOR}
+                                        labelBackgroundColor={THEME.PRIMARY_COLOR}
+                                        labelBorderWidth={0}
+                                        thumbBorderWidth={0}
+                                        selectionColor={THEME.PRIMARY_COLOR}
+                                        blankColor={THEME.COLOR_GREY}
+                                        onValueChanged={(low, high, fromUser) => {
+                                            this.setState({ minDistance: low, maxDistance: high })
+                                        }} />
+                                </View>
+
+                            </View>
+
                         </View>
+
                     </ScrollView>
                 </View>
                 <FooterButton title='Next' onPress={onNext} />

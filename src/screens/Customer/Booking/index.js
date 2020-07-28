@@ -59,6 +59,7 @@ export default class Booking extends Component {
         for (var i = 0; i < selectedServices.length; i++) {
             totalPrice = (totalPrice + selectedServices[i].serviceCost);
         }
+
         this.setState({ totalPrice, disabled: false });
     }
 
@@ -115,7 +116,10 @@ export default class Booking extends Component {
                     {
                         this.state.currentPosition == 0 ?
                             <BarberServices
-                                selectedService={(selectedServices)}
+                                customerSelectedServices={(selectedServices)}
+                                isDisabled={(disable) => this.setState({ disabled: disable }, () => {
+                                    console.log(this.state.disabled)
+                                })}
                                 markedServices={(data) => this.handleSelectedServices(data)} />
                             :
                             null

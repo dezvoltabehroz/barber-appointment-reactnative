@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Image, TouchableOpacity, ScrollView, LayoutAnimation } from 'react-native'
+import { View, Text, Image, TouchableOpacity, ScrollView, LayoutAnimation, Alert } from 'react-native'
 import { Icon, Button, FloatingInput, RadioButton } from "../../components";
 import styles from './style';
 import THEME from '../../assets/styles/theme.style';
@@ -18,23 +18,22 @@ class AuthScreen extends Component {
     }
     handleLogin = () => {
         this.props.onLogin(this.state.email, this.state.password)
-        this.setState({ email: '', password: '', isEmailFocus: null, isPasswordFocus: null })
+        // this.setState({ email: '', password: '', isEmailFocus: null, isPasswordFocus: null })
     }
 
     validateEmail() {
         const { email } = this.state
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         const emailValid = re.test(email)
-        LayoutAnimation.easeInEaseOut()
         this.setState({ emailValid }, () => {
             if (!this.state.emailValid) {
-                alert("Email is Incorrect")
+                Alert.alert("Email is Incorrect");
             }
         })
     }
 
     render() {
-        const { onPhone, onLogin, onPressCustomer, onPressBarber, customer, barber } = this.props
+        const { onPhone, onPressCustomer, onPressBarber, customer, barber, onContinueWithOutLogin } = this.props
         const { email, password, isEmailFocus, isPasswordFocus } = this.state;
         return (
             <>
@@ -132,7 +131,7 @@ class AuthScreen extends Component {
                             </TouchableOpacity>
 
                             <View style={styles.continueContainer}>
-                                <TouchableOpacity onPress={onLogin} style={styles.continueContainerStyle} >
+                                <TouchableOpacity onPress={onContinueWithOutLogin} style={styles.continueContainerStyle} >
                                     <Text style={styles.continueWithoutTextStyle}>Continue without Sign in </Text>
                                     <Icon.AntDesign
                                         name="arrowright"
