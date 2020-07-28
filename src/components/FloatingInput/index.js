@@ -1,7 +1,7 @@
 import React from 'react';
 import FloatingInput from 'react-native-floating-labels';
 import styles from './style'
-const FloatInput = ({ label, updateText, secureEntry, iconInput, iconSmallInput, onChangeValue, maxLength, val, onActive, onInActive, keyboardtype }) => {
+const FloatInput = ({ label, updateText, secureEntry, iconInput, iconSmallInput, onSubmit, onChangeValue, maxLength, val, onActive, onInActive, keyboardtype }) => {
 
     return (
         <FloatingInput
@@ -12,6 +12,7 @@ const FloatInput = ({ label, updateText, secureEntry, iconInput, iconSmallInput,
             onChange={onChangeValue}
             maxLength={maxLength}
             onFocus={onActive}
+            onSubmitEditing={onSubmit}
             onBlur={onInActive}
             labelStyle={styles.labelTextStyle}
             inputStyle={styles.inputStyle}
