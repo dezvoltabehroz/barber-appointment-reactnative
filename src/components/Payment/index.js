@@ -52,7 +52,7 @@ class Payment extends Component {
                             <Text style={styles.colorTextStyle}>Payment Method</Text>
                         </View>
                         <View style={styles.container}>
-                            <View style={styles.rowContainer}>
+                            <View style={styles.payByCardContainer}>
                                 <Text style={styles.colorTextStyle}>Pay by card: </Text>
                                 <View style={styles.rowStyle}>
                                     <Icon.FontAwesome

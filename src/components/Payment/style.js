@@ -27,6 +27,13 @@ export default StyleSheet.create({
         marginHorizontal: "5%",
 
     },
+    payByCardContainer: {
+        flexDirection: 'row',
+        justifyContent: "space-between",
+        height: 54,
+        alignItems: 'center',
+        marginHorizontal: "5%"
+    },
     rowContainer: {
         flexDirection: 'row',
         justifyContent: "space-between",
