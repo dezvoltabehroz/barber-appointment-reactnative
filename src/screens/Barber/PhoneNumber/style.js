@@ -46,7 +46,7 @@ export default StyleSheet.create({
         marginTop: 5
     },
     callingCodeAndPhoneNumberConatiner: {
-        marginBottom: 5,
+        // marginBottom: 5,
         flexDirection: "row",
         marginHorizontal: '10%',
         borderRadius: 5,

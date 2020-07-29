@@ -4,6 +4,7 @@ import { Icon, PhoneInput, Button } from '../../../components'
 import styles from "./style";
 import CountryPicker, { FlagButton } from 'react-native-country-picker-modal';
 import THEME from '../../../assets/styles/theme.style'
+import COMMON_STYLE from '../../../assets/styles/common.style';
 
 export default class PhoneNumber extends Component {
     constructor(props) {
@@ -15,7 +16,8 @@ export default class PhoneNumber extends Component {
             callingCode: '',
             cca2: '',
             isVisible: false,
-            isNumberFocus: false
+            isNumberFocus: false,
+            submit: false
         }
     }
 
@@ -43,6 +45,15 @@ export default class PhoneNumber extends Component {
         )
     }
 
+    handleSendCode = () => {
+        let { onSendCode } = this.props;
+        const { number } = this.state;
+        this.setState({ submit: true })
+        if (number) {
+            onSendCode();
+        }
+    }
+
     onSelect = (country) => {
         this.setState({
             countryCode: country.cca2,
@@ -53,8 +64,7 @@ export default class PhoneNumber extends Component {
     };
 
     render() {
-        const { onSendCode } = this.props;
-        const { number, isNumberFocus } = this.state;
+        const { number, isNumberFocus, submit } = this.state;
         return (
             <View style={styles.container}>
                 <View style={styles.innerContainer}>
@@ -84,13 +94,16 @@ export default class PhoneNumber extends Component {
                             onInActive={() => this.setState({ isNumberFocus: false })}
                             updateText={(number) => this.setState({ number })} />
                     </View>
+                    {
+                        submit && !number ? <Text style={[COMMON_STYLE.errorText, { marginLeft: "10%" }]}>Please fill this field</Text> : null
+                    }
                     <View style={styles.gapHeight}></View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.lineStyle}></View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.buttonContainer}>
-                        <Button title="Send Verification" onPress={onSendCode} />
+                        <Button title="Send Verification" onPress={this.handleSendCode} />
                     </View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.textContainer}>
