@@ -220,6 +220,7 @@ export default class BookAppointment extends Component {
 
         </View>
         <BookingScrollSlot
+          duration={(this.props.time)}
           onSubmit={(data) => this.handleOnSubmit(data)}
           showBookingSlot={bookingModal}
           onCancel={() => this.setState({ bookingModal: false })} />

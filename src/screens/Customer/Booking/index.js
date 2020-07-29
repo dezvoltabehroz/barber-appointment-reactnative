@@ -133,6 +133,7 @@ export default class Booking extends Component {
                     {
                         this.state.currentPosition == 2 ?
                             <BookAppointment
+                                time={(totalTime)}
                                 onBookingPress={(isDisable) => this.setState({ disabled: isDisable == "false" ? false : true })} />
                             :
                             null

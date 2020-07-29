@@ -13,7 +13,7 @@ export default class BookingScrollSlot extends Component {
         this.state = {
             startTime: '09:00 AM',
             endTime: '06:00 PM',
-            difference: 45,
+            difference: this.props.duration,
             slots: [],
             bookedSolt: '',
             selectedItem: 0,
