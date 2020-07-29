@@ -40,14 +40,11 @@ export default StyleSheet.create({
         flex: 0.5,
     },
     inputContainerStyle: {
-        marginHorizontal: '10%',
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
         height: 54,
-        marginBottom: '4%',
         width: screenWidth * 0.8,
         borderRadius: 5,
+        marginHorizontal: '10%',
+        marginBottom: '5%',
         backgroundColor: THEME.COLOR_WHITE
     },
     iconStyle: {

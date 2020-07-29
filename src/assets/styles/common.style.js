@@ -1,12 +1,12 @@
 import THEME from './theme.style';
 import { Platform, StyleSheet } from 'react-native';
 
-export default styles= StyleSheet.create({
+export default StyleSheet.create({
     rootContainer: {
         justifyContent: 'center'
     },
     container: {
-        flex:1,
+        flex: 1,
         paddingHorizontal: 20
     },
     headerContainer: {
@@ -21,7 +21,7 @@ export default styles= StyleSheet.create({
         shadowOpacity: 0, // remove shadow on iOS
         borderBottomWidth: 0,
         justifyContent: 'space-around',
-        marginVertical:-20,
+        marginVertical: -20,
         backgroundColor: 'transparent',
         zIndex: 100,
         top: 0,
@@ -37,8 +37,10 @@ export default styles= StyleSheet.create({
         fontSize: THEME.FONT_SIZE_XLARGE
     },
     errorText: {
+        paddingTop: 4,
         paddingLeft: 8,
         color: '#c30000',
+        fontFamily: "Poppins-Regular",
         fontSize: 12,
         marginLeft: 5
     }

@@ -6,13 +6,14 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
-import { Button } from '..';
+import { Button, BookingScrollSlot } from '..';
 import styles from './style';
 
 export default class BookAppointment extends Component {
   constructor(prop) {
     super(prop);
     this.state = {
+      bookingModal: false,
       days: [
         {
           dayName: 'Thursday',
@@ -141,6 +142,7 @@ export default class BookAppointment extends Component {
 
   render() {
     const { onBookingPress } = this.props;
+    const { bookingModal } = this.state;
     return (
       <>
         <View style={styles.container}>
@@ -204,11 +206,15 @@ export default class BookAppointment extends Component {
             </View>
           </View>
           <View style={styles.buttonContainer}>
-            <Button title="Make Booking" onPress={onBookingPress} />
+            <Button title="Make Booking" onPress={() => this.setState({ bookingModal: true })}
 
+            />
           </View>
-        </View>
 
+        </View>
+        <BookingScrollSlot
+          showBookingSlot={bookingModal}
+          onCancel={() => this.setState({ bookingModal: false })} />
       </>
     );
   }

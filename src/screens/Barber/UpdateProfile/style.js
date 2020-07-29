@@ -54,6 +54,7 @@ export default StyleSheet.create({
         marginHorizontal: '10%',
         justifyContent: "center",
         height: 60,
+        marginBottom: '2%',
         width: screenWidth * 0.8,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
@@ -69,7 +70,7 @@ export default StyleSheet.create({
     sliderStyle: {
         width: screenWidth * 0.75,
         height: 50,
-        bottom: 35,
+        bottom: Platform.OS == 'ios' ? 25 : 30,
     },
     inputLocationContainerStyle: {
         marginHorizontal: '10%',

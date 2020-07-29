@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableOpacity, ScrollView, LayoutAnimation, Alert
 import { Icon, Button, FloatingInput, RadioButton } from "../../components";
 import styles from './style';
 import THEME from '../../assets/styles/theme.style';
+import COMMON_STYLE from '../../assets/styles/common.style';
 
 class AuthScreen extends Component {
     constructor(props) {
@@ -10,31 +11,30 @@ class AuthScreen extends Component {
         this.state = {
             email: '',
             password: '',
-            loading: false,
             isEmailFocus: false,
             isPasswordFocus: null,
             emailValid: true,
+            submit: false
         }
     }
     handleLogin = () => {
-        this.props.onLogin(this.state.email, this.state.password)
-        // this.setState({ email: '', password: '', isEmailFocus: null, isPasswordFocus: null })
-    }
-
-    validateEmail() {
-        const { email } = this.state
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        const emailValid = re.test(email)
-        this.setState({ emailValid }, () => {
-            if (!this.state.emailValid) {
-                Alert.alert("Email is Incorrect");
+        const { onLogin } = this.props
+        let { email, password } = this.state;
+        this.setState({ submit: true });
+        if (email && password) {
+            if (this.isEmailValid(email)) {
+                onLogin();
             }
-        })
+        }
+    };
+
+    isEmailValid(email) {
+        return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)
     }
 
     render() {
         const { onPhone, onPressCustomer, onPressBarber, customer, barber, onContinueWithOutLogin } = this.props
-        const { email, password, isEmailFocus, isPasswordFocus } = this.state;
+        const { email, password, submit, isEmailFocus, isPasswordFocus } = this.state;
         return (
             <>
                 <View style={styles.container}>
@@ -65,11 +65,19 @@ class AuthScreen extends Component {
                                     <FloatingInput
                                         label={"Email / Phonenumber"}
                                         val={email}
-                                        onSubmit={() => { this.validateEmail() }}
+                                        keyboardtype="email-address"
+                                        // onSubmit={() => { this.validateEmail() }}
                                         onActive={() => this.setState({ isEmailFocus: true })}
                                         onInActive={() => this.setState({ isEmailFocus: false })}
                                         updateText={(email) => this.setState({ email })} />
+                                    {
+                                        submit && !email ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
+                                    }
+                                    {
+                                        submit && email.length && !this.isEmailValid(email) ? <Text style={COMMON_STYLE.errorText}>Email is invalid</Text> : null
+                                    }
                                 </View>
+
                                 <View style={[styles.inputContainerStyle,
                                 isPasswordFocus || password != '' ? THEME.inputBorder : {}]}>
                                     <FloatingInput
@@ -79,8 +87,12 @@ class AuthScreen extends Component {
                                         onInActive={() => this.setState({ isPasswordFocus: false })}
                                         secureEntry={true}
                                         updateText={(password) => this.setState({ password })} />
+                                    {
+                                        submit && !password ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
+                                    }
                                 </View>
-                                <Button title="Login" loading={this.props.loading} onPress={this.handleLogin} />
+
+                                <Button title="Login" onPress={() => this.handleLogin()} />
                             </View>
                         </View>
                         <View style={styles.lowerContainer}>

@@ -3,6 +3,8 @@ import { View, Text, FlatList, TouchableOpacity, Modal } from 'react-native';
 import { FooterButton, Icon, Button, FloatingInput } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
+import COMMON_STYLE from '../../../assets/styles/common.style';
+
 
 export default class Services extends Component {
     constructor(props) {
@@ -15,6 +17,7 @@ export default class Services extends Component {
             serviceDescription: '',
             isServiceNameFocus: false,
             isServiceDescriptionFocus: false,
+            submit: false,
             barberServices: [
                 { id: 1, serviceName: 'Hair Cuttuing', serviceDescription: '', selected: false, price: '', time: '' },
                 { id: 2, serviceName: 'Hair Trimming', serviceDescription: '', selected: false, price: '', time: '' },
@@ -79,22 +82,26 @@ export default class Services extends Component {
 
     handleAddService = () => {
         const { barberServices, serviceName, serviceDescription } = this.state;
-        let userService = {
-            id: barberServices.length + 1,
-            serviceName: serviceName,
-            serviceDescription: serviceDescription,
-            selected: false,
-            price: '',
-            time: ''
-        };
-        this.state.barberServices.push(userService);
-        this.setState({ showAddService: false, serviceDescription: '', serviceName: '' })
+        this.setState({ submit: true })
+        if (serviceName && serviceDescription) {
+            let userService = {
+                id: barberServices.length + 1,
+                serviceName: serviceName,
+                serviceDescription: serviceDescription,
+                selected: false,
+                price: '',
+                time: ''
+            };
+            this.state.barberServices.push(userService);
+            this.setState({ showAddService: false, serviceDescription: '', serviceName: '' })
+        }
+
 
     }
 
     render() {
         const { onNext } = this.props;
-        const { barberServices, showAddService, serviceName, serviceDescription, isServiceNameFocus, isServiceDescriptionFocus } = this.state;
+        const { barberServices, showAddService, serviceName, serviceDescription, isServiceNameFocus, submit, isServiceDescriptionFocus } = this.state;
         return (
             <>
                 <View style={styles.container}>
@@ -130,6 +137,9 @@ export default class Services extends Component {
                                     onInActive={() => this.setState({ isServiceNameFocus: false })}
                                     label='Service Name'
                                     updateText={(serviceName) => this.setState({ serviceName })} />
+                                {
+                                    submit && !serviceName ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
+                                }
                             </View>
                             <View style={[styles.inputContainerStyle,
                             serviceDescription != '' || isServiceDescriptionFocus ? THEME.inputBorder : {}]}>
@@ -139,6 +149,9 @@ export default class Services extends Component {
                                     onInActive={() => this.setState({ isServiceDescriptionFocus: false })}
                                     label='Service Description'
                                     updateText={(serviceDescription) => this.setState({ serviceDescription })} />
+                                {
+                                    submit && !serviceDescription ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
+                                }
                             </View>
                             <View style={{ flexDirection: "row", alignItems: "center" }}>
                                 <View style={styles.rowButtonContainer}>

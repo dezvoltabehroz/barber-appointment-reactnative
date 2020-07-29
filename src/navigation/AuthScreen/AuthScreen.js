@@ -13,34 +13,13 @@ export default class AuthScreen extends Component {
         }
     }
 
-    loginFunction = (email, password) => {
-        const { navigate } = this.props.navigation
-        const { customer } = this.state;
-
-        if (email != '' && password != '') {
-            this.setState({ loading: false })
-            const regex = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
-            if (email.match(regex)) {
-                customer ? navigate('Customer') : navigate('Customer')//null /*navigate('Barber');*/
-            }
-            else {
-                Alert.alert("Email is Incorrect");
-            }
-
-        }
-        else {
-            alert('Username/Email and Password null');
-            this.setState({ loading: false })
-        }
-    }
-
     render() {
         const { navigate } = this.props.navigation
         const { customer, barber, loading } = this.state;
         return (
             <MainScreenPaths.Auth
                 loading={loading}
-                onLogin={(email, password) => this.loginFunction(email, password)}
+                onLogin={()=> customer ? navigate('Customer') : navigate('Customer')}
                 onPhone={() => customer ?
                     navigate('Customer', { screen: 'PhoneNumber' })
                     :

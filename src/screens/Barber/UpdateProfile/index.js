@@ -20,9 +20,10 @@ export default class UpdateProfile extends Component {
             data: "HI HOW are you",
             avatar: null, location: '',
             date: '',
-            maxDistance: 5,
+            minDistance: 5,
             maxDistance: 50,
             showDatePicker: false,
+            submit: false
         };
     }
 
@@ -178,11 +179,8 @@ export default class UpdateProfile extends Component {
                                             this.setState({ minDistance: low, maxDistance: high })
                                         }} />
                                 </View>
-
                             </View>
-
                         </View>
-
                     </ScrollView>
                 </View>
                 <FooterButton title='Next' onPress={onNext} />

@@ -49,3 +49,7 @@ export const RadioButton = _RadioButton;
 
 import _FooterButton from './FooterButton';
 export const FooterButton = _FooterButton;
+
+
+import _BookingScrollSlot from './BookingScrollSlot';
+export const BookingScrollSlot = _BookingScrollSlot;
