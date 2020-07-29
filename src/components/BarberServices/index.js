@@ -11,12 +11,13 @@ export default class BarberServices extends Component {
             selectedService: [],
             disabled: true,
             totalPrice: 0,
+            totalTime: 0,
             services: [
                 {
                     id: 1,
                     serviceName: 'Hair Styling',
                     serviceCost: 100,
-                    serviceEstTime: '00:30',
+                    serviceEstTime: 30,
                     selected: false,
                     description: 'All haircuts include eyebrows, nose, and ears groomed.'
                 },
@@ -24,7 +25,7 @@ export default class BarberServices extends Component {
                     id: 2,
                     serviceName: 'Hair Color',
                     serviceCost: 50,
-                    serviceEstTime: '00:45',
+                    serviceEstTime: 45,
                     selected: false,
                     description: 'Any type of haircut + beard + eyebrows and nose and ears Groomed.'
                 },
@@ -32,7 +33,7 @@ export default class BarberServices extends Component {
                     id: 3,
                     serviceName: 'Shave',
                     serviceCost: 50,
-                    serviceEstTime: '00:30',
+                    serviceEstTime: 30,
                     selected: false,
                     description: 'Includes whole head shaped up and back tapered, eyebrows, nose, ears groomed.'
                 },
@@ -40,7 +41,7 @@ export default class BarberServices extends Component {
                     id: 4,
                     serviceName: 'Blow Out',
                     serviceCost: 50,
-                    serviceEstTime: '00:20',
+                    serviceEstTime: 20,
                     selected: false,
                     description: 'Any type of haircut + beard + eyebrows and nose and ears Groomed.'
                 },
@@ -48,7 +49,7 @@ export default class BarberServices extends Component {
                     id: 5,
                     serviceName: 'Hair Styling',
                     serviceCost: 100,
-                    serviceEstTime: '01:00',
+                    serviceEstTime: 60,
                     selected: false,
                     description: 'Includes whole head shaped up and back tapered, eyebrows, nose, ears groomed.'
                 },
@@ -56,7 +57,7 @@ export default class BarberServices extends Component {
                     id: 6,
                     serviceName: 'Hair Color',
                     serviceCost: 50,
-                    serviceEstTime: '00:45',
+                    serviceEstTime: 45,
                     selected: false,
                     description: 'Includes Chips or choice of Beverage'
                 },
@@ -64,7 +65,7 @@ export default class BarberServices extends Component {
                     id: 7,
                     serviceName: 'Shave',
                     serviceCost: 50,
-                    serviceEstTime: '00:30',
+                    serviceEstTime: 30,
                     selected: false,
                     description: 'Any type of haircut + beard + eyebrows and nose and ears Groomed.'
                 },
@@ -72,7 +73,7 @@ export default class BarberServices extends Component {
                     id: 8,
                     serviceName: 'Blow Out',
                     serviceCost: 50,
-                    serviceEstTime: '00:20',
+                    serviceEstTime: 20,
                     selected: false,
                     description: 'Includes Chips or choice of Beverage'
                 }
@@ -91,8 +92,9 @@ export default class BarberServices extends Component {
     }
 
     onPressCheckedItem = (val) => {
-        const { totalPrice } = this.state;
+        const { totalPrice, totalTime } = this.state;
         let price = totalPrice;
+        let time = totalTime;
         const objIndex = this.state.services.findIndex((obj => obj.id == val.id));
         let items = [...this.state.services];
         if (items[objIndex].selected) {
@@ -100,12 +102,15 @@ export default class BarberServices extends Component {
             this.setState({ services: items });
             this.setState({ selectedService: this.state.selectedService.filter(item => item.id != val.id) }, () => {
                 price = (price - val.serviceCost)
+                time = (time - val.serviceEstTime)
+                console.log(time);
+                this.props.time(time);
                 this.props.price(price);
                 if (this.state.selectedService.length === 0) {
                     this.props.isDisable("true")
                     this.props.markedServices(this.state.selectedService);
                 }
-                this.setState({ totalPrice: price })
+                this.setState({ totalPrice: price, totalTime: time })
             })
         }
         else {
@@ -113,10 +118,13 @@ export default class BarberServices extends Component {
             this.setState({ services: items });
             this.state.selectedService.push(items[objIndex]);
             price = (price + val.serviceCost)
+            time = (time + val.serviceEstTime)
+            this.props.time(time);
+            console.log(time);
             this.props.price(price);
             this.props.isDisable("false")
             this.props.markedServices(this.state.selectedService);
-            this.setState({ totalPrice: price });
+            this.setState({ totalPrice: price, totalTime: time });
         }
     }
 
@@ -152,7 +160,7 @@ export default class BarberServices extends Component {
 
                         <View style={styles.serviceEstTimeContainer}>
                             <Text style={styles.textGrey}>
-                                {item.serviceEstTime[3]}{item.serviceEstTime[4]} minutes
+                                {item.serviceEstTime} minutes
                             </Text>
                         </View>
                         <View style={styles.serviceCostContainer}>

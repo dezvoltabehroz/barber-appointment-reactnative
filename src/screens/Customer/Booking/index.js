@@ -69,6 +69,9 @@ export default class Booking extends Component {
     handleRegion = (region) => {
         this.setState({ region })
     }
+    handleOnSubmit = (disabled) => {
+        this.setState({ disabled })
+    }
 
 
     render() {
@@ -97,7 +100,7 @@ export default class Booking extends Component {
             currentStepLabelColor: THEME.COLOR_WHITE
         }
 
-        const { currentPosition, selectedServices, totalPrice, disabled } = this.state
+        const { currentPosition, selectedServices, totalPrice, disabled, totalTime } = this.state
 
         return (
             <View style={styles.container}>
@@ -112,6 +115,7 @@ export default class Booking extends Component {
                         this.state.currentPosition == 0 ?
                             <BarberServices
                                 customerSelectedServices={(selectedServices)}
+                                time={(time) => this.setState({ totalTime: time })}
                                 price={(price) => this.setState({ totalPrice: price })}
                                 isDisable={(data) => this.setState({ disabled: data == "true" ? true : false })}
                                 markedServices={(data) => this.handleSelectedServices(data)} />
@@ -128,10 +132,8 @@ export default class Booking extends Component {
                     }
                     {
                         this.state.currentPosition == 2 ?
-                            <BookAppointment onBookingPress={() => {
-                                alert("your booking is in Progress");
-                                this.setState({ disabled: false })
-                            }} />
+                            <BookAppointment
+                                onBookingPress={(isDisable) => this.setState({ disabled: isDisable == "false" ? false : true })} />
                             :
                             null
                     }
@@ -161,6 +163,7 @@ export default class Booking extends Component {
                                 totalPrice != 0 ?
                                     <View style={styles.textContainer}>
                                         <Text style={styles.coloredTextStyles}>${totalPrice}.00<Text style={styles.textStyles}> Total</Text></Text>
+                                        <Text style={styles.coloredTextStyles}>{totalTime}<Text style={styles.textStyles}> minutes</Text></Text>
                                     </View>
                                     :
                                     null

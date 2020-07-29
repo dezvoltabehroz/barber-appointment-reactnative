@@ -40,7 +40,9 @@ export default StyleSheet.create({
     textFlatlistStyle: {
         color: THEME.COLOR_WHITE,
         fontFamily: "Poppins-Regular",
-        margin: 7
+        margin: 7,
+        textAlign: "center",
+        width: screenWidth * 0.3,
     },
     textStyle: {
         color: THEME.COLOR_WHITE,
@@ -68,6 +70,7 @@ export default StyleSheet.create({
         height: screenHeight * 1,
         width: screenWidth * 1,
         paddingTop: '10%',
+        justifyContent: "center",
         alignSelf: "center",
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
     },
@@ -80,10 +83,11 @@ export default StyleSheet.create({
         backgroundColor: THEME.COLOR_WHITE
     },
     modalInputContainer: {
+        flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingVertical: '3%',
+        marginBottom: '20%',
         borderRadius: 10,
-        height: screenHeight * 0.7,
+        // height: "10%",
         alignItems: "center",
     },
 

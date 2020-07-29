@@ -95,9 +95,9 @@ export default class BookAppointment extends Component {
     weekdays[4] = "Thursday";
     weekdays[5] = "Friday";
     weekdays[6] = "Saturday";
-
     return weekdays[dayIndex];
   }
+
   GetDates = (startDate, daysToAdd) => {
     var aryDates = [];
     var dayNameArr = [];
@@ -110,6 +110,7 @@ export default class BookAppointment extends Component {
     }
     this.setState({ daysDate: aryDates, daysName: dayNameArr })
   }
+
   handlePressDate = ({ item, index }) => {
     const { days } = this.state;
     days.map(element => {
@@ -119,7 +120,13 @@ export default class BookAppointment extends Component {
     });
     this.setState({ days });
   }
+  handleOnSubmit = (data) => {
+    const { onBookingPress } = this.props;
+    this.setState({ bookingModal: false })
+    this.state.myBookings.push({ booking: data }),
+      onBookingPress("false");
 
+  }
   _renderItems = ({ index, item }) => {
     return (
       <TouchableOpacity style={styles.flatlistContainer}>
@@ -141,7 +148,7 @@ export default class BookAppointment extends Component {
   }
 
   render() {
-    const { onBookingPress } = this.props;
+
     const { bookingModal } = this.state;
     return (
       <>
@@ -213,6 +220,7 @@ export default class BookAppointment extends Component {
 
         </View>
         <BookingScrollSlot
+          onSubmit={(data) => this.handleOnSubmit(data)}
           showBookingSlot={bookingModal}
           onCancel={() => this.setState({ bookingModal: false })} />
       </>

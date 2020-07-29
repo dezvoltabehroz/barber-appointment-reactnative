@@ -4,17 +4,19 @@ import styles from './style'
 import { DateTime, Button } from '..';
 import THEME from '../../assets/styles/theme.style';
 import moment from 'moment';
+import ScrollPicker from 'react-native-picker-scrollview';
 
 export default class BookingScrollSlot extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             startTime: '09:00 AM',
             endTime: '06:00 PM',
-            difference: 30,
+            difference: 45,
             slots: [],
-            bookingTime: null,
-            showTimePicker: false
+            bookedSolt: '',
+            selectedItem: 0,
         };
     }
 
@@ -22,53 +24,24 @@ export default class BookingScrollSlot extends Component {
         const { startTime, endTime, difference } = this.state;
         var startDay = moment(startTime, 'hh:mm A');
         var endDay = moment(endTime, 'hh:mm A');
-
         if (endDay.isBefore(startDay)) {
             endDay.add(1, 'day');
         }
-
         var timeSlots = [];
-        let day = moment(startTime, 'hh:mm A');
-        console.log(day)
         while (startDay < endDay) {
-            day.add(difference, 'minutes');
-            timeSlots.push(`${new moment(startDay).format('hh:mm A')} - ${new moment(day).format('hh:mm A')}`);
+            timeSlots.push(`${new moment(startDay).format('hh:mm A')}`);
             startDay.add(difference, 'minutes');
         }
         this.setState({ slots: timeSlots, });
-
-
     }
-
-
-    renderSeparator = () => {
-        return (<View style={styles.gapHeight}></View>)
+    handleOnPress = () => {
+        const { onSubmit } = this.props;
+        onSubmit(this.state.bookedSolt)
     }
-
-    _renderItems = ({ index, item }) => {
-        return (
-            <TouchableOpacity style={styles.flatlistContainer}>
-                <Text style={styles.textFlatlistStyle} >{item}</Text>
-            </TouchableOpacity>
-        )
-    }
-    onChangeTime = (event, selectedDate) => {
-        var time = selectedDate.getHours();
-        time += ":";
-        time += (selectedDate.getMinutes());
-        // time += ":";
-        // time += (selectedDate.getSeconds());
-        this.setState({
-            bookingTime,
-            showTimePicker: false
-        }, () => {
-            console.log(this.state.bookingTime)
-        })
-    };
 
     render() {
         const { showBookingSlot, onCancel } = this.props;
-        const { slots, showTimePicker } = this.state;
+        const { slots } = this.state;
 
         return (
             <>
@@ -79,30 +52,22 @@ export default class BookingScrollSlot extends Component {
                             <Text style={styles.headingTextStyle}>Make a Booking</Text>
                         </View>
                         <View style={styles.modalInputContainer}>
-                            {/* <FlatList
-                                data={slots}
-                                keyExtractor={item => item}
-                                ItemSeparatorComponent={this.renderSeparator}
-                                showsVerticalScrollIndicator={false}
-                                renderItem={({ index, item }) => this._renderItems({ index, item })}
-                            /> */}
-
-                            {/* {
-                                showTimePicker == false ?
-                                    setTimeout(() => {
-                                        this.setState({ showTimePicker: true });
-                                    }, 3000)
-                                    :
-                                    null
-                            } */}
-                            {
-                                showTimePicker ?
-                                    <View>
-                                        <DateTime onChangeDate={this.onChangeTime} />
-                                    </View>
-                                    :
-                                    null
-                            }
+                            <ScrollPicker
+                                ref={(sp) => { this.sp = sp }}
+                                dataSource={slots}
+                                selectedIndex={0}
+                                itemHeight={45}
+                                wrapperHeight={180}
+                                wrapperColor={THEME.PRIMARY_BACKGROUND_COLOR}
+                                highlightColor={THEME.COLOR_WHITE}
+                                renderItem={(data, index, isSelected) => {
+                                    return (<Text style={styles.textFlatlistStyle}>{data}</Text>)
+                                }}
+                                onValueChange={(data, selectedIndex) => {
+                                    this.setState({ bookedSolt: data })
+                                    // console.log(data)
+                                }}
+                            />
                         </View>
                         <View style={styles.modalInputContainer}>
                             <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -110,14 +75,13 @@ export default class BookingScrollSlot extends Component {
                                     <Button title="Cancel" onPress={onCancel} />
                                 </View>
                                 <View style={styles.rowButtonContainer}>
-                                    <Button title="Submit" onPress={this.getTimeSlots} />
+                                    <Button title="Submit" onPress={this.handleOnPress} />
                                 </View>
                             </View>
                         </View>
 
                     </View>
                 </Modal>
-
             </>
         )
     }

@@ -141,7 +141,7 @@ class Payment extends Component {
                                 : null}
                             <View style={[styles.rowStyle, styles.generalMargin]}>
                                 <Icon.Feather name='lock' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
-                                <Text style={styles.colorTextStyle}>
+                                <Text style={[styles.colorTextStyle, { width: "90%" }]}>
                                     Your payment information is safe with us. We use secure transmission and encrypted storage.
                                     </Text>
                             </View>
