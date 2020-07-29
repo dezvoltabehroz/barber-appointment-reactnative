@@ -3,6 +3,7 @@ import { View, Text, FlatList, } from 'react-native';
 import { FooterButton, FloatingInput, DateTimeModal, } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 export default class PriceAndTime extends Component {
@@ -73,7 +74,7 @@ export default class PriceAndTime extends Component {
                     <View style={styles.priceContainer} >
                         {item.price != '' ?
                             <View style={styles.priceAndTimeContainer}>
-                                <Text style={styles.textStyle}>{item.price}</Text>
+                                <Text style={styles.timeTextStyle}>{item.price}</Text>
                             </View>
                             : null
                         }
@@ -102,13 +103,14 @@ export default class PriceAndTime extends Component {
                     }
                     {item.time == '' ?
                         <>
-                            <View style={[styles.inputDateContainerStyle,
+                            <TouchableOpacity onPress={() => this.setTime(index, item)} style={[styles.inputDateContainerStyle,
                             time[index] == null ? THEME.inputBorder : {}]}>
-                                <FloatingInput
+                                {/* <FloatingInput
                                     val={time[index]}
                                     onActive={() => this.setTime(index, item)}
-                                    label='Time' />
-                            </View>
+                                    label='Time' /> */}
+                                <Text style={styles.titleStyle}>Time</Text>
+                            </TouchableOpacity>
                         </> : null}
                 </View>
             </View>
@@ -130,10 +132,10 @@ export default class PriceAndTime extends Component {
                                         <Text style={styles.headingTextStyle}>Services</Text>
                                     </View>
                                     <View style={styles.priceContainer} >
-                                        <Text style={styles.headingTextStyle}>Price</Text>
+                                        <Text style={styles.headingTextStyle1}>Price</Text>
                                     </View>
                                     <View style={styles.timeContainer}>
-                                        <Text style={styles.headingTextStyle}>Est.Time</Text>
+                                        <Text style={styles.headingTextStyle1}>Est.Time</Text>
                                     </View>
                                 </View>
                                 :

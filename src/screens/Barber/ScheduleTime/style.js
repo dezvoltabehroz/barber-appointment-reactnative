@@ -15,42 +15,39 @@ export default StyleSheet.create({
         marginHorizontal: '10%'
     },
     dayContainer: {
-        flex: 0.4,
+        flex: 0.6,
         flexDirection: 'column'
     },
     priceAndTimeContainer: {
         marginHorizontal: 5
     },
     startTimeContainer: {
-        flex: 0.3,
+        flex: 0.25,
         flexDirection: 'column',
         alignItems: 'center'
     },
     endTimeContainer: {
-        flex: 0.3,
+        flex: 0.25,
         flexDirection: 'column',
         alignItems: 'center'
     },
     headingContainer: {
         flexDirection: 'row',
     },
-    idTextLabel: {
-        color: THEME.COLOR_WHITE,
-        fontFamily: 'Poppins-Bold'
-    },
+   
     inputContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
     textStyle: {
         color: THEME.COLOR_WHITE,
-        fontFamily: 'Poppins-Regular',
-        fontSize: THEME.FONT_SIZE_MEDIUM,
+        fontFamily: 'Poppins-Medium',
+        fontSize: THEME.FONT_SIZE_SMALL,
     },
     headingTextStyle: {
         color: THEME.COLOR_WHITE,
-        fontFamily: 'Poppins-Medium',
-        fontSize: THEME.FONT_SIZE_MEDIUM,
+        fontFamily: 'Poppins-Bold',
+        fontSize: THEME.FONT_SIZE_SMALL,
     },
     inputContainerStyle: {
         height: 54,
@@ -58,9 +55,16 @@ export default StyleSheet.create({
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
     },
+    titleStyle: {
+        color: THEME.COLOR_GREY,
+        // textAlign: 'center',
+        fontFamily: 'Poppins-Regular',
+        fontSize: THEME.FONT_SIZE_SMALL,
+    },
     inputDateContainerStyle: {
         justifyContent: "center",
-        alignItems: "center",
+        paddingTop: '10%',
+        paddingLeft: "4%",
         height: 54,
         width: screenWidth * 0.3,
         borderRadius: 5,

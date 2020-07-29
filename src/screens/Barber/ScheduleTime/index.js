@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { FooterButton, FloatingInput, DateTimeModal } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
@@ -93,25 +93,19 @@ export default class ScheduleTime extends Component {
                 <View style={styles.inputContainer}>
                     {
                         item.startTime == '' ?
-                            <View style={[styles.inputDateContainerStyle,
+                            <TouchableOpacity onPress={() => this.setStartTime(index, item)} style={[styles.inputDateContainerStyle,
                             startTime[index] == null && startTime[index] != '' ? THEME.inputBorder : {}]}>
-                                <FloatingInput
-                                    val={startTime[index]}
-                                    onActive={() => this.setStartTime(index, item)}
-                                    label='Start Time' />
-                            </View>
+                                <Text style={styles.titleStyle}>Start Time</Text>
+                            </TouchableOpacity>
                             :
                             null
                     }
                     {
                         item.endTime == '' ?
-                            <View style={[styles.inputDateContainerStyle,
+                            <TouchableOpacity onPress={() => this.setEndTime(index, item)} style={[styles.inputDateContainerStyle,
                             endTime[index] == null && endTime[index] != '' ? THEME.inputBorder : {}]}>
-                                <FloatingInput
-                                    val={endTime[index]}
-                                    onActive={() => this.setEndTime(index, item)}
-                                    label='End Time' />
-                            </View>
+                                <Text style={styles.titleStyle}>End Time</Text>
+                            </TouchableOpacity>
                             :
                             null
                     }

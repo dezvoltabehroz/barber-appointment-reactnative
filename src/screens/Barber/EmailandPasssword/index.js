@@ -41,10 +41,7 @@ export default class EmailandPassword extends Component {
 
             <View style={styles.container}>
                 <View style={styles.upperContainer}>
-                    <View style={[styles.inputContainerStyle, isEmailFocus || email != '' ?
-                        { borderWidth: 2, borderColor: THEME.PRIMARY_COLOR }
-                        :
-                        {}]}>
+                    <View style={[styles.inputContainerStyle, isEmailFocus || email != '' ? THEME.inputBorder : {}]}>
                         <FloatingInput
                             val={email}
                             keyboardtype="email-address"
@@ -58,10 +55,7 @@ export default class EmailandPassword extends Component {
                             submit && email.length && !this.isEmailValid(email) ? <Text style={COMMON_STYLE.errorText}>Email is invalid</Text> : null
                         }
                     </View>
-                    <View style={[styles.inputContainerStyle, isPasswordFocus || password != '' ? {
-                        borderWidth: 2,
-                        borderColor: THEME.PRIMARY_COLOR,
-                    } : {}]}>
+                    <View style={[styles.inputContainerStyle, isPasswordFocus || password != '' ? THEME.inputBorder : {}]}>
                         <FloatingInput
                             val={password}
                             secureEntry
@@ -72,10 +66,7 @@ export default class EmailandPassword extends Component {
                             submit && !password ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
                         }
                     </View>
-                    <View style={[styles.inputContainerStyle, isConfirmPasswordFocus || confirmPassword != '' ? {
-                        borderWidth: 2,
-                        borderColor: THEME.PRIMARY_COLOR,
-                    } : {}]}>
+                    <View style={[styles.inputContainerStyle, isConfirmPasswordFocus || confirmPassword != '' ? THEME.inputBorder : {}]}>
                         <FloatingInput
                             val={confirmPassword}
                             secureEntry
