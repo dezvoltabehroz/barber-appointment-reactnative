@@ -69,7 +69,7 @@ export default StyleSheet.create({
     },
     sliderStyle: {
         width: screenWidth * 0.75,
-        height: 50,
+        height: 60,
         bottom: 20,
     },
     inputLocationContainerStyle: {
