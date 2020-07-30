@@ -9,26 +9,43 @@ export default class AuthScreen extends Component {
         super(props);
         this.state = {
             customer: true,
-            barber: false, loading: false
+            barber: false,
+            submit: false,
+            loading: false
+        }
+    }
+    handleLogin = () => {
+        const { navigate } = this.props.navigation
+        const { customer } = this.state;
+        this.setState({ submit: true });
+        if (customer) {
+            navigate('Customer')
+            this.setState({ submit: false })
+        } else {
+            navigate('Customer')
+            this.setState({ submit: false })
         }
     }
 
+
     render() {
         const { navigate } = this.props.navigation
-        const { customer, barber, loading } = this.state;
+        const { customer, barber, submit, loading } = this.state;
         return (
             <MainScreenPaths.Auth
                 loading={loading}
-                onLogin={()=> customer ? navigate('Customer') : navigate('Customer')}
+                onLogin={this.handleLogin}
                 onPhone={() => customer ?
                     navigate('Customer', { screen: 'PhoneNumber' })
                     :
                     navigate('Barber', { screen: 'PhoneNumber' })}
-                onContinueWithOutLogin={() => customer ? navigate('Customer') : navigate('Barber')}
-                onPressCustomer={() => this.setState({ customer: true, barber: false })}
-                onPressBarber={() => this.setState({ barber: true, customer: false })}
+                onContinueWithOutLogin={() => customer ? navigate('Customer') : Alert.alert("This screen is under Development")}
+                onPressCustomer={() => this.setState({ customer: true, barber: false, submit: false })}
+                onPressBarber={() => this.setState({ barber: true, customer: false, submit: false })}
                 customer={customer}
                 barber={barber}
+                submit={(submit)}
+                isSubmit={(submit) => this.setState({ submit: submit })}
             />
         )
     }

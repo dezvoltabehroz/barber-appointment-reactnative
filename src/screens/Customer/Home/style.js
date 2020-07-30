@@ -90,10 +90,7 @@ export default StyleSheet.create({
         height: 10
     },
     exitContainer: {
-        borderRadius: 7,
-        padding:10,
-        height: 40, width: 70,
-        backgroundColor: THEME.PRIMARY_COLOR,
+        padding: 10,
         justifyContent: "center",
         alignItems: "center"
     }

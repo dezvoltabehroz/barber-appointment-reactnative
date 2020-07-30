@@ -158,5 +158,6 @@ export default StyleSheet.create({
     },
     row: {
         flexDirection: "row"
-    }
+    },
+    onSubmitTrue: { marginTop: "2%", marginBottom: "1%" }
 })

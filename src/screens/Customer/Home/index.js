@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, ImageBackground, TouchableOpacity } from "react-native";
 import styles from './style';
-import { Button } from '../../../components'
+import { Button, Icon } from '../../../components'
 
 export default class Home extends Component {
     constructor(props) {
@@ -105,7 +105,7 @@ export default class Home extends Component {
                     <View style={styles.nameContainer}>
                         <Text style={styles.appNameTextStyle} >Fleek</Text>
                         <TouchableOpacity style={styles.exitContainer} onPress={onExit}>
-                            <Text style={styles.upperListTitleStyle} >Exit</Text>
+                            <Icon.Feather name="log-out" color="#fff" size={25} />
                         </TouchableOpacity>
                     </View>
                     <View style={styles.upperListContainer}>

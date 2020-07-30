@@ -95,8 +95,11 @@ export default class Services extends Component {
             this.state.barberServices.push(userService);
             this.setState({ showAddService: false, serviceDescription: '', serviceName: '', submit: false })
         }
+    }
 
+    handleCancel = () => {
 
+        this.setState({ showAddService: false, submit: false })
     }
 
     render() {
@@ -155,10 +158,10 @@ export default class Services extends Component {
                             </View>
                             <View style={{ flexDirection: "row", alignItems: "center" }}>
                                 <View style={styles.rowButtonContainer}>
-                                    <Button title="Submit" onPress={this.handleAddService} />
+                                    <Button title="Cancel" onPress={this.handleCancel} />
                                 </View>
                                 <View style={styles.rowButtonContainer}>
-                                    <Button title="Cancel" onPress={() => this.setState({ showAddService: false })} />
+                                    <Button title="Submit" onPress={this.handleAddService} />
                                 </View>
                             </View>
                         </View>

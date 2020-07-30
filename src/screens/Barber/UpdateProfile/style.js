@@ -53,24 +53,24 @@ export default StyleSheet.create({
     distanceContainerStyle: {
         marginHorizontal: '10%',
         justifyContent: "center",
-        height: 60,
+        height: 80,
         marginBottom: '2%',
         width: screenWidth * 0.8,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
     },
     distanceHeadingContainer: {
-        paddingTop: "5%",
+        // paddingTop: "5%",
         flexDirection: "row",
         justifyContent: "space-between"
     },
     sliderContainer: {
-        alignItems: "center"
+        alignItems: "center",
     },
     sliderStyle: {
         width: screenWidth * 0.75,
-        height: Platform.OS == 'ios' ? 60 : 50,
-        bottom: Platform.OS == 'ios' ? 25 : 30,
+        height: 50,
+        bottom: 20,
     },
     inputLocationContainerStyle: {
         marginHorizontal: '10%',
