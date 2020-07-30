@@ -4,6 +4,7 @@ import styles from './style';
 import { Button, BarberServices, SearchandMapView, BookAppointment, Summary, Payment } from '../../../components';
 import StepProgress from 'react-native-step-progress';
 import THEME from '../../../assets/styles/theme.style';
+import moment from 'moment'
 export default class Booking extends Component {
     constructor(props) {
         super(props);
@@ -18,6 +19,7 @@ export default class Booking extends Component {
                 longitudeDelta: 0.9421,
             },
             totalPrice: 0,
+            timeInHour: '',
             disabled: true
         }
     }
@@ -73,6 +75,12 @@ export default class Booking extends Component {
         this.setState({ disabled })
     }
 
+    getTimeinHours = () => {
+        var h = this.state.totalTime / 60 | 0;
+        var m = this.state.totalTime % 60 | 0;
+        this.setState({ timeInHour: moment.utc().hours(h).minutes(m).format("hh:mm A") })
+    }
+
 
     render() {
         const labels = ["Service", "Location", "Time", "Summary", "Payment"];
@@ -100,7 +108,7 @@ export default class Booking extends Component {
             currentStepLabelColor: THEME.COLOR_WHITE
         }
 
-        const { currentPosition, selectedServices, totalPrice, disabled, totalTime } = this.state
+        const { currentPosition, selectedServices, totalPrice, disabled, totalTime, timeInHour } = this.state
 
         return (
             <View style={styles.container}>
@@ -115,7 +123,11 @@ export default class Booking extends Component {
                         this.state.currentPosition == 0 ?
                             <BarberServices
                                 customerSelectedServices={(selectedServices)}
-                                time={(time) => this.setState({ totalTime: time })}
+                                time={(time) => this.setState({ totalTime: time }, () => {
+                                    var h = time / 60 | 0;
+                                    var m = time % 60 | 0;
+                                    this.setState({ timeInHour: moment.utc().hours(h).minutes(m).format("HH:mm") })
+                                })}
                                 price={(price) => this.setState({ totalPrice: price })}
                                 isDisable={(data) => this.setState({ disabled: data == "true" ? true : false })}
                                 markedServices={(data) => this.handleSelectedServices(data)} />
@@ -164,7 +176,22 @@ export default class Booking extends Component {
                                 totalPrice != 0 ?
                                     <View style={styles.textContainer}>
                                         <Text style={styles.coloredTextStyles}>${totalPrice}.00<Text style={styles.textStyles}> Total</Text></Text>
-                                        <Text style={styles.coloredTextStyles}>{totalTime}<Text style={styles.textStyles}> minutes</Text></Text>
+                                        <Text style={styles.coloredTextStyles}>
+                                            {timeInHour[0] == 0 && timeInHour[1] == 0 ? "" : timeInHour[0] + timeInHour[1]}
+                                            {
+                                                timeInHour[0] == 0 && timeInHour[1] == 0 ?
+                                                    null
+                                                    :
+                                                    <Text style={styles.textStyles}> hr</Text>
+                                            }
+                                            {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                                            {
+                                                timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                                    null
+                                                    :
+                                                    <Text style={styles.textStyles}> mins</Text>
+                                            }
+                                        </Text>
                                     </View>
                                     :
                                     null
