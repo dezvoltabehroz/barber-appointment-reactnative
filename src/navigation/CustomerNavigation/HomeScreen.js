@@ -11,7 +11,7 @@ export default class HomeScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Customer.Home onItemPress={() => navigate('HairCare')} />
+            <MainScreenPaths.Customer.Home onExit={() => navigate('Auth')} onItemPress={() => navigate('HairCare')} />
         )
     }
 }

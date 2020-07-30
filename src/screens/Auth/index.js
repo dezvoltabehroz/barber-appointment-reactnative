@@ -24,6 +24,7 @@ class AuthScreen extends Component {
         if (email && password) {
             if (this.isEmailValid(email)) {
                 onLogin();
+                this.setState({ submit: false, email: '', password: '' })
             }
         }
     };
@@ -66,18 +67,17 @@ class AuthScreen extends Component {
                                         label={"Email / Phonenumber"}
                                         val={email}
                                         keyboardtype="email-address"
-                                        // onSubmit={() => { this.validateEmail() }}
                                         onActive={() => this.setState({ isEmailFocus: true })}
                                         onInActive={() => this.setState({ isEmailFocus: false })}
                                         updateText={(email) => this.setState({ email })} />
-                                    {
-                                        submit && !email ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
-                                    }
-                                    {
-                                        submit && email.length && !this.isEmailValid(email) ? <Text style={COMMON_STYLE.errorText}>Email is invalid</Text> : null
-                                    }
-                                </View>
 
+                                </View>
+                                {
+                                    submit && !email ? <Text style={[COMMON_STYLE.errorText, submit ? { marginBottom: "2%" } : {}]}>Please fill this field</Text> : null
+                                }
+                                {
+                                    submit && email.length && !this.isEmailValid(email) ? <Text style={COMMON_STYLE.errorText}>Email is invalid</Text> : null
+                                }
                                 <View style={[styles.inputContainerStyle,
                                 isPasswordFocus || password != '' ? THEME.inputBorder : {}]}>
                                     <FloatingInput
@@ -87,11 +87,11 @@ class AuthScreen extends Component {
                                         onInActive={() => this.setState({ isPasswordFocus: false })}
                                         secureEntry={true}
                                         updateText={(password) => this.setState({ password })} />
-                                    {
-                                        submit && !password ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
-                                    }
-                                </View>
 
+                                </View>
+                                {
+                                    submit && !password ? <Text style={[COMMON_STYLE.errorText, submit ? { marginBottom: "2%" } : {}]}>Please fill this field</Text> : null
+                                }
                                 <Button title="Login" onPress={() => this.handleLogin()} />
                             </View>
                         </View>

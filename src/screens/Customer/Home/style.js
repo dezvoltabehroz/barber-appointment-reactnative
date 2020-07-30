@@ -69,7 +69,9 @@ export default StyleSheet.create({
     },
     line: { borderWidth: 1, borderColor: THEME.COLOR_WHITE, width: 43 },
     nameContainer: {
-        marginHorizontal: '5%'
+        marginHorizontal: '5%',
+        flexDirection: "row",
+        justifyContent: "space-between",
     },
     appNameTextStyle: {
         color: THEME.COLOR_WHITE,
@@ -86,6 +88,14 @@ export default StyleSheet.create({
     },
     seperatorHeightStyle: {
         height: 10
+    },
+    exitContainer: {
+        borderRadius: 7,
+        padding:10,
+        height: 40, width: 70,
+        backgroundColor: THEME.PRIMARY_COLOR,
+        justifyContent: "center",
+        alignItems: "center"
     }
 
 })
