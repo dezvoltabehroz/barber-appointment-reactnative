@@ -51,6 +51,7 @@ export default class PhoneNumber extends Component {
         this.setState({ submit: true })
         if (number) {
             onSendCode();
+            this.setState({ submit: false })
         }
     }
 

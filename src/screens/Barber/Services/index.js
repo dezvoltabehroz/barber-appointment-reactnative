@@ -93,7 +93,7 @@ export default class Services extends Component {
                 time: ''
             };
             this.state.barberServices.push(userService);
-            this.setState({ showAddService: false, serviceDescription: '', serviceName: '' })
+            this.setState({ showAddService: false, serviceDescription: '', serviceName: '', submit: false })
         }
 
 
