@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Modal, View, Text, FlatList, TouchableOpacity, ScrollView } from 'react-native';
+import { Modal, View, Text, Dimensions } from 'react-native';
 import styles from './style'
 import { DateTime, Button } from '..';
 import THEME from '../../assets/styles/theme.style';
 import moment from 'moment';
 import ScrollPicker from 'react-native-picker-scrollview';
-
+const screenHeight = Dimensions.get('window').height;
 export default class BookingScrollSlot extends Component {
     constructor(props) {
         super(props);
@@ -38,10 +38,18 @@ export default class BookingScrollSlot extends Component {
         const { onSubmit } = this.props;
         onSubmit(this.state.bookedSolt)
     }
+    handleBookedSlots = (data) => {
+        let { difference } = this.state;
+        var day = moment(data, 'hh:mm A');
+        var tempDay = moment(data, 'hh:mm A'); ;
+        var slotTime = tempDay.add(difference, 'minutes');
+        this.setState({ bookedSolt: `${new moment(day).format('hh:mm A')}` + " - " + `${new moment(slotTime).format('hh:mm A')}` })
+        // console.log(data)
+    }
 
     render() {
         const { showBookingSlot, onCancel } = this.props;
-        const { slots } = this.state;
+        const { slots, difference } = this.state;
 
         return (
             <>
@@ -56,17 +64,15 @@ export default class BookingScrollSlot extends Component {
                                 ref={(sp) => { this.sp = sp }}
                                 dataSource={slots}
                                 selectedIndex={0}
-                                itemHeight={45}
-                                wrapperHeight={180}
+                                itemHeight={60}
+                                style={{ height: 40 }}
+                                wrapperHeight={screenHeight < 600 ? screenHeight * 0.25 : screenHeight * 0.3}
                                 wrapperColor={THEME.PRIMARY_BACKGROUND_COLOR}
                                 highlightColor={THEME.COLOR_WHITE}
                                 renderItem={(data, index, isSelected) => {
                                     return (<Text style={styles.textFlatlistStyle}>{data}</Text>)
                                 }}
-                                onValueChange={(data, selectedIndex) => {
-                                    this.setState({ bookedSolt: data })
-                                    // console.log(data)
-                                }}
+                                onValueChange={(data, selectedIndex) => this.handleBookedSlots(data)}
                             />
                         </View>
                         <View style={styles.modalInputContainer}>

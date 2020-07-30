@@ -83,11 +83,10 @@ export default StyleSheet.create({
         backgroundColor: THEME.COLOR_WHITE
     },
     modalInputContainer: {
-        flex: 1,
+        flex: 0.4,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
         marginBottom: '20%',
         borderRadius: 10,
-        // height: "10%",
         alignItems: "center",
     },
 
