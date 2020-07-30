@@ -70,7 +70,7 @@ export default StyleSheet.create({
     sliderStyle: {
         width: screenWidth * 0.75,
         height: 50,
-        bottom: Platform.OS == 'ios' ? 25 : 30,
+        bottom: Platform.OS == 'ios' ? 0 : 30,
     },
     inputLocationContainerStyle: {
         marginHorizontal: '10%',
