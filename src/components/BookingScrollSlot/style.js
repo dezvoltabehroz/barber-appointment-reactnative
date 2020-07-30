@@ -66,11 +66,11 @@ export default StyleSheet.create({
         height: 15,
     },
     modalContainer: {
-        flex: 1,
         height: screenHeight * 1,
         width: screenWidth * 1,
         paddingTop: '10%',
         justifyContent: "center",
+        alignItems: "center",
         alignSelf: "center",
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
     },

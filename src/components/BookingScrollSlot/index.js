@@ -41,10 +41,9 @@ export default class BookingScrollSlot extends Component {
     handleBookedSlots = (data) => {
         let { difference } = this.state;
         var day = moment(data, 'hh:mm A');
-        var tempDay = moment(data, 'hh:mm A'); ;
+        var tempDay = moment(data, 'hh:mm A');;
         var slotTime = tempDay.add(difference, 'minutes');
         this.setState({ bookedSolt: `${new moment(day).format('hh:mm A')}` + " - " + `${new moment(slotTime).format('hh:mm A')}` })
-        // console.log(data)
     }
 
     render() {
@@ -75,14 +74,12 @@ export default class BookingScrollSlot extends Component {
                                 onValueChange={(data, selectedIndex) => this.handleBookedSlots(data)}
                             />
                         </View>
-                        <View style={styles.modalInputContainer}>
-                            <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                <View style={styles.rowButtonContainer}>
-                                    <Button title="Cancel" onPress={onCancel} />
-                                </View>
-                                <View style={styles.rowButtonContainer}>
-                                    <Button title="Submit" onPress={this.handleOnPress} />
-                                </View>
+                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                            <View style={styles.rowButtonContainer}>
+                                <Button title="Cancel" onPress={onCancel} />
+                            </View>
+                            <View style={styles.rowButtonContainer}>
+                                <Button title="Submit" onPress={this.handleOnPress} />
                             </View>
                         </View>
 
