@@ -2,131 +2,97 @@ import { StyleSheet, Dimensions } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 
 const screenWidth = Dimensions.get('window').width;
-
+const screenHeight = Dimensions.get('window').height;
 export default StyleSheet.create({
     container: {
-        flex: 1
-    },
+        flex: 1,
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
+        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '20%' : '5%'
 
-    // Conatiner Styles
-    upperBackStyle: {
-        flex: 0.3,
-        borderBottomStartRadius: 15,
-        borderBottomEndRadius: 15,
-        backgroundColor: "#1E2023"
     },
-    upperContainerStyle: {
-        paddingTop: '5%',
-        flexDirection: "row",
-        marginHorizontal: "4%"
-    },
-    avatarContainer: {
-        flex: 0.2,
-    },
-    avatarStyle: {
-        borderWidth: 1,
-        borderColor: 'grey',
-        borderRadius: 100
-    },
-    textContainer: {
-        marginHorizontal: "3%",
-        flex: 0.5,
+    upperListContainer: {
+        marginVertical: '5%',
         justifyContent: "center"
     },
-    nameTextStyle: {
+    upperListItemContainer: {
+        flex: 0.1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingLeft: 10,
+        paddingRight: 10
+    },
+    upperListImageStyle: {
+        height: 70,
+        width: 120
+    },
+    upperListTitleContainer: {
+        flex: 1,
+        paddingTop: '20%',
+        marginHorizontal: '10%',
+        justifyContent: 'center',
+        alignItems: 'flex-start'
+    },
+    upperListTitleStyle: {
         color: THEME.COLOR_WHITE,
-        fontFamily: "Poppins-Medium",
-        fontSize: THEME.FONT_SIZE_MEDIUM
+        fontFamily: 'Poppins-Medium'
     },
-    row: { flexDirection: 'row' },
-    vipTagStyle: {
-        marginTop: '2%',
-        height: 20, width: 30,
-        borderRadius: 5,
-        marginHorizontal: '3%',
-        backgroundColor: THEME.PRIMARY_COLOR,
-        alignItems: "center",
+    lowerListContainer: {
+        flex: 1,
+        paddingTop: '5%',
+        marginBottom: '1%',
+        justifyContent: "center"
     },
-    vipTagTextStyle: {
+    lowerListItemContainer: {
+        flex: 0.1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingLeft: 10,
+        paddingRight: 10
+    },
+    lowerListImageStyle: {
+        height: screenHeight * 0.2,
+        width: screenWidth * 0.9
+    },
+    lowerListTitleContainer: {
+        flex: 1,
+        paddingTop: '10%',
+        borderRadius: 10,
+        backgroundColor: 'rgba(0,0,0,.4)',
+        paddingHorizontal: '10%',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start'
+    },
+    lowerListTitleStyle: {
+        fontSize: THEME.FONT_SIZE_LARGE,
         color: THEME.COLOR_WHITE,
-        fontFamily: "Poppins-Bold",
-        fontSize: THEME.FONT_SIZE_SMALL
+        fontFamily: 'Poppins-Medium'
     },
-    vipTextStyle: {
-        color: THEME.COLOR_GREY,
-        fontFamily: 'Poppins-Regular',
-        fontSize: THEME.FONT_SIZE_SMALL
-    },
-    dateStyle: {
-        color: THEME.PRIMARY_COLOR
-    },
-    notificationStyle: {
-        flex: 0.3,
-        justifyContent: "center",
-        alignItems: 'flex-end'
-    },
-    iconContainer: {
-        justifyContent: "center",
-        alignItems: "center",
-        height: 40,
-        width: 40,
-        borderRadius: 20,
-        backgroundColor: "#3B3F52"
-    },
-
-    // Middle Container Styles
-    middleContainerStyle: {
-        flex: 0.2,
-        bottom: '10%',
-        marginHorizontal: "4%",
-        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        borderRadius: 5
-
-    },
-    loyalityPointsContainer: {
-        flex: 0.4,
+    line: { borderWidth: 1, borderColor: THEME.COLOR_WHITE, width: 43 },
+    nameContainer: {
+        marginHorizontal: '5%',
         flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: "space-between",
     },
-    gap: { width: screenWidth * 0.3 },
-    justifyCenter: { justifyContent: "center" },
-    iconContainerStyle: {
-        marginLeft: 5,
-        justifyContent: "center",
-        alignItems: "center"
+    appNameTextStyle: {
+        color: THEME.COLOR_WHITE,
+        fontSize: 30,
+        fontFamily: 'Poppins-Medium'
     },
-    loyalText: {
-        fontFamily: "Poppins-Regular",
-        fontSize: THEME.FONT_SIZE_SMALL,
-        color: THEME.COLOR_WHITE
+    appointmentTextStyle: {
+        color: THEME.COLOR_WHITE,
+        fontSize: THEME.FONT_SIZE_LARGE,
+        fontFamily: 'Poppins-Medium'
     },
-    pointText: {
-        fontFamily: "Poppins-Bold",
-        fontSize: THEME.FONT_SIZE_SMALL,
-        color: THEME.PRIMARY_COLOR
+    seperatorWidthStyle: {
+        width: 15
     },
-    buttonContainer: {
-        flex: 0.6
+    seperatorHeightStyle: {
+        height: 10
     },
-    column: {
-        flexDirection: "column",
+    exitContainer: {
+        padding: 10,
         justifyContent: "center",
         alignItems: "center"
-    },
-    column2: {
-        borderRightWidth: 1,
-        borderLeftWidth: 1,
-        borderColor: '#44495C',
-        borderRadius: 5,
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center"
-    },
-    line: {
-        borderColor: '#44495C',
-        borderWidth: 1,
-        borderRadius: 5
     }
 
 })

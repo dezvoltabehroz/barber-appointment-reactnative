@@ -16,14 +16,15 @@ export default class AuthScreen extends Component {
     }
     handleLogin = () => {
         const { navigate } = this.props.navigation
-        const { customer } = this.state;
-        this.setState({ submit: true });
-        if (customer) {
-            navigate('Customer')
-            this.setState({ submit: false })
-        } else {
-            navigate('Customer')
-            this.setState({ submit: false })
+        const { customer, submit } = this.state;
+        if (submit) {
+            if (customer) {
+                navigate('Customer')
+                this.setState({ submit: false })
+            } else {
+                navigate('Barber')
+                this.setState({ submit: false })
+            }
         }
     }
 
