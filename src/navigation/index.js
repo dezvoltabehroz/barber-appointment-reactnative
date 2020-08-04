@@ -6,6 +6,7 @@ import BarberRoutes from './BarberNavigation';
 import CustomerRoutes from './CustomerNavigation';
 import AuthScreen from './AuthScreen/AuthScreen';
 import AboutUsScreen from './AboutUsScreen';
+import ContactUsScreen from './ContactUsScreen';
 
 const Stack = createStackNavigator();
 
@@ -15,13 +16,20 @@ function AppRoutes() {
             <Stack.Screen name="Auth" component={AuthScreen} options={{
                 headerShown: false
             }} />
-             <Stack.Screen name="AboutUs" component={AboutUsScreen}options={{
+            <Stack.Screen name="AboutUs" component={AboutUsScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>About Us</Text></View>),
                 headerTitleAlign: 'center',
-            }}  />
+            }} />
+            <Stack.Screen name="ContactUs" component={ContactUsScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Contact Us</Text></View>),
+                headerTitleAlign: 'center',
+            }} />
             <Stack.Screen name="Barber" component={BarberRoutes} options={{
                 headerShown: false
             }} />

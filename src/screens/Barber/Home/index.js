@@ -17,7 +17,7 @@ export default class BarberHome extends Component {
                     imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
                 },
                 {
-                    name: 'Contact us',
+                    name: 'Contact Us',
                     imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
                 },
             ],
@@ -54,11 +54,11 @@ export default class BarberHome extends Component {
     }
 
     _renderItems = (item) => {
-        const { onItemPress, onAboutUs } = this.props;
+        const { onItemPress, onAboutUs, onContactUs } = this.props;
         return (
             <>
                 <TouchableOpacity
-                    onPress={item.name == "About Us" ? onAboutUs : onItemPress} style={styles.upperListItemContainer}>
+                    onPress={item.name == "About Us" ? onAboutUs : item.name == "Contact Us" ? onContactUs : onItemPress} style={styles.upperListItemContainer}>
                     <ImageBackground source={{ uri: `${item.imageUrl}` }}
                         style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }}>
                         <View style={styles.upperListTitleContainer}>
@@ -70,29 +70,9 @@ export default class BarberHome extends Component {
         )
     }
 
-    _renderAppointmentItems = (item) => {
-        const { onItemPress } = this.props;
-        return (
-            <>
-                <TouchableOpacity onPress={onItemPress} style={styles.lowerListItemContainer}>
-                    <ImageBackground source={{ uri: `${item.image_url}` }}
-                        style={styles.lowerListImageStyle} imageStyle={{ borderRadius: 10 }}>
-                        <View style={styles.lowerListTitleContainer}>
-                            <Text style={styles.lowerListTitleStyle} >{item.appointmentName}</Text>
-                            <View style={styles.line}></View>
-                        </View>
-                    </ImageBackground>
-                </TouchableOpacity>
-            </>
-        )
-    }
-
-
-
-
     render() {
         let { onExit } = this.props
-        const { ourAppointment, servicelist } = this.state
+        const { servicelist } = this.state
         return (
             <>
                 <View style={styles.container}>
@@ -113,14 +93,6 @@ export default class BarberHome extends Component {
                     <View style={styles.nameContainer}>
                         <Text style={styles.appointmentTextStyle}>My Bookings</Text>
                     </View>
-                    {/* <View style={styles.lowerListContainer}>
-                        <FlatList
-                            data={ourAppointment}
-                            showsVerticalScrollIndicator={false}
-                            ItemSeparatorComponent={this._renderSeparator}
-                            renderItem={({ item }) => this._renderAppointmentItems(item)}
-                            keyExtractor={item => item} />
-                    </View> */}
                 </View>
             </>
         );

@@ -17,7 +17,7 @@ export default class Home extends Component {
                     imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
                 },
                 {
-                    name: 'Contact us',
+                    name: 'Contact Us',
                     imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
                 },
             ],
@@ -54,11 +54,11 @@ export default class Home extends Component {
     }
 
     _renderItems = (item) => {
-        const { onItemPress, onAboutUs } = this.props;
+        const { onItemPress, onAboutUs, onContactUs } = this.props;
         return (
             <>
                 <TouchableOpacity
-                    onPress={item.name == "About Us" ? onAboutUs : onItemPress} style={styles.upperListItemContainer}>
+                    onPress={item.name == "About Us" ? onAboutUs : item.name == "Contact Us" ? onContactUs : onItemPress} style={styles.upperListItemContainer}>
                     <ImageBackground source={{ uri: `${item.imageUrl}` }}
                         style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }}>
                         <View style={styles.upperListTitleContainer}>
