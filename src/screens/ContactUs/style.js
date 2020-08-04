@@ -8,88 +8,31 @@ export default StyleSheet.create({
         paddingTop: Platform.OS == 'ios' ? "15%" : "5%"
     },
     upperContainer: {
-        flex: 1.5,
+        flex: 1,
         justifyContent: "center",
-        alignItems: "center"
+        // alignItems: "center"
     },
-    imageContainer: {
-        marginVertical: "2%",
-        alignItems: "center",
-        paddingHorizontal: "15%"
-    },
-    lowerContainer: {
-        flex: 0.5,
-        marginTop: "5%",
-        justifyContent: "flex-end"
-    },
-    imageStyle: {
-        height: 100,
-        width: 150
-    },
-    TextContainer: {
-        paddingHorizontal: "10%",
-        marginBottom: 10
-    },
-    loginASContainer: {
-        marginTop: '5%'
-    },
-    headingTextStyle: {
-        fontSize: THEME.FONT_SIZE_LARGE,
-        fontFamily: 'Poppins-Regular',
-        color: THEME.PRIMARY_TEXT_COLOR
-    },
-    babeoTextStyle: {
-        fontFamily: 'Poppins-Bold',
-        fontSize: THEME.FONT_SIZE_LARGE,
-        color: THEME.PRIMARY_COLOR
-    },
-    customerAndBarberContainer: {
-        borderRadius: 5,
-        marginBottom: 15,
-        marginHorizontal: '10%',
-        flexDirection: 'row',
-        justifyContent: "center",
-        backgroundColor: THEME.COLOR_WHITE,
-        height: 54,
-    },
-    CustomerContainer: {
-        margin: 3,
-        borderRadius: 5,
-        width: "46%",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: 'center'
 
-    },
-    optionContainer: {
-        flexDirection: "row",
-        marginHorizontal: 10
-    },
-    optionTextStyle: {
-        fontFamily: 'Poppins-Regular',
-        fontSize: 15,
-        marginHorizontal: 10,
-        marginTop: 5
-    },
     gap: {
         width: THEME.GAP_BETWEEN_ELEMENT
     },
-   
+
     buttonContainer: {
-        marginHorizontal: '10%'
+        marginHorizontal: '5%'
     },
     inputContainerStyle: {
         height: 54,
         marginBottom: '4%',
-        width: screenWidth * 0.8,
+        width: screenWidth * 0.9,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
     },
-    iconStyle: {
-        marginRight: '5%'
-    },
-    row: {
-        flexDirection: "row"
+    messageContainerStyle: {
+        height: 110,
+        marginBottom: '4%',
+        width: screenWidth * 0.9,
+        borderRadius: 5,
+        backgroundColor: THEME.COLOR_WHITE
     },
     onSubmitTrue: { marginTop: "2%", marginBottom: "1%" }
 })

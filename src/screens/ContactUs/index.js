@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { View, Text, Image, TouchableOpacity, ScrollView, LayoutAnimation, Alert } from 'react-native'
-import { Icon, Button, FloatingInput, RadioButton } from "../../components";
+import { View, Text, } from 'react-native'
+import { Button, FloatingInput, MessageInput } from "../../components";
 import styles from './style';
 import THEME from '../../assets/styles/theme.style';
 import COMMON_STYLE from '../../assets/styles/common.style';
@@ -46,7 +46,7 @@ class ContactUs extends Component {
                             <View style={[styles.inputContainerStyle, submit ? { marginBottom: "8%" } : styles.inputContainerStyle,
                             isNameFocus || name != '' ? THEME.inputBorder : {}]}>
                                 <FloatingInput
-                                    label={"Name"}
+                                    label={"Your Name"}
                                     val={name}
                                     onActive={() => this.setState({ isNameFocus: true })}
                                     onInActive={() => this.setState({ isNameFocus: false })}
@@ -59,7 +59,7 @@ class ContactUs extends Component {
                             <View style={[styles.inputContainerStyle, submit ? { marginBottom: "8%" } : styles.inputContainerStyle,
                             isEmailFocus || email != '' ? THEME.inputBorder : {}]}>
                                 <FloatingInput
-                                    label={"Email"}
+                                    label={"Your Email"}
                                     val={email}
                                     keyboardtype="email-address"
                                     onActive={() => this.setState({ isEmailFocus: true })}
@@ -76,30 +76,29 @@ class ContactUs extends Component {
                             <View style={[styles.inputContainerStyle, submit ? { marginBottom: "8%" } : styles.inputContainerStyle,
                             isSubjectFocus || subject != '' ? THEME.inputBorder : {}]}>
                                 <FloatingInput
-                                    label={"Subject"}
+                                    label={"Your Subject"}
                                     val={subject}
                                     onActive={() => this.setState({ isSubjectFocus: true })}
                                     onInActive={() => this.setState({ isSubjectFocus: false })}
-                                    secureEntry={true}
                                     updateText={(subject) => this.setState({ subject })} />
                                 {
                                     submit && !subject ? <Text style={[COMMON_STYLE.errorText, submit ? styles.onSubmitTrue : {}]}>Please fill this field</Text> : null
                                 }
                             </View>
-                            <View style={[styles.inputContainerStyle, submit ? { marginBottom: "8%" } : styles.inputContainerStyle,
+                            <View style={[styles.messageContainerStyle, submit ? { marginBottom: "8%" } : styles.messageContainerStyle,
                             isMessageFocus || message != '' ? THEME.inputBorder : {}]}>
-                                <FloatingInput
-                                    label={"Message"}
+                                <MessageInput
+                                    label={"Please type your message"}
                                     val={message}
+                                    multiline={true}
                                     onActive={() => this.setState({ isMessageFocus: true })}
                                     onInActive={() => this.setState({ isMessageFocus: false })}
-                                    secureEntry={true}
                                     updateText={(message) => this.setState({ message })} />
                                 {
                                     submit && !message ? <Text style={[COMMON_STYLE.errorText, submit ? styles.onSubmitTrue : {}]}>Please fill this field</Text> : null
                                 }
                             </View>
-                            <Button title="Submit" onPress={this.handleLogin} />
+                            <Button title="Send" onPress={this.handleLogin} />
                         </View>
                     </View>
                 </View>

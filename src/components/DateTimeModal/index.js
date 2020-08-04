@@ -142,10 +142,17 @@ export default class DateTimeModal extends Component {
                                     :
                                     null
                             }
-                            <View style={styles.buttonContainer}>
-                                <Button title='Set' onPress={this.handleSet} />
-                                <Button title='Cancel' onPress={onCancel} />
+
+                            <View style={styles.row}>
+                                <View style={styles.buttonContainer}>
+                                    <Button title='Cancel' onPress={onCancel} />
+
+                                </View>
+                                <View style={styles.buttonContainer}>
+                                    <Button title='Set' onPress={this.handleSet} />
+                                </View>
                             </View>
+
                         </View>
                     </View>
                 </Modal>

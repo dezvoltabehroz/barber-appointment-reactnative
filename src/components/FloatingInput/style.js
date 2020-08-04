@@ -24,6 +24,13 @@ export default StyleSheet.create({
         fontSize: 12,
         fontFamily: 'Poppins-Regular'
     },
+    messageinputStyle: {
+        fontSize: 14,
+        paddingLeft: 10,
+        marginTop: 10,
+        borderWidth: 0,
+        fontFamily: 'Poppins-Medium', height: 100
+    },
     phoneinputStyle: {
         fontSize: 14,
         paddingLeft: 10,
@@ -32,6 +39,7 @@ export default StyleSheet.create({
         fontFamily: 'Poppins-Medium'
     },
     container: { width: '100%' },
+    messageContainer: { width: '100%' },
     iconContainerStyle: { width: "80%" },
     iconSmallContainerStyle: { width: "70%" },
     phoneContainer: { width: '79.5%' }

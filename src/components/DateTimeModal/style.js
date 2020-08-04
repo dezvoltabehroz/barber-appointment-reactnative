@@ -18,44 +18,8 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignSelf: "center",
     },
-    customerAndBarberContainer: {
-        borderRadius: 5,
-        marginBottom: 15,
-        marginHorizontal: '10%',
-        flexDirection: 'row',
-        justifyContent: "center",
-        backgroundColor: THEME.COLOR_WHITE,
-        height: 54,
-    },
-    CustomerContainer: {
-        margin: 3,
-        borderRadius: 5,
-        width: "45%",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: 'center'
-
-    },
-    optionContainer: {
-        flexDirection: "row",
-        marginHorizontal: 10
-    },
-    optionTextStyle: {
-        fontFamily: 'Poppins-Regular',
-        fontSize: 15,
-        marginHorizontal: 10,
-        marginTop: 5
-    },
     gap: {
         width: THEME.GAP_BETWEEN_ELEMENT
-    },
-    barberContainer: {
-        margin: 3,
-        borderRadius: 5,
-        width: "45%",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: 'center'
     },
     modalInputContainer: {
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
@@ -95,8 +59,12 @@ export default StyleSheet.create({
     gapHeight: {
         height: 15
     },
+    row:{
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+    },
     buttonContainer: {
-        marginHorizontal: '5%'
+        marginHorizontal: '15%'
     },
     footerStyle: {
         flex: 0.2,

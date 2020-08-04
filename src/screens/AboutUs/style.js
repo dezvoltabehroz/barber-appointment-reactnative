@@ -1,11 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet ,Platform} from 'react-native';
 import THEME from '../../assets/styles/theme.style';
 
 export default StyleSheet.create({
     mainView: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: "12%"
+        paddingTop: Platform.OS == 'ios' ? "18%" : "12%"
     },
 
     aboutTitleStyle: {
@@ -16,7 +16,6 @@ export default StyleSheet.create({
         marginTop: 8
     },
     aboutcontentmainStyle: {
-        // marginTop: 12,
         marginBottom: 60
     },
     aboutcontentStyle: {
@@ -25,7 +24,6 @@ export default StyleSheet.create({
         fontSize: 15,
         textAlign: "justify",
         alignSelf: 'center',
-        // width: width - 20,
         paddingVertical: 10,
         paddingHorizontal: 15,
         letterSpacing: 1,
@@ -34,7 +32,6 @@ export default StyleSheet.create({
     contact: {
         marginTop: 6,
         marginLeft: 15,
-        //flexDirection:'row',
         width: "100%",
         marginBottom: 30
     },
