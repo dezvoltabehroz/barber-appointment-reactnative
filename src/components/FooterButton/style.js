@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import THEME from '../../assets/styles/theme.style'
 export default StyleSheet.create({
     lineStyle: {
         borderColor: '#44495C',
@@ -15,7 +16,8 @@ export default StyleSheet.create({
     footerStyle: {
         flex: 0.2,
         justifyContent: 'flex-end',
-        paddingBottom: '8%'
+        paddingBottom: '8%',
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
     }
 
 })

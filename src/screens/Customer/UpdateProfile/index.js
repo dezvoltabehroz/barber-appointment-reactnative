@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, Alert, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, Alert, ScrollView, Modal } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
-import { Icon, FloatingInput, Button, DateTime, RadioButton, FooterButton } from '../../../components'
+import { Icon, FloatingInput, Button, DateTime, RadioButton, FooterButton, SearchandMapView } from '../../../components'
 import styles from './style';
 import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
@@ -23,6 +23,7 @@ export default class UpdateProfile extends Component {
             location: '',
             date: '',
             showDatePicker: false,
+            modalView: false
         };
     }
 
@@ -70,7 +71,10 @@ export default class UpdateProfile extends Component {
             }
         });
     };
-
+    handleLocation = (location) => {
+        if (location != '' && location != null)
+            this.setState({ location })
+    }
 
     findCoordinates = () => {
         Geolocation.getCurrentPosition(
@@ -92,7 +96,7 @@ export default class UpdateProfile extends Component {
 
     render() {
         const { onNext } = this.props;
-        const { isNameFocus, name, isLocationFocus, location, date, showDatePicker } = this.state;
+        const { isNameFocus, name, isLocationFocus, location, date, showDatePicker, modalView } = this.state;
 
         return (
 
@@ -152,13 +156,27 @@ export default class UpdateProfile extends Component {
                                     onInActive={() => this.setState({ isLocationFocus: false })}
                                     onActive={() => this.setState({ isLocationFocus: true })}
                                     label='Your Location' iconInput val={this.state.location} />
-                                <Icon.SimpleLineIcons name='location-pin' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
+                                <TouchableOpacity onPress={() => this.setState({ modalView: true })}>
+                                    <Icon.SimpleLineIcons name='location-pin' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </ScrollView>
                 </View>
                 <FooterButton title="Next" onPress={onNext} />
+                <Modal visible={modalView}>
+                    <View style={styles.modalContainer}>
+                        <View>
+                            <SearchandMapView
+                                updateProfile
+                                address={(location) => this.handleLocation(location)}
+                            />
+                        </View>
+                    </View>
+                    <FooterButton title="Cancel" onPress={() => this.setState({ modalView: false })} />
+                </Modal>
             </View>
+
         );
     }
 }

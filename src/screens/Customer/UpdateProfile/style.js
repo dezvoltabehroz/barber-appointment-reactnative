@@ -39,6 +39,10 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
+    modalContainer: {
+        flex:1,
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
+    },
     inputContainerStyle: {
         marginHorizontal: '10%',
         flexDirection: "row",

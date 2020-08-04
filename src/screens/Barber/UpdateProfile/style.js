@@ -153,4 +153,8 @@ export default StyleSheet.create({
         marginRight: 11,
         fontFamily: 'Poppins-Regular'
     },
+    modalContainer: {
+        flex:1,
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
+    },
 })

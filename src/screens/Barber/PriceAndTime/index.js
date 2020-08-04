@@ -105,10 +105,6 @@ export default class PriceAndTime extends Component {
                         <>
                             <TouchableOpacity onPress={() => this.setTime(index, item)} style={[styles.inputDateContainerStyle,
                             time[index] == null ? THEME.inputBorder : {}]}>
-                                {/* <FloatingInput
-                                    val={time[index]}
-                                    onActive={() => this.setTime(index, item)}
-                                    label='Time' /> */}
                                 <Text style={styles.titleStyle}>Time</Text>
                             </TouchableOpacity>
                         </> : null}

@@ -12,11 +12,11 @@ export default StyleSheet.create({
 
     },
     modalContainer: {
-        flex: 1,
-        height: screenHeight * 0.45,
+        height: screenHeight,
         width: screenWidth * 0.8,
         justifyContent: "center",
         alignSelf: "center",
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
     },
     gap: {
         width: THEME.GAP_BETWEEN_ELEMENT
@@ -26,9 +26,21 @@ export default StyleSheet.create({
         paddingVertical: '3%',
         borderRadius: 10,
     },
+    modalInputContainerTwo: {
+        flexDirection: "row",
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
+        marginBottom: '20%',
+        borderRadius: 10,
+        alignItems: "center",
+    },
+    textFlatlistStyle: {
+        color: THEME.COLOR_WHITE,
+        fontFamily: "Poppins-Regular",
+        margin: 7,
+        textAlign: "center",
+        width: screenWidth * 0.3,
+    },
     iconContainer: {
-        position: 'relative',
-        top: 40,
         alignItems: 'center'
     },
     modalUpperContainer: {
@@ -59,7 +71,7 @@ export default StyleSheet.create({
     gapHeight: {
         height: 15
     },
-    row:{
+    row: {
         flexDirection: "row",
         justifyContent: "space-evenly",
     },

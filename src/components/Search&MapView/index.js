@@ -6,7 +6,8 @@ import {
     Alert,
     Text,
     TouchableOpacity,
-    Modal
+    Modal,
+    Dimensions
 } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker, AnimatedRegion } from 'react-native-maps';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
@@ -15,6 +16,7 @@ import styles from './style';
 import THEME from '../../assets/styles/theme.style';
 import Geocoder from 'react-native-geocoder';
 import { Icon } from '..';
+const screenHeight = Dimensions.get('window').height;
 
 class SearchandMapView extends Component {
     constructor(prop) {
@@ -91,6 +93,7 @@ class SearchandMapView extends Component {
     }
 
     render() {
+        let { updateProfile } = this.props;
         const { modalView, name } = this.state;
         return (
             <>
@@ -105,13 +108,13 @@ class SearchandMapView extends Component {
                     showsUserLocation={true}
                     loadingEnabled
                     showsMyLocationButton={true}
-                    style={styles.mapStyle}
+                    style={[styles.mapStyle, updateProfile ? { height: screenHeight < 600 ? screenHeight * 0.6 : screenHeight * 0.69, } : {}]}
                     customMapStyle={THEME.mapStyle}
                     region={this.state.region}
-                // onRegionChangeComplete={this.onRegionChange}
-                // onRegionChange={onRegionChange}
-                //onPanDrag={onPanDrag}
-                // onMapReady={() => this.setState({ marginBottom: 1 })}
+                    onRegionChangeComplete={this.onRegionChange}
+                    // onRegionChange={onRegionChange}
+                    // onPanDrag={onPanDrag}
+                    // onMapReady={() => this.setState({ marginBottom: 1 })}
                 >
                     <Marker.Animated
                         ref={marker => {
