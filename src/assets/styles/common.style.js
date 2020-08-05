@@ -37,7 +37,7 @@ export default StyleSheet.create({
         fontSize: THEME.FONT_SIZE_XLARGE
     },
     errorText: {
-        paddingTop: 4,
+        paddingTop: "1%",
         paddingLeft: 8,
         color: '#c30000',
         fontFamily: "Poppins-Regular",
