@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { View, Text, FlatList, ImageBackground, TouchableOpacity } from "react-native";
 import styles from './style';
 import { Button, Icon } from '../../../components'
-
-export default class BarberHome extends Component {
+import { connect } from 'react-redux';
+class BarberHome extends Component {
     constructor(props) {
         super(props);
         this.state = {
             servicelist: [
                 {
-                    name: 'Appointment',
+                    name: 'Bookings',
                     imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
                 },
                 {
@@ -78,9 +78,9 @@ export default class BarberHome extends Component {
                 <View style={styles.container}>
                     <View style={styles.nameContainer}>
                         <Text style={styles.appNameTextStyle} >Fleek</Text>
-                        <TouchableOpacity style={styles.exitContainer} onPress={onExit}>
+                        {<TouchableOpacity style={styles.exitContainer} onPress={onExit}>
                             <Icon.Feather name="log-out" color="#fff" size={25} />
-                        </TouchableOpacity>
+                        </TouchableOpacity>}
                     </View>
                     <View style={styles.upperListContainer}>
                         <FlatList
@@ -99,3 +99,11 @@ export default class BarberHome extends Component {
     }
 
 }
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.userAuth || {}
+    };
+};
+
+export default connect(mapStateToProps)(BarberHome)

@@ -13,7 +13,9 @@ export default class ScheduleTimeScreen extends Component {
         const { navigate } = this.props.navigation;
         const { itemDays } = this.props.route.params;
         return (
-            <MainScreenPaths.Barber.BarberScheduleTime data={(itemDays)} onNext={() => Alert.alert("Next Screen is under development ")} />
+            <MainScreenPaths.Barber.BarberScheduleTime
+                data={(itemDays)}
+                onNext={() => navigate("Home")} />
         )
     }
 }

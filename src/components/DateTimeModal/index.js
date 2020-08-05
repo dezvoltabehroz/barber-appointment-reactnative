@@ -26,7 +26,8 @@ export default class DateTimeModal extends Component {
             minutes: '',
             timeStr: '',
             am: true,
-            pm: false
+            pm: false,
+            disabled: true
         }
     }
 
@@ -79,15 +80,15 @@ export default class DateTimeModal extends Component {
             var value = (hours == '' ? '00' : hours) + ":" + (minutes == '' ? '00' : minutes);
             onSet(value);
         }
-        this.setState({ hours: '', minutes: '', am: true, pm: false })
+        this.setState({ hours: '', minutes: '', am: true, pm: false, disabled: true })
     }
 
     handleHours = (data) => {
-        this.setState({ hours: data })
+        this.setState({ hours: data, disabled: false })
     }
 
     handleMinutes = (data) => {
-        this.setState({ minutes: data })
+        this.setState({ minutes: data, disabled: false })
     }
 
     render() {
@@ -140,7 +141,16 @@ export default class DateTimeModal extends Component {
                                         renderItem={(data, index, isSelected) => {
                                             return (<Text style={styles.textFlatlistStyle}>{data}</Text>)
                                         }}
-                                        onValueChange={(data, selectedIndex) => this.handleMinutes(data)}
+                                        onValueChange={(data, selectedIndex) => {
+                                            if (selectedIndex == 0) {
+                                                this.setState({ disabled: false })
+                                                this.handleMinutes(data)
+                                            }
+                                            else {
+                                                this.setState({ disabled: true })
+                                                this.handleMinutes(data)
+                                            }
+                                        }}
                                     />
                             }
 
@@ -163,7 +173,7 @@ export default class DateTimeModal extends Component {
                                 <Button title='Cancel' onPress={onCancel} />
                             </View>
                             <View style={styles.buttonContainer}>
-                                <Button title='Set' onPress={this.handleSet} />
+                                <Button title='Set' disabled={dayNight ? false : this.state.disabled} onPress={this.handleSet} />
                             </View>
                         </View>
                     </View>

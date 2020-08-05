@@ -12,17 +12,17 @@ class HomeScreen extends Component {
 
     handleLogout = async () => {
         const { navigate, } = this.props.navigation
-        let { isUserLogedIn } = this.props.user;
-        if (isUserLogedIn) {
-            navigate('Auth')
-            await this.props.actions.removeUser();
-        }
+        // let { isUserLogedIn } = this.props.user;
+        // if (isUserLogedIn) {
+        navigate('Auth')
+        // await this.props.actions.removeUser();
+        // }
     }
 
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Barber.BarberHome onContactUs={()=>navigate("ContactUs")} onAboutUs={()=>navigate("AboutUs")} onExit={this.handleLogout} />
+            <MainScreenPaths.Barber.BarberHome onContactUs={() => navigate("ContactUs")} onAboutUs={() => navigate("AboutUs")} onExit={this.handleLogout} />
         )
     }
 }
