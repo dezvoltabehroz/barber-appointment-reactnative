@@ -29,7 +29,6 @@ export default class DateTimeModal extends Component {
             pm: false
         }
         this.handleKeyPress = this.handleKeyPress.bind(this);
-        this.hoursArray();
     }
     componentDidMount = () => {
         this.hoursArray();
@@ -76,35 +75,7 @@ export default class DateTimeModal extends Component {
         }
     }
 
-    handleChangeText = (value, index) => {
-        const { time } = this.state;
-        time[index] = value;
-        var str = time.join('');
-        var timeStr = '';
-        if (str[0] != "undefined") {
-            if (str[0] > 1) {
-                alert("Invalid Hours")
-            } else {
-                timeStr = str[0];
-            }
-        }
-        if (str[1] != "undefined") {
-            if (str[0] == 1 && str[1] > 2) {
-                alert("Invalid Hours")
-            } else {
-                timeStr = str[0] + str[1];
-            }
-        }
-        if (str[2] != "undefined") {
-            if (str[2] > 5) {
-                alert("Invalid Minutes,")
-            } else {
-                timeStr = str[0] + str[1] + ":" + str[2] + str[3];
 
-            }
-        }
-        this.setState({ timeStr });
-    }
 
     handleSet = () => {
         const { onSet, dayNight } = this.props;
@@ -123,7 +94,7 @@ export default class DateTimeModal extends Component {
             var value = (hours == '' ? '00' : hours) + ":" + (minutes == '' ? '00' : minutes);
             onSet(value);
         }
-        this.setState({ timeStr: '', hours: '', minutes: '', am: true, pm: false })
+        this.setState({ hours: '', minutes: '', am: true, pm: false })
     }
 
     handleHours = (data) => {
