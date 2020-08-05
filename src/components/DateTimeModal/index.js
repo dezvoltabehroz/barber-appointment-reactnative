@@ -143,11 +143,7 @@ export default class DateTimeModal extends Component {
                     animationType="slide"
                     transparent={true}>
                     <View style={styles.modalContainer}  >
-
-                        {/* <View style={styles.modalInputContainer}> */}
                         < Text style={styles.modalText}>Set Time</Text>
-
-
                         <View style={[styles.modalInputContainerTwo, dayNight ? { width: 150, alignSelf: "center" } : styles.modalInputContainerTwo]}>
                             <ScrollPicker
                                 ref={(sp) => { this.sp = sp }}
@@ -193,28 +189,6 @@ export default class DateTimeModal extends Component {
                             }
 
                         </View>
-                        {/* <View style={styles.modalUpperContainer}>
-                                {
-                                    this.inputRefs.map((k, idx) => (
-                                        <View style={styles.modalInput}>
-                                            <Input
-                                                inputRef={ref => this.inputRefs[idx] = ref}
-                                                maxLength={1}
-                                                keyboardType="numeric"
-                                                blurOnSubmit={true}
-                                                onChangeText={val => this.handleChangeText(val, idx, k)}
-                                                onKeyPress={({ nativeEvent: { key: keyValue } }) => this.handleKeyPress(keyValue, idx)}
-                                            />
-                                            {
-                                                idx > 1 ?
-                                                    < Text style={styles.modalText}>M</Text>
-                                                    :
-                                                    <Text style={styles.modalText}>H</Text>
-                                            }
-                                        </View>
-                                    ))
-                                }
-                            </View> */}
                         {
                             dayNight ?
                                 <RadioButton
@@ -231,14 +205,11 @@ export default class DateTimeModal extends Component {
                         <View style={styles.row}>
                             <View style={styles.buttonContainer}>
                                 <Button title='Cancel' onPress={onCancel} />
-
                             </View>
                             <View style={styles.buttonContainer}>
                                 <Button title='Set' onPress={this.handleSet} />
                             </View>
                         </View>
-
-                        {/* </View> */}
                     </View>
                 </Modal>
             </View>
