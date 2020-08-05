@@ -10,11 +10,20 @@ export default StyleSheet.create({
     gapHeight: {
         height: 15
     },
+    gapHeight1: {
+        height: 5
+    },
     buttonContainer: {
         marginHorizontal: '10%',
     },
     footerStyle: {
         flex: 0.2,
+        justifyContent: 'flex-end',
+        paddingBottom: '8%',
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
+    },
+    footerConatinerStyle:{
+        flex: 0.3,
         justifyContent: 'flex-end',
         paddingBottom: '8%',
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR

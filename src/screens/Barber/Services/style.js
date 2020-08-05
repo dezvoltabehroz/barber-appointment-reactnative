@@ -13,7 +13,7 @@ export default StyleSheet.create({
     upperContainer: {
         flex: 0.8,
         marginHorizontal: '10%',
-        marginBottom: '2%'
+        marginBottom: screenHeight < 600 ? '10%' : '2%'
     },
     buttonContainer: {
         marginHorizontal: '10%'

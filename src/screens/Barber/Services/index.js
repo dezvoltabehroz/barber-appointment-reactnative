@@ -116,13 +116,13 @@ export default class Services extends Component {
                             renderItem={({ item }) => this._renderItems(item)}
                             keyExtractor={item => item} />
                     </View>
-                    <View style={styles.addServiceContainer}>
+                    {/* <View style={styles.addServiceContainer}>
                         <View style={styles.buttonContainer}>
                             <Button title="Add Service" onPress={() => this.setState({ showAddService: true })} />
                         </View>
-                    </View>
+                    </View> */}
 
-                    <FooterButton title='Next' onPress={() => onNext(this.state.selectedService)} />
+                    <FooterButton title='Next' addservice onPressAddService={() => this.setState({ showAddService: true })} onPress={() => onNext(this.state.selectedService)} />
                 </View>
                 <Modal visible={showAddService}
                     animationType="slide">
