@@ -28,12 +28,13 @@ export default class DateTimeModal extends Component {
             am: true,
             pm: false
         }
-        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
+
     componentDidMount = () => {
         this.hoursArray();
         this.minutesArray();
     }
+
     hoursArray = () => {
         let { dayNight } = this.props;
         var set = [], range = dayNight ? 12 : 13;
