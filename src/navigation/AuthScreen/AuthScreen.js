@@ -3,8 +3,11 @@
 import React, { Component } from 'react'
 import { Alert } from 'react-native';
 import { MainScreenPaths } from '../../screens';
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { actions } from '../../redux/actions/auth';
 
-export default class AuthScreen extends Component {
+class AuthScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,17 +17,19 @@ export default class AuthScreen extends Component {
             loading: false
         }
     }
-    handleLogin = () => {
+    
+    handleLogin = async (email, password) => {
         const { navigate } = this.props.navigation
-        const { customer, submit } = this.state;
-        if (submit) {
-            if (customer) {
-                navigate('Customer')
-                this.setState({ submit: false })
-            } else {
-                navigate('Barber')
-                this.setState({ submit: false })
-            }
+        const { customer } = this.state;
+        let userData = { email, password };
+        if (customer) {
+            await this.props.actions.setUser(userData);
+            navigate('Customer')
+            this.setState({ submit: false })
+        } else {
+            await this.props.actions.setUser(userData);
+            navigate('Barber')
+            this.setState({ submit: false })
         }
     }
 
@@ -35,7 +40,7 @@ export default class AuthScreen extends Component {
         return (
             <MainScreenPaths.Auth
                 loading={loading}
-                onLogin={this.handleLogin}
+                onLogin={(email, password) => this.handleLogin(email, password)}
                 onPhone={() => customer ?
                     navigate('Customer', { screen: 'PhoneNumber' })
                     :
@@ -46,8 +51,21 @@ export default class AuthScreen extends Component {
                 customer={customer}
                 barber={barber}
                 submit={(submit)}
-                isSubmit={(submit) => this.setState({ submit: submit })}
+                isSubmit={async (submit) => await this.setState({ submit: submit })}
             />
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        user: state.userAuth || {}
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        actions: bindActionCreators(actions, dispatch),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen)

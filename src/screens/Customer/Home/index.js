@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, FlatList, ImageBackground, TouchableOpacity } from "react-native";
 import styles from './style';
 import { Button, Icon } from '../../../components'
-
-export default class Home extends Component {
+import { connect } from 'react-redux';
+class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -92,15 +92,21 @@ export default class Home extends Component {
 
     render() {
         let { onExit } = this.props
+        let { isUserLogedIn } = this.props.user;
         const { ourAppointment, servicelist } = this.state
         return (
             <>
                 <View style={styles.container}>
                     <View style={styles.nameContainer}>
                         <Text style={styles.appNameTextStyle} >Fleek</Text>
-                        <TouchableOpacity style={styles.exitContainer} onPress={onExit}>
-                            <Icon.Feather name="log-out" color="#fff" size={25} />
-                        </TouchableOpacity>
+                        {
+                            isUserLogedIn ?
+                                <TouchableOpacity style={styles.exitContainer} onPress={onExit}>
+                                    <Icon.Feather name="log-out" color="#fff" size={25} />
+                                </TouchableOpacity>
+                                :
+                                null
+                        }
                     </View>
                     <View style={styles.upperListContainer}>
                         <FlatList
@@ -125,5 +131,12 @@ export default class Home extends Component {
             </>
         );
     }
-
 }
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.userAuth || {}
+    };
+};
+
+export default connect(mapStateToProps)(Home)

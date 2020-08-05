@@ -7,6 +7,10 @@ import AppRoutes from './navigation'
 
 import THEME from './assets/styles/theme.style';
 
+import { Provider } from "react-redux";
+import createStore from "./redux/CreateStore";
+const store = createStore();
+
 class App extends Component {
     componentDidMount() {
         SplashScreen.hide()
@@ -15,12 +19,14 @@ class App extends Component {
         console.disableYellowBox = true;
         return (
             <>
-                <NavigationContainer>
-                    <SafeAreaProvider>
-                        <StatusBar backgroundColor={THEME.PRIMARY_BACKGROUND_COLOR} />
-                        <AppRoutes />
-                    </SafeAreaProvider>
-                </NavigationContainer>
+                <Provider store={store}>
+                    <NavigationContainer>
+                        <SafeAreaProvider>
+                            <StatusBar backgroundColor={THEME.PRIMARY_BACKGROUND_COLOR} />
+                            <AppRoutes />
+                        </SafeAreaProvider>
+                    </NavigationContainer>
+                </Provider>
             </>
         );
     }

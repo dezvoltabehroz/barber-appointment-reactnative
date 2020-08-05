@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, LayoutAnimation, UIManager, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, LayoutAnimation, UIManager, FlatList, TouchableOpacity, Alert } from 'react-native';
 import styles from './style';
 import { Icon } from '../../components';
 import ImageView from 'react-native-image-view';
 import Image from 'react-native-fast-image';
 import THEME from '../../assets/styles/theme.style'
 import StarRating from 'react-native-star-rating';
+import { connect } from 'react-redux';
 
-export default class ExpandingView extends Component {
+class ExpandingView extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -37,6 +38,7 @@ export default class ExpandingView extends Component {
             UIManager.setLayoutAnimationEnabledExperimental(true);
         }
     }
+
     componentDidMount = () => {
         const { portfolio, certification, workingDay, service, rating } = this.props;
         let portfolioArray = [];
@@ -82,32 +84,135 @@ export default class ExpandingView extends Component {
     }
 
     changePhotoLayout = () => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        this.setState({ expandedPhoto: !this.state.expandedPhoto });
+        let { isUserLogedIn } = this.props.user;
+        const { Auth } = this.props;
+        if (isUserLogedIn) {
+            LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+            this.setState({ expandedPhoto: !this.state.expandedPhoto });
+        }
+        else {
+            Alert.alert("Attention",
+                "You need to be a registered member to explore more.",
+                [
+                    {
+                        text: "Cancel",
+                        onPress: () => { },
+                        style: "cancel"
+                    },
+                    { text: "OK", onPress: () => Auth() }
+                ]
+            )
+        }
+
     }
     changeCertificationLayout = () => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        this.setState({ expandedCertificationPhoto: !this.state.expandedCertificationPhoto });
+        let { isUserLogedIn } = this.props.user;
+        const { Auth } = this.props;
+        if (isUserLogedIn) {
+            LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+            this.setState({ expandedCertificationPhoto: !this.state.expandedCertificationPhoto });
+        }
+        else {
+            Alert.alert("Attention",
+                "You need to be a registered member to explore more.",
+                [
+                    {
+                        text: "Cancel",
+                        onPress: () => { },
+                        style: "cancel"
+                    },
+                    { text: "OK", onPress: () => Auth() }
+                ]
+            )
+        }
     }
 
     changeWorkingDaysLayout = () => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        this.setState({ expandedWorkingDays: !this.state.expandedWorkingDays });
+        let { isUserLogedIn } = this.props.user;
+        const { Auth } = this.props;
+        if (isUserLogedIn) {
+            LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+            this.setState({ expandedWorkingDays: !this.state.expandedWorkingDays });
+        }
+        else {
+            Alert.alert("Attention",
+                "You need to be a registered member to explore more.",
+                [
+                    {
+                        text: "Cancel",
+                        onPress: () => { },
+                        style: "cancel"
+                    },
+                    { text: "OK", onPress: () => Auth() }
+                ]
+            )
+        }
     }
 
     changeServiceLayout = () => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        this.setState({ expandedServices: !this.state.expandedServices });
+        let { isUserLogedIn } = this.props.user;
+        const { Auth } = this.props;
+        if (isUserLogedIn) {
+            LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+            this.setState({ expandedServices: !this.state.expandedServices });
+        }
+        else {
+            Alert.alert("Attention",
+                "You need to be a registered member to explore more.",
+                [
+                    {
+                        text: "Cancel",
+                        onPress: () => { },
+                        style: "cancel"
+                    },
+                    { text: "OK", onPress: () => Auth() }
+                ]
+            )
+        }
     }
 
     changeResumeLayout = () => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        this.setState({ expandedResume: !this.state.expandedResume });
+        let { isUserLogedIn } = this.props.user;
+        const { Auth } = this.props;
+        if (isUserLogedIn) {
+            LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+            this.setState({ expandedResume: !this.state.expandedResume });
+        }
+        else {
+            Alert.alert("Attention",
+                "You need to be a registered member to explore more.",
+                [
+                    {
+                        text: "Cancel",
+                        onPress: () => { },
+                        style: "cancel"
+                    },
+                    { text: "OK", onPress: () => Auth() }
+                ]
+            )
+        }
     }
 
     changeReviewsLayout = () => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        this.setState({ expandedReviews: !this.state.expandedReviews });
+        let { isUserLogedIn } = this.props.user;
+        const { Auth } = this.props;
+        if (isUserLogedIn) {
+            LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+            this.setState({ expandedReviews: !this.state.expandedReviews });
+        }
+        else {
+            Alert.alert(
+                "Attention",
+                "You need to be a registered member to explore more.",
+                [
+                    {
+                        text: "Cancel",
+                        onPress: () => { },
+                        style: "cancel"
+                    },
+                    { text: "OK", onPress: () => Auth() }
+                ])
+        }
     }
 
     renderImages = (images) => {
@@ -240,7 +345,7 @@ export default class ExpandingView extends Component {
                             }
                         </View>
                     </TouchableOpacity>
-                    <View style={[{ height: this.state.expandedPhoto ? null : 0},styles.columnStyle]}>
+                    <View style={[{ height: this.state.expandedPhoto ? null : 0 }, styles.columnStyle]}>
                         {this.state.isPhotoNull ?
                             <Text style={styles.noRecord} >No Record Found</Text>
                             :
@@ -273,7 +378,7 @@ export default class ExpandingView extends Component {
                             }
                         </View>
                     </TouchableOpacity>
-                    <View style={[{ height: this.state.expandedCertificationPhoto ? null : 0 },styles.columnStyle]}>
+                    <View style={[{ height: this.state.expandedCertificationPhoto ? null : 0 }, styles.columnStyle]}>
                         {this.state.isCertificationPhotoNull ?
                             <Text style={styles.noRecord} >No Record Found</Text>
                             :
@@ -306,7 +411,7 @@ export default class ExpandingView extends Component {
                             }
                         </View>
                     </TouchableOpacity>
-                    <View style={[{ height: this.state.expandedWorkingDays ? null : 0 },styles.columnStyle]}>
+                    <View style={[{ height: this.state.expandedWorkingDays ? null : 0 }, styles.columnStyle]}>
                         {this.state.isWorkingDays ?
                             <Text style={styles.noRecord} >No Record Found</Text>
                             :
@@ -344,7 +449,7 @@ export default class ExpandingView extends Component {
                             }
                         </View>
                     </TouchableOpacity>
-                    <View style={[{ height: this.state.expandedServices ? null : 0 },styles.columnStyle]}>
+                    <View style={[{ height: this.state.expandedServices ? null : 0 }, styles.columnStyle]}>
                         {this.state.isServices ?
                             <Text style={styles.noRecord} >No Record Found</Text>
                             :
@@ -382,7 +487,7 @@ export default class ExpandingView extends Component {
                             }
                         </View>
                     </TouchableOpacity>
-                    <View style={[{ height: this.state.expandedResume ? 100 : 0},styles.columnStyle]}>
+                    <View style={[{ height: this.state.expandedResume ? 100 : 0 }, styles.columnStyle]}>
                         {this.state.isResume ?
                             <Text style={styles.noRecord} >No Resume Found</Text>
                             :
@@ -405,7 +510,7 @@ export default class ExpandingView extends Component {
                             }
                         </View>
                     </TouchableOpacity>
-                    <View style={[{ height: this.state.expandedReviews ? null : 0 },styles.columnStyle]}>
+                    <View style={[{ height: this.state.expandedReviews ? null : 0 }, styles.columnStyle]}>
                         {this.state.isReviews ?
                             <Text style={styles.noRecord} >No Resume Found</Text>
                             :
@@ -427,3 +532,12 @@ export default class ExpandingView extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.userAuth || {}
+    };
+};
+
+
+export default connect(mapStateToProps)(ExpandingView)

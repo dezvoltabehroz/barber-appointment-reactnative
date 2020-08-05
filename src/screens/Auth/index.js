@@ -17,13 +17,14 @@ class AuthScreen extends Component {
             submiting: true
         }
     }
-    handleLogin = () => {
+
+    handleLogin = async () => {
         const { onLogin, isSubmit, submit } = this.props
         let { email, password, submiting } = this.state;
         isSubmit(submiting);
         if (email && password && submit) {
             if (this.isEmailValid(email)) {
-                onLogin();
+                await onLogin(email, password);
                 this.setState({ email: '', password: '' })
             }
         }

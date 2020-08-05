@@ -24,7 +24,7 @@ export default class BarberProfile extends Component {
     }
 
     render() {
-        const { items, bookNow } = this.props;
+        const { items, bookNow, Auth } = this.props;
         const { portfolio, certifcations, services, workingDays, rating } = this.state;
         var arr = items.age.split("/");
         const birthDate = new Date(arr[2], arr[1], arr[0]);
@@ -49,6 +49,7 @@ export default class BarberProfile extends Component {
                         </View>
                     </View>
                     <ExpandView
+                        Auth={Auth}
                         portfolio={portfolio}
                         certification={certifcations}
                         service={services}
