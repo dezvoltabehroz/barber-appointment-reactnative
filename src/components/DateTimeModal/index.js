@@ -41,10 +41,10 @@ export default class DateTimeModal extends Component {
         var set = [], range = dayNight ? 12 : 13;
 
         for (var i = 0; i < range; i++) {
-            if (i < 9) {
-                set[i] = ("0" + (dayNight ? (i + 1).toString() : i.toString()));
+            if (i <= 9) {
+                set[i] = ("0" + (i.toString()));
             } else {
-                set[i] = (dayNight ? (i + 1).toString() : i.toString())
+                set[i] = (i.toString());
             }
         }
         this.setState({ timeHourSlot: set })
@@ -114,7 +114,16 @@ export default class DateTimeModal extends Component {
                                 renderItem={(data, index, isSelected) => {
                                     return (<Text style={styles.textFlatlistStyle}>{data}</Text>)
                                 }}
-                                onValueChange={(data, selectedIndex) => this.handleHours(data)}
+                                onValueChange={(data, selectedIndex) => {
+                                    if (selectedIndex == 0) {
+                                        this.setState({ disabled: true })
+                                        this.handleHours(data)
+                                    }
+                                    else {
+                                        this.setState({ disabled: false })
+                                        this.handleHours(data)
+                                    }
+                                }}
                             />
                             {
                                 dayNight ?
@@ -143,11 +152,11 @@ export default class DateTimeModal extends Component {
                                         }}
                                         onValueChange={(data, selectedIndex) => {
                                             if (selectedIndex == 0) {
-                                                this.setState({ disabled: false })
+                                                this.setState({ disabled: true })
                                                 this.handleMinutes(data)
                                             }
                                             else {
-                                                this.setState({ disabled: true })
+                                                this.setState({ disabled: false })
                                                 this.handleMinutes(data)
                                             }
                                         }}
@@ -170,10 +179,10 @@ export default class DateTimeModal extends Component {
 
                         <View style={styles.row}>
                             <View style={styles.buttonContainer}>
-                                <Button title='Cancel' onPress={onCancel} />
+                                <Button title='Cancel' onPress={() => { this.setState({ disabled: true }); onCancel(); }} />
                             </View>
                             <View style={styles.buttonContainer}>
-                                <Button title='Set' disabled={dayNight ? false : this.state.disabled} onPress={this.handleSet} />
+                                <Button title='Set' disabled={dayNight ? this.state.disabled : this.state.disabled} onPress={this.handleSet} />
                             </View>
                         </View>
                     </View>
