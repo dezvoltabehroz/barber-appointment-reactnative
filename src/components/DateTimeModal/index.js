@@ -61,22 +61,6 @@ export default class DateTimeModal extends Component {
         this.setState({ timeMinutesSlot: set })
     }
 
-    handleKeyPress = (keyValue, index) => {
-        if (keyValue === 'Backspace') {
-            if (index === 0) {
-                this.inputRefs[index].focus()
-            } else {
-                this.inputRefs[index - 1].focus()
-            }
-        } else {
-            if (index < this.inputRefs.length - 1) {
-                this.inputRefs[index + 1].focus()
-            }
-        }
-    }
-
-
-
     handleSet = () => {
         const { onSet, dayNight } = this.props;
         const { am, pm, hours, minutes } = this.state;
