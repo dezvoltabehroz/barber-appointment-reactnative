@@ -38,11 +38,12 @@ export default class DateTimeModal extends Component {
 
     hoursArray = () => {
         let { dayNight } = this.props;
-        var set = [], range = dayNight ? 12 : 13;
+        var set = [];
+        var range = 13;
 
         for (var i = 0; i < range; i++) {
             if (i <= 9) {
-                set[i] = ("0" + (i.toString()));
+                set[i] = ("0" + i.toString());
             } else {
                 set[i] = (i.toString());
             }
