@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, ImageBackground, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, ImageBackground, TouchableOpacity, Alert } from "react-native";
 import styles from './style';
 import { Button, Icon } from '../../../components'
 import { connect } from 'react-redux';
@@ -23,24 +23,320 @@ class Home extends Component {
             ],
             ourAppointment: [
                 {
-                    appointmentName: 'Make Up',
-                    image_url: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                    appointmentName: 'Salon',
+                    image_url: require('../../../assets/images/Salon-Category.png'),
+                    subCategory: [
+                        {
+                            subCategoryName: 'Style',
+                            image: require('../../../assets/images/Salon-Style.png'),
+                            services: [
+                                {
+                                    serviceName: 'Haircut & Styling',
+                                },
+                                {
+                                    serviceName: 'Short/long Dry Cut',
+                                },
+                                {
+                                    serviceName: 'Single Process',
+                                },
+                                {
+                                    serviceName: 'Styling Only',
+                                },
+                                {
+                                    serviceName: 'Short/long Cut & Style',
+                                },
+                                {
+                                    serviceName: 'Style & Curl',
+                                },
+                                {
+                                    serviceName: 'Updo',
+                                },
+                                {
+                                    serviceName: 'Blowout',
+                                },
+                                {
+                                    serviceName: 'Men`s Style Cut',
+                                },
+                                {
+                                    serviceName: 'Extensions',
+                                },
+                                {
+                                    serviceName: 'Kids(0 to 12)',
+                                },
+                                {
+                                    serviceName: 'Teens(12 to 17)',
+                                },
+                                {
+                                    serviceName: 'Cut & Curl',
+                                },
+                                {
+                                    serviceName: 'Press & Curl',
+                                },
+                            ]
+                        },
+                        {
+                            subCategoryName: 'Color',
+                            image: require('../../../assets/images/Salon-Color.png'),
+                            services: [
+                                {
+                                    serviceName: 'Highlights',
+                                },
+                                {
+                                    serviceName: 'Balayage',
+                                },
+                                {
+                                    serviceName: 'Corrective Color',
+                                },
+                                {
+                                    serviceName: 'Single Process',
+                                },
+                                {
+                                    serviceName: 'Lift & Tone',
+                                },
+                                {
+                                    serviceName: 'Face Frame & Lightening',
+                                },
+                                {
+                                    serviceName: 'Touch Up',
+                                },
+                                {
+                                    serviceName: 'Blowout',
+                                },
+                            ]
+                        },
+                        {
+                            subCategoryName: 'Treatment',
+                            image: require('../../../assets/images/Salon-Treatment.png'),
+                            services: [
+                                {
+                                    serviceName: 'Glaze',
+                                },
+                                {
+                                    serviceName: 'Keratin Smooting',
+                                },
+                                {
+                                    serviceName: 'Keratin Express',
+                                },
+                                {
+                                    serviceName: 'Treatment',
+                                },
+                                {
+                                    serviceName: 'Carmelux',
+                                },
+                                {
+                                    serviceName: 'Hot Oil Treatment',
+                                },
+                            ]
+                        },
+                    ]
                 },
                 {
-                    appointmentName: 'Hair Care',
-                    image_url: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                    appointmentName: 'Barber',
+                    image_url: require('../../../assets/images/Barber-Category.png'),
+                    subCategory: [
+                        {
+                            subCategoryName: 'Hair',
+                            image: require('../../../assets/images/Barber-Cut.png'),
+                            services: [
+                                {
+                                    serviceName: 'Hair Cut',
+                                },
+                                {
+                                    serviceName: 'Buzz Cut',
+                                },
+                                {
+                                    serviceName: 'Shape Up',
+                                },
+                                {
+                                    serviceName: 'Custom Design',
+                                },
+                                {
+                                    serviceName: 'Men`s Haircut w/ Bread',
+                                },
+                                {
+                                    serviceName: 'Haircut w/ Color',
+                                },
+                                {
+                                    serviceName: 'Color',
+                                },
+                            ]
+                        },
+                        {
+                            subCategoryName: 'Bread & Mustache',
+                            image: require('../../../assets/images/Nails-Hands.png'),
+                            services: [
+                                {
+                                    serviceName: 'Full Service Bread & Mustache Trim',
+                                },
+                                {
+                                    serviceName: 'Bread & Mustache Trim',
+                                }
+                            ]
+                        },
+                        {
+                            subCategoryName: 'Shave',
+                            image: require('../../../assets/images/Barber-Shave.png'),
+                            services: [
+                                {
+                                    serviceName: 'Executive Shave',
+                                },
+                                {
+                                    serviceName: 'Straight Razor Shave',
+                                },
+                                {
+                                    serviceName: 'Regular Shave',
+                                },
+                                {
+                                    serviceName: 'Head Shave',
+                                },
+                            ]
+                        },
+                    ]
+                },
+                {
+                    appointmentName: 'Hair Braiding',
+                    image_url: require('../../../assets/images/Braiding-Category.png'),
+                    subCategory: [
+                        {
+                            subCategoryName: 'Braiding',
+                            image: require('../../../assets/images/HairBraiding-Braiding.png'),
+                            services: [
+                                {
+                                    serviceName: 'Hair Braiding',
+                                },
+                                {
+                                    serviceName: 'Children`s Braiding',
+                                },
+                                {
+                                    serviceName: 'Cornrows',
+                                },
+                                {
+                                    serviceName: 'Children`s Cornrows',
+                                },
+                                {
+                                    serviceName: 'Twists',
+                                },
+                                {
+                                    serviceName: 'Men`s Cornrows',
+                                },
+                                {
+                                    serviceName: 'Dreadlocks',
+                                },
+                                {
+                                    serviceName: 'Men`s Individual Braids',
+                                },
+                            ]
+                        },
+                        {
+                            subCategoryName: 'Extensions',
+                            image: require('../../../assets/images/HairBraiding-Extensions.png'),
+                            services: [
+                                {
+                                    serviceName: 'Kinky Twists',
+                                },
+                                {
+                                    serviceName: 'Micro Braids',
+                                },
+                                {
+                                    serviceName: 'Havana Twists',
+                                },
+                                {
+                                    serviceName: 'Marley Twists',
+                                },
+                                {
+                                    serviceName: 'Individual Braids',
+                                },
+                                {
+                                    serviceName: 'Box Braids',
+                                },
+                            ]
+                        },
+                    ]
+                },
+                {
+                    appointmentName: 'Nails',
+                    image_url: require('../../../assets/images/Nails-Category.png'),
+                    subCategory: [
+                        {
+                            subCategoryName: 'Hands',
+                            image: require('../../../assets/images/Nails-Hands.png'),
+                            services: [
+                                {
+                                    serviceName: 'Spa Manicure',
+                                },
+                                {
+                                    serviceName: 'Classic Manicure',
+                                },
+                                {
+                                    serviceName: 'Express Manicure',
+                                },
+                                {
+                                    serviceName: 'Shellac Manicure',
+                                },
+                            ]
+                        },
+                        {
+                            subCategoryName: 'Feet',
+                            image: require('../../../assets/images/Nails-Feet.png'),
+                            services: [
+                                {
+                                    serviceName: 'Spa Pedicure',
+                                },
+                                {
+                                    serviceName: 'Classic Pedicure',
+                                },
+                                {
+                                    serviceName: 'Express Pedicure',
+                                },
+                                {
+                                    serviceName: 'Shellac Pedicure',
+                                },
+                            ]
+                        },
+                    ]
+                },
+                {
+                    appointmentName: 'Make Up',
+                    image_url: require('../../../assets/images/makeup.png'),
+                    subCategory: [
+                        {
+                            subCategoryName: 'Hands',
+                            image: require('../../../assets/images/makeup.png')
+                        },
+                        {
+                            subCategoryName: 'Feet',
+                            image: require('../../../assets/images/Nails-Hands.png')
+                        },
+                    ]
                 },
                 {
                     appointmentName: 'Bridal',
-                    image_url: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                    image_url: require('../../../assets/images/Bridal.png'),
+                    subCategory: [
+                        {
+                            subCategoryName: 'Hands',
+                            image: require('../../../assets/images/Nails-Hands.png')
+
+                        },
+                        {
+                            subCategoryName: 'Feet',
+                            image: require('../../../assets/images/Nails-Hands.png')
+                        },
+                    ]
                 },
                 {
-                    appointmentName: 'Groom',
-                    image_url: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
-                },
-                {
-                    appointmentName: 'Other',
-                    image_url: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                    appointmentName: 'Hair Removal',
+                    image_url: require('../../../assets/images/hair-removal.png'),
+                    subCategory: [
+                        {
+                            subCategoryName: 'Hands',
+                            image: require('../../../assets/images/Nails-Hands.png')
+                        },
+                        {
+                            subCategoryName: 'Feet',
+                            image: require('../../../assets/images/Nails-Hands.png')
+                        },
+                    ]
                 },
             ]
 
@@ -54,11 +350,11 @@ class Home extends Component {
     }
 
     _renderItems = (item) => {
-        const { onItemPress, onAboutUs, onContactUs } = this.props;
+        const { onAboutUs, onContactUs } = this.props;
         return (
             <>
                 <TouchableOpacity
-                    onPress={item.name == "About Us" ? onAboutUs : item.name == "Contact Us" ? onContactUs : onItemPress} style={styles.upperListItemContainer}>
+                    onPress={() => { item.name == "About Us" ? onAboutUs : item.name == "Contact Us" ? onContactUs : Alert.alert("Atention", "This screen is under Development") }} style={styles.upperListItemContainer}>
                     <ImageBackground source={{ uri: `${item.imageUrl}` }}
                         style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }}>
                         <View style={styles.upperListTitleContainer}>
@@ -74,8 +370,8 @@ class Home extends Component {
         const { onItemPress } = this.props;
         return (
             <>
-                <TouchableOpacity onPress={onItemPress} style={styles.lowerListItemContainer}>
-                    <ImageBackground source={{ uri: `${item.image_url}` }}
+                <TouchableOpacity onPress={() => onItemPress(item.appointmentName, item.subCategory)} style={styles.lowerListItemContainer}>
+                    <ImageBackground source={item.image_url}
                         style={styles.lowerListImageStyle} imageStyle={{ borderRadius: 10 }}>
                         <View style={styles.lowerListTitleContainer}>
                             <Text style={styles.lowerListTitleStyle} >{item.appointmentName}</Text>

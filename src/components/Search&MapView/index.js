@@ -111,10 +111,10 @@ class SearchandMapView extends Component {
                     style={[styles.mapStyle, updateProfile ? { height: screenHeight < 600 ? screenHeight * 0.6 : screenHeight * 0.69, } : {}]}
                     customMapStyle={THEME.mapStyle}
                     region={this.state.region}
-                    onRegionChangeComplete={this.onRegionChange}
-                    // onRegionChange={onRegionChange}
-                    // onPanDrag={onPanDrag}
-                    // onMapReady={() => this.setState({ marginBottom: 1 })}
+                    onRegionChangeComplete={updateProfile ? this.onRegionChange : () => { }}
+                // onRegionChange={onRegionChange}
+                // onPanDrag={onPanDrag}
+                // onMapReady={() => this.setState({ marginBottom: 1 })}
                 >
                     <Marker.Animated
                         ref={marker => {

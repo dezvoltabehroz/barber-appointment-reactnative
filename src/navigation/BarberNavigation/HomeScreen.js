@@ -11,7 +11,7 @@ class HomeScreen extends Component {
     })
 
     handleLogout = async () => {
-        const { navigate, } = this.props.navigation
+        const { navigate } = this.props.navigation
         // let { isUserLogedIn } = this.props.user;
         // if (isUserLogedIn) {
         navigate('Auth')
