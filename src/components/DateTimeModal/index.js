@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Modal, Dimensions } from 'react-native';
+import { View, Text, Modal, Dimensions, Alert } from 'react-native';
 import { Button, Icon, RadioButton } from '../index';
 import styles from './style';
 import THEME from '../../assets/styles/theme.style';
@@ -53,7 +53,6 @@ export default class DateTimeModal extends Component {
 
     minutesArray = () => {
         var set = [], range = 60;
-
         for (var i = 0; i < range; i++) {
             if (i <= 9) {
                 set[i] = ("0" + i.toString());
@@ -71,15 +70,33 @@ export default class DateTimeModal extends Component {
         if (dayNight) {
             if (am == true && pm == false) {
                 var value = hours + ":" + "00" + " AM";
-                onSet(value);
+                if (hours == '' || hours == '00') {
+                    Alert.alert("Attension", "Please select correct Hour")
+                }
+                else {
+                    onSet(value);
+
+                }
             }
             else {
                 var value = hours + ":" + "00" + " PM";
-                onSet(value);
+                if (hours == '' || hours == '00') {
+                    Alert.alert("Attension", "Please select correct Hour")
+                }
+                else {
+                    onSet(value);
+
+                }
             }
         } else {
-            var value = (hours == '' ? '00' : hours) + ":" + (minutes == '' ? '00' : minutes);
-            onSet(value);
+            if ((hours !== '' && hours !== '00') || (minutes !== '' && minutes !== '00')) {
+                var value = (hours == '' ? '00' : hours) + ":" + (minutes == '' ? '00' : minutes);
+                onSet(value);
+            } else {
+
+
+            }
+
         }
         this.setState({ hours: '', minutes: '', am: true, pm: false, disabled: true })
     }
@@ -116,7 +133,7 @@ export default class DateTimeModal extends Component {
                                     return (<Text style={styles.textFlatlistStyle}>{data}</Text>)
                                 }}
                                 onValueChange={(data, selectedIndex) => {
-                                    if (selectedIndex == 0) {
+                                    if (selectedIndex == 0 && data == '00') {
                                         this.setState({ disabled: true })
                                         this.handleHours(data)
                                     }
@@ -152,12 +169,12 @@ export default class DateTimeModal extends Component {
                                             return (<Text style={styles.textFlatlistStyle}>{data}</Text>)
                                         }}
                                         onValueChange={(data, selectedIndex) => {
-                                            if (selectedIndex == 0) {
+                                            if (selectedIndex == 0 && data == '00') {
                                                 this.setState({ disabled: true })
                                                 this.handleMinutes(data)
                                             }
                                             else {
-                                                this.setState({ disabled: false })
+                                                this.setState({ disabled: data == '00' ? true : false })
                                                 this.handleMinutes(data)
                                             }
                                         }}
