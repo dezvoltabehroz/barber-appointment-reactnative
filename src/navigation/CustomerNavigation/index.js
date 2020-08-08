@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image,Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // import { MainScreenPaths } from '../../screens';
@@ -9,7 +9,8 @@ import PhoneVerifiedScreen from './PhoneVerifiedScreen';
 import UpdateProfileScreen from './UpdateProfileScreen';
 import HomeScreen from './HomeScreen';
 import EmailandPasswordScreen from './EmailandPasswordScreen';
-import HairCareScreen from './HairCareScreen';
+import SubCategoryScreen from './SubCategoryScreen';
+import SubCategoryServicesScreen from './SubCategoryServicesScreen';
 import BarberListScreen from './BarberListScreen';
 import BarberProfileScreen from './BarberProfileScreen';
 import BookingScreen from './BookingScreen';
@@ -18,7 +19,6 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 const Stack = createStackNavigator();
-
 function CustomerRoutes() {
     return (
         <Stack.Navigator >
@@ -60,28 +60,39 @@ function CustomerRoutes() {
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter Email and Password </Text></View>),
                 headerTitleAlign: 'center',
             }} />
-            <Stack.Screen name="HairCare" component={HairCareScreen} options={{
-                headerBackTitleVisible: false,
-                headerTintColor: 'white',
-                headerTransparent: true,
-                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Hair Care</Text></View>),
-                headerTitleAlign: 'center',
-            }} />
-             <Stack.Screen name="BarberList" component={BarberListScreen} options={{
+            <Stack.Screen name="SubCategory" component={SubCategoryScreen}
+                options={({ route }) => ({
+                    headerBackTitleVisible: false,
+                    headerTintColor: 'white',
+                    headerTransparent: true,
+                    headerTitle: () => (<View><Text style={styles.headerTitleStyle}>{route.params.name}</Text></View>),
+                    headerTitleAlign: 'center',
+                })}
+            />
+             <Stack.Screen name="SubCategoryServices" component={SubCategoryServicesScreen}
+                options={({ route }) => ({
+                    headerBackTitleVisible: false,
+                    headerTintColor: 'white',
+                    headerTransparent: true,
+                    headerTitle: () => (<View><Text style={styles.headerTitleStyle}>{route.params.name}</Text></View>),
+                    headerTitleAlign: 'center',
+                })}
+            />
+            <Stack.Screen name="BarberList" component={BarberListScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Barber List</Text></View>),
                 headerTitleAlign: 'center',
             }} />
-             <Stack.Screen name="BarberProfile" component={BarberProfileScreen} options={{
+            <Stack.Screen name="BarberProfile" component={BarberProfileScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Barber Profile</Text></View>),
                 headerTitleAlign: 'center',
             }} />
-             <Stack.Screen name="Booking" component={BookingScreen} options={{
+            <Stack.Screen name="Booking" component={BookingScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,

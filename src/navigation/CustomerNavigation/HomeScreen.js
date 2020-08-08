@@ -10,7 +10,7 @@ class HomeScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })
-    
+
     handleLogout = async () => {
         const { navigate, } = this.props.navigation
         let { isUserLogedIn } = this.props.user;
@@ -27,7 +27,7 @@ class HomeScreen extends Component {
                 onContactUs={() => navigate("ContactUs")}
                 onAboutUs={() => navigate("AboutUs")}
                 onExit={this.handleLogout}
-                onItemPress={() => navigate('HairCare')} />
+                onItemPress={(item, data) => navigate('SubCategory', { name: item, data: data })} />
         )
     }
 }
