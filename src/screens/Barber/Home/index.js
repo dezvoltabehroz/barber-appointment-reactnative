@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, ImageBackground, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, ImageBackground, TouchableOpacity, Alert } from "react-native";
 import styles from './style';
 import { Button, Icon } from '../../../components'
 import { connect } from 'react-redux';
@@ -58,7 +58,7 @@ class BarberHome extends Component {
         return (
             <>
                 <TouchableOpacity
-                    onPress={item.name == "About Us" ? onAboutUs : item.name == "Contact Us" ? onContactUs : onItemPress} style={styles.upperListItemContainer}>
+                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : Alert.alert("Atention", "This screen is under Development") }} style={styles.upperListItemContainer}>
                     <ImageBackground source={{ uri: `${item.imageUrl}` }}
                         style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }}>
                         <View style={styles.upperListTitleContainer}>
