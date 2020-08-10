@@ -133,7 +133,7 @@ export default class DateTimeModal extends Component {
                                     return (<Text style={styles.textFlatlistStyle}>{data}</Text>)
                                 }}
                                 onValueChange={(data, selectedIndex) => {
-                                    if (selectedIndex == 0 && data == '00') {
+                                    if (selectedIndex == 0 || data == '00') {
                                         this.setState({ disabled: true })
                                         this.handleHours(data)
                                     }
