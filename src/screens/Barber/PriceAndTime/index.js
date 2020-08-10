@@ -28,7 +28,11 @@ export default class PriceAndTime extends Component {
         }
     }
     componentDidMount = () => {
-        this.setState({ selectedArray: this.props.data })
+        let serviceArray = []
+        serviceArray = this.props.data;
+        serviceArray.push({ serviceCounter: 0 });
+        this.setState({ selectedArray: serviceArray })
+
     }
 
 
@@ -44,6 +48,8 @@ export default class PriceAndTime extends Component {
         let items = [...this.state.selectedArray];
         items[objIndex] = { ...items[objIndex], time: time[indexValue] };
         this.setState({ showTimePicker: false, selectedArray: items, indexValue: null, item: null });
+
+        this.is_filled_check(items, objIndex)
     }
 
 
@@ -55,6 +61,19 @@ export default class PriceAndTime extends Component {
         let items = [...this.state.selectedArray];
         items[objIndex] = { ...items[objIndex], price: price[index] };
         this.setState({ selectedArray: items });
+
+        this.is_filled_check(items, objIndex)
+    }
+
+    is_filled_check(serviceArray, index) {
+        if (serviceArray[index].price != '' && serviceArray[index].time != '') {
+            let selectedServiceArray = this.state.selectedArray
+            let newServiceCounter = selectedServiceArray[selectedServiceArray.length] + 1;
+            serviceArray[selectedServiceArray.length] = { ...serviceArray[selectedServiceArray.length], serviceCounter: newServiceCounter };
+
+            serviceArray[index] = { ...serviceArray[index], isFilled: '1' };
+            this.setState({ selectedArray: serviceArray });
+        }
     }
 
     _renderSeparator = () => {
@@ -113,6 +132,15 @@ export default class PriceAndTime extends Component {
         )
     }
 
+    on_Press_Next = () => {
+        let serviceCounter = this.state.selectedArray[this.state.selectedArray.length].serviceCounter;
+        if ((serviceCounter - 1) == this.state.selectedArray.length) {
+            // Navigate
+        } else {
+            // Alert 
+        }
+    }
+
     render() {
         const { onNext } = this.props;
         const { selectedArray, showTimePicker } = this.state;
@@ -144,7 +172,7 @@ export default class PriceAndTime extends Component {
                             renderItem={({ item, index }) => this._renderItems({ item, index })}
                             keyExtractor={item => item} />
                     </View>
-                    <FooterButton title='Next' onPress={onNext} />
+                    <FooterButton title='Next' onPress={this.on_Press_Next} />
                 </View>
                 <DateTimeModal showTimePicker={showTimePicker}
                     onCancel={() => this.setState({ showTimePicker: false })}
