@@ -19,17 +19,17 @@ export default class Services extends Component {
             isServiceDescriptionFocus: false,
             submit: false,
             barberServices: [
-                { id: 1, serviceName: 'Hair Cuttuing', serviceDescription: '', selected: false, price: '', time: '' },
-                { id: 2, serviceName: 'Hair Trimming', serviceDescription: '', selected: false, price: '', time: '' },
-                { id: 3, serviceName: 'Blowout', serviceDescription: '', selected: false, price: '', time: '' },
-                { id: 4, serviceName: 'Hair Color', serviceDescription: '', selected: false, price: '', time: '' },
-                { id: 5, serviceName: 'Double process hair color', serviceDescription: '', selected: false, price: '', time: '' },
-                { id: 6, serviceName: 'Shave', serviceDescription: '', selected: false, price: '', time: '' },
-                { id: 7, serviceName: 'Beard Trim', serviceDescription: '', selected: false, price: '', time: '' },
-                { id: 8, serviceName: 'Braids & Twist', serviceDescription: '', selected: false, price: '', time: '' },
-                { id: 9, serviceName: 'Hair color touch ups', serviceDescription: '', selected: false, price: '', time: '' },
-                { id: 10, serviceName: 'Scalp Conditioning Treatment', serviceDescription: '', selected: false, price: '', time: '' },
-                { id: 11, serviceName: 'Permanent Hair Retexturizing', serviceDescription: '', selected: false, price: '', time: '' }
+                { id: 1, serviceName: 'Hair Cuttuing', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
+                { id: 2, serviceName: 'Hair Trimming', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
+                { id: 3, serviceName: 'Blowout', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
+                { id: 4, serviceName: 'Hair Color', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
+                { id: 5, serviceName: 'Double process hair color', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
+                { id: 6, serviceName: 'Shave', serviceDescription: '', selected: false, price: '', time: '', isFilled: '', isFilled: '' },
+                { id: 7, serviceName: 'Beard Trim', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
+                { id: 8, serviceName: 'Braids & Twist', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
+                { id: 9, serviceName: 'Hair color touch ups', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
+                { id: 10, serviceName: 'Scalp Conditioning Treatment', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
+                { id: 11, serviceName: 'Permanent Hair Retexturizing', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' }
             ],
         }
     }
@@ -90,7 +90,8 @@ export default class Services extends Component {
                 serviceDescription: serviceDescription,
                 selected: false,
                 price: '',
-                time: ''
+                time: '',
+                isFilled: ''
             };
             this.state.barberServices.push(userService);
             this.setState({ showAddService: false, serviceDescription: '', serviceName: '', submit: false })
