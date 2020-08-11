@@ -1,5 +1,5 @@
 
-package com.luxe; // Change this to your package name.
+package com.cirrusllc.fleek; // Change this to your package name.
 
 import android.content.Intent;
 import android.os.Bundle;
