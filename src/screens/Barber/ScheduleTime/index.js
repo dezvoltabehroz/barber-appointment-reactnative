@@ -1,31 +1,28 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
-import { FooterButton, FloatingInput, DateTimeModal } from '../../../components';
+import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
+import { FooterButton, Icon, DateTimeModal } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
+import COMMON_STYLE from '../../../assets/styles/common.style';
 
 export default class ScheduleTime extends Component {
 
     constructor(props) {
         super(props);
-        this.num2 = React.createRef();
-        this.num3 = React.createRef();
-        this.num4 = React.createRef();
         this.state = {
             selectedDays: [],
-            startTime: [],
-            endTime: [],
             showTimePicker: false,
-            indexValue: null,
-            item: null,
-            val: ''
+            indexValue: '',
+            item: '',
+            val: '',
+            submit: false
         }
     }
 
     componentDidMount = () => {
-        if (this.props.data != []) {
-            this.setState({ selectedDays: this.props.data })
-        }
+        let daysArray = this.props.data;
+        daysArray.push({ dayCounter: 0 });
+        this.setState({ selectedDays: daysArray })
     }
 
     setStartTime = (index, item) => {
@@ -33,26 +30,39 @@ export default class ScheduleTime extends Component {
     }
 
     setEndTime = (index, item) => {
-        this.setState({ showTimePicker: true, indexValue: index, item: item, val: '2' })
+        this.setState({ showTimePicker: true, indexValue: index, item: item, val: '0' })
     }
 
     setTimeChange = (data) => {
-        const { val, startTime, endTime, indexValue, item } = this.state;
+        const { val, selectedDays, indexValue, item } = this.state;
         if (val == '1') {
-            startTime[indexValue] = data;
+            selectedDays[indexValue].startTime = data;
         }
         else {
-            endTime[indexValue] = data;
+            selectedDays[indexValue].endTime = data;
         }
         const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
         let items = [...this.state.selectedDays];
         if (val == '1') {
-            items[objIndex] = { ...items[objIndex], startTime: startTime[indexValue] };
+            items[objIndex] = { ...items[objIndex], startTime: selectedDays[indexValue].startTime = data };
+            this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, });
+            this.is_filled_check(items, objIndex)
         }
         else {
-            items[objIndex] = { ...items[objIndex], endTime: endTime[indexValue] };
+            items[objIndex] = { ...items[objIndex], endTime: selectedDays[indexValue].endTime = data };
+            this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, });
+            this.is_filled_check(items, objIndex)
         }
-        this.setState({ showTimePicker: false, selectedDays: items, val: '', indexValue: null, item: null });
+
+    }
+
+    is_filled_check(dayArray, index) {
+        if (dayArray[index].startTime != '' && dayArray[index].endTime != '') {
+            let newDayCounter = dayArray[dayArray.length - 1].dayCounter + 1;
+            dayArray[dayArray.length - 1] = { ...dayArray[dayArray.length - 1], dayCounter: newDayCounter };
+            dayArray[index] = { ...dayArray[index], isFilled: '1' };
+            this.setState({ selectedDays: dayArray });
+        }
     }
 
     _renderSeparator = () => {
@@ -61,8 +71,32 @@ export default class ScheduleTime extends Component {
         )
     }
 
+    on_Press_Delete = (itemData, index) => {
+
+        let selectedDays = [...this.state.selectedDays];
+        let item = { ...selectedDays[index], startTime: '', endTime: '', isFilled: '' };
+        selectedDays[index] = item;
+        let newDayCounter = selectedDays[selectedDays.length - 1].dayCounter - 1;
+        selectedDays[selectedDays.length - 1] = { ...selectedDays[selectedDays.length - 1], dayCounter: newDayCounter };
+        this.setState({ selectedDays: this.state.selectedDays.filter((obj => obj.id != itemData.id)) })
+        console.log(this.state.selectedArray)
+
+    }
+
+    on_Press_Edit = (index) => {
+        console.log("index===>  ")
+        console.log("index===>  ", index)
+
+        let selectedDays = [...this.state.selectedDays];
+        let item = { ...selectedDays[index], startTime: '', endTime: '', isFilled: '' };
+        selectedDays[index] = item;
+        let newDayCounter = selectedDays[selectedDays.length - 1].dayCounter - 1;
+        selectedDays[selectedDays.length - 1] = { ...selectedDays[selectedDays.length - 1], dayCounter: newDayCounter };
+        this.setState({ selectedDays });
+    }
+
     _renderItems = ({ item, index }) => {
-        const { startTime, endTime } = this.state;
+        const { selectedDays, submit } = this.state;
         return (
             <View style={styles.contentContainer}>
                 <View style={styles.headingContainer}>
@@ -72,7 +106,7 @@ export default class ScheduleTime extends Component {
                     <View style={styles.startTimeContainer} >
                         {
                             item.startTime != '' ?
-                                <View style={styles.priceAndTimeContainer}>
+                                <View style={styles.startTimeContainer}>
                                     <Text style={styles.textStyle}>{item.startTime}</Text>
                                 </View>
                                 :
@@ -89,23 +123,49 @@ export default class ScheduleTime extends Component {
                                 null
                         }
                     </View>
+                    <View style={[styles.iconContainer, { alignItems: "flex-end" }]}>
+                        {
+                            item.isFilled == '1' ?
+                                <View style={{ flexDirection: 'row', flex: 1 }}>
+                                    <TouchableOpacity onPress={() => this.on_Press_Edit(index)} >
+                                        <Icon.MaterialIcons name='edit' size={25} color={THEME.COLOR_WHITE} />
+                                    </TouchableOpacity>
+                                    <View style={{ width: 5 }}></View>
+                                    <TouchableOpacity onPress={() => this.on_Press_Delete(item, index)}>
+                                        <Icon.MaterialIcons name='delete' size={25} color={THEME.COLOR_WHITE} />
+                                    </TouchableOpacity>
+                                </View>
+                                : null
+                        }
+                    </View>
                 </View>
                 <View style={styles.inputContainer}>
                     {
                         item.startTime == '' ?
-                            <TouchableOpacity onPress={() => this.setStartTime(index, item)} style={[styles.inputDateContainerStyle,
-                            startTime[index] == null && startTime[index] != '' ? THEME.inputBorder : {}]}>
-                                <Text style={styles.titleStyle}>Start Time</Text>
-                            </TouchableOpacity>
+                            <View>
+                                <TouchableOpacity onPress={() => this.setStartTime(index, item)} style={[styles.inputDateContainerStyle,
+                                selectedDays[index].startTime == '' ? THEME.inputBorder : {}]}>
+                                    <Text style={styles.titleStyle}>Start Time</Text>
+                                </TouchableOpacity>
+                                {
+                                    submit && !selectedDays[index].startTime ? <Text style={COMMON_STYLE.errorText1}>Please fill this field</Text> : null
+                                }
+                            </View>
+
                             :
                             null
                     }
                     {
                         item.endTime == '' ?
-                            <TouchableOpacity onPress={() => this.setEndTime(index, item)} style={[styles.inputDateContainerStyle,
-                            endTime[index] == null && endTime[index] != '' ? THEME.inputBorder : {}]}>
-                                <Text style={styles.titleStyle}>End Time</Text>
-                            </TouchableOpacity>
+                            <View>
+                                <TouchableOpacity onPress={() => this.setEndTime(index, item)} style={[styles.inputDateContainerStyle,
+                                selectedDays[index].endTime == '' ? THEME.inputBorder : {}]}>
+                                    <Text style={styles.titleStyle}>End Time</Text>
+                                </TouchableOpacity>
+                                {
+                                    submit && !selectedDays[index].startTime ? <Text style={COMMON_STYLE.errorText1}>Please fill this field</Text> : null
+                                }
+                            </View>
                             :
                             null
                     }
@@ -114,6 +174,21 @@ export default class ScheduleTime extends Component {
         )
     }
 
+    on_Press_Next = () => {
+        this.setState({ submit: true })
+        const { onNext } = this.props;
+        const { selectedDays } = this.state;
+        let counter = (selectedDays[(selectedDays.length - 1)].dayCounter);
+        let length = selectedDays.length - 1;
+
+        if (counter === length) {
+            onNext();
+            this.setState({ submit: false })
+        }
+        else {
+            Alert.alert('Attension', 'All required field should be filled ')
+        }
+    }
 
 
     render() {
@@ -134,6 +209,7 @@ export default class ScheduleTime extends Component {
                                 <View style={styles.endTimeContainer}>
                                     <Text style={styles.headingTextStyle}>End Time</Text>
                                 </View>
+                                <View style={[styles.iconContainer]}></View>
                             </View> : null}
                         <FlatList
                             data={selectedDays}
@@ -142,7 +218,7 @@ export default class ScheduleTime extends Component {
                             renderItem={({ item, index }) => this._renderItems({ item, index })}
                             keyExtractor={item => item} />
                     </View>
-                    <FooterButton title='Next' onPress={onNext} />
+                    <FooterButton title='Next' onPress={this.on_Press_Next} />
                 </View>
                 <DateTimeModal showTimePicker={showTimePicker}
                     dayNight={true}

@@ -29,10 +29,10 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     timeContainer: {
-        flex: 0.2,
+        flex: 0.25,
         width: screenWidth * 0.2,
         flexDirection: 'column',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     headingContainer: {
         flexDirection: 'row',

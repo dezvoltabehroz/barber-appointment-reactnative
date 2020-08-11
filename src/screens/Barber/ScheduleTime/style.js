@@ -15,11 +15,17 @@ export default StyleSheet.create({
         marginHorizontal: '10%'
     },
     dayContainer: {
-        flex: 0.6,
+        flex: 0.4,
         flexDirection: 'column'
+
     },
     priceAndTimeContainer: {
         marginHorizontal: 5
+    },
+    iconContainer: {
+        flex: 0.2,
+        flexDirection: 'column',
+        alignSelf: "flex-end"
     },
     startTimeContainer: {
         flex: 0.25,
@@ -34,7 +40,7 @@ export default StyleSheet.create({
     headingContainer: {
         flexDirection: 'row',
     },
-   
+
     inputContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between'

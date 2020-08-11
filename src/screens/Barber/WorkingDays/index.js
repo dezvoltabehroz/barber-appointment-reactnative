@@ -12,13 +12,13 @@ export default class WorkingDays extends Component {
         this.state = {
             selectedDays: [],
             WorkingDays: [
-                { id: 1, day: 'Monday', selected: false, startTime: '', endTime: '' },
-                { id: 2, day: 'Tuesday', selected: false, startTime: '', endTime: '' },
-                { id: 3, day: 'Wednesday', selected: false, startTime: '', endTime: '' },
-                { id: 4, day: 'Thursday', selected: false, startTime: '', endTime: '' },
-                { id: 5, day: 'Friday', selected: false, startTime: '', endTime: '' },
-                { id: 6, day: 'Saturday', selected: false, startTime: '', endTime: '' },
-                { id: 7, day: 'Sunday', selected: false, startTime: '', endTime: '' },
+                { id: 1, day: 'Monday', selected: false, startTime: '', endTime: '', isFilled: '' },
+                { id: 2, day: 'Tuesday', selected: false, startTime: '', endTime: '', isFilled: '' },
+                { id: 3, day: 'Wednesday', selected: false, startTime: '', endTime: '', isFilled: '' },
+                { id: 4, day: 'Thursday', selected: false, startTime: '', endTime: '', isFilled: '' },
+                { id: 5, day: 'Friday', selected: false, startTime: '', endTime: '', isFilled: '' },
+                { id: 6, day: 'Saturday', selected: false, startTime: '', endTime: '', isFilled: '' },
+                { id: 7, day: 'Sunday', selected: false, startTime: '', endTime: '', isFilled: '' },
             ],
         }
     }
