@@ -14,6 +14,7 @@ import ServicesScreen from './ServicesScreen';
 import PriceAndTimeScreen from './PriceAndTimeScreen';
 import WorkingDaysScreen from './WorkingDaysScreen';
 import ScheduleTimeScreen from './ScheduleTimeScreen';
+import BarberServiceAcceptScreen from './BarberServiceAcceptScreeen';
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,14 @@ function BarberRoutes() {
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Phone Verification</Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+            <Stack.Screen name="BarberServiceAccept" component={BarberServiceAcceptScreen} options={{
+                headerBackTitleVisible: false,
+                headerBackImage: () => (<View><Text style={styles.headerBackTitle}>Cancel</Text></View>),
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Customer Location</Text></View>),
                 headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="UpdateProfile" component={UpdateProfileScreen} options={{
@@ -108,6 +117,11 @@ export default BarberRoutes;
 const styles = StyleSheet.create({
     headerTitleStyle: {
         fontSize: 16,
+        color: "#fff",
+        fontFamily: 'Poppins-Bold'
+    },
+    headerBackTitle: {
+        fontSize: 12,
         color: "#fff",
         fontFamily: 'Poppins-Bold'
     }

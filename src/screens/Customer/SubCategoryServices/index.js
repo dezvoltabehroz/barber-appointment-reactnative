@@ -22,11 +22,17 @@ export default class SubCategoryServices extends Component {
     }
 
     _renderItems = (item) => {
+        let { onItemPress } = this.props;
+
         return (
-            <TouchableOpacity onPress={() => { }} style={styles.lowerListItemContainer}>
-                <View style={styles.lowerListTitleContainer}>
-                    <Text style={styles.lowerListTitleStyle}>{item.serviceName}</Text>
-                </View>
+            <TouchableOpacity onPress={onItemPress} style={styles.lowerListItemContainer}>
+                <ImageBackground source={{ uri: item.serviceImage }}
+                    style={styles.lowerListImageStyle} imageStyle={{ borderRadius: 10 }}>
+                    <View style={styles.lowerListTitleContainer}>
+                        <Text style={styles.lowerListTitleStyle}> {item.serviceName} </Text>
+                        <Text style={styles.lowerListDescriptionStyle}>{item.serviceDescription}</Text>
+                    </View>
+                </ImageBackground>
             </TouchableOpacity>
         )
     }
@@ -34,49 +40,16 @@ export default class SubCategoryServices extends Component {
     render() {
         const { services } = this.state;
         let { onItemPress } = this.props;
+
         return (
             <View style={styles.container}>
                 <View style={styles.lowerListContainer}>
-
-                    <TouchableOpacity onPress={onItemPress} style={styles.lowerListItemContainer}>
-                        <View style={styles.lowerListTitleContainer}>
-                            <Text style={styles.lowerListTitleStyle}>Hair Style</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <View style={styles.seperatorHeightStyle}></View>
-                    <TouchableOpacity onPress={onItemPress} style={styles.lowerListItemContainer}>
-                        <ImageBackground source={require('../../../assets/images/Salon-Style.png')}
-                            style={styles.lowerListImageStyle} imageStyle={{ borderRadius: 10 }}>
-                            <View style={styles.lowerListTitleContainer}>
-                                <Text style={styles.lowerListTitleStyle}>Hair Style</Text>
-                            </View>
-                        </ImageBackground>
-                    </TouchableOpacity>
-                    <View style={styles.seperatorHeightStyle}></View>
-                    <TouchableOpacity onPress={onItemPress} style={styles.lowerListItemContainer}>
-                        <View style={styles.lowerListTitleContainer}>
-                            <Text style={styles.lowerListTitleStyle}>Hair Style</Text>
-                            <Text style={styles.lowerListDescriptionStyle}>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.. </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <View style={styles.seperatorHeightStyle}></View>
-                    <TouchableOpacity onPress={onItemPress} style={styles.lowerListItemContainer}>
-                        <ImageBackground source={require('../../../assets/images/Salon-Style.png')}
-                            style={styles.lowerListImageStyle} imageStyle={{ borderRadius: 10 }}>
-                            <View style={styles.lowerListTitleContainer}>
-                                <Text style={styles.lowerListTitleStyle}>Hair Style</Text>
-                                <Text style={styles.lowerListDescriptionStyle}>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.. </Text>
-                            </View>
-                        </ImageBackground>
-                    </TouchableOpacity>
-
-
-                    {/* <FlatList
+                    <FlatList
                         data={services}
                         showsVerticalScrollIndicator={false}
                         ItemSeparatorComponent={this._renderSeparator}
                         renderItem={({ item }) => this._renderItems(item)}
-                        keyExtractor={item => item} /> */}
+                        keyExtractor={item => item} />
                 </View>
             </View>
         )

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, ImageBackground, TouchableOpacity, Alert } from "react-native";
 import styles from './style';
-import { Button, Icon } from '../../../components'
+import { Button, Icon, SearchandMapView } from '../../../components'
 import { connect } from 'react-redux';
+import Geocoder from 'react-native-geocoder';
+import THEME from '../../../assets/styles/theme.style'
 class BarberHome extends Component {
     constructor(props) {
         super(props);
@@ -21,28 +23,58 @@ class BarberHome extends Component {
                     imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
                 },
             ],
-            ourAppointment: [
+            bookingList: [
                 {
-                    appointmentName: 'Make Up',
-                    image_url: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                    region: {
+                        latitude: 32.1877,
+                        longitude: 74.1945,
+                        latitudeDelta: 0.9922,
+                        longitudeDelta: 0.9421,
+                    },
+                    location: 'Gujranwala, Punjab, Pakistan',
+                    serviceTime: {
+                        date: '13/8/2020',
+                        serviceBookedstartTime: '04:00',
+                        serviceBookedendTime: '06:00',
+                        day: 'Thursday'
+                    }
+
                 },
                 {
-                    appointmentName: 'Hair Care',
-                    image_url: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                    region: {
+                        latitude: 32.1877,
+                        longitude: 74.1945,
+                        latitudeDelta: 0.9922,
+                        longitudeDelta: 0.9421,
+                    },
+                    location: 'Gujranwala, Punjab, Pakistan',
+                    serviceTime: {
+                        date: '13/8/2020',
+                        serviceBookedstartTime: '04:00',
+                        serviceBookedendTime: '06:00',
+                        day: 'Thursday'
+                    }
+
                 },
                 {
-                    appointmentName: 'Bridal',
-                    image_url: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                    region: {
+                        latitude: 32.1877,
+                        longitude: 74.1945,
+                        latitudeDelta: 0.9922,
+                        longitudeDelta: 0.9421,
+                    },
+                    location: 'Gujranwala, Punjab, Pakistan',
+                    serviceTime: {
+                        date: '13/8/2020',
+                        serviceBookedstartTime: '04:00',
+                        serviceBookedendTime: '06:00',
+                        day: 'Thursday'
+                    }
+
                 },
-                {
-                    appointmentName: 'Groom',
-                    image_url: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
-                },
-                {
-                    appointmentName: 'Other',
-                    image_url: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
-                },
+
             ]
+
 
         }
     }
@@ -70,9 +102,56 @@ class BarberHome extends Component {
         )
     }
 
+    handleFormatedText = (region, index) => {
+        let pos = {
+            lat: region.latitude,
+            lng: region.longitude
+        }
+        var textLocation;
+        Geocoder.geocodePosition(pos).then(res => {
+            textLocation = res[0].formattedAddress
+            let dataArr = [...this.state.bookingList];
+            dataArr[index].location = textLocation;
+            this.setState({ bookingList: dataArr });
+            // console.log("location=============>", this.state.bookingList[index].location)
+        })
+            .catch(error => alert(error));
+    }
+
+    _renderBookingItems = (item, index) => {
+        const { onAccept } = this.props;
+        return (
+            <View>
+                <View>
+                    <SearchandMapView booking region={(item.region)} />
+                </View>
+                <View style={styles.locationContainer}>
+                    <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} />
+                    <Text style={styles.upperListTitleStyle}>{item.location}</Text>
+                </View>
+                <View style={styles.serviceTimeContainer}>
+                    <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} />
+                    <Text style={styles.upperListTitleStyle}>{item.serviceTime.day} {item.serviceTime.date} at {item.serviceTime.serviceBookedstartTime} to {item.serviceTime.serviceBookedendTime} </Text>
+                </View>
+                <View style={styles.buttonContainer}>
+                    <View>
+                        <TouchableOpacity style={styles.cancelContainer}>
+                            <Text style={styles.upperListTitleStyle}>Decline</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        <TouchableOpacity onPress={()=>onAccept(item.region)} style={styles.acceptContainer}>
+                            <Text style={styles.upperListTitleStyle}>Accept</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+        )
+    }
+
     render() {
         let { onExit } = this.props
-        const { servicelist } = this.state
+        const { servicelist, bookingList } = this.state
         return (
             <>
                 <View style={styles.container}>
@@ -92,6 +171,13 @@ class BarberHome extends Component {
                     </View>
                     <View style={styles.nameContainer}>
                         <Text style={styles.appointmentTextStyle}>My Bookings</Text>
+                    </View>
+                    <View style={styles.lowerListContainer}>
+                        <FlatList
+                            data={bookingList}
+                            showsVerticalScrollIndicator={false}
+                            renderItem={({ item, index }) => this._renderBookingItems(item, index)}
+                            keyExtractor={item => item} />
                     </View>
                 </View>
             </>

@@ -32,46 +32,74 @@ class Home extends Component {
                             services: [
                                 {
                                     serviceName: 'Haircut & Styling',
+                                    serviceImage: 'https://vanity-atelier.co.uk/wp-content/uploads/2018/06/salon9.jpg',
+                                    serviceDescription: 'All haircuts include eyebrows, nose, and ears groomed.'
                                 },
                                 {
                                     serviceName: 'Short/long Dry Cut',
+                                    serviceImage: 'https://media1.popsugar-assets.com/files/thumbor/8FQjnhO5KDETJlIw-9YrAxbFORg/fit-in/1024x1024/filters:format_auto-!!-:strip_icc-!!-/2013/11/25/741/n/1922153/f86754a8a6f036d0_headband-braid-2/i/Starting-section-hair-from-behind-one-ear-separate.jpg',
+                                    serviceDescription: 'Any type of haircut + beard + eyebrows and nose and ears Groomed.'
                                 },
                                 {
                                     serviceName: 'Single Process',
+                                    serviceImage: 'https://i1.wp.com/atelieremmanuel.com/wp-content/gallery/special-events/Atelier-Emmanuel-Rene-Furterer-Guest-Artist-Davide-Torchio-43.jpg?ssl=1',
+                                    serviceDescription: 'All haircuts include eyebrows, nose, and ears groomed.'
                                 },
                                 {
                                     serviceName: 'Styling Only',
+                                    serviceImage: 'https://media1.popsugar-assets.com/files/thumbor/8FQjnhO5KDETJlIw-9YrAxbFORg/fit-in/1024x1024/filters:format_auto-!!-:strip_icc-!!-/2013/11/25/741/n/1922153/f86754a8a6f036d0_headband-braid-2/i/Starting-section-hair-from-behind-one-ear-separate.jpg',
+                                    serviceDescription: 'Any type of haircut + beard + eyebrows and nose and ears Groomed.'
                                 },
                                 {
                                     serviceName: 'Short/long Cut & Style',
+                                    serviceImage: 'https://static-bebeautiful-in.unileverservices.com/quick-easy-hairstyles_Mobilehome.jpg',
+                                    serviceDescription: 'All haircuts include eyebrows, nose, and ears groomed.'
                                 },
                                 {
                                     serviceName: 'Style & Curl',
+                                    serviceImage: 'https://vanity-atelier.co.uk/wp-content/uploads/2018/06/salon9.jpg',
+                                    serviceDescription: 'Any type of haircut + beard + eyebrows and nose and ears Groomed.'
                                 },
                                 {
                                     serviceName: 'Updo',
+                                    serviceImage: 'http://www.beautytipshub.com/wp-content/uploads/2019/09/maxresdefault-3.jpg',
+                                    serviceDescription: 'All haircuts include eyebrows, nose, and ears groomed.'
                                 },
                                 {
                                     serviceName: 'Blowout',
+                                    serviceImage: 'https://vanity-atelier.co.uk/wp-content/uploads/2018/06/salon9.jpg',
+                                    serviceDescription: 'Any type of haircut + beard + eyebrows and nose and ears Groomed.'
                                 },
-                                {
-                                    serviceName: 'Men`s Style Cut',
-                                },
-                                {
-                                    serviceName: 'Extensions',
-                                },
-                                {
-                                    serviceName: 'Kids(0 to 12)',
-                                },
-                                {
-                                    serviceName: 'Teens(12 to 17)',
-                                },
-                                {
-                                    serviceName: 'Cut & Curl',
-                                },
-                                {
-                                    serviceName: 'Press & Curl',
-                                },
+                                // {
+                                //     serviceName: 'Men`s Style Cut',
+                                //     serviceImage: 'https://vanity-atelier.co.uk/wp-content/uploads/2018/06/salon9.jpg',
+                                //     serviceDescription: 'All haircuts include eyebrows, nose, and ears groomed.'
+                                // },
+                                // {
+                                //     serviceName: 'Extensions',
+                                //     serviceImage: 'https://vanity-atelier.co.uk/wp-content/uploads/2018/06/salon9.jpg',
+                                //     serviceDescription: 'All haircuts include eyebrows, nose, and ears groomed.'
+                                // },
+                                // {
+                                //     serviceName: 'Kids(0 to 12)',
+                                //     serviceImage: 'https://vanity-atelier.co.uk/wp-content/uploads/2018/06/salon9.jpg',
+                                //     serviceDescription: 'All haircuts include eyebrows, nose, and ears groomed.'
+                                // },
+                                // {
+                                //     serviceName: 'Teens(12 to 17)',
+                                //     serviceImage: 'https://vanity-atelier.co.uk/wp-content/uploads/2018/06/salon9.jpg',
+                                //     serviceDescription: 'All haircuts include eyebrows, nose, and ears groomed.'
+                                // },
+                                // {
+                                //     serviceName: 'Cut & Curl',
+                                //     serviceImage: 'https://vanity-atelier.co.uk/wp-content/uploads/2018/06/salon9.jpg',
+                                //     serviceDescription: 'All haircuts include eyebrows, nose, and ears groomed.'
+                                // },
+                                // {
+                                //     serviceName: 'Press & Curl',
+                                //     serviceImage: 'https://vanity-atelier.co.uk/wp-content/uploads/2018/06/salon9.jpg',
+                                //     serviceDescription: 'All haircuts include eyebrows, nose, and ears groomed.'
+                                // },
                             ]
                         },
                         {

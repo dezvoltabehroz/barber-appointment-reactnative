@@ -56,7 +56,13 @@ class SearchandMapView extends Component {
     }
 
     componentDidMount = () => {
-        this.findCoordinates();
+        const { booking, region, accept } = this.props;
+        if (booking || accept) {
+            this.setState({ region: region })
+        }
+        else {
+            this.findCoordinates();
+        }
     }
 
     findCoordinates = () => {
@@ -93,22 +99,33 @@ class SearchandMapView extends Component {
     }
 
     render() {
-        let { updateProfile } = this.props;
+        let { updateProfile, booking, accept } = this.props;
         const { modalView, name } = this.state;
         return (
-            <>
-                <TouchableOpacity onPress={() => this.setState({ modalView: true })}>
-                    <View style={styles.searchBarStyle} >
-                        <Text style={styles.barTextStyle}>{name != '' ? name : "Search"}</Text>
-                    </View>
-                </TouchableOpacity>
+            <>{
+                booking || accept ?
+                    null
+                    :
+                    <TouchableOpacity onPress={() => this.setState({ modalView: true })}>
+                        <View style={styles.searchBarStyle} >
+                            <Text style={styles.barTextStyle}>{name != '' ? name : "Search"}</Text>
+                        </View>
+                    </TouchableOpacity>}
                 <MapView
 
                     provider={PROVIDER_GOOGLE}
                     showsUserLocation={true}
                     loadingEnabled
                     showsMyLocationButton={true}
-                    style={[styles.mapStyle, updateProfile ? { height: screenHeight < 600 ? screenHeight * 0.6 : screenHeight * 0.69, } : {}]}
+                    style={[styles.mapStyle, updateProfile ?
+                        { height: screenHeight < 600 ? screenHeight * 0.6 : screenHeight * 0.69, }
+                        :
+                        booking ? { height: screenHeight < 600 ? screenHeight * 0.25 : screenHeight * 0.3, }
+                            :
+                            accept ?
+                                { height: screenHeight < 600 ? screenHeight * 0.65 : screenHeight * 0.7, }
+                                :
+                                {}]}
                     customMapStyle={THEME.mapStyle}
                     region={this.state.region}
                     onRegionChangeComplete={updateProfile ? this.onRegionChange : () => { }}

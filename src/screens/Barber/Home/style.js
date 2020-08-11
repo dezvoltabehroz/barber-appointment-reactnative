@@ -53,6 +53,31 @@ export default StyleSheet.create({
         height: screenHeight * 0.2,
         width: screenWidth * 0.9
     },
+    locationContainer: {
+        marginHorizontal: '5%',
+        marginTop: '5%',
+        flexDirection: 'row'
+    },
+    serviceTimeContainer: {
+        marginHorizontal: '5%',
+        flexDirection: 'row'
+    },
+    acceptContainer: {
+        height: 40,
+        backgroundColor: THEME.PRIMARY_COLOR,
+        justifyContent: "center",
+        alignItems: "center",
+        width: screenWidth * 0.3,
+        borderRadius: 7
+    },
+    cancelContainer: {
+        height: 40,
+        backgroundColor: '#ec625f',
+        justifyContent: "center",
+        alignItems: "center",
+        width: screenWidth * 0.3,
+        borderRadius: 7
+    },
     lowerListTitleContainer: {
         flex: 1,
         paddingTop: '10%',
@@ -61,6 +86,12 @@ export default StyleSheet.create({
         paddingHorizontal: '10%',
         justifyContent: 'flex-start',
         alignItems: 'flex-start'
+    },
+    buttonContainer: {
+        marginHorizontal: '5%',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginVertical: '3%'
     },
     lowerListTitleStyle: {
         fontSize: THEME.FONT_SIZE_LARGE,
