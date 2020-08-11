@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './style';
 import { SearchandMapView, Icon } from '../../../components';
-import { Linking } from 'react-native';
+import { Linking, Platform } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 
 export default class BarberServiceAccept extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            data: '03001234567',
             region: {
                 latitude: 0,
                 longitude: 0,
@@ -24,6 +25,18 @@ export default class BarberServiceAccept extends Component {
             console.log("Region Location========>", this.state.region)
 
         });
+    }
+
+    on_Phone = () => {
+        const { data } = this.state;
+        let number = ''
+        if (Platform.OS === 'android') {
+            number = 'tel:' + data
+        }
+        else {
+            number = 'telprompt:' + data
+        }
+        Linking.openURL(number);
     }
 
     render() {
@@ -50,7 +63,10 @@ export default class BarberServiceAccept extends Component {
                         <View style={{ flexDirection: "row", alignItems: 'center' }}>
                             <Icon.MaterialCommunityIcons name='chat' color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
                             <View style={{ width: 20 }}></View>
-                            <Icon.MaterialCommunityIcons name='phone' color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
+                            <TouchableOpacity onPress={this.on_Phone}>
+                                <Icon.MaterialCommunityIcons name='phone' color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
+                            </TouchableOpacity>
+
                         </View>
                     </View>
                 </View>

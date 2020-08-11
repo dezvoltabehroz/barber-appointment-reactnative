@@ -31,6 +31,50 @@ class BarberHome extends Component {
                         latitudeDelta: 0.9922,
                         longitudeDelta: 0.9421,
                     },
+                    services: [
+                        {
+                            serviceName: 'Hair Cut',
+                        },
+                        {
+                            serviceName: 'Hair Styling',
+                        },
+                        {
+                            serviceName: 'Bread & Cut',
+                        },
+                        {
+                            serviceName: 'Braiding',
+                        },
+                    ],
+                    location: 'Gujranwala, Punjab, Pakistan',
+                    serviceTime: {
+                        date: '13/8/2020',
+                        serviceBookedstartTime: '04:00',
+                        serviceBookedendTime: '06:00',
+                        day: 'Thursday'
+                    }
+
+                },
+                {
+                    region: {
+                        latitude: 32.1877,
+                        longitude: 74.1945,
+                        latitudeDelta: 0.9922,
+                        longitudeDelta: 0.9421,
+                    },
+                    services: [
+                        {
+                            serviceName: 'Hair Cut',
+                        },
+                        {
+                            serviceName: 'Hair Styling',
+                        },
+                        {
+                            serviceName: 'Bread & Cut',
+                        },
+                        {
+                            serviceName: 'Braiding',
+                        },
+                    ],
                     location: 'Gujranwala, Punjab, Pakistan',
                     serviceTime: {
                         date: '13/8/2020',
@@ -48,22 +92,20 @@ class BarberHome extends Component {
                         longitudeDelta: 0.9421,
                     },
                     location: 'Gujranwala, Punjab, Pakistan',
-                    serviceTime: {
-                        date: '13/8/2020',
-                        serviceBookedstartTime: '04:00',
-                        serviceBookedendTime: '06:00',
-                        day: 'Thursday'
-                    }
-
-                },
-                {
-                    region: {
-                        latitude: 32.1877,
-                        longitude: 74.1945,
-                        latitudeDelta: 0.9922,
-                        longitudeDelta: 0.9421,
-                    },
-                    location: 'Gujranwala, Punjab, Pakistan',
+                    services: [
+                        {
+                            serviceName: 'Hair Cut',
+                        },
+                        {
+                            serviceName: 'Hair Styling',
+                        },
+                        {
+                            serviceName: 'Bread & Cut',
+                        },
+                        {
+                            serviceName: 'Braiding',
+                        },
+                    ],
                     serviceTime: {
                         date: '13/8/2020',
                         serviceBookedstartTime: '04:00',
@@ -113,7 +155,6 @@ class BarberHome extends Component {
             let dataArr = [...this.state.bookingList];
             dataArr[index].location = textLocation;
             this.setState({ bookingList: dataArr });
-            // console.log("location=============>", this.state.bookingList[index].location)
         })
             .catch(error => alert(error));
     }
@@ -133,6 +174,14 @@ class BarberHome extends Component {
                     <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} />
                     <Text style={styles.upperListTitleStyle}>{item.serviceTime.day} {item.serviceTime.date} at {item.serviceTime.serviceBookedstartTime} to {item.serviceTime.serviceBookedendTime} </Text>
                 </View>
+                <View style={styles.serviceTimeContainer}>
+                    <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} />
+                    <Text style={styles.upperListTitleStyle}>
+                        {item.services.map((data) => {
+                            return (<Text style={styles.upperListTitleStyle}>{data.serviceName}, </Text>)
+                        })}....
+                    </Text>
+                </View>
                 <View style={styles.buttonContainer}>
                     <View>
                         <TouchableOpacity style={styles.cancelContainer}>
@@ -140,7 +189,7 @@ class BarberHome extends Component {
                         </TouchableOpacity>
                     </View>
                     <View>
-                        <TouchableOpacity onPress={()=>onAccept(item.region)} style={styles.acceptContainer}>
+                        <TouchableOpacity onPress={() => onAccept(item.region)} style={styles.acceptContainer}>
                             <Text style={styles.upperListTitleStyle}>Accept</Text>
                         </TouchableOpacity>
                     </View>
