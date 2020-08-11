@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react'
 import { MainScreenPaths } from '../../screens';
+import { Alert } from 'react-native';
 
 export default class BarberServiceAcceptScreen extends Component {
 
@@ -9,7 +10,7 @@ export default class BarberServiceAcceptScreen extends Component {
         const { navigate } = this.props.navigation
         const { item } = this.props.route.params;
         return (
-            <MainScreenPaths.Barber.BarberServiceAccept item={(item)} arrivedAtlocation={() => { }} />
+            <MainScreenPaths.Barber.BarberServiceAccept item={(item)} arrivedAtlocation={() => Alert.alert('Attension','Next Screen is Under Development')} />
         )
     }
 }
