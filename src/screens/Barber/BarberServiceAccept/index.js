@@ -27,11 +27,12 @@ export default class BarberServiceAccept extends Component {
     }
 
     render() {
+        let { arrivedAtlocation } = this.props;
         const { region } = this.state;
         const urlGG = `https://google.com/maps/place/${region.latitude},${region.longitude}`
         return (
             <View style={styles.container}>
-                <View style={{flex:0.8}}>
+                <View style={{ flex: 0.8 }}>
                     <View>
                         <TouchableOpacity onPress={() => Linking.openURL(urlGG)}>
                             <Text style={styles.getDirectionText}>Get Direction</Text>
@@ -43,7 +44,7 @@ export default class BarberServiceAccept extends Component {
                 </View>
                 <View style={styles.footerStyle}>
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.customerLocationContainer}>
+                        <TouchableOpacity onPress={arrivedAtlocation} style={styles.customerLocationContainer}>
                             <Text style={styles.buttonText}>Arrived at Customer Location</Text>
                         </TouchableOpacity>
                         <View style={{ flexDirection: "row", alignItems: 'center' }}>
