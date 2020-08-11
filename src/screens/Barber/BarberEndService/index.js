@@ -52,7 +52,6 @@ export default class EndService extends Component {
                     <View style={styles.upperContainer}>
                         <View style={{ marginBottom: '5%' }}>
                             <Text style={styles.textHeadingStyle}>List of Customer Services</Text>
-
                         </View>
                         <FlatList
                             data={serviceList}
