@@ -16,8 +16,6 @@ export default class PriceAndTime extends Component {
         this.num4 = React.createRef();
         this.state = {
             selectedArray: [],
-            price: [],
-            time: [],
             submit: false,
             showTimePicker: false,
             isTime: false,

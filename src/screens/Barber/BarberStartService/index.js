@@ -25,22 +25,6 @@ export default class StartService extends Component {
         }
     }
 
-    handleSelected = (val) => {
-        const objIndex = this.state.WorkingDays.findIndex((obj => obj.id == val.id));
-        let items = [...this.state.WorkingDays];
-        if (items[objIndex].selected) {
-            items[objIndex] = { ...items[objIndex], selected: false };
-            this.setState({ WorkingDays: items });
-            if (!items[objIndex].selected) {
-                this.setState({ selectedDays: this.state.selectedDays.filter(item => item.id != val.id) })
-            }
-        } else {
-            items[objIndex] = { ...items[objIndex], selected: true };
-            this.setState({ WorkingDays: items });
-            this.state.selectedDays.push(items[objIndex]);
-        }
-    }
-
     _renderSeparator = () => {
         return (
             <View style={styles.seperatorStyle}></View>

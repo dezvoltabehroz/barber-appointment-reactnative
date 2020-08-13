@@ -12,7 +12,7 @@ export default class BarberEndServiceScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Barber.BarberEndService onEndService={() => { }} />
+            <MainScreenPaths.Barber.BarberEndService onEndService={() => navigate('ServiceDetails')} />
         )
     }
 }
