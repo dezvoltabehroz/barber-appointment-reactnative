@@ -78,15 +78,10 @@ export default class ScheduleTime extends Component {
         selectedDays[index] = item;
         let newDayCounter = selectedDays[selectedDays.length - 1].dayCounter - 1;
         selectedDays[selectedDays.length - 1] = { ...selectedDays[selectedDays.length - 1], dayCounter: newDayCounter };
-        this.setState({ selectedDays: this.state.selectedDays.filter((obj => obj.id != itemData.id)) })
-        console.log(this.state.selectedArray)
-
+        this.setState({ selectedDays: selectedDays.filter((obj => obj.id != itemData.id)) })
     }
 
     on_Press_Edit = (index) => {
-        console.log("index===>  ")
-        console.log("index===>  ", index)
-
         let selectedDays = [...this.state.selectedDays];
         let item = { ...selectedDays[index], startTime: '', endTime: '', isFilled: '' };
         selectedDays[index] = item;

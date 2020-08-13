@@ -77,21 +77,15 @@ export default class PriceAndTime extends Component {
     }
 
     on_Press_Delete = (itemData, index) => {
-
         let selectedArray = [...this.state.selectedArray];
         let item = { ...selectedArray[index], price: '', time: '', isFilled: '' };
         selectedArray[index] = item;
         let newServiceCounter = selectedArray[selectedArray.length - 1].serviceCounter - 1;
         selectedArray[selectedArray.length - 1] = { ...selectedArray[selectedArray.length - 1], serviceCounter: newServiceCounter };
-        this.setState({ selectedArray: this.state.selectedArray.filter((obj => obj.id != itemData.id)) })
-        console.log(this.state.selectedArray)
-
+        this.setState({ selectedArray: selectedArray.filter((obj => obj.id != itemData.id)) })
     }
 
     on_Press_Edit = (index) => {
-        console.log("index===>  ")
-        console.log("index===>  ", index)
-
         let selectedArray = [...this.state.selectedArray];
         let item = { ...selectedArray[index], price: '', time: '', isFilled: '' };
         selectedArray[index] = item;
@@ -180,8 +174,7 @@ export default class PriceAndTime extends Component {
         const { onNext } = this.props;
         const { selectedArray } = this.state;
         let counter = (selectedArray[(selectedArray.length - 1)].serviceCounter);
-        let length = selectedArray.length - 1;
-
+        let length = (selectedArray.length - 1);
         if (counter === length) {
             onNext();
             this.setState({ submit: false })
