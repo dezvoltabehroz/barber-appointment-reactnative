@@ -14,23 +14,48 @@ export default StyleSheet.create({
         flex: 0.8,
         marginHorizontal: '10%'
     },
-    contentContainer: {
+    row: {
         flexDirection: 'row',
-        // justifyContent: "space-between",
-        alignItems: 'center'
+        justifyContent: "space-between"
     },
     nameContainer: {
-        flexDirection: 'row',
-        flex: 0.8
+        flex: 0.6,
+        flexDirection: 'column',
+        justifyContent: 'center'
     },
-    iconContainer: {
+    priceContainer: {
         flex: 0.2,
-        justifyContent: "center",
-        alignItems: 'flex-end'
+        flexDirection: 'column',
+        justifyContent: 'center'
     },
-    idTextLabel: {
+    timeContainer: {
+        flex: 0.25,
+        width: screenWidth * 0.2,
+        flexDirection: 'column',
+        justifyContent: 'center',
+    },
+    flatlistContainer: {
+        flex: 0.7,
+        // height: screenHeight < 600 ? screenHeight * 0.35 : screenHeight * 0.4
+    },
+    rowStyle: {
+        flexDirection: "row",
+        // paddingTop: '5%',
+    },
+    borderStyle: {
+        flex: 0.8,
+        // borderColor: THEME.COLOR_WHITE,
+        // borderWidth: 1,
+        // justifyContent: 'center',
+        // alignItems: 'stretch'
+    },
+    headingContainer: {
+        flexDirection: 'row',
+    },
+    textStyle: {
         color: THEME.COLOR_WHITE,
-        fontFamily: 'Poppins-Bold'
+        fontFamily: 'Poppins-Medium',
+        fontSize: 11,
     },
     textHeadingStyle: {
         textAlign: "center",
@@ -40,10 +65,39 @@ export default StyleSheet.create({
     },
     textStyle: {
         color: THEME.COLOR_WHITE,
-        fontSize: THEME.FONT_SIZE_MEDIUM,
+        fontFamily: 'Poppins-Medium',
+        fontSize: 11,
+    },
+    timeTextStyle: {
+        color: THEME.COLOR_WHITE,
+        textAlign: 'center',
+        fontFamily: 'Poppins-Regular',
+        fontSize: THEME.FONT_SIZE_SMALL,
+    },
+    headingTextStyle: {
+        color: THEME.COLOR_WHITE,
+        fontFamily: 'Poppins-Bold',
+        fontSize: THEME.FONT_SIZE_SMALL,
+    },
+    headingTextStyle1: {
+        color: THEME.COLOR_WHITE,
+        // textAlign: 'center',
+        fontFamily: 'Poppins-Bold',
+        fontSize: THEME.FONT_SIZE_SMALL,
+    },
+    headingText: {
+        color: THEME.COLOR_WHITE,
+        textAlign: 'center',
+        fontFamily: 'Poppins-Bold',
+        fontSize: THEME.FONT_SIZE_LARGE,
+    },
+    textPriceStyle: {
+        fontSize: THEME.FONT_SIZE_SMALL,
+        color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Regular'
     },
     seperatorStyle: {
         height: 15,
     },
+
 })

@@ -35,7 +35,8 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
     flatlistContainer: {
-        height: screenHeight < 600 ? screenHeight * 0.35 : screenHeight * 0.45
+        flex:1,
+        // height: screenHeight < 600 ? screenHeight * 0.35 : screenHeight * 0.45
     },
     rowStyle: {
         flexDirection: "row",

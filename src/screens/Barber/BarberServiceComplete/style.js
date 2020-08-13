@@ -35,14 +35,15 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
     flatlistContainer: {
-        height: screenHeight < 600 ? screenHeight * 0.35 : screenHeight * 0.45
+        flex: 1,
+        // height: screenHeight < 600 ? screenHeight * 0.35 : screenHeight * 0.4
     },
     rowStyle: {
         flexDirection: "row",
         // paddingTop: '5%',
     },
     borderStyle: {
-        flex: 0.8,
+        // flex: 1,
         // borderColor: THEME.COLOR_WHITE,
         // borderWidth: 1,
         justifyContent: 'center',

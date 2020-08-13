@@ -65,7 +65,7 @@ export default class BarberServiceComplete extends Component {
                         <Text style={styles.headingTextStyle1}>Total Amount Paid:</Text>
                         <Text style={[styles.headingTextStyle1, { color: THEME.PRIMARY_COLOR }]}>  $260</Text>
                     </View>
-                    <Text style={styles.headingTextStyle1}>Customer Service:</Text>
+                    <Text style={styles.headingTextStyle1}>Customer Services:</Text>
 
                     <View style={styles.flatlistContainer}>
                         <FlatList
