@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.luxe"
+        applicationId "com.cirrusllc.fleek"
         multiDexEnabled true
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
