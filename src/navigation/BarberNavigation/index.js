@@ -18,6 +18,7 @@ import BarberServiceAcceptScreen from './BarberServiceAcceptScreeen';
 import BarberStartServiceScreen from './BarberStartServiceScreen';
 import BarberEndServiceScreen from './BarberEndServiceScreen';
 import ServiceDetailsScreen from './ServiceDetailsScreen';
+import BarberServiceCompleteScreen from './BarberServiceCompleteScreen';
 
 const Stack = createStackNavigator();
 
@@ -77,12 +78,19 @@ function BarberRoutes() {
                 headerTitleAlign: 'center',
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>End Service</Text></View>),
             }} />
-              <Stack.Screen name="ServiceDetails" component={ServiceDetailsScreen} options={{
+            <Stack.Screen name="ServiceDetails" component={ServiceDetailsScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitleAlign: 'center',
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>List of Services & Details</Text></View>),
+            }} />
+            <Stack.Screen name="BarberServiceComplete" component={BarberServiceCompleteScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitleAlign: 'center',
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Service Complete</Text></View>),
             }} />
             <Stack.Screen name="EmailandPassword" component={EmailandPasswordScreen} options={{
                 headerBackTitleVisible: false,

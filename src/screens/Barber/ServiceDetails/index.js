@@ -71,7 +71,7 @@ export default class ServiceDetails extends Component {
 
 
     render() {
-        const { onNext } = this.props;
+        const { onPayment } = this.props;
         const { serviceList } = this.state;
 
         return (
@@ -121,7 +121,7 @@ export default class ServiceDetails extends Component {
                         </View>
 
                     </View>
-                    <FooterButton title='Collect The Payment' onPress={() => { }} />
+                    <FooterButton title='Collect The Payment' onPress={onPayment} />
                 </View>
             </>
         );
