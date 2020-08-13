@@ -37,27 +37,21 @@ export default StyleSheet.create({
     flatlistContainer: {
         height: screenHeight < 600 ? screenHeight * 0.35 : screenHeight * 0.45
     },
+    rowStyle: {
+        flexDirection: "row",
+        paddingTop: '5%',
+    },
+    borderStyle: {
+        borderColor: THEME.COLOR_WHITE,
+        borderWidth: 1
+    },
     headingContainer: {
         flexDirection: 'row',
-    },
-    idTextLabel: {
-        color: THEME.COLOR_WHITE,
-        fontFamily: 'Poppins-Bold'
-    },
-    inputContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between'
     },
     textStyle: {
         color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Medium',
         fontSize: 11,
-    },
-    titleStyle: {
-        color: THEME.COLOR_GREY,
-        // textAlign: 'center',
-        fontFamily: 'Poppins-Regular',
-        fontSize: THEME.FONT_SIZE_SMALL,
     },
     timeTextStyle: {
         color: THEME.COLOR_WHITE,
@@ -75,36 +69,6 @@ export default StyleSheet.create({
         textAlign: 'center',
         fontFamily: 'Poppins-Bold',
         fontSize: THEME.FONT_SIZE_SMALL,
-    },
-    inputContainerStyle: {
-        height: 54,
-        width: screenWidth * 0.45,
-        borderRadius: 5,
-        backgroundColor: THEME.COLOR_WHITE
-    },
-    inputDateContainerStyle: {
-        justifyContent: "center",
-        paddingTop: '20%',
-        paddingLeft: "7%",
-        height: 54,
-        width: screenWidth * 0.3,
-        borderRadius: 5,
-        backgroundColor: THEME.COLOR_WHITE
-    },
-    dateContainer: {
-        backgroundColor: THEME.COLOR_WHITE,
-        borderRadius: 5,
-        marginHorizontal: '10%',
-        justifyContent: 'center',
-        alignItems: "center",
-        height: 54,
-        width: screenWidth * 0.3,
-    },
-    dateTextStyle: {
-        width: screenWidth * 0.3,
-        color: THEME.COLOR_GREY,
-        marginLeft: 11,
-        fontFamily: 'Poppins-Regular'
     },
     textPriceStyle: {
         fontSize: THEME.FONT_SIZE_SMALL,

@@ -54,7 +54,6 @@ export default class ServiceDetails extends Component {
                     <View style={{ flexDirection: "row" }}>
                         <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} />
                         <Text style={styles.textStyle}>{item.serviceName}</Text>
-
                     </View>
                 </View>
                 <View style={styles.priceContainer} >
@@ -98,23 +97,23 @@ export default class ServiceDetails extends Component {
                                 renderItem={({ item, index }) => this._renderItems({ item, index })}
                                 keyExtractor={item => item} />
                         </View>
-                        <View style={{ borderColor: THEME.COLOR_WHITE, borderWidth: 1 }}>
-                            <View style={{ flexDirection: "row", paddingTop: '5%', }}>
+                        <View style={styles.borderStyle}>
+                            <View style={styles.rowStyle}>
                                 <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} />
                                 <Text style={styles.textStyle}>Total Time of Service:</Text>
                                 <Text style={[styles.textStyle, { color: THEME.PRIMARY_COLOR }]}>  2 hr 05 minutes</Text>
                             </View>
-                            <View style={{ flexDirection: "row", paddingTop: '5%', }}>
+                            <View style={styles.rowStyle}>
                                 <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} />
                                 <Text style={styles.textStyle}>Total Amount of Service:</Text>
                                 <Text style={[styles.textStyle, { color: THEME.PRIMARY_COLOR }]}>  $260</Text>
                             </View>
-                            <View style={{ flexDirection: "row", paddingTop: '5%', }}>
+                            <View style={styles.rowStyle}>
                                 <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} />
                                 <Text style={styles.textStyle}>Service Start Time:</Text>
                                 <Text style={[styles.textStyle, { color: THEME.PRIMARY_COLOR }]}>  04:00 PM</Text>
                             </View>
-                            <View style={{ flexDirection: "row", paddingTop: '5%', }}>
+                            <View style={styles.rowStyle}>
                                 <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} />
                                 <Text style={styles.textStyle}>Service End Time:</Text>
                                 <Text style={[styles.textStyle, { color: THEME.PRIMARY_COLOR }]}>  06:00 PM</Text>
