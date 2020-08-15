@@ -24,7 +24,7 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     priceContainer: {
-        flex: 0.2,
+        flex: 0.25,
         flexDirection: 'column',
         justifyContent: 'center'
     },
@@ -81,15 +81,15 @@ export default StyleSheet.create({
     },
     headingTextStyle1: {
         color: THEME.COLOR_WHITE,
-        // textAlign: 'center',
+        textAlign: 'center',
         fontFamily: 'Poppins-Bold',
         fontSize: THEME.FONT_SIZE_SMALL,
     },
     headingText: {
         color: THEME.COLOR_WHITE,
         textAlign: 'center',
-        fontFamily: 'Poppins-Bold',
-        fontSize: THEME.FONT_SIZE_LARGE,
+        fontFamily: 'Poppins-Medium',
+        fontSize: THEME.FONT_SIZE_MEDIUM,
     },
     textPriceStyle: {
         fontSize: THEME.FONT_SIZE_SMALL,

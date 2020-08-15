@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { MainScreenPaths } from '../../screens';
 
-export default class BarberServiceCompleteScreen extends Component {
+export default class ServiceCompleteScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })
@@ -11,7 +11,7 @@ export default class BarberServiceCompleteScreen extends Component {
     render() {
         const { push } = this.props.navigation;
         return (
-            <MainScreenPaths.Barber.BarberServiceComplete onHome={() => push('Home')} />
+            <MainScreenPaths.Customer.ServiceComplete onHome={() => push('Home')} />
         )
     }
 }

@@ -35,19 +35,13 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
     flatlistContainer: {
-        flex: 0.7,
-        // height: screenHeight < 600 ? screenHeight * 0.35 : screenHeight * 0.4
+        flex: 1,
     },
     rowStyle: {
         flexDirection: "row",
-        // paddingTop: '5%',
     },
     borderStyle: {
         flex: 0.8,
-        // borderColor: THEME.COLOR_WHITE,
-        // borderWidth: 1,
-        // justifyContent: 'center',
-        // alignItems: 'stretch'
     },
     headingContainer: {
         flexDirection: 'row',
@@ -81,15 +75,15 @@ export default StyleSheet.create({
     },
     headingTextStyle1: {
         color: THEME.COLOR_WHITE,
-        // textAlign: 'center',
+        textAlign: 'center',
         fontFamily: 'Poppins-Bold',
         fontSize: THEME.FONT_SIZE_SMALL,
     },
     headingText: {
         color: THEME.COLOR_WHITE,
         textAlign: 'center',
-        fontFamily: 'Poppins-Bold',
-        fontSize: THEME.FONT_SIZE_LARGE,
+        fontFamily: 'Poppins-Medium',
+        fontSize: THEME.FONT_SIZE_MEDIUM,
     },
     textPriceStyle: {
         fontSize: THEME.FONT_SIZE_SMALL,
@@ -97,7 +91,11 @@ export default StyleSheet.create({
         fontFamily: 'Poppins-Regular'
     },
     seperatorStyle: {
-        height: 15,
+        height: 10,
     },
-
+    stopwatchContainer: {
+        flex: 0.35,
+        justifyContent: "center",
+        alignItems: 'center'
+    }
 })

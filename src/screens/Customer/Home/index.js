@@ -378,11 +378,11 @@ class Home extends Component {
     }
 
     _renderItems = (item) => {
-        const { onAboutUs, onContactUs } = this.props;
+        const { onAboutUs, onContactUs, onAppointments } = this.props;
         return (
             <>
                 <TouchableOpacity
-                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : Alert.alert("Atention", "This screen is under Development") }} style={styles.upperListItemContainer}>
+                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : onAppointments() }} style={styles.upperListItemContainer}>
                     <ImageBackground source={{ uri: `${item.imageUrl}` }}
                         style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }}>
                         <View style={styles.upperListTitleContainer}>

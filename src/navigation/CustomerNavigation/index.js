@@ -14,6 +14,9 @@ import SubCategoryServicesScreen from './SubCategoryServicesScreen';
 import BarberListScreen from './BarberListScreen';
 import BarberProfileScreen from './BarberProfileScreen';
 import BookingScreen from './BookingScreen';
+import AppointmentsScreen from './AppointmentsScreen';
+import CustomerServicesScreen from './CustomerServicesScreen';
+import ServiceCompleteScreen from './ServiceCompleteScreen';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -53,11 +56,32 @@ function CustomerRoutes() {
                 headerTitleAlign: 'center',
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Profile</Text></View>),
             }} />
+            <Stack.Screen name="CustomerServices" component={CustomerServicesScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitleAlign: 'center',
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>List of Customer Services</Text></View>),
+            }} />
+             <Stack.Screen name="ServiceComplete" component={ServiceCompleteScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitleAlign: 'center',
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Review and Rate</Text></View>),
+            }} />
             <Stack.Screen name="EmailandPassword" component={EmailandPasswordScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter Email and Password </Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+            <Stack.Screen name="Appointments" component={AppointmentsScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Appointments</Text></View>),
                 headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="SubCategory" component={SubCategoryScreen}
@@ -69,7 +93,7 @@ function CustomerRoutes() {
                     headerTitleAlign: 'center',
                 })}
             />
-             <Stack.Screen name="SubCategoryServices" component={SubCategoryServicesScreen}
+            <Stack.Screen name="SubCategoryServices" component={SubCategoryServicesScreen}
                 options={({ route }) => ({
                     headerBackTitleVisible: false,
                     headerTintColor: 'white',

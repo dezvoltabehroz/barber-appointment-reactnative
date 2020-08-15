@@ -10,7 +10,7 @@ export default class BarberServiceAcceptScreen extends Component {
         const { navigate } = this.props.navigation
         const { item } = this.props.route.params;
         return (
-            <MainScreenPaths.Barber.BarberServiceAccept item={(item)} arrivedAtlocation={() => navigate('BarberStartService')} />
+            <MainScreenPaths.Barber.BarberServiceAccept item={(item)} onChat={() => navigate('BarberChat')} arrivedAtlocation={() => navigate('BarberStartService')} />
         )
     }
 }

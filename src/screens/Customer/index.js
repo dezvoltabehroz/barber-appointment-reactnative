@@ -9,6 +9,9 @@ import _SubCategoryServices from './SubCategoryServices';
 import _BarberList from './BarberList';
 import _BarberProfile from './BarberProfile';
 import _Booking from './Booking';
+import _Appointments from './Appointments';
+import _CustomerServices from './CustomerServices';
+import _ServiceComplete from './ServiceComplete';
 
 export const CustomerScreenPaths = {
     PhoneNumber: _PhoneNumber,
@@ -21,5 +24,8 @@ export const CustomerScreenPaths = {
     BarberList: _BarberList,
     BarberProfile: _BarberProfile,
     Booking: _Booking,
+    Appointments: _Appointments,
+    CustomerServices: _CustomerServices,
+    ServiceComplete: _ServiceComplete,
     Home: _Home
 }

@@ -8,7 +8,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '20%'
+        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '15%'
     },
     upperContainer: {
         flex: 0.8,
@@ -35,19 +35,27 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
     flatlistContainer: {
-        flex:1,
-        // height: screenHeight < 600 ? screenHeight * 0.35 : screenHeight * 0.45
+        flex: 1,
     },
     rowStyle: {
         flexDirection: "row",
-        paddingTop: '5%',
     },
     borderStyle: {
-        // borderColor: THEME.COLOR_WHITE,
-        // borderWidth: 1
+        flex: 0.8,
     },
     headingContainer: {
         flexDirection: 'row',
+    },
+    textStyle: {
+        color: THEME.COLOR_WHITE,
+        fontFamily: 'Poppins-Medium',
+        fontSize: 11,
+    },
+    textHeadingStyle: {
+        textAlign: "center",
+        color: THEME.COLOR_WHITE,
+        fontSize: THEME.FONT_SIZE_MEDIUM,
+        fontFamily: 'Poppins-Medium'
     },
     textStyle: {
         color: THEME.COLOR_WHITE,
@@ -71,19 +79,27 @@ export default StyleSheet.create({
         fontFamily: 'Poppins-Bold',
         fontSize: THEME.FONT_SIZE_SMALL,
     },
-    textPriceStyle: {
-        fontSize: THEME.FONT_SIZE_SMALL,
-        color: THEME.COLOR_WHITE,
-        fontFamily: 'Poppins-Regular'
-    },
-    seperatorStyle: {
-        height: 15,
-    },
     headingText: {
         color: THEME.COLOR_WHITE,
         textAlign: 'center',
         fontFamily: 'Poppins-Medium',
         fontSize: THEME.FONT_SIZE_MEDIUM,
     },
+    textPriceStyle: {
+        fontSize: THEME.FONT_SIZE_SMALL,
+        color: THEME.COLOR_WHITE,
+        fontFamily: 'Poppins-Regular'
+    },
+    seperatorStyle: {
+        height: 10,
+    },
+    timeAndAmountCotainer: {
+        flex: 0.35
+    },
+    stopwatchContainer: {
+        flex: 0.25,
+        justifyContent: "center",
+        alignItems: 'center'
+    }
 
 })

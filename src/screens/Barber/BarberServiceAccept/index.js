@@ -27,27 +27,44 @@ export default class BarberServiceAccept extends Component {
         });
     }
 
+    openGps = (lat, lng) => {
+        var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
+        var url = scheme + `${lat},${lng}`;
+        Linking.openURL(url);
+    }
+
+
+
     on_Phone = () => {
         const { data } = this.state;
         let number = ''
-        if (Platform.OS === 'android') {
-            number = 'tel:' + data
+        if (Platform.OS === 'ios') {
+            number = 'telprompt:' + data;
         }
         else {
-            number = 'telprompt:' + data
+            number = 'tel:' + data;
         }
         Linking.openURL(number);
     }
 
     render() {
-        let { arrivedAtlocation } = this.props;
+        let { arrivedAtlocation, onChat } = this.props;
         const { region } = this.state;
-        const urlGG = `https://google.com/maps/place/${region.latitude},${region.longitude}`
+        const location = `${region.latitude},${region.longitude}`;
+        const url = Platform.select({
+            ios: `maps:${location}`,
+            android: `geo:${location}?center=${location}&q=${location}&z=16`,
+        });
+        // const url = Platform.select({
+        //     ios: `maps:0,0?q=${region.latitude},${region.longitude}`,
+        //     android: `geo:0,0?q=${region.latitude},${region.longitude}`,
+        // })
+        // const urlGG = `https://google.com/maps/place/${region.latitude},${region.longitude}`
         return (
             <View style={styles.container}>
                 <View style={{ flex: 0.8 }}>
                     <View>
-                        <TouchableOpacity onPress={() => Linking.openURL(urlGG)}>
+                        <TouchableOpacity onPress={() => Linking.openURL(url)}>
                             <Text style={styles.getDirectionText}>Get Direction</Text>
                         </TouchableOpacity>
                     </View>
@@ -61,16 +78,16 @@ export default class BarberServiceAccept extends Component {
                             <Text style={styles.buttonText}>Arrived at Customer Location</Text>
                         </TouchableOpacity>
                         <View style={{ flexDirection: "row", alignItems: 'center' }}>
-                            <Icon.MaterialCommunityIcons name='chat' color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
+                            <TouchableOpacity onPress={onChat}>
+                                <Icon.MaterialCommunityIcons name='chat' color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
+                            </TouchableOpacity>
                             <View style={{ width: 20 }}></View>
                             <TouchableOpacity onPress={this.on_Phone}>
                                 <Icon.MaterialCommunityIcons name='phone' color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
                             </TouchableOpacity>
-
                         </View>
                     </View>
                 </View>
-
             </View>
         )
     }

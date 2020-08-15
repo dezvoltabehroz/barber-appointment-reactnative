@@ -16,6 +16,7 @@ import styles from './style';
 import THEME from '../../assets/styles/theme.style';
 import Geocoder from 'react-native-geocoder';
 import { Icon } from '..';
+import Config from '../../config/config.json';
 const screenHeight = Dimensions.get('window').height;
 
 class SearchandMapView extends Component {
@@ -169,14 +170,7 @@ class SearchandMapView extends Component {
                             this.goMap(data, details);
                         }}
                         getDefaultValue={() => ''}
-                        query={{
-                            // available options: https://developers.google.com/places/web-service/autocomplete
-                            key: 'AIzaSyCpNZMa_0hP9txbsGZVu2gNMqcZqHHRCbY',
-                            language: 'en', // language of the results
-                            // types: '(cities)' // default: 'geocode'
-                            // components: "country:ng", // country name
-
-                        }}
+                        query={Config.googleMaps}
                         styles={{
                             container: { backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, },
                             textInput: { marginHorizontal: "5%", height: 54, },
@@ -193,11 +187,7 @@ class SearchandMapView extends Component {
                         currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
                         currentLocationLabel="Current location"
                         nearbyPlacesAPI='GoogleReverseGeocoding' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
-                        GoogleReverseGeocodingQuery={{
-                            // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
-                            key: 'AIzaSyCpNZMa_0hP9txbsGZVu2gNMqcZqHHRCbY',
-                            language: 'en',
-                        }}
+                        GoogleReverseGeocodingQuery={Config.googleMaps}
                         GooglePlacesSearchQuery={{
                             // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
                             rankby: 'distance',

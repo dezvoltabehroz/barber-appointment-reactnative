@@ -51,10 +51,7 @@ export default class ServiceDetails extends Component {
         return (
             <View style={styles.row}>
                 <View style={styles.nameContainer}>
-                    <View style={{ flexDirection: "row" }}>
-                        <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} />
-                        <Text style={styles.textStyle}>{item.serviceName}</Text>
-                    </View>
+                    <Text style={styles.textStyle}>{item.serviceName}</Text>
                 </View>
                 <View style={styles.priceContainer} >
                     <Text style={styles.timeTextStyle}>${item.price}</Text>
@@ -99,24 +96,24 @@ export default class ServiceDetails extends Component {
                         </View>
                         <View style={styles.borderStyle}>
                             <View style={styles.rowStyle}>
-                                <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} />
-                                <Text style={styles.textStyle}>Total Time of Service:</Text>
-                                <Text style={[styles.textStyle, { color: THEME.PRIMARY_COLOR }]}>  2 hr 05 minutes</Text>
+                                {/* <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} /> */}
+                                <Text style={styles.headingText}>Total Time of Service:</Text>
+                                <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>  2 hr 05 minutes</Text>
                             </View>
                             <View style={styles.rowStyle}>
-                                <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} />
-                                <Text style={styles.textStyle}>Total Amount of Service:</Text>
-                                <Text style={[styles.textStyle, { color: THEME.PRIMARY_COLOR }]}>  $260</Text>
+                                {/* <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} /> */}
+                                <Text style={styles.headingText}>Total Amount of Service:</Text>
+                                <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>  $260</Text>
                             </View>
                             <View style={styles.rowStyle}>
-                                <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} />
-                                <Text style={styles.textStyle}>Service Start Time:</Text>
-                                <Text style={[styles.textStyle, { color: THEME.PRIMARY_COLOR }]}>  04:00 PM</Text>
+                                {/* <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} /> */}
+                                <Text style={styles.headingText}>Service Start Time:</Text>
+                                <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>  04:00 PM</Text>
                             </View>
                             <View style={styles.rowStyle}>
-                                <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} />
-                                <Text style={styles.textStyle}>Service End Time:</Text>
-                                <Text style={[styles.textStyle, { color: THEME.PRIMARY_COLOR }]}>  06:00 PM</Text>
+                                {/* <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} /> */}
+                                <Text style={styles.headingText}>Service End Time:</Text>
+                                <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>  06:00 PM</Text>
                             </View>
                         </View>
 

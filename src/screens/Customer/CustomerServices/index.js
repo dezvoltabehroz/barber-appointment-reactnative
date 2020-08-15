@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TouchableHighlight } from 'react-native';
 import { FooterButton, Icon } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
+import { Stopwatch, Timer } from 'react-native-stopwatch-timer'
 
-export default class StartService extends Component {
+export default class CustomerServices extends Component {
 
     constructor(props) {
         super(props);
@@ -19,8 +20,26 @@ export default class StartService extends Component {
                 { id: 7, serviceName: 'Beard Trim', serviceDescription: '', selected: false, price: 50, time: 30, isFilled: '' },
                 { id: 8, serviceName: 'Braids & Twist', serviceDescription: '', selected: false, price: 50, time: 30, isFilled: '' },
             ],
+            timerStart: false,
+            stopwatchStart: false,
+            totalDuration: 90000,
+            timerReset: false,
+            stopwatchReset: false,
+            totalTime: null,
         }
     }
+
+    componentDidMount = () => {
+        let { start } = this.props
+        // this.setState({ timerStart: start, stopwatchStart: start })
+    }
+
+
+    getFormattedTime(time) {
+        // this.currentTime = time;
+        // this.setState({ totalTime: time })
+    };
+
 
     _renderSeparator = () => {
         return (
@@ -28,10 +47,12 @@ export default class StartService extends Component {
         )
     }
 
+
+
     _renderItems = (item) => {
         return (
             <>
-                <View style={styles.headingContainer}>
+                <View style={styles.row}>
                     <View style={styles.nameContainer}>
                         <Text style={styles.textStyle}>{item.serviceName}</Text>
                     </View>
@@ -51,14 +72,27 @@ export default class StartService extends Component {
 
 
     render() {
-        const { onStartService } = this.props;
+        const { onApproved } = this.props;
         const { serviceList } = this.state;
+        const options = {
+            container: {
+                backgroundColor: THEME.PRIMARY_COLOR,
+                padding: 5,
+                borderRadius: 5,
+                width: 220,
+            },
+            text: {
+                fontSize: 30,
+                color: '#FFF',
+                textAlign: 'center'
+            }
+        };
         return (
             <>
                 <View style={styles.container}>
                     <View style={styles.upperContainer}>
                         <View style={{ marginBottom: '5%' }}>
-                            <Text style={styles.textHeadingStyle}>List of Customer Services</Text>
+                            {/* <Text style={styles.textHeadingStyle}>List of Customer Services</Text> */}
                         </View>
                         <View style={styles.headingContainer}>
                             <View style={styles.nameContainer}>
@@ -72,24 +106,55 @@ export default class StartService extends Component {
                             </View>
                         </View>
                         <View style={styles.flatlistContainer}>
-                            <FlatList
+                            {/* <FlatList
                                 data={serviceList}
                                 showsVerticalScrollIndicator={false}
                                 ItemSeparatorComponent={this._renderSeparator}
                                 renderItem={({ item }) => this._renderItems(item)}
-                                keyExtractor={item => item} />
+                                keyExtractor={item => item} /> */}
+                            {
+                                serviceList.map((item) => {
+                                    return (
+                                        <>
+                                            <View style={styles.row}>
+                                                <View style={styles.nameContainer}>
+                                                    <Text style={styles.textStyle}>{item.serviceName}</Text>
+                                                </View>
+                                                <View style={styles.priceContainer} >
+                                                    <Text style={styles.timeTextStyle}>${item.price}</Text>
+                                                </View>
+                                                <View style={styles.timeContainer}>
+                                                    <View style={styles.priceAndTimeContainer}>
+                                                        <Text style={styles.timeTextStyle}>00:{item.time}</Text>
+                                                    </View>
+                                                </View>
+                                            </View>
+                                            <View style={styles.seperatorStyle}></View>
+                                        </>
+                                    )
+                                })
+                            }
                         </View>
-                        <View style={{ flexDirection: "row", marginVertical: '5%' }}>
-                            <Text style={styles.headingText}>Est Time for Service:</Text>
+                        <View style={styles.timeAndAmountCotainer}>
+                            <View style={[styles.rowStyle,{ marginTop:'5%'}]}>
+                                <Text style={styles.headingText}>Est Time for Service:</Text>
                             <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}> 2 hr</Text>
                         </View>
-                        <View style={{ flexDirection: "row" }}>
+                        <View style={styles.rowStyle}>
                             <Text style={styles.headingText}>Amount to be paid:</Text>
                             <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}> $200</Text>
                         </View>
                     </View>
-                    <FooterButton title='Start Service' onPress={onStartService} />
+
+                    <View style={styles.stopwatchContainer}>
+                        <Stopwatch start={this.state.stopwatchStart}
+                            reset={this.state.stopwatchReset}
+                            options={options}
+                            getTime={this.getFormattedTime} />
+                    </View>
                 </View>
+                <FooterButton title='Approved & Pay' onPress={() => onApproved(this.state.totalTime)} />
+            </View>
             </>
         );
     }

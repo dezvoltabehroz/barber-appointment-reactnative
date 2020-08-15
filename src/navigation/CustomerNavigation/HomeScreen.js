@@ -27,6 +27,7 @@ class HomeScreen extends Component {
                 onContactUs={() => navigate("ContactUs")}
                 onAboutUs={() => navigate("AboutUs")}
                 onExit={this.handleLogout}
+                onAppointments={()=>navigate('Appointments')}
                 onItemPress={(item, data) => navigate('SubCategory', { name: item, data: data })} />
         )
     }

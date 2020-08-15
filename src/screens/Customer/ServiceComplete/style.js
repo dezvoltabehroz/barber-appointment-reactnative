@@ -52,5 +52,30 @@ export default StyleSheet.create({
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
     },
+    cardStyle: {
+        paddingTop: '2%',
+        flexDirection: 'row',
+        borderRadius: 10,
+        paddingVertical: '2%'
+
+    },
+    avatarContainer: {
+        marginHorizontal: '2%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    nameContainer: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+    nameTextStyle: {
+        fontSize: THEME.FONT_SIZE_LARGE,
+        color: THEME.COLOR_WHITE,
+        fontFamily: 'Poppins-Medium'
+    },
+    dateTextStyle: {
+        color: THEME.COLOR_WHITE,
+        fontFamily: 'Poppins-Regular'
+    },
 
 })

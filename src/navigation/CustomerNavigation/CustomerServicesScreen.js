@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { MainScreenPaths } from '../../screens';
 
-export default class BarberStartServiceScreen extends Component {
+export default class CustomerServicesScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })
@@ -12,7 +12,7 @@ export default class BarberStartServiceScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Barber.BarberStartService onStartService={() => navigate('BarberEndService', { start: true })} />
+            <MainScreenPaths.Customer.CustomerServices onApproved={() => navigate('ServiceComplete')} />
         )
     }
 }
