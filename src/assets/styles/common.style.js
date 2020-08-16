@@ -41,7 +41,7 @@ export default StyleSheet.create({
         paddingLeft: 8,
         color: '#c30000',
         fontFamily: "Poppins-Regular",
-        fontSize: 10,
+        fontSize: 12,
         marginLeft: 5
     },
     errorText1: {

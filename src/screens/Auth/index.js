@@ -18,13 +18,12 @@ class AuthScreen extends Component {
         }
     }
 
-    handleLogin = async () => {
-        const { onLogin, isSubmit, submit } = this.props
-        let { email, password, submiting } = this.state;
-        isSubmit(submiting);
+    handleLogin = () => {
+        const { onLogin, submit } = this.props
+        let { email, password } = this.state;
         if (email && password && submit) {
             if (this.isEmailValid(email)) {
-                await onLogin(email, password);
+                onLogin(email, password);
                 this.setState({ email: '', password: '' })
             }
         }
@@ -35,7 +34,7 @@ class AuthScreen extends Component {
     }
 
     render() {
-        const { onPhone, onPressCustomer, onPressBarber, customer, barber, onContinueWithOutLogin, submit } = this.props
+        const { onPhone, onPressCustomer, onPressBarber, customer, barber, onContinueWithOutLogin, submit, isSubmit } = this.props
         const { email, password, isEmailFocus, isPasswordFocus } = this.state;
         return (
             <>
@@ -69,7 +68,7 @@ class AuthScreen extends Component {
                                         val={email}
                                         keyboardtype="email-address"
                                         onActive={() => this.setState({ isEmailFocus: true })}
-                                        onInActive={() => this.setState({ isEmailFocus: false })}
+                                        onInActive={() => this.setState({ isEmailFocus: false }, () => isSubmit())}
                                         updateText={(email) => this.setState({ email })} />
                                     {
                                         submit && !email ? <Text style={[COMMON_STYLE.errorText, submit ? styles.onSubmitTrue : {}]}>Please fill this field</Text> : null

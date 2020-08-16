@@ -29,7 +29,7 @@ export default class Services extends Component {
                 { id: 8, serviceName: 'Braids & Twist', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
                 { id: 9, serviceName: 'Hair color touch ups', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
                 { id: 10, serviceName: 'Scalp Conditioning Treatment', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
-                { id: 11, serviceName: 'Permanent Hair Retexturizing', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' }
+                { id: 11, serviceName: 'Permanent Hair Retexturizing', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
             ],
         }
     }
@@ -41,9 +41,19 @@ export default class Services extends Component {
             items[objIndex] = { ...items[objIndex], selected: false };
             this.setState({ barberServices: items });
             if (!items[objIndex].selected) {
+                for (var i = 0; i < this.state.selectedService.length; i++) {
+                    if (!this.state.selectedService[i].id) {
+                        this.state.selectedService.splice(i, 1);
+                    }
+                }
                 this.setState({ selectedService: this.state.selectedService.filter(item => item.id != val.id) })
             }
         } else {
+            for (var i = 0; i < this.state.selectedService.length; i++) {
+                if (!this.state.selectedService[i].id) {
+                    this.state.selectedService.splice(i, 1);
+                }
+            }
             items[objIndex] = { ...items[objIndex], selected: true };
             this.setState({ barberServices: items });
             this.state.selectedService.push(items[objIndex]);
@@ -80,6 +90,21 @@ export default class Services extends Component {
         )
     }
 
+    on_Next_press = () => {
+        const { onNext } = this.props;
+        let selectedArray = this.state.selectedService;
+        if (selectedArray[selectedArray.length - 1].serviceCounter == 0) {
+            this.setState({ selectedService: selectedArray })
+            onNext(this.state.selectedService)
+        }
+        else {
+            selectedArray.push({ serviceCounter: 0 })
+            this.setState({ selectedService: selectedArray })
+            onNext(this.state.selectedService)
+        }
+
+    }
+
     handleAddService = () => {
         const { barberServices, serviceName, serviceDescription } = this.state;
         this.setState({ submit: true })
@@ -104,7 +129,6 @@ export default class Services extends Component {
     }
 
     render() {
-        const { onNext } = this.props;
         const { barberServices, showAddService, serviceName, serviceDescription, isServiceNameFocus, submit, isServiceDescriptionFocus } = this.state;
         return (
             <>
@@ -117,13 +141,7 @@ export default class Services extends Component {
                             renderItem={({ item }) => this._renderItems(item)}
                             keyExtractor={item => item} />
                     </View>
-                    {/* <View style={styles.addServiceContainer}>
-                        <View style={styles.buttonContainer}>
-                            <Button title="Add Service" onPress={() => this.setState({ showAddService: true })} />
-                        </View>
-                    </View> */}
-
-                    <FooterButton title='Next' addservice onPressAddService={() => this.setState({ showAddService: true })} onPress={() => onNext(this.state.selectedService)} />
+                    <FooterButton title='Next' addservice onPressAddService={() => this.setState({ showAddService: true })} onPress={this.on_Next_press} />
                 </View>
                 <Modal visible={showAddService}
                     animationType="slide">
