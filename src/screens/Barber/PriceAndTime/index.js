@@ -28,10 +28,7 @@ export default class PriceAndTime extends Component {
     }
     componentDidMount = () => {
         let serviceArray = this.props.data;
-        serviceArray.push({ serviceCounter: 0 });
-        this.setState({ selectedArray: serviceArray }, () => {
-            console.log("state selected===>", this.state.selectedArray)
-        })
+        this.setState({ selectedArray: serviceArray })
 
     }
     componentWillUnmount = () => {
