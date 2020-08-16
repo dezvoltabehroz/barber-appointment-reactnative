@@ -30,13 +30,38 @@ export default class WorkingDays extends Component {
             items[objIndex] = { ...items[objIndex], selected: false };
             this.setState({ WorkingDays: items });
             if (!items[objIndex].selected) {
+                for (var i = 0; i < this.state.selectedDays.length; i++) {
+                    if (!this.state.selectedDays[i].id) {
+                        this.state.selectedDays.splice(i, 1);
+                    }
+                }
                 this.setState({ selectedDays: this.state.selectedDays.filter(item => item.id != val.id) })
             }
         } else {
+            for (var i = 0; i < this.state.selectedDays.length; i++) {
+                if (!this.state.selectedDays[i].id) {
+                    this.state.selectedDays.splice(i, 1);
+                }
+            }
             items[objIndex] = { ...items[objIndex], selected: true };
             this.setState({ WorkingDays: items });
             this.state.selectedDays.push(items[objIndex]);
         }
+    }
+
+    on_Next_press = () => {
+        const { onNext } = this.props;
+        let selectedArray = this.state.selectedDays;
+        if (selectedArray[selectedArray.length - 1].dayCounter == 0) {
+            this.setState({ selectedDays: selectedArray })
+            onNext(this.state.selectedDays)
+        }
+        else {
+            selectedArray.push({ dayCounter: 0 })
+            this.setState({ selectedDays: selectedArray })
+            onNext(this.state.selectedDays)
+        }
+
     }
 
     _renderSeparator = () => {
@@ -80,7 +105,7 @@ export default class WorkingDays extends Component {
                             renderItem={({ item }) => this._renderItems(item)}
                             keyExtractor={item => item} />
                     </View>
-                    <FooterButton title='Next' onPress={() => onNext(this.state.selectedDays)} />
+                    <FooterButton title='Next' onPress={this.on_Next_press} />
                 </View>
             </>
         );

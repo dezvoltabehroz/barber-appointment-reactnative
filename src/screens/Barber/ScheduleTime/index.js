@@ -21,7 +21,6 @@ export default class ScheduleTime extends Component {
 
     componentDidMount = () => {
         let daysArray = this.props.data;
-        daysArray.push({ dayCounter: 0 });
         this.setState({ selectedDays: daysArray })
     }
 
