@@ -17,7 +17,7 @@ class AuthScreen extends Component {
             loading: false
         }
     }
-    
+
     handleLogin = async (email, password) => {
         const { navigate } = this.props.navigation
         const { customer } = this.state;
@@ -51,7 +51,7 @@ class AuthScreen extends Component {
                 customer={customer}
                 barber={barber}
                 submit={(submit)}
-                isSubmit={async (submit) => await this.setState({ submit: submit })}
+                isSubmit={() => this.setState({ submit: true })}
             />
         )
     }
