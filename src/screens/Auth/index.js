@@ -34,7 +34,7 @@ class AuthScreen extends Component {
     }
 
     render() {
-        const { onPhone, onPressCustomer, onPressBarber, customer, barber, onContinueWithOutLogin, submit, isSubmit } = this.props
+        const { onPhone, onPressCustomer, onPressBarber, customer, barber, onContinueWithOutLogin, onFacebook, submit, isSubmit, onGoogle } = this.props
         const { email, password, isEmailFocus, isPasswordFocus } = this.state;
         return (
             <>
@@ -98,7 +98,7 @@ class AuthScreen extends Component {
                         <View style={styles.lowerContainer}>
                             <Text style={styles.signUpAndLoginTextStyle}>Sign up with:</Text>
 
-                            <TouchableOpacity style={styles.faceBookButton} >
+                            <TouchableOpacity onPress={onFacebook()} style={styles.faceBookButton} >
                                 <View style={styles.row}>
                                     <View style={styles.iconContainer}>
                                         <Icon.FontAwesome
@@ -112,7 +112,7 @@ class AuthScreen extends Component {
                                     </View>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.googleButton} >
+                            <TouchableOpacity onPress={onGoogle()} style={styles.googleButton} >
                                 <View style={styles.row}>
                                     <View style={styles.iconContainer}>
                                         <Icon.FontAwesome
