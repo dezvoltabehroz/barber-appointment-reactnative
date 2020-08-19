@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "823617941270",
+    "firebase_url": "https://fleek-24620.firebaseio.com",
+    "project_id": "fleek-24620",
+    "storage_bucket": "fleek-24620.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:823617941270:android:eb87f559a5b3959f4a6a37",
+        "android_client_info": {
+          "package_name": "com.cirrusllc.fleek"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "823617941270-rgsmbmvirv0rnbiehlj8iv3tebi7s3ql.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cirrusllc.fleek",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "823617941270-asceudmgg1gc8al2njtcgam6avkia0kn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF3AI7jNFuayAcBTnRZZ2RCoAU0WQ0eC4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "823617941270-asceudmgg1gc8al2njtcgam6avkia0kn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
