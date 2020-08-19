@@ -16,7 +16,7 @@ class HomeScreen extends Component {
         let { isUserLogedIn } = this.props.user;
         if (isUserLogedIn) {
             navigate('Auth')
-            await this.props.actions.removeUser();
+            await this.props.authActions.removeUser();
         }
     }
 

@@ -13,7 +13,7 @@ class HomeScreen extends Component {
     handleLogout = async () => {
         const { navigate } = this.props.navigation;
         navigate('Auth')
-        await this.props.actions.removeUser();
+        await this.props.authActions.removeUser();
     }
 
     on_Press_Accept = (data) => {
