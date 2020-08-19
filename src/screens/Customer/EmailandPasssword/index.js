@@ -4,12 +4,16 @@ import THEME from '../../../assets/styles/theme.style';
 import { FloatingInput, FooterButton } from '../../../components'
 import styles from './style';
 import COMMON_STYLE from '../../../assets/styles/common.style';
-export default class EmailandPassword extends Component {
+import { connect } from 'react-redux';
+
+
+class EmailandPassword extends Component {
     constructor(props) {
         super(props);
+        let { email } = this.props.user.userSocialNetworkData;
         this.state = {
             male: true, female: false,
-            email: '',
+            email: email ? email : '',
             password: '',
             confirmPassword: '',
             isPasswordFocus: false,
@@ -85,3 +89,11 @@ export default class EmailandPassword extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer || {}
+    };
+};
+
+export default connect(mapStateToProps)(EmailandPassword)

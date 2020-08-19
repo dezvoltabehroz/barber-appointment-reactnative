@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, FlatList, ImageBackground, TouchableOpacity, Alert } from "react-native";
 import styles from './style';
 import { Button, Icon } from '../../../components'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -457,10 +457,10 @@ class Home extends Component {
     }
 }
 
+
 const mapStateToProps = (state) => {
     return {
-        user: state.userAuth || {}
+        user: state.authReducer || {}
     };
 };
-
-export default connect(mapStateToProps)(Home)
+export default connect(mapStateToProps)(Home);

@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { MainScreenPaths } from '../../screens';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { actions } from '../../redux/actions/auth';
+import { authActions } from '../../redux/actions/auth';
 
 class HomeScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -35,13 +35,13 @@ class HomeScreen extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.userAuth || {}
+        user: state.authReducer || {}
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        actions: bindActionCreators(actions, dispatch),
+        authActions: bindActionCreators(authActions, dispatch),
     };
 };
 

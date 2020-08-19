@@ -1,12 +1,21 @@
 import {
     USER_LOGIN_SUCCESS,
     USER_LOGOUT_SUCCESS,
-} from '../types/auth'
+    USER_SOCIALNETWORK_USERDATA_SUCCESS
 
-const setUser = (payload) => {
+} from '../types/auth';
+
+const setUser = (userData) => {
     return ({
         type: USER_LOGIN_SUCCESS,
-        payload
+        userData
+    })
+};
+
+const setSocialNetworkUserData = (userData) => {
+    return ({
+        type: USER_SOCIALNETWORK_USERDATA_SUCCESS,
+        userData
     })
 };
 
@@ -16,7 +25,8 @@ const removeUser = () => {
     })
 }
 
-export const actions = {
+export const authActions = {
     setUser,
-    removeUser
+    removeUser,
+    setSocialNetworkUserData
 };

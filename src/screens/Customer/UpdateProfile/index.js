@@ -8,13 +8,16 @@ import ImagePicker from 'react-native-image-picker';
 
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoder';
-export default class UpdateProfile extends Component {
+import { connect } from 'react-redux';
+
+class UpdateProfile extends Component {
     constructor(props) {
         super(props);
+        let { name } = this.props.user.userSocialNetworkData
         this.state = {
             male: true,
             female: false,
-            name: '',
+            name: name ? name : '',
             isNameFocus: false,
             isLocationFocus: false,
             profile_Url: '',
@@ -180,3 +183,12 @@ export default class UpdateProfile extends Component {
         );
     }
 }
+
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer || {}
+    };
+};
+
+export default connect(mapStateToProps)(UpdateProfile)

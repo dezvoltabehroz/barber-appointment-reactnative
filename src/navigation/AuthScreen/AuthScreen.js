@@ -5,7 +5,7 @@ import { Alert } from 'react-native';
 import { MainScreenPaths } from '../../screens';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { actions } from '../../redux/actions/auth';
+import { authActions } from '../../redux/actions/auth';
 import {
     AccessToken,
     GraphRequest,
@@ -44,8 +44,13 @@ class AuthScreen extends Component {
                 showPlayServicesUpdateDialog: true,
             });
             const userInfo = await GoogleSignin.signIn()
-            console.log('User Info --> ', userInfo);
-            this.setState({ userInfo: userInfo });
+            let userData = {
+                email: userInfo.user.email,
+                name: userInfo.user.name,
+                photo: userInfo.user.photo
+            }
+            await this.props.authActions.setSocialNetworkUserData(userData);
+
         } catch (error) {
             console.log('Message', error.message);
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -61,24 +66,24 @@ class AuthScreen extends Component {
     };
 
 
-    get_Response_Info = (error, result) => {
+    get_Response_Info = async (error, result) => {
         if (error) { Alert.alert('Error fetching data: ' + error.toString()); }
         else {
-            console.log(result)
-            this.setState({ user_name: 'Welcome' + ' ' + result.name });
-            this.setState({ token: 'User Token: ' + ' ' + result.id });
-            this.setState({ profile_pic: result.picture.data.url });
+            let userData = {
+                name: result.name,
+                photo: result.picture.data.url
+            }
+            console.log(result);
+            await this.props.authActions.setSocialNetworkUserData(userData);
         }
     };
 
 
     onFacebookButtonPress = async () => {
         const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
-        if (result.isCancelled) {
-            throw 'User cancelled the login process';
-        }
-        else {
-            AccessToken.getCurrentAccessToken().then(data => {
+        result.isCancelled
+            ? Alert.alert('User cancelled the login process')
+            : AccessToken.getCurrentAccessToken().then(data => {
                 const accessToken = data.accessToken;
                 const processRequest = new GraphRequest(
                     '/me',
@@ -92,8 +97,8 @@ class AuthScreen extends Component {
                 );
                 new GraphRequestManager().addRequest(processRequest).start();
             });
-        }
     }
+
 
 
     handleLogin = async (email, password) => {
@@ -101,11 +106,11 @@ class AuthScreen extends Component {
         const { customer } = this.state;
         let userData = { email, password };
         if (customer) {
-            await this.props.actions.setUser(userData);
+            await this.props.authActions.setUser(userData);
             navigate('Customer')
             this.setState({ submit: false })
         } else {
-            await this.props.actions.setUser(userData);
+            await this.props.authActions.setUser(userData);
             navigate('Barber')
             this.setState({ submit: false })
         }
@@ -130,21 +135,21 @@ class AuthScreen extends Component {
                 barber={barber}
                 submit={(submit)}
                 isSubmit={() => this.setState({ submit: true })}
-                onGoogle={()=>this._signIn}
-                onFacebook={()=>this.onFacebookButtonPress}
+                onGoogle={() => this._signIn}
+                onFacebook={() => this.onFacebookButtonPress}
             />
         )
     }
 }
 const mapStateToProps = (state) => {
     return {
-        user: state.userAuth || {}
+        user: state.authReducer || {}
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        actions: bindActionCreators(actions, dispatch),
+        authActions: bindActionCreators(authActions, dispatch),
     };
 };
 

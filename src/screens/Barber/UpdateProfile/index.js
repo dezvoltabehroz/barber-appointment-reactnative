@@ -8,13 +8,18 @@ import ImagePicker from 'react-native-image-picker';
 import RangeSlider from 'rn-range-slider';
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoder';
+import { connect } from 'react-redux';
 
-const screenWidth = Dimensions.get('window').width;
-export default class UpdateProfile extends Component {
+class UpdateProfile extends Component {
     constructor(props) {
         super(props);
+        let { name } = this.props.user.userSocialNetworkData
         this.state = {
-            male: true, female: false, name: '', isNameFocus: false, isLocationFocus: false,
+            male: true,
+            female: false,
+            name: name ? name : '',
+            isNameFocus: false,
+            isLocationFocus: false,
             profile_Url: '',
             dateValue: new Date(),
             data: "HI HOW are you",
@@ -206,3 +211,11 @@ export default class UpdateProfile extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer || {}
+    };
+};
+
+export default connect(mapStateToProps)(UpdateProfile)
