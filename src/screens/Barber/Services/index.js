@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Modal, Alert } from 'react-native';
 import { FooterButton, Icon, Button, FloatingInput } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
@@ -93,14 +93,20 @@ export default class Services extends Component {
     on_Next_press = () => {
         const { onNext } = this.props;
         let selectedArray = this.state.selectedService;
-        if (selectedArray[selectedArray.length - 1].serviceCounter == 0) {
-            this.setState({ selectedService: selectedArray })
-            onNext(this.state.selectedService)
+        if (selectedArray.length == 0) {
+            Alert.alert('Attension', 'Please select atleast one service');
         }
         else {
-            selectedArray.push({ serviceCounter: 0 })
-            this.setState({ selectedService: selectedArray })
-            onNext(this.state.selectedService)
+            if (selectedArray[selectedArray.length - 1].serviceCounter == 0) {
+                this.setState({ selectedService: selectedArray })
+                onNext(this.state.selectedService)
+            }
+            else {
+                selectedArray.push({ serviceCounter: 0 })
+                this.setState({ selectedService: selectedArray })
+                onNext(this.state.selectedService)
+            }
+
         }
 
     }

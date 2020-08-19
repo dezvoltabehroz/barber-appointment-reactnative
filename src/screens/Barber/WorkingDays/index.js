@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity,Alert } from 'react-native';
 import { FooterButton, Icon } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
@@ -52,16 +52,20 @@ export default class WorkingDays extends Component {
     on_Next_press = () => {
         const { onNext } = this.props;
         let selectedArray = this.state.selectedDays;
-        if (selectedArray[selectedArray.length - 1].dayCounter == 0) {
-            this.setState({ selectedDays: selectedArray })
-            onNext(this.state.selectedDays)
+        if (selectedArray.length == 0) {
+            Alert.alert('Attension', 'Please select atleast one service')
         }
         else {
-            selectedArray.push({ dayCounter: 0 })
-            this.setState({ selectedDays: selectedArray })
-            onNext(this.state.selectedDays)
+            if (selectedArray[selectedArray.length - 1].dayCounter == 0) {
+                this.setState({ selectedDays: selectedArray })
+                onNext(this.state.selectedDays)
+            }
+            else {
+                selectedArray.push({ dayCounter: 0 })
+                this.setState({ selectedDays: selectedArray })
+                onNext(this.state.selectedDays)
+            }
         }
-
     }
 
     _renderSeparator = () => {
