@@ -40,6 +40,8 @@ class AuthScreen extends Component {
 
     _signIn = async () => {
         try {
+            const { navigate } = this.props.navigation
+            const { customer } = this.state;
             await GoogleSignin.hasPlayServices({
                 showPlayServicesUpdateDialog: true,
             });
@@ -50,7 +52,10 @@ class AuthScreen extends Component {
                 photo: userInfo.user.photo
             }
             await this.props.authActions.setSocialNetworkUserData(userData);
-
+            customer ?
+                navigate('Customer', { screen: 'PhoneNumber' })
+                :
+                navigate('Barber', { screen: 'PhoneNumber' })
         } catch (error) {
             console.log('Message', error.message);
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -67,6 +72,8 @@ class AuthScreen extends Component {
 
 
     get_Response_Info = async (error, result) => {
+        const { navigate } = this.props.navigation
+        const { customer } = this.state;
         if (error) { Alert.alert('Error fetching data: ' + error.toString()); }
         else {
             let userData = {
@@ -75,6 +82,10 @@ class AuthScreen extends Component {
             }
             console.log(result);
             await this.props.authActions.setSocialNetworkUserData(userData);
+            customer ?
+                navigate('Customer', { screen: 'PhoneNumber' })
+                :
+                navigate('Barber', { screen: 'PhoneNumber' })
         }
     };
 
