@@ -27,6 +27,7 @@
 		BD264FE798284E8BB00A1A64 /* Poppins-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E67FC7AAE78C4D9180F3833F /* Poppins-ExtraBoldItalic.ttf */; };
 		C22BEB9524AE42E7009C746A /* NewLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C22BEB9424AE42E7009C746A /* NewLaunchScreen.storyboard */; };
 		C22BEB9724AE4355009C746A /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C22BEB9624AE4354009C746A /* logo.png */; };
+		C293DAA524ED4735002E1E8D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C293DAA424ED4735002E1E8D /* GoogleService-Info.plist */; };
 		D9AA16A7ACA844B39793276A /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 16A283590ABC419B9D9EE16D /* Poppins-Bold.ttf */; };
 		DA82B814E0EC4A9AA8875CB4 /* Poppins-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A84895F86CC4C6CBE6BB169 /* Poppins-Black.ttf */; };
 		E8D37156DDF54CC9A9676C8A /* Poppins-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FFB548C714543D893419B50 /* Poppins-BlackItalic.ttf */; };
@@ -84,6 +85,7 @@
 		BB0577D991D1C7CD03C4B72D /* Pods-Luxe-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luxe-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Luxe-tvOSTests/Pods-Luxe-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C22BEB9424AE42E7009C746A /* NewLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = NewLaunchScreen.storyboard; path = Luxe/NewLaunchScreen.storyboard; sourceTree = "<group>"; };
 		C22BEB9624AE4354009C746A /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = ../src/assets/images/logo.png; sourceTree = "<group>"; };
+		C293DAA424ED4735002E1E8D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../src/config/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C40B2328AF8E2B8B22B8C4FD /* Pods-Luxe-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luxe-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Luxe-tvOS/Pods-Luxe-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		CCAB98C56C0775BE12FA15C4 /* Pods-Luxe-LuxeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luxe-LuxeTests.debug.xcconfig"; path = "Target Support Files/Pods-Luxe-LuxeTests/Pods-Luxe-LuxeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D483A393F079A97CC7656752 /* Pods-Luxe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luxe.debug.xcconfig"; path = "Target Support Files/Pods-Luxe/Pods-Luxe.debug.xcconfig"; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 		13B07FAE1A68108700A75B9A /* Luxe */ = {
 			isa = PBXGroup;
 			children = (
+				C293DAA424ED4735002E1E8D /* GoogleService-Info.plist */,
 				C22BEB9624AE4354009C746A /* logo.png */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -322,6 +325,7 @@
 				47C027858AC444FEBC6CAA97 /* Poppins-Regular.ttf in Resources */,
 				C22BEB9524AE42E7009C746A /* NewLaunchScreen.storyboard in Resources */,
 				57A720192ACA4BA28F10C5CE /* Poppins-SemiBold.ttf in Resources */,
+				C293DAA524ED4735002E1E8D /* GoogleService-Info.plist in Resources */,
 				AE1746D815B94F0BB938E069 /* Poppins-SemiBoldItalic.ttf in Resources */,
 				63BB308AE5D145619D2A362A /* Poppins-Thin.ttf in Resources */,
 				63D0F925CC1347549F3834BD /* Poppins-ThinItalic.ttf in Resources */,
@@ -374,7 +378,9 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Luxe/Pods-Luxe-resources.sh",
+				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/RNImageCropPicker/QBImagePicker.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
@@ -396,7 +402,9 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/QBImagePicker.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
