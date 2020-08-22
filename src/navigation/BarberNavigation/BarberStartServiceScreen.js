@@ -2,17 +2,33 @@
 
 import React, { Component } from 'react'
 import { MainScreenPaths } from '../../screens';
+import { Alert } from 'react-native';
 
 export default class BarberStartServiceScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })
 
+    handleStartService = () => {
+        const { navigate, goBack } = this.props.navigation
+        Alert.alert('Attension', 'Are you sure you want to start service',
+            [
+                {
+                    text: "No",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                { text: "Yes", onPress: () => navigate('BarberEndService', { start: true }) }
+            ],
+        );
+
+
+    }
 
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Barber.BarberStartService onStartService={() => navigate('BarberEndService', { start: true })} />
+            <MainScreenPaths.Barber.BarberStartService onStartService={ this.handleStartService} />
         )
     }
 }
