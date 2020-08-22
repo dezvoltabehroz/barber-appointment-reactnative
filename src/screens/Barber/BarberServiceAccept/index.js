@@ -38,12 +38,7 @@ export default class BarberServiceAccept extends Component {
     on_Phone = () => {
         const { data } = this.state;
         let number = ''
-        if (Platform.OS === 'ios') {
-            number = 'telprompt:' + data;
-        }
-        else {
-            number = 'tel:' + data;
-        }
+        number = 'tel:' + data;
         Linking.openURL(number);
     }
 
