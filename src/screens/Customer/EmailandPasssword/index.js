@@ -28,7 +28,7 @@ class EmailandPassword extends Component {
         this.setState({ submit: true });
         if (email && password && confirmPassword) {
             if (this.isEmailValid(email)) {
-                onUpdate();
+                onUpdate(email,password);
             }
         }
     };
