@@ -23,6 +23,12 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb669200787005069</string>
+			</array>
+		</dict>
+		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
@@ -32,11 +38,13 @@
 			<key>item 0</key>
 			<string>com.googleusercontent.apps.823617941270-du7u1r2baqslln7l929f7hl3ktkb0q9i</string>
 		</dict>
-		<dict/>
-		<dict/>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>FacebookAppID</key>
+	<string>669200787005069</string>
+	<key>FacebookDisplayName</key>
+	<string>Fleek</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -109,18 +117,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-  <key>CFBundleURLTypes</key>
-  <array>
-    <dict>
-    <key>CFBundleURLSchemes</key>
-    <array>
-      <string>fb669200787005069</string>
-    </array>
-    </dict>
-  </array>
-  <key>FacebookAppID</key>
-  <string>669200787005069</string>
-  <key>FacebookDisplayName</key>
-  <string>Fleek</string>
 </dict>
 </plist>
