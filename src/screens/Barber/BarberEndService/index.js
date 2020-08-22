@@ -31,7 +31,7 @@ export default class EndService extends Component {
 
     componentDidMount = () => {
         let { start } = this.props
-        // this.setState({ timerStart: start, stopwatchStart: start })
+        this.setState({ timerStart: start, stopwatchStart: start })
     }
 
 
