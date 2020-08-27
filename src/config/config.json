@@ -2,5 +2,15 @@
     "googleMaps": {
         "key": "AIzaSyBUzIJMcqHNKExvvrQZEPJ22z_rohHLUdQ",
         "language": "en"
+    },
+    "firebaseConfig": {
+        "apiKey": "AIzaSyA9JcFX0XGQj63HmXXGDJ_uzu17tKKkiu4",
+        "authDomain": "fleek-24620.firebaseapp.com",
+        "databaseURL": "https://fleek-24620.firebaseio.com",
+        "projectId": "fleek-24620",
+        "storageBucket": "fleek-24620.appspot.com",
+        "messagingSenderId": "823617941270",
+        "appId": "1:823617941270:web:bfefcbe30b8b53414a6a37",
+        "measurementId": "G-3QX8H8REX4"
     }
 }
