@@ -8,7 +8,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '15%'
+        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '20%' : '5%'
     },
     backIconStyle: {
         alignSelf: 'flex-start',
@@ -50,16 +50,17 @@ export default StyleSheet.create({
     input: {
         paddingHorizontal: 20,
         fontSize: 18,
-        flex: 1
+        // flex: 1
     },
     send: {
-        alignSelf: 'flex-end',
+        // alignSelf: 'flex-end',
         color: 'lightseagreen',
         fontSize: 16,
         fontWeight: 'bold',
         paddingHorizontal: 10
-    }, inputContainer: {
-        flex: 1,
+    }, 
+    inputContainer: {
+        // flex: 1,
         height: 45,
         backgroundColor: THEME.COLOR_WHITE,
         borderRadius: 50,
