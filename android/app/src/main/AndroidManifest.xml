@@ -23,7 +23,7 @@
               <category android:name="android.intent.category.LAUNCHER" />
           </intent-filter>
         </activity>
-
+         
         <!-- Remove the intent-filter of the MainActivity and add a param android:exported="true" -->
         <activity
           android:name=".MainActivity"
@@ -34,9 +34,12 @@
 
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 
+       <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
+
       <meta-data     
         android:name="com.google.android.geo.API_KEY"      
-        android:value="AIzaSyCpNZMa_0hP9txbsGZVu2gNMqcZqHHRCbY"/>
+        android:value="AIzaSyBUzIJMcqHNKExvvrQZEPJ22z_rohHLUdQ"/>
     </application>
 
 </manifest>
