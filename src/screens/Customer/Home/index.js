@@ -24,11 +24,11 @@ class Home extends Component {
             ourAppointment: [
                 {
                     appointmentName: 'Salon',
-                    image_url: require('../../../assets/images/Salon-Category.png'),
+                    image_url: require('../../../assets/images/Salon-Category.jpg'),
                     subCategory: [
                         {
                             subCategoryName: 'Style',
-                            image: require('../../../assets/images/Salon-Style.png'),
+                            image: require('../../../assets/images/Salon-Style.jpg'),
                             services: [
                                 {
                                     serviceName: 'Haircut & Styling',
@@ -104,7 +104,7 @@ class Home extends Component {
                         },
                         {
                             subCategoryName: 'Color',
-                            image: require('../../../assets/images/Salon-Color.png'),
+                            image: require('../../../assets/images/Salon-Color.jpg'),
                             services: [
                                 {
                                     serviceName: 'Highlights',
@@ -134,7 +134,7 @@ class Home extends Component {
                         },
                         {
                             subCategoryName: 'Treatment',
-                            image: require('../../../assets/images/Salon-Treatment.png'),
+                            image: require('../../../assets/images/Salon-Treatment.jpg'),
                             services: [
                                 {
                                     serviceName: 'Glaze',
@@ -160,11 +160,11 @@ class Home extends Component {
                 },
                 {
                     appointmentName: 'Barber',
-                    image_url: require('../../../assets/images/Barber-Category.png'),
+                    image_url: require('../../../assets/images/Barber-Category.jpg'),
                     subCategory: [
                         {
                             subCategoryName: 'Hair',
-                            image: require('../../../assets/images/Barber-Cut.png'),
+                            image: require('../../../assets/images/Barber-Cut.jpg'),
                             services: [
                                 {
                                     serviceName: 'Hair Cut',
@@ -191,7 +191,7 @@ class Home extends Component {
                         },
                         {
                             subCategoryName: 'Bread & Mustache',
-                            image: require('../../../assets/images/Nails-Hands.png'),
+                            image: require('../../../assets/images/Nails-Hands.jpg'),
                             services: [
                                 {
                                     serviceName: 'Full Service Bread & Mustache Trim',
@@ -203,7 +203,7 @@ class Home extends Component {
                         },
                         {
                             subCategoryName: 'Shave',
-                            image: require('../../../assets/images/Barber-Shave.png'),
+                            image: require('../../../assets/images/Barber-Shave.jpg'),
                             services: [
                                 {
                                     serviceName: 'Executive Shave',
@@ -223,11 +223,11 @@ class Home extends Component {
                 },
                 {
                     appointmentName: 'Hair Braiding',
-                    image_url: require('../../../assets/images/Braiding-Category.png'),
+                    image_url: require('../../../assets/images/Braiding-Category.jpg'),
                     subCategory: [
                         {
                             subCategoryName: 'Braiding',
-                            image: require('../../../assets/images/HairBraiding-Braiding.png'),
+                            image: require('../../../assets/images/HairBraiding-Braiding.jpg'),
                             services: [
                                 {
                                     serviceName: 'Hair Braiding',
@@ -257,7 +257,7 @@ class Home extends Component {
                         },
                         {
                             subCategoryName: 'Extensions',
-                            image: require('../../../assets/images/HairBraiding-Extensions.png'),
+                            image: require('../../../assets/images/HairBraiding-Extensions.jpg'),
                             services: [
                                 {
                                     serviceName: 'Kinky Twists',
@@ -283,11 +283,11 @@ class Home extends Component {
                 },
                 {
                     appointmentName: 'Nails',
-                    image_url: require('../../../assets/images/Nails-Category.png'),
+                    image_url: require('../../../assets/images/Nails-Category.jpg'),
                     subCategory: [
                         {
                             subCategoryName: 'Hands',
-                            image: require('../../../assets/images/Nails-Hands.png'),
+                            image: require('../../../assets/images/Nails-Hands.jpg'),
                             services: [
                                 {
                                     serviceName: 'Spa Manicure',
@@ -305,7 +305,7 @@ class Home extends Component {
                         },
                         {
                             subCategoryName: 'Feet',
-                            image: require('../../../assets/images/Nails-Feet.png'),
+                            image: require('../../../assets/images/Nails-Feet.jpg'),
                             services: [
                                 {
                                     serviceName: 'Spa Pedicure',
@@ -325,44 +325,44 @@ class Home extends Component {
                 },
                 {
                     appointmentName: 'Make Up',
-                    image_url: require('../../../assets/images/makeup.png'),
+                    image_url: require('../../../assets/images/makeup.jpg'),
                     subCategory: [
                         {
                             subCategoryName: 'Hands',
-                            image: require('../../../assets/images/makeup.png')
+                            image: require('../../../assets/images/makeup.jpg')
                         },
                         {
                             subCategoryName: 'Feet',
-                            image: require('../../../assets/images/Nails-Hands.png')
+                            image: require('../../../assets/images/Nails-Hands.jpg')
                         },
                     ]
                 },
                 {
                     appointmentName: 'Bridal',
-                    image_url: require('../../../assets/images/Bridal.png'),
+                    image_url: require('../../../assets/images/Bridal.jpg'),
                     subCategory: [
                         {
                             subCategoryName: 'Hands',
-                            image: require('../../../assets/images/Nails-Hands.png')
+                            image: require('../../../assets/images/Nails-Hands.jpg')
 
                         },
                         {
                             subCategoryName: 'Feet',
-                            image: require('../../../assets/images/Nails-Hands.png')
+                            image: require('../../../assets/images/Nails-Hands.jpg')
                         },
                     ]
                 },
                 {
                     appointmentName: 'Hair Removal',
-                    image_url: require('../../../assets/images/hair-removal.png'),
+                    image_url: require('../../../assets/images/hair-removal.jpg'),
                     subCategory: [
                         {
                             subCategoryName: 'Hands',
-                            image: require('../../../assets/images/Nails-Hands.png')
+                            image: require('../../../assets/images/Nails-Hands.jpg')
                         },
                         {
                             subCategoryName: 'Feet',
-                            image: require('../../../assets/images/Nails-Hands.png')
+                            image: require('../../../assets/images/Nails-Hands.jpg')
                         },
                     ]
                 },
