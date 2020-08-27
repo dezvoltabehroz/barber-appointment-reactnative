@@ -166,12 +166,12 @@ export default class BarberChat extends Component {
                     left: {
                         borderRadius: 8,
                         borderTopLeftRadius: 0,
-                        backgroundColor: '#FFF',
+                        backgroundColor: THEME.COLOR_WHITE,
                     },
                     right: {
                         borderRadius: 8,
                         borderTopRightRadius: 0,
-                        backgroundColor: '#3889F2',
+                        backgroundColor: THEME.PRIMARY_COLOR,
                     },
                 }}
             />
