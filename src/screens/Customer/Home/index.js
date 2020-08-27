@@ -223,7 +223,7 @@ class Home extends Component {
                 },
                 {
                     appointmentName: 'Hair Braiding',
-                    image_url: require('../../../assets/images/Braiding-Category.jpg'),
+                    image_url: require('../../../assets/images/Braiding-Category.png'),
                     subCategory: [
                         {
                             subCategoryName: 'Braiding',
