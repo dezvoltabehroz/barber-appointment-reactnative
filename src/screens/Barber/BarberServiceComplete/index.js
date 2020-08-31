@@ -4,7 +4,7 @@ import styles from './style';
 import { FooterButton, Icon, MessageInput } from '../../../components';
 import THEME from '../../../assets/styles/theme.style';
 import StarRating from 'react-native-star-rating';
-
+import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
 export default class BarberServiceComplete extends Component {
     constructor(props) {
         super(props);
@@ -35,41 +35,44 @@ export default class BarberServiceComplete extends Component {
         let { onHome } = this.props
         const { starCount, isFeedbackFocus, feedback } = this.state;
         return (
-            <View style={styles.container}>
-                <View style={styles.upperContainer}>
-                    <View style={styles.rowStyle}>
-                        <Text style={styles.headingTextStyle1}>Total Amount Paid:</Text>
-                        <Text style={[styles.headingTextStyle1, { color: THEME.PRIMARY_COLOR }]}>  $260</Text>
-                    </View>
-                    <View style={styles.iconContainer}>
-                        <Icon.FontAwesome5 name='hand-holding-usd' size={120} color={THEME.PRIMARY_COLOR} />
-                    </View>
-                    <View style={styles.borderStyle}>
-                        <Text style={styles.headingText}>Rate Customer</Text>
-                        <View style={{ marginVertical: '5%' }}>
-                            <StarRating
-                                disabled={false}
-                                maxStars={5}
-                                starSize={25}
-                                rating={starCount}
-                                selectedStar={(rating) => this.onStarRatingPress(rating)}
-                                fullStarColor={THEME.PRIMARY_COLOR}
-                            />
+            <KeyboardAwareView>
+
+                <View style={styles.container}>
+                    <View style={styles.upperContainer}>
+                        <View style={styles.rowStyle}>
+                            <Text style={styles.headingTextStyle1}>Total Amount Paid:</Text>
+                            <Text style={[styles.headingTextStyle1, { color: THEME.PRIMARY_COLOR }]}>  $260</Text>
                         </View>
-                        <View style={[styles.messageContainerStyle,
-                        isFeedbackFocus || feedback != '' ? THEME.inputBorder : {}]}>
-                            <MessageInput
-                                label={"Please type your feedback"}
-                                val={feedback}
-                                multiline={true}
-                                onActive={() => this.setState({ isMessageFocus: true })}
-                                onInActive={() => this.setState({ isMessageFocus: false })}
-                                updateText={(feedback) => this.setState({ feedback })} />
+                        <View style={styles.iconContainer}>
+                            <Icon.FontAwesome5 name='hand-holding-usd' size={120} color={THEME.PRIMARY_COLOR} />
+                        </View>
+                        <View style={styles.borderStyle}>
+                            <Text style={styles.headingText}>Rate Customer</Text>
+                            <View style={{ marginVertical: '5%' }}>
+                                <StarRating
+                                    disabled={false}
+                                    maxStars={5}
+                                    starSize={25}
+                                    rating={starCount}
+                                    selectedStar={(rating) => this.onStarRatingPress(rating)}
+                                    fullStarColor={THEME.PRIMARY_COLOR}
+                                />
+                            </View>
+                            <View style={[styles.messageContainerStyle,
+                            isFeedbackFocus || feedback != '' ? THEME.inputBorder : {}]}>
+                                <MessageInput
+                                    label={"Please type your feedback"}
+                                    val={feedback}
+                                    multiline={true}
+                                    onActive={() => this.setState({ isMessageFocus: true })}
+                                    onInActive={() => this.setState({ isMessageFocus: false })}
+                                    updateText={(feedback) => this.setState({ feedback })} />
+                            </View>
                         </View>
                     </View>
+                    <FooterButton title='Done' onPress={onHome} />
                 </View>
-                <FooterButton title='Done' onPress={onHome} />
-            </View>
+            </KeyboardAwareView>
         )
     }
 }

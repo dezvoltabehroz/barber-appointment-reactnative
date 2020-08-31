@@ -15,7 +15,7 @@ import {
 } from "react-native";
 import THEME from '../../../assets/styles/theme.style';
 import styles from './style';
-
+import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
 import { GiftedChat, GiftedAvatar, Bubble, InputToolbar, Composer, Send } from 'react-native-gifted-chat'
 import firebaseApp from './/../../../services/ChatFireBase'
 
@@ -271,8 +271,25 @@ export default class BarberChat extends Component {
                     renderSend={this._renderSend}
                     renderBubble={this._renderBubble}
                     renderAvatar={this._renderAvatar}
-                    renderInputToolbar={props => (<InputToolbar {...props} inputStyle={styles.input} containerStyle={{ backgroundColor: "black", borderTopWidth: 0, marginTop: '2%' }}
-                        renderComposer={props1 => (<Composer {...props1} in textInputStyle={{ color: "white", fontFamily: 'Poppins-Regular', paddingTop: '5%' }} />)} />)}
+                    renderInputToolbar={props => (
+                        <KeyboardAwareView>
+                            <InputToolbar
+                                {...props}
+                                containerStyle={{
+                                    backgroundColor: "black",
+                                    borderTopWidth: 0,
+                                    marginTop: '2%'
+                                }}
+                                renderComposer={props1 =>
+                                    (<Composer
+                                        {...props1}
+                                        textInputStyle={{
+                                            color: "white",
+                                            fontFamily: 'Poppins-Regular',
+                                            paddingTop: '5%'
+                                        }} />
+                                    )} />
+                        </KeyboardAwareView>)}
                     // renderInputToolbar={this._renderInputToolbar}
                     showUserAvatar={true}
                     showAvatarForEveryMessage={true}

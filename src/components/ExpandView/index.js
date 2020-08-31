@@ -301,7 +301,6 @@ class ExpandingView extends Component {
                             fullStarColor={THEME.PRIMARY_COLOR}
                         />
                     </View>
-
                 </View>
             </>)
     }
