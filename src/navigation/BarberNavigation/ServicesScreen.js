@@ -12,7 +12,7 @@ export default class ServicesScreen extends Component {
     handleFunction = (data) => {
         const { navigate, goBack } = this.props.navigation;
         if (data.length == 0) {
-            Alert.alert('Attension', 'Please select atleast one service')
+            Alert.alert('Attention', 'Please select atleast one service')
         }
         else {
             navigate('PriceandTime', { item: data })

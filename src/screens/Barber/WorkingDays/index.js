@@ -53,7 +53,7 @@ export default class WorkingDays extends Component {
         const { onNext } = this.props;
         let selectedArray = this.state.selectedDays;
         if (selectedArray.length == 0) {
-            Alert.alert('Attension', 'Please select atleast one service')
+            Alert.alert('Attention', 'Please select atleast one service')
         }
         else {
             if (selectedArray[selectedArray.length - 1].dayCounter == 0) {

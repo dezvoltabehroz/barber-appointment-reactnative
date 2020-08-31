@@ -177,7 +177,7 @@ export default class PriceAndTime extends Component {
             this.setState({ submit: false })
         }
         else {
-            Alert.alert('Attension', 'All required field should be filled ')
+            Alert.alert('Attention', 'All required field should be filled ')
         }
     }
 

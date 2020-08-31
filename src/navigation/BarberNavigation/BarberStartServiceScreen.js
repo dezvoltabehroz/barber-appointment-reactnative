@@ -11,7 +11,7 @@ export default class BarberStartServiceScreen extends Component {
 
     handleStartService = () => {
         const { navigate, goBack } = this.props.navigation
-        Alert.alert('Attension', 'Are you sure you want to start service',
+        Alert.alert('Attention', 'Are you sure you want to start service',
             [
                 {
                     text: "No",

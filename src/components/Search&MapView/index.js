@@ -173,7 +173,7 @@ class SearchandMapView extends Component {
                         query={Config.googleMaps}
                         styles={{
                             container: { backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, },
-                            textInput: { marginHorizontal: "5%", height: 54, },
+                            textInput: { marginHorizontal: "5%", height: 54,color:'black', },
                             textInputContainer: {
                                 width: '100%',
                                 height: 54,

@@ -71,7 +71,7 @@ export default class DateTimeModal extends Component {
             if (am == true && pm == false) {
                 var value = hours + ":" + "00" + " AM";
                 if (hours == '' || hours == '00') {
-                    Alert.alert("Attension", "Please select correct Hour")
+                    Alert.alert("Attention", "Please select correct Hour")
                 }
                 else {
                     onSet(value);
@@ -81,7 +81,7 @@ export default class DateTimeModal extends Component {
             else {
                 var value = hours + ":" + "00" + " PM";
                 if (hours == '' || hours == '00') {
-                    Alert.alert("Attension", "Please select correct Hour")
+                    Alert.alert("Attention", "Please select correct Hour")
                 }
                 else {
                     onSet(value);
