@@ -535,7 +535,7 @@ class ExpandingView extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.userAuth || {}
+        user: state.authReducer || {}
     };
 };
 
