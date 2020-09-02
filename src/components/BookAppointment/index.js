@@ -89,7 +89,7 @@ export default class BookAppointment extends Component {
       timeSlots.push({ slot: `${new moment(startDay).format('hh:mm A')}`, isBooked: false });
       startDay.add(difference, 'minutes');
     }
-    this.setState({ slots: timeSlots, }, () => console.log(this.state.slots));
+    this.setState({ slots: timeSlots, });
   }
 
   DayAsString = (dayIndex) => {
@@ -126,12 +126,12 @@ export default class BookAppointment extends Component {
     });
     this.setState({ days });
   }
-  
+
   handleOnSubmit = (data) => {
     const { onBookingPress } = this.props;
     this.setState({ bookingModal: false })
     this.state.myBookings.push({ booking: data }),
-    onBookingPress("false");
+      onBookingPress("false");
 
   }
 
