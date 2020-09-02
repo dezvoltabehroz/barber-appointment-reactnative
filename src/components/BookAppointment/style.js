@@ -55,7 +55,7 @@ export default StyleSheet.create({
     flatlistContainer: {
         backgroundColor: THEME.PRIMARY_COLOR,
         height: 44,
-        width:100,
+        width:screenWidth*0.275,
         justifyContent: "center",
         alignItems: 'center',
         borderRadius: 5,
