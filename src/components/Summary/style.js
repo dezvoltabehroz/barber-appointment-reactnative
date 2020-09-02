@@ -16,6 +16,14 @@ export default StyleSheet.create({
         alignItems: 'center',
         marginHorizontal: "5%"
     },
+
+    addressRowContainer: {
+        flexDirection: 'row',
+        justifyContent: "space-between",
+        // height: 35,
+        alignItems: 'center',
+        marginHorizontal: "5%"
+    },
     lineStyle: {
         borderColor: '#44495C',
         borderWidth: 0.5,

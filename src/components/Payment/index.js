@@ -11,9 +11,9 @@ import {
     FlatList
 } from 'react-native';
 import styles from './style'
-import { Icon, FloatingInput, DateTime } from '..';
+import { Icon, FloatingInput } from '..';
 import THEME from '../../assets/styles/theme.style';
-
+import MonthPicker from 'react-native-month-year-picker';
 
 class Payment extends Component {
     constructor(prop) {
@@ -31,11 +31,10 @@ class Payment extends Component {
         }
     }
 
-    onChangeDate = (event, selectedDate) => {
-
-        var expDate = (selectedDate.getMonth());
-        expDate += "/";
-        expDate += (selectedDate.getYear() + 1900);
+    onChangeDate = (event, newDate) => {
+        console.log(newDate)
+        let date = newDate.split('-');
+        var expDate = date[0] + '/' + date[1];
         this.setState({
             expDate,
             showDatePicker: false,
@@ -110,17 +109,16 @@ class Payment extends Component {
                                 </View>
                             </View>
                             <View style={styles.row}>
-                                <View style={[styles.inputRowContainerStyle,
+                                <TouchableOpacity onPress={() => this.setState({ isexpDateFocus: true, showDatePicker: true })} style={[styles.inputRowContainerStyle,
                                 isexpDateFocus || expDate != '' ? THEME.inputBorder : {}]}>
-                                    <FloatingInput
-                                        val={expDate}
-                                        onActive={() => this.setState({ isexpDateFocus: true, showDatePicker: true })}
-                                        onInActive={() => this.setState({ isexpDateFocus: false })}
-                                        label='Exp Date'
-                                        iconSmallInput
-                                        updateText={(expDate) => this.setState({ expDate })} />
+                                    {
+                                        expDate ?
+                                            <Text style={styles.colorTextStyle}>{expDate}</Text>
+                                            :
+                                            <Text style={styles.colorTextStyle}>Exp Date</Text>
+                                    }
                                     <Icon.Feather name='calendar' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
-                                </View>
+                                </TouchableOpacity>
                                 <View style={[styles.inputRowContainerStyle,
                                 isCvvFocus || cvv != '' ? THEME.inputBorder : {}]}>
                                     <FloatingInput
@@ -134,9 +132,12 @@ class Payment extends Component {
                                 </View>
                             </View>
                             {showDatePicker ?
-                                <DateTime
-                                    date
-                                    onChangeDate={this.onChangeDate}
+                                <MonthPicker
+                                    onChange={this.onChangeDate}
+                                    value={new Date()}
+                                    minimumDate={new Date()}
+                                    maximumDate={new Date(2029, 12)}
+                                    enableAutoDarkMode={false}
                                 />
                                 : null}
                             <View style={[styles.rowStyle, styles.generalMargin]}>

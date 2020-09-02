@@ -41,5 +41,16 @@ export default StyleSheet.create({
         flex: 0.2,
         justifyContent: 'flex-end',
         paddingBottom: '8%'
+    },
+    btnContainer: {
+        backgroundColor:THEME.PRIMARY_COLOR,
+        height: 54,
+        justifyContent: "center",
+        alignItems: "center",borderRadius:10
+    },
+    btnText: {
+        fontFamily: "Poppins-Regular",
+        color: THEME.COLOR_WHITE,
+        marginHorizontal: 10
     }
 })

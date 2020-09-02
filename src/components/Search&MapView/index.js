@@ -47,13 +47,14 @@ class SearchandMapView extends Component {
             region: {
                 latitude: searchObj.searchDetails.geometry.location.lat,
                 longitude: searchObj.searchDetails.geometry.location.lng,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
+                latitudeDelta: 0.005,
+                longitudeDelta: 0.005,
             },
             modalView: false,
             name: searchObj.searchDetails.formatted_address
         })
         this.props.address(this.state.name);
+        this.props.onChange();
     }
 
     componentDidMount = () => {
@@ -77,8 +78,8 @@ class SearchandMapView extends Component {
                     region: {
                         latitude: pos.lat,
                         longitude: pos.lng,
-                        latitudeDelta: this.state.region.latitudeDelta,
-                        longitudeDelta: this.state.region.longitudeDelta,
+                        latitudeDelta: 0.005,
+                        longitudeDelta: 0.005,
                     },
                     currentLocation: {
                         lat: pos.lat,
@@ -86,7 +87,7 @@ class SearchandMapView extends Component {
                     }
                 })
                 Geocoder.geocodePosition(pos).then(res => {
-                    this.setState({ location: res[0].formattedAddress })
+                    this.setState({ name: res[0].formattedAddress }, () => this.props.address(this.state.name))
                 })
                     .catch(error => alert(error));
             },
@@ -100,11 +101,11 @@ class SearchandMapView extends Component {
     }
 
     render() {
-        let { updateProfile, booking, accept } = this.props;
+        let { updateProfile, booking, accept, change } = this.props;
         const { modalView, name } = this.state;
         return (
             <>{
-                booking || accept ?
+                booking || accept || !change ?
                     null
                     :
                     <TouchableOpacity onPress={() => this.setState({ modalView: true })}>
@@ -117,6 +118,8 @@ class SearchandMapView extends Component {
                     provider={PROVIDER_GOOGLE}
                     showsUserLocation={true}
                     loadingEnabled
+                    followUserLocation={true}
+                    zoomEnabled={true}
                     showsMyLocationButton={true}
                     style={[styles.mapStyle, updateProfile ?
                         { height: screenHeight < 600 ? screenHeight * 0.6 : screenHeight * 0.69, }
@@ -128,11 +131,14 @@ class SearchandMapView extends Component {
                                 :
                                 {}]}
                     customMapStyle={THEME.mapStyle}
+                    ref={ref => (this.mapView = ref)}
                     region={this.state.region}
                     onRegionChangeComplete={updateProfile ? this.onRegionChange : () => { }}
-                // onRegionChange={onRegionChange}
-                // onPanDrag={onPanDrag}
-                // onMapReady={() => this.setState({ marginBottom: 1 })}
+                    // onRegionChange={onRegionChange}
+                    // onPanDrag={onPanDrag}
+                    onMapReady={() => {
+                        this.mapView.animateToRegion(this.state.region, 2000);
+                    }}
                 >
                     <Marker.Animated
                         ref={marker => {
@@ -146,9 +152,9 @@ class SearchandMapView extends Component {
                         })}
                     ></Marker.Animated>
                 </MapView>
-                <Modal visible={modalView}>
+                <Modal visible={change ? change : modalView}>
                     <View style={styles.modalContainer}>
-                        <TouchableOpacity onPress={() => this.setState({ modalView: false })} style={{ marginVertical: "5%" }}>
+                        <TouchableOpacity onPress={() => this.props.change ? this.props.onChange() : this.setState({ modalView: false })} style={{ marginVertical: "5%" }}>
                             <Icon.Feather name="arrow-left" size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} />
                         </TouchableOpacity>
                     </View>
@@ -173,7 +179,7 @@ class SearchandMapView extends Component {
                         query={Config.googleMaps}
                         styles={{
                             container: { backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, },
-                            textInput: { marginHorizontal: "5%", height: 54,color:'black', },
+                            textInput: { marginHorizontal: "5%", height: 54, color: 'black', },
                             textInputContainer: {
                                 width: '100%',
                                 height: 54,

@@ -8,7 +8,8 @@ import {
 } from 'react-native';
 import { Button, BookingScrollSlot } from '..';
 import styles from './style';
-
+import moment from 'moment';
+import THEME from '../../assets/styles/theme.style';
 export default class BookAppointment extends Component {
   constructor(prop) {
     super(prop);
@@ -51,27 +52,16 @@ export default class BookAppointment extends Component {
           isSelected: false,
         },
       ],
+      startTime: '09:00 AM',
+      endTime: '06:00 PM',
+      difference: this.props.time,
       daysDate: [],
       daysName: [],
       other: true,
+      isbooked: false,
       myBooking: false,
       slotArray: [],
-      slots: [
-        { "slot": "9:00am - 9:30am" },
-        { "slot": "9:30am - 10:00am" },
-        { "slot": "10:00am - 11:00am" },
-        { "slot": "11:00am - 11:30am" },
-        { "slot": "11:30am - 12:00pm" },
-        { "slot": "12:00pm - 12:30pm" },
-        { "slot": "1:00pm - 01:30pm" },
-        { "slot": "01:30pm - 02:00pm" },
-        { "slot": "02:00pm - 02:30pm" },
-        { "slot": "02:30pm - 03:00pm" },
-        { "slot": "03:00pm - 03:30pm" },
-        { "slot": "03:30pm - 04:00pm" },
-        { "slot": "04:00pm - 04:30pm" },
-        { "slot": "04:30pm - 05:00pm" },
-      ],
+      slots: [],
       myBookings: [
         { "booking": "10:30am - 11:00am" },
         { "booking": "12:30pm - 01:00pm" },
@@ -84,6 +74,22 @@ export default class BookAppointment extends Component {
   componentDidMount = () => {
     var date = new Date();
     this.GetDates(date, 7)
+
+    const { startTime, endTime, difference } = this.state;
+    var startDay = moment(startTime, 'hh:mm A');
+    var endDay = moment(endTime, 'hh:mm A');
+    if (endDay.isBefore(startDay)) {
+      endDay.add(1, 'day');
+    }
+    let slotendingTime = moment(startTime, 'hh:mm A');
+
+
+    var timeSlots = [];
+    while (startDay < endDay) {
+      timeSlots.push({ slot: `${new moment(startDay).format('hh:mm A')}`, isBooked: false });
+      startDay.add(difference, 'minutes');
+    }
+    this.setState({ slots: timeSlots, }, () => console.log(this.state.slots));
   }
 
   DayAsString = (dayIndex) => {
@@ -120,28 +126,33 @@ export default class BookAppointment extends Component {
     });
     this.setState({ days });
   }
+  
   handleOnSubmit = (data) => {
     const { onBookingPress } = this.props;
     this.setState({ bookingModal: false })
     this.state.myBookings.push({ booking: data }),
-      onBookingPress("false");
+    onBookingPress("false");
 
   }
+
   _renderItems = ({ index, item }) => {
     return (
-      <TouchableOpacity style={styles.flatlistContainer}>
+      <TouchableOpacity onPress={() => {
+        const { onBookingPress } = this.props;
+        let items = [...this.state.slots];
+        if (items[index].isBooked) {
+          items[index] = { ...items[index], isBooked: false };
+          this.setState({ slots: items, bookedSlot: items[index] }, () => onBookingPress("false"));
+        } else {
+          items[index] = { ...items[index], isBooked: true };
+          this.setState({ slots: items, bookedSlot: items[index] }, () => onBookingPress("false"));
+        }
+      }} style={[styles.flatlistContainer, { backgroundColor: item.isBooked ? THEME.COLOR_GREY : THEME.PRIMARY_COLOR }]}>
         <Text style={styles.textFlatlistStyle} >{item.slot}</Text>
       </TouchableOpacity>
     )
   }
 
-  _renderBookingItems = ({ index, item }) => {
-    return (
-      <TouchableOpacity style={styles.flatlistContainer}>
-        <Text style={styles.textFlatlistStyle} >{item.booking}</Text>
-      </TouchableOpacity >
-    )
-  }
 
   renderSeparator = () => {
     return (<View style={styles.gapHeight}></View>)
@@ -178,26 +189,16 @@ export default class BookAppointment extends Component {
             }
           </View>
           <View style={styles.lineStyle}></View>
-          {
-            this.state.myBooking ?
-              <FlatList data={this.state.myBookings}
-                keyExtractor={item => item}
-                ItemSeparatorComponent={this.renderSeparator}
-                numColumns={3}
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={styles.contentContainer}
-                renderItem={({ index, item }) => this._renderBookingItems({ index, item })} />
-              :
-              <FlatList data={this.state.slots}
-                keyExtractor={item => item}
-                ItemSeparatorComponent={this.renderSeparator}
-                numColumns={3}
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={styles.contentContainer}
-                renderItem={({ index, item }) => this._renderItems({ index, item })} />
-          }
+
+          <FlatList data={this.state.slots}
+            keyExtractor={item => item}
+            ItemSeparatorComponent={this.renderSeparator}
+            numColumns={3}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.contentContainer}
+            renderItem={({ index, item }) => this._renderItems({ index, item })} />
           <View style={styles.lineStyle}></View>
-          <View style={styles.bookingRowContainer}>
+          {/* <View style={styles.bookingRowContainer}>
             <TouchableOpacity
               onPress={() => this.setState({ myBooking: !this.state.myBooking })}
               style={this.state.myBooking ? styles.selected : styles.unSelected}>
@@ -211,12 +212,12 @@ export default class BookAppointment extends Component {
             <View style={styles.justify}>
               <Text style={styles.textStyle} >Other</Text>
             </View>
-          </View>
-          <View style={styles.buttonContainer}>
+          </View> */}
+          {/* <View style={styles.buttonContainer}>
             <Button title="Make Booking" onPress={() => this.setState({ bookingModal: true })}
 
             />
-          </View>
+          </View> */}
 
         </View>
         <BookingScrollSlot

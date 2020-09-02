@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Alert } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './style';
 import { Button, BarberServices, SearchandMapView, BookAppointment, Summary, Payment } from '../../../components';
 import StepProgress from 'react-native-step-progress';
@@ -83,7 +83,7 @@ export default class Booking extends Component {
 
 
     render() {
-        const labels = ["Service", "Location", "Time", "Summary", "Payment"];
+        const labels = ["Service", "Location", "Time", "Payment", "Summary"];
         const customStyles = {
             stepIndicatorSize: 25,
             currentStepIndicatorSize: 30,
@@ -137,6 +137,8 @@ export default class Booking extends Component {
                     {
                         this.state.currentPosition == 1 ?
                             <SearchandMapView
+                                change={(this.state.change)}
+                                onChange={() => this.setState({ change: false })}
                                 address={(location) => this.handleLocation(location)}
                             />
                             :
@@ -150,19 +152,20 @@ export default class Booking extends Component {
                             :
                             null
                     }
+
                     {
                         this.state.currentPosition == 3 ?
-                            <Summary
-                                addresslocation={(this.state.location)}
-                                onChangePress={this.handleOnChange}
-                                services={(this.state.selectedServices)}
-                            />
+                            <Payment />
                             :
                             null
                     }
                     {
                         this.state.currentPosition == 4 ?
-                            <Payment />
+                            <Summary
+                                addresslocation={(this.state.location)}
+                                onChangePress={this.handleOnChange}
+                                services={(this.state.selectedServices)}
+                            />
                             :
                             null
                     }
@@ -197,8 +200,25 @@ export default class Booking extends Component {
                                     null
                             }
                         </View>
-                        <View style={styles.buttonContainer}>
-                            <Button disabled={disabled} title='Next' onPress={this.onNextPageChange} />
+                        <View style={this.state.currentPosition == 1 ? {} : styles.buttonContainer}>
+                            {
+                                this.state.currentPosition == 1 ?
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                        <TouchableOpacity disabled={disabled} onPress={this.onNextPageChange} style={styles.btnContainer}>
+                                            <Text style={styles.btnText}>
+                                                Confirm
+                                            </Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.setState({ change: true })} style={[styles.btnContainer, { marginLeft: '2.5%' }]}>
+                                            <Text style={styles.btnText}>
+                                                Change
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    :
+                                    <Button disabled={disabled} title={this.state.currentPosition == 4 ? 'Done' : 'Confirm'} onPress={this.onNextPageChange} />
+                            }
+
                         </View>
                     </View>
 

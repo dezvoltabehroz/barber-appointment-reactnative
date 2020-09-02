@@ -82,7 +82,7 @@ class Summary extends Component {
                             <Text style={styles.colorTextStyle}>Location</Text>
                         </View>
                         <View style={styles.container}>
-                            <View style={styles.rowContainer}>
+                            <View style={styles.addressRowContainer}>
                                 <View>
                                     <Text style={styles.colorTextStyle}>Address: </Text>
                                 </View>

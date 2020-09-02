@@ -1,15 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
-
 import { StyleSheet, Dimensions } from 'react-native';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -127,7 +116,7 @@ export default StyleSheet.create({
     inputRowContainerStyle: {
         marginVertical: '3%',
         flexDirection: "row",
-        justifyContent: "center",
+        justifyContent: "space-evenly",
         alignItems: "center",
         height: 54,
         width: screenWidth * 0.4,

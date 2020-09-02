@@ -48,13 +48,14 @@ export default StyleSheet.create({
     },
     textFlatlistStyle: {
         color: THEME.COLOR_WHITE,
-        fontSize: 10,
+        fontSize: 14,
         fontFamily: "Poppins-Regular",
         margin: 7
     },
     flatlistContainer: {
         backgroundColor: THEME.PRIMARY_COLOR,
         height: 44,
+        width:100,
         justifyContent: "center",
         alignItems: 'center',
         borderRadius: 5,
