@@ -154,7 +154,7 @@ class SearchandMapView extends Component {
                 </MapView>
                 <Modal visible={change ? change : modalView}>
                     <View style={styles.modalContainer}>
-                        <TouchableOpacity onPress={() => this.props.change ? this.props.onChange() : this.setState({ modalView: false })} style={{ marginVertical: "5%" }}>
+                        <TouchableOpacity onPress={() => this.props.change ? this.props.onChange() : this.setState({ modalView: false })} style={{ marginTop: "15%" }}>
                             <Icon.Feather name="arrow-left" size={THEME.ICON_SIZE} color={THEME.COLOR_WHITE} />
                         </TouchableOpacity>
                     </View>
