@@ -50,16 +50,9 @@ class AuthScreen extends Component {
                                 <Text style={styles.headingTextStyle}>Enhance your experience with</Text>
                                 <Text style={styles.babeoTextStyle}>FLEEK!</Text>
                             </View>
-                            <RadioButton auth
-                                option1={customer}
-                                option2={barber}
-                                option1Text="Customer"
-                                option2Text="Barber"
-                                onPressOption1={onPressCustomer}
-                                onPressOption2={onPressBarber} />
-                            <View style={styles.loginASContainer}>
+                            {/* <View style={styles.loginASContainer}>
                                 <Text style={styles.signUpAndLoginTextStyle}>Login as:</Text>
-                            </View>
+                            </View> */}
                             <View style={styles.buttonContainer}>
                                 <View style={[styles.inputContainerStyle, submit ? { marginBottom: "8%" } : styles.inputContainerStyle,
                                 isEmailFocus || email != '' ? THEME.inputBorder : {}]}>
@@ -146,15 +139,22 @@ class AuthScreen extends Component {
                                 barber ?
                                     null
                                     :
-                                    <View style={styles.continueContainer}>
-                                        <TouchableOpacity onPress={onContinueWithOutLogin} style={styles.continueContainerStyle} >
-                                            <Text style={styles.continueWithoutTextStyle}>Continue without Sign in </Text>
-                                            <Icon.AntDesign
-                                                name="arrowright"
-                                                color={THEME.COLOR_GREY}
-                                                size={25} />
-                                        </TouchableOpacity>
-                                    </View>
+                                    <>
+                                        <View style={[styles.continueContainer,{marginTop:'5%'}]}>
+                                            <TouchableOpacity onPress={onContinueWithOutLogin} style={styles.continueContainerStyle} >
+                                                <Text style={styles.signUpAsBarberTextStyle}>Sign up as Barber</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={styles.continueContainer}>
+                                            <TouchableOpacity onPress={onContinueWithOutLogin} style={styles.continueContainerStyle} >
+                                                <Text style={styles.continueWithoutTextStyle}>Continue without Sign in </Text>
+                                                <Icon.AntDesign
+                                                    name="arrowright"
+                                                    color={THEME.COLOR_GREY}
+                                                    size={25} />
+                                            </TouchableOpacity>
+                                        </View>
+                                    </>
                             }
                         </View>
                     </ScrollView>

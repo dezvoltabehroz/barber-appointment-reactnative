@@ -22,13 +22,13 @@ export default StyleSheet.create({
         paddingRight: 10
     },
     upperListImageStyle: {
-        height: 70,
-        width: 120
+        height: 80,
+        width: 145
     },
     upperListTitleContainer: {
         flex: 1,
         paddingTop: '20%',
-        marginHorizontal: '10%',
+        marginLeft: '10%',
         justifyContent: 'center',
         alignItems: 'flex-start'
     },
@@ -76,6 +76,7 @@ export default StyleSheet.create({
     appNameTextStyle: {
         color: THEME.COLOR_WHITE,
         fontSize: 30,
+        textAlign: 'center',
         fontFamily: 'Poppins-Medium'
     },
     appointmentTextStyle: {
@@ -93,6 +94,11 @@ export default StyleSheet.create({
         padding: 10,
         justifyContent: "center",
         alignItems: "center"
+    },
+    searchBarberContainer: {
+        justifyContent: "center",
+        alignItems: "center"
     }
+
 
 })

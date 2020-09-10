@@ -17,6 +17,9 @@ import BookingScreen from './BookingScreen';
 import AppointmentsScreen from './AppointmentsScreen';
 import CustomerServicesScreen from './CustomerServicesScreen';
 import ServiceCompleteScreen from './ServiceCompleteScreen';
+import AddYourAddressScreen from './AddYourAddressScreen';
+import EditYourAddressScreen from './EditYourAddressScreen';
+import MyAddressesScreen from './MyAddressesScreen';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -82,6 +85,27 @@ function CustomerRoutes() {
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Appointments</Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+             <Stack.Screen name="AddYourAddress" component={AddYourAddressScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Add your address</Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+             <Stack.Screen name="MyAddresses" component={MyAddressesScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>My Addresses</Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+             <Stack.Screen name="EditYourAddress" component={EditYourAddressScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Edit your address</Text></View>),
                 headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="SubCategory" component={SubCategoryScreen}

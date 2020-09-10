@@ -13,6 +13,14 @@ class Home extends Component {
                     imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
                 },
                 {
+                    name: 'My Addresses',
+                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                },
+                {
+                    name: 'Payment Method',
+                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                },
+                {
                     name: 'About Us',
                     imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
                 },
@@ -378,11 +386,11 @@ class Home extends Component {
     }
 
     _renderItems = (item) => {
-        const { onAboutUs, onContactUs, onAppointments } = this.props;
+        const { onAboutUs, onContactUs, onAppointments, myAddresses } = this.props;
         return (
             <>
                 <TouchableOpacity
-                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : onAppointments() }} style={styles.upperListItemContainer}>
+                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "My Addresses" ? myAddresses() : onAppointments() }} style={styles.upperListItemContainer}>
                     <ImageBackground source={{ uri: `${item.imageUrl}` }}
                         style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }}>
                         <View style={styles.upperListTitleContainer}>
@@ -412,17 +420,18 @@ class Home extends Component {
     }
 
 
-
-
     render() {
-        let { onExit } = this.props
+        let { onExit, searchBarber } = this.props
         let { isUserLogedIn } = this.props.user;
         const { ourAppointment, servicelist } = this.state
         return (
             <>
                 <View style={styles.container}>
                     <View style={styles.nameContainer}>
-                        <Text style={styles.appNameTextStyle} >Fleek</Text>
+                        <TouchableOpacity style={{flex:1}}>
+                            <Text style={styles.appNameTextStyle} >Fleek</Text>
+                            <Text style={[styles.upperListTitleStyle, { fontSize: 10,textAlign:'center' }]}> Gujranwala, Punjab, Pakistan </Text>
+                        </TouchableOpacity>
                         {
                             isUserLogedIn ?
                                 <TouchableOpacity style={styles.exitContainer} onPress={onExit}>
@@ -440,8 +449,12 @@ class Home extends Component {
                             renderItem={({ item }) => this._renderItems(item)}
                             keyExtractor={item => item} />
                     </View>
-                    <View style={styles.nameContainer}>
+                    <View style={[styles.nameContainer, { alignItems: 'center' }]}>
                         <Text style={styles.appointmentTextStyle}>Make an Appointment</Text>
+                        <TouchableOpacity style={[styles.searchBarberContainer, { flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'flex-end' }]} onPress={searchBarber}>
+                            <Text style={[styles.upperListTitleStyle, { fontSize: 10 }]}>Search Barber </Text>
+                            <Icon.Feather name="search" color="#fff" size={15} />
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.lowerListContainer}>
                         <FlatList

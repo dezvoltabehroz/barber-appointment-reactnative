@@ -28,6 +28,8 @@ class HomeScreen extends Component {
                 onAboutUs={() => navigate("AboutUs")}
                 onExit={this.handleLogout}
                 onAppointments={()=>navigate('Appointments')}
+                searchBarber={()=>navigate('BarberList')}
+                myAddresses={()=>navigate('MyAddresses')}
                 onItemPress={(item, data) => navigate('SubCategory', { name: item, data: data })} />
         )
     }

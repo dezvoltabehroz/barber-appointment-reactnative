@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import styles from './style';
-import { Avatar } from "react-native-elements";
-
+import { Avatar, SearchBar } from "react-native-elements";
 export default class BarberList extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            value: '',
             barberList: [
                 {
                     name: 'Alexender',
@@ -118,7 +118,7 @@ export default class BarberList extends Component {
                     ]
                 },
                 {
-                    name: 'Alexender',
+                    name: 'John Deo',
                     age: '23/7/1995',
                     tagLine: 'In the pursuit of manliness',
                     resume: 'https://s3-us-west-2.amazonaws.com/anxietybreakthrough/Stress+and+Anxiety+journal.pdf',
@@ -227,7 +227,7 @@ export default class BarberList extends Component {
                     ]
                 },
                 {
-                    name: 'Alexender',
+                    name: 'Marco',
                     age: '23/7/1995',
                     tagLine: 'In the pursuit of manliness',
                     resume: 'https://s3-us-west-2.amazonaws.com/anxietybreakthrough/Stress+and+Anxiety+journal.pdf',
@@ -336,7 +336,7 @@ export default class BarberList extends Component {
                     ]
                 },
                 {
-                    name: 'Alexender',
+                    name: 'Stepin',
                     age: '23/7/1995',
                     tagLine: 'In the pursuit of manliness',
                     resume: 'https://s3-us-west-2.amazonaws.com/anxietybreakthrough/Stress+and+Anxiety+journal.pdf',
@@ -445,7 +445,7 @@ export default class BarberList extends Component {
                     ]
                 },
                 {
-                    name: 'Alexender',
+                    name: 'David',
                     age: '23/7/1995',
                     tagLine: 'In the pursuit of manliness',
                     resume: 'https://s3-us-west-2.amazonaws.com/anxietybreakthrough/Stress+and+Anxiety+journal.pdf',
@@ -553,8 +553,10 @@ export default class BarberList extends Component {
                         },
                     ]
                 }
-            ]
+            ],
+
         }
+        this.arrayHolder = this.state.barberList
     }
 
     _renderSeparator = () => {
@@ -563,7 +565,17 @@ export default class BarberList extends Component {
         )
     }
 
-
+    searchFilterBarber = text => {
+        this.setState({ value: text });
+        const newData = this.arrayHolder.filter(item => {
+            const itemData = `${item.name.toUpperCase()} ${item.name.toUpperCase()} ${item.name.toUpperCase()} `;
+            const textData = text.toUpperCase();
+            return itemData.indexOf(textData) > -1;
+        });
+        if (newData.length != 0) {
+            this.setState({ barberList: newData });
+        }
+    };
 
     _renderItems = (item) => {
         const { onPress, bookNow } = this.props;
@@ -617,6 +629,17 @@ export default class BarberList extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <SearchBar
+                    placeholder='Search...'
+                    round
+                    onChangeText={text => this.searchFilterBarber(text)}
+                    value={this.state.value}
+                    autoCorrect={false}
+                    inputStyle={{ fontSize: 14, textAlign: 'center' }}
+                    leftIconContainerStyle={{ paddingLeft: 10 }}
+                    rightIconContainerStyle={{ paddingRight: 10 }}
+                    containerStyle={styles.containerStyle}
+                    inputContainerStyle={styles.inputContainerStyle} />
                 <FlatList
                     data={this.state.barberList}
                     showsVerticalScrollIndicator={false}

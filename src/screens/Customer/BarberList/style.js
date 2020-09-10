@@ -7,7 +7,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '20%'
+        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '15%'
     },
     listItemContainer: {
         borderRadius: 10,
@@ -20,6 +20,22 @@ export default StyleSheet.create({
         borderRadius: 10,
         paddingVertical: '2%'
 
+    },
+    containerStyle: {
+        backgroundColor: 'transparent',
+        borderBottomWidth: 0,
+        borderTopWidth: 0,
+        paddingTop: 5,
+        paddingBottom: 5
+    },
+    inputContainerStyle: {
+        backgroundColor: 'white',
+        // height: 40,
+        // elevation: 3,
+        // width: '102%',
+        // alignSelf: 'center',
+        marginBottom: 10,
+        // borderRadius: 5
     },
     nameContainer: {
         flex: 1,

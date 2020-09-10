@@ -1,0 +1,120 @@
+import React, { Component } from 'react';
+import { View, FlatList, Text, TouchableOpacity } from 'react-native';
+import styles from './styles';
+import { FooterButton, FloatingInput, DateTimeModal, Icon, } from '../../../components';
+import THEME from '../../../assets/styles/theme.style';
+class MyAddresses extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+
+            addresses: [
+                {
+                    label: 'Home',
+                    address: 'Gujranwala, Punjab, Pakistan',
+                    city: 'Gujranwala'
+                },
+                {
+                    label: 'Home',
+                    address: 'Gujranwala, Punjab, Pakistan',
+                    city: 'Gujranwala'
+                },
+                {
+                    label: 'Home',
+                    address: 'Gujranwala, Punjab, Pakistan',
+                    city: 'Gujranwala'
+                },
+                {
+                    label: 'Home',
+                    address: 'Gujranwala, Punjab, Pakistan',
+                    city: 'Gujranwala'
+                },
+                {
+                    label: 'Home',
+                    address: 'Gujranwala, Punjab, Pakistan',
+                    city: 'Gujranwala'
+                },
+                {
+                    label: 'Home',
+                    address: 'Gujranwala, Punjab, Pakistan',
+                    city: 'Gujranwala'
+                },
+                {
+                    label: 'Home',
+                    address: 'Gujranwala, Punjab, Pakistan',
+                    city: 'Gujranwala'
+                },
+                {
+                    label: 'Home',
+                    address: 'Gujranwala, Punjab, Pakistan',
+                    city: 'Gujranwala'
+                },
+                {
+                    label: 'Home',
+                    address: 'Gujranwala, Punjab, Pakistan',
+                    city: 'Gujranwala'
+                },
+
+            ]
+
+        }
+    }
+
+    _renderSeparator = () => {
+        return (
+            <>
+                <View style={styles.gapHeight}></View>
+                <View style={styles.seperatorStyle}></View>
+            </>
+        )
+    }
+
+
+    _renderItems = ({ item, index }) => {
+        return (
+            <View style={styles.contentContainer}>
+                <View style={styles.gapHeight}></View>
+                <View style={styles.row}>
+                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', }}>
+                        <Icon.MaterialIcons name='home' size={25} color={THEME.COLOR_WHITE} />
+                        <View style={{ marginLeft: '5%', marginTop: '3%' }}>
+                            <Text style={styles.labelTextStyle}>{item.label}</Text>
+                        </View>
+                    </View>
+                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: "flex-end" }}>
+                        <TouchableOpacity style={{ marginRight: '10%' }} onPress={() => this.on_Press_Edit(index)} >
+                            <Icon.MaterialIcons name='edit' size={25} color={THEME.COLOR_WHITE} />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.on_Press_Delete(item, index)}>
+                            <Icon.MaterialIcons name='delete' size={25} color={THEME.COLOR_WHITE} />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View style={styles.addressContainer} >
+                    <Text style={styles.textStyle}>{item.address}</Text>
+                    <Text style={styles.textStyle}>{item.city}</Text>
+                </View>
+            </View>
+        )
+    }
+
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <View style={{ flex: 0.8 }}>
+                    <FlatList
+                        data={this.state.addresses}
+                        showsVerticalScrollIndicator={false}
+                        ItemSeparatorComponent={this._renderSeparator}
+                        renderItem={({ item, index }) => this._renderItems({ item, index })}
+                        keyExtractor={item => item}
+                    />
+                </View>
+                <FooterButton title="Add New Address" onPress={() => { }} />
+
+            </View>
+        )
+    }
+}
+export default MyAddresses;

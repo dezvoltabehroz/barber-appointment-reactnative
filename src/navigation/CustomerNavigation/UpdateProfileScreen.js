@@ -11,7 +11,7 @@ export default class UpdateProfileScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Customer.UpdateProfile onNext={()=>navigate('EmailandPassword')} />
+            <MainScreenPaths.Customer.UpdateProfile onNext={()=>navigate('AddYourAddress')} />
         )
     }
 }

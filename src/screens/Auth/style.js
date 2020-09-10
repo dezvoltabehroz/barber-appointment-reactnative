@@ -31,7 +31,7 @@ export default StyleSheet.create({
         marginBottom: 10
     },
     loginASContainer: {
-        marginTop: '5%'
+        // marginTop: '5%'
     },
     headingTextStyle: {
         fontSize: THEME.FONT_SIZE_LARGE,
@@ -116,7 +116,14 @@ export default StyleSheet.create({
         color: THEME.COLOR_WHITE
     },
     continueWithoutTextStyle: {
-        marginVertical: "5%",
+        marginTop: "5%",
+        marginBottom:'5%',
+        fontFamily: "Poppins-Regular",
+        textAlign: "center",
+        color: '#9FACBD'
+    },
+    signUpAsBarberTextStyle: {
+        marginTop: "5%",
         fontFamily: "Poppins-Regular",
         textAlign: "center",
         color: '#9FACBD'

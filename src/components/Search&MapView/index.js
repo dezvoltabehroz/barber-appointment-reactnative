@@ -26,8 +26,8 @@ class SearchandMapView extends Component {
             region: {
                 latitude: 0,
                 longitude: 0,
-                latitudeDelta: 0.9922,
-                longitudeDelta: 0.9421,
+                latitudeDelta: 0.005,
+                longitudeDelta: 0.005,
             },
             modalView: false,
             name: '',
@@ -133,7 +133,7 @@ class SearchandMapView extends Component {
                     customMapStyle={THEME.mapStyle}
                     ref={ref => (this.mapView = ref)}
                     region={this.state.region}
-                    onRegionChangeComplete={updateProfile ? this.onRegionChange : () => { }}
+                    // onRegionChangeComplete={updateProfile ? this.onRegionChange : () => { }}
                     // onRegionChange={onRegionChange}
                     // onPanDrag={onPanDrag}
                     onMapReady={() => {
@@ -144,6 +144,15 @@ class SearchandMapView extends Component {
                         ref={marker => {
                             this.marker = marker;
                         }}
+                        onDragEnd={(e) => this.setState({
+                            region: {
+                                latitude: e.nativeEvent.coordinate.latitude,
+                                longitude: e.nativeEvent.coordinate.longitude,
+                                latitudeDelta: 0.005,
+                                longitudeDelta: 0.005,
+                            }
+                        })}
+                        draggable
                         coordinate={new AnimatedRegion({
                             latitude: this.state.region.latitude,
                             longitude: this.state.region.longitude,

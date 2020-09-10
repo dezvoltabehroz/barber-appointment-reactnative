@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 class UpdateProfile extends Component {
     constructor(props) {
         super(props);
-        let { name } = this.props.user.userSocialNetworkData
+        const { name } = this.props.user.userSocialNetworkData
         this.state = {
             male: true,
             female: false,
@@ -153,7 +153,7 @@ class UpdateProfile extends Component {
                                     />
                                     : null}
                             </View>
-                            <View style={[styles.inputLocationContainerStyle,
+                            {/* <View style={[styles.inputLocationContainerStyle,
                             isLocationFocus || location != '' ? THEME.inputBorder : {}]}>
                                 <FloatingInput val={location}
                                     onInActive={() => this.setState({ isLocationFocus: false })}
@@ -162,7 +162,7 @@ class UpdateProfile extends Component {
                                 <TouchableOpacity onPress={() => this.setState({ modalView: true })}>
                                     <Icon.SimpleLineIcons name='location-pin' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
                                 </TouchableOpacity>
-                            </View>
+                            </View> */}
                         </View>
                     </ScrollView>
                 </View>
