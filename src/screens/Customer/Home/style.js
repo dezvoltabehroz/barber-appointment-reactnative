@@ -91,7 +91,7 @@ export default StyleSheet.create({
         height: 10
     },
     exitContainer: {
-        padding: 10,
+        flexDirection: 'row',
         justifyContent: "center",
         alignItems: "center"
     },

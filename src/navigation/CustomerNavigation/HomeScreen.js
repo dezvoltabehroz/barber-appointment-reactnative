@@ -30,6 +30,7 @@ class HomeScreen extends Component {
                 onAppointments={()=>navigate('Appointments')}
                 searchBarber={()=>navigate('BarberList')}
                 myAddresses={()=>navigate('MyAddresses')}
+                addNewAddress={()=>navigate('AddYourAddress')}
                 onItemPress={(item, data) => navigate('SubCategory', { name: item, data: data })} />
         )
     }

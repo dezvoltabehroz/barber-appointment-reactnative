@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, ImageBackground, TouchableOpacity, Alert } from "react-native";
+import { View, Text, FlatList, LayoutAnimation, UIManager, ImageBackground, TouchableOpacity, Dimensions, ScrollView } from "react-native";
 import styles from './style';
 import { Button, Icon } from '../../../components'
 import { connect } from 'react-redux'
+import themeStyle from '../../../assets/styles/theme.style';
+const screenHeight = Dimensions.get('window').height;
 class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            expandAddresses: false,
             servicelist: [
                 {
                     name: 'Appointment',
@@ -374,8 +377,45 @@ class Home extends Component {
                         },
                     ]
                 },
-            ]
+            ],
+            addresses: [
+                {
+                    label: 'Home',
+                    address: 'Gujranwala, Punjab, Pakistan',
+                    city: 'Gujranwala',
+                    selected: false
+                },
+                {
+                    label: 'Work',
+                    address: 'Gujranwala, Punjab, Pakistan',
+                    city: 'Gujranwala',
+                    selected: false
+                },
+                {
+                    label: 'Other',
+                    address: 'Gujranwala, Punjab, Pakistan',
+                    city: 'Gujranwala',
+                    selected: false
+                },
+                {
+                    label: 'Home',
+                    address: 'Gujranwala, Punjab, Pakistan',
+                    city: 'Gujranwala',
+                    selected: false
+                },
+                {
+                    label: 'Other',
+                    address: 'Gujranwala, Punjab, Pakistan',
+                    city: 'Gujranwala',
+                    selected: false
+                },
 
+            ],
+            address: 'Gujranwala, Punjab, Pakistan'
+
+        }
+        if (Platform.OS === 'android') {
+            UIManager.setLayoutAnimationEnabledExperimental(true);
         }
     }
 
@@ -419,6 +459,19 @@ class Home extends Component {
         )
     }
 
+    handleAddressPress = (index) => {
+        let items = [...this.state.addresses];
+        items.forEach(val => {
+            val.selected = false
+        })
+        items[index] = { ...items[index], selected: true };
+        this.setState({ addresses: items, address: items[index].address })
+    }
+
+    changeAddressLayout = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        this.setState({ expandAddresses: !this.state.expandAddresses })
+    }
 
     render() {
         let { onExit, searchBarber } = this.props
@@ -427,43 +480,83 @@ class Home extends Component {
         return (
             <>
                 <View style={styles.container}>
-                    <View style={styles.nameContainer}>
-                        <TouchableOpacity style={{flex:1}}>
-                            <Text style={styles.appNameTextStyle} >Fleek</Text>
-                            <Text style={[styles.upperListTitleStyle, { fontSize: 10,textAlign:'center' }]}> Gujranwala, Punjab, Pakistan </Text>
-                        </TouchableOpacity>
-                        {
-                            isUserLogedIn ?
-                                <TouchableOpacity style={styles.exitContainer} onPress={onExit}>
-                                    <Icon.Feather name="log-out" color="#fff" size={25} />
-                                </TouchableOpacity>
-                                :
-                                null
-                        }
-                    </View>
-                    <View style={styles.upperListContainer}>
-                        <FlatList
-                            data={servicelist}
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                            renderItem={({ item }) => this._renderItems(item)}
-                            keyExtractor={item => item} />
-                    </View>
-                    <View style={[styles.nameContainer, { alignItems: 'center' }]}>
-                        <Text style={styles.appointmentTextStyle}>Make an Appointment</Text>
-                        <TouchableOpacity style={[styles.searchBarberContainer, { flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'flex-end' }]} onPress={searchBarber}>
-                            <Text style={[styles.upperListTitleStyle, { fontSize: 10 }]}>Search Barber </Text>
-                            <Icon.Feather name="search" color="#fff" size={15} />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.lowerListContainer}>
-                        <FlatList
-                            data={ourAppointment}
-                            showsVerticalScrollIndicator={false}
-                            ItemSeparatorComponent={this._renderSeparator}
-                            renderItem={({ item }) => this._renderAppointmentItems(item)}
-                            keyExtractor={item => item} />
-                    </View>
+                    <ScrollView>
+                        <View style={styles.nameContainer}>
+                            <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingLeft: '15%' }}
+                                onPress={this.changeAddressLayout} >
+                                <Text style={styles.appNameTextStyle}>Fleek</Text>
+                                <Text style={[styles.upperListTitleStyle, { fontSize: 12, textAlign: 'center' }]}>{this.state.address}</Text>
+                            </TouchableOpacity>
+                            {
+                                isUserLogedIn ?
+                                    <TouchableOpacity style={styles.exitContainer} onPress={onExit}>
+                                        <View style={{ paddingRight: '5%' }}>
+                                            <Icon.Feather name="log-out" color="#fff" size={25} />
+                                        </View>
+                                    </TouchableOpacity>
+                                    :
+                                    null
+                            }
+                        </View>
+                        <View style={{ marginTop: '2%' }}>
+                            {
+                                this.state.expandAddresses ?
+                                    <>
+                                        <View style={{ height: this.state.expandAddresses ? null : 0, }}>
+                                            {
+                                                this.state.addresses.map((item, index) => {
+                                                    return (
+                                                        <View style={{ borderRadius: 5, height: 60, justifyContent: 'center', paddingHorizontal: '5%', marginHorizontal: '5%' }}>
+                                                            <View style={{ flexDirection: 'row' }}>
+                                                                <TouchableOpacity onPress={() => this.handleAddressPress(index)} style={{ justifyContent: 'center' }}>
+                                                                    <Icon.MaterialCommunityIcons name={item.selected ? 'radiobox-marked' : 'radiobox-blank'} size={themeStyle.ICON_SIZE} color={themeStyle.PRIMARY_COLOR} />
+                                                                </TouchableOpacity>
+                                                                <View style={{ marginLeft: '5%' }}>
+                                                                    <Text style={[styles.upperListTitleStyle]}> {item.label} </Text>
+                                                                    <Text style={[styles.upperListTitleStyle, { fontSize: 12, }]}> {item.address} </Text>
+                                                                </View>
+                                                            </View>
+                                                        </View>
+                                                    )
+                                                })
+                                            }
+                                        </View>
+                                        <TouchableOpacity onPress={() => this.props.addNewAddress()} style={{ flexDirection: 'row', paddingHorizontal: '5%', paddingVertical: '5%', paddingLeft: '10%', borderBottomRightRadius: 10, borderBottomLeftRadius: 10 }}>
+                                            <View style={{ justifyContent: 'center' }}>
+                                                <Icon.AntDesign name='plus' size={themeStyle.ICON_SIZE} color={themeStyle.PRIMARY_COLOR} />
+                                            </View>
+                                            <View style={{ marginLeft: '5%', justifyContent: 'center' }}>
+                                                <Text style={[styles.upperListTitleStyle, { fontSize: 12, }]}> Add new Address </Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </> : null
+                            }
+                        </View>
+
+                        <View style={[styles.upperListContainer]}>
+                            <FlatList
+                                data={servicelist}
+                                horizontal={true}
+                                showsHorizontalScrollIndicator={false}
+                                renderItem={({ item }) => this._renderItems(item)}
+                                keyExtractor={item => item} />
+                        </View>
+                        <View style={[styles.nameContainer, { alignItems: 'center' }]}>
+                            <Text style={styles.appointmentTextStyle}>Make an Appointment</Text>
+                            <TouchableOpacity style={[styles.searchBarberContainer, { flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'flex-end' }]} onPress={searchBarber}>
+                                <Text style={[styles.upperListTitleStyle, { fontSize: 10 }]}>Search Barber </Text>
+                                <Icon.Feather name="search" color="#fff" size={15} />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.lowerListContainer}>
+                            <FlatList
+                                data={ourAppointment}
+                                showsVerticalScrollIndicator={false}
+                                ItemSeparatorComponent={this._renderSeparator}
+                                renderItem={({ item }) => this._renderAppointmentItems(item)}
+                                keyExtractor={item => item} />
+                        </View>
+                    </ScrollView>
                 </View>
             </>
         );

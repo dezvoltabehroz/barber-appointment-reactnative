@@ -15,7 +15,12 @@ class MyAddresses extends Component {
                     city: 'Gujranwala'
                 },
                 {
-                    label: 'Home',
+                    label: 'Work',
+                    address: 'Gujranwala, Punjab, Pakistan',
+                    city: 'Gujranwala'
+                },
+                {
+                    label: 'Other',
                     address: 'Gujranwala, Punjab, Pakistan',
                     city: 'Gujranwala'
                 },
@@ -30,7 +35,12 @@ class MyAddresses extends Component {
                     city: 'Gujranwala'
                 },
                 {
-                    label: 'Home',
+                    label: 'Work',
+                    address: 'Gujranwala, Punjab, Pakistan',
+                    city: 'Gujranwala'
+                },
+                {
+                    label: 'Work',
                     address: 'Gujranwala, Punjab, Pakistan',
                     city: 'Gujranwala'
                 },
@@ -40,17 +50,7 @@ class MyAddresses extends Component {
                     city: 'Gujranwala'
                 },
                 {
-                    label: 'Home',
-                    address: 'Gujranwala, Punjab, Pakistan',
-                    city: 'Gujranwala'
-                },
-                {
-                    label: 'Home',
-                    address: 'Gujranwala, Punjab, Pakistan',
-                    city: 'Gujranwala'
-                },
-                {
-                    label: 'Home',
+                    label: 'Other',
                     address: 'Gujranwala, Punjab, Pakistan',
                     city: 'Gujranwala'
                 },
