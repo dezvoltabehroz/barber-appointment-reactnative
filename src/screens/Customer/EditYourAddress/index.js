@@ -6,6 +6,7 @@ import THEME from '../../../assets/styles/theme.style';
 import styles from './style';
 import MapView, { PROVIDER_GOOGLE, Marker, AnimatedRegion } from 'react-native-maps';
 import { Button, FloatingInput, MessageInput, FooterButton } from "../../../components";
+import style from '../Home/style';
 class EditYourAddress extends Component {
     constructor(props) {
         super(props);
@@ -95,17 +96,17 @@ class EditYourAddress extends Component {
                                 })}
                             ></Marker.Animated>
                         </MapView>
-                        <View style={{ backgroundColor: THEME.COLOR_WHITE, borderRadius: 5, marginHorizontal: '5%', marginVertical: '5%' }}>
-                            <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
-                                <View style={{ flexDirection: 'row', paddingVertical: "5%", paddingHorizontal: '5%', alignItems: "center" }}>
+                        <View style={styles.addressContainer}>
+                            <View style={styles.rowContainer}>
+                                <View style={styles.imageContainer}>
                                     <Image source={require('../../../assets/images/avatar.png')} style={{ height: 35, width: 35 }} />
-                                    <View style={{ marginLeft: '5%', justifyContent: 'center', width: '70%' }}>
-                                        <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 12 }}>{this.state.address}</Text>
-                                        <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 10 }}>{this.state.address}</Text>
+                                    <View style={styles.addressTextContainer}>
+                                        <Text style={styles.addressTextStyle}>{this.state.address}</Text>
+                                        <Text style={styles.addressTextStyle1}>{this.state.address}</Text>
                                     </View>
                                 </View>
-                                <TouchableOpacity onPress={() => this.props.onEdit()} style={{ alignItems: 'flex-end', justifyContent: 'center', marginRight: '5%' }}>
-                                    <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 12 }}>Edit</Text>
+                                <TouchableOpacity onPress={() => this.props.onEdit()} style={styles.editContainer}>
+                                    <Text style={styles.addressTextStyle}>Edit</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -131,13 +132,13 @@ class EditYourAddress extends Component {
                             </View>
                         </View>
                         <View style={{ marginHorizontal: '5%' }}>
-                            <Text style={{ fontFamily: 'Poppins-Bold', color: THEME.COLOR_WHITE }}>Label as</Text>
+                            <Text style={styles.labelHeading}>Label as</Text>
                         </View>
                         <View style={{ flexDirection: 'row', paddingVertical: "5%", paddingHorizontal: '5%', justifyContent: 'space-evenly', alignItems: "center" }}>
                             {
                                 labels.map((item, index) => {
                                     return (
-                                        <TouchableOpacity key={index} onPress={() => this.handlePressLabel(index)} style={[{ backgroundColor: THEME.COLOR_WHITE, alignItems: 'center', justifyContent: 'center', height: 35, width: 100, borderRadius: 20 },
+                                        <TouchableOpacity key={index} onPress={() => this.handlePressLabel(index)} style={[styles.labelButtonContainer,
                                         item.selected ? { borderColor: THEME.PRIMARY_COLOR, borderWidth: 1 } : { borderColor: THEME.COLOR_GREY, borderWidth: 1 }]}>
                                             <Text style={{ fontFamily: 'Poppins-Medium', color: item.selected ? THEME.PRIMARY_COLOR : THEME.COLOR_GREY }}>{item.label}</Text>
                                         </TouchableOpacity>

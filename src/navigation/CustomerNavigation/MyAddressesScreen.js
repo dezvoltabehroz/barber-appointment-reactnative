@@ -15,7 +15,7 @@ class MyAddressesScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Customer.MyAddresses  />
+            <MainScreenPaths.Customer.MyAddresses  onEdit={()=>navigate('AddYourAddress')} />
         )
     }
 }

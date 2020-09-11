@@ -36,6 +36,14 @@ export default StyleSheet.create({
         width: '90%',
         marginHorizontal: '5%',
         borderColor: THEME.COLOR_WHITE
+    },
+    labelRowContainer: {
+        flex: 1, flexDirection: 'row', alignItems: 'center',
+    },
+    buttonEditContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: "flex-end"
     }
 
 })

@@ -482,7 +482,7 @@ class Home extends Component {
                 <View style={styles.container}>
                     <ScrollView>
                         <View style={styles.nameContainer}>
-                            <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingLeft: '15%' }}
+                            <TouchableOpacity style={styles.headingContainer}
                                 onPress={this.changeAddressLayout} >
                                 <Text style={styles.appNameTextStyle}>Fleek</Text>
                                 <Text style={[styles.upperListTitleStyle, { fontSize: 12, textAlign: 'center' }]}>{this.state.address}</Text>
@@ -506,7 +506,7 @@ class Home extends Component {
                                             {
                                                 this.state.addresses.map((item, index) => {
                                                     return (
-                                                        <View style={{ borderRadius: 5, height: 60, justifyContent: 'center', paddingHorizontal: '5%', marginHorizontal: '5%' }}>
+                                                        <View style={styles.addressesContainer}>
                                                             <View style={{ flexDirection: 'row' }}>
                                                                 <TouchableOpacity onPress={() => this.handleAddressPress(index)} style={{ justifyContent: 'center' }}>
                                                                     <Icon.MaterialCommunityIcons name={item.selected ? 'radiobox-marked' : 'radiobox-blank'} size={themeStyle.ICON_SIZE} color={themeStyle.PRIMARY_COLOR} />
@@ -521,7 +521,7 @@ class Home extends Component {
                                                 })
                                             }
                                         </View>
-                                        <TouchableOpacity onPress={() => this.props.addNewAddress()} style={{ flexDirection: 'row', paddingHorizontal: '5%', paddingVertical: '5%', paddingLeft: '10%', borderBottomRightRadius: 10, borderBottomLeftRadius: 10 }}>
+                                        <TouchableOpacity onPress={() => this.props.addNewAddress()} style={styles.addNewAddressContainer}>
                                             <View style={{ justifyContent: 'center' }}>
                                                 <Icon.AntDesign name='plus' size={themeStyle.ICON_SIZE} color={themeStyle.PRIMARY_COLOR} />
                                             </View>
@@ -543,7 +543,7 @@ class Home extends Component {
                         </View>
                         <View style={[styles.nameContainer, { alignItems: 'center' }]}>
                             <Text style={styles.appointmentTextStyle}>Make an Appointment</Text>
-                            <TouchableOpacity style={[styles.searchBarberContainer, { flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'flex-end' }]} onPress={searchBarber}>
+                            <TouchableOpacity style={[styles.searchBarberContainer, ]} onPress={searchBarber}>
                                 <Text style={[styles.upperListTitleStyle, { fontSize: 10 }]}>Search Barber </Text>
                                 <Icon.Feather name="search" color="#fff" size={15} />
                             </TouchableOpacity>

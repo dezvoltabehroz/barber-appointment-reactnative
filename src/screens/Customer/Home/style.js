@@ -96,8 +96,29 @@ export default StyleSheet.create({
         alignItems: "center"
     },
     searchBarberContainer: {
-        justifyContent: "center",
-        alignItems: "center"
+         flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'flex-end' 
+        // justifyContent: "center",
+        // alignItems: "center"
+    },
+    headingContainer: {
+        flex: 1,
+        alignItems: 'center',
+        paddingLeft: '15%'
+    },
+    addressesContainer: {
+        borderRadius: 5,
+        height: 60,
+        justifyContent: 'center',
+        paddingHorizontal: '5%',
+        marginHorizontal: '5%'
+    },
+    addNewAddressContainer: {
+        flexDirection: 'row',
+        paddingHorizontal: '5%',
+        paddingVertical: '5%',
+        paddingLeft: '10%',
+        borderBottomRightRadius: 10,
+        borderBottomLeftRadius: 10
     }
 
 

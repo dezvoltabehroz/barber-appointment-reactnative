@@ -75,17 +75,17 @@ class MyAddresses extends Component {
             <View style={styles.contentContainer}>
                 <View style={styles.gapHeight}></View>
                 <View style={styles.row}>
-                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', }}>
+                    <View style={styles.labelRowContainer}>
                         <Icon.MaterialIcons name='home' size={25} color={THEME.COLOR_WHITE} />
                         <View style={{ marginLeft: '5%', marginTop: '3%' }}>
                             <Text style={styles.labelTextStyle}>{item.label}</Text>
                         </View>
                     </View>
-                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: "flex-end" }}>
-                        <TouchableOpacity style={{ marginRight: '10%' }} onPress={() => this.on_Press_Edit(index)} >
+                    <View style={styles.buttonEditContainer}>
+                        <TouchableOpacity style={{ marginRight: '10%' }} onPress={() => this.props.onEdit()} >
                             <Icon.MaterialIcons name='edit' size={25} color={THEME.COLOR_WHITE} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.on_Press_Delete(item, index)}>
+                        <TouchableOpacity onPress={() => {}}>
                             <Icon.MaterialIcons name='delete' size={25} color={THEME.COLOR_WHITE} />
                         </TouchableOpacity>
                     </View>
@@ -110,9 +110,9 @@ class MyAddresses extends Component {
                         renderItem={({ item, index }) => this._renderItems({ item, index })}
                         keyExtractor={item => item}
                     />
+                   
                 </View>
                 <FooterButton title="Add New Address" onPress={() => { }} />
-
             </View>
         )
     }
