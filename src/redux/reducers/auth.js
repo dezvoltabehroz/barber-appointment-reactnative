@@ -1,13 +1,20 @@
 import {
     USER_LOGIN_SUCCESS,
     USER_LOGOUT_SUCCESS,
-    USER_SOCIALNETWORK_USERDATA_SUCCESS
+    USER_SOCIALNETWORK_USERDATA_SUCCESS,
+    IS_USER_VERIFIED_SUCCESS,
+    SEND_CODE_TO_USER_PHONENUMBER_SUCCESS,
+    LOADING_SUCCESS,
+    LOADING_END
 } from '../types/auth';
 
 const initialState = {
     isUserLogedIn: false,
     userData: {},
     userSocialNetworkData: {},
+    isVerified: false,
+    verificationCode: '',
+    loading: false
 
 };
 
@@ -27,6 +34,23 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 userSocialNetworkData: action.userData
+            }
+        case IS_USER_VERIFIED_SUCCESS:
+            return {
+                ...state,
+                isVerified: true,
+                loading: action.loading
+            }
+        case SEND_CODE_TO_USER_PHONENUMBER_SUCCESS:
+            return {
+                ...state,
+                verificationCode: action.verificationCode,
+                loading: false
+            }
+        case LOADING_SUCCESS:
+            return {
+                ...state,
+                loading: action.loading
             }
         default:
             return state;

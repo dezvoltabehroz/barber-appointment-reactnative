@@ -1,9 +1,15 @@
 import {
     USER_LOGIN_SUCCESS,
     USER_LOGOUT_SUCCESS,
-    USER_SOCIALNETWORK_USERDATA_SUCCESS
-
+    USER_SOCIALNETWORK_USERDATA_SUCCESS,
+    SEND_CODE_TO_USER_PHONENUMBER_SUCCESS,
+    IS_USER_VERIFIED_SUCCESS,
+    LOADING_SUCCESS
 } from '../types/auth';
+import { PhoneVerification } from '../../services';
+import BASE_URL from '../../enviroments'
+import axios from 'axios';
+import { cond } from 'react-native-reanimated';
 
 const setUser = (userData) => {
     return ({
@@ -19,6 +25,54 @@ const setSocialNetworkUserData = (userData) => {
     })
 };
 
+export const sendVerificationCode = (number, navigate) => {
+    return (dispatch) => {
+        let loading = true;
+        if (loading) {
+            dispatch({ type: LOADING_SUCCESS, loading: loading })
+        }
+        PhoneVerification.sendCodeToPhoneNumber(number)
+            .then(response => {
+                if (response.data.status) {
+                    // alert(response.data.message)
+                    dispatch({ type: SEND_CODE_TO_USER_PHONENUMBER_SUCCESS, verificationCode: response.data.code, loading: !loading })
+                    navigate('PhoneVerification')
+                }
+                else {
+                    alert(response.data.message)
+                    dispatch({ type: LOADING_SUCCESS, loading: !loading })
+                }
+            }).catch(error => {
+                console.log(error)
+            })
+    };
+
+}
+
+
+const verifyCode = (code,navigate) => {
+    return (dispatch) => {
+        let loading = true;
+        if (loading) {
+            dispatch({ type: LOADING_SUCCESS, loading: loading })
+        }
+        PhoneVerification.verifyTheCode(code)
+            .then(response => {
+                if (response.data.status) {
+                    alert(response.data.message)
+                    dispatch({ type: IS_USER_VERIFIED_SUCCESS ,loading: !loading})
+                    navigate('PhoneVerified');
+                }
+                else {
+                    alert(response.data.message)
+                    dispatch({ type: LOADING_SUCCESS, loading: !loading })
+                }
+            }).catch(error => {
+                console.log(error)
+            })
+    }
+}
+
 const removeUser = () => {
     return ({
         type: USER_LOGOUT_SUCCESS,
@@ -28,5 +82,7 @@ const removeUser = () => {
 export const authActions = {
     setUser,
     removeUser,
-    setSocialNetworkUserData
+    setSocialNetworkUserData,
+    sendVerificationCode,
+    verifyCode,
 };

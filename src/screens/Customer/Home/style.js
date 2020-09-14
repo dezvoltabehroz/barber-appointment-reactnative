@@ -75,7 +75,8 @@ export default StyleSheet.create({
     },
     appNameTextStyle: {
         color: THEME.COLOR_WHITE,
-        fontSize: 30,
+        fontSize: 25,
+        justifyContent:"center",
         textAlign: 'center',
         fontFamily: 'Poppins-Medium'
     },
@@ -103,7 +104,8 @@ export default StyleSheet.create({
     headingContainer: {
         flex: 1,
         alignItems: 'center',
-        paddingLeft: '15%'
+        justifyContent:"center"
+        // paddingLeft: '15%'
     },
     addressesContainer: {
         borderRadius: 5,

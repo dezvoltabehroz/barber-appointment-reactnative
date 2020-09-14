@@ -47,11 +47,15 @@ export default class PhoneNumber extends Component {
 
     handleSendCode = () => {
         let { onSendCode } = this.props;
-        const { number } = this.state;
+        const { number, callingCode } = this.state;
         this.setState({ submit: true })
-        if (number) {
-            onSendCode();
+        if (number && callingCode != '') {
+            let phoneNumber = `+${callingCode}${number}`
+            onSendCode(phoneNumber);
             this.setState({ submit: false })
+        }
+        else {
+            alert('Please select the country code first');
         }
     }
 
@@ -104,7 +108,7 @@ export default class PhoneNumber extends Component {
                     <View style={styles.gapHeight}></View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.buttonContainer}>
-                        <Button title="Send Verification" onPress={this.handleSendCode} />
+                        <Button title="Send Verification" loading={this.props.loading} onPress={this.handleSendCode} />
                     </View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.textContainer}>

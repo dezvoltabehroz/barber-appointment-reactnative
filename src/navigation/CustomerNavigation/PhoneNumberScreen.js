@@ -3,8 +3,11 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import { MainScreenPaths } from '../../screens';
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { authActions } from '../../redux/actions/auth';
 
-export default class PhoneNumberScreen extends Component {
+class PhoneNumberScreen extends Component {
     navigationOptions = ({ navigation }) => ({
         headerBackTitleVisible: false,
         headerTintColor: 'white',
@@ -14,10 +17,16 @@ export default class PhoneNumberScreen extends Component {
 
     })
 
+    handleSendVerification = (number) => {
+        const { navigate } = this.props.navigation
+        this.props.authActions.sendVerificationCode(number, navigate)
+        console.log(this.props.user.verificationCode)
+    }
+
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Customer.PhoneNumber onSendCode={() => navigate('PhoneVerification')} />
+            <MainScreenPaths.Customer.PhoneNumber loading={this.props.user.loading} onSendCode={(number) => this.handleSendVerification(number)} />
         )
     }
 }
@@ -29,3 +38,17 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins-Medium'
     }
 })
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer || {}
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        authActions: bindActionCreators(authActions, dispatch),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PhoneNumberScreen)

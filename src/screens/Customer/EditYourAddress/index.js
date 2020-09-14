@@ -134,12 +134,12 @@ class EditYourAddress extends Component {
                         <View style={{ marginHorizontal: '5%' }}>
                             <Text style={styles.labelHeading}>Label as</Text>
                         </View>
-                        <View style={{ flexDirection: 'row', paddingVertical: "5%", paddingHorizontal: '5%', justifyContent: 'space-evenly', alignItems: "center" }}>
+                        <View style={styles.labelRowContainer}>
                             {
                                 labels.map((item, index) => {
                                     return (
                                         <TouchableOpacity key={index} onPress={() => this.handlePressLabel(index)} style={[styles.labelButtonContainer,
-                                        item.selected ? { borderColor: THEME.PRIMARY_COLOR, borderWidth: 1 } : { borderColor: THEME.COLOR_GREY, borderWidth: 1 }]}>
+                                        item.selected ? styles.selectedButton : styles.nonSelectedButton]}>
                                             <Text style={{ fontFamily: 'Poppins-Medium', color: item.selected ? THEME.PRIMARY_COLOR : THEME.COLOR_GREY }}>{item.label}</Text>
                                         </TouchableOpacity>
                                     )

@@ -482,9 +482,10 @@ class Home extends Component {
                 <View style={styles.container}>
                     <ScrollView>
                         <View style={styles.nameContainer}>
+                            <Text style={styles.appNameTextStyle}>Fleek</Text>
+
                             <TouchableOpacity style={styles.headingContainer}
                                 onPress={this.changeAddressLayout} >
-                                <Text style={styles.appNameTextStyle}>Fleek</Text>
                                 <Text style={[styles.upperListTitleStyle, { fontSize: 12, textAlign: 'center' }]}>{this.state.address}</Text>
                             </TouchableOpacity>
                             {
@@ -498,7 +499,7 @@ class Home extends Component {
                                     null
                             }
                         </View>
-                        <View style={{ marginTop: '2%' }}>
+                        <View style={{ marginTop: 0 }}>
                             {
                                 this.state.expandAddresses ?
                                     <>
@@ -543,7 +544,7 @@ class Home extends Component {
                         </View>
                         <View style={[styles.nameContainer, { alignItems: 'center' }]}>
                             <Text style={styles.appointmentTextStyle}>Make an Appointment</Text>
-                            <TouchableOpacity style={[styles.searchBarberContainer, ]} onPress={searchBarber}>
+                            <TouchableOpacity style={[styles.searchBarberContainer,]} onPress={searchBarber}>
                                 <Text style={[styles.upperListTitleStyle, { fontSize: 10 }]}>Search Barber </Text>
                                 <Icon.Feather name="search" color="#fff" size={15} />
                             </TouchableOpacity>

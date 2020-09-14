@@ -84,7 +84,7 @@ class EmailandPassword extends Component {
                         }
                     </View>
                 </View>
-                <FooterButton title='Next' onPress={this.handleNext} />
+                <FooterButton title='Save & Continue' onPress={this.handleNext} />
             </View>
         );
     }

@@ -166,7 +166,7 @@ class UpdateProfile extends Component {
                         </View>
                     </ScrollView>
                 </View>
-                <FooterButton title="Next" onPress={onNext} />
+                <FooterButton title="Save & Continue" onPress={onNext} />
                 <Modal visible={modalView}>
                     <View style={styles.modalContainer}>
                         <View>

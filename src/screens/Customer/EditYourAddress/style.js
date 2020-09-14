@@ -82,5 +82,20 @@ export default StyleSheet.create({
         height: 35,
         width: 100,
         borderRadius: 20
+    },
+    labelRowContainer: {
+        flexDirection: 'row',
+        paddingVertical: "5%",
+        paddingHorizontal: '5%',
+        justifyContent: 'space-evenly',
+        alignItems: "center"
+    },
+    selectedButton: {
+        borderColor: THEME.PRIMARY_COLOR,
+        borderWidth: 1
+    },
+    nonSelectedButton: {
+        borderColor: THEME.COLOR_GREY,
+        borderWidth: 1
     }
 })
