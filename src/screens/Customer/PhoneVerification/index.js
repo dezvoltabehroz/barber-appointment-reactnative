@@ -10,12 +10,13 @@ export default class PhoneVerfication extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: ''
+            value: '',
+            disabled: true,
         }
     }
 
-    _onFulfill(isValid){
-        this.setState({value:isValid})
+    _onFulfill(isValid) {
+        this.setState({ value: isValid })
     }
 
     render() {
@@ -43,11 +44,11 @@ export default class PhoneVerfication extends Component {
                         size={40}
                         placeholder={"*"}
                         onFulfill={(isValid) => this._onFulfill(isValid)}
-                        // onCodeChange={(code) => this.setState({ value: code })}
+                        onCodeChange={(code) => this.setState({ value: code })}
                         codeInputStyle={[styles.codeInput, value != '' ? THEME.inputBorder : {}]} />
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button title='Verify Number ' loading={this.props.loading} onPress={()=>onVerify(value)} />
+                    <Button title='Verify Number ' disabled={this.state.value == '' ? true : false} loading={this.props.loading} onPress={async () => { await onVerify(value); this.setState({ value: '' }) }} />
                 </View>
                 <View style={styles.resendContainer}>
                     <TouchableOpacity onPress={onResend}><Text style={styles.resendTextStyle}>Resend Code</Text></TouchableOpacity>

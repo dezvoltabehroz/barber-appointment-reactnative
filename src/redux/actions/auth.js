@@ -65,12 +65,11 @@ const verifyCode = (code, navigate) => {
         PhoneVerification.verifyTheCode(code)
             .then(response => {
                 if (response.data.status) {
-                    alert(response.data.message)
                     dispatch({ type: IS_USER_VERIFIED_SUCCESS, loading: !loading })
                     navigate('PhoneVerified');
                 }
                 else {
-                    alert(response.data.message)
+                    Alert.alert(response.data.message)
                     dispatch({ type: LOADING_SUCCESS, loading: !loading })
                 }
             }).catch(error => {
