@@ -76,13 +76,13 @@ export default StyleSheet.create({
     appNameTextStyle: {
         color: THEME.COLOR_WHITE,
         fontSize: 25,
-        justifyContent:"center",
+        justifyContent: "center",
         textAlign: 'center',
         fontFamily: 'Poppins-Medium'
     },
     appointmentTextStyle: {
         color: THEME.COLOR_WHITE,
-        fontSize: THEME.FONT_SIZE_LARGE,
+        // fontSize: THEME.FONT_SIZE,
         fontFamily: 'Poppins-Medium'
     },
     seperatorWidthStyle: {
@@ -97,14 +97,16 @@ export default StyleSheet.create({
         alignItems: "center"
     },
     searchBarberContainer: {
-         flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'flex-end' 
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center'
         // justifyContent: "center",
         // alignItems: "center"
     },
     headingContainer: {
         flex: 1,
         alignItems: 'center',
-        justifyContent:"center"
+        justifyContent: "center"
         // paddingLeft: '15%'
     },
     addressesContainer: {

@@ -483,19 +483,20 @@ class Home extends Component {
                     <ScrollView>
                         <View style={styles.nameContainer}>
                             <Text style={styles.appNameTextStyle}>Fleek</Text>
-
-                            <TouchableOpacity style={styles.headingContainer}
-                                onPress={this.changeAddressLayout} >
-                                <Text style={[styles.upperListTitleStyle, { fontSize: 12, textAlign: 'center' }]}>{this.state.address}</Text>
-                            </TouchableOpacity>
                             {
                                 isUserLogedIn ?
-                                    <TouchableOpacity style={styles.exitContainer} onPress={onExit}>
-                                        <View style={{ paddingRight: '5%' }}>
-                                            <Icon.Feather name="log-out" color="#fff" size={25} />
-                                        </View>
-                                    </TouchableOpacity>
-                                    :
+                                    <>
+                                        <TouchableOpacity style={styles.headingContainer}
+                                            onPress={this.changeAddressLayout} >
+                                            <Text style={[styles.upperListTitleStyle, { fontSize: 12, textAlign: 'center' }]}>{this.state.address}</Text>
+                                        </TouchableOpacity>
+
+                                        <TouchableOpacity style={styles.exitContainer} onPress={onExit}>
+                                            <View style={{ paddingRight: '5%' }}>
+                                                <Icon.Feather name="log-out" color="#fff" size={25} />
+                                            </View>
+                                        </TouchableOpacity>
+                                    </> :
                                     null
                             }
                         </View>
@@ -545,7 +546,7 @@ class Home extends Component {
                         <View style={[styles.nameContainer, { alignItems: 'center' }]}>
                             <Text style={styles.appointmentTextStyle}>Make an Appointment</Text>
                             <TouchableOpacity style={[styles.searchBarberContainer,]} onPress={searchBarber}>
-                                <Text style={[styles.upperListTitleStyle, { fontSize: 10 }]}>Search Barber </Text>
+                                <Text style={styles.appointmentTextStyle}>Search Barber </Text>
                                 <Icon.Feather name="search" color="#fff" size={15} />
                             </TouchableOpacity>
                         </View>
