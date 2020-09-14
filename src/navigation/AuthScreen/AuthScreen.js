@@ -53,7 +53,12 @@ class AuthScreen extends Component {
             }
             await this.props.authActions.setSocialNetworkUserData(userData);
             customer ?
-                navigate('Customer', { screen: 'PhoneNumber' })
+                navigate('Customer', {
+                    screen: 'Register',
+                    params: {
+                        screen: 'PhoneNumber',
+                    },
+                })
                 :
                 navigate('Barber', { screen: 'PhoneNumber' })
         } catch (error) {
@@ -83,7 +88,12 @@ class AuthScreen extends Component {
             console.log(result);
             await this.props.authActions.setSocialNetworkUserData(userData);
             customer ?
-                navigate('Customer', { screen: 'PhoneNumber' })
+                navigate('Customer', {
+                    screen: 'Register',
+                    params: {
+                        screen: 'PhoneNumber',
+                    },
+                })
                 :
                 navigate('Barber', { screen: 'PhoneNumber' })
         }
@@ -136,7 +146,12 @@ class AuthScreen extends Component {
                 loading={loading}
                 onLogin={(email, password) => this.handleLogin(email, password)}
                 onPhone={() => customer ?
-                    navigate('Customer', { screen: 'PhoneNumber' })
+                    navigate('Customer', {
+                        screen: 'Register',
+                        params: {
+                            screen: 'PhoneNumber',
+                        },
+                    })
                     :
                     navigate('Barber', { screen: 'PhoneNumber' })}
                 onContinueWithOutLogin={() => customer ? navigate('Customer') : Alert.alert("This screen is under Development")}

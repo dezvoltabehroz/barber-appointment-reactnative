@@ -21,7 +21,7 @@ class PhoneVerificationScreen extends Component {
         const { goBack } = this.props.navigation
         return (
             <MainScreenPaths.Customer.PhoneVerification loading={this.props.user.loading}
-                onResend={() => goBack()} verificationCode={this.props.user.verificationCode.length == 6 ? this.props.user.verificationCode : null}
+                onResend={() => goBack()}
                 onVerify={(value) => this.handleVerification(value)} />
         )
     }

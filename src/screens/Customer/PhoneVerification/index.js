@@ -34,7 +34,6 @@ export default class PhoneVerfication extends Component {
                         autoFocus={false}
                         ref="codeInputRef1"
                         cellBorderWidth={2}
-                        compareWithCode={this.props.verificationCode}
                         activeColor={THEME.PRIMARY_COLOR}
                         inactiveColor={THEME.COLOR_WHITE}
                         keyboardType='numeric'

@@ -13,11 +13,11 @@ import { connect } from 'react-redux';
 class UpdateProfile extends Component {
     constructor(props) {
         super(props);
-        const { name } = this.props.user.userSocialNetworkData
+
         this.state = {
             male: true,
             female: false,
-            name: name ? name : '',
+            name: '',
             isNameFocus: false,
             isLocationFocus: false,
             profile_Url: '',
@@ -31,6 +31,10 @@ class UpdateProfile extends Component {
     }
 
     componentDidMount = () => {
+        const { name } = this.props.user.userSocialNetworkData
+        if (name !== '' && name !== 'undefined') {
+            this.setState({ name: name })
+        }
         this.findCoordinates();
     }
 

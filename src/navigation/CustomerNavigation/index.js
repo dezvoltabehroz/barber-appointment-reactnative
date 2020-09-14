@@ -25,12 +25,9 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 const Stack = createStackNavigator();
-function CustomerRoutes() {
+function RegistrationRoutes() {
     return (
-        <Stack.Navigator >
-            <Stack.Screen name="Home" component={HomeScreen} options={{
-                headerShown: false
-            }} />
+        <Stack.Navigator>
             <Stack.Screen name="PhoneVerified" component={PhoneVerifiedScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
@@ -59,6 +56,40 @@ function CustomerRoutes() {
                 headerTitleAlign: 'center',
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Profile</Text></View>),
             }} />
+            <Stack.Screen name="EmailandPassword" component={EmailandPasswordScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter Email and Password </Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+            <Stack.Screen name="AddYourAddress" component={AddYourAddressScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Add your address</Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+            <Stack.Screen name="EditYourAddress" component={EditYourAddressScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Edit your address</Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+        </Stack.Navigator>
+    )
+
+}
+function CustomerRoutes() {
+    return (
+        <Stack.Navigator >
+            <Stack.Screen name="Home" component={HomeScreen} options={{
+                headerShown: false
+            }} />
+            <Stack.Screen name="Register" component={RegistrationRoutes} options={{
+                headerShown: false
+            }} />
             <Stack.Screen name="CustomerServices" component={CustomerServicesScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
@@ -66,19 +97,12 @@ function CustomerRoutes() {
                 headerTitleAlign: 'center',
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>List of Customer Services</Text></View>),
             }} />
-             <Stack.Screen name="ServiceComplete" component={ServiceCompleteScreen} options={{
+            <Stack.Screen name="ServiceComplete" component={ServiceCompleteScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitleAlign: 'center',
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Review and Rate</Text></View>),
-            }} />
-            <Stack.Screen name="EmailandPassword" component={EmailandPasswordScreen} options={{
-                headerBackTitleVisible: false,
-                headerTintColor: 'white',
-                headerTransparent: true,
-                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter Email and Password </Text></View>),
-                headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="Appointments" component={AppointmentsScreen} options={{
                 headerBackTitleVisible: false,
@@ -87,21 +111,21 @@ function CustomerRoutes() {
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Appointments</Text></View>),
                 headerTitleAlign: 'center',
             }} />
-             <Stack.Screen name="AddYourAddress" component={AddYourAddressScreen} options={{
+            <Stack.Screen name="AddYourAddress" component={AddYourAddressScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Add your address</Text></View>),
                 headerTitleAlign: 'center',
             }} />
-             <Stack.Screen name="MyAddresses" component={MyAddressesScreen} options={{
+            <Stack.Screen name="MyAddresses" component={MyAddressesScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>My Addresses</Text></View>),
                 headerTitleAlign: 'center',
             }} />
-             <Stack.Screen name="EditYourAddress" component={EditYourAddressScreen} options={{
+            <Stack.Screen name="EditYourAddress" component={EditYourAddressScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
