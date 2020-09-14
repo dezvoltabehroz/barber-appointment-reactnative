@@ -16,7 +16,11 @@ class EditYourAddressScreen extends Component {
         const { navigate, goBack } = this.props.navigation
         const { address, region } = this.props.route.params;
         return (
-            <MainScreenPaths.Customer.EditYourAddress address={address} region={region} onEdit={()=>navigate('AddYourAddress')} onNext={()=>navigate('EmailandPassword')} />
+            <MainScreenPaths.Customer.EditYourAddress
+                address={address}
+                region={region}
+                onEdit={() => navigate('AddYourAddress')}
+                onNext={() => navigate('EmailandPassword')} />
         )
     }
 }

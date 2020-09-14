@@ -1,3 +1,4 @@
+import { Platform } from "react-native";
 import { StyleSheet, Dimensions } from "react-native";
 import THEME from '../../../assets/styles/theme.style';
 const screenHeight = Dimensions.get('window').height;
@@ -11,12 +12,12 @@ export default StyleSheet.create({
     },
     mapStyle: {
         marginTop: "2%",
-        height: screenHeight < 600 ? screenHeight * 0.35 : screenHeight * 0.45,
+        height: screenHeight < 600 ? screenHeight * 0.3 : screenHeight * 0.3,
         width: screenWidth * 0.9,
         marginHorizontal: "5%",
     },
     upperContainer: {
-        flex: 0.8,
+        flex: 0.9,
         marginTop: Platform.OS == 'ios' ? '10%' : null,
 
     },
@@ -97,5 +98,27 @@ export default StyleSheet.create({
     nonSelectedButton: {
         borderColor: THEME.COLOR_GREY,
         borderWidth: 1
-    }
+    },
+    lineStyle: {
+        borderColor: '#44495C',
+        borderWidth: 2,
+        marginHorizontal: '10%',
+        borderRadius: 5
+    },
+    gapHeight: {
+        height: 15
+    },
+    gapHeight1: {
+        height: 5
+    },
+    buttonContainerStyle: {
+        marginHorizontal: '10%',
+    },
+    footerStyle: {
+        flex: 0.15,
+        justifyContent: 'flex-end',
+        marginTop: Platform.OS == 'ios' ? 0 : '3%',
+        paddingBottom: '8%',
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
+    },
 })

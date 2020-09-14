@@ -6,7 +6,6 @@ import THEME from '../../../assets/styles/theme.style';
 import styles from './style';
 import MapView, { PROVIDER_GOOGLE, Marker, AnimatedRegion } from 'react-native-maps';
 import { Button, FloatingInput, MessageInput, FooterButton } from "../../../components";
-import style from '../Home/style';
 class EditYourAddress extends Component {
     constructor(props) {
         super(props);
@@ -148,7 +147,14 @@ class EditYourAddress extends Component {
                         </View>
                     </ScrollView>
                 </View>
-                <FooterButton title="Save & Continue" onPress={()=>this.props.onNext()} />
+                <View style={styles.footerStyle}>
+                    <View style={styles.lineStyle}></View>
+                    <View style={styles.gapHeight}></View>
+                    <View style={styles.buttonContainerStyle}>
+                        <Button title="Save & Continue" onPress={()=>this.props.onNext()} />
+                    </View>
+                </View>
+                {/* <FooterButton title="Save & Continue" onPress={()=>this.props.onNext()} /> */}
             </View>
         )
     }

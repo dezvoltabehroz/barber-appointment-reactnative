@@ -30,6 +30,7 @@ class AddYourAddress extends Component {
             name: searchObj.searchDetails.formatted_address
         })
         this.props.address(this.state.name,this.state.region);
+        this.setState({region:{},name:''})
         // this.props.onChange();
     }
 
