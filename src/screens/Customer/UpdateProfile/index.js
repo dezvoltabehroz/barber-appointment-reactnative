@@ -26,7 +26,8 @@ class UpdateProfile extends Component {
             location: '',
             date: '',
             showDatePicker: false,
-            modalView: false
+            modalView: false,
+            submit:false
         };
     }
 
@@ -35,7 +36,7 @@ class UpdateProfile extends Component {
         if (name !== '' && name !== 'undefined') {
             this.setState({ name: name })
         }
-        this.findCoordinates();
+        // this.findCoordinates();
     }
 
     onChangeDate = (event, selectedDate) => {
@@ -48,6 +49,24 @@ class UpdateProfile extends Component {
             date,
             showDatePicker: false,
         })
+    };
+
+    handleNext = () => {
+        let { name, male, female, date } = this.state;
+        let gender = '';
+        if (male) {
+            gender = 'male';
+        }
+        else {
+            gender = 'female';
+        }
+        const { onNext } = this.props;
+        this.setState({ submit: true });
+        if (email && password && confirmPassword) {
+            if (this.isEmailValid(email)) {
+                onNext(name, gender, date);
+            }
+        }
     };
 
     chooseFile = () => {
@@ -135,7 +154,9 @@ class UpdateProfile extends Component {
                                     label='Your Name' iconInput updateText={(name) => this.setState({ name })} />
                                 <Icon.Feather name='user' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
                             </View>
-
+                            {
+                                submit && !name ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
+                            }
                             <RadioButton gender
                                 option1={this.state.male} option2={this.state.female}
                                 option1Text="Male" option2Text="Female"
@@ -149,7 +170,11 @@ class UpdateProfile extends Component {
                                             <Text style={[styles.dateTextStyle, date ? { color: THEME.COLOR_BLACK } : {}]}>{date && date != "" ? date : "Date of Birth"}</Text>
                                         </View>
                                     </TouchableOpacity>
+
                                 </View>
+                                {
+                                    submit && !date ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
+                                }
                                 {showDatePicker ?
                                     <DateTime
                                         date
@@ -170,7 +195,7 @@ class UpdateProfile extends Component {
                         </View>
                     </ScrollView>
                 </View>
-                <FooterButton title="Save & Continue" onPress={onNext} />
+                <FooterButton title="Save & Continue" onPress={this.handleNext} />
                 <Modal visible={modalView}>
                     <View style={styles.modalContainer}>
                         <View>

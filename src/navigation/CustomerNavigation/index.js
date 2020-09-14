@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, Platform, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import { Icon } from '../../components';
 // import { MainScreenPaths } from '../../screens';
 import PhoneNumberScreen from './PhoneNumberScreen';
 import PhoneVerificatinScreen from './PhoneVerificationScreen'
@@ -35,13 +35,15 @@ function RegistrationRoutes() {
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Phone Verified</Text></View>),
                 headerTitleAlign: 'center',
             }} />
-            <Stack.Screen name="PhoneNumber" component={PhoneNumberScreen} options={{
-                headerBackTitleVisible: false,
-                headerTintColor: 'white',
-                headerTransparent: true,
-                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter your phone number</Text></View>),
-                headerTitleAlign: 'center',
-            }} />
+            <Stack.Screen name="PhoneNumber" component={PhoneNumberScreen}
+                options={({ navigation, route }) => ({
+                    headerBackTitleVisible: false,
+                    headerTintColor: 'white',
+                    headerTransparent: true,
+                    headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter your phone number</Text></View>),
+                    headerTitleAlign: 'center',
+                    headerLeft: props => (<TouchableOpacity onPress={() => navigation.goBack()} style={{ marginLeft: 10 }}><Icon.Ionicons name={Platform.OS == 'ios' ? "ios-arrow-back" : "md-arrow-back"} size={25} color="white" /></TouchableOpacity>),
+                })}/>
             <Stack.Screen name="PhoneVerification" component={PhoneVerificatinScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
@@ -89,6 +91,11 @@ function CustomerRoutes() {
             }} />
             <Stack.Screen name="Register" component={RegistrationRoutes} options={{
                 headerShown: false
+                // headerBackTitleVisible: false,
+                // headerTintColor: 'white',
+                // headerTransparent: true,
+                // headerTitleAlign: 'center',
+                // headerTitle: () => (<></>),
             }} />
             <Stack.Screen name="CustomerServices" component={CustomerServicesScreen} options={{
                 headerBackTitleVisible: false,
