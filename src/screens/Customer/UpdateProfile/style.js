@@ -36,15 +36,16 @@ export default StyleSheet.create({
     },
     //Lower Container Style
     lowerContainer: {
-        justifyContent: "center",
-        alignItems: "center"
+        // marginHorizontal:'5%'
+        // justifyContent: "center",
+        // alignItems: "center"
     },
     modalContainer: {
         flex:1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
     },
     inputContainerStyle: {
-        marginHorizontal: '10%',
+        // marginHorizontal: '10%',
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
@@ -111,8 +112,8 @@ export default StyleSheet.create({
     dateContainer: {
         backgroundColor: THEME.COLOR_WHITE,
         borderRadius: 5,
-        marginVertical: '4%',
-        marginHorizontal: '10%',
+        marginTop: '4%',
+        // marginHorizontal: '10%',
         justifyContent: 'center',
         alignItems: "center",
         height: 54,

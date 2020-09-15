@@ -5,7 +5,8 @@ import { Icon, FloatingInput, Button, DateTime, RadioButton, FooterButton, Searc
 import styles from './style';
 import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
-
+import COMMON_STYLE from '../../../assets/styles/common.style';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoder';
 import { connect } from 'react-redux';
@@ -27,7 +28,7 @@ class UpdateProfile extends Component {
             date: '',
             showDatePicker: false,
             modalView: false,
-            submit:false
+            submit: false
         };
     }
 
@@ -62,10 +63,8 @@ class UpdateProfile extends Component {
         }
         const { onNext } = this.props;
         this.setState({ submit: true });
-        if (email && password && confirmPassword) {
-            if (this.isEmailValid(email)) {
-                onNext(name, gender, date);
-            }
+        if (name && gender && date) {
+            onNext(name, gender, date);
         }
     };
 
@@ -120,9 +119,27 @@ class UpdateProfile extends Component {
     };
 
 
+    hideDatePicker = () => {
+        this.setState({ showDatePicker: !this.state.showDatePicker });
+    };
+
+    handleConfirm = (selectedDate) => {
+        var date = selectedDate.getDate();
+        date += "/";
+        date += (selectedDate.getMonth() + 1);
+        date += "/";
+        date += (selectedDate.getYear() + 1900);
+        this.setState({
+            date,
+        })
+        this.hideDatePicker();
+    };
+
+
+
     render() {
         const { onNext } = this.props;
-        const { isNameFocus, name, isLocationFocus, location, date, showDatePicker, modalView } = this.state;
+        const { isNameFocus, name, submit, location, date, showDatePicker, modalView } = this.state;
 
         return (
 
@@ -145,25 +162,28 @@ class UpdateProfile extends Component {
                             </ImageBackground>
                         </View>
                         <View style={styles.lowerContainer}>
-                            <View style={[styles.inputContainerStyle,
-                            isNameFocus || name != '' ? THEME.inputBorder : {}]}>
-                                <FloatingInput
-                                    val={name}
-                                    onActive={() => this.setState({ isNameFocus: true })}
-                                    onInActive={() => this.setState({ isNameFocus: false })}
-                                    label='Your Name' iconInput updateText={(name) => this.setState({ name })} />
-                                <Icon.Feather name='user' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
+                            <View style={{ marginHorizontal: '10%', }}>
+                                <View style={[styles.inputContainerStyle,
+                                isNameFocus || name != '' ? THEME.inputBorder : {}]}>
+                                    <FloatingInput
+                                        val={name}
+                                        onActive={() => this.setState({ isNameFocus: true })}
+                                        onInActive={() => this.setState({ isNameFocus: false })}
+                                        label='Your Name' iconInput updateText={(name) => this.setState({ name })} />
+                                    <Icon.Feather name='user' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
+                                </View>
+                                {
+                                    submit && !name ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
+                                }
                             </View>
-                            {
-                                submit && !name ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
-                            }
+
                             <RadioButton gender
                                 option1={this.state.male} option2={this.state.female}
                                 option1Text="Male" option2Text="Female"
                                 onPressOption1={() => this.setState({ male: true, female: false })}
                                 onPressOption2={() => this.setState({ female: true, male: false })} />
                             <View>
-                                <View style={styles.dateContainer}>
+                                <View style={{ marginHorizontal: '10%' }}>
                                     <TouchableOpacity onPress={() => this.setState({ showDatePicker: true })}>
                                         <View style={[styles.dateContainer,
                                         showDatePicker || date != '' ? THEME.inputBorder : {}]}>
@@ -172,15 +192,20 @@ class UpdateProfile extends Component {
                                     </TouchableOpacity>
 
                                 </View>
-                                {
-                                    submit && !date ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
-                                }
-                                {showDatePicker ?
-                                    <DateTime
-                                        date
-                                        onChangeDate={this.onChangeDate}
-                                    />
-                                    : null}
+                                <View style={{ marginHorizontal: '10%' }}>
+                                    {
+                                        submit && !date ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
+                                    }
+                                </View>
+
+                                {/* {showDatePicker ? */}
+                                <DateTimePickerModal
+                                    isVisible={this.state.showDatePicker}
+                                    mode="date"
+                                    onConfirm={this.handleConfirm}
+                                    onCancel={this.hideDatePicker}
+                                />
+                                {/* : null} */}
                             </View>
                             {/* <View style={[styles.inputLocationContainerStyle,
                             isLocationFocus || location != '' ? THEME.inputBorder : {}]}>
