@@ -465,7 +465,7 @@ class Home extends Component {
             val.selected = false
         })
         items[index] = { ...items[index], selected: true };
-        this.setState({ addresses: items, address: items[index].address })
+        this.setState({ addresses: items, address: items[index].address, expandAddresses: !this.state.expandAddresses })
     }
 
     changeAddressLayout = () => {
@@ -509,15 +509,15 @@ class Home extends Component {
                                                 this.state.addresses.map((item, index) => {
                                                     return (
                                                         <View style={styles.addressesContainer}>
-                                                            <View style={{ flexDirection: 'row' }}>
-                                                                <TouchableOpacity onPress={() => this.handleAddressPress(index)} style={{ justifyContent: 'center' }}>
+                                                            <TouchableOpacity onPress={() => this.handleAddressPress(index)} style={{ flexDirection: 'row' }}>
+                                                                <View style={{ justifyContent: 'center' }}>
                                                                     <Icon.MaterialCommunityIcons name={item.selected ? 'radiobox-marked' : 'radiobox-blank'} size={themeStyle.ICON_SIZE} color={themeStyle.PRIMARY_COLOR} />
-                                                                </TouchableOpacity>
+                                                                </View>
                                                                 <View style={{ marginLeft: '5%' }}>
                                                                     <Text style={[styles.upperListTitleStyle]}> {item.label} </Text>
                                                                     <Text style={[styles.upperListTitleStyle, { fontSize: 12, }]}> {item.address} </Text>
                                                                 </View>
-                                                            </View>
+                                                            </TouchableOpacity>
                                                         </View>
                                                     )
                                                 })
