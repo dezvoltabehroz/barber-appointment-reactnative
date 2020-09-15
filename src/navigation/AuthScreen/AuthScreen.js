@@ -122,8 +122,8 @@ class AuthScreen extends Component {
         let userData = { email, password };
         if (customer) {
             await this.props.authActions.setUser(userData);
-            navigate('Register', {
-                screen: 'PhoneNumber',
+            navigate('Customer', {
+                screen: 'Home',
             })
             this.setState({ submit: false })
         } else {

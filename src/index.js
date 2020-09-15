@@ -51,7 +51,6 @@ export default function App() {
                 <NavigationContainer
                     initialState={initialState}
                     onStateChange={(state) => {
-                        console.log(state.routes)
                         state.routes.forEach(element => {
                             if (element.name == "Register") {
                                 AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state))
