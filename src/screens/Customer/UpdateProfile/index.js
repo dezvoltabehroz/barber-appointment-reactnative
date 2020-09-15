@@ -6,7 +6,7 @@ import styles from './style';
 import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
 import COMMON_STYLE from '../../../assets/styles/common.style';
-
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoder';
 import { connect } from 'react-redux';
@@ -119,6 +119,24 @@ class UpdateProfile extends Component {
     };
 
 
+    hideDatePicker = () => {
+        this.setState({ showDatePicker: !this.state.showDatePicker });
+    };
+
+    handleConfirm = (selectedDate) => {
+        var date = selectedDate.getDate();
+        date += "/";
+        date += (selectedDate.getMonth() + 1);
+        date += "/";
+        date += (selectedDate.getYear() + 1900);
+        this.setState({
+            date,
+        })
+        this.hideDatePicker();
+    };
+
+
+
     render() {
         const { onNext } = this.props;
         const { isNameFocus, name, submit, location, date, showDatePicker, modalView } = this.state;
@@ -165,7 +183,7 @@ class UpdateProfile extends Component {
                                 onPressOption1={() => this.setState({ male: true, female: false })}
                                 onPressOption2={() => this.setState({ female: true, male: false })} />
                             <View>
-                                <View style={{marginHorizontal:'10%'}}>
+                                <View style={{ marginHorizontal: '10%' }}>
                                     <TouchableOpacity onPress={() => this.setState({ showDatePicker: true })}>
                                         <View style={[styles.dateContainer,
                                         showDatePicker || date != '' ? THEME.inputBorder : {}]}>
@@ -174,18 +192,20 @@ class UpdateProfile extends Component {
                                     </TouchableOpacity>
 
                                 </View>
-                                <View style={{marginHorizontal:'10%'}}>
-                                {
-                                    submit && !date ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
-                                }
+                                <View style={{ marginHorizontal: '10%' }}>
+                                    {
+                                        submit && !date ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
+                                    }
                                 </View>
-                                
-                                {showDatePicker ?
-                                    <DateTime
-                                        date
-                                        onChangeDate={this.onChangeDate}
-                                    />
-                                    : null}
+
+                                {/* {showDatePicker ? */}
+                                <DateTimePickerModal
+                                    isVisible={this.state.showDatePicker}
+                                    mode="date"
+                                    onConfirm={this.handleConfirm}
+                                    onCancel={this.hideDatePicker}
+                                />
+                                {/* : null} */}
                             </View>
                             {/* <View style={[styles.inputLocationContainerStyle,
                             isLocationFocus || location != '' ? THEME.inputBorder : {}]}>
