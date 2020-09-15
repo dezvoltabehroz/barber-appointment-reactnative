@@ -4,6 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 
 import BarberRoutes from './BarberNavigation';
 import CustomerRoutes from './CustomerNavigation';
+import RegistrationRoutes from './CustomerNavigation/CustomerRegistration'
 import AuthScreen from './AuthScreen/AuthScreen';
 import AboutUsScreen from './AboutUsScreen';
 import ContactUsScreen from './ContactUsScreen';
@@ -14,6 +15,9 @@ function AppRoutes() {
     return (
         <Stack.Navigator initialRouteName="Auth" >
             <Stack.Screen name="Auth" component={AuthScreen} options={{
+                headerShown: false
+            }} />
+            <Stack.Screen name="Register" component={RegistrationRoutes} options={{
                 headerShown: false
             }} />
             <Stack.Screen name="AboutUs" component={AboutUsScreen} options={{

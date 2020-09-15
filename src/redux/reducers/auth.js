@@ -5,7 +5,7 @@ import {
     IS_USER_VERIFIED_SUCCESS,
     SEND_CODE_TO_USER_PHONENUMBER_SUCCESS,
     LOADING_SUCCESS,
-    LOADING_END
+    USER_UPDATE_PROFILE_INFO_SUCCESS,
 } from '../types/auth';
 
 const initialState = {
@@ -44,13 +44,25 @@ const authReducer = (state = initialState, action) => {
         case SEND_CODE_TO_USER_PHONENUMBER_SUCCESS:
             return {
                 ...state,
-                verificationCode: action.verificationCode,
+                userData: {
+                    phone: action.userData.phone
+                },
                 loading: false
             }
         case LOADING_SUCCESS:
             return {
                 ...state,
                 loading: action.loading
+            }
+        case USER_UPDATE_PROFILE_INFO_SUCCESS:
+            return {
+                ...state,
+                userData: {
+                    name: action.userData.name,
+                    dob: action.userData.dob,
+                    gender: action.userData.gender,
+                    photo: action.userData.photo
+                }
             }
         default:
             return state;

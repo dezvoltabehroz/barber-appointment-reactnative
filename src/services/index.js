@@ -1,2 +1,2 @@
-import _PhoneVerification from './verifyPhoneNumber';
-export const PhoneVerification = _PhoneVerification;
+import _RegisterUser from './registration';
+export const RegisterUser = _RegisterUser;

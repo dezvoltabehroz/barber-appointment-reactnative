@@ -4,12 +4,10 @@ import {
     USER_SOCIALNETWORK_USERDATA_SUCCESS,
     SEND_CODE_TO_USER_PHONENUMBER_SUCCESS,
     IS_USER_VERIFIED_SUCCESS,
-    LOADING_SUCCESS
+    LOADING_SUCCESS,
+    USER_UPDATE_PROFILE_INFO_SUCCESS
 } from '../types/auth';
-import { PhoneVerification } from '../../services';
-import BASE_URL from '../../enviroments'
-import axios from 'axios';
-import { cond } from 'react-native-reanimated';
+import { RegisterUser } from '../../services';
 import { Alert } from 'react-native';
 
 const setUser = (userData) => {
@@ -32,7 +30,7 @@ export const sendVerificationCode = (number, navigate) => {
         if (loading) {
             dispatch({ type: LOADING_SUCCESS, loading: loading })
         }
-        PhoneVerification.sendCodeToPhoneNumber(number)
+        RegisterUser.sendCodeToPhoneNumber(number)
             .then(response => {
                 if (!response.data.success && response.data.message.status === 400) {
                     Alert.alert('Phone number is not correct')
@@ -40,7 +38,7 @@ export const sendVerificationCode = (number, navigate) => {
                 }
                 else {
                     if (response.data.status) {
-                        dispatch({ type: SEND_CODE_TO_USER_PHONENUMBER_SUCCESS, verificationCode: response.data.code, loading: !loading })
+                        dispatch({ type: SEND_CODE_TO_USER_PHONENUMBER_SUCCESS, userData: { phone: response.data.phone }, loading: !loading })
                         navigate('PhoneVerification')
                     }
                     else {
@@ -62,11 +60,40 @@ const verifyCode = (code, navigate) => {
         if (loading) {
             dispatch({ type: LOADING_SUCCESS, loading: loading })
         }
-        PhoneVerification.verifyTheCode(code)
+        RegisterUser.verifyTheCode(code)
             .then(response => {
                 if (response.data.status) {
                     dispatch({ type: IS_USER_VERIFIED_SUCCESS, loading: !loading })
                     navigate('PhoneVerified');
+                }
+                else {
+                    Alert.alert(response.data.message)
+                    dispatch({ type: LOADING_SUCCESS, loading: !loading })
+                }
+            }).catch(error => {
+                console.log(error)
+            })
+    }
+}
+
+
+const UpdateProfileInfo = (email, password, navigate) => {
+    return (dispatch) => {
+        let loading = true;
+        if (loading) {
+            dispatch({ type: LOADING_SUCCESS, loading: loading })
+        }
+        RegisterUser.verifyTheCode(code)
+            .then(response => {
+                if (response.data.status) {
+                    dispatch({
+                        type: USER_UPDATE_PROFILE_INFO_SUCCESS, userData: {
+                            name: name,
+                            gender: gender,
+                            dob: dob
+                        }, loading: !loading
+                    })
+                    navigate('AddYourAddress');
                 }
                 else {
                     Alert.alert(response.data.message)
@@ -90,4 +117,5 @@ export const authActions = {
     setSocialNetworkUserData,
     sendVerificationCode,
     verifyCode,
+    UpdateProfileInfo,
 };

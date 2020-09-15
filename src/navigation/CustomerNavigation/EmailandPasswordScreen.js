@@ -15,7 +15,7 @@ class EmailandPasswordScreen extends Component {
         const { navigate } = this.props.navigation
         let userData = { email, password };
         await this.props.authActions.setUser(userData);
-        navigate('UpdateProfile');
+        navigate('Customer',{screen:'Home'});
     }
 
     render() {

@@ -11,7 +11,7 @@ export default class PhoneVerifiedScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Customer.PhoneVerified onComplete={()=>navigate('EmailandPassword')} />
+            <MainScreenPaths.Customer.PhoneVerified onComplete={()=>navigate('UpdateProfile')} />
         )
     }
 }

@@ -20,7 +20,7 @@ class EditYourAddressScreen extends Component {
                 address={address}
                 region={region}
                 onEdit={() => navigate('AddYourAddress')}
-                onNext={() => navigate('Home')} />
+                onNext={() => navigate('EmailandPassword')} />
         )
     }
 }

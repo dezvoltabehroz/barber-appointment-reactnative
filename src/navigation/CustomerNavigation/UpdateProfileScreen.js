@@ -2,15 +2,17 @@
 
 import React, { Component } from 'react'
 import { MainScreenPaths } from '../../screens';
-
-export default class UpdateProfileScreen extends Component {
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { authActions } from '../../redux/actions/auth';
+ class UpdateProfileScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })
     handleNext = async (name, gender, dob) => {
         const { navigate } = this.props.navigation
         let userData = { name, gender, dob };
-        // await this.props.authActions.setUser(userData);
+        // await this.props.authActions.UpdateProfileInfo(userData);
         navigate('AddYourAddress');
     }
     render() {
@@ -20,3 +22,17 @@ export default class UpdateProfileScreen extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer || {}
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        authActions: bindActionCreators(authActions, dispatch),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateProfileScreen)

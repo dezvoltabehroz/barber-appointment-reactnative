@@ -53,11 +53,8 @@ class AuthScreen extends Component {
             }
             await this.props.authActions.setSocialNetworkUserData(userData);
             customer ?
-                navigate('Customer', {
-                    screen: 'Register',
-                    params: {
-                        screen: 'PhoneNumber',
-                    },
+                navigate('Register', {
+                    screen: 'PhoneNumber',
                 })
                 :
                 navigate('Barber', { screen: 'PhoneNumber' })
@@ -88,11 +85,8 @@ class AuthScreen extends Component {
             console.log(result);
             await this.props.authActions.setSocialNetworkUserData(userData);
             customer ?
-                navigate('Customer', {
-                    screen: 'Register',
-                    params: {
-                        screen: 'PhoneNumber',
-                    },
+                navigate('Register', {
+                    screen: 'PhoneNumber',
                 })
                 :
                 navigate('Barber', { screen: 'PhoneNumber' })
@@ -128,7 +122,9 @@ class AuthScreen extends Component {
         let userData = { email, password };
         if (customer) {
             await this.props.authActions.setUser(userData);
-            navigate('Customer')
+            navigate('Register', {
+                screen: 'PhoneNumber',
+            })
             this.setState({ submit: false })
         } else {
             await this.props.authActions.setUser(userData);
@@ -146,11 +142,8 @@ class AuthScreen extends Component {
                 loading={loading}
                 onLogin={(email, password) => this.handleLogin(email, password)}
                 onPhone={() => customer ?
-                    navigate('Customer', {
-                        screen: 'Register',
-                        params: {
-                            screen: 'PhoneNumber',
-                        },
+                    navigate('Register', {
+                        screen: 'PhoneNumber',
                     })
                     :
                     navigate('Barber', { screen: 'PhoneNumber' })}
