@@ -33,9 +33,11 @@ class UpdateProfile extends Component {
     }
 
     componentDidMount = () => {
-        const { name } = this.props.user.userSocialNetworkData
-        if (name !== '' && name !== 'undefined') {
-            this.setState({ name: name })
+        if(this.props.user.userSocialNetworkData!=null&&this.props.user.userSocialNetworkData!='undefined'){
+            const { name } = this.props.user.userSocialNetworkData
+            if (name !== '' && name !== 'undefined') {
+                this.setState({ name: name })
+            }
         }
         // this.findCoordinates();
     }

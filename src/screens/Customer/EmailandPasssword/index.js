@@ -10,10 +10,10 @@ import { connect } from 'react-redux';
 class EmailandPassword extends Component {
     constructor(props) {
         super(props);
-        let { email } = this.props.user.userSocialNetworkData;
+
         this.state = {
             male: true, female: false,
-            email: email ? email : '',
+            email: '',
             password: '',
             confirmPassword: '',
             isPasswordFocus: false,
@@ -22,13 +22,22 @@ class EmailandPassword extends Component {
             submit: false
         };
     }
+    componentDidMount = () => {
+        if (this.props.user.userSocialNetworkData !='undefined' && this.props.user.userSocialNetworkData != null) {
+            let { email } = this.props.user.userSocialNetworkData;
+            if (email != '' && email !== 'undefined' && email != null) {
+                this.setState({ email: email })
+            }
+        }
+    }
+
     handleNext = () => {
         let { email, password, confirmPassword } = this.state
         const { onUpdate } = this.props;
         this.setState({ submit: true });
         if (email && password && confirmPassword) {
             if (this.isEmailValid(email)) {
-                onUpdate(email,password);
+                onUpdate(email, password);
             }
         }
     };
