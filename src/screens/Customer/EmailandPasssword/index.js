@@ -23,8 +23,8 @@ class EmailandPassword extends Component {
         };
     }
     componentDidMount = () => {
-        if (this.props.user.userSocialNetworkData !='undefined' && this.props.user.userSocialNetworkData != null) {
-            let { email } = this.props.user.userSocialNetworkData;
+        if (this.props.user.email !='undefined' && this.props.user.email != null) {
+            let { email } = this.props.user;
             if (email != '' && email !== 'undefined' && email != null) {
                 this.setState({ email: email })
             }

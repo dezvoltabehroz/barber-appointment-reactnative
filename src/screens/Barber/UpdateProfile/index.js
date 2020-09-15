@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 class UpdateProfile extends Component {
     constructor(props) {
         super(props);
-        let { name } = this.props.user.userSocialNetworkData
+        let { name } = this.props.user
         this.state = {
             male: true,
             female: false,

@@ -17,7 +17,6 @@ const initialState = {
     email: '',
     phone: '',
     photo: '',
-    userToken: '',
     isVerified: false,
     verificationCode: '',
     loading: false

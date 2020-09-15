@@ -77,20 +77,21 @@ const verifyCode = (code, navigate) => {
 }
 
 
-const UpdateProfileInfo = (email, password, navigate) => {
-    return (dispatch) => {
+const UpdateProfileInfo = (name, gender, dob, photo, navigate) => {
+    return (dispatch, store) => {
         let loading = true;
         if (loading) {
             dispatch({ type: LOADING_SUCCESS, loading: loading })
         }
-        RegisterUser.verifyTheCode(code)
+        RegisterUser.verifyTheCode(name, gender, dob, photo, store().auth.phone)
             .then(response => {
                 if (response.data.status) {
                     dispatch({
                         type: USER_UPDATE_PROFILE_INFO_SUCCESS, userData: {
                             name: name,
                             gender: gender,
-                            dob: dob
+                            dob: dob,
+                            photo: photo
                         },
                         loading: !loading
                     })

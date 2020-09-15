@@ -33,8 +33,8 @@ class UpdateProfile extends Component {
     }
 
     componentDidMount = () => {
-        if(this.props.user.userSocialNetworkData!=null&&this.props.user.userSocialNetworkData!='undefined'){
-            const { name } = this.props.user.userSocialNetworkData
+        if(this.props.user.name!=null&&this.props.user.name!='undefined'){
+            const { name } = this.props.user
             if (name !== '' && name !== 'undefined') {
                 this.setState({ name: name })
             }

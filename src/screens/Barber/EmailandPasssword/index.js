@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 class EmailandPassword extends Component {
     constructor(props) {
         super(props);
-        let { email } = this.props.user.userSocialNetworkData
+        let { email } = this.props.user
         this.state = {
             male: true, female: false,
             email: email ? email : '',
