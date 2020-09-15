@@ -9,9 +9,15 @@ import {
 } from '../types/auth';
 
 const initialState = {
-    isUserLogedIn: false,
     userData: {},
-    userSocialNetworkData: {},
+    isUserLogedIn: false,
+    name: '',
+    dob: '',
+    gender: '',
+    email: '',
+    phone: '',
+    photo: '',
+    userToken: '',
     isVerified: false,
     verificationCode: '',
     loading: false
@@ -33,7 +39,8 @@ const authReducer = (state = initialState, action) => {
         case USER_SOCIALNETWORK_USERDATA_SUCCESS:
             return {
                 ...state,
-                userSocialNetworkData: action.userData
+                name: action.userData.name,
+                photo: action.userData.photo
             }
         case IS_USER_VERIFIED_SUCCESS:
             return {
@@ -44,10 +51,8 @@ const authReducer = (state = initialState, action) => {
         case SEND_CODE_TO_USER_PHONENUMBER_SUCCESS:
             return {
                 ...state,
-                userData: {
-                    phone: action.userData.phone
-                },
-                loading: false
+                phone: action.userData.phone,
+                loading: action.loading
             }
         case LOADING_SUCCESS:
             return {
@@ -57,12 +62,11 @@ const authReducer = (state = initialState, action) => {
         case USER_UPDATE_PROFILE_INFO_SUCCESS:
             return {
                 ...state,
-                userData: {
-                    name: action.userData.name,
-                    dob: action.userData.dob,
-                    gender: action.userData.gender,
-                    photo: action.userData.photo
-                }
+                name: action.userData.name,
+                dob: action.userData.dob,
+                gender: action.userData.gender,
+                photo: action.userData.photo,
+                loading:action.loading
             }
         default:
             return state;

@@ -91,7 +91,8 @@ const UpdateProfileInfo = (email, password, navigate) => {
                             name: name,
                             gender: gender,
                             dob: dob
-                        }, loading: !loading
+                        },
+                        loading: !loading
                     })
                     navigate('AddYourAddress');
                 }
