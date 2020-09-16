@@ -33,8 +33,6 @@ const Api = {
         //     type: userData.image.type
         // });
 
-        console.log(JSON.stringify(formData));
-
         let config = {
             headers: {
                 'Content-Type': 'multipart/form-data',
