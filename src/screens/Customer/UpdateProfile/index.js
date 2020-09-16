@@ -80,20 +80,20 @@ class UpdateProfile extends Component {
             // console.log('response  ', response);
 
             if (response.didCancel) {
-                console.log('User cancelled image picker');
+                // console.log('User cancelled image picker');
             } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
+                // console.log('ImagePicker Error: ', response.error);
             } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
+                // console.log('User tapped custom button: ', response.customButton);
                 alert(response.customButton);
             } else {
                 let source = response;
-                console.log(source);
-                var file = {
-                    name: response.fileName,
-                    uri: response.path,
-                    type: response.type,
-                }
+                // console.log(source);
+                // var file = {
+                //     name: response.fileName,
+                //     uri: response.path,
+                //     type: response.type,
+                // }
                 this.setState({
                     avatar: source,
                     profile_Url: response

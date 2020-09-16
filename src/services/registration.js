@@ -1,4 +1,6 @@
 import axiosInstance from './Interceptor';
+import axios from 'axios';
+
 const Api = {
     sendCodeToPhoneNumber: function (number) {
         return axiosInstance.post('registration/regPhoneNumber', {
@@ -24,16 +26,22 @@ const Api = {
         formData.append('full_name', userData.name);
         formData.append('gender', userData.gender);
         formData.append('dob', userData.dob);
-        formData.append('phone', "+923048520554");
-        formData.append('image', {
-            name: userData.image.fileName,
-            uri: userData.image.uri,
-            type: userData.image.type
-        });
+        formData.append('phone', "+923216424937");
+        // formData.append('image', {
+        //     name: userData.image.fileName,
+        //     uri: userData.image.path,
+        //     type: userData.image.type
+        // });
+
         console.log(JSON.stringify(formData));
-        console.log(formData);
-        let header = { "Content-Type": "application/json" }
-        return axiosInstance.post('registration/updatePersonalInfo', formData, header)
+
+        let config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json',
+            }
+        };
+        return axios.post("http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/registration/updatePersonalInfo", formData, config);
     },
 };
 
