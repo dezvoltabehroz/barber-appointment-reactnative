@@ -14,6 +14,7 @@ class PhoneVerificationScreen extends Component {
     handleVerification = (value) => {
         const { navigate } = this.props.navigation
         this.props.authActions.verifyCode(value, navigate);
+        // navigate('PhoneVerified');
 
     }
 

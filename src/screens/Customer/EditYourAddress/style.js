@@ -26,7 +26,7 @@ export default StyleSheet.create({
     },
     inputContainerStyle: {
         height: 54,
-        marginBottom: '4%',
+        marginBottom: '5%',
         width: screenWidth * 0.9,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE

@@ -6,7 +6,7 @@ import {
     SEND_CODE_TO_USER_PHONENUMBER_SUCCESS,
     LOADING_SUCCESS,
     USER_UPDATE_PROFILE_INFO_SUCCESS,
-} from '../types/auth';
+} from '../types';
 
 const initialState = {
     userData: {},

@@ -4,8 +4,11 @@ import {
 } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 import styles from './style';
+import Geocoder from 'react-native-geocoder';
 import MapView, { PROVIDER_GOOGLE, Marker, AnimatedRegion } from 'react-native-maps';
 import { Button, FloatingInput, MessageInput, FooterButton } from "../../../components";
+import COMMON_STYLE from '../../../assets/styles/common.style';
+
 class EditYourAddress extends Component {
     constructor(props) {
         super(props);
@@ -17,7 +20,7 @@ class EditYourAddress extends Component {
                 latitudeDelta: 0.005,
                 longitudeDelta: 0.005,
             },
-            subject: '',
+            floor_unit: '',
             message: '',
             isSubjectFocus: false,
             isMessageFocus: false,
@@ -26,7 +29,8 @@ class EditYourAddress extends Component {
                 { label: 'Work', selected: false },
                 { label: 'Other', selected: false }
             ],
-            label: ''
+            label: '',
+            submit: false
         }
     }
 
@@ -48,8 +52,51 @@ class EditYourAddress extends Component {
         this.setState({ labels: items, label: items[index].label })
     }
 
+    handleSaveAndContinue = () => {
+        this.setState({ submit: true })
+        const { region, address, label, floor_unit, message, submit } = this.state;
+        let userData = {
+            lat: region.latitude,
+            lng: region.longitude,
+            address: address,
+            floor_unit: floor_unit,
+            additional_info: message,
+            label_as: label,
+            phone: this.props.phone
+        }
+        if (region && address && label && floor_unit && submit) {
+            this.props.onNext(userData);
+            this.setState({ submit: false })
+        }
+    }
+
+    handleDragFuntion = (e) => {
+        this.setState({
+            region: {
+                latitude: e.nativeEvent.coordinate.latitude,
+                longitude: e.nativeEvent.coordinate.longitude,
+                latitudeDelta: 0.005,
+                longitudeDelta: 0.005,
+            }
+        })
+
+        let pos = {
+            lat: this.state.region.latitude,
+            lng: this.state.region.longitude,
+        }
+        Geocoder.geocodePosition(pos).then(res => {
+            console.log(res[0])
+            this.setState({
+                address: res[0].formattedAddress,
+            })
+        })
+            .catch(error => alert(error));
+
+    }
+
+
     render() {
-        const { name, email, subject, labels, isEmailFocus, isNameFocus, isSubjectFocus, isMessageFocus, message, submit } = this.state;
+        const { name, label, floor_unit, labels, isSubjectFocus, isMessageFocus, message, submit } = this.state;
 
         return (
             <View style={styles.container}>
@@ -76,14 +123,7 @@ class EditYourAddress extends Component {
                                 ref={marker => {
                                     this.marker = marker;
                                 }}
-                                onDragEnd={(e) => this.setState({
-                                    region: {
-                                        latitude: e.nativeEvent.coordinate.latitude,
-                                        longitude: e.nativeEvent.coordinate.longitude,
-                                        latitudeDelta: 0.005,
-                                        longitudeDelta: 0.005,
-                                    }
-                                })}
+                                onDragEnd={(e) => this.handleDragFuntion(e)}
                                 draggable
                                 opacity={0.5}
                                 style={{ width: 20, height: 20 }}
@@ -110,19 +150,23 @@ class EditYourAddress extends Component {
                             </View>
                         </View>
                         <View style={styles.buttonContainer}>
-                            <View style={[styles.inputContainerStyle,
-                            isSubjectFocus || subject != '' ? THEME.inputBorder : {}]}>
+                            <View style={[styles.inputContainerStyle, submit ? { marginBottom: "6%" } : styles.inputContainerStyle,
+                            isSubjectFocus || floor_unit != '' ? THEME.inputBorder : {}]}>
                                 <FloatingInput
                                     label={"Floor/Unit"}
-                                    val={subject}
-                                    onActive={() => this.setState({ isSubjectFocus: true })}
-                                    onInActive={() => this.setState({ isSubjectFocus: false })}
-                                    updateText={(subject) => this.setState({ subject })} />
+                                    val={floor_unit}
+                                    onActive={() => this.setState({ isSubjectFocus: true, })}
+                                    onInActive={() => this.setState({ isSubjectFocus: false, submit: true })}
+                                    updateText={(floor_unit) => this.setState({ floor_unit })} />
+                                {
+                                    submit && !floor_unit ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
+                                }
                             </View>
+
                             <View style={[styles.messageContainerStyle,
                             isMessageFocus || message != '' ? THEME.inputBorder : {}]}>
                                 <MessageInput
-                                    label={"(Optional)"}
+                                    label={"(Optional Note)"}
                                     val={message}
                                     multiline={true}
                                     onActive={() => this.setState({ isMessageFocus: true })}
@@ -145,13 +189,18 @@ class EditYourAddress extends Component {
                                 })
                             }
                         </View>
+                        <View style={{ marginHorizontal: '5%' }}>
+                            {
+                                submit && !label ? <Text style={COMMON_STYLE.errorText}>Please select the label</Text> : null
+                            }
+                        </View>
                     </ScrollView>
                 </View>
                 <View style={styles.footerStyle}>
                     <View style={styles.lineStyle}></View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.buttonContainerStyle}>
-                        <Button title="Save & Continue" onPress={()=>this.props.onNext()} />
+                        <Button loading={this.props.loading} title="Save & Continue" onPress={this.handleSaveAndContinue} />
                     </View>
                 </View>
                 {/* <FooterButton title="Save & Continue" onPress={()=>this.props.onNext()} /> */}

@@ -6,7 +6,7 @@ import {
     IS_USER_VERIFIED_SUCCESS,
     LOADING_SUCCESS,
     USER_UPDATE_PROFILE_INFO_SUCCESS
-} from '../types/auth';
+} from '../types';
 import { RegisterUser } from '../../services';
 import { Alert } from 'react-native';
 
