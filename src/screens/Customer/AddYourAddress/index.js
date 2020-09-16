@@ -6,18 +6,12 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import THEME from '../../../assets/styles/theme.style';
 import Config from '../../../config/config.json';
 import styles from './style';
-import { connect } from 'react-redux';
 class AddYourAddress extends Component {
     constructor(props) {
         super(props);
         this.state = {
             region: {}
         }
-    }
-    componentDidMount = () => {
-        console.log(this.props.user.name)
-        console.log(this.props.user.dob)
-        console.log(this.props.user.gender)
     }
 
     goMap(data, details) {
@@ -34,8 +28,8 @@ class AddYourAddress extends Component {
             },
             name: searchObj.searchDetails.formatted_address
         })
-        this.props.address(this.state.name, this.state.region);
-        this.setState({ region: {}, name: '' })
+        this.props.address(this.state.name,this.state.region);
+        this.setState({region:{},name:''})
         // this.props.onChange();
     }
 
@@ -91,11 +85,4 @@ class AddYourAddress extends Component {
         )
     }
 }
-
-const mapStateToProps = (state) => {
-    return {
-        user: state.authReducer || {}
-    };
-};
-
-export default connect(mapStateToProps)(AddYourAddress)
+export default AddYourAddress;

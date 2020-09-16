@@ -36,32 +36,13 @@ class UpdateProfile extends Component {
 
     componentDidMount = () => {
         if (this.props.user.name != null && this.props.user.name != 'undefined') {
-            const { name, photo } = this.props.user;
-            console.log(JSON.stringify(this.props.user))
+            const { name } = this.props.user
             if (name !== '' && name !== 'undefined') {
-                this.setState({ name: name, avatar: photo })
-                if (photo !== '' && photo !== 'undefined') {
-                    this.setState({ avatar: photo })
-                }
+                this.setState({ name: name })
             }
         }
         // this.findCoordinates();
     }
-    componentWillUnmount = () => {
-        console.log(JSON.stringify(this.props.user))
-    }
-    onChangeDate = (event, selectedDate) => {
-        var date = selectedDate.getDate();
-        date += "/";
-        date += (selectedDate.getMonth() + 1);
-        date += "/";
-        date += (selectedDate.getYear() + 1900);
-        console.log(moment(date).format('YYYY-MM-DD'))
-        this.setState({
-            date,
-            showDatePicker: false,
-        })
-    };
 
     handleNext = () => {
         const { onNext } = this.props;
@@ -116,7 +97,7 @@ class UpdateProfile extends Component {
                 this.setState({
                     avatar: source,
                     profile_Url: response
-                }, console.log(this.state.avatar));
+                },console.log(this.state.avatar));
             }
         });
     };
