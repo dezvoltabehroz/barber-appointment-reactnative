@@ -26,7 +26,7 @@ const Api = {
         formData.append('full_name', userData.name);
         formData.append('gender', userData.gender);
         formData.append('dob', userData.dob);
-        formData.append('phone', "+923216424937");
+        formData.append('phone', phone);
         // formData.append('image', {
         //     name: userData.image.fileName,
         //     uri: userData.image.path,
