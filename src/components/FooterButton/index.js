@@ -9,7 +9,7 @@ export default class FooterButton extends Component {
     }
 
     render() {
-        const { title, onPress, addservice, onPressAddService } = this.props;
+        const { title, onPress, addservice, onPressAddService,loading } = this.props;
         return (
             <View style={addservice ? styles.footerConatinerStyle : styles.footerStyle}>
                 {
@@ -26,7 +26,7 @@ export default class FooterButton extends Component {
                 <View style={styles.lineStyle}></View>
                 <View style={styles.gapHeight}></View>
                 <View style={styles.buttonContainer}>
-                    <Button title={title} onPress={onPress} />
+                    <Button loading={loading} title={title} onPress={onPress} />
                 </View>
             </View>
         )

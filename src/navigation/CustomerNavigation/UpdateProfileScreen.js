@@ -5,15 +5,16 @@ import { MainScreenPaths } from '../../screens';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../redux/actions/auth';
- class UpdateProfileScreen extends Component {
+class UpdateProfileScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })
-    handleNext = async (name, gender, dob) => {
+    handleNext = async (userData) => {
+        let phone = this.props.user.phone
+        let data = userData;
         const { navigate } = this.props.navigation
-        let userData = { name, gender, dob };
-        // await this.props.authActions.UpdateProfileInfo(userData);
-        navigate('AddYourAddress');
+        await this.props.authActions.UpdateProfileInfo(data, phone, navigate);
+        // navigate('AddYourAddress');
     }
     render() {
         const { navigate, goBack } = this.props.navigation

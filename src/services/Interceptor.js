@@ -3,9 +3,7 @@ import {BASE_URL} from '../enviroments';
 
 let axiosInstance = axios.create({
     baseURL: `${BASE_URL}`,
-    headers: {
-        'Content-Type': 'application/json',
-    }
+   
 });
 axiosInstance.interceptors.request.use(function (config) {
     if (config.data) {

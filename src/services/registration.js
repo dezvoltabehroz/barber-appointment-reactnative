@@ -2,30 +2,38 @@ import axiosInstance from './Interceptor';
 const Api = {
     sendCodeToPhoneNumber: function (number) {
         return axiosInstance.post('registration/regPhoneNumber', {
-            phone: `${number}`
+            phone: `${number}`,
+            type: "customer"
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
         })
     },
     verifyTheCode: function (code) {
         return axiosInstance.post('registration/verifyCode', {
             code: `${code}`
-        })
-    },
-    updateProfileInfo: function (name, gender, dob, phone, photo) {
-        let formData = new FormData();
-
-        formdata.append("full_name", name);
-        formdata.append("gender", gender);
-        formdata.append("dob", dob);
-        formdata.append("phone", phone);
-        formdata.append("image", photo);
-
-        return axiosInstance.post('registration/updatePersonalInfo', {
-            formData
-        },{
-            headers:{
-                'Content-Type':'multipart/form-data'
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
             }
         })
+    },
+    updateProfileInfo: function (userData, phone) {
+        let formData = new FormData();
+        formData.append('full_name', userData.name);
+        formData.append('gender', userData.gender);
+        formData.append('dob', userData.dob);
+        formData.append('phone', "+923048520554");
+        formData.append('image', {
+            name: userData.image.fileName,
+            uri: userData.image.uri,
+            type: userData.image.type
+        });
+        console.log(JSON.stringify(formData));
+        console.log(formData);
+        let header = { "Content-Type": "application/json" }
+        return axiosInstance.post('registration/updatePersonalInfo', formData, header)
     },
 };
 

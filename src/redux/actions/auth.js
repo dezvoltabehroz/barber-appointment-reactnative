@@ -77,27 +77,30 @@ const verifyCode = (code, navigate) => {
 }
 
 
-const UpdateProfileInfo = (name, gender, dob, photo, navigate) => {
-    return (dispatch, store) => {
+const UpdateProfileInfo = (userData, phone, navigate) => {
+
+    return (dispatch) => {
         let loading = true;
         if (loading) {
             dispatch({ type: LOADING_SUCCESS, loading: loading })
         }
-        RegisterUser.verifyTheCode(name, gender, dob, photo, store().auth.phone)
+        RegisterUser.updateProfileInfo(userData, phone)
             .then(response => {
                 if (response.data.status) {
+                    console.log(response.data)
                     dispatch({
                         type: USER_UPDATE_PROFILE_INFO_SUCCESS, userData: {
-                            name: name,
-                            gender: gender,
-                            dob: dob,
-                            photo: photo
+                            name: userData.name,
+                            gender: userData.gender,
+                            dob: userData.dob,
+                            photo: userData.image
                         },
                         loading: !loading
                     })
                     navigate('AddYourAddress');
                 }
                 else {
+                    console.log(response.data)
                     Alert.alert(response.data.message)
                     dispatch({ type: LOADING_SUCCESS, loading: !loading })
                 }

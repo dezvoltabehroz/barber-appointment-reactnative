@@ -10,6 +10,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoder';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 class UpdateProfile extends Component {
     constructor(props) {
@@ -21,11 +22,12 @@ class UpdateProfile extends Component {
             name: '',
             isNameFocus: false,
             isLocationFocus: false,
-            profile_Url: '',
+            profile_Url: {},
             data: "HI HOW are you",
             avatar: null,
             location: '',
             date: '',
+            dob: '',
             showDatePicker: false,
             modalView: false,
             submit: false
@@ -33,21 +35,28 @@ class UpdateProfile extends Component {
     }
 
     componentDidMount = () => {
-        if(this.props.user.name!=null&&this.props.user.name!='undefined'){
-            const { name } = this.props.user
+        if (this.props.user.name != null && this.props.user.name != 'undefined') {
+            const { name, photo } = this.props.user;
+            console.log(JSON.stringify(this.props.user))
             if (name !== '' && name !== 'undefined') {
-                this.setState({ name: name })
+                this.setState({ name: name, avatar: photo })
+                if (photo !== '' && photo !== 'undefined') {
+                    this.setState({ avatar: photo })
+                }
             }
         }
         // this.findCoordinates();
     }
-
+    componentWillUnmount = () => {
+        console.log(JSON.stringify(this.props.user))
+    }
     onChangeDate = (event, selectedDate) => {
         var date = selectedDate.getDate();
         date += "/";
         date += (selectedDate.getMonth() + 1);
         date += "/";
         date += (selectedDate.getYear() + 1900);
+        console.log(moment(date).format('YYYY-MM-DD'))
         this.setState({
             date,
             showDatePicker: false,
@@ -55,18 +64,24 @@ class UpdateProfile extends Component {
     };
 
     handleNext = () => {
-        let { name, male, female, date } = this.state;
-        let gender = '';
+        const { onNext } = this.props;
+        let { name, male, profile_Url, dob } = this.state;
+        let gender;
         if (male) {
-            gender = 'male';
+            gender = 'Male';
         }
         else {
-            gender = 'female';
+            gender = 'Female';
         }
-        const { onNext } = this.props;
+        let userData = {
+            name: name,
+            gender: gender,
+            dob: dob,
+            image: profile_Url
+        }
         this.setState({ submit: true });
-        if (name && gender && date) {
-            onNext(name, gender, date);
+        if (name && gender && dob) {
+            onNext(userData);
         }
     };
 
@@ -81,7 +96,7 @@ class UpdateProfile extends Component {
         };
 
         ImagePicker.showImagePicker(options, response => {
-            console.log('response  ', response);
+            // console.log('response  ', response);
 
             if (response.didCancel) {
                 console.log('User cancelled image picker');
@@ -92,9 +107,16 @@ class UpdateProfile extends Component {
                 alert(response.customButton);
             } else {
                 let source = response;
+                console.log(source);
+                var file = {
+                    name: response.fileName,
+                    uri: response.path,
+                    type: response.type,
+                }
                 this.setState({
                     avatar: source,
-                });
+                    profile_Url: response
+                }, console.log(this.state.avatar));
             }
         });
     };
@@ -126,13 +148,19 @@ class UpdateProfile extends Component {
     };
 
     handleConfirm = (selectedDate) => {
-        var date = selectedDate.getDate();
+        var date = selectedDate.getDate() < 10 ? "0" + selectedDate.getDate() : selectedDate.getDate();
         date += "/";
-        date += (selectedDate.getMonth() + 1);
+        date += (selectedDate.getMonth() + 1) < 10 ? "0" + (selectedDate.getMonth() + 1) : (selectedDate.getMonth() + 1);
         date += "/";
         date += (selectedDate.getYear() + 1900);
+        var dob = (selectedDate.getYear() + 1900);
+        dob += "-";
+        dob += (selectedDate.getMonth() + 1) < 10 ? "0" + (selectedDate.getMonth() + 1) : (selectedDate.getMonth() + 1);
+        dob += "-";
+        dob += selectedDate.getDate() < 10 ? "0" + selectedDate.getDate() : selectedDate.getDate();
         this.setState({
             date,
+            dob
         })
         this.hideDatePicker();
     };
@@ -204,6 +232,7 @@ class UpdateProfile extends Component {
                                 <DateTimePickerModal
                                     isVisible={this.state.showDatePicker}
                                     mode="date"
+                                    minimumDate={new Date(1950, 0, 1)}
                                     onConfirm={this.handleConfirm}
                                     onCancel={this.hideDatePicker}
                                 />
@@ -222,7 +251,7 @@ class UpdateProfile extends Component {
                         </View>
                     </ScrollView>
                 </View>
-                <FooterButton title="Save & Continue" onPress={this.handleNext} />
+                <FooterButton loading={this.props.user.loading} title="Save & Continue" onPress={this.handleNext} />
                 <Modal visible={modalView}>
                     <View style={styles.modalContainer}>
                         <View>
