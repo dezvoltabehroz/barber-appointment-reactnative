@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text, TouchableOpacity,RefreshControl } from 'react-native';
+import { View, FlatList, Text, TouchableOpacity, RefreshControl } from 'react-native';
 import styles from './styles';
 import { FooterButton, Icon, } from '../../../components';
 import THEME from '../../../assets/styles/theme.style';
@@ -15,6 +15,11 @@ class MyAddresses extends Component {
 
     componentDidMount = () => {
         this.setState({ addresses: this.props.userAddresses.addresses });
+    }
+
+    handleOnDelete = (item) => {
+        this.props.onDelete(item);
+        // this.setState({ addresses: this.state.addresses.filter((obj => obj.id != item.id)) })
     }
 
     _renderSeparator = () => {
@@ -38,10 +43,10 @@ class MyAddresses extends Component {
                         </View>
                     </View>
                     <View style={styles.buttonEditContainer}>
-                        <TouchableOpacity style={{ marginRight: '10%' }} onPress={() => this.props.onEdit()} >
+                        <TouchableOpacity style={{ marginRight: '10%' }} onPress={() => this.props.onEdit(item)} >
                             <Icon.MaterialIcons name='edit' size={25} color={THEME.COLOR_WHITE} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => { }}>
+                        <TouchableOpacity onPress={() => this.handleOnDelete(item)}>
                             <Icon.MaterialIcons name='delete' size={25} color={THEME.COLOR_WHITE} />
                         </TouchableOpacity>
                     </View>
@@ -68,7 +73,7 @@ class MyAddresses extends Component {
                         refreshControl={
                             <RefreshControl
                                 refreshing={this.props.userAddresses.loading}
-                                onRefresh={()=>{this.props.onReferesh();this.componentDidMount()}}
+                                onRefresh={() => { this.props.onReferesh(); this.componentDidMount() }}
                                 tintColor={THEME.PRIMARY_COLOR}
                                 colors={[THEME.PRIMARY_COLOR]}
                             />

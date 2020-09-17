@@ -25,9 +25,9 @@ class EditYourAddress extends Component {
             isSubjectFocus: false,
             isMessageFocus: false,
             labels: [
-                { label: 'Home', selected: false },
-                { label: 'Work', selected: false },
-                { label: 'Other', selected: false }
+                { label: 'Home', is_selected: '0' },
+                { label: 'Work', is_selected: '0' },
+                { label: 'Other', is_selected: '0' }
             ],
             label: '',
             submit: false,
@@ -36,10 +36,27 @@ class EditYourAddress extends Component {
     }
 
     componentDidMount = () => {
-        this.setState({
-            address: this.props.address,
-            region: this.props.region
-        })
+        if (this.props.isUserLogged && this.props.data != 'undefined') {
+            const { data } = this.props
+            this.setState({
+                address: data.address,
+                region: {
+                    latitude: parseFloat(data.latitude),
+                    longitude: parseFloat(data.longitude),
+                    latitudeDelta: 0.05,
+                    longitudeDelta: 0.05,
+                },
+                floor_unit: data.floor_unit,
+                message: data.additional_info
+            })
+        }
+        else {
+            this.setState({
+                address: this.props.address,
+                region: this.props.region
+            })
+        }
+
 
     }
 
@@ -65,8 +82,22 @@ class EditYourAddress extends Component {
             phone: this.props.phone
         }
         if (region && address && label && floor_unit && submit) {
-            if (this.props.isUserLogged) {
+            if (this.props.isUserLogged&&this.props.data == "undefined") {
                 this.props.saveNewAddress(userData);
+            }
+            if (this.props.isUserLogged && this.props.data != "undefined") {
+                let userdata = {
+                    lat: region.latitude,
+                    lng: region.longitude,
+                    address: address,
+                    floor_unit: floor_unit,
+                    additional_info: message,
+                    label_as: label,
+                    id: this.props.data.user_id,
+                    address_id: this.props.data.id
+                }
+                console.log("update address",userdata)
+                this.props.updateAddress(userdata)
             }
             else {
                 this.props.onNext(userData);
@@ -132,8 +163,8 @@ class EditYourAddress extends Component {
                                 opacity={0.5}
                                 style={{ width: 20, height: 20 }}
                                 coordinate={new AnimatedRegion({
-                                    latitude: this.state.region.latitude,
-                                    longitude: this.state.region.longitude,
+                                    latitude:  this.state.region.latitude,
+                                    longitude:  this.state.region.longitude,
                                     latitudeDelta: this.state.region.latitudeDelta,
                                     longitudeDelta: this.state.region.longitudeDelta,
                                 })}

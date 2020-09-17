@@ -11,22 +11,28 @@ import { userAddressActions } from '../../redux/actions/addresses';
 class MyAddressesScreen extends Component {
     constructor(props) {
         super(props);
-        this.state={
+        this.state = {
 
         }
     }
     componentDidMount = async () => {
-        // let userData = this.props.user.userData
-        // await this.props.userAddressActions.allAddresses(userData);
+        let userData = this.props.user.userData
+        await this.props.userAddressActions.allAddresses(userData);
     }
 
+    handleOnDelete = async (userData) => {
+        let data = { ...userData };
+        data= {...userData,token:this.props.user.userData.token}
+        await this.props.userAddressActions.deleteAddress(data)
+    }
 
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
             <MainScreenPaths.Customer.MyAddresses
-            onReferesh={this.componentDidMount}
-             onEdit={() => navigate('EditYourAddress')} />
+                onReferesh={this.componentDidMount}
+                onDelete={(data) => this.handleOnDelete(data)}
+                onEdit={(data) => navigate('EditYourAddress',{data})} />
         )
     }
 }

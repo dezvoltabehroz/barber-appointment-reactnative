@@ -44,16 +44,41 @@ const Api = {
             }
         })
     },
-    // editAddress: function (address) {
-    //     return axiosInstance.put('', {
-    //         address: `${address}`,
-    //     }, headers)
-    // },
-    // deleteAddress: function (address) {
-    //     return axiosInstance.delete('', {
-    //         address: `${address}`,
-    //     }, headers)
-    // }
+    editAddress: function (userData) {
+        console.log("Api call==========>",userData)
+        return axiosInstance.put('address/updateAddress', {
+            lat: userData.lat,
+            lng: userData.lng,
+            address: userData.address,
+            floor_unit: userData.floor_unit,
+            additional_info: userData.additional_info,
+            label_as: userData.label_as,
+            id: userData.id,
+            address_id: userData.address_id
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + `${userData.token}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+    },
+    deleteAddress: function (userData) {
+        console.log("api call=====>", userData)
+        console.log("userID", userData.user_id)
+        console.log(userData.id)
+        console.log(userData.token)
+        return axiosInstance.delete('address/deleteAddress', {
+            id: userData.id,
+            address_id: userData.user_id
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + `${userData.token}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+    }
 };
 
 export default Api;

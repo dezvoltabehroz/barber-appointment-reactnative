@@ -16,7 +16,7 @@ class HomeScreen extends Component {
             addresses: []
         }
     }
-    componentDidMount = async () => {
+    componentWillMount = async () => {
         let userData = this.props.user.userData
         await this.props.userAddressActions.allAddresses(userData);
     }
