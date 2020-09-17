@@ -106,12 +106,6 @@ export default class CustomerServices extends Component {
                             </View>
                         </View>
                         <View style={styles.flatlistContainer}>
-                            {/* <FlatList
-                                data={serviceList}
-                                showsVerticalScrollIndicator={false}
-                                ItemSeparatorComponent={this._renderSeparator}
-                                renderItem={({ item }) => this._renderItems(item)}
-                                keyExtractor={item => item} /> */}
                             {
                                 serviceList.map((item) => {
                                     return (

@@ -2,33 +2,45 @@
 
 import React, { Component } from 'react'
 import { MainScreenPaths } from '../../screens';
+
 import { connect } from 'react-redux';
-import { Alert } from 'react-native';
-import { userAddressActions } from '../../redux/actions/addresses';
 import { bindActionCreators } from "redux";
+import { authActions } from '../../redux/actions/auth';
+import { userAddressActions } from '../../redux/actions/addresses';
 
 class MyAddressesScreen extends Component {
-    static navigationOptions = ({ navigation }) => ({
+    constructor(props) {
+        super(props);
+        this.state={
 
-    })
+        }
+    }
+    componentDidMount = async () => {
+        // let userData = this.props.user.userData
+        // await this.props.userAddressActions.allAddresses(userData);
+    }
+
 
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Customer.MyAddresses onEdit={() => navigate('EditYourAddress')} />
+            <MainScreenPaths.Customer.MyAddresses
+            onReferesh={this.componentDidMount}
+             onEdit={() => navigate('EditYourAddress')} />
         )
     }
 }
-
 const mapStateToProps = (state) => {
     return {
-        addresses: state.userAddresses || {}
+        user: state.authReducer || {},
+        userAddresses: state.userAddresses || {}
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        userAddressActions: bindActionCreators(userAddressActions, dispatch),
+        authActions: bindActionCreators(authActions, dispatch),
+        userAddressActions: bindActionCreators(userAddressActions, dispatch)
     };
 };
 

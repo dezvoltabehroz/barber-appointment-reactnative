@@ -218,7 +218,6 @@ export default class Booking extends Component {
                                     :
                                     <Button disabled={disabled} title={this.state.currentPosition == 4 ? 'Done' : 'Confirm'} onPress={this.onNextPageChange} />
                             }
-
                         </View>
                     </View>
 

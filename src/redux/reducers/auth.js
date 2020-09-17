@@ -6,6 +6,7 @@ import {
     SEND_CODE_TO_USER_PHONENUMBER_SUCCESS,
     LOADING_SUCCESS,
     USER_UPDATE_PROFILE_INFO_SUCCESS,
+    USER_EMAIL_AND_PASSWORD_SUCCESS
 } from '../types';
 
 const initialState = {
@@ -19,7 +20,8 @@ const initialState = {
     photo: '',
     isVerified: false,
     verificationCode: '',
-    loading: false
+    loading: false,
+    userToken: ''
 
 };
 
@@ -29,7 +31,8 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isUserLogedIn: true,
-                userData: action.userData
+                userData: action.userData,
+                loading: action.loading
             };
         case USER_LOGOUT_SUCCESS:
             return {
@@ -65,7 +68,14 @@ const authReducer = (state = initialState, action) => {
                 dob: action.userData.dob,
                 gender: action.userData.gender,
                 photo: action.userData.photo,
-                loading:action.loading
+                loading: action.loading
+            }
+        case USER_EMAIL_AND_PASSWORD_SUCCESS:
+            return {
+                ...state,
+                email: action.email,
+                password: action.password,
+                loading: action.loading
             }
         default:
             return state;

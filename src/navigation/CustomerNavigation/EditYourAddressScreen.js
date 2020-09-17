@@ -12,9 +12,19 @@ class EditYourAddressScreen extends Component {
 
     })
 
-    handleOnNext = (userData) => {
+    handleOnNext = async (userData) => {
         const { navigate, goBack } = this.props.navigation
-        this.props.userAddressActions.addPresonalAddress(userData, navigate)
+        await this.props.userAddressActions.addPresonalAddress(userData, navigate)
+        // navigate('EmailandPassword')
+    }
+
+    handleSaveNewAddress = async (userData) => {
+        const { navigate, goBack } = this.props.navigation
+        let data = { ...userData };
+        data = { ...data, id: this.props.user.userData.id, token: this.props.user.userData.token };
+        console.log(data);
+        await this.props.userAddressActions.addNewAddress(data, navigate);
+        await this.props.userAddressActions.allAddresses(data)
         // navigate('EmailandPassword')
     }
 
@@ -26,9 +36,11 @@ class EditYourAddressScreen extends Component {
             <MainScreenPaths.Customer.EditYourAddress
                 address={address}
                 region={region}
+                isUserLogged={this.props.user.isUserLogedIn}
                 loading={this.props.addresses.loading}
                 phone={this.props.user.phone}
                 onEdit={() => navigate('AddYourAddress')}
+                saveNewAddress={(userData) => this.handleSaveNewAddress(userData)}
                 onNext={(userData) => this.handleOnNext(userData)} />
         )
     }

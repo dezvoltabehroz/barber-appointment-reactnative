@@ -11,17 +11,19 @@ class EmailandPasswordScreen extends Component {
 
     })
 
-    handleUpdate = async (email, password) => {
+    handleUpdate = async (userData) => {
         const { navigate } = this.props.navigation
-        let userData = { email, password };
-        await this.props.authActions.setUser(userData);
-        navigate('Customer',{screen:'Home'});
+        await this.props.authActions.UpdateEmailAddressandToken(userData,navigate);
+        // navigate('Customer',{screen:'Home'});
     }
 
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Customer.EmailandPassword onUpdate={(email, password) => this.handleUpdate(email, password)} />
+            <MainScreenPaths.Customer.EmailandPassword
+            phone={this.props.user.phone}
+            loading={this.props.user.loading}
+            onUpdate={(userData) => this.handleUpdate(userData)} />
         )
     }
 }

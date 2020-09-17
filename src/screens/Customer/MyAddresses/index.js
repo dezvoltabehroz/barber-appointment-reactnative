@@ -1,63 +1,20 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text, TouchableOpacity } from 'react-native';
+import { View, FlatList, Text, TouchableOpacity,RefreshControl } from 'react-native';
 import styles from './styles';
-import { FooterButton, FloatingInput, DateTimeModal, Icon, } from '../../../components';
+import { FooterButton, Icon, } from '../../../components';
 import THEME from '../../../assets/styles/theme.style';
+import { connect } from 'react-redux';
+
 class MyAddresses extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
-            addresses: [
-                {
-                    label: 'Home',
-                    address: 'Gujranwala, Punjab, Pakistan',
-                    city: 'Gujranwala'
-                },
-                {
-                    label: 'Work',
-                    address: 'Gujranwala, Punjab, Pakistan',
-                    city: 'Gujranwala'
-                },
-                {
-                    label: 'Other',
-                    address: 'Gujranwala, Punjab, Pakistan',
-                    city: 'Gujranwala'
-                },
-                {
-                    label: 'Home',
-                    address: 'Gujranwala, Punjab, Pakistan',
-                    city: 'Gujranwala'
-                },
-                {
-                    label: 'Home',
-                    address: 'Gujranwala, Punjab, Pakistan',
-                    city: 'Gujranwala'
-                },
-                {
-                    label: 'Work',
-                    address: 'Gujranwala, Punjab, Pakistan',
-                    city: 'Gujranwala'
-                },
-                {
-                    label: 'Work',
-                    address: 'Gujranwala, Punjab, Pakistan',
-                    city: 'Gujranwala'
-                },
-                {
-                    label: 'Home',
-                    address: 'Gujranwala, Punjab, Pakistan',
-                    city: 'Gujranwala'
-                },
-                {
-                    label: 'Other',
-                    address: 'Gujranwala, Punjab, Pakistan',
-                    city: 'Gujranwala'
-                },
-
-            ]
-
+            addresses: []
         }
+    }
+
+    componentDidMount = () => {
+        this.setState({ addresses: this.props.userAddresses.addresses });
     }
 
     _renderSeparator = () => {
@@ -69,7 +26,6 @@ class MyAddresses extends Component {
         )
     }
 
-
     _renderItems = ({ item, index }) => {
         return (
             <View style={styles.contentContainer}>
@@ -78,14 +34,14 @@ class MyAddresses extends Component {
                     <View style={styles.labelRowContainer}>
                         <Icon.MaterialIcons name='home' size={25} color={THEME.COLOR_WHITE} />
                         <View style={{ marginLeft: '5%', marginTop: '3%' }}>
-                            <Text style={styles.labelTextStyle}>{item.label}</Text>
+                            <Text style={styles.labelTextStyle}>{item.label_as}</Text>
                         </View>
                     </View>
                     <View style={styles.buttonEditContainer}>
                         <TouchableOpacity style={{ marginRight: '10%' }} onPress={() => this.props.onEdit()} >
                             <Icon.MaterialIcons name='edit' size={25} color={THEME.COLOR_WHITE} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {}}>
+                        <TouchableOpacity onPress={() => { }}>
                             <Icon.MaterialIcons name='delete' size={25} color={THEME.COLOR_WHITE} />
                         </TouchableOpacity>
                     </View>
@@ -109,12 +65,26 @@ class MyAddresses extends Component {
                         ItemSeparatorComponent={this._renderSeparator}
                         renderItem={({ item, index }) => this._renderItems({ item, index })}
                         keyExtractor={item => item}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={this.props.userAddresses.loading}
+                                onRefresh={()=>{this.props.onReferesh();this.componentDidMount()}}
+                                tintColor={THEME.PRIMARY_COLOR}
+                                colors={[THEME.PRIMARY_COLOR]}
+                            />
+                        }
                     />
-                   
+
                 </View>
                 <FooterButton title="Add New Address" onPress={() => { }} />
             </View>
         )
     }
 }
-export default MyAddresses;
+const mapStateToProps = (state) => {
+    return {
+        userAddresses: state.userAddresses || {}
+    };
+};
+
+export default connect(mapStateToProps)(MyAddresses);

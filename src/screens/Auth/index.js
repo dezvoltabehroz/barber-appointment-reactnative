@@ -18,19 +18,20 @@ class AuthScreen extends Component {
         }
     }
 
-    handleLogin = () => {
+    handleLogin = async () => {
         const { onLogin, submit } = this.props
         let { email, password } = this.state;
+        let userData = { email: email, password: password };
         if (email && password && submit) {
             if (this.isEmailValid(email)) {
-                onLogin(email, password);
+                await onLogin(userData);
                 this.setState({ email: '', password: '' })
             }
         }
     };
 
     isEmailValid(email) {
-        return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)
+        return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)
     }
 
     render() {
@@ -85,7 +86,7 @@ class AuthScreen extends Component {
                                     }
                                 </View>
 
-                                <Button title="Login" onPress={this.handleLogin} />
+                                <Button loading={this.props.loading} title="Login" onPress={this.handleLogin} />
                             </View>
                         </View>
                         <View style={styles.lowerContainer}>
@@ -140,7 +141,7 @@ class AuthScreen extends Component {
                                     null
                                     :
                                     <>
-                                        <View style={[styles.continueContainer,{marginTop:'5%'}]}>
+                                        <View style={[styles.continueContainer, { marginTop: '5%' }]}>
                                             <TouchableOpacity onPress={onContinueWithOutLogin} style={styles.continueContainerStyle} >
                                                 <Text style={styles.signUpAsBarberTextStyle}>Sign up as Barber</Text>
                                             </TouchableOpacity>

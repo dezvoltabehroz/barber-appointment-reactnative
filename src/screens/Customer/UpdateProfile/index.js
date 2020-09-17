@@ -69,43 +69,28 @@ class UpdateProfile extends Component {
     chooseFile = () => {
         var options = {
             title: 'Select Avatar',
-
             storageOptions: {
                 skipBackup: true,
                 path: 'images',
             },
         };
-
         ImagePicker.showImagePicker(options, response => {
-            // console.log('response  ', response);
-
             if (response.didCancel) {
                 // console.log('User cancelled image picker');
-            } else if (response.error) {
-                // console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                // console.log('User tapped custom button: ', response.customButton);
-                alert(response.customButton);
             } else {
                 let source = response;
-                // console.log(source);
-                // var file = {
-                //     name: response.fileName,
-                //     uri: response.path,
-                //     type: response.type,
-                // }
                 this.setState({
                     avatar: source,
                     profile_Url: response
-                },console.log(this.state.avatar));
+                });
             }
         });
     };
+
     handleLocation = (location) => {
         if (location != '' && location != null)
             this.setState({ location })
     }
-
     findCoordinates = () => {
         Geolocation.getCurrentPosition(
             position => {
@@ -150,7 +135,7 @@ class UpdateProfile extends Component {
 
     render() {
         const { onNext } = this.props;
-        const { isNameFocus, name, submit, location, date, showDatePicker, modalView } = this.state;
+        const { isNameFocus, name, submit, date, showDatePicker, modalView } = this.state;
 
         return (
 
@@ -219,16 +204,6 @@ class UpdateProfile extends Component {
                                 />
                                 {/* : null} */}
                             </View>
-                            {/* <View style={[styles.inputLocationContainerStyle,
-                            isLocationFocus || location != '' ? THEME.inputBorder : {}]}>
-                                <FloatingInput val={location}
-                                    onInActive={() => this.setState({ isLocationFocus: false })}
-                                    onActive={() => this.setState({ isLocationFocus: true })}
-                                    label='Your Location' iconInput val={this.state.location} />
-                                <TouchableOpacity onPress={() => this.setState({ modalView: true })}>
-                                    <Icon.SimpleLineIcons name='location-pin' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
-                                </TouchableOpacity>
-                            </View> */}
                         </View>
                     </ScrollView>
                 </View>

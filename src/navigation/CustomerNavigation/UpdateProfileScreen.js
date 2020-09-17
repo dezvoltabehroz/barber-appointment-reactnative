@@ -10,7 +10,7 @@ class UpdateProfileScreen extends Component {
 
     })
     handleNext = async (userData) => {
-        let phone = this.props.user.phone
+        let phone = this.props?.user?.phone
         let data = userData;
         const { navigate } = this.props.navigation
         await this.props.authActions.UpdateProfileInfo(data, phone, navigate);
@@ -19,7 +19,7 @@ class UpdateProfileScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Customer.UpdateProfile onNext={(userData) => this.handleNext(userData)} />
+            <MainScreenPaths.Customer.UpdateProfile phone={this.props.user.phone} onNext={(userData) => this.handleNext(userData)} />
         )
     }
 }

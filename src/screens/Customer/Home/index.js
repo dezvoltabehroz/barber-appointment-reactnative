@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, LayoutAnimation, UIManager, ImageBackground, TouchableOpacity, Dimensions, ScrollView } from "react-native";
+import { View, Text, FlatList, LayoutAnimation, RefreshControl, UIManager, ImageBackground, TouchableOpacity, Dimensions, ScrollView } from "react-native";
 import styles from './style';
 import { Button, Icon } from '../../../components'
 import { connect } from 'react-redux'
@@ -378,45 +378,24 @@ class Home extends Component {
                     ]
                 },
             ],
-            addresses: [
-                {
-                    label: 'Home',
-                    address: 'Gujranwala, Punjab, Pakistan',
-                    city: 'Gujranwala',
-                    selected: false
-                },
-                {
-                    label: 'Work',
-                    address: 'Gujranwala, Punjab, Pakistan',
-                    city: 'Gujranwala',
-                    selected: false
-                },
-                {
-                    label: 'Other',
-                    address: 'Gujranwala, Punjab, Pakistan',
-                    city: 'Gujranwala',
-                    selected: false
-                },
-                {
-                    label: 'Home',
-                    address: 'Gujranwala, Punjab, Pakistan',
-                    city: 'Gujranwala',
-                    selected: false
-                },
-                {
-                    label: 'Other',
-                    address: 'Gujranwala, Punjab, Pakistan',
-                    city: 'Gujranwala',
-                    selected: false
-                },
-
-            ],
-            address: 'Gujranwala, Punjab, Pakistan'
+            addresses: [],
+            address: ''
 
         }
         if (Platform.OS === 'android') {
             UIManager.setLayoutAnimationEnabledExperimental(true);
         }
+    }
+
+    componentDidMount = () => {
+        this.setState({ addresses: this.props.userAddresses.addresses }, () => {
+            this.props.userAddresses.addresses.forEach(element => {
+                if (element.is_selected == '1') {
+                    this.setState({ address: element.address })
+                }
+            })
+        });
+
     }
 
     _renderSeparator = () => {
@@ -462,9 +441,9 @@ class Home extends Component {
     handleAddressPress = (index) => {
         let items = [...this.state.addresses];
         items.forEach(val => {
-            val.selected = false
+            val.is_selected = false
         })
-        items[index] = { ...items[index], selected: true };
+        items[index] = { ...items[index], is_selected: '1' };
         this.setState({ addresses: items, address: items[index].address, expandAddresses: !this.state.expandAddresses })
     }
 
@@ -476,11 +455,18 @@ class Home extends Component {
     render() {
         let { onExit, searchBarber } = this.props
         let { isUserLogedIn } = this.props.user;
-        const { ourAppointment, servicelist } = this.state
+        const { ourAppointment, servicelist, addresses } = this.state;
         return (
             <>
                 <View style={styles.container}>
-                    <ScrollView>
+                    <ScrollView refreshControl={
+                        <RefreshControl
+                            refreshing={this.props.loading}
+                            onRefresh={()=>{this.props.onReferesh();this.componentDidMount()}}
+                            tintColor={themeStyle.COLOR_WHITE}
+                            colors={[themeStyle.PRIMARY_COLOR]}
+                        />
+                    }>
                         <View style={styles.nameContainer}>
                             <Text style={styles.appNameTextStyle}>Fleek</Text>
                             {
@@ -506,15 +492,15 @@ class Home extends Component {
                                     <>
                                         <View style={{ height: this.state.expandAddresses ? null : 0, }}>
                                             {
-                                                this.state.addresses.map((item, index) => {
+                                                addresses.map((item, index) => {
                                                     return (
                                                         <View style={styles.addressesContainer}>
                                                             <TouchableOpacity onPress={() => this.handleAddressPress(index)} style={{ flexDirection: 'row' }}>
                                                                 <View style={{ justifyContent: 'center' }}>
-                                                                    <Icon.MaterialCommunityIcons name={item.selected ? 'radiobox-marked' : 'radiobox-blank'} size={themeStyle.ICON_SIZE} color={themeStyle.PRIMARY_COLOR} />
+                                                                    <Icon.MaterialCommunityIcons name={item.is_selected == '1' ? 'radiobox-marked' : 'radiobox-blank'} size={themeStyle.ICON_SIZE} color={themeStyle.PRIMARY_COLOR} />
                                                                 </View>
                                                                 <View style={{ marginLeft: '5%' }}>
-                                                                    <Text style={[styles.upperListTitleStyle]}> {item.label} </Text>
+                                                                    <Text style={[styles.upperListTitleStyle]}> {item.label_as} </Text>
                                                                     <Text style={[styles.upperListTitleStyle, { fontSize: 12, }]}> {item.address} </Text>
                                                                 </View>
                                                             </TouchableOpacity>
@@ -523,7 +509,7 @@ class Home extends Component {
                                                 })
                                             }
                                         </View>
-                                        <TouchableOpacity onPress={() => this.props.addNewAddress()} style={styles.addNewAddressContainer}>
+                                        <TouchableOpacity onPress={() =>{ this.props.addNewAddress();this.changeAddressLayout()}} style={styles.addNewAddressContainer}>
                                             <View style={{ justifyContent: 'center' }}>
                                                 <Icon.AntDesign name='plus' size={themeStyle.ICON_SIZE} color={themeStyle.PRIMARY_COLOR} />
                                             </View>
@@ -568,7 +554,9 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.authReducer || {}
+        user: state.authReducer || {},
+        userAddresses: state.userAddresses || {}
     };
 };
+
 export default connect(mapStateToProps)(Home);

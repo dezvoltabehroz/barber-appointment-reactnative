@@ -30,17 +30,17 @@ class EditYourAddress extends Component {
                 { label: 'Other', selected: false }
             ],
             label: '',
-            submit: false
+            submit: false,
+
         }
     }
 
     componentDidMount = () => {
-        console.log(this.props.address)
-        console.log(this.props.region)
         this.setState({
             address: this.props.address,
             region: this.props.region
         })
+
     }
 
     handlePressLabel = (index) => {
@@ -65,7 +65,12 @@ class EditYourAddress extends Component {
             phone: this.props.phone
         }
         if (region && address && label && floor_unit && submit) {
-            this.props.onNext(userData);
+            if (this.props.isUserLogged) {
+                this.props.saveNewAddress(userData);
+            }
+            else {
+                this.props.onNext(userData);
+            }
             this.setState({ submit: false })
         }
     }
@@ -85,7 +90,6 @@ class EditYourAddress extends Component {
             lng: this.state.region.longitude,
         }
         Geocoder.geocodePosition(pos).then(res => {
-            console.log(res[0])
             this.setState({
                 address: res[0].formattedAddress,
             })
@@ -203,7 +207,6 @@ class EditYourAddress extends Component {
                         <Button loading={this.props.loading} title="Save & Continue" onPress={this.handleSaveAndContinue} />
                     </View>
                 </View>
-                {/* <FooterButton title="Save & Continue" onPress={()=>this.props.onNext()} /> */}
             </View>
         )
     }

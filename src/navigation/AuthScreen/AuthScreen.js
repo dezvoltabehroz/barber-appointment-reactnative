@@ -116,21 +116,15 @@ class AuthScreen extends Component {
 
 
 
-    handleLogin = async (email, password) => {
+    handleLogin = async (userData) => {
         const { navigate } = this.props.navigation
-        const { customer } = this.state;
-        let userData = { email, password };
-        if (customer) {
-            await this.props.authActions.setUser(userData);
-            navigate('Customer', {
-                screen: 'Home',
-            })
-            this.setState({ submit: false })
-        } else {
-            await this.props.authActions.setUser(userData);
-            navigate('Barber')
-            this.setState({ submit: false })
-        }
+        await this.props.authActions.setUser(userData, navigate);
+        this.setState({ submit: false })
+        // } else {
+        //     await this.props.authActions.setUser(userData);
+        //     navigate('Barber')
+        //     this.setState({ submit: false })
+        // }
     }
 
 
@@ -139,8 +133,8 @@ class AuthScreen extends Component {
         const { customer, barber, submit, loading } = this.state;
         return (
             <MainScreenPaths.Auth
-                loading={loading}
-                onLogin={(email, password) => this.handleLogin(email, password)}
+                loading={this.props?.user?.loading}
+                onLogin={(userData) => this.handleLogin(userData)}
                 onPhone={() => customer ?
                     navigate('Register', {
                         screen: 'PhoneNumber',

@@ -1,57 +1,75 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 import { FloatingInput, FooterButton } from '../../../components'
 import styles from './style';
 import COMMON_STYLE from '../../../assets/styles/common.style';
 import { connect } from 'react-redux';
-
+import DeviceInfo from 'react-native-device-info';
 
 class EmailandPassword extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
-            male: true, female: false,
             email: '',
             password: '',
             confirmPassword: '',
             isPasswordFocus: false,
             isEmailFocus: false,
             isConfirmPasswordFocus: false,
-            submit: false
+            submit: false,
+            macAddress: ''
+
         };
     }
+
     componentDidMount = () => {
-        if (this.props.user.email !='undefined' && this.props.user.email != null) {
+        if (this.props.user.email != 'undefined' && this.props.user.email != null) {
             let { email } = this.props.user;
             if (email != '' && email !== 'undefined' && email != null) {
                 this.setState({ email: email })
             }
         }
+        DeviceInfo.getMacAddress().then(mac => {
+            this.setState({ macAddress: mac });
+        });
     }
 
     handleNext = () => {
-        let { email, password, confirmPassword } = this.state
+        let { email, password, confirmPassword, submit, macAddress } = this.state
         const { onUpdate } = this.props;
         this.setState({ submit: true });
-        if (email && password && confirmPassword) {
-            if (this.isEmailValid(email)) {
-                onUpdate(email, password);
+        if (this.isEmailValid(email)) {
+            if (password.length < 8) {
+                return Alert.alert('Password must be 8 character', '', [{ text: 'OK' },])
+            }
+            else if (password !== confirmPassword) {
+                return Alert.alert('Confirm password not matched', '', [{ text: 'OK' },])
+            }
+            else if (email && password && confirmPassword && submit) {
+                let userData = {
+                    email: email,
+                    password: password,
+                    macAddress: macAddress,
+                    phone: this.props.phone
+                    // phone:'+923048520554'
+                }
+                onUpdate(userData);
             }
         }
     };
 
     isEmailValid(email) {
-        return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)
+        return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)
+    }
+
+    isPasswordValid(password) {
+        return /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]{6,16}$/.test(password)
     }
 
     render() {
         const { isConfirmPasswordFocus, isEmailFocus, isPasswordFocus, email, password, confirmPassword, submit } = this.state;
-
         return (
-
-
             <View style={styles.container}>
                 <View style={styles.upperContainer}>
                     <View style={[styles.inputContainerStyle, isEmailFocus || email != '' ? THEME.inputBorder
@@ -70,15 +88,25 @@ class EmailandPassword extends Component {
                             submit && email.length && !this.isEmailValid(email) ? <Text style={COMMON_STYLE.errorText}>Email is invalid</Text> : null
                         }
                     </View>
-                    <View style={[styles.inputContainerStyle, isPasswordFocus || password != '' ? THEME.inputBorder : {}]}>
+                    <View style={[styles.inputContainerStyle, password.length && !this.isPasswordValid(password) ? { marginBottom: 0 } : { marginBottom: '5%' },
+                    isPasswordFocus || password != '' ? THEME.inputBorder : {}]}>
                         <FloatingInput
                             val={password}
                             secureEntry
                             onActive={() => this.setState({ isPasswordFocus: true })}
                             onInActive={() => this.setState({ isPasswordFocus: false })}
                             label='Password' updateText={(password) => this.setState({ password })} />
+
+
+
+                    </View>
+                    <View style={{ marginHorizontal: '10%' }}>
                         {
-                            submit && !password ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
+                            submit && !password ? <Text style={[COMMON_STYLE.errorText]}>Please fill this field</Text> : null
+                        }
+                        {
+                            password.length && !this.isPasswordValid(password) ?
+                                <Text style={[COMMON_STYLE.errorText]}>Password should have at least 1 uppercase, 1 lowercase, 1 digit and 1 special character and length range 6-16 characters</Text> : null
                         }
                     </View>
                     <View style={[styles.inputContainerStyle, isConfirmPasswordFocus || confirmPassword != '' ? THEME.inputBorder : {}]}>
@@ -93,7 +121,7 @@ class EmailandPassword extends Component {
                         }
                     </View>
                 </View>
-                <FooterButton title='Save & Continue' onPress={this.handleNext} />
+                <FooterButton loading={this.props.loading} title='Save & Continue' onPress={this.handleNext} />
             </View>
         );
     }

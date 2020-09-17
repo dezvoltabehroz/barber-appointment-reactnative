@@ -3,7 +3,6 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, Platform, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Icon } from '../../../components';
-// import { MainScreenPaths } from '../../screens';
 import PhoneNumberScreen from '../PhoneNumberScreen';
 import PhoneVerificatinScreen from '../PhoneVerificationScreen'
 import PhoneVerifiedScreen from '../PhoneVerifiedScreen';
