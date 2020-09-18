@@ -90,7 +90,7 @@ class EmailandPassword extends Component {
                             submit && email.length && !this.isEmailValid(email) ? <Text style={[COMMON_STYLE.errorText,{marginVertical:'2%'}]}>Email is invalid</Text> : null
                         }
                     </View>
-                    <View style={[styles.inputContainerStyle, password.length && !this.isPasswordValid(password) ? { marginBottom: 0 } : { marginBottom: submit?'1%':'5%' },
+                    <View style={[styles.inputContainerStyle, password.length && !this.isPasswordValid(password) ? { marginBottom: 0 } : { marginBottom: submit?'6%':'5%' },
                     isPasswordFocus || password != '' ? THEME.inputBorder : {}]}>
                         <FloatingInput
                             val={password}

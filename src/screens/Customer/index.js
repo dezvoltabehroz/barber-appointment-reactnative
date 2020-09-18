@@ -14,7 +14,8 @@ import _CustomerServices from './CustomerServices';
 import _ServiceComplete from './ServiceComplete';
 import _AddYourAddress from './AddYourAddress';
 import _EditYourAddress from './EditYourAddress';
-
+import _AddAddress from './AddAddress';
+import _EditAddress from './EditAddress';
 import _MyAddresses from './MyAddresses';
 
 export const CustomerScreenPaths = {
@@ -34,5 +35,7 @@ export const CustomerScreenPaths = {
     AddYourAddress: _AddYourAddress,
     EditYourAddress: _EditYourAddress,
     MyAddresses: _MyAddresses,
+    AddAddress: _AddAddress,
+    EditAddress: _EditAddress,
     Home: _Home
 }

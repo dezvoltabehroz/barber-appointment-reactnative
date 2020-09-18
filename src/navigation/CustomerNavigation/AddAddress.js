@@ -5,7 +5,7 @@ import { MainScreenPaths } from '../../screens';
 import { connect } from 'react-redux';
 import { Alert } from 'react-native';
 
-class AddYourAddressScreen extends Component {
+class AddAddressScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })
@@ -15,7 +15,8 @@ class AddYourAddressScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Customer.AddYourAddress address={(name, region) => navigate('EditYourAddress', { address: name, region: region })} />
+            <MainScreenPaths.Customer.AddAddress
+                address={(name, region) => navigate('EditAddress', { address: name, region: region, data: undefined })} />
         )
     }
 }
@@ -26,4 +27,4 @@ const mapStateToProps = (state) => {
 };
 
 
-export default connect(mapStateToProps)(AddYourAddressScreen)
+export default connect(mapStateToProps)(AddAddressScreen)

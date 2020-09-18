@@ -30,10 +30,10 @@ class MyAddressesScreen extends Component {
         const { navigate, goBack } = this.props.navigation
         return (
             <MainScreenPaths.Customer.MyAddresses
-                addAddress={() => navigate('AddYourAddress', { editAddress: false, data: undefined })}
+                addAddress={() => navigate('AddYourAddress')}
                 onReferesh={this.componentDidMount}
                 onDelete={(data) => this.handleOnDelete(data)}
-                onEdit={(data) => navigate('EditYourAddress', { data })} />
+                onEdit={(data) => navigate('EditAddress', { data: data })} />
         )
     }
 }

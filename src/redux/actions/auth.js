@@ -115,7 +115,7 @@ const UpdateProfileInfo = (userData, phone, navigate) => {
                         },
                         loading: !loading
                     })
-                    navigate('AddYourAddress');
+                    navigate('AddYourAddress',{editAddress:false});
                 }
                 else {
                     Alert.alert(response.data.message)

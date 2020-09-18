@@ -13,6 +13,8 @@ import ServiceCompleteScreen from './ServiceCompleteScreen';
 import AddYourAddressScreen from './AddYourAddressScreen';
 import EditYourAddressScreen from './EditYourAddressScreen';
 import MyAddressesScreen from './MyAddressesScreen';
+import EditAddressScreen from './EditAddressScreen';
+import AddAddress from './AddAddress';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -51,6 +53,13 @@ function CustomerRoutes() {
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Add your address</Text></View>),
                 headerTitleAlign: 'center',
             }} />
+            <Stack.Screen name="AddAddress" component={AddAddress} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Add your address</Text></View>),
+                headerTitleAlign: 'center',
+            }} />
             <Stack.Screen name="MyAddresses" component={MyAddressesScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
@@ -59,6 +68,13 @@ function CustomerRoutes() {
                 headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="EditYourAddress" component={EditYourAddressScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Edit your address</Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+            <Stack.Screen name="EditAddress" component={EditAddressScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,

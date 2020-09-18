@@ -4,7 +4,8 @@ import {
     USER_ALL_ADDRESS_SUCCESS,
     USER_ADD_ADDRESS_SUCCESS,
     DELETE_ADDRESS_SUCESS,
-    USER_EDIT_ADDRESS_SUCCESS
+    USER_EDIT_ADDRESS_SUCCESS,
+    CHANGE_DEFAULT_ADDRESS_SUCESS
 } from '../types';
 import { UserAddresses } from '../../services';
 import { Alert } from 'react-native';
@@ -23,7 +24,7 @@ const addPresonalAddress = (userData, navigate) => {
                     navigate('EmailandPassword')
                 }
                 else {
-                    // Alert.alert(response.data.message)
+                    Alert.alert(response.data.message)
                     dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: !loading })
                 }
             })
@@ -38,13 +39,15 @@ const addNewAddress = (userData, navigate) => {
             dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: loading })
         }
         UserAddresses.addNewAddress(userData)
-            .then(response => {
+            .then( (response) => {
                 if (response.data.status) {
                     dispatch({ type: USER_ADD_NEW_ADDRESS_SUCCESS, loading: !loading })
-                    navigate('Home')
+                    // allAddresses(userData)
+                    navigate('Customer',{screen:'Home'})
+
                 }
                 else {
-                    // Alert.alert(response.data.message)
+                    Alert.alert(response.data.message)
                     dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: !loading })
                 }
             })
@@ -53,7 +56,7 @@ const addNewAddress = (userData, navigate) => {
 }
 
 const editAddress = (userData, navigate) => {
-    console.log('redux====>',userData)
+    console.log('redux====>', userData)
     return (dispatch) => {
         let loading = true;
         if (loading) {
@@ -61,12 +64,13 @@ const editAddress = (userData, navigate) => {
         }
         UserAddresses.editAddress(userData)
             .then(response => {
+                console.log(response.data)
                 if (response.data.status) {
                     dispatch({ type: USER_EDIT_ADDRESS_SUCCESS, loading: !loading })
-                    navigate('MyAddresses')
+                    navigate('Customer', { screen: 'MyAddresses' })
                 }
                 else {
-                    // Alert.alert(response.data.message)
+                    Alert.alert(response.data.message)
                     dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: !loading })
                 }
             })
@@ -82,6 +86,7 @@ const allAddresses = (userData) => {
         }
         UserAddresses.viewAllAddresses(userData)
             .then(response => {
+                console.log(response.data)
                 if (response.data.status) {
                     dispatch({ type: USER_ALL_ADDRESS_SUCCESS, addresses: response.data.addresses, loading: !loading })
                 }
@@ -94,7 +99,8 @@ const allAddresses = (userData) => {
     }
 }
 const deleteAddress = (userData) => {
-    return (dispatch,store) => {
+    console.log("redux=====>", userData)
+    return (dispatch, store) => {
         let loading = true;
         if (loading) {
             dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: loading })
@@ -104,15 +110,41 @@ const deleteAddress = (userData) => {
                 console.log(response)
                 console.log(response.data)
                 if (response.data.status) {
-                    dispatch({ type: DELETE_ADDRESS_SUCESS,addresses:store().userAddresses.addresses.filter((obj => obj.id != userData.id)), loading: !loading })
+                    dispatch({ type: DELETE_ADDRESS_SUCESS, addresses: store().userAddresses.addresses.filter((obj => obj.id != userData.id)), loading: !loading })
                 }
                 else {
-                    // Alert.alert(response.data.message)
+                    Alert.alert(response.data.message)
                     dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: !loading })
                 }
             })
-            .catch(error => { console.log(JSON.stringify(error))
-                dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: !loading }) })
+            .catch(error => {
+                console.log(JSON.stringify(error))
+                dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: !loading })
+            })
+    }
+}
+const defaultAddress = (userData) => {
+    return (dispatch, store) => {
+        let loading = true;
+        if (loading) {
+            dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: loading })
+        }
+        UserAddresses.changeDefaultAddress(userData)
+            .then(response => {
+                console.log(response)
+                console.log(response.data)
+                if (response.data.status) {
+                    dispatch({ type: CHANGE_DEFAULT_ADDRESS_SUCESS, loading: !loading })
+                }
+                else {
+                    Alert.alert(response.data.message)
+                    dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: !loading })
+                }
+            })
+            .catch(error => {
+                console.log(JSON.stringify(error))
+                dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: !loading })
+            })
     }
 }
 
@@ -121,5 +153,6 @@ export const userAddressActions = {
     allAddresses,
     addNewAddress,
     deleteAddress,
-    editAddress
+    editAddress,
+    defaultAddress
 };

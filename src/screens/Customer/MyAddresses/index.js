@@ -37,7 +37,7 @@ class MyAddresses extends Component {
                 <View style={styles.gapHeight}></View>
                 <View style={styles.row}>
                     <View style={styles.labelRowContainer}>
-                        <Icon.FontAwesome name={item.label_as == 'Home' ? 'home' : item.label_as ? 'building' : 'group'} size={25} color={THEME.COLOR_WHITE} />
+                        <Icon.FontAwesome name={item.label_as == 'Home' ? 'home' : item.label_as == 'Work' ? 'building' : 'group'} size={25} color={THEME.COLOR_WHITE} />
                         <View style={{ marginLeft: '5%', marginTop: '3%' }}>
                             <Text style={styles.labelTextStyle}>{item.label_as}</Text>
                         </View>

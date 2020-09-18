@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, LayoutAnimation, RefreshControl, UIManager, ImageBackground, TouchableOpacity, Dimensions, ScrollView } from "react-native";
+import { View, ActivityIndicator, Text, FlatList, LayoutAnimation, RefreshControl, UIManager, ImageBackground, TouchableOpacity, Dimensions, ScrollView } from "react-native";
 import styles from './style';
 import { Button, Icon } from '../../../components'
 import { connect } from 'react-redux'
 import themeStyle from '../../../assets/styles/theme.style';
+import { bindActionCreators } from "redux";
+import { authActions } from '../../../redux/actions/auth';
+import { userAddressActions } from '../../../redux/actions/addresses';
 const screenHeight = Dimensions.get('window').height;
 class Home extends Component {
     constructor(props) {
         super(props);
+        this.componentDidMount = this.componentDidMount.bind(this);
         this.state = {
             expandAddresses: false,
             servicelist: [
@@ -387,13 +391,32 @@ class Home extends Component {
         }
     }
 
+
     componentDidMount = () => {
-        this.props.userAddresses.addresses.forEach(element => {
-            console.log(element)
-            if (element.is_selected == '1') {
-                this.setState({ address: element.address })
-            }
-        })
+        const { user, userAddresses } = this.props;
+        this.props.userAddressActions.allAddresses(user.userData);
+        // userAddresses.addresses.forEach(element => {
+        //     if (element.is_selected == '1') {
+        //         setTimeout(() => {
+        //             this.setState({ address: element.address })
+        //         }, 5000);
+        //     }
+        // })
+    }
+
+    handleAddress = () => {
+        const { userAddresses } = this.props;
+        let data;
+        if (userAddresses.addresses != undefined) {
+            userAddresses.addresses.forEach(element => {
+                if (element.is_selected == '1') {
+                    data = element.address
+                }
+            })
+            return data;
+        }
+        else return data;
+
     }
 
     _renderSeparator = () => {
@@ -436,13 +459,12 @@ class Home extends Component {
         )
     }
 
-    handleAddressPress = (index) => {
-        let items = [...this.props.userAddresses.addresses];
-        items.forEach(val => {
-            val.is_selected = '0'
-        })
-        items[index] = { ...items[index], is_selected: '1' };
-        this.setState({ address: items[index].address, expandAddresses: !this.state.expandAddresses });
+    handleAddressPress = (item) => {
+        const { user } = this.props;
+        item = { ...item, token: user.userData.token };
+        this.props.userAddressActions.defaultAddress(item, this.props.navigate);
+        this.props.userAddressActions.allAddresses(user.userData);
+        this.setState({ expandAddresses: !this.state.expandAddresses })
     }
 
     changeAddressLayout = () => {
@@ -453,14 +475,16 @@ class Home extends Component {
     render() {
         let { onExit, searchBarber } = this.props
         let { isUserLogedIn } = this.props.user;
-        const { ourAppointment, servicelist, addresses } = this.state;
+        const { ourAppointment, servicelist, address } = this.state;
+        const { user, userAddresses } = this.props;
+
         return (
             <>
                 <View style={styles.container}>
                     <ScrollView refreshControl={
                         <RefreshControl
                             refreshing={this.props.loading}
-                            onRefresh={() => { this.props.onReferesh(); this.componentDidMount() }}
+                            onRefresh={async () => await this.props.userAddressActions.allAddresses(user.userData)}
                             tintColor={themeStyle.COLOR_WHITE}
                             colors={[themeStyle.PRIMARY_COLOR]}
                         />
@@ -472,7 +496,13 @@ class Home extends Component {
                                     <>
                                         <TouchableOpacity style={styles.headingContainer}
                                             onPress={this.changeAddressLayout} >
-                                            <Text style={[styles.upperListTitleStyle, { fontSize: 12, textAlign: 'center' }]}>{this.state.address}</Text>
+                                            {
+                                                this.handleAddress() != undefined ?
+                                                    <Text style={[styles.upperListTitleStyle, { fontSize: 12, textAlign: 'center' }]}>{this.handleAddress()}</Text>
+                                                    :
+                                                    <ActivityIndicator size={20} color={themeStyle.COLOR_WHITE} />
+                                            }
+
                                         </TouchableOpacity>
 
                                         <TouchableOpacity style={styles.exitContainer} onPress={onExit}>
@@ -484,30 +514,33 @@ class Home extends Component {
                                     null
                             }
                         </View>
-                        <View style={{ marginTop:0 }}>
+                        <View style={{ marginTop: 0 }}>
                             {
                                 this.state.expandAddresses ?
                                     <>
-                                        <View style={{ height: this.state.expandAddresses ? null : 0,marginTop:"5%" }}>
+                                        <View style={{ height: this.state.expandAddresses ? null : 0, marginTop: "5%" }}>
                                             {
-                                                this.props.userAddresses.addresses.map((item, index) => {
-                                                    return (
-                                                        <View style={styles.addressesContainer}>
-                                                            <TouchableOpacity onPress={() => this.handleAddressPress(index)} style={{ flexDirection: 'row' }}>
-                                                                <View style={{ justifyContent: 'center' }}>
-                                                                    <Icon.MaterialCommunityIcons name={item.is_selected == '1' ? 'radiobox-marked' : 'radiobox-blank'} size={themeStyle.ICON_SIZE} color={themeStyle.PRIMARY_COLOR} />
-                                                                </View>
-                                                                <View style={{ marginLeft: '5%' }}>
-                                                                    <Text style={[styles.upperListTitleStyle]}> {item.label_as} </Text>
-                                                                    <Text style={[styles.upperListTitleStyle, { fontSize: 12, }]}> {item.address} </Text>
-                                                                </View>
-                                                            </TouchableOpacity>
-                                                        </View>
-                                                    )
-                                                })
+                                                userAddresses.addresses != undefined ?
+                                                    userAddresses.addresses.map((item, index) => {
+                                                        return (
+                                                            <View style={styles.addressesContainer}>
+                                                                <TouchableOpacity onPress={() => this.handleAddressPress(item)} style={{ flexDirection: 'row' }}>
+                                                                    <View style={{ justifyContent: 'center' }}>
+                                                                        <Icon.MaterialCommunityIcons name={item.is_selected == '1' ? 'radiobox-marked' : 'radiobox-blank'} size={themeStyle.ICON_SIZE} color={themeStyle.PRIMARY_COLOR} />
+                                                                    </View>
+                                                                    <View style={{ marginLeft: '5%' }}>
+                                                                        <Text style={[styles.upperListTitleStyle]}> {item.label_as} </Text>
+                                                                        <Text style={[styles.upperListTitleStyle, { fontSize: 12, }]}> {item.address} </Text>
+                                                                    </View>
+                                                                </TouchableOpacity>
+                                                            </View>
+                                                        )
+                                                    })
+                                                    :
+                                                    <ActivityIndicator size={40} color={themeStyle.COLOR_WHITE} />
                                             }
                                         </View>
-                                        <TouchableOpacity onPress={() => { this.props.addNewAddress(); this.changeAddressLayout() }} style={styles.addNewAddressContainer}>
+                                        <TouchableOpacity onPress={() => this.props.addNewAddress()} style={styles.addNewAddressContainer}>
                                             <View style={{ justifyContent: 'center' }}>
                                                 <Icon.AntDesign name='plus' size={themeStyle.ICON_SIZE} color={themeStyle.PRIMARY_COLOR} />
                                             </View>
@@ -557,4 +590,11 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = dispatch => {
+    return {
+        authActions: bindActionCreators(authActions, dispatch),
+        userAddressActions: bindActionCreators(userAddressActions, dispatch)
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

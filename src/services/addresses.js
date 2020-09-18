@@ -74,7 +74,20 @@ const Api = {
                 'Content-Type': 'application/json',
             }
         })
+    },
+    changeDefaultAddress:function(userData){
+        return axiosInstance.post('address/changeDefaultAddress',{
+            id: userData.user_id,
+            address_id: userData.id
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + `${userData.token}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
     }
+
 };
 
 export default Api;

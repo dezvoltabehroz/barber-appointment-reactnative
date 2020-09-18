@@ -9,7 +9,7 @@ import MapView, { PROVIDER_GOOGLE, Marker, AnimatedRegion } from 'react-native-m
 import { Button, FloatingInput, MessageInput, FooterButton } from "../../../components";
 import COMMON_STYLE from '../../../assets/styles/common.style';
 
-class EditYourAddress extends Component {
+class EditAddress extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -44,11 +44,27 @@ class EditYourAddress extends Component {
     }
 
     componentDidMount = () => {
-        if (this.props.isUserLogged) {
-            this.setState({
-                address: this.props.address,
-                region: this.props.region,
-            })
+        const { data, isUserLogged, address, region } = this.props
+        if (isUserLogged) {
+            if (data != undefined) {
+                this.setState({
+                    address: data.address != undefined ? data.address : address,
+                    region: {
+                        latitude: parseFloat(data.latitude),
+                        longitude: parseFloat(data.longitude),
+                        latitudeDelta: 0.05,
+                        longitudeDelta: 0.05,
+                    },
+                    floor_unit: data.floor_unit,
+                    message: data.additional_info,
+                    address_id: data.id,
+                    user_id: data.user_id
+                })
+            }
+            else {
+                this.setState({ address: address, region: region, floor_unit: '',
+                    message: '', })
+            }
         }
     }
 
@@ -64,21 +80,20 @@ class EditYourAddress extends Component {
     handleSaveAndContinue = () => {
         this.setState({ submit: true })
         const { region, address, label, floor_unit, message, submit } = this.state;
-        let userData = {
-            lat: region.latitude,
-            lng: region.longitude,
-            address: address,
-            floor_unit: floor_unit,
-            additional_info: message,
-            label_as: label,
-            phone: this.props.phone
-        }
         if (region && address && label && floor_unit && submit) {
             if (this.props.isUserLogged) {
-                this.props.saveNewAddress(userData);
-            }
-            else {
-                this.props.onNext(userData);
+                let userdata = {
+                    lat: region.latitude,
+                    lng: region.longitude,
+                    address: address,
+                    floor_unit: floor_unit,
+                    additional_info: message,
+                    label_as: label,
+                    id: this.state.user_id,
+                    address_id: this.state.address_id
+                }
+                console.log("update address", userdata)
+                this.props.updateAddress(userdata)
             }
         }
         this.setState({ submit: false })
@@ -141,8 +156,8 @@ class EditYourAddress extends Component {
                                 opacity={0.5}
                                 style={{ width: 20, height: 20 }}
                                 coordinate={new AnimatedRegion({
-                                    latitude: parseFloat(this.props.region.latitude),
-                                    longitude: parseFloat(this.props.region.longitude),
+                                    latitude: parseFloat(this.state.region.latitude),
+                                    longitude: parseFloat(this.state.region.longitude),
                                     latitudeDelta: this.state.region.latitudeDelta,
                                     longitudeDelta: this.state.region.longitudeDelta,
                                 })}
@@ -157,7 +172,7 @@ class EditYourAddress extends Component {
                                         <Text style={styles.addressTextStyle1}>{this.state.address}</Text>
                                     </View>
                                 </View>
-                                <TouchableOpacity onPress={() => this.props.onEdit(true)} style={styles.editContainer}>
+                                <TouchableOpacity onPress={() => this.props.onEdit()} style={styles.editContainer}>
                                     <Text style={styles.addressTextStyle}>Edit</Text>
                                 </TouchableOpacity>
                             </View>
@@ -220,4 +235,4 @@ class EditYourAddress extends Component {
         )
     }
 }
-export default EditYourAddress;
+export default EditAddress;

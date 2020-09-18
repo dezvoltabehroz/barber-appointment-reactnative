@@ -16,10 +16,6 @@ class HomeScreen extends Component {
             addresses: []
         }
     }
-    componentWillMount = async () => {
-        let userData = this.props.user.userData
-        await this.props.userAddressActions.allAddresses(userData);
-    }
 
     handleLogout = async () => {
         const { navigate, } = this.props.navigation
@@ -30,16 +26,16 @@ class HomeScreen extends Component {
     }
 
     render() {
-        const { navigate } = this.props.navigation
+        const { navigate,push } = this.props.navigation
         return (
             <MainScreenPaths.Customer.Home
                 onContactUs={() => navigate("ContactUs")}
                 onAboutUs={() => navigate("AboutUs")}
                 onExit={this.handleLogout}
-                // allAddresses={this.state.addresses}
                 loading={this.props.userAddresses.loading}
                 onAppointments={() => navigate('Appointments')}
-                onReferesh={this.componentWillMount}
+                onReferesh={this.componentDidMount}
+                navigate={push}
                 searchBarber={() => navigate('BarberList')}
                 myAddresses={() => navigate('MyAddresses')}
                 addNewAddress={() => navigate('AddYourAddress')}
