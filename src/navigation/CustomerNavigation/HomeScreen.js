@@ -39,7 +39,7 @@ class HomeScreen extends Component {
                 // allAddresses={this.state.addresses}
                 loading={this.props.userAddresses.loading}
                 onAppointments={() => navigate('Appointments')}
-                onReferesh={this.componentDidMount}
+                onReferesh={this.componentWillMount}
                 searchBarber={() => navigate('BarberList')}
                 myAddresses={() => navigate('MyAddresses')}
                 addNewAddress={() => navigate('AddYourAddress')}
