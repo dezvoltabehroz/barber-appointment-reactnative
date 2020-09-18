@@ -19,7 +19,6 @@ class EditAddressScreen extends Component {
         const { push, goBack } = this.props.navigation
         let userData = data;
         userData = { ...userData, token: this.props.user.userData.token };
-        console.log(userData);
         await this.props.userAddressActions.editAddress(userData, push);
         // await this.props.userAddressActions.allAddresses(data)
     }
@@ -27,9 +26,6 @@ class EditAddressScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         const { address, region, data } = this.props.route.params;
-        console.log(address);
-        console.log(region);
-        console.log(data)
         return (
             <MainScreenPaths.Customer.EditAddress
                 address={address}

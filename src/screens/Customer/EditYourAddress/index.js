@@ -67,7 +67,6 @@ class EditYourAddress extends Component {
             phone: this.props.phone
         }
         if (region && address && label && floor_unit && submit) {
-            console.log(userData)
             if (this.props.isUserLogged) {
                 this.props.saveNewAddress(userData);
             }

@@ -21,10 +21,7 @@ export default class BarberServiceAccept extends Component {
 
     componentWillMount = () => {
         const { item } = this.props;
-        this.setState({ region: item }, () => {
-            console.log("Region Location========>", this.state.region)
-
-        });
+        this.setState({ region: item });
     }
 
     openGps = (lat, lng) => {

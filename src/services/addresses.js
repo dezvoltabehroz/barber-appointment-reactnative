@@ -45,7 +45,6 @@ const Api = {
         })
     },
     editAddress: function (userData) {
-        console.log("Api call==========>",userData)
         return axiosInstance.put('address/updateAddress', {
             lat: userData.lat,
             lng: userData.lng,

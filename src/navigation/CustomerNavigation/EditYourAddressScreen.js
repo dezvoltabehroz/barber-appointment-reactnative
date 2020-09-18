@@ -25,7 +25,6 @@ class EditYourAddressScreen extends Component {
         const { push, goBack } = this.props.navigation
         let data = { ...userData };
         data = { ...data, id: this.props.user.userData.id, token: this.props.user.userData.token };
-        console.log(data);
         await this.props.userAddressActions.addNewAddress(data, push);
         // await this.props.userAddressActions.allAddresses(data)
     }

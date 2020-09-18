@@ -92,7 +92,6 @@ class EditAddress extends Component {
                     id: this.state.user_id,
                     address_id: this.state.address_id
                 }
-                console.log("update address", userdata)
                 this.props.updateAddress(userdata)
             }
         }
