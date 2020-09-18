@@ -37,19 +37,12 @@ class EditYourAddress extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps !== this.props) {
-            this.componentDidMount();
-        }
-    }
 
     componentDidMount = () => {
-        if (this.props.isUserLogged) {
-            this.setState({
-                address: this.props.address,
-                region: this.props.region,
-            })
-        }
+        this.setState({
+            address: this.props.address,
+            region: this.props.region,
+        })
     }
 
     handlePressLabel = (index) => {
@@ -74,6 +67,7 @@ class EditYourAddress extends Component {
             phone: this.props.phone
         }
         if (region && address && label && floor_unit && submit) {
+            console.log(userData)
             if (this.props.isUserLogged) {
                 this.props.saveNewAddress(userData);
             }
