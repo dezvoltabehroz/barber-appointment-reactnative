@@ -64,13 +64,9 @@ const Api = {
         })
     },
     deleteAddress: function (userData) {
-        console.log("api call=====>", userData)
-        console.log("userID", userData.user_id)
-        console.log(userData.id)
-        console.log(userData.token)
-        return axiosInstance.delete('address/deleteAddress', {
-            id: userData.id,
-            address_id: userData.user_id
+        return axiosInstance.post('address/deleteAddress', {
+            id: userData.user_id,
+            address_id: userData.id
         }, {
             headers: {
                 'Authorization': 'Bearer ' + `${userData.token}`,
