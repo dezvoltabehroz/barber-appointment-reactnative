@@ -114,7 +114,8 @@ export default StyleSheet.create({
         height: 60,
         justifyContent: 'center',
         paddingHorizontal: '5%',
-        marginHorizontal: '5%'
+        marginHorizontal: '5%',
+        marginVertical:'2%'
     },
     addNewAddressContainer: {
         flexDirection: 'row',

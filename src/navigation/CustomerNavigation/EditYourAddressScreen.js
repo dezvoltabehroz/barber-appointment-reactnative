@@ -10,6 +10,9 @@ import { bindActionCreators } from "redux";
 class EditYourAddressScreen extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            edit: false
+        }
     }
 
     handleOnNext = async (userData) => {
@@ -25,7 +28,6 @@ class EditYourAddressScreen extends Component {
         console.log(data);
         await this.props.userAddressActions.addNewAddress(data, navigate);
         await this.props.userAddressActions.allAddresses(data)
-        // navigate('EmailandPassword')
     }
 
     handleUpdateAddress = async (data) => {
@@ -34,23 +36,27 @@ class EditYourAddressScreen extends Component {
         userData = { ...userData, token: this.props.user.userData.token };
         console.log(userData);
         await this.props.userAddressActions.editAddress(userData, navigate);
+        this.setState({ edit: false });
 
     }
 
 
     render() {
         const { navigate, goBack } = this.props.navigation
-        const { address, region, data } = this.props.route.params;
+        const { address, region, data, edit } = this.props.route.params;
+
         return (
             <MainScreenPaths.Customer.EditYourAddress
-                address={address}
-                region={region}
-                data={data}
+                address={data != undefined ? data.address : address}
+                region={data != undefined ? { latitude: data.latitude, longitude: data.longitude } : region}
+                data={edit ? undefined : data}
+                edit={edit}
+                userId={this.props.user.userData.id}
                 isUserLogged={this.props.user.isUserLogedIn}
                 loading={this.props.addresses.loading}
                 phone={this.props.user.phone}
                 updateAddress={(data) => this.handleUpdateAddress(data)}
-                onEdit={() => navigate('AddYourAddress')}
+                onEdit={(data) => { console.log(data); navigate('AddYourAddress', { editAddress: data }) }}
                 saveNewAddress={(userData) => this.handleSaveNewAddress(userData)}
                 onNext={(userData) => this.handleOnNext(userData)} />
         )

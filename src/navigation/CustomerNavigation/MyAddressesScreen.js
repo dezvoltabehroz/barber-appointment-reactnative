@@ -22,7 +22,7 @@ class MyAddressesScreen extends Component {
 
     handleOnDelete = async (userData) => {
         let data = { ...userData };
-        data= {...userData,token:this.props.user.userData.token}
+        data = { ...userData, token: this.props.user.userData.token }
         await this.props.userAddressActions.deleteAddress(data)
     }
 
@@ -30,9 +30,10 @@ class MyAddressesScreen extends Component {
         const { navigate, goBack } = this.props.navigation
         return (
             <MainScreenPaths.Customer.MyAddresses
+                addAddress={() => navigate('AddYourAddress', { editAddress: false, data: undefined })}
                 onReferesh={this.componentDidMount}
                 onDelete={(data) => this.handleOnDelete(data)}
-                onEdit={(data) => navigate('EditYourAddress',{data})} />
+                onEdit={(data) => navigate('EditYourAddress', { data })} />
         )
     }
 }

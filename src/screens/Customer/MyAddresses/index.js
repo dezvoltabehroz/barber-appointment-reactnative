@@ -37,7 +37,7 @@ class MyAddresses extends Component {
                 <View style={styles.gapHeight}></View>
                 <View style={styles.row}>
                     <View style={styles.labelRowContainer}>
-                        <Icon.MaterialIcons name='home' size={25} color={THEME.COLOR_WHITE} />
+                        <Icon.FontAwesome name={item.label_as == 'Home' ? 'home' : item.label_as ? 'building' : 'group'} size={25} color={THEME.COLOR_WHITE} />
                         <View style={{ marginLeft: '5%', marginTop: '3%' }}>
                             <Text style={styles.labelTextStyle}>{item.label_as}</Text>
                         </View>
@@ -65,7 +65,7 @@ class MyAddresses extends Component {
             <View style={styles.container}>
                 <View style={{ flex: 0.8 }}>
                     <FlatList
-                        data={this.state.addresses}
+                        data={this.props.userAddresses.addresses}
                         showsVerticalScrollIndicator={false}
                         ItemSeparatorComponent={this._renderSeparator}
                         renderItem={({ item, index }) => this._renderItems({ item, index })}
@@ -81,7 +81,7 @@ class MyAddresses extends Component {
                     />
 
                 </View>
-                <FooterButton title="Add New Address" onPress={() => { }} />
+                <FooterButton title="Add New Address" onPress={() => this.props.addAddress()} />
             </View>
         )
     }

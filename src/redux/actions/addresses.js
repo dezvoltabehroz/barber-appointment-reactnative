@@ -23,7 +23,7 @@ const addPresonalAddress = (userData, navigate) => {
                     navigate('EmailandPassword')
                 }
                 else {
-                    Alert.alert(response.data.message)
+                    // Alert.alert(response.data.message)
                     dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: !loading })
                 }
             })
@@ -44,7 +44,7 @@ const addNewAddress = (userData, navigate) => {
                     navigate('Home')
                 }
                 else {
-                    Alert.alert(response.data.message)
+                    // Alert.alert(response.data.message)
                     dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: !loading })
                 }
             })
@@ -66,7 +66,7 @@ const editAddress = (userData, navigate) => {
                     navigate('MyAddresses')
                 }
                 else {
-                    Alert.alert(response.data.message)
+                    // Alert.alert(response.data.message)
                     dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: !loading })
                 }
             })
@@ -86,7 +86,7 @@ const allAddresses = (userData) => {
                     dispatch({ type: USER_ALL_ADDRESS_SUCCESS, addresses: response.data.addresses, loading: !loading })
                 }
                 else {
-                    Alert.alert(response.data.message)
+                    // Alert.alert(response.data.message)
                     dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: !loading })
                 }
             })
@@ -94,7 +94,6 @@ const allAddresses = (userData) => {
     }
 }
 const deleteAddress = (userData) => {
-    console.log("redux=====>",userData)
     return (dispatch,store) => {
         let loading = true;
         if (loading) {
@@ -108,7 +107,7 @@ const deleteAddress = (userData) => {
                     dispatch({ type: DELETE_ADDRESS_SUCESS,addresses:store().userAddresses.addresses.filter((obj => obj.id != userData.id)), loading: !loading })
                 }
                 else {
-                    Alert.alert(response.data.message)
+                    // Alert.alert(response.data.message)
                     dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: !loading })
                 }
             })

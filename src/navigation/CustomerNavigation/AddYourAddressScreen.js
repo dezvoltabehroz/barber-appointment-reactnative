@@ -14,8 +14,10 @@ class AddYourAddressScreen extends Component {
 
     render() {
         const { navigate, goBack } = this.props.navigation
+        const { editAddress, data } = this.props.route.params;
+        console.log("is editing", editAddress != undefined ? editAddress : false)
         return (
-            <MainScreenPaths.Customer.AddYourAddress address={(name, region) => navigate('EditYourAddress', { address: name, region:region })} />
+            <MainScreenPaths.Customer.AddYourAddress address={(name, region) => navigate('EditYourAddress', { address: name, region: region, edit: editAddress != undefined ? editAddress : false, data: data })} />
         )
     }
 }

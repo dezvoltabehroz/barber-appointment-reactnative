@@ -72,7 +72,9 @@ class EmailandPassword extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.upperContainer}>
-                    <View style={[styles.inputContainerStyle, isEmailFocus || email != '' ? THEME.inputBorder
+                    <View style={[styles.inputContainerStyle,
+                    { marginBottom: submit?'6%':'5%' },
+                    isEmailFocus || email != '' ? THEME.inputBorder
                         :
                         {}]}>
                         <FloatingInput
@@ -82,13 +84,13 @@ class EmailandPassword extends Component {
                             onInActive={() => this.setState({ isEmailFocus: false })}
                             label='Email' updateText={(email) => this.setState({ email })} />
                         {
-                            submit && !email ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
+                            submit && !email ? <Text style={[COMMON_STYLE.errorText,{marginVertical:'2%'}]}>Please fill this field</Text> : null
                         }
                         {
-                            submit && email.length && !this.isEmailValid(email) ? <Text style={COMMON_STYLE.errorText}>Email is invalid</Text> : null
+                            submit && email.length && !this.isEmailValid(email) ? <Text style={[COMMON_STYLE.errorText,{marginVertical:'2%'}]}>Email is invalid</Text> : null
                         }
                     </View>
-                    <View style={[styles.inputContainerStyle, password.length && !this.isPasswordValid(password) ? { marginBottom: 0 } : { marginBottom: '5%' },
+                    <View style={[styles.inputContainerStyle, password.length && !this.isPasswordValid(password) ? { marginBottom: 0 } : { marginBottom: submit?'1%':'5%' },
                     isPasswordFocus || password != '' ? THEME.inputBorder : {}]}>
                         <FloatingInput
                             val={password}
@@ -97,8 +99,6 @@ class EmailandPassword extends Component {
                             onInActive={() => this.setState({ isPasswordFocus: false })}
                             label='Password' updateText={(password) => this.setState({ password })} />
 
-
-
                     </View>
                     <View style={{ marginHorizontal: '10%' }}>
                         {
@@ -106,7 +106,7 @@ class EmailandPassword extends Component {
                         }
                         {
                             password.length && !this.isPasswordValid(password) ?
-                                <Text style={[COMMON_STYLE.errorText]}>Password should have at least 1 uppercase, 1 lowercase, 1 digit and 1 special character and length range 6-16 characters</Text> : null
+                                <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%' }]}>Password should have at least 1 uppercase, 1 lowercase, 1 digit and 1 special character and length range 6-16 characters</Text> : null
                         }
                     </View>
                     <View style={[styles.inputContainerStyle, isConfirmPasswordFocus || confirmPassword != '' ? THEME.inputBorder : {}]}>
@@ -117,7 +117,11 @@ class EmailandPassword extends Component {
                             onInActive={() => this.setState({ isConfirmPasswordFocus: false })}
                             label='Confirm Password' updateText={(confirmPassword) => this.setState({ confirmPassword })} />
                         {
-                            submit && !confirmPassword ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
+                            submit && !confirmPassword ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%' }]}>Please fill this field</Text> : null
+                        }
+                        {
+                            password != confirmPassword ?
+                                <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%' }]}>Password Mismatch</Text> : null
                         }
                     </View>
                 </View>

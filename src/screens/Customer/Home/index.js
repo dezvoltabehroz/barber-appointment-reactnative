@@ -388,14 +388,12 @@ class Home extends Component {
     }
 
     componentDidMount = () => {
-        this.setState({ addresses: this.props.userAddresses.addresses }, () => {
-            this.props.userAddresses.addresses.forEach(element => {
-                if (element.is_selected == '1') {
-                    this.setState({ address: element.address })
-                }
-            })
-        });
-
+        this.props.userAddresses.addresses.forEach(element => {
+            console.log(element)
+            if (element.is_selected == '1') {
+                this.setState({ address: element.address })
+            }
+        })
     }
 
     _renderSeparator = () => {
@@ -439,12 +437,12 @@ class Home extends Component {
     }
 
     handleAddressPress = (index) => {
-        let items = [...this.state.addresses];
+        let items = [...this.props.userAddresses.addresses];
         items.forEach(val => {
-            val.is_selected = false
+            val.is_selected = '0'
         })
         items[index] = { ...items[index], is_selected: '1' };
-        this.setState({ addresses: items, address: items[index].address, expandAddresses: !this.state.expandAddresses })
+        this.setState({ address: items[index].address, expandAddresses: !this.state.expandAddresses });
     }
 
     changeAddressLayout = () => {
@@ -462,7 +460,7 @@ class Home extends Component {
                     <ScrollView refreshControl={
                         <RefreshControl
                             refreshing={this.props.loading}
-                            onRefresh={()=>{this.props.onReferesh();this.componentDidMount()}}
+                            onRefresh={() => { this.props.onReferesh(); this.componentDidMount() }}
                             tintColor={themeStyle.COLOR_WHITE}
                             colors={[themeStyle.PRIMARY_COLOR]}
                         />
@@ -486,13 +484,13 @@ class Home extends Component {
                                     null
                             }
                         </View>
-                        <View style={{ marginTop: 0 }}>
+                        <View style={{ marginTop:0 }}>
                             {
                                 this.state.expandAddresses ?
                                     <>
-                                        <View style={{ height: this.state.expandAddresses ? null : 0, }}>
+                                        <View style={{ height: this.state.expandAddresses ? null : 0,marginTop:"5%" }}>
                                             {
-                                                addresses.map((item, index) => {
+                                                this.props.userAddresses.addresses.map((item, index) => {
                                                     return (
                                                         <View style={styles.addressesContainer}>
                                                             <TouchableOpacity onPress={() => this.handleAddressPress(index)} style={{ flexDirection: 'row' }}>
@@ -509,7 +507,7 @@ class Home extends Component {
                                                 })
                                             }
                                         </View>
-                                        <TouchableOpacity onPress={() =>{ this.props.addNewAddress();this.changeAddressLayout()}} style={styles.addNewAddressContainer}>
+                                        <TouchableOpacity onPress={() => { this.props.addNewAddress(); this.changeAddressLayout() }} style={styles.addNewAddressContainer}>
                                             <View style={{ justifyContent: 'center' }}>
                                                 <Icon.AntDesign name='plus' size={themeStyle.ICON_SIZE} color={themeStyle.PRIMARY_COLOR} />
                                             </View>
