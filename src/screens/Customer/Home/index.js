@@ -13,6 +13,7 @@ class Home extends Component {
         super(props);
         this.componentDidMount = this.componentDidMount.bind(this);
         this.state = {
+            loading: false,
             expandAddresses: false,
             servicelist: [
                 {
@@ -393,8 +394,12 @@ class Home extends Component {
 
 
     componentDidMount = () => {
-        const { user, userAddresses } = this.props;
-        this.props.userAddressActions.allAddresses(user.userData);
+        // const { user, userAddresses } = this.props;
+        // this.setState({ loading: true });
+        // this.props.userAddressActions.allAddresses(user.userData);
+        // if (userAddresses.addresses != undefined && userAddresses.addresses != null) {
+        //     this.setState({ loading: false });
+        // }
         // userAddresses.addresses.forEach(element => {
         //     if (element.is_selected == '1') {
         //         setTimeout(() => {
@@ -407,16 +412,12 @@ class Home extends Component {
     handleAddress = () => {
         const { userAddresses } = this.props;
         let data;
-        if (userAddresses.addresses != undefined) {
-            userAddresses.addresses.forEach(element => {
-                if (element.is_selected == '1') {
-                    data = element.address
-                }
-            })
-            return data;
-        }
-        else return data;
-
+        userAddresses.addresses.forEach(element => {
+            if (element.is_selected == '1') {
+                data = element.address
+            }
+        })
+        return data;
     }
 
     _renderSeparator = () => {
@@ -475,9 +476,8 @@ class Home extends Component {
     render() {
         let { onExit, searchBarber } = this.props
         let { isUserLogedIn } = this.props.user;
-        const { ourAppointment, servicelist, address } = this.state;
+        const { ourAppointment, servicelist, loading } = this.state;
         const { user, userAddresses } = this.props;
-
         return (
             <>
                 <View style={styles.container}>

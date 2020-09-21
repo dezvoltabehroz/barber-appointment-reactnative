@@ -6,26 +6,68 @@ import {
     IS_USER_VERIFIED_SUCCESS,
     LOADING_SUCCESS,
     USER_UPDATE_PROFILE_INFO_SUCCESS,
-    USER_EMAIL_AND_PASSWORD_SUCCESS
+    USER_EMAIL_AND_PASSWORD_SUCCESS,
+    USER_ALL_ADDRESS_SUCCESS,
+    LOADING_ADDRESSES_SUCCESS
 } from '../types';
 import { RegisterUser } from '../../services';
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import { UserAddresses } from '../../services';
 
-const setUser = (userData, navigate) => {
+
+const setUserProfile = (userData) => {
+    console.log("user data for user data setting in redux====>", userData)
+    return (dispatch) => {
+        if (userData) {
+            dispatch({ type: USER_LOGIN_SUCCESS, userData: userData, })
+            dispatch(allAddresses(userData));
+        }
+    }
+};
+
+const allAddresses = (userData) => {
+    return (dispatch) => {
+        let loading = true;
+        if (loading) {
+            dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: loading })
+        }
+        UserAddresses.viewAllAddresses(userData)
+            .then(response => {
+                if (response.data.status) {
+                    dispatch({ type: USER_ALL_ADDRESS_SUCCESS, addresses: response.data.addresses, loading: !loading })
+                }
+                else {
+                    // Alert.alert(response.data.message)
+                    dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: !loading })
+                }
+            })
+            .catch(error => {
+                console.log(JSON.stringify(error))
+                dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: !loading })
+            })
+    }
+};
+
+const getUserProfile = (userData, navigate) => {
     return (dispatch) => {
         let loading = true;
         if (loading) {
             dispatch({ type: LOADING_SUCCESS, loading: loading })
         }
-        RegisterUser.userLogin(userData)
-            .then((responseData) => {
+        RegisterUser.getUserProfile(userData)
+            .then(responseData => {
                 if (responseData.data.status) {
-                    dispatch({
-                        type: USER_LOGIN_SUCCESS, userData: responseData.data.userData[0], loading: !loading
-                    })
-                    AsyncStorage.setItem('USER_DATA',JSON.stringify( responseData.data.userData[0]))
-                    navigate('Customer', { screen: 'Home' });
+                    dispatch(setUserProfile(responseData.data.userData[0]))
+                    AsyncStorage.setItem('USER', JSON.stringify(responseData.data.userData[0]))
+                    if (navigate) {
+                        if (responseData.data.userData[0].type == "customer") {
+                            navigate('Customer', { screen: 'Home' });
+                        }
+                        else {
+                            navigate('Barber', { screen: 'Home' });
+                        }
+                    }
                 }
                 else {
                     Alert.alert(responseData.data.message)
@@ -33,8 +75,7 @@ const setUser = (userData, navigate) => {
                 }
             })
             .catch(err => { console.log(err) })
-
-    }
+    };
 };
 
 const setSocialNetworkUserData = (userData) => {
@@ -71,8 +112,7 @@ const sendVerificationCode = (number, navigate) => {
             })
     };
 
-}
-
+};
 
 const verifyCode = (code, navigate) => {
     return (dispatch) => {
@@ -94,8 +134,7 @@ const verifyCode = (code, navigate) => {
                 console.log(error)
             })
     }
-}
-
+};
 
 const UpdateProfileInfo = (userData, phone, navigate) => {
     return (dispatch) => {
@@ -115,7 +154,7 @@ const UpdateProfileInfo = (userData, phone, navigate) => {
                         },
                         loading: !loading
                     })
-                    navigate('AddYourAddress',{editAddress:false});
+                    navigate('AddYourAddress', { editAddress: false });
                 }
                 else {
                     Alert.alert(response.data.message)
@@ -125,7 +164,7 @@ const UpdateProfileInfo = (userData, phone, navigate) => {
                 console.log(error)
             })
     }
-}
+};
 
 const UpdateEmailAddressandToken = (userData, navigate) => {
     return (dispatch) => {
@@ -142,14 +181,15 @@ const UpdateEmailAddressandToken = (userData, navigate) => {
                         password: userData.password,
                         loading: !loading
                     })
+
                     RegisterUser.userLogin(userData)
                         .then(responseData => {
                             if (responseData.data.status) {
                                 dispatch({
                                     type: USER_LOGIN_SUCCESS, userData: responseData.data.userData, loading: !loading
                                 })
-                                AsyncStorage.setItem('USER_DATA', responseData.data.userData)
-                                navigate('Customer', { screen: 'Home' });
+                                // AsyncStorage.setItem('USER', responseData.data.userData)
+                                dispatch(getUserProfile(responseData.data.userData, navigate))
                             }
                             else {
                                 Alert.alert(response.data.message)
@@ -166,22 +206,44 @@ const UpdateEmailAddressandToken = (userData, navigate) => {
                 console.log(error)
             })
     }
-}
+};
 
 const removeUser = (navigate) => {
     return (dispatch) => {
         dispatch({ type: USER_LOGOUT_SUCCESS })
-        AsyncStorage.removeItem('USER_DATA');
+        AsyncStorage.removeItem('USER');
         navigate('Auth')
     }
-}
+};
+
+const userLogin = (userData, navigate) => {
+    return (dispatch) => {
+        let loading = true;
+        if (loading) {
+            dispatch({ type: LOADING_SUCCESS, loading: loading })
+        }
+        RegisterUser.userLogin(userData)
+            .then(responseData => {
+                if (responseData.data.status) {
+                    dispatch(getUserProfile(responseData.data.userData[0], navigate))
+                }
+                else {
+                    Alert.alert(response.data.message)
+                    dispatch({ type: LOADING_SUCCESS, loading: !loading })
+                }
+            })
+            .catch(err => { console.log(err) })
+    }
+};
 
 export const authActions = {
-    setUser,
+    setUserProfile,
     removeUser,
     setSocialNetworkUserData,
     sendVerificationCode,
     verifyCode,
     UpdateProfileInfo,
-    UpdateEmailAddressandToken
+    UpdateEmailAddressandToken,
+    getUserProfile,
+    userLogin
 };

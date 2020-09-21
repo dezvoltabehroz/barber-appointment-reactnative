@@ -45,6 +45,18 @@ const Api = {
         }, config)
     },
 
+    getUserProfile: function (userData) {
+        return axiosInstance.post('registration/profileDetail', {
+            id: userData.id,
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + userData.token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+    },
+
     userLogin: function (userData) {
         return axiosInstance.post('registration/login', {
             email: userData.email,

@@ -8,12 +8,16 @@ import RegistrationRoutes from './CustomerNavigation/CustomerRegistration'
 import AuthScreen from './AuthScreen/AuthScreen';
 import AboutUsScreen from './AboutUsScreen';
 import ContactUsScreen from './ContactUsScreen';
+import AuthLoading from './AuthLoading';
 
 const Stack = createStackNavigator();
 
 function AppRoutes() {
     return (
-        <Stack.Navigator initialRouteName="Auth" >
+        <Stack.Navigator initialRouteName="AuthLoading" >
+             <Stack.Screen name="AuthLoading" component={AuthLoading} options={{
+                headerShown: false
+            }} />
             <Stack.Screen name="Auth" component={AuthScreen} options={{
                 headerShown: false
             }} />
