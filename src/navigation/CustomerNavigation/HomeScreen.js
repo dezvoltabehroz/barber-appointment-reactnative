@@ -6,6 +6,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../redux/actions/auth';
 import { userAddressActions } from '../../redux/actions/addresses';
+
+import { categoryActions } from '../../redux/actions/category';
+
 class HomeScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
@@ -17,6 +20,17 @@ class HomeScreen extends Component {
         }
     }
 
+    handleItemPress = (item) => {
+        const { navigate } = this.props.navigation;
+        let userData = {
+            id: this.props.user.userData.id,
+            cat: item,
+            token: this.props.user.userData.token
+        }
+        this.props.categoryActions.getSubCategories(userData, navigate)
+    }
+
+
     handleLogout = async () => {
         const { navigate, } = this.props.navigation
         let { isUserLogedIn } = this.props.user;
@@ -26,7 +40,7 @@ class HomeScreen extends Component {
     }
 
     render() {
-        const { navigate,push } = this.props.navigation
+        const { navigate, push } = this.props.navigation
         return (
             <MainScreenPaths.Customer.Home
                 onContactUs={() => navigate("ContactUs")}
@@ -39,7 +53,7 @@ class HomeScreen extends Component {
                 searchBarber={() => navigate('BarberList')}
                 myAddresses={() => navigate('MyAddresses')}
                 addNewAddress={() => navigate('AddYourAddress')}
-                onItemPress={(item, data) => navigate('SubCategory', { name: item, data: data })} />
+                onItemPress={(item) => this.handleItemPress(item)} />
         )
     }
 }
@@ -54,7 +68,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     return {
         authActions: bindActionCreators(authActions, dispatch),
-        userAddressActions: bindActionCreators(userAddressActions, dispatch)
+        userAddressActions: bindActionCreators(userAddressActions, dispatch),
+        categoryActions: bindActionCreators(categoryActions, dispatch)
     };
 };
 

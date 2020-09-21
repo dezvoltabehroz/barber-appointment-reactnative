@@ -13,39 +13,17 @@ import {
 import { RegisterUser } from '../../services';
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { UserAddresses } from '../../services';
+import { categoryActions } from './category';
+import { userAddressActions } from './addresses';
 
 
 const setUserProfile = (userData) => {
-    console.log("user data for user data setting in redux====>", userData)
     return (dispatch) => {
         if (userData) {
             dispatch({ type: USER_LOGIN_SUCCESS, userData: userData, })
-            dispatch(allAddresses(userData));
+            dispatch(userAddressActions.allAddresses(userData));
+            dispatch(categoryActions.getCategories(userData));
         }
-    }
-};
-
-const allAddresses = (userData) => {
-    return (dispatch) => {
-        let loading = true;
-        if (loading) {
-            dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: loading })
-        }
-        UserAddresses.viewAllAddresses(userData)
-            .then(response => {
-                if (response.data.status) {
-                    dispatch({ type: USER_ALL_ADDRESS_SUCCESS, addresses: response.data.addresses, loading: !loading })
-                }
-                else {
-                    // Alert.alert(response.data.message)
-                    dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: !loading })
-                }
-            })
-            .catch(error => {
-                console.log(JSON.stringify(error))
-                dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: !loading })
-            })
     }
 };
 
@@ -62,10 +40,10 @@ const getUserProfile = (userData, navigate) => {
                     AsyncStorage.setItem('USER', JSON.stringify(responseData.data.userData[0]))
                     if (navigate) {
                         if (responseData.data.userData[0].type == "customer") {
-                            navigate('Customer', { screen: 'Home' });
+                            navigate('Customer');
                         }
                         else {
-                            navigate('Barber', { screen: 'Home' });
+                            navigate('Barber');
                         }
                     }
                 }

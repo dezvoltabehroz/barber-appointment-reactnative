@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { View, ImageBackground, FlatList, TouchableOpacity, Text } from "react-native";
 import styles from './style';
+import { connect } from 'react-redux'
+import { bindActionCreators } from "redux";
+import { authActions } from '../../../redux/actions/auth';
+import { userAddressActions } from '../../../redux/actions/addresses';
+import { categoryActions } from '../../../redux/actions/category';
 
-export default class SubCategoryServices extends Component {
+class SubCategoryServices extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -23,14 +28,14 @@ export default class SubCategoryServices extends Component {
 
     _renderItems = (item) => {
         let { onItemPress } = this.props;
-
+        const image_Url = 'https://media1.popsugar-assets.com/files/thumbor/8FQjnhO5KDETJlIw-9YrAxbFORg/fit-in/1024x1024/filters:format_auto-!!-:strip_icc-!!-/2013/11/25/741/n/1922153/f86754a8a6f036d0_headband-braid-2/i/Starting-section-hair-from-behind-one-ear-separate.jpg';
         return (
             <TouchableOpacity onPress={onItemPress} style={styles.lowerListItemContainer}>
-                <ImageBackground source={{ uri: item.serviceImage }}
+                <ImageBackground source={item.picture ? { uri: item.picture } : { uri:image_Url}}
                     style={styles.lowerListImageStyle} imageStyle={{ borderRadius: 10 }}>
                     <View style={styles.lowerListTitleContainer}>
-                        <Text style={styles.lowerListTitleStyle}> {item.serviceName} </Text>
-                        <Text style={styles.lowerListDescriptionStyle}>{item.serviceDescription}</Text>
+                        <Text style={styles.lowerListTitleStyle}> {item.service_name} </Text>
+                        <Text style={styles.lowerListDescriptionStyle}>{item.service_description}</Text>
                     </View>
                 </ImageBackground>
             </TouchableOpacity>
@@ -45,7 +50,7 @@ export default class SubCategoryServices extends Component {
             <View style={styles.container}>
                 <View style={styles.lowerListContainer}>
                     <FlatList
-                        data={services}
+                        data={this.props.category.services}
                         showsVerticalScrollIndicator={false}
                         ItemSeparatorComponent={this._renderSeparator}
                         renderItem={({ item }) => this._renderItems(item)}
@@ -55,3 +60,20 @@ export default class SubCategoryServices extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer || {},
+        userAddresses: state.userAddresses || {},
+        category: state.categoryReducer || {}
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        authActions: bindActionCreators(authActions, dispatch),
+        userAddressActions: bindActionCreators(userAddressActions, dispatch),
+        categoryActions: bindActionCreators(categoryActions, dispatch)
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubCategoryServices)
