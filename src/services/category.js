@@ -3,12 +3,10 @@ import axiosInstance from './Interceptor';
 let config = { headers: { 'Content-Type': 'application/json' } }
 
 const Api = {
-    getCategories: function (userData) {
-        return axiosInstance.post('services/getAllCategories', {
-            id: userData.id
+    getCategories: function () {
+        return axiosInstance.get('services/getAllCategories', {
         }, {
             headers: {
-                'Authorization': 'Bearer ' + userData.token,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
             }
@@ -17,11 +15,9 @@ const Api = {
 
     getSubCategories: function (userData) {
         return axiosInstance.post('services/getAllSubCategories', {
-          id:userData.id,
           cat_id:userData.cat.id
         }, {
             headers: {
-                'Authorization': 'Bearer ' + userData.token,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
             }
@@ -30,11 +26,9 @@ const Api = {
 
     getServices: function (userData) {
         return axiosInstance.post('services/getAllServices', {
-           id:userData.id,
            sub_cat_id:userData.cat.id
         }, {
             headers: {
-                'Authorization': 'Bearer ' + userData.token,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
             }

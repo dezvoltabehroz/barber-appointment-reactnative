@@ -40,7 +40,7 @@ const getUserProfile = (userData, navigate) => {
                     AsyncStorage.setItem('USER', JSON.stringify(responseData.data.userData[0]))
                     if (navigate) {
                         if (responseData.data.userData[0].type == "customer") {
-                            navigate('Customer');
+                            navigate('Customer',{screen:'Home'});
                         }
                         else {
                             navigate('Barber');
@@ -159,15 +159,13 @@ const UpdateEmailAddressandToken = (userData, navigate) => {
                         password: userData.password,
                         loading: !loading
                     })
-
                     RegisterUser.userLogin(userData)
                         .then(responseData => {
                             if (responseData.data.status) {
                                 dispatch({
-                                    type: USER_LOGIN_SUCCESS, userData: responseData.data.userData, loading: !loading
+                                    type: USER_LOGIN_SUCCESS, userData: responseData.data.userData[0], loading: !loading
                                 })
-                                // AsyncStorage.setItem('USER', responseData.data.userData)
-                                dispatch(getUserProfile(responseData.data.userData, navigate))
+                                dispatch(getUserProfile(responseData.data.userData[0], navigate))
                             }
                             else {
                                 Alert.alert(response.data.message)

@@ -30,7 +30,8 @@ class UpdateProfile extends Component {
             dob: '',
             showDatePicker: false,
             modalView: false,
-            submit: false
+            submit: false,
+            gender: 'Male'
         };
     }
 
@@ -46,14 +47,7 @@ class UpdateProfile extends Component {
 
     handleNext = () => {
         const { onNext } = this.props;
-        let { name, male, profile_Url, dob } = this.state;
-        let gender;
-        if (male) {
-            gender = 'Male';
-        }
-        else {
-            gender = 'Female';
-        }
+        let { name, profile_Url, dob, gender } = this.state;
         let userData = {
             name: name,
             gender: gender,
@@ -135,7 +129,7 @@ class UpdateProfile extends Component {
 
     render() {
         const { onNext } = this.props;
-        const { isNameFocus, name, submit, date, showDatePicker, modalView } = this.state;
+        const { isNameFocus, name, submit, date, showDatePicker, gender ,dob} = this.state;
 
         return (
 
@@ -176,8 +170,8 @@ class UpdateProfile extends Component {
                             <RadioButton gender
                                 option1={this.state.male} option2={this.state.female}
                                 option1Text="Male" option2Text="Female"
-                                onPressOption1={() => this.setState({ male: true, female: false })}
-                                onPressOption2={() => this.setState({ female: true, male: false })} />
+                                onPressOption1={() => this.setState({ gender: 'Male', male: true, female: false })}
+                                onPressOption2={() => this.setState({ gender: 'Female', female: true, male: false })} />
                             <View>
                                 <View style={{ marginHorizontal: '10%' }}>
                                     <TouchableOpacity onPress={() => this.setState({ showDatePicker: true })}>
@@ -207,18 +201,7 @@ class UpdateProfile extends Component {
                         </View>
                     </ScrollView>
                 </View>
-                <FooterButton loading={this.props.user.loading} title="Save & Continue" onPress={this.handleNext} />
-                <Modal visible={modalView}>
-                    <View style={styles.modalContainer}>
-                        <View>
-                            <SearchandMapView
-                                updateProfile
-                                address={(location) => this.handleLocation(location)}
-                            />
-                        </View>
-                    </View>
-                    <FooterButton title="Cancel" onPress={() => this.setState({ modalView: false })} />
-                </Modal>
+                <FooterButton disabled={gender&&name&&dob&&date?false:true} loading={this.props.user.loading} title="Save & Continue" onPress={this.handleNext} />
             </View>
 
         );

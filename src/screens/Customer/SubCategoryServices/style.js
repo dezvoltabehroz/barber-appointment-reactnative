@@ -14,8 +14,8 @@ export default StyleSheet.create({
         flex: 1,
         paddingTop: '5%',
         marginBottom: '1%',
-        alignSelf:"center"
-        // justifyContent: "center"
+        alignItems: "center",
+        justifyContent: "center"
     },
     lowerListItemContainer: {
         // flex: 0.1,

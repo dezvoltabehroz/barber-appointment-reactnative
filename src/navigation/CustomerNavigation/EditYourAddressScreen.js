@@ -42,6 +42,7 @@ class EditYourAddressScreen extends Component {
                 isUserLogged={this.props.user.isUserLogedIn}
                 loading={this.props.addresses.loading}
                 phone={this.props.user.phone}
+                onEdit={() => navigate('AddYourAddress')}
                 saveNewAddress={(userData) => this.handleSaveNewAddress(userData)}
                 onNext={(userData) => this.handleOnNext(userData)} />
         )

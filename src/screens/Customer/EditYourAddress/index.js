@@ -55,7 +55,6 @@ class EditYourAddress extends Component {
     }
 
     handleSaveAndContinue = () => {
-        this.setState({ submit: true })
         const { region, address, label, floor_unit, message, submit } = this.state;
         let userData = {
             lat: region.latitude,
@@ -102,7 +101,7 @@ class EditYourAddress extends Component {
 
 
     render() {
-        const { name, label, floor_unit, labels, isSubjectFocus, isMessageFocus, message, submit } = this.state;
+        const { name, label, floor_unit, labels, isSubjectFocus, isMessageFocus, message, submit, address, region } = this.state;
 
         return (
             <View style={styles.container}>
@@ -206,7 +205,7 @@ class EditYourAddress extends Component {
                     <View style={styles.lineStyle}></View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.buttonContainerStyle}>
-                        <Button loading={this.props.loading} title="Save & Continue" onPress={this.handleSaveAndContinue} />
+                        <Button disabled={label && floor_unit ? false : true} loading={this.props.loading} title="Save & Continue" onPress={this.handleSaveAndContinue} />
                     </View>
                 </View>
             </View>

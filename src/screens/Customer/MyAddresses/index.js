@@ -88,6 +88,7 @@ class MyAddresses extends Component {
 }
 const mapStateToProps = (state) => {
     return {
+        user: state.authReducer || {},
         userAddresses: state.userAddresses || {}
     };
 };

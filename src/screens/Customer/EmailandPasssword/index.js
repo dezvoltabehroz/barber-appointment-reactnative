@@ -38,7 +38,6 @@ class EmailandPassword extends Component {
     handleNext = () => {
         let { email, password, confirmPassword, submit, macAddress } = this.state
         const { onUpdate } = this.props;
-        this.setState({ submit: true });
         if (this.isEmailValid(email)) {
             if (password.length < 8) {
                 return Alert.alert('Password must be 8 character', '', [{ text: 'OK' },])
@@ -46,13 +45,12 @@ class EmailandPassword extends Component {
             else if (password !== confirmPassword) {
                 return Alert.alert('Confirm password not matched', '', [{ text: 'OK' },])
             }
-            else if (email && password && confirmPassword && submit) {
+            else if (email && password && confirmPassword && macAddress && submit) {
                 let userData = {
                     email: email,
                     password: password,
                     macAddress: macAddress,
                     phone: this.props.phone
-                    // phone:'+923048520554'
                 }
                 onUpdate(userData);
             }
@@ -81,7 +79,7 @@ class EmailandPassword extends Component {
                             val={email}
                             keyboardtype="email-address"
                             onActive={() => this.setState({ isEmailFocus: true })}
-                            onInActive={() => this.setState({ isEmailFocus: false })}
+                            onInActive={() => this.setState({ isEmailFocus: false, submit: true })}
                             label='Email' updateText={(email) => this.setState({ email })} />
                         {
                             submit && !email ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%' }]}>Please fill this field</Text> : null
@@ -123,7 +121,7 @@ class EmailandPassword extends Component {
                         }
                     </View>
                 </View>
-                <FooterButton loading={this.props.loading} title='Save & Continue' onPress={this.handleNext} />
+                <FooterButton disabled={email && password && confirmPassword ? false : true} loading={this.props.loading} title='Save & Continue' onPress={this.handleNext} />
             </View>
         );
     }

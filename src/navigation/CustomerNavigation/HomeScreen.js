@@ -22,6 +22,7 @@ class HomeScreen extends Component {
 
     handleItemPress = (item) => {
         const { navigate } = this.props.navigation;
+        navigate('SubCategory', { name: item.category_name })
         let userData = {
             id: this.props.user.userData.id,
             cat: item,

@@ -8,6 +8,7 @@ import { bindActionCreators } from "redux";
 import { authActions } from '../../../redux/actions/auth';
 import { userAddressActions } from '../../../redux/actions/addresses';
 import { categoryActions } from '../../../redux/actions/category';
+import { UserAddresses } from '../../../services';
 
 class Home extends Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class Home extends Component {
         this.state = {
             loading: false,
             expandAddresses: false,
-            servicelist: [
+            servicelist1: [
                 {
                     name: 'Appointment',
                     imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
@@ -38,7 +39,16 @@ class Home extends Component {
                     imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
                 },
             ],
-
+            servicelist: [
+                {
+                    name: 'About Us',
+                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                },
+                {
+                    name: 'Contact Us',
+                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                },
+            ],
             addresses: [],
             address: ''
 
@@ -50,31 +60,24 @@ class Home extends Component {
 
 
     componentDidMount = () => {
-        // const { user, userAddresses } = this.props;
-        // this.setState({ loading: true });
-        // this.props.userAddressActions.allAddresses(user.userData);
-        // if (userAddresses.addresses != undefined && userAddresses.addresses != null) {
-        //     this.setState({ loading: false });
-        // }
-        // userAddresses.addresses.forEach(element => {
-        //     if (element.is_selected == '1') {
-        //         setTimeout(() => {
-        //             this.setState({ address: element.address })
-        //         }, 5000);
-        //     }
-        // })
+        let data = {
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token
+        }
+        UserAddresses.viewAllAddresses(data)
+            .then((res) => {
+                res.data.addresses.forEach(element => {
+                    if (element.is_selected == '1') {
+                        this.setState({ address: element.address, addresses: res.data.addresses })
+                    }
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
-    handleAddress = () => {
-        const { userAddresses } = this.props;
-        let data;
-        userAddresses.addresses.forEach(element => {
-            if (element.is_selected == '1') {
-                data = element.address
-            }
-        })
-        return data;
-    }
+
 
     _renderSeparator = () => {
         return (
@@ -117,11 +120,30 @@ class Home extends Component {
         )
     }
 
-    handleAddressPress = (item) => {
+    handleAddressPress = async (item) => {
         const { user } = this.props;
         item = { ...item, token: user.userData.token };
-        this.props.userAddressActions.defaultAddress(item, this.props.navigate);
-        this.props.userAddressActions.allAddresses(user.userData);
+        await this.props.userAddressActions.defaultAddress(item, this.props.navigate);
+        this.setState({ address: '' });
+        let data = {
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token
+        }
+        setTimeout(() => {
+            UserAddresses.viewAllAddresses(data)
+                .then((res) => {
+                    res.data.addresses.forEach(element => {
+                        if (element.is_selected == '1') {
+                            this.setState({ address: element.address, addresses: res.data.addresses })
+                        }
+                    })
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }, 2000);
+
+        // this.props.userAddressActions.allAddresses(user.userData);
         this.setState({ expandAddresses: !this.state.expandAddresses })
     }
 
@@ -130,11 +152,23 @@ class Home extends Component {
         this.setState({ expandAddresses: !this.state.expandAddresses })
     }
 
+    handleAddress = () => {
+        const { userAddresses } = this.props;
+        let data;
+        userAddresses.addresses.forEach(element => {
+            if (element.is_selected == '1') {
+                data = element.address
+            }
+        })
+        return data;
+    }
+
     render() {
         let { onExit, searchBarber } = this.props
         let { isUserLogedIn } = this.props.user;
-        const { ourAppointment, servicelist, loading } = this.state;
+        const { ourAppointment, servicelist, servicelist1, address, addresses } = this.state;
         const { user, userAddresses } = this.props;
+
         return (
             <>
                 <View style={styles.container}>
@@ -154,8 +188,8 @@ class Home extends Component {
                                         <TouchableOpacity style={styles.headingContainer}
                                             onPress={this.changeAddressLayout} >
                                             {
-                                                this.handleAddress() != undefined ?
-                                                    <Text style={[styles.upperListTitleStyle, { fontSize: 12, textAlign: 'center' }]}>{this.handleAddress()}</Text>
+                                                address ?
+                                                    <Text style={[styles.upperListTitleStyle, { fontSize: 12, textAlign: 'center' }]}>{address}</Text>
                                                     :
                                                     <ActivityIndicator size={20} color={themeStyle.COLOR_WHITE} />
                                             }
@@ -177,8 +211,8 @@ class Home extends Component {
                                     <>
                                         <View style={{ height: this.state.expandAddresses ? null : 0, marginTop: "5%" }}>
                                             {
-                                                userAddresses.addresses != undefined ?
-                                                    userAddresses.addresses.map((item, index) => {
+                                                addresses ?
+                                                    addresses.map((item, index) => {
                                                         return (
                                                             <View style={styles.addressesContainer}>
                                                                 <TouchableOpacity onPress={() => this.handleAddressPress(item)} style={{ flexDirection: 'row' }}>
@@ -211,7 +245,7 @@ class Home extends Component {
 
                         <View style={[styles.upperListContainer]}>
                             <FlatList
-                                data={servicelist}
+                                data={isUserLogedIn ? servicelist1 : servicelist}
                                 horizontal={true}
                                 showsHorizontalScrollIndicator={false}
                                 renderItem={({ item }) => this._renderItems(item)}
@@ -225,12 +259,16 @@ class Home extends Component {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.lowerListContainer}>
-                            <FlatList
-                                data={this.props.category.categories}
-                                showsVerticalScrollIndicator={false}
-                                ItemSeparatorComponent={this._renderSeparator}
-                                renderItem={({ item }) => this._renderAppointmentItems(item)}
-                                keyExtractor={item => item.id} />
+                            {
+                                this.props.category.loading ?
+                                    <ActivityIndicator />
+                                    :
+                                    <FlatList
+                                        data={this.props.category.categories}
+                                        showsVerticalScrollIndicator={false}
+                                        ItemSeparatorComponent={this._renderSeparator}
+                                        renderItem={({ item }) => this._renderAppointmentItems(item)}
+                                        keyExtractor={item => item.id} />}
                         </View>
                     </ScrollView>
                 </View>

@@ -41,7 +41,6 @@ const getSubCategories = (userData, navigate) => {
             .then((response) => {
                 if (response.data.status) {
                     dispatch({ type: SUB_CATEGORIES_SUCCESS, subCategories: response.data.subCategories, loading: !loading })
-                    navigate('SubCategory',{name:userData.cat.category_name})
                 }
                 else {
                     Alert.alert(response.data.message)
@@ -55,7 +54,7 @@ const getSubCategories = (userData, navigate) => {
     };
 }
 
-const getServices = (userData, navigate) => {
+const getServices = (userData) => {
     return (dispatch) => {
         let loading = true;
         if (loading) {
@@ -65,7 +64,6 @@ const getServices = (userData, navigate) => {
             .then(response => {
                 if (response.data.status) {
                     dispatch({ type: SERVICES_SUCCESS, services: response.data.services, loading: !loading })
-                    navigate('SubCategoryServices', { name:userData.cat.sub_category_name  })
                 }
                 else {
                     Alert.alert(response.data.message)

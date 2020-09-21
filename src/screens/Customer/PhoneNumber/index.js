@@ -17,7 +17,8 @@ export default class PhoneNumber extends Component {
             cca2: '',
             isVisible: false,
             isNumberFocus: false,
-            submit: false
+            submit: false,
+            disabled: true
         }
     }
 
@@ -50,9 +51,10 @@ export default class PhoneNumber extends Component {
         const { number, callingCode } = this.state;
         this.setState({ submit: true })
         if (number && callingCode != '') {
+            this.setState({ disabled: false })
             let phoneNumber = `+${callingCode}${number}`
             onSendCode(phoneNumber);
-            this.setState({ submit: false })
+            this.setState({ submit: false, disabled: true })
         }
         else {
             alert('Please select the country code first');
@@ -69,7 +71,7 @@ export default class PhoneNumber extends Component {
     };
 
     render() {
-        const { number, isNumberFocus, submit } = this.state;
+        const { number, isNumberFocus, submit,callingCode } = this.state;
         return (
             <View style={styles.container}>
                 <View style={styles.innerContainer}>
@@ -108,7 +110,7 @@ export default class PhoneNumber extends Component {
                     <View style={styles.gapHeight}></View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.buttonContainer}>
-                        <Button title="Send Verification" loading={this.props.loading} onPress={this.handleSendCode} />
+                        <Button disabled={callingCode&&number?false:true} title="Send Verification" loading={this.props.loading} onPress={this.handleSendCode} />
                     </View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.textContainer}>

@@ -16,6 +16,7 @@ import {
     GoogleSignin,
     statusCodes,
 } from 'react-native-google-signin';
+import { categoryActions } from '../../redux/actions/category';
 
 class AuthScreen extends Component {
     constructor(props) {
@@ -114,7 +115,11 @@ class AuthScreen extends Component {
             });
     }
 
-
+    handleWithOutLogin = async () => {
+        const { navigate } = this.props.navigation;
+        await this.props.categoryActions.getCategories();
+        navigate('Customer',{screen:'Home'})
+    }
 
     handleLogin = async (userData) => {
         const { navigate } = this.props.navigation
@@ -141,7 +146,7 @@ class AuthScreen extends Component {
                     })
                     :
                     navigate('Barber', { screen: 'PhoneNumber' })}
-                onContinueWithOutLogin={() => customer ? navigate('Customer') : Alert.alert("This screen is under Development")}
+                onContinueWithOutLogin={() => this.handleWithOutLogin()}
                 onPressCustomer={() => this.setState({ customer: true, barber: false, submit: false })}
                 onPressBarber={() => this.setState({ barber: true, customer: false, submit: false })}
                 customer={customer}
@@ -163,6 +168,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     return {
         authActions: bindActionCreators(authActions, dispatch),
+        categoryActions: bindActionCreators(categoryActions, dispatch)
     };
 };
 

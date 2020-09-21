@@ -17,7 +17,8 @@ class SubCategoryScreen extends Component {
             cat: item,
             token: this.props.user.userData.token
         }
-        this.props.categoryActions.getServices(userData, navigate)
+        navigate('SubCategoryServices', { name: item.sub_category_name })
+        this.props.categoryActions.getServices(userData)
     }
 
     render() {

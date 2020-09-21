@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ImageBackground, FlatList, TouchableOpacity, Text } from "react-native";
+import { View, ImageBackground, FlatList, TouchableOpacity, Text, ActivityIndicator } from "react-native";
 import styles from './style';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
@@ -31,7 +31,7 @@ class SubCategoryServices extends Component {
         const image_Url = 'https://media1.popsugar-assets.com/files/thumbor/8FQjnhO5KDETJlIw-9YrAxbFORg/fit-in/1024x1024/filters:format_auto-!!-:strip_icc-!!-/2013/11/25/741/n/1922153/f86754a8a6f036d0_headband-braid-2/i/Starting-section-hair-from-behind-one-ear-separate.jpg';
         return (
             <TouchableOpacity onPress={onItemPress} style={styles.lowerListItemContainer}>
-                <ImageBackground source={item.picture ? { uri: item.picture } : { uri:image_Url}}
+                <ImageBackground source={item.picture ? { uri: item.picture } : { uri: image_Url }}
                     style={styles.lowerListImageStyle} imageStyle={{ borderRadius: 10 }}>
                     <View style={styles.lowerListTitleContainer}>
                         <Text style={styles.lowerListTitleStyle}> {item.service_name} </Text>
@@ -49,12 +49,16 @@ class SubCategoryServices extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.lowerListContainer}>
-                    <FlatList
-                        data={this.props.category.services}
-                        showsVerticalScrollIndicator={false}
-                        ItemSeparatorComponent={this._renderSeparator}
-                        renderItem={({ item }) => this._renderItems(item)}
-                        keyExtractor={item => item} />
+                    {
+                        this.props.category.loading ?
+                            <ActivityIndicator />
+                            :
+                            <FlatList
+                                data={this.props.category.services}
+                                showsVerticalScrollIndicator={false}
+                                ItemSeparatorComponent={this._renderSeparator}
+                                renderItem={({ item }) => this._renderItems(item)}
+                                keyExtractor={item => item} />}
                 </View>
             </View>
         )
