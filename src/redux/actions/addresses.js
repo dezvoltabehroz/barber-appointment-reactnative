@@ -92,12 +92,12 @@ const allAddresses = (userData) => {
             dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: loading })
         }
         UserAddresses.viewAllAddresses(userData)
-            .then(response => {
+            .then((response) => {
                 if (response.data.status) {
                     dispatch({ type: USER_ALL_ADDRESS_SUCCESS, addresses: response.data.addresses, loading: !loading })
                 }
                 else {
-                    // Alert.alert(response.data.message)
+                    Alert.alert(response.data.message)
                     dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: !loading })
                 }
             })
@@ -130,7 +130,7 @@ const deleteAddress = (userData) => {
     }
 }
 const defaultAddress = (userData) => {
-    return (dispatch, store) => {
+    return (dispatch) => {
         let loading = true;
         if (loading) {
             dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: loading })

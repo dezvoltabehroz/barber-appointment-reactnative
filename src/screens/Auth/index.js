@@ -4,6 +4,7 @@ import { Icon, Button, FloatingInput, RadioButton } from "../../components";
 import styles from './style';
 import THEME from '../../assets/styles/theme.style';
 import COMMON_STYLE from '../../assets/styles/common.style';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class AuthScreen extends Component {
     constructor(props) {
@@ -18,14 +19,21 @@ class AuthScreen extends Component {
         }
     }
 
-    handleLogin = async () => {
-        const { onLogin, submit } = this.props
+    componentDidMount = async () => {
+        let userToken = await AsyncStorage.getItem('Email')
+        if (userToken) {
+            let data = JSON.parse(userToken);
+            this.setState({ email: data.email, password: data.password })
+        }
+    }
+
+    handleLogin = () => {
+        const { onLogin } = this.props
         let { email, password } = this.state;
         let userData = { email: email, password: password };
-        if (email && password && submit) {
+        if (email && password) {
             if (this.isEmailValid(email)) {
-                await onLogin(userData);
-                this.setState({ email: '', password: '' })
+                onLogin(userData);
             }
         }
     };
@@ -35,7 +43,7 @@ class AuthScreen extends Component {
     }
 
     render() {
-        const { onPhone, onPressCustomer, onPressBarber, customer, barber, onContinueWithOutLogin, onFacebook, submit, isSubmit, onGoogle } = this.props
+        const { onPhone, onPressCustomer, onPressBarber, customer, barber, signUpAsBarber, onContinueWithOutLogin, onFacebook, submit, isSubmit, onGoogle } = this.props
         const { email, password, isEmailFocus, isPasswordFocus } = this.state;
         return (
             <>
@@ -86,7 +94,7 @@ class AuthScreen extends Component {
                                     }
                                 </View>
 
-                                <Button loading={this.props.loading} title="Login" onPress={this.handleLogin} />
+                                <Button loading={this.props.loading} title="Login" onPress={() => { this.props.isSubmit(); this.handleLogin() }} />
                             </View>
                         </View>
                         <View style={styles.lowerContainer}>
@@ -142,7 +150,7 @@ class AuthScreen extends Component {
                                     :
                                     <>
                                         <View style={[styles.continueContainer, { marginTop: '5%' }]}>
-                                            <TouchableOpacity onPress={onContinueWithOutLogin} style={styles.continueContainerStyle} >
+                                            <TouchableOpacity onPress={()=>{}} style={styles.continueContainerStyle} >
                                                 <Text style={styles.signUpAsBarberTextStyle}>Sign up as Barber</Text>
                                             </TouchableOpacity>
                                         </View>

@@ -12,7 +12,7 @@ export default StyleSheet.create({
     rowContainer: {
         flexDirection: 'row',
         justifyContent: "space-between",
-        height: 35,
+        height: 70,
         alignItems: 'center',
         marginHorizontal: "5%"
     },
@@ -20,7 +20,6 @@ export default StyleSheet.create({
     addressRowContainer: {
         flexDirection: 'row',
         justifyContent: "space-between",
-        // height: 35,
         alignItems: 'center',
         marginHorizontal: "5%"
     },
@@ -49,8 +48,10 @@ export default StyleSheet.create({
         flexDirection: "column"
     },
     columnChange: {
-        flex: 0.5,
+        flex: 0.25,
+        height: 54,
         flexDirection: "column",
+        justifyContent: 'center',
         alignItems: 'center'
     },
     row: {
@@ -80,5 +81,13 @@ export default StyleSheet.create({
     textFlex: {
         marginHorizontal: "5%",
         flex: 1
-    }
+    },
+    inputRowContainerStyle: {
+        marginVertical: '3%',
+        flexDirection: "row",
+        height: 45,
+        width: screenWidth * 0.13,
+        borderRadius: 5,
+        backgroundColor: THEME.COLOR_WHITE
+    },
 })

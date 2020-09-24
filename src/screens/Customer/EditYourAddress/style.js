@@ -25,14 +25,14 @@ export default StyleSheet.create({
         marginHorizontal: '5%'
     },
     inputContainerStyle: {
-        height: 54,
+        height: 49,
         marginBottom: '5%',
         width: screenWidth * 0.9,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
     },
     messageContainerStyle: {
-        height: 110,
+        height: 100,
         marginBottom: '4%',
         width: screenWidth * 0.9,
         borderRadius: 5,
@@ -106,7 +106,7 @@ export default StyleSheet.create({
         borderRadius: 5
     },
     gapHeight: {
-        height: 15
+        height: 10
     },
     gapHeight1: {
         height: 5

@@ -29,10 +29,10 @@ export default class ServiceComplete extends Component {
             <View style={styles.container}>
                 <View style={styles.upperContainer}>
 
-                    <View style={styles.rowStyle}>
+                    {/* <View style={styles.rowStyle}>
                         <Text style={styles.headingTextStyle1}>Total Amount Paid:</Text>
                         <Text style={[styles.headingTextStyle1, { color: THEME.PRIMARY_COLOR }]}>  $260</Text>
-                    </View>
+                    </View> */}
                     <View style={styles.cardStyle} >
                         <View style={styles.avatarContainer}>
                             <Avatar source={{ uri:'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png'  }} size={100} />

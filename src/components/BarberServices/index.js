@@ -12,77 +12,12 @@ export default class BarberServices extends Component {
             disabled: true,
             totalPrice: 0,
             totalTime: 0,
-            services: [
-                {
-                    id: 1,
-                    serviceName: 'Hair Styling',
-                    serviceCost: 100,
-                    serviceEstTime: 30,
-                    selected: false,
-                    description: 'All haircuts include eyebrows, nose, and ears groomed.'
-                },
-                {
-                    id: 2,
-                    serviceName: 'Hair Color',
-                    serviceCost: 50,
-                    serviceEstTime: 45,
-                    selected: false,
-                    description: 'Any type of haircut + beard + eyebrows and nose and ears Groomed.'
-                },
-                {
-                    id: 3,
-                    serviceName: 'Shave',
-                    serviceCost: 50,
-                    serviceEstTime: 30,
-                    selected: false,
-                    description: 'Includes whole head shaped up and back tapered, eyebrows, nose, ears groomed.'
-                },
-                {
-                    id: 4,
-                    serviceName: 'Blow Out',
-                    serviceCost: 50,
-                    serviceEstTime: 20,
-                    selected: false,
-                    description: 'Any type of haircut + beard + eyebrows and nose and ears Groomed.'
-                },
-                {
-                    id: 5,
-                    serviceName: 'Hair Styling',
-                    serviceCost: 100,
-                    serviceEstTime: 60,
-                    selected: false,
-                    description: 'Includes whole head shaped up and back tapered, eyebrows, nose, ears groomed.'
-                },
-                {
-                    id: 6,
-                    serviceName: 'Hair Color',
-                    serviceCost: 50,
-                    serviceEstTime: 45,
-                    selected: false,
-                    description: 'Includes Chips or choice of Beverage'
-                },
-                {
-                    id: 7,
-                    serviceName: 'Shave',
-                    serviceCost: 50,
-                    serviceEstTime: 30,
-                    selected: false,
-                    description: 'Any type of haircut + beard + eyebrows and nose and ears Groomed.'
-                },
-                {
-                    id: 8,
-                    serviceName: 'Blow Out',
-                    serviceCost: 50,
-                    serviceEstTime: 20,
-                    selected: false,
-                    description: 'Includes Chips or choice of Beverage'
-                }
-            ]
+            services: []
         }
     }
 
     componentDidMount = () => {
-        this.setState({ selectedService: this.props.customerSelectedServices });
+        this.setState({ services: this.props.customerSelectedServices });
     }
 
     _renderSeparator = () => {

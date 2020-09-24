@@ -41,7 +41,7 @@ class AuthScreen extends Component {
 
     _signIn = async () => {
         try {
-            const { navigate } = this.props.navigation
+            const { replace } = this.props.navigation
             const { customer } = this.state;
             await GoogleSignin.hasPlayServices({
                 showPlayServicesUpdateDialog: true,
@@ -54,7 +54,7 @@ class AuthScreen extends Component {
             }
             await this.props.authActions.setSocialNetworkUserData(userData);
             customer ?
-                navigate('Register', {
+                replace('Register', {
                     screen: 'PhoneNumber',
                 })
                 :
@@ -75,7 +75,7 @@ class AuthScreen extends Component {
 
 
     get_Response_Info = async (error, result) => {
-        const { navigate } = this.props.navigation
+        const { replace } = this.props.navigation
         const { customer } = this.state;
         if (error) { Alert.alert('Error fetching data: ' + error.toString()); }
         else {
@@ -86,7 +86,7 @@ class AuthScreen extends Component {
             console.log(result);
             await this.props.authActions.setSocialNetworkUserData(userData);
             customer ?
-                navigate('Register', {
+                replace('Register', {
                     screen: 'PhoneNumber',
                 })
                 :
@@ -118,30 +118,25 @@ class AuthScreen extends Component {
     handleWithOutLogin = async () => {
         const { navigate } = this.props.navigation;
         await this.props.categoryActions.getCategories();
-        navigate('Customer',{screen:'Home'})
+        navigate('Customer', { screen: 'Home' })
     }
 
     handleLogin = async (userData) => {
-        const { navigate } = this.props.navigation
-        await this.props.authActions.userLogin(userData, navigate);
+        const { replace } = this.props.navigation
+        await this.props.authActions.userLogin(userData, replace);
         this.setState({ submit: false })
-        // } else {
-        //     await this.props.authActions.setUser(userData);
-        //     navigate('Barber')
-        //     this.setState({ submit: false })
-        // }
     }
 
 
     render() {
-        const { navigate } = this.props.navigation
+        const { navigate, replace } = this.props.navigation
         const { customer, barber, submit, loading } = this.state;
         return (
             <MainScreenPaths.Auth
                 loading={this.props?.user?.loading}
                 onLogin={(userData) => this.handleLogin(userData)}
                 onPhone={() => customer ?
-                    navigate('Register', {
+                    replace('Register', {
                         screen: 'PhoneNumber',
                     })
                     :
@@ -154,6 +149,7 @@ class AuthScreen extends Component {
                 submit={(submit)}
                 isSubmit={() => this.setState({ submit: true })}
                 onGoogle={() => this._signIn}
+                signUpAsBarber={() => navigate('Barber', { screen: 'PhoneNumber' })}
                 onFacebook={() => this.onFacebookButtonPress}
             />
         )

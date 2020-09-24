@@ -53,3 +53,5 @@ export const FooterButton = _FooterButton;
 
 import _BookingScrollSlot from './BookingScrollSlot';
 export const BookingScrollSlot = _BookingScrollSlot;
+import _CartDetail from './CartDetails';
+export const CartDetails = _CartDetail;

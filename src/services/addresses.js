@@ -44,6 +44,7 @@ const Api = {
             }
         })
     },
+
     editAddress: function (userData) {
         return axiosInstance.put('address/updateAddress', {
             lat: userData.lat,
@@ -62,6 +63,7 @@ const Api = {
             }
         })
     },
+
     deleteAddress: function (userData) {
         return axiosInstance.post('address/deleteAddress', {
             id: userData.user_id,
@@ -74,6 +76,7 @@ const Api = {
             }
         })
     },
+    
     changeDefaultAddress:function(userData){
         return axiosInstance.post('address/changeDefaultAddress',{
             id: userData.user_id,

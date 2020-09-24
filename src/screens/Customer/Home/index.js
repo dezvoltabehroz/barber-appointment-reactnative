@@ -59,22 +59,25 @@ class Home extends Component {
     }
 
 
-    componentDidMount = () => {
-        let data = {
-            id: this.props.user.userData.id,
-            token: this.props.user.userData.token
-        }
-        UserAddresses.viewAllAddresses(data)
-            .then((res) => {
-                res.data.addresses.forEach(element => {
-                    if (element.is_selected == '1') {
-                        this.setState({ address: element.address, addresses: res.data.addresses })
-                    }
+    componentDidMount = async () => {
+        setTimeout(() => {
+            let data = {
+                id: this.props.user.userData.id,
+                token: this.props.user.userData.token
+            }
+            UserAddresses.viewAllAddresses(data)
+                .then((res) => {
+                    res.data.addresses.forEach(element => {
+                        if (element.is_selected == '1') {
+                            this.setState({ address: element.address, addresses: res.data.addresses })
+                        }
+                    })
                 })
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }, 2000);
+
     }
 
 
@@ -123,7 +126,7 @@ class Home extends Component {
     handleAddressPress = async (item) => {
         const { user } = this.props;
         item = { ...item, token: user.userData.token };
-        await this.props.userAddressActions.defaultAddress(item, this.props.navigate);
+        await this.props.userAddressActions.defaultAddress(item);
         this.setState({ address: '' });
         let data = {
             id: this.props.user.userData.id,
@@ -142,8 +145,6 @@ class Home extends Component {
                     console.log(err)
                 })
         }, 2000);
-
-        // this.props.userAddressActions.allAddresses(user.userData);
         this.setState({ expandAddresses: !this.state.expandAddresses })
     }
 
@@ -163,12 +164,18 @@ class Home extends Component {
         return data;
     }
 
+    truncateString = (str, num) => {
+        if (str.length <= num) {
+            return str
+        }
+        return str.slice(0, num) + '...'
+    }
+
     render() {
         let { onExit, searchBarber } = this.props
         let { isUserLogedIn } = this.props.user;
-        const { ourAppointment, servicelist, servicelist1, address, addresses } = this.state;
-        const { user, userAddresses } = this.props;
-
+        const { servicelist, servicelist1, address, addresses } = this.state;
+        const { user } = this.props;
         return (
             <>
                 <View style={styles.container}>
@@ -189,7 +196,7 @@ class Home extends Component {
                                             onPress={this.changeAddressLayout} >
                                             {
                                                 address ?
-                                                    <Text style={[styles.upperListTitleStyle, { fontSize: 12, textAlign: 'center' }]}>{address}</Text>
+                                                    <Text style={[styles.upperListTitleStyle, { fontSize: 12, textAlign: 'center' }]}>{this.truncateString(address, 28)}</Text>
                                                     :
                                                     <ActivityIndicator size={20} color={themeStyle.COLOR_WHITE} />
                                             }

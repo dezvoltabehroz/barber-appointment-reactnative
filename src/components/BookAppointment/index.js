@@ -4,12 +4,15 @@ import {
   View,
   Text,
   TouchableOpacity,
-  FlatList,
+  FlatList, Modal, Dimensions
 } from 'react-native';
-import { Button, BookingScrollSlot } from '..';
+import { Button, BookingScrollSlot, Icon } from '..';
 import styles from './style';
+import { Calendar } from 'react-native-calendars'
 import moment from 'moment';
 import THEME from '../../assets/styles/theme.style';
+const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
 export default class BookAppointment extends Component {
   constructor(prop) {
     super(prop);
@@ -62,11 +65,9 @@ export default class BookAppointment extends Component {
       myBooking: false,
       slotArray: [],
       slots: [],
-      myBookings: [
-        { "booking": "10:30am - 11:00am" },
-        { "booking": "12:30pm - 01:00pm" },
-        { "booking": "01:30pm - 02:00pm" },
-      ],
+      bookingDate: '',
+      modalVisible: false
+
     }
 
   }
@@ -158,16 +159,30 @@ export default class BookAppointment extends Component {
     return (<View style={styles.gapHeight}></View>)
   }
 
+  handleDayPress = (day) => {
+    this.setState({ bookingDate: day.dateString, modalVisible: false })
+  }
+
   render() {
 
-    const { bookingModal } = this.state;
+    const { modalVisible, bookingDate } = this.state;
     return (
       <>
         <View style={styles.container}>
           <View style={styles.lineStyle}></View>
-          <View style={styles.rowContainer}>
-
+          <TouchableOpacity onPress={() => this.setState({ modalVisible: true })/*this.handlePressDate({ item, index })*/} style={styles.rowContainer}>
             {
+              bookingDate != "" ?
+                <Text style={styles.textFlatlistStyle} >{"Your Appointment Date: " + moment(bookingDate).format('ll')}</Text>
+                :
+                <View style={styles.rowContainer}>
+                  <Text style={styles.textFlatlistStyle} >Select a Date</Text>
+                  <Icon.FontAwesome name="calendar" size={20} color={THEME.COLOR_WHITE} />
+                </View>
+            }
+          </TouchableOpacity>
+
+          {/* {
               this.state.days.map((item, index) => {
                 return (
                   <View style={styles.dateRowContainer}>
@@ -186,8 +201,7 @@ export default class BookAppointment extends Component {
                   </View>
                 )
               })
-            }
-          </View>
+            } */}
           <View style={styles.lineStyle}></View>
 
           <FlatList data={this.state.slots}
@@ -220,11 +234,41 @@ export default class BookAppointment extends Component {
           </View> */}
 
         </View>
-        <BookingScrollSlot
+        {/* <BookingScrollSlot
           duration={(this.props.time)}
           onSubmit={(data) => this.handleOnSubmit(data)}
           showBookingSlot={bookingModal}
-          onCancel={() => this.setState({ bookingModal: false })} />
+          onCancel={() => this.setState({ bookingModal: false })} /> */}
+        <Modal visible={modalVisible} >
+          <View style={{ backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, height: screenHeight, width: screenWidth }}>
+            <View style={{ marginHorizontal: '5%' }}>
+              <Calendar
+                minDate={new Date()}
+                onDayPress={(day) => this.handleDayPress(day)}
+                monthFormat={'MMMM yyyy'}
+                theme={{
+                  calendarBackground: THEME.PRIMARY_BACKGROUND_COLOR,
+                  selectedDotColor: '#ffffff',
+                  selectedDayBackgroundColor: '#D2A91B',
+                  selectedDayTextColor: 'black',
+                  dayTextColor: 'white',
+                  textDisabledColor: 'grey',
+                  dotColor: '#D2A91B',
+                  todayTextColor: 'white',
+                  arrowColor: THEME.PRIMARY_COLOR,
+                  monthTextColor: 'white',
+                  textDayFontFamily: "Poppins-Medium",
+                  textMonthFontFamily: "Poppins-Medium",
+                  textDayHeaderFontFamily: "Poppins-Medium",
+                  textDayFontSize: 10,
+                  textMonthFontSize: 16,
+                  textDayHeaderFontSize: 10,
+                }}
+              // markedDates={markedDates == null ? markDaysObject : markedDates}
+              />
+            </View>
+          </View>
+        </Modal>
       </>
     );
   }

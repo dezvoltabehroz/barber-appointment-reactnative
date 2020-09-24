@@ -14,7 +14,8 @@ export default StyleSheet.create({
     rowContainer: {
         flexDirection: 'row',
         paddingHorizontal: '5%',
-        alignSelf: "center",
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     lineStyle: {
         borderColor: '#44495C',
@@ -55,7 +56,7 @@ export default StyleSheet.create({
     flatlistContainer: {
         backgroundColor: THEME.PRIMARY_COLOR,
         height: 44,
-        width:screenWidth*0.275,
+        width: screenWidth * 0.275,
         justifyContent: "center",
         alignItems: 'center',
         borderRadius: 5,

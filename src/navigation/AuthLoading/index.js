@@ -20,14 +20,12 @@ class AuthLoadingScreen extends React.Component {
 
     _bootstrapAsync = async () => {
         const userToken = await AsyncStorage.getItem('USER');
-        // console.log(userToken)
         if (userToken) {
             let data = JSON.parse(userToken);
-            console.log("Data=====>",data)
             this.props.actions.getUserProfile(data, this.props.navigation.navigate);
             this.props.address.allAddresses(data);
         }
-        this.props.navigation.navigate(userToken ? 'Customer' : 'Auth');
+        this.props.navigation.replace(userToken ? 'Customer' : 'Auth');
     };
     render() {
         return (

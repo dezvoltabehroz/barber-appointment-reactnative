@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './style';
-import { Button, BarberServices, SearchandMapView, BookAppointment, Summary, Payment } from '../../../components';
+import { Button, BarberServices, CartDetails, BookAppointment, Summary, Payment } from '../../../components';
 import StepProgress from 'react-native-step-progress';
 import THEME from '../../../assets/styles/theme.style';
 import moment from 'moment'
@@ -10,7 +10,80 @@ export default class Booking extends Component {
         super(props);
         this.state = {
             currentPosition: 0,
-            selectedServices: [],
+            selectedServices: [
+                {
+                    id: 1,
+                    serviceName: 'Hair Styling',
+                    serviceCost: 100,
+                    serviceEstTime: 30,
+                    selected: false,
+                    quantity: '',
+                    description: 'All haircuts include eyebrows, nose, and ears groomed.'
+                },
+                {
+                    id: 2,
+                    serviceName: 'Hair Color',
+                    serviceCost: 50,
+                    serviceEstTime: 45,
+                    selected: false,
+                    quantity: '',
+                    description: 'Any type of haircut + beard + eyebrows and nose and ears Groomed.'
+                },
+                {
+                    id: 3,
+                    serviceName: 'Shave',
+                    serviceCost: 50,
+                    serviceEstTime: 30,
+                    selected: false,
+                    quantity: '',
+                    description: 'Includes whole head shaped up and back tapered, eyebrows, nose, ears groomed.'
+                },
+                {
+                    id: 4,
+                    serviceName: 'Blow Out',
+                    serviceCost: 50,
+                    serviceEstTime: 20,
+                    selected: false,
+                    quantity: '',
+                    description: 'Any type of haircut + beard + eyebrows and nose and ears Groomed.'
+                },
+                {
+                    id: 5,
+                    serviceName: 'Hair Styling',
+                    serviceCost: 100,
+                    serviceEstTime: 60,
+                    selected: false,
+                    quantity: '',
+                    description: 'Includes whole head shaped up and back tapered, eyebrows, nose, ears groomed.'
+                },
+                {
+                    id: 6,
+                    serviceName: 'Hair Color',
+                    serviceCost: 50,
+                    serviceEstTime: 45,
+                    selected: false,
+                    quantity: '',
+                    description: 'Includes Chips or choice of Beverage'
+                },
+                {
+                    id: 7,
+                    serviceName: 'Shave',
+                    serviceCost: 50,
+                    serviceEstTime: 30,
+                    selected: false,
+                    quantity: '',
+                    description: 'Any type of haircut + beard + eyebrows and nose and ears Groomed.'
+                },
+                {
+                    id: 8,
+                    serviceName: 'Blow Out',
+                    serviceCost: 50,
+                    serviceEstTime: 20,
+                    selected: false,
+                    quantity: '',
+                    description: 'Includes Chips or choice of Beverage'
+                }
+            ],
             location: '',
             region: {
                 latitude: 0,
@@ -55,7 +128,6 @@ export default class Booking extends Component {
     }
 
     handleSelectedServices = (data) => {
-        const { selectedServices } = this.state;
         this.setState({ selectedServices: data });
     }
 
@@ -83,7 +155,7 @@ export default class Booking extends Component {
 
 
     render() {
-        const labels = ["Service", "Location", "Time", "Payment", "Summary"];
+        const labels = ["Service", "Cart", "Time", "Payment", "Summary"];
         const customStyles = {
             stepIndicatorSize: 25,
             currentStepIndicatorSize: 30,
@@ -122,7 +194,8 @@ export default class Booking extends Component {
                     {
                         this.state.currentPosition == 0 ?
                             <BarberServices
-                                customerSelectedServices={(selectedServices)}
+                                key="services"
+                                customerSelectedServices={selectedServices}
                                 time={(time) => this.setState({ totalTime: time }, () => {
                                     var h = time / 60 | 0;
                                     var m = time % 60 | 0;
@@ -136,10 +209,17 @@ export default class Booking extends Component {
                     }
                     {
                         this.state.currentPosition == 1 ?
-                            <SearchandMapView
-                                change={(this.state.change)}
-                                onChange={() => this.setState({ change: false })}
-                                address={(location) => this.handleLocation(location)}
+                            <CartDetails
+                                key="cart"
+                                price={(price) => this.setState({ totalPrice: price })}
+                                time={(time) => this.setState({ totalTime: time }, () => {
+                                    var h = time / 60 | 0;
+                                    var m = time % 60 | 0;
+                                    this.setState({ timeInHour: moment.utc().hours(h).minutes(m).format("HH:mm"), })
+                                })}
+                                onChangePress={() => this.setState({ disabled: false })}
+                                addQuantity={(data) => this.handleSelectedServices(data)}
+                                services={(this.state.selectedServices)}
                             />
                             :
                             null
@@ -147,6 +227,7 @@ export default class Booking extends Component {
                     {
                         this.state.currentPosition == 2 ?
                             <BookAppointment
+                                key="appointment"
                                 time={(totalTime)}
                                 onBookingPress={(isDisable) => this.setState({ disabled: isDisable == "false" ? false : true })} />
                             :
@@ -155,13 +236,14 @@ export default class Booking extends Component {
 
                     {
                         this.state.currentPosition == 3 ?
-                            <Payment />
+                            <Payment key="payment" />
                             :
                             null
                     }
                     {
                         this.state.currentPosition == 4 ?
                             <Summary
+                                key="summary"
                                 addresslocation={(this.state.location)}
                                 onChangePress={this.handleOnChange}
                                 services={(this.state.selectedServices)}
@@ -176,33 +258,35 @@ export default class Booking extends Component {
                     <View style={styles.row}>
                         <View style={styles.buttonContainer}>
                             {
-                                totalPrice != 0 ?
-                                    <View style={styles.textContainer}>
-                                        <Text style={styles.coloredTextStyles}>${totalPrice}.00<Text style={styles.textStyles}> Total</Text></Text>
-                                        <Text style={styles.coloredTextStyles}>
-                                            {timeInHour[0] == 0 && timeInHour[1] == 0 ? "" : timeInHour[0] + timeInHour[1]}
-                                            {
-                                                timeInHour[0] == 0 && timeInHour[1] == 0 ?
-                                                    null
-                                                    :
-                                                    <Text style={styles.textStyles}> hr</Text>
-                                            }
-                                            {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
-                                            {
-                                                timeInHour[3] == 0 && timeInHour[4] == 0 ?
-                                                    null
-                                                    :
-                                                    <Text style={styles.textStyles}> mins</Text>
-                                            }
-                                        </Text>
-                                    </View>
-                                    :
-                                    null
+                                currentPosition !== 0 ?
+                                    totalPrice != 0 ?
+                                        <View style={styles.textContainer}>
+                                            <Text style={styles.coloredTextStyles}>${totalPrice}.00<Text style={styles.textStyles}> Total</Text></Text>
+                                            <Text style={styles.coloredTextStyles}>
+                                                {timeInHour[0] == 0 && timeInHour[1] == 0 ? "" : timeInHour[0] + timeInHour[1]}
+                                                {
+                                                    timeInHour[0] == 0 && timeInHour[1] == 0 ?
+                                                        null
+                                                        :
+                                                        <Text style={styles.textStyles}> hr</Text>
+                                                }
+                                                {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                                                {
+                                                    timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                                        null
+                                                        :
+                                                        <Text style={styles.textStyles}> mins</Text>
+                                                }
+                                            </Text>
+                                        </View>
+                                        :
+                                        null
+                                    : null
                             }
                         </View>
-                        <View style={this.state.currentPosition == 1 ? {} : styles.buttonContainer}>
+                        <View style={/*this.state.currentPosition == 1 ? {} :*/ styles.buttonContainer}>
                             {
-                                this.state.currentPosition == 1 ?
+                                this.state.currentPosition == 6 ?
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                         <TouchableOpacity disabled={disabled} onPress={this.onNextPageChange} style={styles.btnContainer}>
                                             <Text style={styles.btnText}>

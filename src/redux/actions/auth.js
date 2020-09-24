@@ -40,7 +40,7 @@ const getUserProfile = (userData, navigate) => {
                     AsyncStorage.setItem('USER', JSON.stringify(responseData.data.userData[0]))
                     if (navigate) {
                         if (responseData.data.userData[0].type == "customer") {
-                            navigate('Customer',{screen:'Home'});
+                            navigate('Customer', { screen: 'Home' });
                         }
                         else {
                             navigate('Barber');
@@ -202,6 +202,7 @@ const userLogin = (userData, navigate) => {
             .then(responseData => {
                 if (responseData.data.status) {
                     dispatch(getUserProfile(responseData.data.userData[0], navigate))
+                    AsyncStorage.setItem('Email', JSON.stringify(userData))
                 }
                 else {
                     Alert.alert(response.data.message)

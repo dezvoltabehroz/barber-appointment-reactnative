@@ -33,10 +33,10 @@ class HomeScreen extends Component {
 
 
     handleLogout = async () => {
-        const { navigate, } = this.props.navigation
+        const { replace } = this.props.navigation
         let { isUserLogedIn } = this.props.user;
         if (isUserLogedIn) {
-            await this.props.authActions.removeUser(navigate);
+            await this.props.authActions.removeUser(replace);
         }
     }
 
