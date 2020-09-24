@@ -240,8 +240,8 @@ export default class BookAppointment extends Component {
           showBookingSlot={bookingModal}
           onCancel={() => this.setState({ bookingModal: false })} /> */}
         <Modal visible={modalVisible} >
-          <View style={{ backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, height: screenHeight, width: screenWidth }}>
-            <View style={{ marginHorizontal: '5%', marginTop:'45%' }}>
+          <View style={{ backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, height: screenHeight, width: screenWidth ,justifyContent:"center"}}>
+            <View style={{ marginHorizontal: '5%' }}>
               <Calendar
                 minDate={new Date()}
                 onDayPress={(day) => this.handleDayPress(day)}
