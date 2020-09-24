@@ -4,7 +4,7 @@ import {
   View,
   Text,
   TouchableOpacity,
-  FlatList, Modal, Dimensions
+  FlatList, Modal, Dimensions, Image
 } from 'react-native';
 import { Button, BookingScrollSlot, Icon } from '..';
 import styles from './style';
@@ -240,8 +240,11 @@ export default class BookAppointment extends Component {
           showBookingSlot={bookingModal}
           onCancel={() => this.setState({ bookingModal: false })} /> */}
         <Modal visible={modalVisible} >
-          <View style={{ backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, height: screenHeight, width: screenWidth ,justifyContent:"center"}}>
-            <View style={{ marginHorizontal: '5%' }}>
+          <View style={{ backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, height: screenHeight, width: screenWidth, justifyContent: 'center' }}>
+            <View style={{ alignItems: 'center' }}>
+              <Image source={require('../../assets/images/logo.png')} resizeMode="contain" style={{ height: screenHeight * 0.25, width: screenWidth * 0.6, }} />
+            </View>
+            <View style={{ marginHorizontal: '5%', justifyContent: "center" }}>
               <Calendar
                 minDate={new Date()}
                 onDayPress={(day) => this.handleDayPress(day)}
@@ -264,8 +267,10 @@ export default class BookAppointment extends Component {
                   textMonthFontSize: 16,
                   textDayHeaderFontSize: 10,
                 }}
-              // markedDates={markedDates == null ? markDaysObject : markedDates}
               />
+              <View style={{ marginVertical: '3%' }}>
+                <Button title="Cancel" onPress={() => this.setState({ modalVisible: false })} />
+              </View>
             </View>
           </View>
         </Modal>
