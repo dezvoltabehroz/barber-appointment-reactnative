@@ -205,7 +205,7 @@ const userLogin = (userData, navigate) => {
                     AsyncStorage.setItem('Email', JSON.stringify(userData))
                 }
                 else {
-                    Alert.alert(response.data.message)
+                    Alert.alert(responseData.data.message)
                     dispatch({ type: LOADING_SUCCESS, loading: !loading })
                 }
             })
