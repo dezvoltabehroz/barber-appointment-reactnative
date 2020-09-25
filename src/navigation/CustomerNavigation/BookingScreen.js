@@ -11,7 +11,7 @@ export default class BookingScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Customer.Booking />
+            <MainScreenPaths.Customer.Booking onDone={() => navigate('Appointments')} />
         )
     }
 }

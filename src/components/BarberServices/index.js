@@ -26,7 +26,7 @@ export default class BarberServices extends Component {
         )
     }
 
-    onPressCheckedItem = (val) => {
+    onPressCheckedItem = async (val) => {
         const { totalPrice, totalTime } = this.state;
         let price = totalPrice;
         let time = totalTime;
@@ -34,7 +34,7 @@ export default class BarberServices extends Component {
         let items = [...this.state.services];
         if (items[objIndex].selected) {
             items[objIndex] = { ...items[objIndex], selected: false };
-            this.setState({ services: items });
+            await this.setState({ services: items });
             this.setState({ selectedService: this.state.selectedService.filter(item => item.id != val.id) }, () => {
                 price = (price - val.serviceCost)
                 time = (time - val.serviceEstTime)
@@ -43,14 +43,15 @@ export default class BarberServices extends Component {
                 this.props.price(price);
                 if (this.state.selectedService.length === 0) {
                     this.props.isDisable("true")
-                    this.props.markedServices(this.state.selectedService);
+                    // this.props.markedServices(this.state.services);
                 }
                 this.setState({ totalPrice: price, totalTime: time })
             })
+
         }
         else {
             items[objIndex] = { ...items[objIndex], selected: true };
-            this.setState({ services: items });
+            await this.setState({ services: items });
             this.state.selectedService.push(items[objIndex]);
             price = (price + val.serviceCost)
             time = (time + val.serviceEstTime)
@@ -58,9 +59,10 @@ export default class BarberServices extends Component {
             console.log(time);
             this.props.price(price);
             this.props.isDisable("false")
-            this.props.markedServices(this.state.selectedService);
+            // this.props.markedServices(this.state.services);
             this.setState({ totalPrice: price, totalTime: time });
         }
+        this.props.markedServices(this.state.services);
     }
 
 

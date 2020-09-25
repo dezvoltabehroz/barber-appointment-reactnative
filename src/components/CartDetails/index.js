@@ -14,6 +14,7 @@ import styles from './style'
 import { FloatingInput, Icon } from '..';
 import THEME from '../../assets/styles/theme.style';
 import MapView, { PROVIDER_GOOGLE, Marker, AnimatedRegion } from 'react-native-maps';
+import style from '../Button/style';
 
 
 class CartDetail extends Component {
@@ -27,31 +28,45 @@ class CartDetail extends Component {
             totalTime: 0
         }
     }
+
     componentDidMount = () => {
         const { services } = this.props
-        this.setState({ services })
+        this.setState({ services });
+        const notEqual = (currentValue) => currentValue.quantity != '';
+        const data = this.state.services.every(notEqual)
+        console.log(data)
+        this.props.isDisable(data);
     }
 
     handleTimeAndPrice = () => {
-        this.props.addQuantity(this.state.services)
-        let totalPrice = 0;
-        let totalTime = 0;
+        const { totalPrice, totalTime } = this.state;
+        let price = totalPrice;
+        let time = totalTime;
         this.state.services.forEach(element => {
             if (element.quantity != '') {
-                totalTime = totalTime + (element.serviceEstTime * element.quantity);
-                totalPrice = totalPrice + (element.serviceCost * element.quantity);
-                this.props.onChangePress();
+                price = (price + (element.serviceCost * element.quantity))
+                time = (time + (element.serviceEstTime * element.quantity))
+                const notEqual = (currentValue) => currentValue.quantity != '';
+                const data = this.state.services.every(notEqual)
+                console.log(data)
+                this.props.isDisable(data);
             }
-
         })
+        this.props.time(time)
+        this.props.price(price);
+        this.props.addQuantity(this.state.services)
 
-        this.props.time(totalTime)
-        this.props.price(totalPrice);
+    }
+
+    on_Press_Edit = (index) => {
+        let selectedArray = [...this.state.services];
+        this.props.isDisable(false);
+        let item = { ...selectedArray[index], quantity: '', };
+        selectedArray[index] = item;
+        this.setState({ services: selectedArray });
     }
 
     _renderItems = ({ index, item }) => {
-        const { isQtyFocus, qty } = this.state;
-        const { onChangePress } = this.props;
         return (
             <>
                 <View style={styles.lineStyle}></View>
@@ -86,6 +101,13 @@ class CartDetail extends Component {
                     <View style={styles.columnChange}>
                         <Text style={styles.textStyle}>${item.quantity != '' && item.quantity > 1 ? (item.serviceCost * item.quantity) : item.serviceCost}</Text>
                     </View>
+                    <View style={styles.column} >
+                        {item.quantity != '' ?
+                            <TouchableOpacity onPress={() => this.on_Press_Edit(index)}>
+                                <Icon.FontAwesome name='edit' color={THEME.COLOR_WHITE} size={20} />
+                            </TouchableOpacity>
+                            : null}
+                    </View>
                 </View>
             </>)
     }
@@ -113,6 +135,7 @@ class CartDetail extends Component {
                                 <View style={styles.columnChange}>
                                     <Text style={styles.colorTextStyle}>Price</Text>
                                 </View>
+                                <View style={styles.column}></View>
                             </View>
                             <View style={styles.rowStyle}>
                                 <FlatList data={this.state.services}

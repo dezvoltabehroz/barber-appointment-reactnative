@@ -10,7 +10,8 @@ export default class Booking extends Component {
         super(props);
         this.state = {
             currentPosition: 0,
-            selectedServices: [
+            selectedServices: [],
+            services: [
                 {
                     id: 1,
                     serviceName: 'Hair Styling',
@@ -128,7 +129,18 @@ export default class Booking extends Component {
     }
 
     handleSelectedServices = (data) => {
-        this.setState({ selectedServices: data });
+        this.setState({ selectedServices: data, });
+    }
+
+    handleServices = (services) => {
+        let selectedArray = [];
+        this.setState({ services: services });
+        this.state.services.forEach((element) => {
+            if (element.selected) {
+                selectedArray.push(element);
+            }
+        })
+        this.setState({ selectedServices: selectedArray, disabled: false })
     }
 
     handleOnChange = () => {
@@ -180,7 +192,7 @@ export default class Booking extends Component {
             currentStepLabelColor: THEME.COLOR_WHITE
         }
 
-        const { currentPosition, selectedServices, totalPrice, disabled, totalTime, timeInHour } = this.state
+        const { currentPosition, services, selectedServices, totalPrice, disabled, totalTime, timeInHour } = this.state
 
         return (
             <View style={styles.container}>
@@ -195,7 +207,7 @@ export default class Booking extends Component {
                         this.state.currentPosition == 0 ?
                             <BarberServices
                                 key="services"
-                                customerSelectedServices={selectedServices}
+                                customerSelectedServices={services}
                                 time={(time) => this.setState({ totalTime: time }, () => {
                                     var h = time / 60 | 0;
                                     var m = time % 60 | 0;
@@ -203,7 +215,7 @@ export default class Booking extends Component {
                                 })}
                                 price={(price) => this.setState({ totalPrice: price })}
                                 isDisable={(data) => this.setState({ disabled: data == "true" ? true : false })}
-                                markedServices={(data) => this.handleSelectedServices(data)} />
+                                markedServices={(services) => this.handleServices(services)} />
                             :
                             null
                     }
@@ -217,9 +229,9 @@ export default class Booking extends Component {
                                     var m = time % 60 | 0;
                                     this.setState({ timeInHour: moment.utc().hours(h).minutes(m).format("HH:mm"), })
                                 })}
-                                onChangePress={() => this.setState({ disabled: false })}
+                                isDisable={(data) => this.setState({ disabled: !data })}
                                 addQuantity={(data) => this.handleSelectedServices(data)}
-                                services={(this.state.selectedServices)}
+                                services={(selectedServices)}
                             />
                             :
                             null
@@ -245,8 +257,8 @@ export default class Booking extends Component {
                             <Summary
                                 key="summary"
                                 addresslocation={(this.state.location)}
-                                onChangePress={this.handleOnChange}
-                                services={(this.state.selectedServices)}
+                                // onChangePress={this.handleOnChange}
+                                services={(selectedServices)}
                             />
                             :
                             null
@@ -300,7 +312,7 @@ export default class Booking extends Component {
                                         </TouchableOpacity>
                                     </View>
                                     :
-                                    <Button disabled={disabled} title={this.state.currentPosition == 4 ? 'Done' : 'Confirm'} onPress={this.onNextPageChange} />
+                                    <Button disabled={disabled} title={this.state.currentPosition == 4 ? 'Done' : 'Confirm'} onPress={this.state.currentPosition == 4 ? () => this.props.onDone() : this.onNextPageChange} />
                             }
                         </View>
                     </View>

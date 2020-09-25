@@ -44,7 +44,8 @@ export default StyleSheet.create({
         alignItems: "center"
     },
     column: {
-        flex: 0.2,
+        flex: 0.08,
+        alignItems: 'flex-end',
         flexDirection: "column"
     },
     columnChange: {
