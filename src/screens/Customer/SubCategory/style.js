@@ -25,7 +25,8 @@ export default StyleSheet.create({
     },
     lowerListImageStyle: {
         height: screenHeight * 0.15,
-        width: screenWidth * 0.9
+        width: screenWidth * 0.9,
+        borderRadius: 10
     },
     lowerListTitleContainer: {
         flex: 1,

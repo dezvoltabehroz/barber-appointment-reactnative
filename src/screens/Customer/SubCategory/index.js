@@ -6,7 +6,7 @@ import { bindActionCreators } from "redux";
 import { authActions } from '../../../redux/actions/auth';
 import { userAddressActions } from '../../../redux/actions/addresses';
 import { categoryActions } from '../../../redux/actions/category';
-
+import Image from 'react-native-fast-image';
 class SubCategory extends Component {
     constructor(props) {
         super(props);
@@ -32,12 +32,12 @@ class SubCategory extends Component {
         return (
             <>
                 <TouchableOpacity onPress={() => onItemPress(item)} style={styles.lowerListItemContainer}>
-                    <ImageBackground source={item.picture ? { uri: item.picture } : image_url}
-                        style={styles.lowerListImageStyle} imageStyle={{ borderRadius: 10 }}>
+                    <Image source={item.picture ? { uri: item.picture } : image_url}
+                        style={styles.lowerListImageStyle}>
                         <View style={styles.lowerListTitleContainer}>
                             <Text style={styles.lowerListTitleStyle} >{item.sub_category_name}</Text>
                         </View>
-                    </ImageBackground>
+                    </Image>
                 </TouchableOpacity>
             </>
         )

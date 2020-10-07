@@ -19,11 +19,12 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingLeft: 10,
-        paddingRight: 10
+        paddingRight: 10,
+    
     },
     upperListImageStyle: {
         height: 80,
-        width: 145
+        width: 145,
     },
     upperListTitleContainer: {
         flex: 1,
@@ -51,7 +52,8 @@ export default StyleSheet.create({
     },
     lowerListImageStyle: {
         height: screenHeight * 0.2,
-        width: screenWidth * 0.9
+        width: screenWidth * 0.9,
+        borderRadius: 10
     },
     lowerListTitleContainer: {
         flex: 1,
@@ -115,7 +117,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
         paddingHorizontal: '5%',
         marginHorizontal: '5%',
-        marginVertical:'2%'
+        marginVertical: '2%'
     },
     addNewAddressContainer: {
         flexDirection: 'row',
