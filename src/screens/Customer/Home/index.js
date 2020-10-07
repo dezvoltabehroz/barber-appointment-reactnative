@@ -9,6 +9,7 @@ import { authActions } from '../../../redux/actions/auth';
 import { userAddressActions } from '../../../redux/actions/addresses';
 import { categoryActions } from '../../../redux/actions/category';
 import { UserAddresses } from '../../../services';
+import Image from 'react-native-fast-image';
 
 class Home extends Component {
     constructor(props) {
@@ -95,7 +96,7 @@ class Home extends Component {
                 <TouchableOpacity
                     onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "My Addresses" ? myAddresses() : onAppointments() }} style={styles.upperListItemContainer}>
                     <ImageBackground source={{ uri: `${item.imageUrl}` }}
-                        style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }}>
+                        style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }} >
                         <View style={styles.upperListTitleContainer}>
                             <Text style={styles.upperListTitleStyle} >{item.name}</Text>
                         </View>
@@ -111,13 +112,13 @@ class Home extends Component {
         return (
             <>
                 <TouchableOpacity onPress={() => onItemPress(item)} style={styles.lowerListItemContainer}>
-                    <ImageBackground source={item.picture ? { uri: item.picture } : image_url}
-                        style={styles.lowerListImageStyle} imageStyle={{ borderRadius: 10 }}>
+                    <Image source={item.picture ? { uri: item.picture } : image_url}
+                        style={styles.lowerListImageStyle}>
                         <View style={styles.lowerListTitleContainer}>
                             <Text style={styles.lowerListTitleStyle} >{item.category_name}</Text>
                             <View style={styles.line}></View>
                         </View>
-                    </ImageBackground>
+                    </Image>
                 </TouchableOpacity>
             </>
         )
