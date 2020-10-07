@@ -13,6 +13,7 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1585B968252C808C00504E09 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1585B967252C808C00504E09 /* File.swift */; };
 		177FD0385D6249E88D3346AA /* Poppins-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B548C17E000B4C648F1FA961 /* Poppins-LightItalic.ttf */; };
 		1CF3D116039143DEB6A18781 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B314B0B12DA24688B9D340CA /* Poppins-Light.ttf */; };
 		285F6FE887B74640B1B09EF8 /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A89A37E3E196469E9B2DB15B /* Poppins-ExtraLight.ttf */; };
@@ -49,6 +50,8 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Luxe/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Luxe/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Luxe/main.m; sourceTree = "<group>"; };
+		1585B966252C808C00504E09 /* Luxe-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Luxe-Bridging-Header.h"; sourceTree = "<group>"; };
+		1585B967252C808C00504E09 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		16A283590ABC419B9D9EE16D /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../src/assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		1AD72701AD0041B1B84FC3F5 /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-BoldItalic.ttf"; path = "../src/assets/fonts/Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
 		1FFB548C714543D893419B50 /* Poppins-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-BlackItalic.ttf"; path = "../src/assets/fonts/Poppins-BlackItalic.ttf"; sourceTree = "<group>"; };
@@ -168,6 +171,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				1585B967252C808C00504E09 /* File.swift */,
 				13B07FAE1A68108700A75B9A /* Luxe */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* LuxeTests */,
@@ -175,6 +179,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				CAA8140DDADB4C14BD061561 /* Resources */,
 				C1FE7206A1027E5E221F71BF /* Pods */,
+				1585B966252C808C00504E09 /* Luxe-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -279,7 +284,7 @@
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = FH8T38JU49;
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1200;
 					};
 				};
 			};
@@ -456,6 +461,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				1585B968252C808C00504E09 /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -498,6 +504,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cirrusllc.fleek;
 				PRODUCT_NAME = Fleek;
+				SWIFT_OBJC_BRIDGING_HEADER = "Luxe-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -521,6 +528,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cirrusllc.fleek;
 				PRODUCT_NAME = Fleek;
+				SWIFT_OBJC_BRIDGING_HEADER = "Luxe-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
