@@ -19,10 +19,12 @@ import firebase from 'react-native-firebase';
 
 const setUserProfile = (userData) => {
     return (dispatch) => {
-        if (userData) {
+        if (userData.type == "customer") {
             dispatch({ type: USER_LOGIN_SUCCESS, userData: userData, })
             dispatch(userAddressActions.allAddresses(userData));
             dispatch(categoryActions.getCategories(userData));
+        } else {
+            dispatch({ type: USER_LOGIN_SUCCESS, userData: userData, })
         }
     }
 };
@@ -35,6 +37,7 @@ const getUserProfile = (userData, navigate) => {
         }
         RegisterUser.getUserProfile(userData)
             .then(responseData => {
+                console.log(responseData.data)
                 if (responseData.data.status) {
                     dispatch(setUserProfile(responseData.data.userData[0]))
                     AsyncStorage.setItem('USER', JSON.stringify(responseData.data.userData[0]))
