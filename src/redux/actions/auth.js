@@ -37,7 +37,6 @@ const getUserProfile = (userData, navigate) => {
         }
         RegisterUser.getUserProfile(userData)
             .then(responseData => {
-                console.log(responseData.data)
                 if (responseData.data.status) {
                     dispatch(setUserProfile(responseData.data.userData[0]))
                     AsyncStorage.setItem('USER', JSON.stringify(responseData.data.userData[0]))
@@ -249,7 +248,6 @@ const removeUser = (navigate) => {
     return (dispatch) => {
         dispatch({ type: USER_LOGOUT_SUCCESS })
         AsyncStorage.removeItem('USER');
-        // AsyncStorage.removeItem('');
         navigate('Auth')
     }
 };

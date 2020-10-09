@@ -23,7 +23,6 @@ class AuthLoadingScreen extends React.Component {
         let data = JSON.parse(userToken);
         if (userToken) {
             let data = JSON.parse(userToken);
-            console.log(data)
             if (data.type == "customer") {
                 this.props.actions.getUserProfile(data, this.props.navigation.navigate);
                 this.props.address.allAddresses(data);
