@@ -51,7 +51,7 @@ const getUserProfile = (userData, navigate) => {
                     }
                 }
                 else {
-                    Alert.alert(responseData.data.message)
+                    dispatch(removeUser(navigate))
                     dispatch({ type: LOADING_SUCCESS, loading: !loading })
                 }
             })
@@ -249,6 +249,7 @@ const removeUser = (navigate) => {
     return (dispatch) => {
         dispatch({ type: USER_LOGOUT_SUCCESS })
         AsyncStorage.removeItem('USER');
+        // AsyncStorage.removeItem('');
         navigate('Auth')
     }
 };
