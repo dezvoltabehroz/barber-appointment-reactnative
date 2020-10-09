@@ -11,11 +11,11 @@ import {
     LOADING_ADDRESSES_SUCCESS
 } from '../types';
 import { RegisterUser } from '../../services';
-import { Alert } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { categoryActions } from './category';
 import { userAddressActions } from './addresses';
-
+import firebase from 'react-native-firebase';
 
 const setUserProfile = (userData) => {
     return (dispatch) => {
@@ -69,48 +69,106 @@ const sendVerificationCode = (number, navigate) => {
         if (loading) {
             dispatch({ type: LOADING_SUCCESS, loading: loading })
         }
-        RegisterUser.sendCodeToPhoneNumber(number)
-            .then(response => {
-                if (!response.data.success && response.data.message.status === 400) {
-                    Alert.alert('Phone number is not correct')
-                    dispatch({ type: LOADING_SUCCESS, loading: !loading })
-                }
-                else {
-                    if (response.data.status) {
-                        dispatch({ type: SEND_CODE_TO_USER_PHONENUMBER_SUCCESS, userData: { phone: number }, loading: !loading })
-                        navigate('PhoneVerification')
-                    }
-                    else {
-                        Alert.alert(response.data.message)
+
+        firebase.auth().verifyPhoneNumber(number, 60)
+            .on('state_changed', (phoneAuthSnapshot) => {
+                switch (phoneAuthSnapshot.state) {
+                    case firebase.auth.PhoneAuthState.CODE_SENT:
+                        console.log('code sent')
+                        RegisterUser.sendCodeToPhoneNumber(number)
+                            .then(response => {
+                                console.log(response.data)
+                                if (response.data.status) {
+                                    dispatch({ type: SEND_CODE_TO_USER_PHONENUMBER_SUCCESS, userData: { phone: number }, loading: !loading })
+                                    navigate('PhoneVerification', { verificationId: phoneAuthSnapshot.verificationId })
+                                }
+                                else {
+                                    Alert.alert(response.data.message)
+                                    dispatch({ type: LOADING_SUCCESS, loading: !loading })
+                                }
+                            }).catch(error => {
+                                console.log(JSON.stringify(error))
+                            })
+                        break;
+                    case firebase.auth.PhoneAuthState.ERROR: // or 'error'
+                        console.log(phoneAuthSnapshot.error.code)
+                        Alert.alert('Phone number is not correct')
                         dispatch({ type: LOADING_SUCCESS, loading: !loading })
-                    }
+                        break;
+                    case firebase.auth.PhoneAuthState.AUTO_VERIFY_TIMEOUT:
+                        console.log('verify time out')
+                        dispatch({ type: SEND_CODE_TO_USER_PHONENUMBER_SUCCESS, userData: { phone: number }, loading: !loading })
+                        navigate('PhoneVerification', { verificationId: phoneAuthSnapshot.verificationId })
+                        break;
+                    case firebase.auth.PhoneAuthState.AUTO_VERIFIED: // or 'error'
+                        console.log('verified', phoneAuthSnapshot)
+                        if (phoneAuthSnapshot.code == null && phoneAuthSnapshot.verificationId == null) {
+                            Alert.alert('Phone number is already in use');
+                            dispatch({ type: LOADING_SUCCESS, loading: !loading })
+                        }
+                        else {
+                            let userData = {
+                                phone: number,
+                                code: phoneAuthSnapshot.code,
+                                id: phoneAuthSnapshot.verificationId
+                            }
+                            dispatch(verifyCode(userData, navigate))
+                        }
+
+                        break;
                 }
-            }).catch(error => {
-                console.log(JSON.stringify(error))
-            })
+            }, (error) => {
+                console.log(error);
+            });
+
+
+        // RegisterUser.sendCodeToPhoneNumber(number)
+        //     .then(response => {
+        //         console.log(response)
+        //         if (response.code !== null) {
+        //             Alert.alert('Phone number is not correct')
+        //             dispatch({ type: LOADING_SUCCESS, loading: !loading })
+        //         } else {
+        //             if (response.verificationId == null) {
+        //                 Alert.alert('Phonenumber is already verified')
+        //                 dispatch({ type: LOADING_SUCCESS, loading: !loading })
+        //             }
+        //             else {
+        //                 dispatch({ type: SEND_CODE_TO_USER_PHONENUMBER_SUCCESS, userData: { phone: number }, loading: !loading })
+        //                 navigate('PhoneVerification')
+        //             }
+        //         }
+        //     }).catch(error => {
+        //         console.log(JSON.stringify(error))
+        //     })
     };
 
 };
 
-const verifyCode = (code, navigate) => {
+const verifyCode = (userData, navigate) => {
     return (dispatch) => {
         let loading = true;
         if (loading) {
             dispatch({ type: LOADING_SUCCESS, loading: loading })
         }
-        RegisterUser.verifyTheCode(code)
-            .then(response => {
-                if (response.data.status) {
-                    dispatch({ type: IS_USER_VERIFIED_SUCCESS, loading: !loading })
-                    navigate('PhoneVerified');
-                }
-                else {
-                    Alert.alert(response.data.message)
-                    dispatch({ type: LOADING_SUCCESS, loading: !loading })
-                }
-            }).catch(error => {
-                console.log(error)
-            })
+        var credential = firebase.auth.PhoneAuthProvider.credential(userData.id, userData.code);
+        if (credential) {
+            console.log('User email: ', credential);
+            RegisterUser.verifyTheCode(userData)
+                .then(response => {
+                    console.log(response.data)
+                    if (response.data.status) {
+                        dispatch({ type: IS_USER_VERIFIED_SUCCESS, loading: !loading })
+                        navigate('PhoneVerified');
+                    }
+                    else {
+                        Alert.alert(response.data.message)
+                        dispatch({ type: LOADING_SUCCESS, loading: !loading })
+                    }
+                }).catch(error => {
+                    console.log(error)
+                })
+        }
     }
 };
 

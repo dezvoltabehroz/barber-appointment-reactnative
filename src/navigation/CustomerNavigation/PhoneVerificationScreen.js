@@ -12,9 +12,15 @@ class PhoneVerificationScreen extends Component {
     })
 
     handleVerification = (value) => {
+        const { verificationId } = this.props.route.params;
         const { navigate } = this.props.navigation
-        this.props.authActions.verifyCode(value, navigate);
-        // navigate('PhoneVerified');
+        let userData = {
+            id: verificationId,
+            phone: this.props.user.phone,
+            code: value
+        }
+        this.props.authActions.verifyCode(userData, navigate);
+        navigate('PhoneVerified');
 
     }
 

@@ -9,9 +9,9 @@ const Api = {
         }, config)
     },
 
-    verifyTheCode: function (code) {
+    verifyTheCode: function (userData) {
         return axiosInstance.post('registration/verifyCode', {
-            code: `${code}`
+            phone: `${userData.phone}`
         }, config)
     },
 
