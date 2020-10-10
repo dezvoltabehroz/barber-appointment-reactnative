@@ -15,16 +15,14 @@ import { Alert, Platform } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { categoryActions } from './category';
 import { userAddressActions } from './addresses';
-import firebase from 'react-native-firebase';
+import auth from '@react-native-firebase/auth';
 
 const setUserProfile = (userData) => {
     return (dispatch) => {
-        if (userData.type == "customer") {
+        if (userData) {
             dispatch({ type: USER_LOGIN_SUCCESS, userData: userData, })
             dispatch(userAddressActions.allAddresses(userData));
             dispatch(categoryActions.getCategories(userData));
-        } else {
-            dispatch({ type: USER_LOGIN_SUCCESS, userData: userData, })
         }
     }
 };
@@ -50,7 +48,7 @@ const getUserProfile = (userData, navigate) => {
                     }
                 }
                 else {
-                    dispatch(removeUser(navigate))
+                    Alert.alert(responseData.data.message)
                     dispatch({ type: LOADING_SUCCESS, loading: !loading })
                 }
             })
@@ -72,10 +70,10 @@ const sendVerificationCode = (number, navigate) => {
             dispatch({ type: LOADING_SUCCESS, loading: loading })
         }
 
-        firebase.auth().verifyPhoneNumber(number, 60)
+        auth().verifyPhoneNumber(number, 60)
             .on('state_changed', (phoneAuthSnapshot) => {
                 switch (phoneAuthSnapshot.state) {
-                    case firebase.auth.PhoneAuthState.CODE_SENT:
+                    case auth.PhoneAuthState.CODE_SENT:
                         console.log('code sent')
                         RegisterUser.sendCodeToPhoneNumber(number)
                             .then(response => {
@@ -92,17 +90,17 @@ const sendVerificationCode = (number, navigate) => {
                                 console.log(JSON.stringify(error))
                             })
                         break;
-                    case firebase.auth.PhoneAuthState.ERROR: // or 'error'
+                    case auth.PhoneAuthState.ERROR: // or 'error'
                         console.log(phoneAuthSnapshot.error.code)
                         Alert.alert('Phone number is not correct')
                         dispatch({ type: LOADING_SUCCESS, loading: !loading })
                         break;
-                    case firebase.auth.PhoneAuthState.AUTO_VERIFY_TIMEOUT:
+                    case auth.PhoneAuthState.AUTO_VERIFY_TIMEOUT:
                         console.log('verify time out')
                         dispatch({ type: SEND_CODE_TO_USER_PHONENUMBER_SUCCESS, userData: { phone: number }, loading: !loading })
                         navigate('PhoneVerification', { verificationId: phoneAuthSnapshot.verificationId })
                         break;
-                    case firebase.auth.PhoneAuthState.AUTO_VERIFIED: // or 'error'
+                    case auth.PhoneAuthState.AUTO_VERIFIED: // or 'error'
                         console.log('verified', phoneAuthSnapshot)
                         if (phoneAuthSnapshot.code == null && phoneAuthSnapshot.verificationId == null) {
                             Alert.alert('Phone number is already in use');
@@ -153,7 +151,7 @@ const verifyCode = (userData, navigate) => {
         if (loading) {
             dispatch({ type: LOADING_SUCCESS, loading: loading })
         }
-        var credential = firebase.auth.PhoneAuthProvider.credential(userData.id, userData.code);
+        var credential = auth.PhoneAuthProvider.credential(userData.id, userData.code);
         if (credential) {
             console.log('User email: ', credential);
             RegisterUser.verifyTheCode(userData)
