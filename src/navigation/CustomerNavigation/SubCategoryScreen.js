@@ -13,9 +13,9 @@ class SubCategoryScreen extends Component {
     handleOnItemPress = (item) => {
         const { navigate } = this.props.navigation;
         let userData = {
-            id: this.props.user.userData.id,
+            // id: this.props.user.userData.id,
             cat: item,
-            token: this.props.user.userData.token
+            // token: this.props.user.userData.token
         }
         navigate('SubCategoryServices', { name: item.sub_category_name })
         this.props.categoryActions.getServices(userData)

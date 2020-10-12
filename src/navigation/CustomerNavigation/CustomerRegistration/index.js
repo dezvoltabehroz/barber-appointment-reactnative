@@ -24,6 +24,7 @@ function RegistrationRoutes() {
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
+                headerLeft: null,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Phone Verified</Text></View>),
                 headerTitleAlign: 'center',
             }} />
@@ -40,6 +41,7 @@ function RegistrationRoutes() {
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
+                headerLeft: null,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Phone Verification</Text></View>),
                 headerTitleAlign: 'center',
             }} />
@@ -48,12 +50,14 @@ function RegistrationRoutes() {
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitleAlign: 'center',
+                headerLeft: null,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Profile</Text></View>),
             }} />
             <Stack.Screen name="EmailandPassword" component={EmailandPasswordScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
+                headerLeft: null,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter Email and Password </Text></View>),
                 headerTitleAlign: 'center',
             }} />
@@ -61,6 +65,7 @@ function RegistrationRoutes() {
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
+                headerLeft: null,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Add your address</Text></View>),
                 headerTitleAlign: 'center',
             }} />
@@ -68,6 +73,7 @@ function RegistrationRoutes() {
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
+                headerLeft: null,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Edit your address</Text></View>),
                 headerTitleAlign: 'center',
             }} />

@@ -136,7 +136,7 @@ class AuthScreen extends Component {
                 loading={this.props?.user?.loading}
                 onLogin={(userData) => this.handleLogin(userData)}
                 onPhone={() => customer ?
-                    replace('Register', {
+                    navigate('Register', {
                         screen: 'PhoneNumber',
                     })
                     :

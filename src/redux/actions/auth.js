@@ -21,8 +21,10 @@ const setUserProfile = (userData) => {
     return (dispatch) => {
         if (userData) {
             dispatch({ type: USER_LOGIN_SUCCESS, userData: userData, })
-            dispatch(userAddressActions.allAddresses(userData));
-            dispatch(categoryActions.getCategories(userData));
+            if (userData.type == 'customer') {
+                // dispatch(userAddressActions.allAddresses(userData));
+                dispatch(categoryActions.getCategories(userData));
+            }
         }
     }
 };
@@ -34,7 +36,8 @@ const getUserProfile = (userData, navigate) => {
             dispatch({ type: LOADING_SUCCESS, loading: loading })
         }
         RegisterUser.getUserProfile(userData)
-            .then(responseData => {
+            .then(async(responseData) => {
+                console.log(responseData.data)
                 if (responseData.data.status) {
                     dispatch(setUserProfile(responseData.data.userData[0]))
                     AsyncStorage.setItem('USER', JSON.stringify(responseData.data.userData[0]))
@@ -46,9 +49,11 @@ const getUserProfile = (userData, navigate) => {
                             navigate('Barber');
                         }
                     }
+                    dispatch({ type: LOADING_SUCCESS, loading: false })
                 }
                 else {
-                    Alert.alert(responseData.data.message)
+                    await dispatch(removeUser())
+                    navigate('Auth');
                     dispatch({ type: LOADING_SUCCESS, loading: !loading })
                 }
             })
@@ -69,57 +74,105 @@ const sendVerificationCode = (number, navigate) => {
         if (loading) {
             dispatch({ type: LOADING_SUCCESS, loading: loading })
         }
-
-        auth().verifyPhoneNumber(number, 60)
-            .on('state_changed', (phoneAuthSnapshot) => {
-                switch (phoneAuthSnapshot.state) {
-                    case auth.PhoneAuthState.CODE_SENT:
-                        console.log('code sent')
-                        RegisterUser.sendCodeToPhoneNumber(number)
-                            .then(response => {
-                                console.log(response.data)
-                                if (response.data.status) {
+        RegisterUser.sendCodeToPhoneNumber(number)
+            .then(response => {
+                console.log(response.data)
+                if (response.data.status) {
+                    auth().verifyPhoneNumber(number, 60)
+                        .on('state_changed', (phoneAuthSnapshot) => {
+                            switch (phoneAuthSnapshot.state) {
+                                case auth.PhoneAuthState.CODE_SENT:
+                                    console.log('code sent')
                                     dispatch({ type: SEND_CODE_TO_USER_PHONENUMBER_SUCCESS, userData: { phone: number }, loading: !loading })
                                     navigate('PhoneVerification', { verificationId: phoneAuthSnapshot.verificationId })
-                                }
-                                else {
-                                    Alert.alert(response.data.message)
+                                    break;
+                                case auth.PhoneAuthState.ERROR: // or 'error'
+                                    console.log(phoneAuthSnapshot.error.code)
+                                    Alert.alert('Phone number is not correct')
                                     dispatch({ type: LOADING_SUCCESS, loading: !loading })
-                                }
-                            }).catch(error => {
-                                console.log(JSON.stringify(error))
-                            })
-                        break;
-                    case auth.PhoneAuthState.ERROR: // or 'error'
-                        console.log(phoneAuthSnapshot.error.code)
-                        Alert.alert('Phone number is not correct')
-                        dispatch({ type: LOADING_SUCCESS, loading: !loading })
-                        break;
-                    case auth.PhoneAuthState.AUTO_VERIFY_TIMEOUT:
-                        console.log('verify time out')
-                        dispatch({ type: SEND_CODE_TO_USER_PHONENUMBER_SUCCESS, userData: { phone: number }, loading: !loading })
-                        navigate('PhoneVerification', { verificationId: phoneAuthSnapshot.verificationId })
-                        break;
-                    case auth.PhoneAuthState.AUTO_VERIFIED: // or 'error'
-                        console.log('verified', phoneAuthSnapshot)
-                        if (phoneAuthSnapshot.code == null && phoneAuthSnapshot.verificationId == null) {
-                            Alert.alert('Phone number is already in use');
-                            dispatch({ type: LOADING_SUCCESS, loading: !loading })
-                        }
-                        else {
-                            let userData = {
-                                phone: number,
-                                code: phoneAuthSnapshot.code,
-                                id: phoneAuthSnapshot.verificationId
+                                    break;
+                                case auth.PhoneAuthState.AUTO_VERIFY_TIMEOUT:
+                                    console.log('verify time out')
+                                    dispatch({ type: SEND_CODE_TO_USER_PHONENUMBER_SUCCESS, userData: { phone: number }, loading: !loading })
+                                    navigate('PhoneVerification', { verificationId: phoneAuthSnapshot.verificationId })
+                                    break;
+                                case auth.PhoneAuthState.AUTO_VERIFIED: // or 'error'
+                                    console.log('verified', phoneAuthSnapshot)
+                                    if (phoneAuthSnapshot.code == null && phoneAuthSnapshot.verificationId == null) {
+                                        Alert.alert('Phone number is already in use');
+                                        dispatch({ type: LOADING_SUCCESS, loading: !loading })
+                                    }
+                                    else {
+                                        let userData = {
+                                            phone: number,
+                                            code: phoneAuthSnapshot.code,
+                                            id: phoneAuthSnapshot.verificationId
+                                        }
+                                        dispatch(verifyCode(userData, navigate))
+                                    }
+                                    break;
                             }
-                            dispatch(verifyCode(userData, navigate))
-                        }
-
-                        break;
+                        }, (error) => {
+                            console.log(error);
+                        });
                 }
-            }, (error) => {
-                console.log(error);
-            });
+                else {
+                    Alert.alert(response.data.message)
+                    dispatch({ type: LOADING_SUCCESS, loading: !loading })
+                }
+            }).catch(error => {
+                //         console.log(JSON.stringify(error))
+            })
+        // auth().verifyPhoneNumber(number, 60)
+        //     .on('state_changed', (phoneAuthSnapshot) => {
+        //         switch (phoneAuthSnapshot.state) {
+        //             case auth.PhoneAuthState.CODE_SENT:
+        //                 console.log('code sent')
+        //                 RegisterUser.sendCodeToPhoneNumber(number)
+        //                     .then(response => {
+        //                         console.log(response.data)
+        //                         if (response.data.status) {
+        //                             dispatch({ type: SEND_CODE_TO_USER_PHONENUMBER_SUCCESS, userData: { phone: number }, loading: !loading })
+        //                             navigate('PhoneVerification', { verificationId: phoneAuthSnapshot.verificationId })
+        //                         }
+        //                         else {
+        //                             Alert.alert(response.data.message)
+        //                             dispatch({ type: LOADING_SUCCESS, loading: !loading })
+        //                         }
+        //                     }).catch(error => {
+        //                         console.log(JSON.stringify(error))
+        //                     })
+        //                 break;
+        //             case auth.PhoneAuthState.ERROR: // or 'error'
+        //                 console.log(phoneAuthSnapshot.error.code)
+        //                 Alert.alert('Phone number is not correct')
+        //                 dispatch({ type: LOADING_SUCCESS, loading: !loading })
+        //                 break;
+        //             case auth.PhoneAuthState.AUTO_VERIFY_TIMEOUT:
+        //                 console.log('verify time out')
+        //                 dispatch({ type: SEND_CODE_TO_USER_PHONENUMBER_SUCCESS, userData: { phone: number }, loading: !loading })
+        //                 navigate('PhoneVerification', { verificationId: phoneAuthSnapshot.verificationId })
+        //                 break;
+        //             case auth.PhoneAuthState.AUTO_VERIFIED: // or 'error'
+        //                 console.log('verified', phoneAuthSnapshot)
+        //                 if (phoneAuthSnapshot.code == null && phoneAuthSnapshot.verificationId == null) {
+        //                     Alert.alert('Phone number is already in use');
+        //                     dispatch({ type: LOADING_SUCCESS, loading: !loading })
+        //                 }
+        //                 else {
+        //                     let userData = {
+        //                         phone: number,
+        //                         code: phoneAuthSnapshot.code,
+        //                         id: phoneAuthSnapshot.verificationId
+        //                     }
+        //                     dispatch(verifyCode(userData, navigate))
+        //                 }
+
+        //                 break;
+        //         }
+        //     }, (error) => {
+        //         console.log(error);
+        //     });
 
 
         // RegisterUser.sendCodeToPhoneNumber(number)
@@ -221,7 +274,7 @@ const UpdateEmailAddressandToken = (userData, navigate) => {
                         .then(responseData => {
                             if (responseData.data.status) {
                                 dispatch({
-                                    type: USER_LOGIN_SUCCESS, userData: responseData.data.userData[0], loading: !loading
+                                    type: USER_LOGIN_SUCCESS, userData: responseData.data.userData[0], loading: loading
                                 })
                                 dispatch(getUserProfile(responseData.data.userData[0], navigate))
                             }

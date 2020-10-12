@@ -24,9 +24,7 @@ class HomeScreen extends Component {
         const { navigate } = this.props.navigation;
         navigate('SubCategory', { name: item.category_name })
         let userData = {
-            id: this.props.user.userData.id,
             cat: item,
-            token: this.props.user.userData.token
         }
         this.props.categoryActions.getSubCategories(userData, navigate)
     }
@@ -34,10 +32,7 @@ class HomeScreen extends Component {
 
     handleLogout = async () => {
         const { replace } = this.props.navigation
-        let { isUserLogedIn } = this.props.user;
-        if (isUserLogedIn) {
-            await this.props.authActions.removeUser(replace);
-        }
+        await this.props.authActions.removeUser(replace);
     }
 
     render() {

@@ -77,8 +77,7 @@ class Home extends Component {
                 .catch((err) => {
                     console.log(err)
                 })
-        }, 2000);
-
+        }, 6000);
     }
 
 
