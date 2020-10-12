@@ -41,11 +41,11 @@ class HomeScreen extends Component {
             <MainScreenPaths.Customer.Home
                 onContactUs={() => navigate("ContactUs")}
                 onAboutUs={() => navigate("AboutUs")}
-                onExit={this.handleLogout}
+                onExit={()=>this.handleLogout()}
                 loading={this.props.userAddresses.loading}
                 onAppointments={() => navigate('Appointments')}
-                onReferesh={this.componentDidMount}
-                navigate={push}
+                // onReferesh={this.componentDidMount}
+                // navigate={push}
                 searchBarber={() => navigate('BarberList')}
                 myAddresses={() => navigate('MyAddresses')}
                 addNewAddress={() => navigate('AddYourAddress')}

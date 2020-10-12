@@ -30,32 +30,37 @@ const setUserProfile = (userData) => {
 };
 
 const getUserProfile = (userData, navigate) => {
+    console.log(navigate)
     return (dispatch) => {
         let loading = true;
         if (loading) {
             dispatch({ type: LOADING_SUCCESS, loading: loading })
         }
         RegisterUser.getUserProfile(userData)
-            .then(async(responseData) => {
-                console.log(responseData.data)
-                if (responseData.data.status) {
-                    dispatch(setUserProfile(responseData.data.userData[0]))
-                    AsyncStorage.setItem('USER', JSON.stringify(responseData.data.userData[0]))
-                    if (navigate) {
-                        if (responseData.data.userData[0].type == "customer") {
-                            navigate('Customer', { screen: 'Home' });
-                        }
-                        else {
-                            navigate('Barber');
-                        }
-                    }
-                    dispatch({ type: LOADING_SUCCESS, loading: false })
-                }
-                else {
-                    await dispatch(removeUser())
-                    navigate('Auth');
+            .then((responseData) => {
+                if (responseData.data.success != 'undefined' && responseData.data.success == false) {
+                    dispatch(removeUser(navigate));
                     dispatch({ type: LOADING_SUCCESS, loading: !loading })
                 }
+                else {
+                    if (responseData.data.status) {
+                        dispatch(setUserProfile(responseData.data.userData[0]))
+                        AsyncStorage.setItem('USER', JSON.stringify(responseData.data.userData[0]))
+                        if (navigate) {
+                            if (responseData.data.userData[0].type == "customer") {
+                                navigate('Customer', { screen: 'Home' });
+                            }
+                            else {
+                                navigate('Barber');
+                            }
+                        }
+                        dispatch({ type: LOADING_SUCCESS, loading: false })
+                    }
+                    // else {
+                    //     Alert.alert(responseData.data.message)
+                    //     dispatch({ type: LOADING_SUCCESS, loading: !loading })
+                }
+
             })
             .catch(err => { console.log(err) })
     };
@@ -76,13 +81,11 @@ const sendVerificationCode = (number, navigate) => {
         }
         RegisterUser.sendCodeToPhoneNumber(number)
             .then(response => {
-                console.log(response.data)
                 if (response.data.status) {
                     auth().verifyPhoneNumber(number, 60)
                         .on('state_changed', (phoneAuthSnapshot) => {
                             switch (phoneAuthSnapshot.state) {
                                 case auth.PhoneAuthState.CODE_SENT:
-                                    console.log('code sent')
                                     dispatch({ type: SEND_CODE_TO_USER_PHONENUMBER_SUCCESS, userData: { phone: number }, loading: !loading })
                                     navigate('PhoneVerification', { verificationId: phoneAuthSnapshot.verificationId })
                                     break;
@@ -91,11 +94,11 @@ const sendVerificationCode = (number, navigate) => {
                                     Alert.alert('Phone number is not correct')
                                     dispatch({ type: LOADING_SUCCESS, loading: !loading })
                                     break;
-                                case auth.PhoneAuthState.AUTO_VERIFY_TIMEOUT:
-                                    console.log('verify time out')
-                                    dispatch({ type: SEND_CODE_TO_USER_PHONENUMBER_SUCCESS, userData: { phone: number }, loading: !loading })
-                                    navigate('PhoneVerification', { verificationId: phoneAuthSnapshot.verificationId })
-                                    break;
+                                // case auth.PhoneAuthState.AUTO_VERIFY_TIMEOUT:
+                                //     console.log('verify time out')
+                                //     dispatch({ type: SEND_CODE_TO_USER_PHONENUMBER_SUCCESS, userData: { phone: number }, loading: !loading })
+                                //     navigate('PhoneVerification', { verificationId: phoneAuthSnapshot.verificationId })
+                                //     break;
                                 case auth.PhoneAuthState.AUTO_VERIFIED: // or 'error'
                                     console.log('verified', phoneAuthSnapshot)
                                     if (phoneAuthSnapshot.code == null && phoneAuthSnapshot.verificationId == null) {
@@ -209,7 +212,6 @@ const verifyCode = (userData, navigate) => {
             console.log('User email: ', credential);
             RegisterUser.verifyTheCode(userData)
                 .then(response => {
-                    console.log(response.data)
                     if (response.data.status) {
                         dispatch({ type: IS_USER_VERIFIED_SUCCESS, loading: !loading })
                         navigate('PhoneVerified');

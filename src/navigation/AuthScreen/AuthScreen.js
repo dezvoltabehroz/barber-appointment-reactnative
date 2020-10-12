@@ -122,8 +122,8 @@ class AuthScreen extends Component {
     }
 
     handleLogin = async (userData) => {
-        const { replace } = this.props.navigation
-        await this.props.authActions.userLogin(userData, replace);
+        const { navigate } = this.props.navigation
+        await this.props.authActions.userLogin(userData, navigate);
         this.setState({ submit: false })
     }
 

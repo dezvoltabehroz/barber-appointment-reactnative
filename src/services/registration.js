@@ -42,10 +42,12 @@ const Api = {
             password: userData.password,
             macAddress: userData.macAddress,
             phone: userData.phone
+            // phone:'+923123680434'
         }, config)
     },
 
     getUserProfile: function (userData) {
+        console.log(userData.id)
         return axiosInstance.post('registration/profileDetail', {
             id: userData.id,
         }, {

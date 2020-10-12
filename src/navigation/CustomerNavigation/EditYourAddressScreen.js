@@ -38,7 +38,7 @@ class EditYourAddressScreen extends Component {
             <MainScreenPaths.Customer.EditYourAddress
                 address={address}
                 region={region}
-                userId={this.props.user.userData.id}
+                // userId={this.props.user.userData.id}
                 isUserLogged={this.props.user.isUserLogedIn}
                 loading={this.props.addresses.loading}
                 phone={this.props.user.phone}

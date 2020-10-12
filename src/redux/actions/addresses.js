@@ -97,7 +97,7 @@ const allAddresses = (userData) => {
                     dispatch({ type: USER_ALL_ADDRESS_SUCCESS, addresses: response.data.addresses, loading: !loading })
                 }
                 else {
-                    Alert.alert(response.data.message)
+                    // Alert.alert(response.data.message)
                     dispatch({ type: LOADING_ADDRESSES_SUCCESS, loading: !loading })
                 }
             })

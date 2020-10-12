@@ -20,7 +20,7 @@ class Home extends Component {
             expandAddresses: false,
             servicelist1: [
                 {
-                    name: 'Appointment',
+                    name: 'My Fleek',
                     imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
                 },
                 {
@@ -175,7 +175,7 @@ class Home extends Component {
         let { onExit, searchBarber } = this.props
         let { isUserLogedIn } = this.props.user;
         const { servicelist, servicelist1, address, addresses } = this.state;
-        const { user } = this.props;
+        // const { user } = this.props;
         return (
             <>
                 <View style={styles.container}>
@@ -202,8 +202,7 @@ class Home extends Component {
                                             }
 
                                         </TouchableOpacity>
-
-                                        <TouchableOpacity style={styles.exitContainer} onPress={onExit}>
+                                        <TouchableOpacity style={styles.exitContainer} onPress={()=>onExit()}>
                                             <View style={{ paddingRight: '5%' }}>
                                                 <Icon.Feather name="log-out" color="#fff" size={25} />
                                             </View>
@@ -259,9 +258,9 @@ class Home extends Component {
                                 keyExtractor={item => item} />
                         </View>
                         <View style={[styles.nameContainer, { alignItems: 'center' }]}>
-                            <Text style={styles.appointmentTextStyle}>Make an Appointment</Text>
+                            <Text style={styles.appointmentTextStyle}></Text>
                             <TouchableOpacity style={[styles.searchBarberContainer,]} onPress={searchBarber}>
-                                <Text style={styles.appointmentTextStyle}>Search Barber </Text>
+                                <Text style={styles.appointmentTextStyle}>Search Fleek </Text>
                                 <Icon.Feather name="search" color="#fff" size={15} />
                             </TouchableOpacity>
                         </View>

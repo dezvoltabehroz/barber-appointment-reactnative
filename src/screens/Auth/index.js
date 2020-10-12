@@ -56,8 +56,8 @@ class AuthScreen extends Component {
                                     resizeMode='contain' />
                             </View>
                             <View style={styles.TextContainer}>
-                                <Text style={styles.headingTextStyle}>Enhance your experience with</Text>
-                                <Text style={styles.babeoTextStyle}>FLEEK!</Text>
+                                <Text style={styles.headingTextStyle}>We bring style to you</Text>
+                                {/* <Text style={styles.babeoTextStyle}>FLEEK!</Text> */}
                             </View>
                             {/* <View style={styles.loginASContainer}>
                                 <Text style={styles.signUpAndLoginTextStyle}>Login as:</Text>
@@ -151,7 +151,7 @@ class AuthScreen extends Component {
                                     <>
                                         <View style={[styles.continueContainer, { marginTop: '5%' }]}>
                                             <TouchableOpacity onPress={()=>{}} style={styles.continueContainerStyle} >
-                                                <Text style={styles.signUpAsBarberTextStyle}>Sign up as Barber</Text>
+                                                <Text style={styles.signUpAsBarberTextStyle}>Sign Up as a Provider</Text>
                                             </TouchableOpacity>
                                         </View>
                                         <View style={styles.continueContainer}>
