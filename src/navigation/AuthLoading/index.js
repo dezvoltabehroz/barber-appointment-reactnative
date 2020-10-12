@@ -23,15 +23,18 @@ class AuthLoadingScreen extends React.Component {
         if (userToken) {
             let data = JSON.parse(userToken);
             if (data.type == 'customer') {
-                this.props.actions.getUserProfile(data, this.props.navigation.replace);
+                await this.props.actions.getUserProfile(data, this.props.navigation.replace);
                 // this.props.address.allAddresses(data);
             }
             else {
-                this.props.actions.getUserProfile(data, this.props.navigation.replace);
+                await this.props.actions.getUserProfile(data, this.props.navigation.replace);
                 // this.props.address.allAddresses(data);
             }
+        } else {
+            this.props.navigation.replace('Auth');
+
         }
-        this.props.navigation.replace(userToken ? 'Customer' : 'Auth');
+        // this.props.navigation.replace(userToken ? 'Customer' : 'Auth');
     };
     render() {
         return (
