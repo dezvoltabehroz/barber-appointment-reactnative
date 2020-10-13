@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Image, TouchableOpacity, ScrollView, LayoutAnimation, Alert } from 'react-native'
+import { View, Text, Image, TouchableOpacity, ScrollView, LayoutAnimation, Alert, Linking } from 'react-native'
 import { Icon, Button, FloatingInput, RadioButton } from "../../components";
 import styles from './style';
 import THEME from '../../assets/styles/theme.style';
@@ -150,7 +150,7 @@ class AuthScreen extends Component {
                                     :
                                     <>
                                         <View style={[styles.continueContainer, { marginTop: '5%' }]}>
-                                            <TouchableOpacity onPress={()=>{}} style={styles.continueContainerStyle} >
+                                            <TouchableOpacity onPress={() => Linking.openURL('http://www.signup.fleekservices.com/basic-info')} style={styles.continueContainerStyle} >
                                                 <Text style={styles.signUpAsBarberTextStyle}>Sign Up as a Provider</Text>
                                             </TouchableOpacity>
                                         </View>
