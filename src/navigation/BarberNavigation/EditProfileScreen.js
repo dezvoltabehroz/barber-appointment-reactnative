@@ -5,7 +5,7 @@ import { MainScreenPaths } from '../../screens';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../redux/actions/auth';
-class HomeScreen extends Component {
+class EditProfileScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })
@@ -24,7 +24,7 @@ class HomeScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Barber.BarberHome
+            <MainScreenPaths.Barber.BarberEditProfile
                 onEditProfile={() =>navigate("EditProfile")}
                 onContactUs={() => navigate("ContactUs")}
                 onAboutUs={() => navigate("AboutUs")}
@@ -46,4 +46,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps)(HomeScreen)
+export default connect(mapStateToProps)(EditProfileScreen)

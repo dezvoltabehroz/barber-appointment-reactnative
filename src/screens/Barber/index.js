@@ -16,6 +16,7 @@ import _BarberEndService from './BarberEndService';
 import _ServiceDetails from './ServiceDetails';
 import _BarberServiceComplete from './BarberServiceComplete';
 import _BarberChat from './BarberChat';
+import _BarberEditProfile from './BarberEditProfile';
 
 export const BarberScreenPaths = {
     BarberPhoneNumber: _BarberPhoneNumber,
@@ -35,5 +36,6 @@ export const BarberScreenPaths = {
     ServiceDetails: _ServiceDetails,
     BarberServiceComplete: _BarberServiceComplete,
     BarberChat: _BarberChat,
+    BarberEditProfile: _BarberEditProfile,
     BarberHome: _BarberHome
 }

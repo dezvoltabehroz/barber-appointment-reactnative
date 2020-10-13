@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, ImageBackground, TouchableOpacity, Alert } from "react-native";
+import { View, Text, FlatList, ImageBackground, TouchableOpacity, Alert, Image } from "react-native";
 import styles from './style';
 import { Button, Icon, SearchandMapView } from '../../../components'
 import { connect } from 'react-redux';
@@ -12,6 +12,10 @@ class BarberHome extends Component {
             servicelist: [
                 {
                     name: 'Bookings',
+                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                },
+                {
+                    name: 'Edit Profile',
                     imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
                 },
                 {
@@ -128,11 +132,11 @@ class BarberHome extends Component {
     }
 
     _renderItems = (item) => {
-        const { onItemPress, onAboutUs, onContactUs } = this.props;
+        const { onItemPress, onAboutUs, onContactUs,onEditProfile } = this.props;
         return (
             <>
                 <TouchableOpacity
-                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : Alert.alert("Atention", "This screen is under Development") }} style={styles.upperListItemContainer}>
+                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "Edit Profile" ? onEditProfile() : Alert.alert("Atention", "This screen is under Development") }} style={styles.upperListItemContainer}>
                     <ImageBackground source={{ uri: `${item.imageUrl}` }}
                         style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }}>
                         <View style={styles.upperListTitleContainer}>
@@ -205,7 +209,8 @@ class BarberHome extends Component {
             <>
                 <View style={styles.container}>
                     <View style={styles.nameContainer}>
-                        <Text style={styles.appNameTextStyle} >Fleek</Text>
+                        {/* <Text style={styles.appNameTextStyle} >Fleek</Text> */}
+                        <Image source={require('../../../assets/images/logo.png')} resizeMode='contain' style={styles.logoStyle} />
                         {<TouchableOpacity style={styles.exitContainer} onPress={onExit}>
                             <Icon.Feather name="log-out" color="#fff" size={25} />
                         </TouchableOpacity>}

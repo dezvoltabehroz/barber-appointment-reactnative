@@ -124,6 +124,10 @@ export default StyleSheet.create({
         padding: 10,
         justifyContent: "center",
         alignItems: "center"
+    },
+    logoStyle:{
+        height:40,
+        width:60
     }
 
 })
