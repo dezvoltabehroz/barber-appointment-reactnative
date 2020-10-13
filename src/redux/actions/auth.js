@@ -87,6 +87,7 @@ const sendVerificationCode = (number, navigate) => {
                             switch (phoneAuthSnapshot.state) {
                                 case auth.PhoneAuthState.CODE_SENT:
                                     dispatch({ type: SEND_CODE_TO_USER_PHONENUMBER_SUCCESS, userData: { phone: number }, loading: !loading })
+                                    AsyncStorage.setItem('Phone', JSON.stringify(number))
                                     navigate('PhoneVerification', { verificationId: phoneAuthSnapshot.verificationId })
                                     break;
                                 case auth.PhoneAuthState.ERROR: // or 'error'
@@ -100,7 +101,7 @@ const sendVerificationCode = (number, navigate) => {
                                 //     navigate('PhoneVerification', { verificationId: phoneAuthSnapshot.verificationId })
                                 //     break;
                                 case auth.PhoneAuthState.AUTO_VERIFIED: // or 'error'
-                                    console.log('verified', phoneAuthSnapshot)
+                                    // console.log('verified', phoneAuthSnapshot)
                                     if (phoneAuthSnapshot.code == null && phoneAuthSnapshot.verificationId == null) {
                                         Alert.alert('Phone number is already in use');
                                         dispatch({ type: LOADING_SUCCESS, loading: !loading })
@@ -275,9 +276,8 @@ const UpdateEmailAddressandToken = (userData, navigate) => {
                     RegisterUser.userLogin(userData)
                         .then(responseData => {
                             if (responseData.data.status) {
-                                dispatch({
-                                    type: USER_LOGIN_SUCCESS, userData: responseData.data.userData[0], loading: loading
-                                })
+                                AsyncStorage.removeItem('Phone');
+                                dispatch({ type: USER_LOGIN_SUCCESS, userData: responseData.data.userData[0], loading: loading })
                                 dispatch(getUserProfile(responseData.data.userData[0], navigate))
                             }
                             else {

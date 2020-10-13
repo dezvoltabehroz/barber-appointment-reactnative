@@ -16,10 +16,10 @@ class EditAddressScreen extends Component {
 
 
     handleUpdateAddress = async (data) => {
-        const { push, goBack } = this.props.navigation
+        const { replace, goBack } = this.props.navigation
         let userData = data;
         userData = { ...userData, token: this.props.user.userData.token };
-        await this.props.userAddressActions.editAddress(userData, push);
+        await this.props.userAddressActions.editAddress(userData, replace);
         // await this.props.userAddressActions.allAddresses(data)
     }
 

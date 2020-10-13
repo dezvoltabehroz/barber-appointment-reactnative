@@ -188,7 +188,8 @@ class Home extends Component {
                         />
                     }>
                         <View style={styles.nameContainer}>
-                            <Text style={styles.appNameTextStyle}>Fleek</Text>
+                            {/* <Text style={styles.appNameTextStyle}>Fleek</Text> */}
+                            <Image source={require('../../../assets/images/logo.png')} resizeMode='contain' style={styles.logoStyle} />
                             {
                                 isUserLogedIn ?
                                     <>

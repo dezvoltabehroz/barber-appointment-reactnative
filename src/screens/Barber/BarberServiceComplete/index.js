@@ -4,7 +4,7 @@ import styles from './style';
 import { FooterButton, Icon, MessageInput } from '../../../components';
 import THEME from '../../../assets/styles/theme.style';
 import StarRating from 'react-native-star-rating';
-import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 export default class BarberServiceComplete extends Component {
     constructor(props) {
         super(props);
@@ -35,7 +35,7 @@ export default class BarberServiceComplete extends Component {
         let { onHome } = this.props
         const { starCount, isFeedbackFocus, feedback } = this.state;
         return (
-            <KeyboardAwareView>
+            <KeyboardAwareScrollView>
 
                 <View style={styles.container}>
                     <View style={styles.upperContainer}>
@@ -72,7 +72,7 @@ export default class BarberServiceComplete extends Component {
                     </View>
                     <FooterButton title='Done' onPress={onHome} />
                 </View>
-            </KeyboardAwareView>
+            </KeyboardAwareScrollView>
         )
     }
 }

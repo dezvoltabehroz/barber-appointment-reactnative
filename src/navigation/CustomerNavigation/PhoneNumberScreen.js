@@ -18,8 +18,8 @@ class PhoneNumberScreen extends Component {
     })
 
     handleSendVerification = (number) => {
-        const { navigate } = this.props.navigation
-        this.props.authActions.sendVerificationCode(number, navigate)
+        const { replace } = this.props.navigation
+        this.props.authActions.sendVerificationCode(number, replace)
         // navigate('EmailandPassword');
     }
 

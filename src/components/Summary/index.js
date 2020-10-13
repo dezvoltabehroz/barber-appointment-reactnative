@@ -22,13 +22,14 @@ class Summary extends Component {
     }
 
     _renderItems = ({ index, item }) => {
+        console.log(item.quantiy)
         const { onChangePress } = this.props;
         return (
             <>
                 <View style={styles.lineStyle}></View>
                 <View style={styles.rowContainer}>
                     <View style={styles.columnChange}>
-                        <Text style={styles.textStyle}>{item.serviceName}({item.quantiy})</Text>
+                        <Text style={styles.textStyle}>{item.serviceName } {item.quantity=='1'?'':`(${item.quantity})`}</Text>
                     </View>
                     <View style={styles.column} >
                         <Text style={styles.textStyle}>{item.serviceEstTime}</Text>

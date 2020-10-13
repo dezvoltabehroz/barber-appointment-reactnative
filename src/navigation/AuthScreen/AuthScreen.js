@@ -122,8 +122,8 @@ class AuthScreen extends Component {
     }
 
     handleLogin = async (userData) => {
-        const { navigate } = this.props.navigation
-        await this.props.authActions.userLogin(userData, navigate);
+        const { replace } = this.props.navigation
+        await this.props.authActions.userLogin(userData, replace);
         this.setState({ submit: false })
     }
 
@@ -136,7 +136,7 @@ class AuthScreen extends Component {
                 loading={this.props?.user?.loading}
                 onLogin={(userData) => this.handleLogin(userData)}
                 onPhone={() => customer ?
-                    navigate('Register', {
+                    replace('Register', {
                         screen: 'PhoneNumber',
                     })
                     :

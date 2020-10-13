@@ -20,7 +20,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         paddingLeft: 10,
         paddingRight: 10,
-    
+
     },
     upperListImageStyle: {
         height: 80,
@@ -126,6 +126,8 @@ export default StyleSheet.create({
         paddingLeft: '10%',
         borderBottomRightRadius: 10,
         borderBottomLeftRadius: 10
+    }, logoStyle: {
+        height: 40, width: 60
     }
 
 

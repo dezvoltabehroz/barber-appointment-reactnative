@@ -15,7 +15,7 @@ import {
 } from "react-native";
 import THEME from '../../../assets/styles/theme.style';
 import styles from './style';
-import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { GiftedChat, GiftedAvatar, Bubble, InputToolbar, Composer, Send } from 'react-native-gifted-chat'
 import firebaseApp from './/../../../services/ChatFireBase'
 
@@ -272,7 +272,7 @@ export default class BarberChat extends Component {
                     renderBubble={this._renderBubble}
                     renderAvatar={this._renderAvatar}
                     renderInputToolbar={props => (
-                        <KeyboardAwareView>
+                        <KeyboardAwareScrollView>
                             <InputToolbar
                                 {...props}
                                 containerStyle={{
@@ -289,7 +289,7 @@ export default class BarberChat extends Component {
                                             paddingTop: '5%'
                                         }} />
                                     )} />
-                        </KeyboardAwareView>)}
+                        </KeyboardAwareScrollView>)}
                     // renderInputToolbar={this._renderInputToolbar}
                     showUserAvatar={true}
                     showAvatarForEveryMessage={true}

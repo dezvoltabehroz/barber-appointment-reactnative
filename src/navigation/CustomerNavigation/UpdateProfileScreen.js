@@ -5,15 +5,19 @@ import { MainScreenPaths } from '../../screens';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../redux/actions/auth';
+import AsyncStorage from '@react-native-community/async-storage';
+
 class UpdateProfileScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })
     handleNext = async (userData) => {
-        let phone = this.props?.user?.phone
+        let number = await AsyncStorage.getItem('Phone');
+        let phoneNumber = JSON.parse(number)
+        console.log(phoneNumber)
         let data = userData;
-        const { navigate } = this.props.navigation
-        await this.props.authActions.UpdateProfileInfo(data, phone, navigate);
+        const { replace } = this.props.navigation
+        await this.props.authActions.UpdateProfileInfo(data, phoneNumber, replace);
         // navigate('AddYourAddress');
     }
     render() {

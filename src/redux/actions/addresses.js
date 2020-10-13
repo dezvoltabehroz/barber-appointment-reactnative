@@ -71,7 +71,7 @@ const editAddress = (userData, navigate) => {
             .then(response => {
                 if (response.data.status) {
                     dispatch({ type: USER_EDIT_ADDRESS_SUCCESS, loading: !loading })
-                    navigate('Customer', { screen: 'MyAddresses' })
+                    navigate('Customer', { screen: 'Home' })
                 }
                 else {
                     Alert.alert(response.data.message)

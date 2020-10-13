@@ -113,13 +113,16 @@ function CustomerRoutes() {
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Barber Profile</Text></View>),
                 headerTitleAlign: 'center',
             }} />
-            <Stack.Screen name="Booking" component={BookingScreen} options={{
-                headerBackTitleVisible: false,
-                headerTintColor: 'white',
-                headerTransparent: true,
-                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Book an appointment</Text></View>),
-                headerTitleAlign: 'center',
-            }} />
+            <Stack.Screen name="Booking" component={BookingScreen}
+                options={({ navigation, route }) => ({
+                    headerBackTitleVisible: false,
+                    headerTintColor: 'white',
+                    headerTransparent: true,
+                    headerRight: () => (<TouchableOpacity onPress={() => navigation.replace('Home')} style={{ marginRight: 10 }}><Text style={styles.headerRightTitleStyle}>Cancel</Text></TouchableOpacity>),
+                    headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Book an appointment</Text></View>),
+                    headerTitleAlign: 'center',
+                })}
+            />
         </Stack.Navigator>
     );
 }
@@ -130,6 +133,11 @@ export default CustomerRoutes;
 const styles = StyleSheet.create({
     headerTitleStyle: {
         fontSize: 16,
+        color: "#fff",
+        fontFamily: 'Poppins-Bold'
+    },
+    headerRightTitleStyle: {
+        fontSize: 10,
         color: "#fff",
         fontFamily: 'Poppins-Bold'
     }

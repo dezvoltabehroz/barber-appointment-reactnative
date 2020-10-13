@@ -29,7 +29,7 @@ export default StyleSheet.create({
         paddingLeft: 10,
         marginTop: 10,
         borderWidth: 0,
-        fontFamily: 'Poppins-Medium', height: 100
+        fontFamily: 'Poppins-Medium', height: 80
     },
     phoneinputStyle: {
         fontSize: 14,

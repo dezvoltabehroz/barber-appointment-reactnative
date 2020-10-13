@@ -6,6 +6,7 @@ import styles from './style';
 import COMMON_STYLE from '../../../assets/styles/common.style';
 import { connect } from 'react-redux';
 import DeviceInfo from 'react-native-device-info';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class EmailandPassword extends Component {
     constructor(props) {
@@ -35,9 +36,12 @@ class EmailandPassword extends Component {
         });
     }
 
-    handleNext = () => {
+    handleNext = async () => {
+        
         let { email, password, confirmPassword, submit, macAddress } = this.state
         const { onUpdate } = this.props;
+        const number = await AsyncStorage.getItem('Phone');
+        let phoneNumber = JSON.parse(number)
         if (this.isEmailValid(email)) {
             if (password.length < 8) {
                 return Alert.alert('Password must be 8 character', '', [{ text: 'OK' },])
@@ -50,7 +54,8 @@ class EmailandPassword extends Component {
                     email: email,
                     password: password,
                     macAddress: macAddress,
-                    phone: this.props.phone
+                    // phone: this.props.phone
+                    phone:phoneNumber
                 }
                 onUpdate(userData);
             }

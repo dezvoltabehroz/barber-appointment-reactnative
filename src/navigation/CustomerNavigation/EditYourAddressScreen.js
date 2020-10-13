@@ -22,10 +22,10 @@ class EditYourAddressScreen extends Component {
     }
 
     handleSaveNewAddress = async (userData) => {
-        const { push, goBack } = this.props.navigation
+        const { replace, goBack } = this.props.navigation
         let data = { ...userData };
         data = { ...data, id: this.props.user.userData.id, token: this.props.user.userData.token };
-        await this.props.userAddressActions.addNewAddress(data, push);
+        await this.props.userAddressActions.addNewAddress(data, replace);
         // await this.props.userAddressActions.allAddresses(data)
     }
 

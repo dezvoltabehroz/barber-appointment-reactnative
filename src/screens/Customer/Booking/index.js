@@ -130,6 +130,7 @@ export default class Booking extends Component {
 
     handleSelectedServices = (data) => {
         this.setState({ selectedServices: data, });
+        console.log(this.state.selectedServices);
     }
 
     handleServices = (services) => {

@@ -8,7 +8,7 @@ import Geocoder from 'react-native-geocoder';
 import MapView, { PROVIDER_GOOGLE, Marker, AnimatedRegion } from 'react-native-maps';
 import { Button, FloatingInput, MessageInput, FooterButton } from "../../../components";
 import COMMON_STYLE from '../../../assets/styles/common.style';
-import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 class EditAddress extends Component {
     constructor(props) {
         super(props);
@@ -129,117 +129,115 @@ class EditAddress extends Component {
 
         return (
             <View style={styles.container}>
-                <KeyboardAwareView>
-
-                    <View style={styles.upperContainer}>
-                        <ScrollView>
 
 
-                            <MapView
-                                provider={PROVIDER_GOOGLE}
-                                showsUserLocation={true}
-                                loadingEnabled
-                                followUserLocation={true}
-                                zoomEnabled={true}
-                                showsMyLocationButton={true}
-                                style={styles.mapStyle}
-                                customMapStyle={THEME.mapStyle}
-                                ref={ref => (this.mapView = ref)}
-                                region={this.state.region}
-                                // onRegionChangeComplete={updateProfile ? this.onRegionChange : () => { }}
-                                // onRegionChange={onRegionChange}
-                                // onPanDrag={onPanDrag}
-                                onMapReady={() => {
-                                    this.mapView.animateToRegion(this.state.region, 2000);
-                                }}>
-                                <Marker.Animated
-                                    ref={marker => {
-                                        this.marker = marker;
-                                    }}
-                                    onDragEnd={(e) => this.handleDragFuntion(e)}
-                                    draggable
-                                    opacity={0.5}
-                                    style={{ width: 20, height: 20 }}
-                                    coordinate={new AnimatedRegion({
-                                        latitude: parseFloat(this.state.region.latitude),
-                                        longitude: parseFloat(this.state.region.longitude),
-                                        latitudeDelta: this.state.region.latitudeDelta,
-                                        longitudeDelta: this.state.region.longitudeDelta,
-                                    })}
-                                ></Marker.Animated>
-                            </MapView>
-                            <View>
-                                <View style={styles.addressContainer}>
-                                    <View style={styles.rowContainer}>
-                                        <View style={styles.imageContainer}>
-                                            <Image source={require('../../../assets/images/avatar.png')} style={{ height: 35, width: 35 }} />
-                                            <View style={styles.addressTextContainer}>
-                                                <Text style={styles.addressTextStyle}>{this.state.address}</Text>
-                                                <Text style={styles.addressTextStyle1}>{this.state.address}</Text>
-                                            </View>
+                <View style={styles.upperContainer}>
+                    <KeyboardAwareScrollView>
+                        <MapView
+                            provider={PROVIDER_GOOGLE}
+                            showsUserLocation={true}
+                            loadingEnabled
+                            followUserLocation={true}
+                            zoomEnabled={true}
+                            showsMyLocationButton={true}
+                            style={styles.mapStyle}
+                            customMapStyle={THEME.mapStyle}
+                            ref={ref => (this.mapView = ref)}
+                            region={this.state.region}
+                            // onRegionChangeComplete={updateProfile ? this.onRegionChange : () => { }}
+                            // onRegionChange={onRegionChange}
+                            // onPanDrag={onPanDrag}
+                            onMapReady={() => {
+                                this.mapView.animateToRegion(this.state.region, 2000);
+                            }}>
+                            <Marker.Animated
+                                ref={marker => {
+                                    this.marker = marker;
+                                }}
+                                onDragEnd={(e) => this.handleDragFuntion(e)}
+                                draggable
+                                opacity={0.5}
+                                style={{ width: 20, height: 20 }}
+                                coordinate={new AnimatedRegion({
+                                    latitude: parseFloat(this.state.region.latitude),
+                                    longitude: parseFloat(this.state.region.longitude),
+                                    latitudeDelta: this.state.region.latitudeDelta,
+                                    longitudeDelta: this.state.region.longitudeDelta,
+                                })}
+                            ></Marker.Animated>
+                        </MapView>
+                        <View>
+                            <View style={styles.addressContainer}>
+                                <View style={styles.rowContainer}>
+                                    <View style={styles.imageContainer}>
+                                        <Image source={require('../../../assets/images/avatar.png')} style={{ height: 35, width: 35 }} />
+                                        <View style={styles.addressTextContainer}>
+                                            <Text style={styles.addressTextStyle}>{this.state.address}</Text>
+                                            <Text style={styles.addressTextStyle1}>{this.state.address}</Text>
                                         </View>
-                                        <TouchableOpacity onPress={() => this.props.onEdit()} style={styles.editContainer}>
-                                            <Text style={styles.addressTextStyle}>Edit</Text>
-                                        </TouchableOpacity>
                                     </View>
-                                </View>
-                                <View style={styles.buttonContainer}>
-                                    <View style={[styles.inputContainerStyle, submit ? { marginBottom: "6%" } : styles.inputContainerStyle,
-                                    isSubjectFocus || floor_unit != '' ? THEME.inputBorder : {}]}>
-                                        <FloatingInput
-                                            label={"Floor/Unit"}
-                                            val={floor_unit}
-                                            onActive={() => this.setState({ isSubjectFocus: true, })}
-                                            onInActive={() => this.setState({ isSubjectFocus: false, submit: true })}
-                                            updateText={(floor_unit) => this.setState({ floor_unit })} />
-                                        {
-                                            submit && !floor_unit ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
-                                        }
-                                    </View>
-
-                                    <View style={[styles.messageContainerStyle,
-                                    isMessageFocus || message != '' ? THEME.inputBorder : {}]}>
-                                        <MessageInput
-                                            label={"(Optional Note)"}
-                                            val={message}
-                                            multiline={true}
-                                            onActive={() => this.setState({ isMessageFocus: true })}
-                                            onInActive={() => this.setState({ isMessageFocus: false })}
-                                            updateText={(message) => this.setState({ message })} />
-                                    </View>
-                                </View>
-                                <View style={{ marginHorizontal: '5%' }}>
-                                    <Text style={styles.labelHeading}>Label as</Text>
-                                </View>
-                                <View style={styles.labelRowContainer}>
-                                    {
-                                        labels.map((item, index) => {
-                                            return (
-                                                <TouchableOpacity key={index} onPress={() => this.handlePressLabel(index)} style={[styles.labelButtonContainer,
-                                                item.selected ? styles.selectedButton : styles.nonSelectedButton]}>
-                                                    <Text style={{ fontFamily: 'Poppins-Medium', color: item.selected ? THEME.PRIMARY_COLOR : THEME.COLOR_GREY }}>{item.label}</Text>
-                                                </TouchableOpacity>
-                                            )
-                                        })
-                                    }
-                                </View>
-                                <View style={{ marginHorizontal: '5%' }}>
-                                    {
-                                        submit && !label ? <Text style={COMMON_STYLE.errorText}>Please select the label</Text> : null
-                                    }
+                                    <TouchableOpacity onPress={() => this.props.onEdit()} style={styles.editContainer}>
+                                        <Text style={styles.addressTextStyle}>Edit</Text>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
+                            <View style={styles.buttonContainer}>
+                                <View style={[styles.inputContainerStyle, submit ? { marginBottom: "6%" } : styles.inputContainerStyle,
+                                isSubjectFocus || floor_unit != '' ? THEME.inputBorder : {}]}>
+                                    <FloatingInput
+                                        label={"Floor/Unit"}
+                                        val={floor_unit}
+                                        onActive={() => this.setState({ isSubjectFocus: true, })}
+                                        onInActive={() => this.setState({ isSubjectFocus: false, submit: true })}
+                                        updateText={(floor_unit) => this.setState({ floor_unit })} />
+                                    {
+                                        submit && !floor_unit ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
+                                    }
+                                </View>
 
-                        </ScrollView>
-                    </View>
-                    <View style={styles.footerStyle}>
-                        <View style={styles.lineStyle}></View>
-                        <View style={styles.gapHeight}></View>
-                        <View style={styles.buttonContainerStyle}>
-                            <Button loading={this.props.loading} title="Save & Continue" onPress={this.handleSaveAndContinue} />
+                                <View style={[styles.inputContainerStyle, { height: 74 },
+                                isMessageFocus || message != '' ? THEME.inputBorder : {}]}>
+                                    <FloatingInput
+                                        label={"(Optional Note)"}
+                                        val={message}
+                                        // multiline={true}
+                                        onActive={() => this.setState({ isMessageFocus: true })}
+                                        onInActive={() => this.setState({ isMessageFocus: false })}
+                                        updateText={(message) => this.setState({ message })} />
+                                </View>
+                            </View>
+                            <View style={{ marginHorizontal: '5%' }}>
+                                <Text style={styles.labelHeading}>Label as</Text>
+                            </View>
+                            <View style={styles.labelRowContainer}>
+                                {
+                                    labels.map((item, index) => {
+                                        return (
+                                            <TouchableOpacity key={index} onPress={() => this.handlePressLabel(index)} style={[styles.labelButtonContainer,
+                                            item.selected ? styles.selectedButton : styles.nonSelectedButton]}>
+                                                <Text style={{ fontFamily: 'Poppins-Medium', color: item.selected ? THEME.PRIMARY_COLOR : THEME.COLOR_GREY }}>{item.label}</Text>
+                                            </TouchableOpacity>
+                                        )
+                                    })
+                                }
+                            </View>
+                            <View style={{ marginHorizontal: '5%' }}>
+                                {
+                                    submit && !label ? <Text style={COMMON_STYLE.errorText}>Please select the label</Text> : null
+                                }
+                            </View>
                         </View>
+
+                    </KeyboardAwareScrollView>
+                </View>
+                <View style={styles.footerStyle}>
+                    <View style={styles.lineStyle}></View>
+                    <View style={styles.gapHeight}></View>
+                    <View style={styles.buttonContainerStyle}>
+                        <Button loading={this.props.loading} title="Save & Continue" onPress={this.handleSaveAndContinue} />
                     </View>
-                </KeyboardAwareView>
+                </View>
+
 
             </View>
         )
