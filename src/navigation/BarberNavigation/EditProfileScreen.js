@@ -25,9 +25,11 @@ class EditProfileScreen extends Component {
         const { navigate, goBack } = this.props.navigation
         return (
             <MainScreenPaths.Barber.BarberEditProfile
-                onEditProfile={() =>navigate("EditProfile")}
-                onContactUs={() => navigate("ContactUs")}
-                onAboutUs={() => navigate("AboutUs")}
+                onServices={() =>navigate("PriceandTime")}
+                onPortfolio={() => navigate("Portfolio")}
+                onResume={() => navigate("Resume")}
+                onProfile={()=>navigate('UpdateProfile')}
+                onManageSchedule={()=>navigate('WorkingDays')}
                 onExit={this.handleLogout}
                 onAccept={(data) => this.on_Press_Accept(data)} />
         )

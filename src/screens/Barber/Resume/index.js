@@ -280,7 +280,7 @@ export default class Resume extends Component {
                             </View>
                         </ScrollView>
                     </View>
-                    <FooterButton title='Next' onPress={onNext} />
+                    <FooterButton title='Save & Continue' onPress={onNext} />
                 </View>
             </>
         );

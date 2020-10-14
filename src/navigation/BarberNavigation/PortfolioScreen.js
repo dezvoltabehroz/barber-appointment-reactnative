@@ -11,7 +11,7 @@ export default class PortfolioScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Barber.BarberPortfolio onNext={() => navigate('Services')} />
+            <MainScreenPaths.Barber.BarberPortfolio onNext={() => goBack()} />
         )
     }
 }

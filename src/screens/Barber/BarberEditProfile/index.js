@@ -97,16 +97,15 @@ class BarberEditProfile extends Component {
             <>
                 <View style={styles.container}>
 
-                    <View style={{ flex: 0.3, marginTop: '15%', marginHorizontal: '5%' }}>
+                    <View style={{ marginTop: '15%', marginHorizontal: '5%' }}>
 
                         <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
                             <Avatar
                                 avatarStyle={styles.avatarStyle}
                                 source={{ uri: filePath.uri }}
                                 rounded
-                                accessory={{ name: 'ios-camera', type: 'ionicon', color: '#fff', underlayColor: '#000', size: 30, iconStyle: { fontSize: 20 } }}
-                                showAccessory={true}
-                                // showEditButton
+                                accessory={{ name: 'ios-camera', type: 'ionicon', color: '#fff', underlayColor: '#000', iconStyle: { fontSize: 20 } }}
+                                // showAccessory={true}
                                 onAccessoryPress={this.chooseFile}
                                 size={120} />
                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -114,30 +113,42 @@ class BarberEditProfile extends Component {
                             </View>
                         </View>
                     </View>
-                    <View style={{  marginTop: '20%' }}>
-                        <ProfileCard
-                            icon={"ios-person"}
-                            heading={'PROFILE'}
-                            description={'Where all of your personal details are stored and can be easily updated.'}
-                            onPress={() => {
+                    <ScrollView>
 
-                            }}
-                        />
-                        <ProfileCard
-                            icon={"ios-images"}
-                            heading={'PORTFOLIO'}
-                            description={'A collection of your uploaded photos and media recordings.'}
-                            onPress={() => {
+                        <View style={{ marginTop: '5%' }}>
+                            <ProfileCard
+                                icon={"ios-person"}
+                                heading={'PROFILE'}
+                                description={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}
+                                onPress={() => this.props.onProfile()}
+                            />
+                            <ProfileCard
+                                icon={"ios-images"}
+                                heading={'PORTFOLIO'}
+                                description={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}
+                                onPress={() => this.props.onPortfolio()}
+                            />
+                            <ProfileCard
+                                icon={"ios-settings"}
+                                heading={'SERVICES'}
+                                description={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}
+                                onPress={() => this.props.onServices()}
+                            />
+                            <ProfileCard
+                                icon={"drivers-license"}
+                                heading={'LICENCE/CERTIFICATE'}
+                                description={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}
+                                onPress={() => this.props.onResume()}
+                            />
+                            <ProfileCard
+                                icon={"clock-o"}
+                                heading={'MANAGE SCHEDULE'}
+                                description={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}
+                                onPress={() => this.props.onManageSchedule()}
+                            />
+                        </View>
+                    </ScrollView>
 
-                            }}
-                        />
-                        <ProfileCard
-                            icon={"ios-settings"}
-                            heading={'SERVICES'}
-                            description={'A list of your services where you can add new service and update the exsisting one.'}
-                            onPress={() => { }}
-                        />
-                    </View>
                     {/* <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 30 }}> */}
 
                     {/* <ProfileCard
@@ -160,7 +171,6 @@ class BarberEditProfile extends Component {
                             description={'Interact with family, learn about your ancestors and build your legacy.'}
                             onPress={() => { navigation.navigate('FamilyTree') }}
                         /> */}
-                    {/* </ScrollView> */}
                     {/* <View style={{
                             flex: 0.4,
                             marginTop: '5%',

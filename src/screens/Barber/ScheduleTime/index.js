@@ -212,7 +212,7 @@ export default class ScheduleTime extends Component {
                             renderItem={({ item, index }) => this._renderItems({ item, index })}
                             keyExtractor={item => item} />
                     </View>
-                    <FooterButton title='Next' onPress={this.on_Press_Next} />
+                    <FooterButton title='Save & Continue' onPress={this.on_Press_Next} />
                 </View>
                 <DateTimeModal showTimePicker={showTimePicker}
                     dayNight={true}

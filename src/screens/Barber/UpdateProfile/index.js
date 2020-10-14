@@ -9,7 +9,7 @@ import RangeSlider from 'rn-range-slider';
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoder';
 import { connect } from 'react-redux';
-
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 class UpdateProfile extends Component {
     constructor(props) {
         super(props);
@@ -23,13 +23,15 @@ class UpdateProfile extends Component {
             profile_Url: '',
             dateValue: new Date(),
             data: "HI HOW are you",
-            avatar: null, location: '',
+            avatar: require('../../../assets/images/avatar.png'),
+            location: '',
             date: '',
             minDistance: 5,
             maxDistance: 50,
             showDatePicker: false,
             submit: false,
-            modalView: false
+            modalView: false,
+            filePath: { uri: 'https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Bearded_Man-17-512.png' },
         };
     }
 
@@ -69,7 +71,7 @@ class UpdateProfile extends Component {
             } else {
                 let source = response;
                 this.setState({
-                    avatar: source,
+                    filePath: source,
                 });
             }
         });
@@ -99,9 +101,31 @@ class UpdateProfile extends Component {
             this.setState({ location })
     }
 
+    hideDatePicker = () => {
+        this.setState({ showDatePicker: !this.state.showDatePicker });
+    };
+
+    handleConfirm = (selectedDate) => {
+        var date = selectedDate.getDate() < 10 ? "0" + selectedDate.getDate() : selectedDate.getDate();
+        date += "/";
+        date += (selectedDate.getMonth() + 1) < 10 ? "0" + (selectedDate.getMonth() + 1) : (selectedDate.getMonth() + 1);
+        date += "/";
+        date += (selectedDate.getYear() + 1900);
+        var dob = (selectedDate.getYear() + 1900);
+        dob += "-";
+        dob += (selectedDate.getMonth() + 1) < 10 ? "0" + (selectedDate.getMonth() + 1) : (selectedDate.getMonth() + 1);
+        dob += "-";
+        dob += selectedDate.getDate() < 10 ? "0" + selectedDate.getDate() : selectedDate.getDate();
+        this.setState({
+            date,
+            dob
+        })
+        this.hideDatePicker();
+    };
+
     render() {
         const { onNext } = this.props;
-        const { isNameFocus, name, isLocationFocus, location, date, showDatePicker, maxDistance, minDistance, modalView } = this.state;
+        const { isNameFocus, name, isLocationFocus, location, date, showDatePicker, maxDistance, minDistance, modalView, filePath } = this.state;
 
         return (
 
@@ -113,12 +137,15 @@ class UpdateProfile extends Component {
                                 <View style={styles.avatarContainer}>
                                     <Avatar
                                         avatarStyle={styles.avatarStyle}
-                                        source={this.state.avatar ? this.state.avatar : require('../../../assets/images/avatar.png')}
+                                        source={{ uri: filePath.uri }}
                                         rounded
+                                        accessory={{ name: 'ios-camera', type: 'ionicon', color: '#fff', underlayColor: '#000', iconStyle: { fontSize: 20 } }}
+                                        showAccessory={true}
+                                        onAccessoryPress={this.chooseFile}
                                         size={120} />
-                                    <TouchableOpacity onPress={this.chooseFile}>
+                                    {/* <TouchableOpacity onPress={this.chooseFile}>
                                         <Text style={styles.profileTextStyle}>Choose Profile Photo</Text>
-                                    </TouchableOpacity>
+                                    </TouchableOpacity> */}
                                 </View>
 
                             </ImageBackground>
@@ -144,7 +171,7 @@ class UpdateProfile extends Component {
                                         <Text style={[styles.dateTextStyle, date ? { color: THEME.COLOR_BLACK } : {}]}>{date && date != "" ? date : "Date of Birth"}</Text>
                                     </View>
                                 </TouchableOpacity>
-                                {showDatePicker ?
+                                {/* {showDatePicker ?
                                     <>
                                         <View>
                                             <DateTime
@@ -157,17 +184,24 @@ class UpdateProfile extends Component {
                                                     <Button title='Save' onPress={() => this.setState({ showDatePicker: false })} />
                                                 </View> : null
                                         }
-                                    </> : null}
+                                    </> : null} */}
+                                <DateTimePickerModal
+                                    isVisible={this.state.showDatePicker}
+                                    mode="date"
+                                    minimumDate={new Date(1950, 0, 1)}
+                                    onConfirm={this.handleConfirm}
+                                    onCancel={this.hideDatePicker}
+                                />
                             </View>
-                            <View style={[styles.inputLocationContainerStyle,
+                            <View style={[styles.inputContainerStyle, { marginBottom: '2%' },
                             isLocationFocus || location != '' ? THEME.inputBorder : {}]}>
                                 <FloatingInput val={location}
                                     onInActive={() => this.setState({ isLocationFocus: false })}
                                     onActive={() => this.setState({ isLocationFocus: true })}
-                                    label='Your Location' iconInput val={this.state.location} />
-                                <TouchableOpacity onPress={() => this.setState({ modalView: true })}>
+                                    label='Your Location' val={this.state.location} />
+                                {/* <TouchableOpacity onPress={() => this.setState({ modalView: true })}>
                                     <Icon.SimpleLineIcons name='location-pin' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
-                                </TouchableOpacity>
+                                </TouchableOpacity> */}
                             </View>
                             <View style={styles.distanceContainerStyle}>
                                 <View style={styles.distanceHeadingContainer}>
@@ -195,7 +229,7 @@ class UpdateProfile extends Component {
                         </View>
                     </ScrollView>
                 </View>
-                <FooterButton title='Next' onPress={onNext} />
+                <FooterButton title='Update Profile' onPress={onNext} />
                 <Modal visible={modalView}>
                     <View style={styles.modalContainer}>
                         <View>

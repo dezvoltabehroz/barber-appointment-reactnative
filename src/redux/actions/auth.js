@@ -30,7 +30,6 @@ const setUserProfile = (userData) => {
 };
 
 const getUserProfile = (userData, navigate) => {
-    console.log(navigate)
     return (dispatch) => {
         let loading = true;
         if (loading) {

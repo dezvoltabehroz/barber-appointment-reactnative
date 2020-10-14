@@ -15,7 +15,7 @@ export default class ScheduleTimeScreen extends Component {
         return (
             <MainScreenPaths.Barber.BarberScheduleTime
                 data={(itemDays)}
-                onNext={() => navigate("Home")} />
+                onNext={() => navigate('Barber', { screen: 'EditProfile' })} />
         )
     }
 }

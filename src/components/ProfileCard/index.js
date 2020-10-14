@@ -7,7 +7,12 @@ const ProfileCard = ({ heading, description, icon, onPress }) => {
     return (
         <TouchableOpacity activeOpacity={0.8} onPress={onPress} style={styles.dashboardCard}>
             <View style={styles.dashboardCardIconBackground}>
-                <Icon.Ionicons name={icon} color='gray' size={20} />
+                {
+                    icon == "drivers-license" || icon == "clock-o" ?
+                        <Icon.FontAwesome name={icon} color='gray' size={20} />
+                        :
+                        <Icon.Ionicons name={icon} color='gray' size={20} />
+                }
             </View>
             <View style={{ flex: 1, marginLeft: 10 }}>
                 <Text

@@ -9,10 +9,9 @@ export default class PriceAndTimeScreen extends Component {
     })
 
     render() {
-        const { navigate } = this.props.navigation;
-        const { item } = this.props.route.params;
+        const { navigate,goBack } = this.props.navigation;
         return (
-            <MainScreenPaths.Barber.BarberPriceAndTime data={(item)} onNext={() => navigate('WorkingDays')} />
+            <MainScreenPaths.Barber.BarberPriceAndTime  onNext={() => goBack()} />
         )
     }
 }

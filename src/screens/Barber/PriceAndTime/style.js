@@ -111,5 +111,40 @@ export default StyleSheet.create({
     seperatorStyle: {
         height: 15,
     },
+    addServiceContainer: {
+        justifyContent: 'flex-end',
+        top: screenHeight < 600 ? 0 : 25
+    },
+    rowButtonContainer: {
+        width: '46%',
+        paddingHorizontal: '6%'
+    },
+    modalContainer: {
+        flex: 1,
+        height: screenHeight * 1,
+        width: screenWidth * 1,
+        paddingTop: "40%",
+        alignSelf: "center",
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
+    },
+    headingTextStyle: {
+        fontSize: THEME.FONT_SIZE_LARGE,
+        color: THEME.COLOR_WHITE,
+        fontFamily: 'Poppins-Medium'
+    },
+    inputModalContainerStyle: {
+        height: 54,
+        width: screenWidth * 0.8,
+        borderRadius: 5,
+        marginHorizontal: '3%',
+        marginBottom: '5%',
+        backgroundColor: THEME.COLOR_WHITE
+    },
+    modalInputContainer: {
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
+        paddingVertical: '3%',
+        borderRadius: 10,
+        alignItems: "center",
+    },
 
 })

@@ -140,7 +140,7 @@ function BarberRoutes() {
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
-                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Prices and Duration</Text></View>),
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Services</Text></View>),
                 headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="WorkingDays" component={WorkingDaysScreen} options={{

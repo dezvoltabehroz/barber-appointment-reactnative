@@ -47,7 +47,6 @@ const Api = {
     },
 
     getUserProfile: function (userData) {
-        console.log(userData.id)
         return axiosInstance.post('registration/profileDetail', {
             id: userData.id,
         }, {

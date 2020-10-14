@@ -9,7 +9,11 @@ export default StyleSheet.create({
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
         paddingTop: Platform.OS == 'ios' ? '15%' : null
     },
-
+    avatarStyle: {
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 100
+    },
     // Upper Container Style
     upperContainer: {
         flex: 0.8,

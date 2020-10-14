@@ -11,7 +11,7 @@ export default class ResumeScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Barber.BarberResume onNext={()=>navigate('Portfolio')} />
+            <MainScreenPaths.Barber.BarberResume onNext={()=>goBack()} />
         )
     }
 }
