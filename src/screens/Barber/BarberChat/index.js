@@ -272,24 +272,27 @@ export default class BarberChat extends Component {
                     renderBubble={this._renderBubble}
                     renderAvatar={this._renderAvatar}
                     renderInputToolbar={props => (
-                        <KeyboardAwareScrollView>
-                            <InputToolbar
-                                {...props}
-                                containerStyle={{
-                                    backgroundColor: "black",
-                                    borderTopWidth: 0,
-                                    marginTop: '2%'
-                                }}
-                                renderComposer={props1 =>
-                                    (<Composer
-                                        {...props1}
-                                        textInputStyle={{
-                                            color: "white",
-                                            fontFamily: 'Poppins-Regular',
-                                            paddingTop: '5%'
-                                        }} />
-                                    )} />
-                        </KeyboardAwareScrollView>)}
+
+                        <InputToolbar
+                            {...props}
+                            containerStyle={{
+                                backgroundColor: "black",
+                                borderTopWidth: 0,
+                                marginTop: '2%'
+                            }}
+                            renderComposer={props1 =>
+                                (
+                                    <KeyboardAwareScrollView>
+                                        <Composer
+                                            {...props1}
+                                            textInputStyle={{
+                                                color: "white",
+                                                fontFamily: 'Poppins-Regular',
+                                                paddingTop: '5%'
+                                            }} />
+                                    </KeyboardAwareScrollView>
+                                )} />
+                    )}
                     // renderInputToolbar={this._renderInputToolbar}
                     showUserAvatar={true}
                     showAvatarForEveryMessage={true}

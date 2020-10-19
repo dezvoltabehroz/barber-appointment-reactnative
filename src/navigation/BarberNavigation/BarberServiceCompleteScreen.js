@@ -9,9 +9,9 @@ export default class BarberServiceCompleteScreen extends Component {
     })
 
     render() {
-        const { push } = this.props.navigation;
+        const { push,replace } = this.props.navigation;
         return (
-            <MainScreenPaths.Barber.BarberServiceComplete onHome={() => push('Home')} />
+            <MainScreenPaths.Barber.BarberServiceComplete onHome={() => replace('Home')} />
         )
     }
 }

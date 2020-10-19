@@ -35,9 +35,8 @@ export default class BarberServiceComplete extends Component {
         let { onHome } = this.props
         const { starCount, isFeedbackFocus, feedback } = this.state;
         return (
-            <KeyboardAwareScrollView>
-
-                <View style={styles.container}>
+            <View style={styles.container}>
+                <KeyboardAwareScrollView>
                     <View style={styles.upperContainer}>
                         <View style={styles.rowStyle}>
                             <Text style={styles.headingTextStyle1}>Total Amount Paid:</Text>
@@ -70,9 +69,9 @@ export default class BarberServiceComplete extends Component {
                             </View>
                         </View>
                     </View>
-                    <FooterButton title='Done' onPress={onHome} />
-                </View>
-            </KeyboardAwareScrollView>
+                </KeyboardAwareScrollView>
+                <FooterButton title='Done' onPress={()=>this.props.onHome()} />
+            </View>
         )
     }
 }

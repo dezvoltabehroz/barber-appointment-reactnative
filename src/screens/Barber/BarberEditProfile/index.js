@@ -29,6 +29,9 @@ class BarberEditProfile extends Component {
         }
     }
 
+    componentDidMount = () => {
+        console.log(this.props.user)
+    }
 
     chooseFile = () => {
         var options = {
@@ -93,6 +96,7 @@ class BarberEditProfile extends Component {
 
     render() {
         const { filePath } = this.state;
+
         return (
             <>
                 <View style={styles.container}>
@@ -102,14 +106,14 @@ class BarberEditProfile extends Component {
                         <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
                             <Avatar
                                 avatarStyle={styles.avatarStyle}
-                                source={{ uri: filePath.uri }}
+                                source={{ uri: this.props.user.userData ? this.props.user.userData.profile_picture : filePath.uri }}
                                 rounded
                                 accessory={{ name: 'ios-camera', type: 'ionicon', color: '#fff', underlayColor: '#000', iconStyle: { fontSize: 20 } }}
                                 // showAccessory={true}
                                 onAccessoryPress={this.chooseFile}
                                 size={120} />
                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={styles.textStyle}>JOHN DOE</Text>
+                                <Text style={styles.textStyle}>{this.props.user.userData ? this.props.user.userData.full_name:'JOHN DOE'}</Text>
                             </View>
                         </View>
                     </View>
