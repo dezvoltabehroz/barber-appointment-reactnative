@@ -4,6 +4,7 @@ import { Button, FloatingInput, MessageInput } from "../../components";
 import styles from './style';
 import THEME from '../../assets/styles/theme.style';
 import COMMON_STYLE from '../../assets/styles/common.style';
+import { About } from '../../services';
 
 class ContactUs extends Component {
     constructor(props) {
@@ -21,14 +22,27 @@ class ContactUs extends Component {
         }
     }
     handleSubmit = () => {
-        const { onLogin, isSubmit, submit } = this.props
-        let { email, password, submiting } = this.state;
-        isSubmit(submiting);
-        if (email && password && submit) {
-            if (this.isEmailValid(email)) {
-                onLogin();
-                this.setState({ email: '', password: '' })
+        const { onSend } = this.props
+        const { submit } = this.state
+        let { email, name, subject, message } = this.state;
+        if (email && name && subject && message && submit) {
+            let userData = {
+                email: email,
+                name: name,
+                subject: subject,
+                message: message
             }
+            console.log(userData)
+            About.postContactUs(userData)
+                .then((res) => {
+                    if (res.data.status) {
+                        onSend()
+                        this.setState({ name: '', email: '', subject: '', message: '', submit: false })
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
         }
     };
 
@@ -49,7 +63,7 @@ class ContactUs extends Component {
                                     label={"Your Name"}
                                     val={name}
                                     onActive={() => this.setState({ isNameFocus: true })}
-                                    onInActive={() => this.setState({ isNameFocus: false })}
+                                    onInActive={() => this.setState({ isNameFocus: false, submit: true })}
                                     updateText={(name) => this.setState({ name })} />
                                 {
                                     submit && !name ? <Text style={[COMMON_STYLE.errorText, submit ? styles.onSubmitTrue : {}]}>Please fill this field</Text> : null
@@ -85,7 +99,7 @@ class ContactUs extends Component {
                                     submit && !subject ? <Text style={[COMMON_STYLE.errorText, submit ? styles.onSubmitTrue : {}]}>Please fill this field</Text> : null
                                 }
                             </View>
-                            <View style={[styles.messageContainerStyle, submit ? { marginBottom: "8%" } : styles.messageContainerStyle,
+                            <View style={[styles.messageContainerStyle, submit ? { marginBottom: '8%' } : styles.messageContainerStyle,
                             isMessageFocus || message != '' ? THEME.inputBorder : {}]}>
                                 <MessageInput
                                     label={"Please type your message"}
@@ -95,10 +109,11 @@ class ContactUs extends Component {
                                     onInActive={() => this.setState({ isMessageFocus: false })}
                                     updateText={(message) => this.setState({ message })} />
                                 {
-                                    submit && !message ? <Text style={[COMMON_STYLE.errorText, submit ? styles.onSubmitTrue : {}]}>Please fill this field</Text> : null
+                                    submit && !message ? <Text style={[COMMON_STYLE.errorText, submit ? [styles.onSubmitTrue, { marginTop: '6%' }] : {}]}>Please fill this field</Text> : null
                                 }
                             </View>
-                            <Button title="Send" onPress={this.handleLogin} />
+
+                            <Button title="Send" onPress={this.handleSubmit} />
                         </View>
                     </View>
                 </View>

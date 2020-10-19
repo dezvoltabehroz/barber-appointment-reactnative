@@ -33,8 +33,13 @@ class BarberListScreen extends Component {
 
     render() {
         const { navigate, goBack } = this.props.navigation
+        const { search, serviceId } = this.props.route.params;
         return (
-            <MainScreenPaths.Customer.BarberList bookNow={this.handleBookNow} onPress={(data) => navigate('BarberProfile', { data })} />
+            <MainScreenPaths.Customer.BarberList 
+            search={search} 
+            id={serviceId != 'undefined' ? serviceId : null} 
+            bookNow={this.handleBookNow} 
+            onPress={(data) => navigate('BarberProfile', { data })} />
         )
     }
 }

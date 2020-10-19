@@ -46,7 +46,7 @@ class HomeScreen extends Component {
                 onAppointments={() => navigate('Appointments')}
                 // onReferesh={this.componentDidMount}
                 // navigate={push}
-                searchBarber={() => navigate('BarberList')}
+                searchBarber={() => navigate('BarberList',{search:true})}
                 myAddresses={() => navigate('MyAddresses')}
                 addNewAddress={() => navigate('AddYourAddress')}
                 onItemPress={(item) => this.handleItemPress(item)} />

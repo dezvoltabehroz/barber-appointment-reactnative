@@ -9,9 +9,9 @@ export default class ContactUsScreen extends Component {
     })
 
     render() {
-        // const { navigate, goBack } = this.props.navigation
+        const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.ContactUs />
+            <MainScreenPaths.ContactUs onSend={() => goBack()} />
         )
     }
 }

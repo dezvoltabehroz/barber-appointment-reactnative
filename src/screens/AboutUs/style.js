@@ -1,11 +1,12 @@
-import { StyleSheet ,Platform} from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import THEME from '../../assets/styles/theme.style';
 
 export default StyleSheet.create({
     mainView: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' ? "18%" : "12%"
+        paddingTop: Platform.OS == 'ios' ? "18%" : "12%",
+        paddingHorizontal: '5%',
     },
 
     aboutTitleStyle: {

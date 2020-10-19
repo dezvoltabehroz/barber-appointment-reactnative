@@ -33,8 +33,9 @@ class BarberProfileScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         const { data } = this.props.route.params;
+        console.log(data)
         return (
-            <MainScreenPaths.Customer.BarberProfile Auth={() => navigate("Auth")} items={(data)} bookNow={this.handleBookNow} onBarberPress={() => navigate('')} />
+            <MainScreenPaths.Customer.BarberProfile Auth={() => navigate("Auth")} items={data} bookNow={this.handleBookNow} onBarberPress={() => navigate('')} />
         )
     }
 }

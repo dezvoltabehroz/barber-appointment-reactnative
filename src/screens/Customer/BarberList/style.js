@@ -70,10 +70,15 @@ export default StyleSheet.create({
         alignItems: "center"
     },
     daycontainer: {
+        flexWrap:'wrap',
         flexDirection: 'row',
-        width: screenWidth * 0.3
+        width: '100%'
     },
     daysContainer: {
+         height: 25,
+        width: 25,
+        justifyContent:'center',
+        alignItems:'center',
         borderWidth: 1,
         borderColor: '#000',
         borderRadius: 20,

@@ -14,7 +14,7 @@ import { RegisterUser } from '../../services';
 import { Alert, Platform } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { categoryActions } from './category';
-import { userAddressActions } from './addresses';
+import { barberActions } from './barbers';
 import auth from '@react-native-firebase/auth';
 
 const setUserProfile = (userData) => {
@@ -22,7 +22,7 @@ const setUserProfile = (userData) => {
         if (userData) {
             dispatch({ type: USER_LOGIN_SUCCESS, userData: userData, })
             if (userData.type == 'customer') {
-                // dispatch(userAddressActions.allAddresses(userData));
+                dispatch(barberActions.getBarbersList(userData));
                 dispatch(categoryActions.getCategories(userData));
             }
         }
@@ -233,8 +233,33 @@ const UpdateProfileInfo = (userData, phone, navigate) => {
         if (loading) {
             dispatch({ type: LOADING_SUCCESS, loading: loading })
         }
+        // RegisterUser.uploadProfileInfo(userData, phone)
+        //     .then(response => {
+        //        console.log(response.data)
+        //        dispatch({ type: LOADING_SUCCESS, loading: !loading })
+        //         // if (response.data.status) {
+        //         //     dispatch({
+        //         //         type: USER_UPDATE_PROFILE_INFO_SUCCESS, userData: {
+        //         //             name: userData.name,
+        //         //             gender: userData.gender,
+        //         //             dob: userData.dob,
+        //         //             photo: userData.image
+        //         //         },
+        //         //         loading: !loading
+        //         //     })
+        //         //     navigate('AddYourAddress', { editAddress: false });
+        //         // }
+        //         // else {
+        //         //     Alert.alert(response.data.message)
+        //         //     dispatch({ type: LOADING_SUCCESS, loading: !loading })
+        //         // }
+        //     }).catch(error => {
+        //         console.log(error)
+        //         dispatch({ type: LOADING_SUCCESS, loading: !loading })
+        //     })
         RegisterUser.updateProfileInfo(userData, phone)
             .then(response => {
+                dispatch({ type: LOADING_SUCCESS, loading: !loading })
                 if (response.data.status) {
                     dispatch({
                         type: USER_UPDATE_PROFILE_INFO_SUCCESS, userData: {
@@ -253,6 +278,7 @@ const UpdateProfileInfo = (userData, phone, navigate) => {
                 }
             }).catch(error => {
                 console.log(error)
+                dispatch({ type: LOADING_SUCCESS, loading: !loading })
             })
     }
 };

@@ -22,7 +22,7 @@ class UpdateProfile extends Component {
             name: '',
             isNameFocus: false,
             isLocationFocus: false,
-            profile_Url: {},
+            profile_Url: null,
             data: "HI HOW are you",
             avatar: null,
             location: '',
@@ -73,10 +73,11 @@ class UpdateProfile extends Component {
             if (response.didCancel) {
                 // console.log('User cancelled image picker');
             } else {
+                let baseString = "data:image\/jpeg;base64," + response.data
                 let source = response;
                 this.setState({
                     avatar: source,
-                    profile_Url: response
+                    profile_Url: baseString
                 });
             }
         });
@@ -130,7 +131,7 @@ class UpdateProfile extends Component {
 
     render() {
         const { onNext } = this.props;
-        const { isNameFocus, name, submit, date, showDatePicker, gender ,dob} = this.state;
+        const { isNameFocus, name, submit, date, showDatePicker, gender, dob } = this.state;
 
         return (
 
@@ -202,7 +203,7 @@ class UpdateProfile extends Component {
                         </View>
                     </ScrollView>
                 </View>
-                <FooterButton disabled={gender&&name&&dob&&date?false:true} loading={this.props.user.loading} title="Save & Continue" onPress={this.handleNext} />
+                <FooterButton disabled={gender && name && dob && date ? false : true} loading={this.props.user.loading} title="Save & Continue" onPress={this.handleNext} />
             </View>
 
         );

@@ -7,7 +7,7 @@ import Image from 'react-native-fast-image';
 import THEME from '../../assets/styles/theme.style'
 import StarRating from 'react-native-star-rating';
 import { connect } from 'react-redux';
-
+import moment from 'moment';
 class ExpandingView extends Component {
     constructor(props) {
         super(props);
@@ -31,7 +31,8 @@ class ExpandingView extends Component {
             certification: [],
             workingDays: [],
             services: [],
-            reviews: []
+            reviews: [],
+            resume: []
 
         }
         if (Platform.OS === 'android') {
@@ -40,7 +41,7 @@ class ExpandingView extends Component {
     }
 
     componentDidMount = () => {
-        const { portfolio, certification, workingDay, service, rating } = this.props;
+        const { portfolio, certification, workingDay, service, rating, resume } = this.props;
         let portfolioArray = [];
         if (portfolio == null || portfolio.length == 0)
             this.setState({ isPhotoNull: true });
@@ -79,6 +80,11 @@ class ExpandingView extends Component {
             this.setState({ isReviews: true });
         else {
             this.setState({ isReviews: false, reviews: rating });
+        }
+        if (resume == null || resume.length == 0)
+            this.setState({ isResume: true });
+        else {
+            this.setState({ isResume: false, resume: resume });
         }
 
     }
@@ -250,6 +256,8 @@ class ExpandingView extends Component {
     }
 
     _renderItems = ({ item, index }) => {
+        const startTime = item.start_time.split(':');
+        const endTime = item.end_time.split(':')
         return (
             <View style={styles.headingContainer}>
                 <View style={styles.dayContainer}>
@@ -257,12 +265,12 @@ class ExpandingView extends Component {
                 </View>
                 <View style={styles.startTimeContainer} >
                     <View style={styles.priceAndTimeContainer}>
-                        <Text style={styles.textStyle}>{item.startTime}</Text>
+                        <Text style={styles.textStyle}>{moment().utc().hours(startTime[0]).minutes(startTime[1]).format('hh:mm A')}</Text>
                     </View>
                 </View>
                 <View style={styles.endTimeContainer}>
                     <View style={styles.priceAndTimeContainer}>
-                        <Text style={styles.textStyle}>{item.endTime}</Text>
+                        <Text style={styles.textStyle}>{moment().utc().hours(endTime[0]).minutes(endTime[1]).format('hh:mm A')}</Text>
                     </View>
                 </View>
             </View>
@@ -270,16 +278,35 @@ class ExpandingView extends Component {
     }
 
     _renderServicesItems = ({ item, index }) => {
+        const time = item.time_duration.split(':')
+        const hours = parseInt(time[0])
+        const minutes = parseInt(time[1])
+        const timeInHour = moment.utc().hours(hours).minutes(minutes).format("HH:mm")
         return (
             <View style={styles.headingContainer}>
                 <View style={styles.nameContainer}>
-                    <Text style={styles.textStyle}>{item.serviceName}</Text>
+                    <Text style={styles.textStyle}>{item.service_name ? item.service_name : ''}</Text>
                 </View>
                 <View style={styles.priceContainer} >
-                    <Text style={styles.textStyle}>{item.serviceCost}</Text>
+                    <Text style={styles.textStyle}>{item.price ? item.price + '$' : ''}</Text>
                 </View>
                 <View style={styles.timeContainer}>
-                    <Text style={styles.timeTextStyle}>{item.serviceEstTime}</Text>
+                    <Text style={styles.timeTextStyle}>
+                        {timeInHour[0] == 0 && timeInHour[1] == 0 ? "" : timeInHour[0] + timeInHour[1]}
+                        {
+                            timeInHour[0] == 0 && timeInHour[1] == 0 ?
+                                null
+                                :
+                                <Text style={styles.textStyles}> hr</Text>
+                        }
+                        {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                        {
+                            timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                null
+                                :
+                                <Text style={styles.textStyles}> mins</Text>
+                        }
+                    </Text>
                 </View>
             </View>
         )
@@ -290,13 +317,13 @@ class ExpandingView extends Component {
             <>
                 <View style={styles.lineStyle}></View>
                 <View style={styles.ratingContainer}>
-                    <Text style={styles.textStyle}>{item.comment}</Text>
+                    <Text style={styles.textStyle}>{item.comments}</Text>
                     <View style={styles.starContainer}>
                         <StarRating
                             disabled={true}
                             maxStars={5}
                             starSize={20}
-                            rating={item.ratingCount}
+                            rating={item.no_of_star}
                             selectedStar={(rating) => this.onStarRatingPress(rating)}
                             fullStarColor={THEME.PRIMARY_COLOR}
                         />
@@ -304,11 +331,24 @@ class ExpandingView extends Component {
                 </View>
             </>)
     }
+    _renderResumeItem = ({ item, index }) => {
+        console.log(item)
+        const { onDownload } = this.props;
+        return (
+            <>
+                <View key={index} style={{ justifyContent: 'center', padding: '3%' }}>
+                    <TouchableOpacity onPress={() => onDownload(item.picture)} style={styles.linkContainer}>
+                        <Icon.Feather name="download" size={40} color={THEME.PRIMARY_COLOR} />
+                        <Text style={styles.linkTextStyle}>Download</Text>
+                    </TouchableOpacity>
+                </View>
+            </>)
+    }
 
 
     render() {
-        const { portfolio, certification, workingDays, services, reviews } = this.state;
-        const { onDownload } = this.props;
+        const { portfolio, certification, workingDays, services, reviews, resume } = this.state;
+
         const images: Array<Object> = portfolio.map((img: Object) => ({
             uri: img
         }))
@@ -486,14 +526,19 @@ class ExpandingView extends Component {
                             }
                         </View>
                     </TouchableOpacity>
-                    <View style={[{ height: this.state.expandedResume ? 100 : 0 }, styles.columnStyle]}>
+                    <View style={[{ height: this.state.expandedResume ? null : 0 }, styles.columnStyle]}>
                         {this.state.isResume ?
                             <Text style={styles.noRecord} >No Resume Found</Text>
                             :
-                            <TouchableOpacity onPress={onDownload} style={styles.linkContainer}>
-                                <Icon.Feather name="download" size={40} color={THEME.PRIMARY_COLOR} />
-                                <Text style={styles.linkTextStyle}>Download</Text>
-                            </TouchableOpacity>
+                            <FlatList
+                                data={resume}
+                                numColumns={3}
+                                // contentContainerStyle={{flexDirection:'row'}}
+                                showsVerticalScrollIndicator={false}
+                                ItemSeparatorComponent={this._renderSeparator}
+                                renderItem={({ item, index }) => this._renderResumeItem({ item, index })}
+                                keyExtractor={item => item} />
+
                         }
                     </View>
                 </View>
@@ -511,7 +556,7 @@ class ExpandingView extends Component {
                     </TouchableOpacity>
                     <View style={[{ height: this.state.expandedReviews ? null : 0 }, styles.columnStyle]}>
                         {this.state.isReviews ?
-                            <Text style={styles.noRecord} >No Resume Found</Text>
+                            <Text style={styles.noRecord} >No Reviews Found</Text>
                             :
                             <>
                                 <View style={{ marginHorizontal: '5%' }}>

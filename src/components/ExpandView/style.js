@@ -95,7 +95,6 @@ export default StyleSheet.create({
         fontSize: THEME.FONT_SIZE_MEDIUM,
     },
     linkContainer: {
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },

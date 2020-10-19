@@ -61,23 +61,26 @@ class Home extends Component {
 
 
     componentDidMount = async () => {
-        setTimeout(() => {
-            let data = {
-                id: this.props.user.userData.id,
-                token: this.props.user.userData.token
-            }
-            UserAddresses.viewAllAddresses(data)
-                .then((res) => {
-                    res.data.addresses.forEach(element => {
-                        if (element.is_selected == '1') {
-                            this.setState({ address: element.address, addresses: res.data.addresses })
-                        }
+        let { isUserLogedIn } = this.props.user;
+        if (isUserLogedIn) {
+            setTimeout(() => {
+                let data = {
+                    id: this.props.user.userData.id,
+                    token: this.props.user.userData.token
+                }
+                UserAddresses.viewAllAddresses(data)
+                    .then((res) => {
+                        res.data.addresses.forEach(element => {
+                            if (element.is_selected == '1') {
+                                this.setState({ address: element.address, addresses: res.data.addresses })
+                            }
+                        })
                     })
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
-        }, 6000);
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            }, 6000);
+        }
     }
 
 
@@ -203,7 +206,7 @@ class Home extends Component {
                                             }
 
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={styles.exitContainer} onPress={()=>onExit()}>
+                                        <TouchableOpacity style={styles.exitContainer} onPress={() => onExit()}>
                                             <View style={{ paddingRight: '5%' }}>
                                                 <Icon.Feather name="log-out" color="#fff" size={25} />
                                             </View>
