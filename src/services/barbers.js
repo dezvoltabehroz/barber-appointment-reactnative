@@ -53,6 +53,22 @@ const Api = {
             }
         })
     },
+    getBarberBooking: function (userData) {
+        console.log(userData)
+        return axiosInstance.post('list/barberBooking', {
+            id: userData.id,
+            barber_id: userData.barber_id,
+            current_date: userData.current_date,
+            day: userData.day,
+            slot_difference: userData.slot_difference
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + userData.token,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        })
+    },
 
 };
 

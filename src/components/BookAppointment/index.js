@@ -11,6 +11,7 @@ import styles from './style';
 import { Calendar } from 'react-native-calendars'
 import moment from 'moment';
 import THEME from '../../assets/styles/theme.style';
+import { Barbers } from '../../services';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 export default class BookAppointment extends Component {
@@ -18,54 +19,19 @@ export default class BookAppointment extends Component {
     super(prop);
     this.state = {
       bookingModal: false,
-      days: [
-        {
-          dayName: 'Thursday',
-          date: '23',
-          isSelected: true,
-        },
-        {
-          dayName: 'Friday',
-          date: '24',
-          isSelected: false,
-        },
-        {
-          dayName: 'Saturday',
-          date: '25',
-          isSelected: false,
-        },
-        {
-          dayName: 'Sunday',
-          date: '26',
-          isSelected: false,
-        },
-        {
-          dayName: 'Monday',
-          date: '27',
-          isSelected: false,
-        },
-        {
-          dayName: 'Tuesday',
-          date: '28',
-          isSelected: false,
-        },
-        {
-          dayName: 'Wednesday',
-          date: '29',
-          isSelected: false,
-        },
-      ],
-      startTime: '09:00:00',
-      endTime: '18:00:00',
+      start_time: '',
+      end_time: '',
       difference: this.props.time,
       daysDate: [],
       daysName: [],
-      bookedSlot: '',
+      bookedSlot: {},
       other: true,
       isbooked: false,
       myBooking: false,
       slotArray: [],
       slots: [],
+      availableSlots: [],
+      barber_booking_list: [],
       bookingDate: moment().format('LL'),
       modalVisible: false,
 
@@ -75,35 +41,51 @@ export default class BookAppointment extends Component {
 
   componentDidMount = () => {
     var date = new Date();
-    const { startTime, endTime, difference } = this.state;
-    var startDay = moment(startTime, 'hh:mm A');
-    var endDay = moment(endTime, 'hh:mm A');
-    if (endDay.isBefore(startDay)) {
-      endDay.add(1, 'day');
+    const { userdata } = this.props;
+    let userData = {
+      id: userdata.id,
+      barber_id: userdata.barber_id,
+      current_date: moment(this.state.bookingDate).format('YYYY-MM-DD'),
+      day: moment(this.state.bookingDate).format('dddd'),
+      slot_difference: this.props.time,
+      token: userdata.token
     }
-    let barberBookingList = ['14:00:00', '15:00:00']
-    var tempDay = moment(startTime, 'hh:mm A');
-    var timeSlots = [];
-    while (startDay < endDay) {
-      var slotTime = tempDay.add(difference, 'minutes');
-      timeSlots.push({ slotStartTime: `${new moment(startDay, 'hh:mm A')}`, slotEndTime: `${new moment(slotTime, 'hh:mm A')}`, isBooked: false });
-      startDay.add(difference, 'minutes');
-    }
-    let slotArray = [];
-    for (let i = 0; i <= barberBookingList.length - 1; i++) {
-      timeSlots.forEach((element, index) => {
-        if (moment(barberBookingList[i], 'hh:mm A') >= element.slotStartTime && moment(barberBookingList[i], 'hh:mm A') <= element.slotEndTime) { }
-        else {
-          if (i == barberBookingList.length - 1) {
-            slotArray.push({ slot: moment(parseInt(element.slotStartTime)).format('hh:mm A'), isBooked: false });
+    Barbers.getBarberBooking(userData)
+      .then((res) => {
+        console.log(res.data)
+        this.setState({
+          start_time: res.data.start_time,
+          end_time: res.data.end_time,
+          isSchedule: res.data.isSchedule,
+          availableSlots: res.data.availableSlots,
+          barber_booking_list: res.data.barber_booking_list
+        }, () => {
+          const { start_time, end_time, difference } = this.state;
+          if (res.data.isSchedule && res.data.barber_booking_list == 0 && res.data.availableSlots.length == 0) {
+            var startTime = moment(start_time, 'hh:mm A');
+            var endTime = moment(end_time, 'hh:mm A');
+            if (endTime.isBefore(startTime)) {
+              endTime.add(1, 'day');
+            }
+            var tempDay = moment(startTime, 'hh:mm A');
+            var timeSlots = [];
+            while (startTime < endTime) {
+              var slotTime = tempDay.add(difference, 'minutes');
+              timeSlots.push({ slotStartTime: `${new moment(startTime).format('hh:mm A')}`, slotEndTime: `${new moment(slotTime).format('hh:mm A')}`, isBooked: false });
+              startTime.add(difference, 'minutes');
+            }
+            this.setState({ slots: timeSlots });
           }
-        }
+          else {
+            this.setState({ slots: res.data.availableSlots })
+          }
+        })
+
       })
-    }
-    this.setState({ slots: slotArray, });
+      .catch((err) => {
+        console.log(err)
+      })
   }
-
-
 
   handleOnSubmit = (data) => {
     const { onBookingPress } = this.props;
@@ -118,24 +100,20 @@ export default class BookAppointment extends Component {
       <TouchableOpacity onPress={() => {
         const { onBookingPress } = this.props;
         let items = [...this.state.slots];
-        if (items[index].isBooked) {
-          items[index] = { ...items[index], isBooked: false };
-          this.setState({ slots: items, bookedSlot: items[index] }, () => {
-            onBookingPress("false")
-            this.props.bookingDate(this.state.bookingDate)
-
-          });
-        } else {
-          items[index] = { ...items[index], isBooked: true };
-          this.setState({ slots: items, bookedSlot: items[index].slot }, () => {
-            onBookingPress("false")
-            this.props.bookingDate(this.state.bookingDate)
-            this.props.bookingTime(this.state.bookedSlot)
-
-          });
+        for (var i = 0; i < items.length; i++) {
+          if (items[i].isBooked) {
+            items[i] = { ...items[i], isBooked: false };
+          }
         }
+        items[index] = { ...items[index], isBooked: true };
+        this.setState({ slots: items, bookedSlot: items[index].slotStartTime }, () => {
+          onBookingPress("false")
+          this.props.bookingDate(this.state.bookingDate)
+          this.props.bookingTime(this.state.bookedSlot)
+
+        });
       }} style={[styles.flatlistContainer, { backgroundColor: item.isBooked ? THEME.COLOR_GREY : THEME.PRIMARY_COLOR }]}>
-        <Text style={styles.textFlatlistStyle} >{item.slot}</Text>
+        <Text style={styles.textFlatlistStyle} >{item.slotStartTime}</Text>
       </TouchableOpacity>
     )
   }
@@ -146,8 +124,8 @@ export default class BookAppointment extends Component {
   }
 
   handleDayPress = (day) => {
-    this.setState({ bookingDate: moment(day.dateString).format('ll'), modalVisible: false });
-
+    this.setState({ bookingDate: moment(day.dateString).format('ll'), modalVisible: false }, () => this.componentDidMount());
+    // this.componentDidMount();
   }
 
   render() {
@@ -164,13 +142,17 @@ export default class BookAppointment extends Component {
             </View>
           </TouchableOpacity>
           <View style={styles.lineStyle}></View>
-          <FlatList data={this.state.slots}
-            keyExtractor={item => item}
-            ItemSeparatorComponent={this.renderSeparator}
-            numColumns={3}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.contentContainer}
-            renderItem={({ index, item }) => this._renderItems({ index, item })} />
+          {
+            this.state.slots.length == 0 ?
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ fontSize: 18, color: 'white', fontFamily: 'Poppins-Regular' }} >NO RECORD FOUND</Text></View>
+              :
+              <FlatList data={this.state.slots}
+                keyExtractor={item => item}
+                ItemSeparatorComponent={this.renderSeparator}
+                numColumns={3}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={styles.contentContainer}
+                renderItem={({ index, item }) => this._renderItems({ index, item })} />}
           <View style={styles.lineStyle}></View>
         </View>
         <Modal visible={modalVisible} >

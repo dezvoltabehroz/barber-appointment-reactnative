@@ -199,12 +199,14 @@ class Booking extends Component {
                             <BookAppointment
                                 key="appointment"
                                 time={(totalTime)}
+                                userdata={this.props.userdata}
                                 bookingTime={(date) => {
+                                    console.log(date)
                                     let dateString = moment(date, 'hh:mm A')
                                     dateString.add(totalTime, 'minutes')
-                                    this.setState({ bookingTime: date + ' - ' + moment(dateString).format('LT') }, () => console.log(date + '-' + moment(dateString).format('LT')))
+                                    this.setState({ bookingTime: date + ' - ' + moment(dateString).format('hh:mm A') })
                                 }}
-                                bookingDate={(date) => this.setState({ bookingDate: date }, () => console.log(date))}
+                                bookingDate={(date) => this.setState({ bookingDate: date })}
                                 onBookingPress={(isDisable) => this.setState({ disabled: isDisable == "false" ? false : true })} />
                             :
                             null
@@ -220,6 +222,7 @@ class Booking extends Component {
                         this.state.currentPosition == 4 ?
                             <Summary
                                 key="summary"
+                                userdata={userdata}
                                 bookingTime={bookingTime}
                                 bookingDate={bookingDate}
                                 addresslocation={(this.state.location)}

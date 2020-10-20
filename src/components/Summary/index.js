@@ -12,10 +12,32 @@ import {
 } from 'react-native';
 import styles from './style';
 import moment from 'moment';
+import { Avatar } from 'react-native-elements';
+import { Barbers } from '../../services';
 
 class Summary extends Component {
     constructor(prop) {
         super(prop);
+        this.state = {
+            barberName: '',
+            barberProfilePicture: '',
+            barberAge: ''
+
+        }
+    }
+    componentDidMount = () => {
+        const { userdata } = this.props;
+        Barbers.getBarberProfile(userdata)
+            .then((res) => {
+                this.setState({
+                    barberName: res.data.barber_details.full_name,
+                    barberProfilePicture: res.data.barber_details.profile_picture,
+                    barberAge: res.data.barber_details.age,
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     _renderItems = ({ index, item }) => {
@@ -39,6 +61,7 @@ class Summary extends Component {
 
     render() {
         const { services, addresslocation, region } = this.props;
+        const { barberAge, barberName, barberProfilePicture } = this.state;
         return (
             <>
                 <ScrollView>
@@ -99,6 +122,32 @@ class Summary extends Component {
                                 <Text style={styles.colorTextStyle}>Date: </Text>
                                 <View style={styles.textFlex}>
                                     <Text style={styles.textStyle}>{this.props.bookingDate}</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.borderStyle}></View>
+                    <View style={styles.marginVertical}>
+                        <View style={styles.generalMargin}>
+                            <Text style={styles.colorTextStyle}>Barber</Text>
+                        </View>
+                        <View style={styles.container}>
+                            <View style={[styles.rowContainer, { height: null, justifyContent: 'flex-start', marginVertical: '5%' }]}>
+                                <Avatar source={{ uri: barberProfilePicture }} rounded size={60} />
+
+                                <View style={{ justifyContent: 'flex-start', marginTop: '5%' }}>
+                                    <View style={styles.rowContainer}>
+                                        <Text style={styles.colorTextStyle}>Name: </Text>
+                                        <View style={{ marginHorizontal: '1%' }}>
+                                            <Text style={styles.textStyle}>{barberName}</Text>
+                                        </View>
+                                    </View>
+                                    <View style={styles.rowContainer}>
+                                        <Text style={styles.colorTextStyle}>Age: </Text>
+                                        <View style={styles.textFlex}>
+                                            <Text style={styles.textStyle}>{barberAge}</Text>
+                                        </View>
+                                    </View>
                                 </View>
                             </View>
                         </View>
