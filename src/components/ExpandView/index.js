@@ -332,7 +332,6 @@ class ExpandingView extends Component {
             </>)
     }
     _renderResumeItem = ({ item, index }) => {
-        console.log(item)
         const { onDownload } = this.props;
         return (
             <>

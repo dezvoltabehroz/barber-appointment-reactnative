@@ -9,11 +9,16 @@ class BarberProfileScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })
-    handleBookNow = () => {
+    handleBookNow = (data) => {
         const { navigate } = this.props.navigation;
         let { isUserLogedIn } = this.props.user;
         if (isUserLogedIn) {
-            navigate('Booking')
+            let userdata = {
+                id: this.props.user.userData.id,
+                barber_id: data,
+                token: this.props.user.userData.token
+            }
+            navigate('Booking', { userdata })
         }
         else {
             Alert.alert("Attention",
@@ -33,9 +38,12 @@ class BarberProfileScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         const { data } = this.props.route.params;
-        console.log(data)
         return (
-            <MainScreenPaths.Customer.BarberProfile Auth={() => navigate("Auth")} items={data} bookNow={this.handleBookNow} onBarberPress={() => navigate('')} />
+            <MainScreenPaths.Customer.BarberProfile 
+            Auth={() => navigate("Auth")} 
+            items={data} 
+            bookNow={(data) => this.handleBookNow(data)} 
+            onBarberPress={() => navigate('')} />
         )
     }
 }

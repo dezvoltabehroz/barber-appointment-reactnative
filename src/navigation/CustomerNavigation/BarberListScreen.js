@@ -4,17 +4,23 @@ import React, { Component } from 'react'
 import { MainScreenPaths } from '../../screens';
 import { connect } from 'react-redux';
 import { Alert } from 'react-native';
+import { Barbers } from '../../services';
 
 class BarberListScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })
 
-    handleBookNow = () => {
+    handleBookNow = (data) => {
         const { navigate } = this.props.navigation;
-        let { isUserLogedIn } = this.props.user;
+        let { isUserLogedIn, userData } = this.props.user;
         if (isUserLogedIn) {
-            navigate('Booking')
+            let userdata = {
+                id: userData.id,
+                barber_id: data,
+                token: userData.token
+            }
+            navigate('Booking', { userdata })
         }
         else {
             Alert.alert("Attention",
@@ -35,11 +41,11 @@ class BarberListScreen extends Component {
         const { navigate, goBack } = this.props.navigation
         const { search, serviceId } = this.props.route.params;
         return (
-            <MainScreenPaths.Customer.BarberList 
-            search={search} 
-            id={serviceId != 'undefined' ? serviceId : null} 
-            bookNow={this.handleBookNow} 
-            onPress={(data) => navigate('BarberProfile', { data })} />
+            <MainScreenPaths.Customer.BarberList
+                search={search}
+                id={serviceId != 'undefined' ? serviceId : null}
+                bookNow={(data) => this.handleBookNow(data)}
+                onPress={(data) => navigate('BarberProfile', { data })} />
         )
     }
 }

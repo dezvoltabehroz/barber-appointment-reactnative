@@ -5,86 +5,16 @@ import { Button, BarberServices, CartDetails, BookAppointment, Summary, Payment 
 import StepProgress from 'react-native-step-progress';
 import THEME from '../../../assets/styles/theme.style';
 import moment from 'moment'
-export default class Booking extends Component {
+import { Barbers } from '../../../services';
+import { connect } from 'react-redux';
+import { UserAddresses } from '../../../services';
+class Booking extends Component {
     constructor(props) {
         super(props);
         this.state = {
             currentPosition: 0,
             selectedServices: [],
-            services: [
-                {
-                    id: 1,
-                    serviceName: 'Hair Styling',
-                    serviceCost: 100,
-                    serviceEstTime: 30,
-                    selected: false,
-                    quantity: '',
-                    description: 'All haircuts include eyebrows, nose, and ears groomed.'
-                },
-                {
-                    id: 2,
-                    serviceName: 'Hair Color',
-                    serviceCost: 50,
-                    serviceEstTime: 45,
-                    selected: false,
-                    quantity: '',
-                    description: 'Any type of haircut + beard + eyebrows and nose and ears Groomed.'
-                },
-                {
-                    id: 3,
-                    serviceName: 'Shave',
-                    serviceCost: 50,
-                    serviceEstTime: 30,
-                    selected: false,
-                    quantity: '',
-                    description: 'Includes whole head shaped up and back tapered, eyebrows, nose, ears groomed.'
-                },
-                {
-                    id: 4,
-                    serviceName: 'Blow Out',
-                    serviceCost: 50,
-                    serviceEstTime: 20,
-                    selected: false,
-                    quantity: '',
-                    description: 'Any type of haircut + beard + eyebrows and nose and ears Groomed.'
-                },
-                {
-                    id: 5,
-                    serviceName: 'Hair Styling',
-                    serviceCost: 100,
-                    serviceEstTime: 60,
-                    selected: false,
-                    quantity: '',
-                    description: 'Includes whole head shaped up and back tapered, eyebrows, nose, ears groomed.'
-                },
-                {
-                    id: 6,
-                    serviceName: 'Hair Color',
-                    serviceCost: 50,
-                    serviceEstTime: 45,
-                    selected: false,
-                    quantity: '',
-                    description: 'Includes Chips or choice of Beverage'
-                },
-                {
-                    id: 7,
-                    serviceName: 'Shave',
-                    serviceCost: 50,
-                    serviceEstTime: 30,
-                    selected: false,
-                    quantity: '',
-                    description: 'Any type of haircut + beard + eyebrows and nose and ears Groomed.'
-                },
-                {
-                    id: 8,
-                    serviceName: 'Blow Out',
-                    serviceCost: 50,
-                    serviceEstTime: 20,
-                    selected: false,
-                    quantity: '',
-                    description: 'Includes Chips or choice of Beverage'
-                }
-            ],
+            services: [],
             location: '',
             region: {
                 latitude: 0,
@@ -94,8 +24,34 @@ export default class Booking extends Component {
             },
             totalPrice: 0,
             timeInHour: '',
-            disabled: true
+            disabled: true,
+            bookingDate: '',
+            bookingTime: ''
         }
+    }
+    componentDidMount = () => {
+        const { userdata } = this.props;
+        Barbers.getBarberServices(userdata)
+            .then((response) => {
+                if (response.data.status) {
+                    this.setState({ services: response.data.barber_services_list })
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+        UserAddresses.viewAllAddresses(userdata)
+            .then((res) => {
+                res.data.addresses.forEach(element => {
+                    if (element.is_selected == '1') {
+                        this.setState({ location: element.address, addresses: res.data.addresses })
+                    }
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
     }
 
     onPeriviousPageChange = () => {
@@ -193,8 +149,8 @@ export default class Booking extends Component {
             currentStepLabelColor: THEME.COLOR_WHITE
         }
 
-        const { currentPosition, services, selectedServices, totalPrice, disabled, totalTime, timeInHour } = this.state
-
+        const { currentPosition, services, selectedServices, totalPrice, disabled, totalTime, timeInHour, bookingDate, bookingTime } = this.state
+        const { userdata } = this.props;
         return (
             <View style={styles.container}>
                 <View style={{ flex: 1 }}>
@@ -202,13 +158,14 @@ export default class Booking extends Component {
                         customStyles={customStyles}
                         currentPosition={currentPosition}
                         labels={labels}
-                        onPress={this.onPageChange}
+                    // onPress={this.onPageChange}
                     />
                     {
                         this.state.currentPosition == 0 ?
                             <BarberServices
                                 key="services"
-                                customerSelectedServices={services}
+                                // customerSelectedServices={services}
+                                userdata={userdata}
                                 time={(time) => this.setState({ totalTime: time }, () => {
                                     var h = time / 60 | 0;
                                     var m = time % 60 | 0;
@@ -242,6 +199,12 @@ export default class Booking extends Component {
                             <BookAppointment
                                 key="appointment"
                                 time={(totalTime)}
+                                bookingTime={(date) => {
+                                    let dateString = moment(date, 'hh:mm A')
+                                    dateString.add(totalTime, 'minutes')
+                                    this.setState({ bookingTime: date + ' - ' + moment(dateString).format('LT') }, () => console.log(date + '-' + moment(dateString).format('LT')))
+                                }}
+                                bookingDate={(date) => this.setState({ bookingDate: date }, () => console.log(date))}
                                 onBookingPress={(isDisable) => this.setState({ disabled: isDisable == "false" ? false : true })} />
                             :
                             null
@@ -257,6 +220,8 @@ export default class Booking extends Component {
                         this.state.currentPosition == 4 ?
                             <Summary
                                 key="summary"
+                                bookingTime={bookingTime}
+                                bookingDate={bookingDate}
                                 addresslocation={(this.state.location)}
                                 // onChangePress={this.handleOnChange}
                                 services={(selectedServices)}
@@ -268,58 +233,73 @@ export default class Booking extends Component {
                 <View style={styles.footerStyle}>
                     <View style={styles.lineStyle}></View>
                     <View style={styles.gapHeight}></View>
-                    <View style={styles.row}>
-                        <View style={styles.buttonContainer}>
-                            {
-                                currentPosition !== 0 ?
-                                    totalPrice != 0 ?
-                                        <View style={styles.textContainer}>
-                                            <Text style={styles.coloredTextStyles}>${totalPrice}.00<Text style={styles.textStyles}> Total</Text></Text>
-                                            <Text style={styles.coloredTextStyles}>
-                                                {timeInHour[0] == 0 && timeInHour[1] == 0 ? "" : timeInHour[0] + timeInHour[1]}
-                                                {
-                                                    timeInHour[0] == 0 && timeInHour[1] == 0 ?
-                                                        null
-                                                        :
-                                                        <Text style={styles.textStyles}> hr</Text>
-                                                }
-                                                {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
-                                                {
-                                                    timeInHour[3] == 0 && timeInHour[4] == 0 ?
-                                                        null
-                                                        :
-                                                        <Text style={styles.textStyles}> mins</Text>
-                                                }
+                    {
+                        this.state.currentPosition == 0 ?
+                            <View style={{ marginHorizontal: '10%' }}>
+                                <Button disabled={disabled} title={this.state.currentPosition == 4 ? 'Done' : 'Confirm'} onPress={this.state.currentPosition == 4 ? () => this.props.onDone() : this.onNextPageChange} />
+                            </View> :
+                            <View style={styles.row}>
+                                <View style={styles.buttonContainer}>
+                                    {
+                                        currentPosition !== 0 ?
+                                            totalPrice != 0 ?
+                                                <View style={styles.textContainer}>
+                                                    <Text style={styles.coloredTextStyles}>${totalPrice}.00<Text style={styles.textStyles}> Total</Text></Text>
+                                                    <Text style={styles.coloredTextStyles}>
+                                                        {timeInHour[0] == 0 && timeInHour[1] == 0 ? "" : timeInHour[0] + timeInHour[1]}
+                                                        {
+                                                            timeInHour[0] == 0 && timeInHour[1] == 0 ?
+                                                                null
+                                                                :
+                                                                <Text style={styles.textStyles}> hr</Text>
+                                                        }
+                                                        {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                                                        {
+                                                            timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                                                null
+                                                                :
+                                                                <Text style={styles.textStyles}> mins</Text>
+                                                        }
+                                                    </Text>
+                                                </View>
+                                                :
+                                                null
+                                            : null
+                                    }
+                                </View>
+                                <View style={styles.buttonContainer}>
+                                    {
+                                        this.state.currentPosition == 6 ?
+                                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                                <TouchableOpacity disabled={disabled} onPress={this.onNextPageChange} style={styles.btnContainer}>
+                                                    <Text style={styles.btnText}>
+                                                        Confirm
                                             </Text>
-                                        </View>
-                                        :
-                                        null
-                                    : null
-                            }
-                        </View>
-                        <View style={/*this.state.currentPosition == 1 ? {} :*/ styles.buttonContainer}>
-                            {
-                                this.state.currentPosition == 6 ?
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                        <TouchableOpacity disabled={disabled} onPress={this.onNextPageChange} style={styles.btnContainer}>
-                                            <Text style={styles.btnText}>
-                                                Confirm
+                                                </TouchableOpacity>
+                                                <TouchableOpacity onPress={() => this.setState({ change: true })} style={[styles.btnContainer, { marginLeft: '2.5%' }]}>
+                                                    <Text style={styles.btnText}>
+                                                        Change
                                             </Text>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.setState({ change: true })} style={[styles.btnContainer, { marginLeft: '2.5%' }]}>
-                                            <Text style={styles.btnText}>
-                                                Change
-                                            </Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                    :
-                                    <Button disabled={disabled} title={this.state.currentPosition == 4 ? 'Done' : 'Confirm'} onPress={this.state.currentPosition == 4 ? () => this.props.onDone() : this.onNextPageChange} />
-                            }
-                        </View>
-                    </View>
+                                                </TouchableOpacity>
+                                            </View>
+                                            :
+                                            <Button disabled={disabled} title={this.state.currentPosition == 4 ? 'Done' : 'Confirm'} onPress={this.state.currentPosition == 4 ? () => this.props.onDone() : this.onNextPageChange} />
+                                    }
+                                </View>
 
+
+                            </View>
+                    }
                 </View>
             </View>
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        user: state.userAddresses || {}
+    };
+};
+
+
+export default connect(mapStateToProps)(Booking)

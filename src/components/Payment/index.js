@@ -32,7 +32,6 @@ class Payment extends Component {
     }
 
     onChangeDate = (event, newDate) => {
-        console.log(newDate)
         let date = newDate.split('-');
         var expDate = date[0] + '/' + date[1];
         this.setState({

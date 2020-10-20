@@ -15,7 +15,6 @@ export default class AboutUs extends React.Component {
         this.setState({ loading: true })
         About.getAboutUs()
             .then(res => {
-                console.log(res.data)
                 this.setState({ content: res.data.content, loading: false })
             })
             .catch(err => {

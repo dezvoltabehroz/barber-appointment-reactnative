@@ -3,7 +3,8 @@ import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import styles from './style';
 import { Icon } from '..';
 import THEME from '../../assets/styles/theme.style';
-
+import moment from 'moment';
+import { Barbers } from '../../services';
 export default class BarberServices extends Component {
     constructor(props) {
         super(props);
@@ -17,7 +18,19 @@ export default class BarberServices extends Component {
     }
 
     componentDidMount = () => {
-        this.setState({ services: this.props.customerSelectedServices });
+        Barbers.getBarberServices(this.props.userdata)
+            .then((response) => {
+                if (response.data.status) {
+                    let array = [...response.data.barber_services_list]
+                    array.map((element, index) => {
+                        array[index] = { ...element, selected: false, quantity: '' }
+                    })
+                    this.setState({ services: array })
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     _renderSeparator = () => {
@@ -36,14 +49,13 @@ export default class BarberServices extends Component {
             items[objIndex] = { ...items[objIndex], selected: false };
             await this.setState({ services: items });
             this.setState({ selectedService: this.state.selectedService.filter(item => item.id != val.id) }, () => {
-                price = (price - val.serviceCost)
-                time = (time - val.serviceEstTime)
-                console.log(time);
+                price = (price - parseInt(val.price))
+                time = (time - parseInt(moment.duration(val.time_duration).asMinutes()))
+             
                 this.props.time(time);
                 this.props.price(price);
                 if (this.state.selectedService.length === 0) {
                     this.props.isDisable("true")
-                    // this.props.markedServices(this.state.services);
                 }
                 this.setState({ totalPrice: price, totalTime: time })
             })
@@ -53,13 +65,11 @@ export default class BarberServices extends Component {
             items[objIndex] = { ...items[objIndex], selected: true };
             await this.setState({ services: items });
             this.state.selectedService.push(items[objIndex]);
-            price = (price + val.serviceCost)
-            time = (time + val.serviceEstTime)
+            price = (price + parseInt(val.price))
+            time = (time + parseInt(moment.duration(val.time_duration).asMinutes()))
             this.props.time(time);
-            console.log(time);
             this.props.price(price);
             this.props.isDisable("false")
-            // this.props.markedServices(this.state.services);
             this.setState({ totalPrice: price, totalTime: time });
         }
         this.props.markedServices(this.state.services);
@@ -67,6 +77,7 @@ export default class BarberServices extends Component {
 
 
     _renderItems = ({ item, index }) => {
+
         return (
             <>
                 <View style={styles.contentContainer}>
@@ -86,23 +97,22 @@ export default class BarberServices extends Component {
                                             name='check-box-outline-blank'
                                             color={THEME.COLOR_GREY} />
                                 }
-
                             </TouchableOpacity>
                         </View>
                         <View style={styles.serviceNameContainer}>
                             <Text style={styles.textWhite} >
-                                {item.serviceName}
+                                {item.service_name}
                             </Text>
                         </View>
 
                         <View style={styles.serviceEstTimeContainer}>
                             <Text style={styles.textGrey}>
-                                {item.serviceEstTime} minutes
+                                {item.time_duration ? `${moment.duration(item.time_duration).asMinutes()} minutes` : ''}
                             </Text>
                         </View>
                         <View style={styles.serviceCostContainer}>
                             <Text style={styles.coloredText}>
-                                ${item.serviceCost}
+                                ${item.price}
                             </Text>
                         </View>
                     </View>
@@ -111,7 +121,7 @@ export default class BarberServices extends Component {
                     <View style={styles.gapHeight}></View>
                     <View style={styles.descriptionContainer}>
                         <View style={styles.gapHeight}></View>
-                        <Text style={styles.descriptionText}>{item.description}</Text>
+                        <Text style={styles.descriptionText}>{item.service_description ? item.service_description : ''}</Text>
                     </View>
                     <View style={styles.gapHeight}></View>
                 </View>

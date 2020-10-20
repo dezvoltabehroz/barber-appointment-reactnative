@@ -10,11 +10,8 @@ import {
     Modal,
     FlatList
 } from 'react-native';
-import styles from './style'
-import { Icon } from '..';
-import THEME from '../../assets/styles/theme.style';
-import MapView, { PROVIDER_GOOGLE, Marker, AnimatedRegion } from 'react-native-maps';
-
+import styles from './style';
+import moment from 'moment';
 
 class Summary extends Component {
     constructor(prop) {
@@ -22,27 +19,20 @@ class Summary extends Component {
     }
 
     _renderItems = ({ index, item }) => {
-        console.log(item.quantiy)
         const { onChangePress } = this.props;
         return (
             <>
                 <View style={styles.lineStyle}></View>
                 <View style={styles.rowContainer}>
                     <View style={styles.columnChange}>
-                        <Text style={styles.textStyle}>{item.serviceName } {item.quantity=='1'?'':`(${item.quantity})`}</Text>
+                        <Text style={styles.textStyle}>{item.service_name} {item.quantity == '1' ? '' : `(${item.quantity})`}</Text>
                     </View>
                     <View style={styles.column} >
-                        <Text style={styles.textStyle}>{item.serviceEstTime}</Text>
+                        <Text style={styles.textStyle}>{moment.duration(item.time_duration).asMinutes()}</Text>
                     </View>
                     <View style={styles.column}>
-                        <Text style={styles.textStyle}>${item.serviceCost}</Text>
+                        <Text style={styles.textStyle}>${item.price}</Text>
                     </View>
-                    {/* <View style={styles.columnChange}>
-                        <TouchableOpacity onPress={onChangePress} style={styles.row}>
-                            <Text style={styles.colorTextStyle}>Change</Text>
-                            <Icon.AntDesign name="right" size={15} color={THEME.COLOR_GREY} />
-                        </TouchableOpacity>
-                    </View> */}
                 </View>
             </>)
     }
@@ -90,34 +80,6 @@ class Summary extends Component {
                                     <Text style={styles.textStyle}> {addresslocation}</Text>
                                 </View>
                             </View>
-                            {/* <View style={styles.lineStyle}></View>
-                            <View style={{ marginBottom: "1%" }}>
-                                <MapView
-                                    provider={PROVIDER_GOOGLE}
-                                    showsUserLocation={true}
-                                    loadingEnabled
-                                    showsMyLocationButton={true}
-                                    style={styles.mapStyle}
-                                    customMapStyle={THEME.mapStyle}
-                                    region={region}
-                                // onRegionChangeComplete={this.onRegionChange}
-                                // onRegionChange={onRegionChange}
-                                //onPanDrag={onPanDrag}
-                                // onMapReady={() => this.setState({ marginBottom: 1 })}
-                                >
-                                    <Marker.Animated
-                                        ref={marker => {
-                                            this.marker = marker;
-                                        }}
-                                        coordinate={new AnimatedRegion({
-                                            latitude: region.latitude,
-                                            longitude: region.longitude,
-                                            latitudeDelta: region.latitudeDelta,
-                                            longitudeDelta: region.longitudeDelta,
-                                        })}
-                                    ></Marker.Animated>
-                                </MapView>
-                            </View> */}
                         </View>
                     </View>
                     <View style={styles.borderStyle}></View>
@@ -129,14 +91,14 @@ class Summary extends Component {
                             <View style={styles.rowContainer}>
                                 <Text style={styles.colorTextStyle}>Time: </Text>
                                 <View style={styles.textFlex}>
-                                    <Text style={styles.textStyle}> 10:00 AM - 11:45 PM</Text>
+                                    <Text style={styles.textStyle}>{this.props.bookingTime}</Text>
                                 </View>
                             </View>
                             <View style={styles.lineStyle}></View>
                             <View style={styles.rowContainer}>
                                 <Text style={styles.colorTextStyle}>Date: </Text>
                                 <View style={styles.textFlex}>
-                                    <Text style={styles.textStyle}> 23 Jul, 2020</Text>
+                                    <Text style={styles.textStyle}>{this.props.bookingDate}</Text>
                                 </View>
                             </View>
                         </View>

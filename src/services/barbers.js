@@ -40,6 +40,19 @@ const Api = {
             }
         })
     },
+    getBarberServices: function (userData) {
+        console.log(userData)
+        return axiosInstance.post('list/barberServices', {
+            id: userData.id,
+            barber_id: userData.barber_id
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + userData.token,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        })
+    },
 
 };
 

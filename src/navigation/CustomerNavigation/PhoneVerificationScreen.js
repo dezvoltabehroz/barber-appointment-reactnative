@@ -13,7 +13,6 @@ class PhoneVerificationScreen extends Component {
 
     handleVerification = (value) => {
         const number =AsyncStorage.getItem('Phone');
-        console.log('Number=======>',number);
         const { verificationId } = this.props.route.params;
         const { replace } = this.props.navigation
         let userData = {

@@ -11,7 +11,6 @@ export default class ServiceDetailsScreen extends Component {
     render() {
         const { navigate } = this.props.navigation;
         const { time } = this.props.route.params;
-        console.log(time);
         return (
             <MainScreenPaths.Barber.ServiceDetails  onPayment={() =>navigate('BarberServiceComplete')} />
         )

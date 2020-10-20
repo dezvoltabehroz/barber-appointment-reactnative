@@ -39,17 +39,6 @@ class BarberList extends Component {
         const { search, id } = this.props;
 
         if (search) {
-            // let userData = {
-            //     id: this.props.user.userData.id,
-            //     token: this.props.user.userData.token
-            // }
-            // Barbers.getBarbersList(userData)
-            //     .then((res) => {
-            //        
-            //     })
-            //     .catch((err) => {
-            //         console.log(err)
-            //     })
             this.setState({ barberList: this.props.barberList, loading: false })
             this.arrayHolder = this.props.barberList
         } else {
@@ -82,7 +71,7 @@ class BarberList extends Component {
                         <View style={styles.avatarContainer}>
                             <Avatar source={{ uri: item.profile_picture }} rounded size={70} />
                             <View style={{ paddingVertical: '5%' }} >
-                                <TouchableOpacity onPress={bookNow} style={styles.buttonStyle}>
+                                <TouchableOpacity onPress={()=>bookNow(item.id)} style={styles.buttonStyle}>
                                     <Text style={styles.buttonTextStyle}>
                                         Book Now
                                 </Text>
@@ -137,7 +126,7 @@ class BarberList extends Component {
                         <View style={styles.avatarContainer}>
                             <Avatar source={{ uri: item.profile_picture }} rounded size={70} />
                             <View style={{ paddingVertical: '5%' }} >
-                                <TouchableOpacity onPress={bookNow} style={styles.buttonStyle}>
+                                <TouchableOpacity onPress={()=>bookNow(item.id)} style={styles.buttonStyle}>
                                     <Text style={styles.buttonTextStyle}>
                                         Book Now
                                 </Text>
@@ -161,20 +150,6 @@ class BarberList extends Component {
                                     })
                                 }
                             </View>
-                            {/* <View style={styles.daycontainer}>
-                                <View>
-                                    <Text style={styles.dateTextStyle} >Working Days: </Text>
-                                </View>
-                                {
-                                    item.working_days.map((item, index) => {
-                                        return (
-                                            <View key={index} style={styles.daysContainer}>
-                                                <Text style={styles.textStyle}>{item.day[0]}</Text>
-                                            </View>
-                                        )
-                                    })
-                                }
-                            </View> */}
                         </View>
                     </View>
                 </TouchableOpacity>

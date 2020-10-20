@@ -9,7 +9,6 @@ import { Barbers } from '../../../services';
 class BarberProfile extends Component {
     constructor(props) {
         super(props);
-        const { items } = this.props;
         this.state = {
             name: '',
             image: '',
@@ -34,7 +33,6 @@ class BarberProfile extends Component {
         }
         Barbers.getBarberProfile(userData)
             .then((res) => {
-                console.log(res.data.barber_details.resume)
                 this.setState({
                     name: res.data.barber_details.full_name,
                     image: res.data.barber_details.profile_picture,
@@ -61,14 +59,9 @@ class BarberProfile extends Component {
     }
 
     render() {
-        const { bookNow, Auth } = this.props;
+        const { bookNow, Auth, items } = this.props;
         const { portfolio, certifcations, services, workingDays, rating, image, name, age, loading, resume } = this.state;
         const imgUrl = 'https://www.kindpng.com/picc/m/130-1300217_user-icon-member-icon-png-transparent-png.png'
-        // var arr = items.age.split("/");
-        // const birthDate = new Date(arr[2], arr[1], arr[0]);
-        // const difference = Date.now() - birthDate.getTime();
-        // const age = new Date(difference);
-        // const totalAge = Math.abs(new Date().getFullYear() - age.getUTCFullYear());
         return (
             <View style={styles.container}>
                 <ScrollView >
@@ -83,7 +76,7 @@ class BarberProfile extends Component {
                             </View>
                         </View>
                         <View style={styles.buttonContainer}>
-                            <Button title='Book Now' onPress={bookNow} />
+                            <Button title='Book Now' onPress={()=>bookNow(items)} />
                         </View>
                     </View>
                     {

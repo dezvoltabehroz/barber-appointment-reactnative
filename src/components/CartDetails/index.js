@@ -13,9 +13,7 @@ import {
 import styles from './style'
 import { FloatingInput, Icon } from '..';
 import THEME from '../../assets/styles/theme.style';
-import MapView, { PROVIDER_GOOGLE, Marker, AnimatedRegion } from 'react-native-maps';
-import style from '../Button/style';
-
+import moment from 'moment'
 
 class CartDetail extends Component {
     constructor(prop) {
@@ -34,7 +32,6 @@ class CartDetail extends Component {
         this.setState({ services });
         const notEqual = (currentValue) => currentValue.quantity != '';
         const data = this.state.services.every(notEqual)
-        console.log(data)
         this.props.isDisable(data);
     }
 
@@ -44,11 +41,10 @@ class CartDetail extends Component {
         let time = totalTime;
         this.state.services.forEach(element => {
             if (element.quantity != '') {
-                price = (price + (element.serviceCost * element.quantity))
-                time = (time + (element.serviceEstTime * element.quantity))
+                price = (price + (element.price * element.quantity))
+                time = (time + (parseInt(moment.duration(element.time_duration).asMinutes()) * element.quantity))
                 const notEqual = (currentValue) => currentValue.quantity != '';
                 const data = this.state.services.every(notEqual)
-                console.log(data)
                 this.props.isDisable(data);
             }
         })
@@ -72,7 +68,7 @@ class CartDetail extends Component {
                 <View style={styles.lineStyle}></View>
                 <View style={styles.rowContainer}>
                     <View style={styles.columnChange}>
-                        <Text style={styles.textStyle}>{item.serviceName}</Text>
+                        <Text style={styles.textStyle}>{item.service_name}</Text>
                     </View>
                     <View style={styles.columnChange} >
                         {
@@ -96,10 +92,10 @@ class CartDetail extends Component {
 
                     </View>
                     <View style={styles.columnChange}>
-                        <Text style={styles.textStyle}>{item.quantity != '' && item.quantity > 1 ? (item.serviceEstTime * item.quantity) : item.serviceEstTime}</Text>
+                        <Text style={styles.textStyle}>{item.quantity != '' && item.quantity > 1 ? (parseInt(moment.duration(item.time_duration).asMinutes()) * item.quantity) : parseInt(moment.duration(item.time_duration).asMinutes())}</Text>
                     </View>
                     <View style={styles.columnChange}>
-                        <Text style={styles.textStyle}>${item.quantity != '' && item.quantity > 1 ? (item.serviceCost * item.quantity) : item.serviceCost}</Text>
+                        <Text style={styles.textStyle}>{item.quantity != '' && item.quantity > 1 ? (item.price * item.quantity) : item.price}$</Text>
                     </View>
                     <View style={styles.column} >
                         {item.quantity != '' ?
@@ -145,43 +141,6 @@ class CartDetail extends Component {
                             </View>
                         </View>
                     </View>
-                    {/* <View style={styles.borderStyle}></View>
-                    <View style={styles.marginVertical}>
-                        <View style={styles.generalMargin}>
-                            <Text style={styles.colorTextStyle}>Location</Text>
-                        </View>
-                        <View style={styles.container}>
-                            <View style={styles.addressRowContainer}>
-                                <View>
-                                    <Text style={styles.colorTextStyle}>Address: </Text>
-                                </View>
-                                <View style={styles.textFlex}>
-                                    <Text style={styles.textStyle}> {addresslocation}</Text>
-                                </View>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.borderStyle}></View>
-                    <View style={styles.marginVertical}>
-                        <View style={styles.generalMargin}>
-                            <Text style={styles.colorTextStyle}>Booking</Text>
-                        </View>
-                        <View style={styles.container}>
-                            <View style={styles.rowContainer}>
-                                <Text style={styles.colorTextStyle}>Time: </Text>
-                                <View style={styles.textFlex}>
-                                    <Text style={styles.textStyle}> 10:00 AM - 11:45 PM</Text>
-                                </View>
-                            </View>
-                            <View style={styles.lineStyle}></View>
-                            <View style={styles.rowContainer}>
-                                <Text style={styles.colorTextStyle}>Date: </Text>
-                                <View style={styles.textFlex}>
-                                    <Text style={styles.textStyle}> 23 Jul, 2020</Text>
-                                </View>
-                            </View>
-                        </View>
-                    </View> */}
                 </ScrollView>
             </>
         );

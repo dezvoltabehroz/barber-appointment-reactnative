@@ -70,10 +70,12 @@ export default StyleSheet.create({
         fontFamily: 'Poppins-Medium'
     },
     textGrey: {
+        fontSize:12,
         color: THEME.COLOR_GREY,
         fontFamily: 'Poppins-Regular'
     },
     coloredText: {
+        fontSize:12,
         color: THEME.PRIMARY_COLOR,
         fontFamily: 'Poppins-Medium'
     }
