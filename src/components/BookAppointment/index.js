@@ -40,7 +40,6 @@ export default class BookAppointment extends Component {
   }
 
   componentDidMount = () => {
-    var date = new Date();
     const { userdata } = this.props;
     let userData = {
       id: userdata.id,
