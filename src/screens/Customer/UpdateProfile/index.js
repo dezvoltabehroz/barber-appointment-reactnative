@@ -10,8 +10,6 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoder';
 import { connect } from 'react-redux';
-import moment from 'moment';
-
 class UpdateProfile extends Component {
     constructor(props) {
         super(props);
@@ -64,6 +62,7 @@ class UpdateProfile extends Component {
     chooseFile = () => {
         var options = {
             title: 'Select Avatar',
+            noData: true,
             storageOptions: {
                 skipBackup: true,
                 path: 'images',
@@ -71,13 +70,12 @@ class UpdateProfile extends Component {
         };
         ImagePicker.showImagePicker(options, response => {
             if (response.didCancel) {
-                // console.log('User cancelled image picker');
             } else {
-                let baseString = "data:image\/jpeg;base64," + response.data
                 let source = response;
+                console.log(response)
                 this.setState({
                     avatar: source,
-                    profile_Url: baseString
+                    profile_Url: response
                 });
             }
         });

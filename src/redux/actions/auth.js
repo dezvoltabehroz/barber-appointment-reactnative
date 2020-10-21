@@ -233,33 +233,8 @@ const UpdateProfileInfo = (userData, phone, navigate) => {
         if (loading) {
             dispatch({ type: LOADING_SUCCESS, loading: loading })
         }
-        // RegisterUser.uploadProfileInfo(userData, phone)
-        //     .then(response => {
-        //        console.log(response.data)
-        //        dispatch({ type: LOADING_SUCCESS, loading: !loading })
-        //         // if (response.data.status) {
-        //         //     dispatch({
-        //         //         type: USER_UPDATE_PROFILE_INFO_SUCCESS, userData: {
-        //         //             name: userData.name,
-        //         //             gender: userData.gender,
-        //         //             dob: userData.dob,
-        //         //             photo: userData.image
-        //         //         },
-        //         //         loading: !loading
-        //         //     })
-        //         //     navigate('AddYourAddress', { editAddress: false });
-        //         // }
-        //         // else {
-        //         //     Alert.alert(response.data.message)
-        //         //     dispatch({ type: LOADING_SUCCESS, loading: !loading })
-        //         // }
-        //     }).catch(error => {
-        //         console.log(error)
-        //         dispatch({ type: LOADING_SUCCESS, loading: !loading })
-        //     })
         RegisterUser.updateProfileInfo(userData, phone)
             .then(response => {
-                dispatch({ type: LOADING_SUCCESS, loading: !loading })
                 if (response.data.status) {
                     dispatch({
                         type: USER_UPDATE_PROFILE_INFO_SUCCESS, userData: {

@@ -21,12 +21,13 @@ const Api = {
         formData.append('gender', userData.gender);
         formData.append('dob', userData.dob);
         formData.append('phone', phone);
-        // formData.append('image', {
-        //     name: userData.image.fileName,
-        //     uri: userData.image.path,
-        //     type: userData.image.type
-        // });
-        console.log(formData)
+        formData.append('image', {
+            uri: 'file://' + userData.image.path,
+            name: `${new Date().getTime().toString()}.jpg`,
+            filename: new Date().getTime().toString() + '.jpg',
+            type: 'image/jpg'
+        });
+
         let config = {
             headers: {
                 'Content-Type': 'multipart/form-data',
