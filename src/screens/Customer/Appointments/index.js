@@ -45,12 +45,12 @@ class Appointments extends Component {
             <View style={styles.listItemContainer}>
                 <View style={styles.cardStyle} >
                     <View style={styles.avatarContainer}>
-                        <Avatar source={{ uri: item.profile_picture }} size={100} />
+                        <Avatar source={{ uri: item.profile_picture }} rounded={true} size={100} />
                     </View>
                     <View style={styles.nameContainer}>
                         <Text style={styles.nameTextStyle} >{item.full_name}</Text>
                         <Text style={styles.dateTextStyle} >Age: {item.age}</Text>
-                        <Text style={styles.dateTextStyle} >Rating: {item.average_of_rating} / 5</Text>
+                        <Text style={styles.dateTextStyle} > {item.rating==null?'':'Rating: '+item.rating+' / 5'} </Text>
                     </View>
                 </View>
                 <View style={styles.buttonContainer}>

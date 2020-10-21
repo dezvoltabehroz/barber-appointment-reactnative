@@ -141,13 +141,13 @@ export default class CustomerServices extends Component {
                     </View>
 
                     <View style={styles.stopwatchContainer}>
-                        <Stopwatch start={this.state.stopwatchStart}
+                        {/* <Stopwatch start={this.state.stopwatchStart}
                             reset={this.state.stopwatchReset}
                             options={options}
-                            getTime={this.getFormattedTime} />
+                            getTime={this.getFormattedTime} /> */}
                     </View>
                 </View>
-                <FooterButton title='Approved & Pay' onPress={() => onApproved(this.state.totalTime)} />
+                <FooterButton title='Approve' onPress={() => onApproved(this.state.totalTime)} />
             </View>
             </>
         );
