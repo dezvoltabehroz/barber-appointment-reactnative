@@ -5,9 +5,8 @@ import { Button, BarberServices, CartDetails, BookAppointment, Summary, Payment 
 import StepProgress from 'react-native-step-progress';
 import THEME from '../../../assets/styles/theme.style';
 import moment from 'moment'
-import { Barbers } from '../../../services';
 import { connect } from 'react-redux';
-import { UserAddresses } from '../../../services';
+import { UserAddresses, BookingServices, Barbers } from '../../../services';
 class Booking extends Component {
     constructor(props) {
         super(props);
@@ -26,7 +25,11 @@ class Booking extends Component {
             timeInHour: '',
             disabled: true,
             bookingDate: '',
-            bookingTime: ''
+            bookingTime: '',
+            latitude: '',
+            longitude: '',
+            data: null,
+            customer_services: []
         }
     }
     componentDidMount = () => {
@@ -44,7 +47,7 @@ class Booking extends Component {
             .then((res) => {
                 res.data.addresses.forEach(element => {
                     if (element.is_selected == '1') {
-                        this.setState({ location: element.address, addresses: res.data.addresses })
+                        this.setState({ location: element.address, latitude: element.latitude, longitude: element.longitude })
                     }
                 })
             })
@@ -70,11 +73,36 @@ class Booking extends Component {
     }
 
     onNextPageChange = () => {
+        const { userdata } = this.props;
+        const { totalPrice, totalTime, latitude, longitude, bookingDate, bookingTime, data, timeInHour } = this.state;
         if (this.state.currentPosition == 4) {
             this.setState({ currentPosition: this.state.currentPosition, disabled: false });
         } else {
+            if (this.state.currentPosition == 3) {
+                let userData = {
+                    token: userdata.token,
+                    id: userdata.id,
+                    booking_price: totalPrice,
+                    booking_time_duration: moment(timeInHour, 'hh:mm:ss').format('hh:mm:ss'),
+                    customer_lat: latitude,
+                    customer_long: longitude,
+                    booking_date: moment(bookingDate).format('YYYY-MM-DD'),
+                    booking_time: moment(bookingTime, ["h:mm A"]).format('HH:mm'),
+                    barber_id: userdata.barber_id,
+                    customer_id: userdata.id,
+                    customer_services: this.state.customer_services,
+                    card_detail: data
+
+                }
+                console.log(userData);
+                BookingServices.makeCustomerBooking(userData)
+                    .then((res) => { console.log(res.data) })
+                    .catch((err) => { console.log(err) })
+
+
+            }
             this.setState({ currentPosition: this.state.currentPosition + 1 }, () => {
-                if (this.state.currentPosition === 3 || this.state.currentPosition === 4) {
+                if (this.state.currentPosition === 4) {
                     this.setState({ disabled: false })
                 }
                 else {
@@ -87,6 +115,11 @@ class Booking extends Component {
     handleSelectedServices = (data) => {
         this.setState({ selectedServices: data, });
         console.log(this.state.selectedServices);
+        let customer_services = []
+        this.state.selectedServices.forEach(element => {
+            customer_services.push({ service_id: element.id, quantity: element.quantity })
+        })
+        this.setState({ customer_services })
     }
 
     handleServices = (services) => {
@@ -185,7 +218,7 @@ class Booking extends Component {
                                 time={(time) => this.setState({ totalTime: time }, () => {
                                     var h = time / 60 | 0;
                                     var m = time % 60 | 0;
-                                    this.setState({ timeInHour: moment.utc().hours(h).minutes(m).format("HH:mm"), })
+                                    this.setState({ timeInHour: moment.utc().hours(h).minutes(m).format("HH:mm") })
                                 })}
                                 isDisable={(data) => this.setState({ disabled: !data })}
                                 addQuantity={(data) => this.handleSelectedServices(data)}
@@ -200,12 +233,7 @@ class Booking extends Component {
                                 key="appointment"
                                 time={(totalTime)}
                                 userdata={this.props.userdata}
-                                bookingTime={(date) => {
-                                    console.log(date)
-                                    let dateString = moment(date, 'hh:mm A')
-                                    dateString.add(totalTime, 'minutes')
-                                    this.setState({ bookingTime: date + ' - ' + moment(dateString).format('hh:mm A') })
-                                }}
+                                bookingTime={(date) => this.setState({ bookingTime: date })}
                                 bookingDate={(date) => this.setState({ bookingDate: date })}
                                 onBookingPress={(isDisable) => this.setState({ disabled: isDisable == "false" ? false : true })} />
                             :
@@ -214,7 +242,9 @@ class Booking extends Component {
 
                     {
                         this.state.currentPosition == 3 ?
-                            <Payment key="payment" />
+                            <Payment
+                                key="payment"
+                                isConfirm={(isDisable, data) => this.setState({ disabled: isDisable == "false" ? false : true, data: data })} />
                             :
                             null
                     }
@@ -224,6 +254,7 @@ class Booking extends Component {
                                 key="summary"
                                 userdata={userdata}
                                 bookingTime={bookingTime}
+                                totalTime={totalTime}
                                 bookingDate={bookingDate}
                                 addresslocation={(this.state.location)}
                                 // onChangePress={this.handleOnChange}

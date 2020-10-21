@@ -1,68 +1,34 @@
 import React, { Component } from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, RefreshControl, ActivityIndicator } from "react-native";
 import styles from './style';
 import { Avatar } from "react-native-elements";
 import { Button } from "../../../components";
 import StarRating from 'react-native-star-rating';
 import THEME from '../../../assets/styles/theme.style';
-
-export default class Appointments extends Component {
+import { BookingServices } from "../../../services";
+import { connect } from "react-redux";
+class Appointments extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            barberList: [
-                {
-                    name: 'Alexender',
-                    age: '23/7/1995',
-                    resume: 'https://s3-us-west-2.amazonaws.com/anxietybreakthrough/Stress+and+Anxiety+journal.pdf',
-                    charges: '$80',
-                    estTime: '00:45',
-                    tagLine: 'In the pursuit of manliness',
-                    photo: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png',
-
-                },
-                {
-                    name: 'Alexender',
-                    age: '23/7/1995',
-                    tagLine: 'In the pursuit of manliness',
-                    resume: 'https://s3-us-west-2.amazonaws.com/anxietybreakthrough/Stress+and+Anxiety+journal.pdf',
-                    charges: '$80',
-                    estTime: '00:45',
-                    photo: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png',
-
-                },
-                {
-                    name: 'Alexender',
-                    age: '23/7/1995',
-                    tagLine: 'In the pursuit of manliness',
-                    resume: 'https://s3-us-west-2.amazonaws.com/anxietybreakthrough/Stress+and+Anxiety+journal.pdf',
-                    charges: '$80',
-                    estTime: '00:45',
-                    photo: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png',
-
-                },
-                {
-                    name: 'Alexender',
-                    age: '23/7/1995',
-                    tagLine: 'In the pursuit of manliness',
-                    resume: 'https://s3-us-west-2.amazonaws.com/anxietybreakthrough/Stress+and+Anxiety+journal.pdf',
-                    charges: '$80',
-                    estTime: '00:45',
-                    photo: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png',
-
-                },
-                {
-                    name: 'Alexender',
-                    age: '23/7/1995',
-                    tagLine: 'In the pursuit of manliness',
-                    resume: 'https://s3-us-west-2.amazonaws.com/anxietybreakthrough/Stress+and+Anxiety+journal.pdf',
-                    photo: 'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png',
-                    charges: '$80',
-                    estTime: '00:45',
-
-                }
-            ]
+            bookingList: [],
+            loading: false
         }
+    }
+
+    componentDidMount = () => {
+        this.setState({ loading: true })
+        let userData = {
+            id: this.props.user.id,
+            token: this.props.user.token
+        }
+        BookingServices.getAllBooking(userData)
+            .then((response) => {
+                if (response.data.status) {
+                    this.setState({ bookingList: response.data.booking_list, loading: false })
+                }
+            })
+            .catch((err) => { console.log(err) })
     }
 
     _renderSeparator = () => {
@@ -75,44 +41,58 @@ export default class Appointments extends Component {
 
     _renderItems = (item) => {
         const { onView } = this.props;
-        var arr = item.age.split("/");
-        const birthDate = new Date(arr[2], arr[1], arr[0]);
-        const difference = Date.now() - birthDate.getTime();
-        const age = new Date(difference);
-        const totalAge = Math.abs(new Date().getFullYear() - age.getUTCFullYear());
-
         return (
-            <>
-                <View style={styles.listItemContainer}>
-                    <View style={styles.cardStyle} >
-                        <View style={styles.avatarContainer}>
-                            <Avatar source={{ uri: item.photo }} size={100} />
-                        </View>
-                        <View style={styles.nameContainer}>
-                            <Text style={styles.nameTextStyle} >{item.name}</Text>
-                            <Text style={styles.dateTextStyle} >Age: {totalAge}</Text>
-                            <Text style={styles.dateTextStyle} >Rating: 4.5 / 5</Text>
-                        </View>
+            <View style={styles.listItemContainer}>
+                <View style={styles.cardStyle} >
+                    <View style={styles.avatarContainer}>
+                        <Avatar source={{ uri: item.profile_picture }} size={100} />
                     </View>
-                    <View style={styles.buttonContainer}>
-                        <Button title='View' onPress={onView()} />
+                    <View style={styles.nameContainer}>
+                        <Text style={styles.nameTextStyle} >{item.full_name}</Text>
+                        <Text style={styles.dateTextStyle} >Age: {item.age}</Text>
+                        <Text style={styles.dateTextStyle} >Rating: {item.average_of_rating} / 5</Text>
                     </View>
                 </View>
-            </>
+                <View style={styles.buttonContainer}>
+                    <Button title='View' onPress={onView()} />
+                </View>
+            </View>
         )
     }
 
     render() {
+        const { loading, bookingList } = this.state
         return (
             <View style={styles.container}>
-                <FlatList
-                    data={this.state.barberList}
-                    showsVerticalScrollIndicator={false}
-                    ItemSeparatorComponent={this._renderSeparator}
-                    renderItem={({ item }) => this._renderItems(item)}
-                    keyExtractor={item => item} />
-
+                {
+                    loading ?
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <ActivityIndicator />
+                        </View>
+                        :
+                        bookingList.length != 0 && bookingList[0].full_name == null ?
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ color: THEME.COLOR_WHITE, fontSize: 18, fontFamily: 'Poppin-Regular' }} >No Record Found</Text>
+                            </View>
+                            :
+                            <FlatList
+                                refreshControl={<RefreshControl  tintColor={THEME.COLOR_WHITE}
+                                colors={[THEME.PRIMARY_COLOR]} onRefresh={() => this.componentDidMount()} />}
+                                data={bookingList}
+                                showsVerticalScrollIndicator={false}
+                                ItemSeparatorComponent={this._renderSeparator}
+                                renderItem={({ item }) => this._renderItems(item)}
+                                keyExtractor={item => item} />
+                }
             </View>
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer.userData || {}
+    };
+};
+
+
+export default connect(mapStateToProps)(Appointments)

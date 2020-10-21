@@ -50,18 +50,21 @@ class Summary extends Component {
                         <Text style={styles.textStyle}>{item.service_name} {item.quantity == '1' ? '' : `(${item.quantity})`}</Text>
                     </View>
                     <View style={styles.column} >
-                        <Text style={styles.textStyle}>{moment.duration(item.time_duration).asMinutes()}</Text>
+                        <Text style={styles.textStyle}>{(moment.duration(item.time_duration).asMinutes()*item.quantity)}</Text>
                     </View>
                     <View style={styles.column}>
-                        <Text style={styles.textStyle}>${item.price}</Text>
+                        <Text style={styles.textStyle}>${(item.price*item.quantity)}</Text>
                     </View>
                 </View>
             </>)
     }
 
     render() {
-        const { services, addresslocation, region } = this.props;
+        const { services, addresslocation, bookingTime,totalTime } = this.props;
         const { barberAge, barberName, barberProfilePicture } = this.state;
+        let dateString = moment(bookingTime, 'hh:mm A')
+        dateString.add(totalTime, 'minutes')
+        let time=bookingTime + ' - ' + moment(dateString).format('hh:mm A')
         return (
             <>
                 <ScrollView>
@@ -114,7 +117,7 @@ class Summary extends Component {
                             <View style={styles.rowContainer}>
                                 <Text style={styles.colorTextStyle}>Time: </Text>
                                 <View style={styles.textFlex}>
-                                    <Text style={styles.textStyle}>{this.props.bookingTime}</Text>
+                                    <Text style={styles.textStyle}>{time}</Text>
                                 </View>
                             </View>
                             <View style={styles.lineStyle}></View>

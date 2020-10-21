@@ -14,7 +14,7 @@ import styles from './style'
 import { Icon, FloatingInput } from '..';
 import THEME from '../../assets/styles/theme.style';
 import MonthPicker from 'react-native-month-year-picker';
-
+import moment from 'moment';
 class Payment extends Component {
     constructor(prop) {
         super(prop);
@@ -28,14 +28,27 @@ class Payment extends Component {
             cvv: '',
             isCvvFocus: false,
             showDatePicker: false,
+            date:''
+        }
+    }
+    handleConfirmPayment = () => {
+        const { name, expDate, number, cvv,date } = this.state;
+        if (name && number && date && cvv) {
+            let data = {
+                card_number: number,
+                card_holder: name,
+                exp_date: moment(date).format('YYYY-MM-DD'),
+                ccv_code: cvv
+            }
+            this.props.isConfirm("false", data)
         }
     }
 
     onChangeDate = (event, newDate) => {
-        let date = newDate.split('-');
-        var expDate = date[0] + '/' + date[1];
+        var expDate = moment(newDate).format('MM/YY')
         this.setState({
             expDate,
+            date:newDate,
             showDatePicker: false,
         })
     };
@@ -81,7 +94,9 @@ class Payment extends Component {
                                         val={number}
                                         keyboardtype={"number-pad"}
                                         onActive={() => this.setState({ isNumberFocus: true })}
-                                        onInActive={() => this.setState({ isNumberFocus: false })}
+                                        onInActive={() => this.setState({ isNumberFocus: false }, () => {
+                                            this.handleConfirmPayment()
+                                        })}
                                         label='Card Number'
                                         iconInput
                                         updateText={(number) => this.setState({ number })} />
@@ -96,10 +111,14 @@ class Payment extends Component {
                                     <FloatingInput
                                         val={name}
                                         onActive={() => this.setState({ isNameFocus: true })}
-                                        onInActive={() => this.setState({ isNameFocus: false })}
+                                        onInActive={() => this.setState({ isNameFocus: false }, () => {
+                                            this.handleConfirmPayment()
+                                        })}
                                         label='Card Holder'
                                         iconInput
-                                        updateText={(name) => this.setState({ name })} />
+                                        updateText={(name) => this.setState({ name }, () => {
+                                            this.handleConfirmPayment()
+                                        })} />
                                     <Icon.Feather
                                         name='user'
                                         style={styles.iconStyle}
@@ -125,7 +144,9 @@ class Payment extends Component {
                                         maxLength={3}
                                         keyboardtype={'number-pad'}
                                         onActive={() => this.setState({ isCvvFocus: true })}
-                                        onInActive={() => this.setState({ isCvvFocus: false })}
+                                        onInActive={() => this.setState({ isCvvFocus: false }, () => {
+                                            this.handleConfirmPayment()
+                                        })}
                                         label='CCV Code' iconSmallInput updateText={(cvv) => this.setState({ cvv })} />
                                     <Icon.Feather name='lock' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
                                 </View>

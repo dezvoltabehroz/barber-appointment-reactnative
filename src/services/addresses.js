@@ -1,7 +1,15 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import axiosInstance from './Interceptor';
 let config = { headers: { 'Content-Type': 'application/json' } }
-
+let configToken = (token) => {
+    return {
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        }
+    }
+}
 const Api = {
     addYourAddress: function (userData) {
         return axiosInstance.post('registration/updatePersonalAddress', {
@@ -25,25 +33,13 @@ const Api = {
             additional_info: userData.additional_info,
             label_as: userData.label_as,
             id: userData.id
-        }, {
-            headers: {
-                'Authorization': 'Bearer ' + userData.token,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }
-        })
+        },configToken(userData.token))
     },
 
     viewAllAddresses: function (userData) {
         return axiosInstance.post('address/viewAllAddress', {
             id: `${userData.id}`,
-        }, {
-            headers: {
-                'Authorization': 'Bearer ' + userData.token,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }
-        })
+        },configToken(userData.token))
     },
 
     editAddress: function (userData) {
@@ -56,39 +52,21 @@ const Api = {
             label_as: userData.label_as,
             id: userData.id,
             address_id: userData.address_id
-        }, {
-            headers: {
-                'Authorization': 'Bearer ' + `${userData.token}`,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        })
+        },configToken(userData.token))
     },
 
     deleteAddress: function (userData) {
         return axiosInstance.post('address/deleteAddress', {
             id: userData.user_id,
             address_id: userData.id
-        }, {
-            headers: {
-                'Authorization': 'Bearer ' + `${userData.token}`,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        })
+        },configToken(userData.token))
     },
-    
-    changeDefaultAddress:function(userData){
-        return axiosInstance.post('address/changeDefaultAddress',{
+
+    changeDefaultAddress: function (userData) {
+        return axiosInstance.post('address/changeDefaultAddress', {
             id: userData.user_id,
             address_id: userData.id
-        }, {
-            headers: {
-                'Authorization': 'Bearer ' + `${userData.token}`,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        })
+        },configToken(userData.token))
     }
 
 };

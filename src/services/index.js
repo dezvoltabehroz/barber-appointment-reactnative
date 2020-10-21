@@ -12,3 +12,6 @@ export const Barbers = _Barbers;
 
 import _AboutUs from './about';
 export const About = _AboutUs;
+
+import _Booking from './booking';
+export const BookingServices = _Booking;

@@ -1,18 +1,20 @@
 
 import axiosInstance from './Interceptor';
-
+let configToken = (token) => {
+    return {
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        }
+    }
+}
 const Api = {
     getBarbersList: function (userData) {
         return axiosInstance.post('list/searchBarbers', {
             id: userData.id,
             type: 'barber'
-        }, {
-            headers: {
-                'Authorization': 'Bearer ' + userData.token,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }
-        })
+        },configToken(userData.token))
     },
 
     getBarbersListSelectedService: function (userData) {
@@ -20,38 +22,20 @@ const Api = {
             id: userData.id,
             type: 'barber',
             service_id: userData.service_id
-        }, {
-            headers: {
-                'Authorization': 'Bearer ' + userData.token,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }
-        })
+        },configToken(userData.token))
     },
     getBarberProfile: function (userData) {
         return axiosInstance.post('list/barberProfile', {
             id: userData.id,
             barber_id: userData.barber_id
-        }, {
-            headers: {
-                'Authorization': 'Bearer ' + userData.token,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }
-        })
+        },configToken(userData.token))
     },
     getBarberServices: function (userData) {
         console.log(userData)
         return axiosInstance.post('list/barberServices', {
             id: userData.id,
             barber_id: userData.barber_id
-        }, {
-            headers: {
-                'Authorization': 'Bearer ' + userData.token,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }
-        })
+        }, configToken(userData.token))
     },
     getBarberBooking: function (userData) {
         console.log(userData)
@@ -61,13 +45,7 @@ const Api = {
             current_date: userData.current_date,
             day: userData.day,
             slot_difference: userData.slot_difference
-        }, {
-            headers: {
-                'Authorization': 'Bearer ' + userData.token,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }
-        })
+        }, configToken(userData.token))
     },
 
 };
