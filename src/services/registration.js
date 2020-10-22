@@ -1,5 +1,6 @@
 import axiosInstance from './Interceptor';
 import axios from 'axios';
+import { Platform } from 'react-native';
 let config = { headers: { 'Content-Type': 'application/json' } }
 const Api = {
     sendCodeToPhoneNumber: function (number) {
@@ -22,7 +23,7 @@ const Api = {
         formData.append('dob', userData.dob);
         formData.append('phone', phone);
         formData.append('image', {
-            uri: 'file://' + userData.image.path,
+            uri: Platform.OS === 'android'?'file://' + userData.image.path : userData.image.uri,
             name: `${new Date().getTime().toString()}.jpg`,
             filename: new Date().getTime().toString() + '.jpg',
             type: 'image/jpg'
