@@ -25,7 +25,7 @@ class Appointments extends Component {
         BookingServices.getAllBooking(userData)
             .then((response) => {
                 if (response.data.status) {
-                    this.setState({ bookingList: response.data.booking_list, loading: false })
+                    this.setState({ bookingList: response.data.booking_list.reverse(), loading: false })
                 }
             })
             .catch((err) => { console.log(err) })
