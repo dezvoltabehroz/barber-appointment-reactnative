@@ -17,6 +17,8 @@ import _EditYourAddress from './EditYourAddress';
 import _AddAddress from './AddAddress';
 import _EditAddress from './EditAddress';
 import _MyAddresses from './MyAddresses';
+import _Notification from './Notification';
+import _EditProfile from './EditProfile';
 
 export const CustomerScreenPaths = {
     PhoneNumber: _PhoneNumber,
@@ -24,6 +26,8 @@ export const CustomerScreenPaths = {
     PhoneVerified: _PhoneVerified,
     UpdateProfile: _UpdateProfile,
     EmailandPassword: _EmailandPassword,
+    Notification: _Notification,
+    EditProfile: _EditProfile,
     SubCategory: _SubCategory,
     SubCategoryServices: _SubCategoryServices,
     BarberList: _BarberList,

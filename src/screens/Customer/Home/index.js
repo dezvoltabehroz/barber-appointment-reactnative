@@ -61,13 +61,12 @@ class Home extends Component {
 
 
     componentDidMount = async () => {
-        let { isUserLogedIn } = this.props.user;
+        let { isUserLogedIn,userData } = this.props.user;
+        let data = {
+            id: userData.id,
+            token: userData.token
+        }
         if (isUserLogedIn) {
-            setTimeout(() => {
-                let data = {
-                    id: this.props.user.userData.id,
-                    token: this.props.user.userData.token
-                }
                 UserAddresses.viewAllAddresses(data)
                     .then((res) => {
                         res.data.addresses.forEach(element => {
@@ -79,7 +78,6 @@ class Home extends Component {
                     .catch((err) => {
                         console.log(err)
                     })
-            }, 6000);
         }
     }
 
@@ -96,7 +94,7 @@ class Home extends Component {
         return (
             <>
                 <TouchableOpacity
-                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "My Addresses" ? myAddresses() : onAppointments() }} style={styles.upperListItemContainer}>
+                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "My Addresses" ? myAddresses() : item.name == "My Fleek" ? onAppointments() : {} }} style={styles.upperListItemContainer}>
                     <ImageBackground source={{ uri: `${item.imageUrl}` }}
                         style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }} >
                         <View style={styles.upperListTitleContainer}>
@@ -206,7 +204,7 @@ class Home extends Component {
                                             }
 
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={styles.exitContainer} onPress={() => onExit()}>
+                                        <TouchableOpacity disabled={address ? false : true} style={styles.exitContainer} onPress={() => onExit()}>
                                             <View style={{ paddingRight: '5%' }}>
                                                 <Icon.Feather name="log-out" color="#fff" size={25} />
                                             </View>

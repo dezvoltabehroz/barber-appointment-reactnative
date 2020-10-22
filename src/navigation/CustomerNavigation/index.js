@@ -15,7 +15,7 @@ import EditYourAddressScreen from './EditYourAddressScreen';
 import MyAddressesScreen from './MyAddressesScreen';
 import EditAddressScreen from './EditAddressScreen';
 import AddAddress from './AddAddress';
-
+import { Icon } from '../../components';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
@@ -39,13 +39,14 @@ function CustomerRoutes() {
                 headerTitleAlign: 'center',
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Review and Rate</Text></View>),
             }} />
-            <Stack.Screen name="Appointments" component={AppointmentsScreen} options={{
+            <Stack.Screen name="Appointments" component={AppointmentsScreen}  options={({ navigation, route }) => ({
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
+                headerLeft: props => (<TouchableOpacity onPress={() => navigation.replace('Customer',{screen:'Home'})} style={{ marginLeft: 10 }}><Icon.Ionicons name={Platform.OS == 'ios' ? "ios-arrow-back" : "md-arrow-back"} size={25} color="white" /></TouchableOpacity>),
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Appointments</Text></View>),
                 headerTitleAlign: 'center',
-            }} />
+            })} />
             <Stack.Screen name="AddYourAddress" component={AddYourAddressScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',

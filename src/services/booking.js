@@ -29,7 +29,23 @@ const Api = {
         return axiosInstance.post('booking/allBooking', {
             id: userData.id
         }, configToken(userData.token))
+    },
+    getBookingDetails: function (userData) {
+        return axiosInstance.post('booking/bookingDetails', {
+            id: userData.id,
+            booking_id: userData.booking_id,
+            barber_id: userData.barber_id
+        }, configToken(userData.token))
+    },
+    rateAndReviewBarberServices: function (userData) {
+        return axiosInstance.post('booking/rateServices', {
+            barber_id: userData.barber_id,
+            id: userData.customer_id,
+            comment: userData.comment,
+            no_of_star: userData.no_of_star
+        }, configToken(userData.token))
     }
+
 };
 
 export default Api;

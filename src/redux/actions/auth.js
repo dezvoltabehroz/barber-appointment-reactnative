@@ -47,7 +47,7 @@ const getUserProfile = (userData, navigate) => {
                         AsyncStorage.setItem('USER', JSON.stringify(responseData.data.userData[0]))
                         if (navigate) {
                             if (responseData.data.userData[0].type == "customer") {
-                                navigate('Customer', { screen: 'Home' });
+                                navigate('Customer');
                             }
                             else {
                                 navigate('Barber');

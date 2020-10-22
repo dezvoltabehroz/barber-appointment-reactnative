@@ -65,6 +65,7 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     nameContainer: {
+        marginHorizontal:'5%',
         flex: 1,
         justifyContent: 'center',
     },

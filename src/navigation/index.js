@@ -9,6 +9,7 @@ import AuthScreen from './AuthScreen/AuthScreen';
 import AboutUsScreen from './AboutUsScreen';
 import ContactUsScreen from './ContactUsScreen';
 import AuthLoading from './AuthLoading';
+import BottomNavigationRoutes from './BottomTabNavigation';
 
 const Stack = createStackNavigator();
 
@@ -41,7 +42,7 @@ function AppRoutes() {
             <Stack.Screen name="Barber" component={BarberRoutes} options={{
                 headerShown: false
             }} />
-            <Stack.Screen name="Customer" component={CustomerRoutes} options={{
+            <Stack.Screen name="Customer" component={BottomNavigationRoutes} options={{
                 headerShown: false
             }} />
         </Stack.Navigator>

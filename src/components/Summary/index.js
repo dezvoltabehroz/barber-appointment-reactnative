@@ -73,7 +73,7 @@ class Summary extends Component {
                             <Text style={styles.colorTextStyle}>Services</Text>
                         </View>
                         <View style={styles.container}>
-                            <View style={styles.rowContainer}>
+                            <View style={[styles.rowContainer,{marginTop:'2%'}]}>
                                 <View style={styles.columnChange}>
                                     <Text style={styles.colorTextStyle}>Title</Text>
                                 </View>
@@ -114,7 +114,7 @@ class Summary extends Component {
                             <Text style={styles.colorTextStyle}>Booking</Text>
                         </View>
                         <View style={styles.container}>
-                            <View style={styles.rowContainer}>
+                            <View style={[styles.rowContainer,{marginTop:'2%'}]}>
                                 <Text style={styles.colorTextStyle}>Time: </Text>
                                 <View style={styles.textFlex}>
                                     <Text style={styles.textStyle}>{time}</Text>

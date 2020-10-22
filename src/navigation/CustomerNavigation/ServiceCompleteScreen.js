@@ -2,16 +2,28 @@
 
 import React, { Component } from 'react'
 import { MainScreenPaths } from '../../screens';
+import { BookingServices } from '../../services';
 
 export default class ServiceCompleteScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })
 
+    handleDone = (userData) => {
+        const { replace } = this.props.navigation;
+        BookingServices.rateAndReviewBarberServices(userData)
+            .then((res) => {
+                if (res.data.status) {
+                    replace('Customer')
+                }
+            })
+    }
+
     render() {
-        const { push } = this.props.navigation;
+        const { replace } = this.props.navigation;
+        const { userData } = this.props.route.params;
         return (
-            <MainScreenPaths.Customer.ServiceComplete onHome={() => push('Home')} />
+            <MainScreenPaths.Customer.ServiceComplete userData={userData} onHome={(userData) => this.handleDone(userData)} />
         )
     }
 }

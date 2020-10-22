@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, FlatList, TouchableOpacity, RefreshControl, ActivityIndicator } from "react-native";
 import styles from './style';
 import { Avatar } from "react-native-elements";
-import { Button } from "../../../components";
+import { Button, Icon } from "../../../components";
 import StarRating from 'react-native-star-rating';
 import THEME from '../../../assets/styles/theme.style';
 import { BookingServices } from "../../../services";
@@ -42,21 +42,26 @@ class Appointments extends Component {
     _renderItems = (item) => {
         const { onView } = this.props;
         return (
-            <View style={styles.listItemContainer}>
+            <TouchableOpacity onPress={() => onView(item.booking_id, item.barber_id)} style={styles.listItemContainer}>
                 <View style={styles.cardStyle} >
                     <View style={styles.avatarContainer}>
-                        <Avatar source={{ uri: item.profile_picture }} rounded={true} size={100} />
+                        <Avatar source={{ uri: item.profile_picture }} rounded={true} size={70} />
                     </View>
                     <View style={styles.nameContainer}>
                         <Text style={styles.nameTextStyle} >{item.full_name}</Text>
                         <Text style={styles.dateTextStyle} >Age: {item.age}</Text>
-                        <Text style={styles.dateTextStyle} > {item.rating==null?'':'Rating: '+item.rating+' / 5'} </Text>
+                        {/* <Text style={styles.dateTextStyle} > {item.rating==null?'':'Rating: '+item.rating+' / 5'} </Text> */}
+                    </View>
+                    <View style={styles.iconContainer}>
+                        <Icon.Ionicons name="ios-pencil" size={25} />
+                        <Icon.Ionicons name="ios-trash-outline" size={25} />
+                        {/* <Text style={styles.dateTextStyle} > {item.rating==null?'':'Rating: '+item.rating+' / 5'} </Text> */}
                     </View>
                 </View>
-                <View style={styles.buttonContainer}>
-                    <Button title='View' onPress={onView()} />
-                </View>
-            </View>
+                {/* <View style={styles.buttonContainer}>
+                    <Button title='View' onPress={()=>onView(item.booking_id)} />
+                </View> */}
+            </TouchableOpacity>
         )
     }
 
@@ -70,14 +75,14 @@ class Appointments extends Component {
                             <ActivityIndicator />
                         </View>
                         :
-                        bookingList.length != 0 && bookingList[0].full_name == null ?
+                        bookingList.length == 0 ?
                             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={{ color: THEME.COLOR_WHITE, fontSize: 18, fontFamily: 'Poppin-Regular' }} >No Record Found</Text>
+                                <Text style={{ color: THEME.COLOR_WHITE, fontSize: 18, fontFamily: 'Poppin-Regular' }} >No Appointments Found</Text>
                             </View>
                             :
                             <FlatList
-                                refreshControl={<RefreshControl  tintColor={THEME.COLOR_WHITE}
-                                colors={[THEME.PRIMARY_COLOR]} onRefresh={() => this.componentDidMount()} />}
+                                refreshControl={<RefreshControl tintColor={THEME.COLOR_WHITE}
+                                    colors={[THEME.PRIMARY_COLOR]} onRefresh={() => this.componentDidMount()} />}
                                 data={bookingList}
                                 showsVerticalScrollIndicator={false}
                                 ItemSeparatorComponent={this._renderSeparator}

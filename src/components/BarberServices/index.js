@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
 import styles from './style';
 import { Icon } from '..';
 import THEME from '../../assets/styles/theme.style';
@@ -51,7 +51,7 @@ export default class BarberServices extends Component {
             this.setState({ selectedService: this.state.selectedService.filter(item => item.id != val.id) }, () => {
                 price = (price - parseInt(val.price))
                 time = (time - parseInt(moment.duration(val.time_duration).asMinutes()))
-             
+
                 this.props.time(time);
                 this.props.price(price);
                 if (this.state.selectedService.length === 0) {
@@ -132,12 +132,25 @@ export default class BarberServices extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <FlatList
-                    data={this.state.services}
-                    showsVerticalScrollIndicator={false}
-                    ItemSeparatorComponent={this._renderSeparator}
-                    renderItem={({ item, index }) => this._renderItems({ item, index })}
-                    keyExtractor={item => item} />
+                {
+                    this.state.loading ?
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <ActivityIndicator />
+                        </View>
+                        :
+                        this.state.services.length == 0 ?
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ color: 'white' }} >Barber didn't update services</Text>
+                            </View>
+                            :
+                            <FlatList
+                                data={this.state.services}
+                                showsVerticalScrollIndicator={false}
+                                ItemSeparatorComponent={this._renderSeparator}
+                                renderItem={({ item, index }) => this._renderItems({ item, index })}
+                                keyExtractor={item => item} />
+                }
+
             </View>
         );
     }

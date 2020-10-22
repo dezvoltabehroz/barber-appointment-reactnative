@@ -31,7 +31,6 @@ const Api = {
         },configToken(userData.token))
     },
     getBarberServices: function (userData) {
-        console.log(userData)
         return axiosInstance.post('list/barberServices', {
             id: userData.id,
             barber_id: userData.barber_id

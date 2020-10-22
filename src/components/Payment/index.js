@@ -28,11 +28,11 @@ class Payment extends Component {
             cvv: '',
             isCvvFocus: false,
             showDatePicker: false,
-            date:''
+            date: ''
         }
     }
     handleConfirmPayment = () => {
-        const { name, expDate, number, cvv,date } = this.state;
+        const { name, expDate, number, cvv, date } = this.state;
         if (name && number && date && cvv) {
             let data = {
                 card_number: number,
@@ -48,7 +48,7 @@ class Payment extends Component {
         var expDate = moment(newDate).format('MM/YY')
         this.setState({
             expDate,
-            date:newDate,
+            date: newDate,
             showDatePicker: false,
         })
     };
@@ -151,15 +151,7 @@ class Payment extends Component {
                                     <Icon.Feather name='lock' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
                                 </View>
                             </View>
-                            {showDatePicker ?
-                                <MonthPicker
-                                    onChange={this.onChangeDate}
-                                    value={new Date()}
-                                    minimumDate={new Date()}
-                                    maximumDate={new Date(2029, 12)}
-                                    enableAutoDarkMode={false}
-                                />
-                                : null}
+
                             <View style={[styles.rowStyle, styles.generalMargin]}>
                                 <Icon.Feather name='lock' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
                                 <Text style={[styles.colorTextStyle, { width: "90%" }]}>
@@ -169,6 +161,15 @@ class Payment extends Component {
                         </View>
                     </View>
                 </ScrollView>
+                {showDatePicker ?
+                    <MonthPicker
+                        onChange={this.onChangeDate}
+                        value={new Date()}
+                        minimumDate={new Date(new Date().getFullYear(), new Date().getMonth() + 1)}
+                        maximumDate={new Date(2029, 12)}
+                        enableAutoDarkMode={false}
+                    />
+                    : null}
             </>
         );
     }

@@ -8,6 +8,7 @@ export const MainScreenPaths = {
     Auth: _Auth,
     AboutUs: _AboutUs,
     ContactUs: _ContactUs,
+
     Barber: BarberScreenPaths,
     Customer: CustomerScreenPaths
 }

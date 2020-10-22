@@ -72,7 +72,6 @@ class UpdateProfile extends Component {
             if (response.didCancel) {
             } else {
                 let source = response;
-                console.log(response)
                 this.setState({
                     avatar: source,
                     profile_Url: response

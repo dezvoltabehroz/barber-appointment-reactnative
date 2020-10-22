@@ -32,7 +32,6 @@ class ContactUs extends Component {
                 subject: subject,
                 message: message
             }
-            console.log(userData)
             About.postContactUs(userData)
                 .then((res) => {
                     if (res.data.status) {

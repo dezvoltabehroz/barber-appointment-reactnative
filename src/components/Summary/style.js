@@ -20,7 +20,7 @@ export default StyleSheet.create({
     addressRowContainer: {
         flexDirection: 'row',
         justifyContent: "space-between",
-        height: 35,
+        height: screenHeight*0.08,
         alignItems: 'center',
         marginHorizontal: "5%"
     },

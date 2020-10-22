@@ -10,11 +10,17 @@ class AppointmentsScreen extends Component {
 
     })
 
-    handleOnView = () => {
+    handleOnView = (bookingId,barberId) => {
         const { navigate } = this.props.navigation;
         let { isUserLogedIn } = this.props.user;
         if (isUserLogedIn) {
-            navigate('CustomerServices')
+            let userData = {
+                id: this.props.user.userData.id,
+                token: this.props.user.userData.token,
+                booking_id: bookingId,
+                barber_id:barberId
+            }
+            navigate('CustomerServices', { userData })
         }
         else {
             Alert.alert("Attention",
@@ -34,7 +40,7 @@ class AppointmentsScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Customer.Appointments onView={()=>this.handleOnView}  />
+            <MainScreenPaths.Customer.Appointments onView={(bookingId,barberId) => this.handleOnView(bookingId,barberId)} />
         )
     }
 }

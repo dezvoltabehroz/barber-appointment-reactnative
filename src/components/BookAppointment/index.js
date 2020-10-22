@@ -51,35 +51,35 @@ export default class BookAppointment extends Component {
     }
     Barbers.getBarberBooking(userData)
       .then((res) => {
-        console.log(res.data)
-        this.setState({
-          start_time: res.data.start_time,
-          end_time: res.data.end_time,
-          isSchedule: res.data.isSchedule,
-          availableSlots: res.data.availableSlots,
-          barber_booking_list: res.data.barber_booking_list
-        }, () => {
-          const { start_time, end_time, difference } = this.state;
-          if (res.data.isSchedule && res.data.barber_booking_list == 0 && res.data.availableSlots.length == 0) {
-            var startTime = moment(start_time, 'hh:mm A');
-            var endTime = moment(end_time, 'hh:mm A');
-            if (endTime.isBefore(startTime)) {
-              endTime.add(1, 'day');
+        if (res.data.status) {
+          this.setState({
+            start_time: res.data.start_time,
+            end_time: res.data.end_time,
+            isSchedule: res.data.isSchedule,
+            availableSlots: res.data.availableSlots,
+            barber_booking_list: res.data.barber_booking_list
+          }, () => {
+            const { start_time, end_time, difference } = this.state;
+            if (res.data.isSchedule && res.data.barber_booking_list == 0 && res.data.availableSlots.length == 0) {
+              var startTime = moment(start_time, 'hh:mm A');
+              var endTime = moment(end_time, 'hh:mm A');
+              if (endTime.isBefore(startTime)) {
+                endTime.add(1, 'day');
+              }
+              var tempDay = moment(startTime, 'hh:mm A');
+              var timeSlots = [];
+              while (startTime < endTime) {
+                var slotTime = tempDay.add(difference, 'minutes');
+                timeSlots.push({ slotStartTime: `${new moment(startTime).format('hh:mm A')}`, slotEndTime: `${new moment(slotTime).format('hh:mm A')}`, isBooked: false });
+                startTime.add(difference, 'minutes');
+              }
+              this.setState({ slots: timeSlots });
             }
-            var tempDay = moment(startTime, 'hh:mm A');
-            var timeSlots = [];
-            while (startTime < endTime) {
-              var slotTime = tempDay.add(difference, 'minutes');
-              timeSlots.push({ slotStartTime: `${new moment(startTime).format('hh:mm A')}`, slotEndTime: `${new moment(slotTime).format('hh:mm A')}`, isBooked: false });
-              startTime.add(difference, 'minutes');
+            else {
+              this.setState({ slots: res.data.availableSlots })
             }
-            this.setState({ slots: timeSlots });
-          }
-          else {
-            this.setState({ slots: res.data.availableSlots })
-          }
-        })
-
+          })
+        }
       })
       .catch((err) => {
         console.log(err)
@@ -129,7 +129,7 @@ export default class BookAppointment extends Component {
 
   render() {
 
-    const { modalVisible, bookingDate } = this.state;
+    const { modalVisible, bookingDate, isSchedule } = this.state;
     return (
       <>
         <View style={styles.container}>
@@ -142,16 +142,19 @@ export default class BookAppointment extends Component {
           </TouchableOpacity>
           <View style={styles.lineStyle}></View>
           {
-            this.state.slots.length == 0 ?
-              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ fontSize: 18, color: 'white', fontFamily: 'Poppins-Regular' }} >NO RECORD FOUND</Text></View>
+            !isSchedule ?
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ fontSize: 18, color: 'white', fontFamily: 'Poppins-Regular' }} >Barber is not working today</Text></View>
               :
-              <FlatList data={this.state.slots}
-                keyExtractor={item => item}
-                ItemSeparatorComponent={this.renderSeparator}
-                numColumns={3}
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={styles.contentContainer}
-                renderItem={({ index, item }) => this._renderItems({ index, item })} />}
+              this.state.slots.length == 0 ?
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ fontSize: 18, color: 'white', fontFamily: 'Poppins-Regular' }} >No Booking Available today</Text></View>
+                :
+                <FlatList data={this.state.slots}
+                  keyExtractor={item => item}
+                  ItemSeparatorComponent={this.renderSeparator}
+                  numColumns={3}
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={styles.contentContainer}
+                  renderItem={({ index, item }) => this._renderItems({ index, item })} />}
           <View style={styles.lineStyle}></View>
         </View>
         <Modal visible={modalVisible} >

@@ -11,8 +11,9 @@ export default class CustomerServicesScreen extends Component {
 
     render() {
         const { navigate, goBack } = this.props.navigation
+        const { userData } = this.props.route.params;
         return (
-            <MainScreenPaths.Customer.CustomerServices onApproved={() => navigate('ServiceComplete')} />
+            <MainScreenPaths.Customer.CustomerServices userData={userData} onApproved={(userData) => navigate('ServiceComplete',{userData})} />
         )
     }
 }
