@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableHighlight,ActivityIndicator } from 'react-native';
+import { View, Text, FlatList, TouchableHighlight, ActivityIndicator } from 'react-native';
 import { FooterButton, Icon } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
@@ -28,12 +28,14 @@ export default class CustomerServices extends Component {
         BookingServices.getBookingDetails(userData)
             .then((res) => {
                 if (res.data.status) {
+                    console.log("Datta====>", res.data)
                     this.setState({
                         serviceList: res.data.booking_service_details.services,
                         totalPrice: res.data.booking_service_details.booking_price,
                         totalTime: res.data.booking_service_details.booking_time_duration
                     }, () => {
-                        let time = moment.duration(res.data.booking_service_details.booking_time_duration).asMinutes()
+                        let time = parseInt(moment.duration(res.data.booking_service_details.booking_time_duration).asMinutes())
+                        console.log('Time is that', time)
                         var h = time / 60 | 0;
                         var m = time % 60 | 0;
                         this.setState({ timeInHour: moment.utc().hours(h).minutes(m).format("HH:mm"), loading: false })
@@ -54,18 +56,19 @@ export default class CustomerServices extends Component {
 
 
     _renderItems = (item) => {
+
         return (
             <>
                 <View style={styles.row}>
                     <View style={styles.nameContainer}>
-                        <Text style={styles.textStyle}>{item.service_name}</Text>
+                        <Text style={styles.textStyle}>{item.service_name}{item.quantity == '1' ? " (" + item.quantity + ")" : ""}</Text>
                     </View>
                     <View style={styles.priceContainer} >
-                        <Text style={styles.timeTextStyle}>{item.price}$</Text>
+                        <Text style={styles.timeTextStyle}>{(item.price * item.quantity)}$</Text>
                     </View>
                     <View style={styles.timeContainer}>
                         <View style={styles.priceAndTimeContainer}>
-                            <Text style={styles.timeTextStyle}>{item.time_duration}</Text>
+                            <Text style={styles.timeTextStyle}>{(parseInt(moment.duration(item.time_duration).asMinutes()) * item.quantity)}</Text>
                         </View>
                     </View>
                 </View>
@@ -96,7 +99,7 @@ export default class CustomerServices extends Component {
             <>
                 {
                     this.state.loading ?
-                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',backgroundColor:THEME.PRIMARY_BACKGROUND_COLOR }} >
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR }} >
                             <ActivityIndicator />
                         </View>
                         :
@@ -118,6 +121,12 @@ export default class CustomerServices extends Component {
                                 <View style={styles.flatlistContainer}>
                                     {
                                         serviceList.map((item) => {
+                                            console.log(item)
+                                            let time = (parseInt(moment.duration(item.time_duration).asMinutes()) * item.quantity)
+                                            var h = time / 60 | 0;
+                                            var m = time % 60 | 0;
+                                            let timeInHour = moment.utc().hours(h).minutes(m).format("HH:mm");
+
                                             return (
                                                 <>
                                                     <View style={styles.row}>
@@ -125,11 +134,26 @@ export default class CustomerServices extends Component {
                                                             <Text style={styles.textStyle}>{item.service_name}</Text>
                                                         </View>
                                                         <View style={styles.priceContainer} >
-                                                            <Text style={styles.timeTextStyle}>{item.price}$</Text>
+                                                            <Text style={styles.timeTextStyle}>{(item.price * item.quantity)}$</Text>
                                                         </View>
                                                         <View style={styles.timeContainer}>
                                                             <View style={styles.priceAndTimeContainer}>
-                                                                <Text style={styles.timeTextStyle}>{item.time_duration}</Text>
+                                                                <Text style={styles.timeTextStyle}>
+                                                                {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " + timeInHour[0] + timeInHour[1]}
+                                            {
+                                                timeInHour[0] == '0' && timeInHour[1] == '0' ?
+                                                    null
+                                                    :
+                                                    <Text style={styles.textStyles}> hr</Text>
+                                            }
+                                            {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                                            {
+                                                timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                                    null
+                                                    :
+                                                    <Text style={styles.textStyles}> mins</Text>
+                                            }
+                                                                </Text>
                                                             </View>
                                                         </View>
                                                     </View>
@@ -143,7 +167,7 @@ export default class CustomerServices extends Component {
                                     <View style={[styles.rowStyle, { marginTop: '5%' }]}>
                                         <Text style={styles.headingText}>Est Time for Service:</Text>
                                         <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>
-                                            {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " "+timeInHour[0] + timeInHour[1]}
+                                            {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " + timeInHour[0] + timeInHour[1]}
                                             {
                                                 timeInHour[0] == '0' && timeInHour[1] == '0' ?
                                                     null
@@ -168,7 +192,7 @@ export default class CustomerServices extends Component {
                                 <View style={styles.stopwatchContainer}>
                                 </View>
                             </View>
-                            <FooterButton title='Approve' onPress={()=>onApproved(this.props.userData)} />
+                            <FooterButton title='Approve' onPress={() => onApproved(this.props.userData)} />
                         </View>}
             </>
         );

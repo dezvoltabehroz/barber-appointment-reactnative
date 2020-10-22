@@ -82,7 +82,7 @@ export default class ServiceComplete extends Component {
                                             <MessageInput
                                                 label={"Please type your feedback"}
                                                 val={feedback}
-                                                multiline={true}
+                                                // multiline={true}
                                                 onActive={() => this.setState({ isMessageFocus: true })}
                                                 onInActive={() => this.setState({ isMessageFocus: false })}
                                                 updateText={(feedback) => this.setState({ feedback })} />
