@@ -257,7 +257,7 @@ export default class PriceAndTime extends Component {
                             renderItem={({ item, index }) => this._renderItems({ item, index })}
                             keyExtractor={item => item} />
                     </View>
-                    <FooterButton title='Save & Continue' addservice onPressAddService={() => this.setState({ showAddService: true })} onPress={()=>this.props.onNext()} />
+                    <FooterButton title='Update' addservice onPressAddService={() => this.setState({ showAddService: true })} onPress={()=>this.props.onNext()} />
                 </View>
                 <DateTimeModal showTimePicker={showTimePicker}
                     onCancel={() => this.setState({ showTimePicker: false })}

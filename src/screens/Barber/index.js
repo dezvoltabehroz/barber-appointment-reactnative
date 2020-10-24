@@ -17,13 +17,14 @@ import _ServiceDetails from './ServiceDetails';
 import _BarberServiceComplete from './BarberServiceComplete';
 import _BarberChat from './BarberChat';
 import _BarberEditProfile from './BarberEditProfile';
-
+import _Notification from './Notification';
 export const BarberScreenPaths = {
     BarberPhoneNumber: _BarberPhoneNumber,
     BarberPhoneVerification: _BarberPhoneVerification,
     BarberPhoneVerified: _BarberPhoneVerified,
     BarberUpdateProfile: _BarberUpdateProfile,
     BarberEmailandPassword: _BarberEmailandPassword,
+    Notification: _Notification,
     BarberResume: _BarberResume,
     BarberPortfolio: _BarberPortfolio,
     BarberServices: _BarberServices,

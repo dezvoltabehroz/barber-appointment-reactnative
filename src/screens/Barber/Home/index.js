@@ -11,7 +11,7 @@ class BarberHome extends Component {
         this.state = {
             servicelist: [
                 {
-                    name: 'Bookings',
+                    name: 'Bookings History',
                     imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
                 },
                 {
@@ -140,7 +140,7 @@ class BarberHome extends Component {
                     <ImageBackground source={{ uri: `${item.imageUrl}` }}
                         style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }}>
                         <View style={styles.upperListTitleContainer}>
-                            <Text style={styles.upperListTitleStyle} >{item.name}</Text>
+                            <Text style={[styles.upperListTitleStyle,{color:THEME.COLOR_WHITE}]} >{item.name}</Text>
                         </View>
                     </ImageBackground>
                 </TouchableOpacity>
@@ -162,43 +162,47 @@ class BarberHome extends Component {
         })
             .catch(error => alert(error));
     }
-
+    _renderSeparator = () => {
+        return (
+            <View style={styles.seperatorHeightStyle}></View>
+        )
+    }
     _renderBookingItems = (item, index) => {
         const { onAccept } = this.props;
         return (
-            <View>
-                <View>
+            <TouchableOpacity onPress={() => onAccept(item.region)} style={{backgroundColor:THEME.COLOR_WHITE,borderRadius:7, marginHorizontal: '5%',}}>
+                {/* <View>
                     <SearchandMapView booking region={(item.region)} />
-                </View>
+                </View> */}
                 <View style={styles.locationContainer}>
-                    <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} />
+                    <Icon.Entypo name='dot-single' color={THEME.COLOR_BLACK} size={20} />
                     <Text style={styles.upperListTitleStyle}>{item.location}</Text>
                 </View>
                 <View style={styles.serviceTimeContainer}>
-                    <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} />
+                    <Icon.Entypo name='dot-single' color={THEME.COLOR_BLACK} size={20} />
                     <Text style={styles.upperListTitleStyle}>{item.serviceTime.day} {item.serviceTime.date} at {item.serviceTime.serviceBookedstartTime} to {item.serviceTime.serviceBookedendTime} </Text>
                 </View>
                 <View style={styles.serviceTimeContainer}>
-                    <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} />
+                    <Icon.Entypo name='dot-single' color={THEME.COLOR_BLACK} size={20} />
                     <Text style={styles.upperListTitleStyle}>
                         {item.services.map((data) => {
-                            return (<Text style={styles.upperListTitleStyle}>{data.serviceName}, </Text>)
+                            return (<Text style={[styles.upperListTitleStyle]}>{data.serviceName}, </Text>)
                         })}....
                     </Text>
                 </View>
                 <View style={styles.buttonContainer}>
                     <View>
                         <TouchableOpacity style={styles.cancelContainer}>
-                            <Text style={styles.upperListTitleStyle}>Decline</Text>
+                            <Text style={[styles.upperListTitleStyle,{color:THEME.COLOR_WHITE}]}>Decline</Text>
                         </TouchableOpacity>
                     </View>
                     <View>
                         <TouchableOpacity onPress={() => onAccept(item.region)} style={styles.acceptContainer}>
-                            <Text style={styles.upperListTitleStyle}>Accept</Text>
+                            <Text style={[styles.upperListTitleStyle,{color:THEME.COLOR_WHITE}]}>Accept</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
 
@@ -230,6 +234,7 @@ class BarberHome extends Component {
                         <FlatList
                             data={bookingList}
                             showsVerticalScrollIndicator={false}
+                            ItemSeparatorComponent={this._renderSeparator}
                             renderItem={({ item, index }) => this._renderBookingItems(item, index)}
                             keyExtractor={item => item} />
                     </View>

@@ -27,7 +27,7 @@ class UpdateProfile extends Component {
             location: '',
             date: '',
             minDistance: 5,
-            maxDistance: 50,
+            maxDistance: 10,
             showDatePicker: false,
             submit: false,
             modalView: false,
@@ -213,8 +213,8 @@ class UpdateProfile extends Component {
                                         style={styles.sliderStyle}
                                         gravity={"top"}
                                         min={5}
-                                        max={50}
-                                        step={5}
+                                        max={10}
+                                        step={1}
                                         thumbColor={THEME.PRIMARY_COLOR}
                                         labelBackgroundColor={THEME.PRIMARY_COLOR}
                                         labelBorderWidth={0}

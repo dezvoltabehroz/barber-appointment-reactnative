@@ -19,21 +19,23 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingLeft: 10,
-        paddingRight: 10
+        paddingRight: 10,
+
     },
     upperListImageStyle: {
-        height: 70,
-        width: 120
+        height: 80,
+        width: 145,
     },
     upperListTitleContainer: {
         flex: 1,
         paddingTop: '20%',
-        marginHorizontal: '10%',
+        marginLeft: '10%',
         justifyContent: 'center',
         alignItems: 'flex-start'
     },
     upperListTitleStyle: {
         // color: THEME.COLOR_WHITE,
+        fontSize:THEME.FONT_SIZE_SMALL,
         fontFamily: 'Poppins-Medium'
     },
     lowerListContainer: {
@@ -51,32 +53,8 @@ export default StyleSheet.create({
     },
     lowerListImageStyle: {
         height: screenHeight * 0.2,
-        width: screenWidth * 0.9
-    },
-    locationContainer: {
-        marginHorizontal: '2%',
-        marginTop: '5%',
-        flexDirection: 'row'
-    },
-    serviceTimeContainer: {
-        marginHorizontal: '2%',
-        flexDirection: 'row'
-    },
-    acceptContainer: {
-        height: 40,
-        backgroundColor: THEME.PRIMARY_COLOR,
-        justifyContent: "center",
-        alignItems: "center",
-        width: screenWidth * 0.3,
-        borderRadius: 7
-    },
-    cancelContainer: {
-        height: 40,
-        backgroundColor: '#ec625f',
-        justifyContent: "center",
-        alignItems: "center",
-        width: screenWidth * 0.3,
-        borderRadius: 7
+        width: screenWidth * 0.9,
+        borderRadius: 10
     },
     lowerListTitleContainer: {
         flex: 1,
@@ -86,12 +64,6 @@ export default StyleSheet.create({
         paddingHorizontal: '10%',
         justifyContent: 'flex-start',
         alignItems: 'flex-start'
-    },
-    buttonContainer: {
-        marginHorizontal: '5%',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginVertical: '3%'
     },
     lowerListTitleStyle: {
         fontSize: THEME.FONT_SIZE_LARGE,
@@ -106,12 +78,14 @@ export default StyleSheet.create({
     },
     appNameTextStyle: {
         color: THEME.COLOR_WHITE,
-        fontSize: 30,
+        fontSize: 25,
+        justifyContent: "center",
+        textAlign: 'center',
         fontFamily: 'Poppins-Medium'
     },
     appointmentTextStyle: {
         color: THEME.COLOR_WHITE,
-        fontSize: THEME.FONT_SIZE_LARGE,
+        // fontSize: THEME.FONT_SIZE,
         fontFamily: 'Poppins-Medium'
     },
     seperatorWidthStyle: {
@@ -121,13 +95,41 @@ export default StyleSheet.create({
         height: 10
     },
     exitContainer: {
-        padding: 10,
+        flexDirection: 'row',
         justifyContent: "center",
         alignItems: "center"
     },
-    logoStyle:{
-        height:40,
-        width:60
+    searchBarberContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center'
+        // justifyContent: "center",
+        // alignItems: "center"
+    },
+    headingContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: "center"
+        // paddingLeft: '15%'
+    },
+    addressesContainer: {
+        borderRadius: 5,
+        height: 60,
+        justifyContent: 'center',
+        paddingHorizontal: '5%',
+        marginHorizontal: '5%',
+        marginVertical: '2%'
+    },
+    addNewAddressContainer: {
+        flexDirection: 'row',
+        paddingHorizontal: '5%',
+        paddingVertical: '5%',
+        paddingLeft: '10%',
+        borderBottomRightRadius: 10,
+        borderBottomLeftRadius: 10
+    }, logoStyle: {
+        height: 40, width: 60
     }
+
 
 })

@@ -9,7 +9,8 @@ import AuthScreen from './AuthScreen/AuthScreen';
 import AboutUsScreen from './AboutUsScreen';
 import ContactUsScreen from './ContactUsScreen';
 import AuthLoading from './AuthLoading';
-import BottomNavigationRoutes from './BottomTabNavigation';
+import CustomerBottomNavigationRoutes from './CustomerBottomTabNavigation';
+import BarberBottomNavigationRoutes from './BarberBottomTabNavigation';
 
 const Stack = createStackNavigator();
 
@@ -39,10 +40,10 @@ function AppRoutes() {
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Contact Us</Text></View>),
                 headerTitleAlign: 'center',
             }} />
-            <Stack.Screen name="Barber" component={BarberRoutes} options={{
+            <Stack.Screen name="Barber" component={BarberBottomNavigationRoutes} options={{
                 headerShown: false
             }} />
-            <Stack.Screen name="Customer" component={BottomNavigationRoutes} options={{
+            <Stack.Screen name="Customer" component={CustomerBottomNavigationRoutes} options={{
                 headerShown: false
             }} />
         </Stack.Navigator>

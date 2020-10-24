@@ -67,7 +67,7 @@ export default class BarberServiceAccept extends Component {
                 <View style={styles.footerStyle}>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity onPress={arrivedAtlocation} style={styles.customerLocationContainer}>
-                            <Text style={styles.buttonText}>Arrived at Customer Location</Text>
+                            <Text style={styles.buttonText}>Arrived</Text>
                         </TouchableOpacity>
                         <View style={{ flexDirection: "row", alignItems: 'center' }}>
                             <TouchableOpacity onPress={onChat}>

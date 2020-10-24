@@ -96,7 +96,7 @@ class BarberEditProfile extends Component {
 
     render() {
         const { filePath } = this.state;
-
+        console.log(this.props.user.userData)
         return (
             <>
                 <View style={styles.container}>
@@ -112,9 +112,14 @@ class BarberEditProfile extends Component {
                                 // showAccessory={true}
                                 onAccessoryPress={this.chooseFile}
                                 size={120} />
-                            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={styles.textStyle}>{this.props.user.userData ? this.props.user.userData.full_name:'JOHN DOE'}</Text>
+                            <View style={{ justifyContent: 'center',}}>
+                                {/* <View style={{ justifyContent: 'center', alignItems: 'center' }}> */}
+                                <Text style={styles.textStyle}>{this.props.user.userData ? this.props.user.userData.full_name : 'JOHN DOE'}</Text>
+                                {/* </View> */}
+                                <Text style={styles.textStyle}>Age: {97}</Text>
+                                <Text style={styles.textStyle}>Rating: 4.5/5</Text>
                             </View>
+
                         </View>
                     </View>
                     <ScrollView>

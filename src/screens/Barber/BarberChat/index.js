@@ -263,7 +263,7 @@ export default class BarberChat extends Component {
                     messages={this.state.messages}
                     onSend={this.onSend}
                     placeholder={'Type a message'}
-                    maxComposerHeight={200}
+                    maxComposerHeight={55}
                     scrollToBottom
                     alignTop
                     // minInputToolbarHeight={200}
@@ -277,6 +277,7 @@ export default class BarberChat extends Component {
                             {...props}
                             containerStyle={{
                                 backgroundColor: "black",
+                                height: 54,
                                 borderTopWidth: 0,
                                 marginTop: '2%'
                             }}
@@ -285,7 +286,9 @@ export default class BarberChat extends Component {
                                     <KeyboardAwareScrollView>
                                         <Composer
                                             {...props1}
+                                            multiline={false}
                                             textInputStyle={{
+                                                height: 54,
                                                 color: "white",
                                                 fontFamily: 'Poppins-Regular',
                                                 paddingTop: '5%'

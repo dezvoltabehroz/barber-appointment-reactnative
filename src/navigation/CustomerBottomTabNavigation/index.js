@@ -7,13 +7,15 @@ import { Icon } from '../../components';
 import NotificationScreen from '../CustomerNavigation/NotificationScreen';
 import EditProfileScreen from '../CustomerNavigation/EditProfileScreen';
 import THEME from '../../assets/styles/theme.style'
+import UpdateProfileScreen from '../CustomerNavigation/UpdateProfileScreen';
+import EditProfile from '../../screens/Customer/EditProfile';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 const Bottom = createBottomTabNavigator();
 
 
-function BottomNavigationRoutes() {
+function CustomerBottomNavigationRoutes() {
     return (
         <Bottom.Navigator
             screenOptions={({ route }) => ({
@@ -38,7 +40,7 @@ function BottomNavigationRoutes() {
             }}
         >
             <Bottom.Screen name="Home" component={CustomerRoutes} />
-            <Bottom.Screen name="Profile" component={EditProfileScreen} options={{
+            <Bottom.Screen name="Profile" component={EditProfile} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
@@ -60,4 +62,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default BottomNavigationRoutes;
+export default CustomerBottomNavigationRoutes;
