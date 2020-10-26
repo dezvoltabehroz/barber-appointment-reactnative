@@ -27,8 +27,9 @@ export default class BarberStartServiceScreen extends Component {
 
     render() {
         const { navigate, goBack } = this.props.navigation
+        const {  bookingId  } = this.props.route.params
         return (
-            <MainScreenPaths.Barber.BarberStartService onStartService={ this.handleStartService} />
+            <MainScreenPaths.Barber.BarberStartService bookingId={bookingId} onStartService={ this.handleStartService} />
         )
     }
 }

@@ -28,7 +28,6 @@ export default class CustomerServices extends Component {
         BookingServices.getBookingDetails(userData)
             .then((res) => {
                 if (res.data.status) {
-                    console.log("Datta====>", res.data)
                     this.setState({
                         serviceList: res.data.booking_service_details.services,
                         totalPrice: res.data.booking_service_details.booking_price,

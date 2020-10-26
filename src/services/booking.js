@@ -47,7 +47,24 @@ const Api = {
             no_of_star: userData.no_of_star,
             review_by:userData.review_by
         }, configToken(userData.token))
-    }
+    },
+      getBarberBookingList: function (userData) {
+        return axiosInstance.post('booking/barberBookingList', {
+            id: userData.id,
+        }, configToken(userData.token))
+    },
+    acceptBookingOfCustomer: function (userData) {
+        return axiosInstance.post('booking/acceptBooking', {
+            id: userData.id,
+            booking_id:userData.booking_id
+        }, configToken(userData.token))
+    },
+    declineBookingOfCustomer: function (userData) {
+        return axiosInstance.post('booking/declineBooking', {
+            id: userData.id,
+            booking_id:userData.booking_id
+        }, configToken(userData.token))
+    },
 
 };
 

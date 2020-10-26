@@ -99,5 +99,8 @@ export default StyleSheet.create({
     seperatorStyle: {
         height: 15,
     },
+    timeAndAmountCotainer: {
+        flex: 0.35
+    },
 
 })

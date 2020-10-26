@@ -1,25 +1,48 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator } from 'react-native';
 import { FooterButton, Icon } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
-
-export default class StartService extends Component {
+import { BookingServices } from '../../../services';
+import { connect } from 'react-redux';
+import moment from 'moment';
+class StartService extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            serviceList: [
-                { id: 1, serviceName: 'Hair Cuttuing', serviceDescription: '', selected: false, price: 50, time: 30, isFilled: '' },
-                { id: 2, serviceName: 'Hair Trimming', serviceDescription: '', selected: false, price: 50, time: 30, isFilled: '' },
-                { id: 3, serviceName: 'Blowout', serviceDescription: '', selected: false, price: 50, time: 30, isFilled: '' },
-                { id: 4, serviceName: 'Hair Color', serviceDescription: '', selected: false, price: 50, time: 30, isFilled: '' },
-                { id: 5, serviceName: 'Double process hair color', serviceDescription: '', selected: false, price: 50, time: 30, isFilled: '' },
-                { id: 6, serviceName: 'Shave', serviceDescription: '', selected: false, price: 50, time: 30, isFilled: '', isFilled: '' },
-                { id: 7, serviceName: 'Beard Trim', serviceDescription: '', selected: false, price: 50, time: 30, isFilled: '' },
-                { id: 8, serviceName: 'Braids & Twist', serviceDescription: '', selected: false, price: 50, time: 30, isFilled: '' },
-            ],
+            serviceList: [],
+            totalTime: null,
+            timeInHour: '',
+            totalPrice: '',
+            loading: false
         }
+    }
+    componentDidMount = () => {
+        this.setState({ loading: true })
+        let userData = {
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token,
+            barber_id: this.props.user.userData.id,
+            booking_id: this.props.bookingId
+        }
+        BookingServices.getBookingDetails(userData)
+            .then((res) => {
+                if (res.data.status) {
+                    this.setState({
+                        serviceList: res.data.booking_service_details.services,
+                        totalPrice: res.data.booking_service_details.booking_price,
+                        totalTime: res.data.booking_service_details.booking_time_duration
+                    }, () => {
+                        let time = parseInt(moment.duration(res.data.booking_service_details.booking_time_duration).asMinutes())
+                        console.log('Time is that', time)
+                        var h = time / 60 | 0;
+                        var m = time % 60 | 0;
+                        this.setState({ timeInHour: moment.utc().hours(h).minutes(m).format("HH:mm"), loading: false })
+                    })
+                }
+            })
+            .catch((err) => console.log(err))
     }
 
     _renderSeparator = () => {
@@ -28,69 +51,118 @@ export default class StartService extends Component {
         )
     }
 
-    _renderItems = (item) => {
-        return (
-            <>
-                <View style={styles.headingContainer}>
-                    <View style={styles.nameContainer}>
-                        <Text style={styles.textStyle}>{item.serviceName}</Text>
-                    </View>
-                    <View style={styles.priceContainer} >
-                        <Text style={styles.timeTextStyle}>${item.price}</Text>
-                    </View>
-                    <View style={styles.timeContainer}>
-                        <View style={styles.priceAndTimeContainer}>
-                            <Text style={styles.timeTextStyle}>00:{item.time}</Text>
-                        </View>
-                    </View>
-                </View>
-            </>
-        )
-    }
 
 
 
     render() {
         const { onStartService } = this.props;
-        const { serviceList } = this.state;
+        const { serviceList, timeInHour, totalPrice } = this.state;
         return (
             <>
-                <View style={styles.container}>
-                    <View style={styles.upperContainer}>
-                        <View style={{ marginBottom: '5%' }}>
-                            <Text style={styles.textHeadingStyle}>List of Customer Services</Text>
+                {
+                    this.state.loading ?
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR }} >
+                            <ActivityIndicator />
                         </View>
-                        <View style={styles.headingContainer}>
-                            <View style={styles.nameContainer}>
-                                <Text style={styles.headingTextStyle}>Services</Text>
+                        :
+                        <View style={styles.container}>
+                            <View style={styles.upperContainer}>
+                                <View style={{ marginBottom: '5%' }}>
+                                    <Text style={styles.textHeadingStyle}>List of Customer Services</Text>
+                                </View>
+                                <View style={styles.headingContainer}>
+                                    <View style={styles.nameContainer}>
+                                        <Text style={styles.headingTextStyle}>Services</Text>
+                                    </View>
+                                    <View style={styles.priceContainer} >
+                                        <Text style={styles.headingTextStyle1}>Price</Text>
+                                    </View>
+                                    <View style={styles.timeContainer}>
+                                        <Text style={styles.headingTextStyle1}>Est.Time</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.flatlistContainer}>
+                                    {
+                                        serviceList.map((item) => {
+                                            console.log(item)
+                                            let time = (parseInt(moment.duration(item.time_duration).asMinutes()) * item.quantity)
+                                            var h = time / 60 | 0;
+                                            var m = time % 60 | 0;
+                                            let timeInHour = moment.utc().hours(h).minutes(m).format("HH:mm");
+
+                                            return (
+                                                <>
+                                                    <View style={styles.row}>
+                                                        <View style={styles.nameContainer}>
+                                                            <Text style={styles.textStyle}>{item.service_name}{item.quantity == '1' ? "" : ` (${item.quantity})`}</Text>
+                                                        </View>
+                                                        <View style={styles.priceContainer} >
+                                                            <Text style={styles.timeTextStyle}>{(item.price * item.quantity)}$</Text>
+                                                        </View>
+                                                        <View style={styles.timeContainer}>
+                                                            <View style={styles.priceAndTimeContainer}>
+                                                                <Text style={styles.timeTextStyle}>
+                                                                    {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " + timeInHour[0] + timeInHour[1]}
+                                                                    {
+                                                                        timeInHour[0] == '0' && timeInHour[1] == '0' ?
+                                                                            null
+                                                                            :
+                                                                            <Text style={styles.textStyles}> hr</Text>
+                                                                    }
+                                                                    {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                                                                    {
+                                                                        timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                                                            null
+                                                                            :
+                                                                            <Text style={styles.textStyles}> mins</Text>
+                                                                    }
+                                                                </Text>
+                                                            </View>
+                                                        </View>
+                                                    </View>
+                                                    <View style={styles.seperatorStyle}></View>
+                                                </>
+                                            )
+                                        })
+                                    }
+                                </View>
+                                <View style={styles.timeAndAmountCotainer}>
+                                    <View style={[styles.rowStyle, { marginTop: '5%' }]}>
+                                        <Text style={styles.headingText}>Est Time for Service:</Text>
+                                        <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>
+                                            {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " + timeInHour[0] + timeInHour[1]}
+                                            {
+                                                timeInHour[0] == '0' && timeInHour[1] == '0' ?
+                                                    null
+                                                    :
+                                                    <Text style={styles.textStyles}> hr</Text>
+                                            }
+                                            {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                                            {
+                                                timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                                    null
+                                                    :
+                                                    <Text style={styles.textStyles}> mins</Text>
+                                            }
+                                        </Text>
+                                    </View>
+                                    <View style={styles.rowStyle}>
+                                        <Text style={styles.headingText}>Amount to be paid:</Text>
+                                        <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}> {totalPrice}$</Text>
+                                    </View>
+                                </View>
                             </View>
-                            <View style={styles.priceContainer} >
-                                <Text style={styles.headingTextStyle1}>Price</Text>
-                            </View>
-                            <View style={styles.timeContainer}>
-                                <Text style={styles.headingTextStyle1}>Est.Time</Text>
-                            </View>
+                            <FooterButton title='Start Service' onPress={onStartService} />
                         </View>
-                        <View style={styles.flatlistContainer}>
-                            <FlatList
-                                data={serviceList}
-                                showsVerticalScrollIndicator={false}
-                                ItemSeparatorComponent={this._renderSeparator}
-                                renderItem={({ item }) => this._renderItems(item)}
-                                keyExtractor={item => item} />
-                        </View>
-                        <View style={{ flexDirection: "row", marginVertical: '5%' }}>
-                            <Text style={styles.headingText}>Est Time for Service:</Text>
-                            <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}> 2 hr</Text>
-                        </View>
-                        <View style={{ flexDirection: "row" }}>
-                            <Text style={styles.headingText}>Amount to be paid:</Text>
-                            <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}> $200</Text>
-                        </View>
-                    </View>
-                    <FooterButton title='Start Service' onPress={onStartService} />
-                </View>
+                }
             </>
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer || {}
+    };
+};
+
+export default connect(mapStateToProps)(StartService)
