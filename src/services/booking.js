@@ -22,7 +22,9 @@ const Api = {
             barber_id: userData.barber_id,
             customer_id: userData.customer_id,
             customer_services: userData.customer_services,
-            card_detail: userData.card_detail
+            card_detail: userData.card_detail,
+            is_accepted: userData.is_accepted,
+            is_accepted_time: userData.is_accepted_time
         }, configToken(userData.token))
     },
     getAllBooking: function (userData) {
@@ -42,7 +44,8 @@ const Api = {
             barber_id: userData.barber_id,
             id: userData.customer_id,
             comment: userData.comment,
-            no_of_star: userData.no_of_star
+            no_of_star: userData.no_of_star,
+            review_by:userData.review_by
         }, configToken(userData.token))
     }
 

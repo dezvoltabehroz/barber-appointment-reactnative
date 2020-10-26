@@ -84,7 +84,7 @@ class Booking extends Component {
                     token: userdata.token,
                     id: userdata.id,
                     booking_price: totalPrice,
-                    booking_time_duration:timeInHour,
+                    booking_time_duration: timeInHour,
                     customer_lat: latitude,
                     customer_long: longitude,
                     booking_date: moment(bookingDate).format('YYYY-MM-DD'),
@@ -92,10 +92,12 @@ class Booking extends Component {
                     barber_id: userdata.barber_id,
                     customer_id: userdata.id,
                     customer_services: this.state.customer_services,
-                    card_detail: data
+                    card_detail: data,
+                    is_accepted: moment(bookingDate).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 0 : 1,
+                    is_accepted_time: moment(bookingDate).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? null : moment().format('YYYY-MM-DD') +' '+ moment().format('LTS'),
 
                 }
-                console.log(userData);
+                // console.log(userData);
                 BookingServices.makeCustomerBooking(userData)
                     .then((res) => { console.log(res.data) })
                     .catch((err) => { console.log(err) })

@@ -96,7 +96,8 @@ export default class ServiceComplete extends Component {
                                     customer_id: this.props.userData.id,
                                     comment: feedback,
                                     no_of_star: starCount,
-                                    token:this.props.userData.token
+                                    token:this.props.userData.token,
+                                    review_by:this.props.userData.type
                                 }
                                 onHome(userData)
                             }} />

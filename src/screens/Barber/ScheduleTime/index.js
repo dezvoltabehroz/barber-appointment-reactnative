@@ -4,6 +4,8 @@ import { FooterButton, Icon, DateTimeModal } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
 import COMMON_STYLE from '../../../assets/styles/common.style';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Calendar } from 'react-native-calendars';
 
 export default class ScheduleTime extends Component {
 
@@ -191,28 +193,58 @@ export default class ScheduleTime extends Component {
         return (
             <>
                 <View style={styles.container}>
+
                     <View style={styles.upperContainer}>
-                        {selectedDays.length == 0 || selectedDays[0].startTime != '' || selectedDays[0].endTime != '' ?
-                            <View style={styles.headingContainer}>
-                                <View style={styles.dayContainer}>
-                                    <Text style={styles.headingTextStyle}>Days</Text>
-                                </View>
-                                <View style={styles.startTimeContainer} >
-                                    <Text style={styles.headingTextStyle}>Start Time</Text>
-                                </View>
-                                <View style={styles.endTimeContainer}>
-                                    <Text style={styles.headingTextStyle}>End Time</Text>
-                                </View>
-                                <View style={[styles.iconContainer]}></View>
-                            </View> : null}
-                        <FlatList
-                            data={selectedDays}
-                            showsVerticalScrollIndicator={false}
-                            ItemSeparatorComponent={this._renderSeparator}
-                            renderItem={({ item, index }) => this._renderItems({ item, index })}
-                            keyExtractor={item => item} />
+                        <KeyboardAwareScrollView>
+                            {selectedDays.length == 0 || selectedDays[0].startTime != '' || selectedDays[0].endTime != '' ?
+                                <View style={styles.headingContainer}>
+                                    <View style={styles.dayContainer}>
+                                        <Text style={styles.headingTextStyle}>Days</Text>
+                                    </View>
+                                    <View style={styles.startTimeContainer} >
+                                        <Text style={styles.headingTextStyle}>Start Time</Text>
+                                    </View>
+                                    <View style={styles.endTimeContainer}>
+                                        <Text style={styles.headingTextStyle}>End Time</Text>
+                                    </View>
+                                    <View style={[styles.iconContainer]}></View>
+                                </View> : null}
+                            <FlatList
+                                data={selectedDays}
+                                showsVerticalScrollIndicator={false}
+                                ItemSeparatorComponent={this._renderSeparator}
+                                renderItem={({ item, index }) => this._renderItems({ item, index })}
+                                keyExtractor={item => item} />
+                            <Calendar
+                                minDate={new Date()}
+                                maxDate={new Date().setDate(new Date().getDate() + 30)}
+                                onDayPress={(day) => this.handleDayPress(day)}
+                                monthFormat={'MMMM yyyy'}
+                                theme={{
+                                    calendarBackground: THEME.PRIMARY_BACKGROUND_COLOR,
+                                    selectedDotColor: '#ffffff',
+                                    selectedDayBackgroundColor: '#D2A91B',
+                                    selectedDayTextColor: 'black',
+                                    dayTextColor: 'white',
+                                    textDisabledColor: 'grey',
+                                    dotColor: '#D2A91B',
+                                    todayTextColor: 'white',
+                                    arrowColor: THEME.PRIMARY_COLOR,
+                                    monthTextColor: 'white',
+                                    textDayFontFamily: "Poppins-Medium",
+                                    textMonthFontFamily: "Poppins-Medium",
+                                    textDayHeaderFontFamily: "Poppins-Medium",
+                                    textDayFontSize: 10,
+                                    textMonthFontSize: 16,
+                                    textDayHeaderFontSize: 10,
+                                }}
+                            />
+
+
+
+                        </KeyboardAwareScrollView>
                     </View>
-                    <FooterButton title='Save & Continue' onPress={this.on_Press_Next} />
+                    <FooterButton title='Update & Continue' onPress={this.on_Press_Next} />
                 </View>
                 <DateTimeModal showTimePicker={showTimePicker}
                     dayNight={true}

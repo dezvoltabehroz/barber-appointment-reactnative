@@ -18,7 +18,8 @@ class AppointmentsScreen extends Component {
                 id: this.props.user.userData.id,
                 token: this.props.user.userData.token,
                 booking_id: bookingId,
-                barber_id:barberId
+                barber_id:barberId,
+                type: this.props.user.userData.type,
             }
             navigate('CustomerServices', { userData })
         }

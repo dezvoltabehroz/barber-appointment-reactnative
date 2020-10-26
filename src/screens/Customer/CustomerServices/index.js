@@ -131,7 +131,7 @@ export default class CustomerServices extends Component {
                                                 <>
                                                     <View style={styles.row}>
                                                         <View style={styles.nameContainer}>
-                                                            <Text style={styles.textStyle}>{item.service_name}</Text>
+                                                            <Text style={styles.textStyle}>{item.service_name}{item.quantity=='1'?"":` (${item.quantity})`}</Text>
                                                         </View>
                                                         <View style={styles.priceContainer} >
                                                             <Text style={styles.timeTextStyle}>{(item.price * item.quantity)}$</Text>
@@ -139,20 +139,20 @@ export default class CustomerServices extends Component {
                                                         <View style={styles.timeContainer}>
                                                             <View style={styles.priceAndTimeContainer}>
                                                                 <Text style={styles.timeTextStyle}>
-                                                                {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " + timeInHour[0] + timeInHour[1]}
-                                            {
-                                                timeInHour[0] == '0' && timeInHour[1] == '0' ?
-                                                    null
-                                                    :
-                                                    <Text style={styles.textStyles}> hr</Text>
-                                            }
-                                            {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
-                                            {
-                                                timeInHour[3] == 0 && timeInHour[4] == 0 ?
-                                                    null
-                                                    :
-                                                    <Text style={styles.textStyles}> mins</Text>
-                                            }
+                                                                    {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " + timeInHour[0] + timeInHour[1]}
+                                                                    {
+                                                                        timeInHour[0] == '0' && timeInHour[1] == '0' ?
+                                                                            null
+                                                                            :
+                                                                            <Text style={styles.textStyles}> hr</Text>
+                                                                    }
+                                                                    {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                                                                    {
+                                                                        timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                                                            null
+                                                                            :
+                                                                            <Text style={styles.textStyles}> mins</Text>
+                                                                    }
                                                                 </Text>
                                                             </View>
                                                         </View>
