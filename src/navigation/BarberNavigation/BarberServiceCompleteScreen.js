@@ -11,9 +11,8 @@ export default class BarberServiceCompleteScreen extends Component {
 
     handleOnHome = (userData) => {
         const { push, replace } = this.props.navigation;
-        BookingServices.rateAndReviewBarberServices(userData)
+        BookingServices.rateAndReviewCustomer(userData)
             .then((res) => {
-                console.log(res.data)
                 if (res.data.status) {
                     replace('Home')
                 }
@@ -22,8 +21,9 @@ export default class BarberServiceCompleteScreen extends Component {
     }
 
     render() {
+        const { customerId } = this.props.route.params;
         return (
-            <MainScreenPaths.Barber.BarberServiceComplete onHome={(userData) => this.handleOnHome(userData)} />
+            <MainScreenPaths.Barber.BarberServiceComplete customerId={customerId} onHome={(userData) => this.handleOnHome(userData)} />
         )
     }
 }

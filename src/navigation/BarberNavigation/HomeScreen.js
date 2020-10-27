@@ -61,7 +61,7 @@ class HomeScreen extends Component {
                 onAboutUs={() => navigate("AboutUs")}
                 onExit={this.handleLogout}
                 onAccept={(data, bookingId, customerId) => this.on_Press_Accept(data, bookingId, customerId)}
-                onView={(data, customerId) => this.on_Press_Booking(data, customerId)}
+                onView={(data, bookingId, customerId) => this.on_Press_Booking(data, bookingId, customerId)}
                 onDecline={(data) => this.on_Press_Decline(data)} />
         )
     }

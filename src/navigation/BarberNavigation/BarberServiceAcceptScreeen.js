@@ -36,7 +36,7 @@ class BarberServiceAcceptScreen extends Component {
             <MainScreenPaths.Barber.BarberServiceAccept
                 item={(item)}
                 bookingId={bookingId}
-                onChat={() => navigate('BarberChat')}
+                onChat={(data) => navigate('BarberChat', { userData: data })}
                 arrivedAtlocation={this.handleArrivedLocation} />
         )
     }

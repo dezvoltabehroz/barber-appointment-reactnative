@@ -12,19 +12,17 @@ class BarberEndServiceScreen extends Component {
 
     handleEndService = () => {
         const { navigate, goBack } = this.props.navigation
-        const { bookingId } = this.props.route.params;
+        const { bookingId,customerId } = this.props.route.params;
         let userData = {
             id: this.props.user.userData.id,
             token: this.props.user.userData.token,
             booking_id: bookingId,
             is_completed_time: moment().format('YYYY-MM-DD HH:mm:ss'),
         }
-        console.log(userData)
         BookingServices.barberEndServices(userData)
             .then((res) => {
-                console.log(res.data)
                 if (res.data.status) {
-                    navigate('ServiceDetails', { bookingId })
+                    navigate('ServiceDetails', { bookingId:bookingId,customerId:customerId })
                 }
             })
             .catch((err) => console.log(err))

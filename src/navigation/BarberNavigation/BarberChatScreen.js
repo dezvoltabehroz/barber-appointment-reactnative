@@ -11,8 +11,9 @@ export default class BarberChatScreen extends Component {
 
     render() {
         const { navigate, goBack } = this.props.navigation
+        const { userData } = this.props.route.params;
         return (
-            <MainScreenPaths.Barber.BarberChat />
+            <MainScreenPaths.Barber.BarberChat customerData={userData} />
         )
     }
 }

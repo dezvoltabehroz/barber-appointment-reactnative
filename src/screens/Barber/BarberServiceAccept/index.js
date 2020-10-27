@@ -17,7 +17,7 @@ class BarberServiceAccept extends Component {
                 latitudeDelta: 0.9922,
                 longitudeDelta: 0.9421,
             },
-             customer_id: ''
+            userData: {},
         }
     }
 
@@ -31,7 +31,15 @@ class BarberServiceAccept extends Component {
         BookingServices.getCustomerDetails(userData)
             .then((res) => {
                 if (res.data.status) {
-                    this.setState({ data: res.data.custProfile[0].phone,customer_id:res.data.custProfile[0].customer_id })
+                    this.setState({
+                        data: res.data.custProfile[0].phone,
+                        userData: {
+                            customer_id: res.data.custProfile[0].customer_id,
+                            full_name: res.data.custProfile[0].full_name,
+                            email: res.data.custProfile[0].email,
+                            profile_picture: res.data.custProfile[0].profile_picture
+                        }
+                    })
                 }
             })
             .catch((err) => console.log(err))
@@ -56,7 +64,7 @@ class BarberServiceAccept extends Component {
 
     render() {
         let { arrivedAtlocation, onChat } = this.props;
-        const { region,customer_id } = this.state;
+        const { region, userData } = this.state;
         const location = `${region.latitude},${region.longitude}`;
         const url = Platform.select({
             ios: `maps:${location}`,
@@ -85,7 +93,7 @@ class BarberServiceAccept extends Component {
                             <Text style={styles.buttonText}>Arrived</Text>
                         </TouchableOpacity>
                         <View style={{ flexDirection: "row", alignItems: 'center' }}>
-                            <TouchableOpacity onPress={()=>onChat(customer_id)}>
+                            <TouchableOpacity onPress={() => onChat(userData)}>
                                 <Icon.MaterialCommunityIcons name='chat' color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
                             </TouchableOpacity>
                             <View style={{ width: 20 }}></View>

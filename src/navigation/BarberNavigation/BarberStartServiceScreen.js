@@ -12,7 +12,7 @@ class BarberStartServiceScreen extends Component {
     })
 
     handleStartService = () => {
-        const { bookingId } = this.props.route.params
+        const { bookingId, customerId } = this.props.route.params;
         const { navigate, goBack } = this.props.navigation
         const { user } = this.props;
         Alert.alert('Attention', 'Are you sure you want to start service',
@@ -30,12 +30,11 @@ class BarberStartServiceScreen extends Component {
                             is_started_time: moment().format('YYYY-MM-DD HH:mm:ss'),
                             token: user.userData.token
                         }
-                        console.log(userData)
                         BookingServices.barberStartServices(userData)
                             .then((res) => {
                                 console.log(res.data)
                                 if (res.data.status) {
-                                    navigate('BarberEndService', { bookingId: bookingId })
+                                    navigate('BarberEndService', { bookingId: bookingId ,customerId:customerId})
                                 }
                             })
                             .catch((err) => console.log(err))

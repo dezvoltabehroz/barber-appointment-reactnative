@@ -18,9 +18,9 @@ import styles from './style';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { GiftedChat, GiftedAvatar, Bubble, InputToolbar, Composer, Send } from 'react-native-gifted-chat'
 import firebaseApp from './/../../../services/ChatFireBase'
-
+import { connect } from 'react-redux'
 const { width, height } = Dimensions.get('window')
-export default class BarberChat extends Component {
+class customerChat extends Component {
     getParamData;
     constructor(props) {
         super(props);
@@ -29,25 +29,22 @@ export default class BarberChat extends Component {
             messages: [],
             height: 0,
             user: {
-                id: 1,
-                name: 'Mudassar Ahmed',
-                email: 'mudasirshahbaz786@outlook.com',
-                username: 'mudasirshahbaz786',
-                photo: 'https://i2.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1'
+                id: this.props.user.userData.id,
+                name: this.props.user.userData.full_name,
+                email: this.props.user.userData.email,
+                photo: this.props.user.userData.profile_picture
 
             },
-            barber: {
-                id: 2,
-                name: 'Behroz Ahmed',
-                email: 'behrozahmed@outlook.com',
-                username: 'behrozahmed786',
-                photo: 'https://w7.pngwing.com/pngs/304/305/png-transparent-man-with-formal-suit-illustration-web-development-computer-icons-avatar-business-user-profile-child-face-web-design.png'
-
+            customer: {
+                id: this.props.customerData.customer_id,
+                name: this.props.customerData.full_name,
+                email: this.props.customerData.email,
+                photo: this.props.customerData.profile_picture,
             },
         };
         this.currentUserId = this.state.user.id;
 
-        if (this.state.barber != null) {
+        if (this.state.customer != null) {
             this.chatRef = firebaseApp
                 .ref()
                 .child(`chat/${this.generateChatId(this.currentUserId)}`)
@@ -57,7 +54,6 @@ export default class BarberChat extends Component {
     }
 
     componentDidMount() {
-        // this.props.clearChat()
         this.chatRef && this.listenForItems(this.chatRefData)
     }
     componentWillUnmount() {
@@ -86,12 +82,12 @@ export default class BarberChat extends Component {
     }
 
     generateChatId = (userId) => {
-        const { barber } = this.state;
-        if (userId > barber.id) { return `${userId}-${barber.id}` }
-        else { return `${barber.id}-${userId}` }
+        const { customer } = this.state;
+        if (userId > customer.id) { return `${userId}-${customer.id}` }
+        else { return `${customer.id}-${userId}` }
     }
     onSend = (messages = []) => {
-        const { user, barber } = this.state;
+        const { user, customer } = this.state;
         try {
 
             messages.forEach((message) => {
@@ -106,7 +102,7 @@ export default class BarberChat extends Component {
                     email: user.email,
                     name: user.name ? user.name : user.name,
                     avatar: user.photo ? user.photo : user.photo,
-                    barber: barber.id,
+                    customer: customer.id,
                     read: 0,
                 })
             })
@@ -117,18 +113,18 @@ export default class BarberChat extends Component {
                 .ref()
                 .child('users')
                 .child(this.currentUserId)
-                .child(barber.id)
+                .child(customer.id)
                 .set({
-                    id: barber.id,
-                    name: barber.username || barber.name,
-                    email: barber.email,
+                    id: customer.id,
+                    name: customer.username || customer.name,
+                    email: customer.email,
                 })
 
             // from author to userLogin
             firebaseApp
                 .ref()
                 .child('users')
-                .child(barber.id)
+                .child(customer.id)
                 .child(this.currentUserId)
                 .set({
                     id: this.currentUserId,
@@ -314,3 +310,10 @@ export default class BarberChat extends Component {
     }
 
 }
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer || {}
+    };
+};
+
+export default connect(mapStateToProps)(customerChat)

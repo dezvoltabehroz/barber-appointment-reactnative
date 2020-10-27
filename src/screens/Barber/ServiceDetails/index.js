@@ -48,7 +48,7 @@ class ServiceDetails extends Component {
                         let time = parseInt(moment.duration(res.data.booking_service_details.booking_time_duration).asMinutes())
                         var h = time / 60 | 0;
                         var m = time % 60 | 0;
-                        this.setState({ timeInHour: moment.utc().hours(h).minutes(m).format("HH:mm"), loading: false })
+                        this.setState({ timeInHour: moment.utc().hours(h).minutes(m).format("HH:mm"), })
                     })
                 }
             })
@@ -56,8 +56,12 @@ class ServiceDetails extends Component {
         BookingServices.getBookingTiming(userdata)
             .then((res) => {
                 console.log(res.data)
-                if(res.data.status){
-                    this.setState({bookingEndingTime:res.data.ending_time,bookingStartingTime:res.data.starting_time})
+                if (res.data.status) {
+                    this.setState({
+                        bookingEndingTime: res.data.ending_time,
+                        bookingStartingTime: res.data.starting_time,
+                        loading: false
+                    })
                 }
             })
             .catch((err) => console.log(err))
@@ -92,7 +96,7 @@ class ServiceDetails extends Component {
 
     render() {
         const { onPayment } = this.props;
-        const { serviceList, timeInHour, totalPrice,bookingEndingTime,bookingStartingTime } = this.state;
+        const { serviceList, timeInHour, totalPrice, bookingEndingTime, bookingStartingTime } = this.state;
 
         return (
             <>
@@ -161,7 +165,7 @@ class ServiceDetails extends Component {
                                 </View>
                                 <View style={styles.timeAndAmountCotainer}>
                                     <View style={[styles.rowStyle, { marginTop: '5%' }]}>
-                                        <Text style={styles.headingText}>Total Time of Service::</Text>
+                                        <Text style={styles.headingText}>Total Time of Service:</Text>
                                         <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>
                                             {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " + timeInHour[0] + timeInHour[1]}
                                             {

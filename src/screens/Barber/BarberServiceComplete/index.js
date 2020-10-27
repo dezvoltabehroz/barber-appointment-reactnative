@@ -64,8 +64,8 @@ class BarberServiceComplete extends Component {
                 </KeyboardAwareScrollView>
                 <FooterButton disabled={feedback && starCount ? false : true} title='Done' onPress={() => {
                     let userData = {
-                        barber_id: this.props.user.userData.id,
-                        customer_id: this.props.user.userData.id,
+                        id: this.props.user.userData.id,
+                        customer_id: this.props.customerId,
                         comment: feedback,
                         no_of_star: starCount,
                         token: this.props.user.userData.token,

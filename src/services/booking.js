@@ -86,7 +86,6 @@ const Api = {
         }, configToken(userData.token))
     },
     barberEndServices: function (userData) {
-        console.log('APi call====>',userData)
         return axiosInstance.post('booking/endServices', {
             id: userData.id,
             booking_id: userData.booking_id,
@@ -98,7 +97,16 @@ const Api = {
             id: userData.id,
             booking_id: userData.booking_id,
         }, configToken(userData.token))
-    }
+    },
+    rateAndReviewCustomer: function (userData) {
+        return axiosInstance.post('booking/rateCustomer', {
+            customer_id: userData.customer_id,
+            id: userData.id,
+            comment: userData.comment,
+            no_of_star: userData.no_of_star,
+            review_by: userData.review_by
+        }, configToken(userData.token))
+    },
 
 };
 
