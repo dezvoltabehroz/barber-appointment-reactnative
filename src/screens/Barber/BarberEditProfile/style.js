@@ -7,8 +7,14 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '20%' : '5%'
+        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '10%' : '5%'
 
+    },
+    headerTitleStyle: {
+        fontSize: 16,
+        color: "#fff",
+        textAlign: 'center',
+        fontFamily: 'Poppins-Bold'
     },
     rowStyle: {
         flexDirection: "row",

@@ -68,15 +68,19 @@ class Notification extends Component {
     render() {
         const { data } = this.state
         return (
-            <View style={{ flex: 1, paddingTop: '15%', backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, paddingBottom: '1%' }}>
-                <FlatList
-                    data={data}
-                    showsVerticalScrollIndicator={false}
-                    ItemSeparatorComponent={this._renderSeparator}
-                    renderItem={({ item }) => this._renderItems(item)}
-                    keyExtractor={item => item.id} />
-            </View>
-        )
+            <>
+
+                <View style={{ flex: 1, paddingTop: '5%', backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, paddingBottom: '1%' }}>
+                    <View><Text style={styles.headerTitleStyle}>Notification</Text>
+                    </View>
+                    <FlatList
+                        data={data}
+                        showsVerticalScrollIndicator={false}
+                        ItemSeparatorComponent={this._renderSeparator}
+                        renderItem={({ item }) => this._renderItems(item)}
+                        keyExtractor={item => item.id} />
+                </View>
+            </>)
     }
 }
 export default Notification

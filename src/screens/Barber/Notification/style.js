@@ -129,7 +129,13 @@ export default StyleSheet.create({
         borderBottomLeftRadius: 10
     }, logoStyle: {
         height: 40, width: 60
-    }
+    },
+    headerTitleStyle: {
+        fontSize: 16,
+        color: "#fff",
+        textAlign: 'center',
+        fontFamily: 'Poppins-Bold'
+    },
 
 
 })

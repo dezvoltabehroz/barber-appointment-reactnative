@@ -7,7 +7,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' ? '15%' : null
+        paddingTop: Platform.OS == 'ios' ? '15%' : '5%'
     },
 
     // Upper Container Style
@@ -15,7 +15,7 @@ export default StyleSheet.create({
         flex: 0.8,
     },
     imageContainer: {
-        marginTop: '10%',
+        marginTop: '1%',
         justifyContent: "center",
         alignItems: 'center'
     },
@@ -124,6 +124,12 @@ export default StyleSheet.create({
         color: THEME.COLOR_GREY,
         marginLeft: 11,
         fontFamily: 'Poppins-Regular'
+    },
+    headerTitleStyle: {
+        fontSize: 16,
+        color: "#fff",
+        textAlign: 'center',
+        fontFamily: 'Poppins-Bold'
     },
 
 })

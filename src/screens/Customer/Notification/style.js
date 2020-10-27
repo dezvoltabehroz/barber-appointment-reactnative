@@ -35,7 +35,7 @@ export default StyleSheet.create({
     },
     upperListTitleStyle: {
         // color: THEME.COLOR_WHITE,
-        fontSize:THEME.FONT_SIZE_SMALL,
+        fontSize: THEME.FONT_SIZE_SMALL,
         fontFamily: 'Poppins-Medium'
     },
     lowerListContainer: {
@@ -127,9 +127,16 @@ export default StyleSheet.create({
         paddingLeft: '10%',
         borderBottomRightRadius: 10,
         borderBottomLeftRadius: 10
-    }, logoStyle: {
+    },
+    logoStyle: {
         height: 40, width: 60
-    }
+    },
+    headerTitleStyle: {
+        fontSize: 16,
+        color: "#fff",
+        textAlign: 'center',
+        fontFamily: 'Poppins-Bold'
+    },
 
 
 })

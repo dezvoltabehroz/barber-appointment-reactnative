@@ -11,7 +11,8 @@ import {
     ImageBackground,
     TouchableWithoutFeedback,
     StatusBar,
-    TextInput
+    TextInput,
+    ActivityIndicator
 } from "react-native";
 import THEME from '../../../assets/styles/theme.style';
 import styles from './style';
@@ -41,6 +42,7 @@ class customerChat extends Component {
                 email: this.props.customerData.email,
                 photo: this.props.customerData.profile_picture,
             },
+            loading: false
         };
         this.currentUserId = this.state.user.id;
 
@@ -54,6 +56,7 @@ class customerChat extends Component {
     }
 
     componentDidMount() {
+        this.setState({ loading: true })
         this.chatRef && this.listenForItems(this.chatRefData)
     }
     componentWillUnmount() {
@@ -76,7 +79,7 @@ class customerChat extends Component {
                 })
             })
             this.setState({
-                messages: items,
+                messages: items, loading: false
             })
         })
     }
@@ -255,56 +258,62 @@ class customerChat extends Component {
                         // opacity: Config.Chat.opacityBg,
                     }}
                 /> */}
-                <GiftedChat
-                    messages={this.state.messages}
-                    onSend={this.onSend}
-                    placeholder={'Type a message'}
-                    maxComposerHeight={55}
-                    scrollToBottom
-                    alignTop
-                    // minInputToolbarHeight={200}
-                    // maxInputLength={200}
-                    renderSend={this._renderSend}
-                    renderBubble={this._renderBubble}
-                    renderAvatar={this._renderAvatar}
-                    renderInputToolbar={props => (
+                {
+                    this.state.loading ?
+                        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                            <ActivityIndicator  />
+                        </View>
+                        :
+                        <GiftedChat
+                            messages={this.state.messages}
+                            onSend={this.onSend}
+                            placeholder={'Type a message'}
+                            maxComposerHeight={55}
+                            scrollToBottom
+                            alignTop
+                            // minInputToolbarHeight={200}
+                            // maxInputLength={200}
+                            renderSend={this._renderSend}
+                            renderBubble={this._renderBubble}
+                            renderAvatar={this._renderAvatar}
+                            renderInputToolbar={props => (
 
-                        <InputToolbar
-                            {...props}
-                            containerStyle={{
-                                backgroundColor: "black",
-                                height: 54,
-                                borderTopWidth: 0,
-                                marginTop: '2%'
+                                <InputToolbar
+                                    {...props}
+                                    containerStyle={{
+                                        backgroundColor: "black",
+                                        height: 54,
+                                        borderTopWidth: 0,
+                                        marginTop: '2%'
+                                    }}
+                                    renderComposer={props1 =>
+                                        (
+                                            <KeyboardAwareScrollView>
+                                                <Composer
+                                                    {...props1}
+                                                    multiline={false}
+                                                    textInputStyle={{
+                                                        height: 54,
+                                                        color: "white",
+                                                        fontFamily: 'Poppins-Regular',
+                                                        paddingTop: '5%'
+                                                    }} />
+                                            </KeyboardAwareScrollView>
+                                        )} />
+                            )}
+                            // renderInputToolbar={this._renderInputToolbar}
+                            showUserAvatar={true}
+                            showAvatarForEveryMessage={true}
+                            // renderCustomView={this._renderCustomView}
+                            user={{
+                                _id: this.currentUserId,
+                                name: user.last_name || user.first_name,
+                                avatar: user.photo
+
                             }}
-                            renderComposer={props1 =>
-                                (
-                                    <KeyboardAwareScrollView>
-                                        <Composer
-                                            {...props1}
-                                            multiline={false}
-                                            textInputStyle={{
-                                                height: 54,
-                                                color: "white",
-                                                fontFamily: 'Poppins-Regular',
-                                                paddingTop: '5%'
-                                            }} />
-                                    </KeyboardAwareScrollView>
-                                )} />
-                    )}
-                    // renderInputToolbar={this._renderInputToolbar}
-                    showUserAvatar={true}
-                    showAvatarForEveryMessage={true}
-                    // renderCustomView={this._renderCustomView}
-                    user={{
-                        _id: this.currentUserId,
-                        name: user.last_name || user.first_name,
-                        avatar: user.photo
-
-                    }}
-                    bottomOffset={0}
-                    listViewProps={{ marginTop: '7%' }}
-                />
+                            bottomOffset={0}
+                            listViewProps={{ marginTop: '7%' }}
+                        />}
             </View>
         );
     }

@@ -8,8 +8,9 @@ export default StyleSheet.create({
         paddingTop: Platform.OS == 'ios' ? "15%" : "5%"
     },
     upperContainer: {
-        flex: 1,
-        justifyContent: "center",
+        // flex: 1,
+        // justifyContent: "flex-start",
+        marginTop: "15%"
         // alignItems: "center"
     },
 

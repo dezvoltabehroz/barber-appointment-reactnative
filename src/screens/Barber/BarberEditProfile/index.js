@@ -99,30 +99,31 @@ class BarberEditProfile extends Component {
         console.log(this.props.user.userData)
         return (
             <>
+
                 <View style={styles.container}>
-
-                    <View style={{ marginTop: '15%', marginHorizontal: '5%' }}>
-
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                            <Avatar
-                                avatarStyle={styles.avatarStyle}
-                                source={{ uri: this.props.user.userData ? this.props.user.userData.profile_picture : filePath.uri }}
-                                rounded
-                                accessory={{ name: 'ios-camera', type: 'ionicon', color: '#fff', underlayColor: '#000', iconStyle: { fontSize: 20 } }}
-                                // showAccessory={true}
-                                onAccessoryPress={this.chooseFile}
-                                size={120} />
-                            <View style={{ justifyContent: 'center',}}>
-                                {/* <View style={{ justifyContent: 'center', alignItems: 'center' }}> */}
-                                <Text style={styles.textStyle}>{this.props.user.userData ? this.props.user.userData.full_name : 'JOHN DOE'}</Text>
-                                {/* </View> */}
-                                <Text style={styles.textStyle}>Age: {97}</Text>
-                                <Text style={styles.textStyle}>Rating: 4.5/5</Text>
-                            </View>
-
-                        </View>
-                    </View>
+                    <View><Text style={styles.headerTitleStyle}>Edit Profile</Text></View>
                     <ScrollView>
+                        <View style={{ marginTop: '5%', marginHorizontal: '5%' }}>
+
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                                <Avatar
+                                    avatarStyle={styles.avatarStyle}
+                                    source={{ uri: this.props.user.userData ? this.props.user.userData.profile_picture : filePath.uri }}
+                                    rounded
+                                    accessory={{ name: 'ios-camera', type: 'ionicon', color: '#fff', underlayColor: '#000', iconStyle: { fontSize: 20 } }}
+                                    // showAccessory={true}
+                                    onAccessoryPress={this.chooseFile}
+                                    size={120} />
+                                <View style={{ justifyContent: 'center', }}>
+                                    {/* <View style={{ justifyContent: 'center', alignItems: 'center' }}> */}
+                                    <Text style={styles.textStyle}>{this.props.user.userData ? this.props.user.userData.full_name : 'JOHN DOE'}</Text>
+                                    {/* </View> */}
+                                    <Text style={styles.textStyle}>Age: {97}</Text>
+                                    <Text style={styles.textStyle}>Rating: 4.5/5</Text>
+                                </View>
+                            </View>
+                        </View>
+
 
                         <View style={{ marginTop: '5%' }}>
                             <ProfileCard
@@ -156,11 +157,10 @@ class BarberEditProfile extends Component {
                                 onPress={() => this.props.onManageSchedule()}
                             />
                         </View>
-                    </ScrollView>
 
-                    {/* <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 30 }}> */}
+                        {/* <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 30 }}> */}
 
-                    {/* <ProfileCard
+                        {/* <ProfileCard
                             Icon={() => <SettingsDash height={20} width={20} />}
                             heading={'SETTINGS'}
                             description={'Update or change your personal app preferences and login information.'}
@@ -180,7 +180,7 @@ class BarberEditProfile extends Component {
                             description={'Interact with family, learn about your ancestors and build your legacy.'}
                             onPress={() => { navigation.navigate('FamilyTree') }}
                         /> */}
-                    {/* <View style={{
+                        {/* <View style={{
                             flex: 0.4,
                             marginTop: '5%',
                             backgroundColor: '#3B3F52',
@@ -215,6 +215,7 @@ class BarberEditProfile extends Component {
                                 renderItem={({ item, index }) => this._renderItems({ item, index })}
                                 keyExtractor={item => item} />
                         </View> */}
+                    </ScrollView>
                 </View>
             </>
         );
