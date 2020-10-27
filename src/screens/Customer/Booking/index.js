@@ -94,7 +94,7 @@ class Booking extends Component {
                     customer_services: this.state.customer_services,
                     card_detail: data,
                     is_accepted: moment(bookingDate).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 0 : 1,
-                    is_accepted_time: moment(bookingDate).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? null : moment().format('YYYY-MM-DD') +' '+ moment().format('LTS'),
+                    is_accepted_time: moment(bookingDate).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? null : moment().format('YYYY-MM-DD') + ' ' + moment().format('HH:mm:ss'),
 
                 }
                 // console.log(userData);

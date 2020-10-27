@@ -3,14 +3,18 @@
 import React, { Component } from 'react'
 import { MainScreenPaths } from '../../screens';
 import { Alert } from 'react-native';
-
-export default class BarberStartServiceScreen extends Component {
+import { connect } from 'react-redux'
+import { BookingServices } from '../../services';
+import moment from 'moment'
+class BarberStartServiceScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })
 
     handleStartService = () => {
+        const { bookingId } = this.props.route.params
         const { navigate, goBack } = this.props.navigation
+        const { user } = this.props;
         Alert.alert('Attention', 'Are you sure you want to start service',
             [
                 {
@@ -18,7 +22,25 @@ export default class BarberStartServiceScreen extends Component {
                     onPress: () => console.log("Cancel Pressed"),
                     style: "cancel"
                 },
-                { text: "Yes", onPress: () => navigate('BarberEndService', { start: true }) }
+                {
+                    text: "Yes", onPress: () => {
+                        let userData = {
+                            id: user.userData.id,
+                            booking_id: bookingId,
+                            is_started_time: moment().format('YYYY-MM-DD HH:mm:ss'),
+                            token: user.userData.token
+                        }
+                        console.log(userData)
+                        BookingServices.barberStartServices(userData)
+                            .then((res) => {
+                                console.log(res.data)
+                                if (res.data.status) {
+                                    navigate('BarberEndService', { bookingId: bookingId })
+                                }
+                            })
+                            .catch((err) => console.log(err))
+                    }
+                }
             ],
         );
 
@@ -27,9 +49,16 @@ export default class BarberStartServiceScreen extends Component {
 
     render() {
         const { navigate, goBack } = this.props.navigation
-        const {  bookingId  } = this.props.route.params
+        const { bookingId } = this.props.route.params
         return (
-            <MainScreenPaths.Barber.BarberStartService bookingId={bookingId} onStartService={ this.handleStartService} />
+            <MainScreenPaths.Barber.BarberStartService bookingId={bookingId} onStartService={this.handleStartService} />
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer || {}
+    };
+};
+
+export default connect(mapStateToProps)(BarberStartServiceScreen)

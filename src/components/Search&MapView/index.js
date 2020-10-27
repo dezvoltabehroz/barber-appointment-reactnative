@@ -116,7 +116,7 @@ class SearchandMapView extends Component {
                 <MapView
 
                     provider={PROVIDER_GOOGLE}
-                    showsUserLocation={true}
+                    showsUserLocation={false}
                     loadingEnabled
                     followUserLocation={true}
                     zoomEnabled={true}

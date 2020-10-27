@@ -4,8 +4,9 @@ import styles from './style';
 import { SearchandMapView, Icon } from '../../../components';
 import { Linking, Platform } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
-
-export default class BarberServiceAccept extends Component {
+import { BookingServices } from '../../../services';
+import { connect } from 'react-redux';
+class BarberServiceAccept extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -15,13 +16,27 @@ export default class BarberServiceAccept extends Component {
                 longitude: 0,
                 latitudeDelta: 0.9922,
                 longitudeDelta: 0.9421,
-            }
+            },
+             customer_id: ''
         }
     }
 
     componentWillMount = () => {
-        const { item } = this.props;
+        const { item, bookingId, user } = this.props;
+        let userData = {
+            id: user.userData.id,
+            token: user.userData.token,
+            booking_id: bookingId
+        }
+        BookingServices.getCustomerDetails(userData)
+            .then((res) => {
+                if (res.data.status) {
+                    this.setState({ data: res.data.custProfile[0].phone,customer_id:res.data.custProfile[0].customer_id })
+                }
+            })
+            .catch((err) => console.log(err))
         this.setState({ region: item });
+
     }
 
     openGps = (lat, lng) => {
@@ -41,7 +56,7 @@ export default class BarberServiceAccept extends Component {
 
     render() {
         let { arrivedAtlocation, onChat } = this.props;
-        const { region } = this.state;
+        const { region,customer_id } = this.state;
         const location = `${region.latitude},${region.longitude}`;
         const url = Platform.select({
             ios: `maps:${location}`,
@@ -70,7 +85,7 @@ export default class BarberServiceAccept extends Component {
                             <Text style={styles.buttonText}>Arrived</Text>
                         </TouchableOpacity>
                         <View style={{ flexDirection: "row", alignItems: 'center' }}>
-                            <TouchableOpacity onPress={onChat}>
+                            <TouchableOpacity onPress={()=>onChat(customer_id)}>
                                 <Icon.MaterialCommunityIcons name='chat' color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
                             </TouchableOpacity>
                             <View style={{ width: 20 }}></View>
@@ -84,3 +99,10 @@ export default class BarberServiceAccept extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer || {}
+    };
+};
+
+export default connect(mapStateToProps)(BarberServiceAccept)

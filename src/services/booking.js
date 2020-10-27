@@ -45,10 +45,10 @@ const Api = {
             id: userData.customer_id,
             comment: userData.comment,
             no_of_star: userData.no_of_star,
-            review_by:userData.review_by
+            review_by: userData.review_by
         }, configToken(userData.token))
     },
-      getBarberBookingList: function (userData) {
+    getBarberBookingList: function (userData) {
         return axiosInstance.post('booking/barberBookingList', {
             id: userData.id,
         }, configToken(userData.token))
@@ -56,15 +56,49 @@ const Api = {
     acceptBookingOfCustomer: function (userData) {
         return axiosInstance.post('booking/acceptBooking', {
             id: userData.id,
-            booking_id:userData.booking_id
+            booking_id: userData.booking_id
         }, configToken(userData.token))
     },
     declineBookingOfCustomer: function (userData) {
         return axiosInstance.post('booking/declineBooking', {
             id: userData.id,
-            booking_id:userData.booking_id
+            booking_id: userData.booking_id
         }, configToken(userData.token))
     },
+    getCustomerDetails: function (userData) {
+        return axiosInstance.post('list/customerProfile', {
+            id: userData.id,
+            booking_id: userData.booking_id
+        }, configToken(userData.token))
+    },
+    arrivedAtCustomerLocation: function (userData) {
+        return axiosInstance.post('booking/arrivedLocation', {
+            id: userData.id,
+            booking_id: userData.booking_id,
+            is_arrived_time: userData.is_arrived_time
+        }, configToken(userData.token))
+    },
+    barberStartServices: function (userData) {
+        return axiosInstance.post('booking/startedServices', {
+            id: userData.id,
+            booking_id: userData.booking_id,
+            is_started_time: userData.is_started_time
+        }, configToken(userData.token))
+    },
+    barberEndServices: function (userData) {
+        console.log('APi call====>',userData)
+        return axiosInstance.post('booking/endServices', {
+            id: userData.id,
+            booking_id: userData.booking_id,
+            is_completed_time: userData.is_completed_time
+        }, configToken(userData.token))
+    },
+    getBookingTiming: function (userData) {
+        return axiosInstance.post('booking/startAndEndTime', {
+            id: userData.id,
+            booking_id: userData.booking_id,
+        }, configToken(userData.token))
+    }
 
 };
 

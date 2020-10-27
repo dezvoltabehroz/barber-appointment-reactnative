@@ -35,7 +35,6 @@ class StartService extends Component {
                         totalTime: res.data.booking_service_details.booking_time_duration
                     }, () => {
                         let time = parseInt(moment.duration(res.data.booking_service_details.booking_time_duration).asMinutes())
-                        console.log('Time is that', time)
                         var h = time / 60 | 0;
                         var m = time % 60 | 0;
                         this.setState({ timeInHour: moment.utc().hours(h).minutes(m).format("HH:mm"), loading: false })
@@ -84,7 +83,6 @@ class StartService extends Component {
                                 <View style={styles.flatlistContainer}>
                                     {
                                         serviceList.map((item) => {
-                                            console.log(item)
                                             let time = (parseInt(moment.duration(item.time_duration).asMinutes()) * item.quantity)
                                             var h = time / 60 | 0;
                                             var m = time % 60 | 0;
