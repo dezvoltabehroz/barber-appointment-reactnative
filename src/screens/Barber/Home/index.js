@@ -5,7 +5,7 @@ import { Button, Icon, SearchandMapView } from '../../../components'
 import { connect } from 'react-redux';
 import Geocoder from 'react-native-geocoder';
 import THEME from '../../../assets/styles/theme.style'
-import {  BookingServices } from '../../../services';
+import { BookingServices } from '../../../services';
 import moment from 'moment';
 
 const screenWidth = Dimensions.get('window').width;
@@ -21,7 +21,7 @@ class BarberHome extends Component {
                     name: 'Bookings History',
                     imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
                 },
-               
+
                 {
                     name: 'About Us',
                     imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
@@ -45,23 +45,19 @@ class BarberHome extends Component {
         }
         BookingServices.getBarberBookingList(userData)
             .then((res) => {
-                let locationText = []
+                let items = [...res.data.servicesList]
                 res.data.servicesList.map((item, index) => {
                     if (item.customer_lat && item.customer_long) {
                         let pos = {
                             lat: parseFloat(item.customer_lat),
                             lng: parseFloat(item.customer_long)
                         }
-                        Geocoder.geocodePosition(pos).then((res) => {
-                            locationText.push(res[0].formattedAddress)
-                            this.setState({ location: locationText })
-                        })
+                        Geocoder.geocodePosition(pos)
+                            .then((res) => { items[index] = { ...items[index], location: res[0].formattedAddress } })
                             .catch(error => console.log(error));
                     }
-
                 })
-                this.setState({ loading: false, bookingList: res.data.servicesList, loading: false })
-
+                setTimeout(() => { this.setState({ bookingList: items, loading: false }) }, 100);
             })
             .catch((err) => console.log(err))
     }
@@ -97,7 +93,6 @@ class BarberHome extends Component {
     }
     _renderBookingItems = (item, index) => {
         const { onAccept, onDecline, onView } = this.props;
-        const { location, bookin } = this.state;
         let region = {
             latitude: parseFloat(item.customer_lat),
             longitude: parseFloat(item.customer_long),
@@ -110,10 +105,10 @@ class BarberHome extends Component {
         let endTime = tempStartTime.add(bookingDuration, 'minutes');
         let bookingEndTime = new moment(endTime).format('hh:mm A');
         return (
-            <TouchableOpacity disabled={item.is_accepted == '1' ? false : true} onPress={() => onView(region,item.id,item.customer_id)} style={{ backgroundColor: THEME.COLOR_WHITE, borderRadius: 7, marginHorizontal: '5%', }}>
+            <TouchableOpacity disabled={item.is_accepted == '1' ? false : true} onPress={() => onView(region, item.id, item.customer_id)} style={{ backgroundColor: THEME.COLOR_WHITE, borderRadius: 7, marginHorizontal: '5%', }}>
                 <View style={styles.locationContainer}>
                     <Icon.Entypo name='dot-single' color={THEME.COLOR_BLACK} size={20} />
-                    <Text style={styles.upperListTitleStyle}>{location[index]}</Text>
+                    <Text style={styles.upperListTitleStyle}>{item.location}</Text>
                 </View>
                 <View style={styles.serviceTimeContainer}>
                     <Icon.Entypo name='dot-single' color={THEME.COLOR_BLACK} size={20} />
@@ -142,7 +137,7 @@ class BarberHome extends Component {
                                 </TouchableOpacity>
                             </View>
                             <View>
-                                <TouchableOpacity onPress={() => onAccept(region, item.id,item.customer_id)} style={styles.acceptContainer}>
+                                <TouchableOpacity onPress={() => onAccept(region, item.id, item.customer_id)} style={styles.acceptContainer}>
                                     <Text style={[styles.upperListTitleStyle, { color: THEME.COLOR_WHITE }]}>Accept</Text>
                                 </TouchableOpacity>
                             </View>
@@ -184,7 +179,7 @@ class BarberHome extends Component {
                                     refreshControl={
                                         <RefreshControl
                                             refreshing={this.state.loading}
-                                            onRefresh={()=>this.componentDidMount()}
+                                            onRefresh={() => this.componentDidMount()}
                                             tintColor={THEME.COLOR_WHITE}
                                             colors={[THEME.PRIMARY_COLOR]}
                                         />
