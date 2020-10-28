@@ -57,7 +57,7 @@ class BarberHome extends Component {
                             .catch(error => console.log(error));
                     }
                 })
-                setTimeout(() => { this.setState({ bookingList: items, loading: false }) }, 100);
+                setTimeout(() => { this.setState({ bookingList: items, loading: false }) }, 2000);
             })
             .catch((err) => console.log(err))
     }
@@ -108,7 +108,7 @@ class BarberHome extends Component {
             <TouchableOpacity disabled={item.is_accepted == '1' ? false : true} onPress={() => onView(region, item.id, item.customer_id)} style={{ backgroundColor: THEME.COLOR_WHITE, borderRadius: 7, marginHorizontal: '5%', }}>
                 <View style={styles.locationContainer}>
                     <Icon.Entypo name='dot-single' color={THEME.COLOR_BLACK} size={20} />
-                    <Text style={styles.upperListTitleStyle}>{item.location}</Text>
+                    <Text style={[styles.upperListTitleStyle,{textTransform:'capitalize'}]}>{item.location}</Text>
                 </View>
                 <View style={styles.serviceTimeContainer}>
                     <Icon.Entypo name='dot-single' color={THEME.COLOR_BLACK} size={20} />
