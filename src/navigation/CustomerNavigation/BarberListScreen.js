@@ -43,7 +43,7 @@ class BarberListScreen extends Component {
         return (
             <MainScreenPaths.Customer.BarberList
                 search={search}
-                id={serviceId != 'undefined' ? serviceId : null}
+                id={serviceId != 'undefined' ? serviceId : 0}
                 bookNow={(data) => this.handleBookNow(data)}
                 onPress={(data) => navigate('BarberProfile', { data })} />
         )
