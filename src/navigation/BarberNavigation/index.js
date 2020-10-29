@@ -21,6 +21,7 @@ import ServiceDetailsScreen from './ServiceDetailsScreen';
 import BarberServiceCompleteScreen from './BarberServiceCompleteScreen';
 import BarberChatScreen from './BarberChatScreen';
 import EditProfileScreen from './EditProfileScreen';
+import BarberBookingHistoryScreen from './BarberBookingHistoryScreen';
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,13 @@ function BarberRoutes() {
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter your phone number</Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+            <Stack.Screen name="BarberBookingHistory" component={BarberBookingHistoryScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Booking History</Text></View>),
                 headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="PhoneVerification" component={PhoneVerificatinScreen} options={{

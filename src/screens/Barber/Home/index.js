@@ -47,7 +47,7 @@ class BarberHome extends Component {
             .then((res) => {
                 if (res.data.status) {
                     let items = [];
-                    items=res.data.servicesList
+                    items = res.data.servicesList
                     items = items.reverse()
                     this.setState({ bookingList: items, loading: false })
                 }
@@ -62,11 +62,11 @@ class BarberHome extends Component {
     }
 
     _renderItems = (item) => {
-        const { onItemPress, onAboutUs, onContactUs, onEditProfile } = this.props;
+        const { onItemPress, onAboutUs, onContactUs, onEditProfile, onBookingHistory } = this.props;
         return (
             <>
                 <TouchableOpacity
-                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "Edit Profile" ? onEditProfile() : Alert.alert("Atention", "This screen is under Development") }} style={styles.upperListItemContainer}>
+                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "Edit Profile" ? onEditProfile() : item.name == "Bookings History" ? onBookingHistory() : Alert.alert("Atention", "This screen is under Development") }} style={styles.upperListItemContainer}>
                     <ImageBackground source={{ uri: `${item.imageUrl}` }}
                         style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }}>
                         <View style={styles.upperListTitleContainer}>

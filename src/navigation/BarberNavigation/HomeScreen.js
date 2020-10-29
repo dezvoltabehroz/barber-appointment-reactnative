@@ -57,6 +57,7 @@ class HomeScreen extends Component {
         return (
             <MainScreenPaths.Barber.BarberHome
                 onEditProfile={() => navigate("EditProfile")}
+                onBookingHistory={() => navigate('BarberBookingHistory')}
                 onContactUs={() => navigate("ContactUs")}
                 onAboutUs={() => navigate("AboutUs")}
                 onExit={this.handleLogout}

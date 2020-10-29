@@ -95,7 +95,7 @@ class ServiceDetails extends Component {
 
 
     render() {
-        const { onPayment } = this.props;
+        const { onPayment, history, cancelled } = this.props;
         const { serviceList, timeInHour, totalPrice, bookingEndingTime, bookingStartingTime } = this.state;
 
         return (
@@ -188,22 +188,30 @@ class ServiceDetails extends Component {
                                         <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}> {totalPrice}$</Text>
                                     </View>
                                 </View>
-                                <View style={styles.borderStyle}>
+                                {
+                                    cancelled ?
+                                        null
+                                        :
+                                        <View style={styles.borderStyle}>
 
-                                    <View style={styles.rowStyle}>
-                                        {/* <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} /> */}
-                                        <Text style={styles.headingText}>Service Start Time:</Text>
-                                        <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>  {moment(bookingStartingTime).format('hh:mm A')}</Text>
-                                    </View>
-                                    <View style={styles.rowStyle}>
-                                        {/* <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} /> */}
-                                        <Text style={styles.headingText}>Service End Time:</Text>
-                                        <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>  {moment(bookingEndingTime).format('hh:mm A')}</Text>
-                                    </View>
-                                </View>
+                                            <View style={styles.rowStyle}>
+                                                {/* <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} /> */}
+                                                <Text style={styles.headingText}>Service Start Time:</Text>
+                                                <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>  {moment(bookingStartingTime).format('hh:mm A')}</Text>
+                                            </View>
+                                            <View style={styles.rowStyle}>
+                                                {/* <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} /> */}
+                                                <Text style={styles.headingText}>Service End Time:</Text>
+                                                <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>  {moment(bookingEndingTime).format('hh:mm A')}</Text>
+                                            </View>
+                                        </View>}
 
                             </View>
-                            <FooterButton title='Done' onPress={onPayment} />
+                            {
+                                history ?
+                                    null
+                                    :
+                                    <FooterButton title='Done' onPress={onPayment} />}
                         </View>
                 }
             </>

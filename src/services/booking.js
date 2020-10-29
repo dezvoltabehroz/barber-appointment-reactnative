@@ -54,6 +54,11 @@ const Api = {
             id: userData.id,
         }, configToken(userData.token))
     },
+    getBarberBookingHistory: function (userData) {
+        return axiosInstance.post('booking/barberBookingHistoryList', {
+            id: userData.id,
+        }, configToken(userData.token))
+    },
     acceptBookingOfCustomer: function (userData) {
         return axiosInstance.post('booking/acceptBooking', {
             id: userData.id,
