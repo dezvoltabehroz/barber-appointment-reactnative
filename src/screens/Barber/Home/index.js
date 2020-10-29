@@ -45,40 +45,12 @@ class BarberHome extends Component {
         }
         BookingServices.getBarberBookingList(userData)
             .then((res) => {
-                let items = [...res.data.servicesList]
-                let tempArray = []
-                let itemProcessed = 0;
-                res.data.servicesList.map((item, index) => {
-                    if (item.customer_lat && item.customer_long) {
-                        let pos = {
-                            lat: parseFloat(item.customer_lat),
-                            lng: parseFloat(item.customer_long)
-                        }
-                        Geocoder.geocodePosition(pos)
-                            .then((res) => {
-                                items[index] = { ...items[index], location: res[0].formattedAddress }
-                                itemProcessed++;
-                                tempArray.push(items[index])
-                                if (itemProcessed == items.length) {
-                                    this.setState({ bookingList: tempArray, loading: false })
-                                }
-                            })
-                            .catch(error => console.log(error));
-                    }
-                });
-
-                // res.data.servicesList.map((item, index) => {
-                //     if (item.customer_lat && item.customer_long) {
-                //         let pos = {
-                //             lat: parseFloat(item.customer_lat),
-                //             lng: parseFloat(item.customer_long)
-                //         }
-                //         Geocoder.geocodePosition(pos)
-                //             .then((res) => { items[index] = { ...items[index], location: res[0].formattedAddress } })
-                //             .catch(error => console.log(error));
-                //     }
-                // })
-                // setTimeout(() => { this.setState({ bookingList: items, loading: false }) }, 2000);
+                if (res.data.status) {
+                    let items = [];
+                    items=res.data.servicesList
+                    items = items.reverse()
+                    this.setState({ bookingList: items, loading: false })
+                }
             })
             .catch((err) => console.log(err))
     }
@@ -129,7 +101,7 @@ class BarberHome extends Component {
             <TouchableOpacity disabled={item.is_accepted == '1' ? false : true} onPress={() => onView(region, item.id, item.customer_id)} style={{ backgroundColor: THEME.COLOR_WHITE, borderRadius: 7, marginHorizontal: '5%', }}>
                 <View style={styles.locationContainer}>
                     <Icon.Entypo name='dot-single' color={THEME.COLOR_BLACK} size={20} />
-                    <Text style={[styles.upperListTitleStyle, { textTransform: 'capitalize' }]}>{item.location}</Text>
+                    <Text style={[styles.upperListTitleStyle, { textTransform: 'capitalize' }]}>{item.customer_address}</Text>
                 </View>
                 <View style={styles.serviceTimeContainer}>
                     <Icon.Entypo name='dot-single' color={THEME.COLOR_BLACK} size={20} />
