@@ -46,10 +46,7 @@ class BarberHome extends Component {
         BookingServices.getBarberBookingList(userData)
             .then((res) => {
                 if (res.data.status) {
-                    let items = [];
-                    items = res.data.servicesList
-                    items = items.reverse()
-                    this.setState({ bookingList: items, loading: false })
+                    this.setState({ bookingList: res.data.servicesList, loading: false })
                 }
             })
             .catch((err) => console.log(err))
@@ -78,6 +75,22 @@ class BarberHome extends Component {
         )
     }
 
+    on_Press_Accept = (data, bookingId, customerId) => {
+        let userData = {
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token,
+            booking_id: bookingId
+        }
+        BookingServices.acceptBookingOfCustomer(userData)
+            .then((res) => {
+                console.log(res.data)
+                if (res.data.status) {
+                    this.componentDidMount()
+                }
+            })
+            .catch((err) => console.log(err))
+
+    }
 
     _renderSeparator = () => {
         return (
@@ -85,7 +98,7 @@ class BarberHome extends Component {
         )
     }
     _renderBookingItems = (item, index) => {
-        const { onAccept, onDecline, onView } = this.props;
+        const { onDecline, onView } = this.props;
         let region = {
             latitude: parseFloat(item.customer_lat),
             longitude: parseFloat(item.customer_long),
@@ -130,7 +143,7 @@ class BarberHome extends Component {
                                 </TouchableOpacity>
                             </View>
                             <View>
-                                <TouchableOpacity onPress={() => onAccept(region, item.id, item.customer_id)} style={styles.acceptContainer}>
+                                <TouchableOpacity onPress={() => this.on_Press_Accept(region, item.id, item.customer_id)} style={styles.acceptContainer}>
                                     <Text style={[styles.upperListTitleStyle, { color: THEME.COLOR_WHITE }]}>Accept</Text>
                                 </TouchableOpacity>
                             </View>

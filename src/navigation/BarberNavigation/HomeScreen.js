@@ -17,23 +17,6 @@ class HomeScreen extends Component {
         await this.props.authActions.removeUser(replace);
     }
 
-    on_Press_Accept = (data, bookingId, customerId) => {
-        const { push } = this.props.navigation
-        let userData = {
-            id: this.props.user.userData.id,
-            token: this.props.user.userData.token,
-            booking_id: bookingId
-        }
-        BookingServices.acceptBookingOfCustomer(userData)
-            .then((res) => {
-                console.log(res.data)
-                if (res.data.status) {
-                    push('BarberServiceAccept', { item: data, bookingId, customerId })
-                }
-            })
-            .catch((err) => console.log(err))
-
-    }
     on_Press_Booking = (data, bookingId, customerId) => {
         const { push } = this.props.navigation
         push('BarberServiceAccept', { item: data, bookingId, customerId })
@@ -61,7 +44,6 @@ class HomeScreen extends Component {
                 onContactUs={() => navigate("ContactUs")}
                 onAboutUs={() => navigate("AboutUs")}
                 onExit={this.handleLogout}
-                onAccept={(data, bookingId, customerId) => this.on_Press_Accept(data, bookingId, customerId)}
                 onView={(data, bookingId, customerId) => this.on_Press_Booking(data, bookingId, customerId)}
                 onDecline={(data) => this.on_Press_Decline(data)} />
         )
