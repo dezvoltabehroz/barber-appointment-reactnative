@@ -1,5 +1,6 @@
 
 import axiosInstance from './Interceptor';
+import moment from 'moment'
 let configToken = (token) => {
     return {
         headers: {
@@ -52,6 +53,7 @@ const Api = {
     getBarberBookingList: function (userData) {
         return axiosInstance.post('booking/barberBookingList', {
             id: userData.id,
+           current_date:userData.current_date
         }, configToken(userData.token))
     },
     getBarberBookingHistory: function (userData) {

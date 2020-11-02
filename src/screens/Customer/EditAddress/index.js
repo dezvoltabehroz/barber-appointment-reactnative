@@ -132,41 +132,42 @@ class EditAddress extends Component {
 
 
                 <View style={styles.upperContainer}>
-                    <KeyboardAwareScrollView>
-                        <MapView
-                            provider={PROVIDER_GOOGLE}
-                            showsUserLocation={true}
-                            loadingEnabled
-                            followUserLocation={true}
-                            zoomEnabled={true}
-                            showsMyLocationButton={true}
-                            style={styles.mapStyle}
-                            customMapStyle={THEME.mapStyle}
-                            ref={ref => (this.mapView = ref)}
-                            region={this.state.region}
-                            // onRegionChangeComplete={updateProfile ? this.onRegionChange : () => { }}
-                            // onRegionChange={onRegionChange}
-                            // onPanDrag={onPanDrag}
-                            onMapReady={() => {
-                                this.mapView.animateToRegion(this.state.region, 2000);
-                            }}>
-                            <Marker.Animated
-                                ref={marker => {
-                                    this.marker = marker;
-                                }}
-                                onDragEnd={(e) => this.handleDragFuntion(e)}
-                                draggable
-                                opacity={0.5}
-                                style={{ width: 20, height: 20 }}
-                                coordinate={new AnimatedRegion({
-                                    latitude: parseFloat(this.state.region.latitude),
-                                    longitude: parseFloat(this.state.region.longitude),
-                                    latitudeDelta: this.state.region.latitudeDelta,
-                                    longitudeDelta: this.state.region.longitudeDelta,
-                                })}
-                            ></Marker.Animated>
-                        </MapView>
-                        <View>
+                    <MapView
+                        provider={PROVIDER_GOOGLE}
+                        showsUserLocation={true}
+                        loadingEnabled
+                        followUserLocation={true}
+                        zoomEnabled={true}
+                        showsMyLocationButton={true}
+                        style={styles.mapStyle}
+                        customMapStyle={THEME.mapStyle}
+                        ref={ref => (this.mapView = ref)}
+                        region={this.state.region}
+                        // onRegionChangeComplete={updateProfile ? this.onRegionChange : () => { }}
+                        // onRegionChange={onRegionChange}
+                        // onPanDrag={onPanDrag}
+                        onMapReady={() => {
+                            this.mapView.animateToRegion(this.state.region, 2000);
+                        }}>
+                        <Marker.Animated
+                            ref={marker => {
+                                this.marker = marker;
+                            }}
+                            onDragEnd={(e) => this.handleDragFuntion(e)}
+                            draggable
+                            opacity={0.5}
+                            style={{ width: 20, height: 20 }}
+                            coordinate={new AnimatedRegion({
+                                latitude: parseFloat(this.state.region.latitude),
+                                longitude: parseFloat(this.state.region.longitude),
+                                latitudeDelta: this.state.region.latitudeDelta,
+                                longitudeDelta: this.state.region.longitudeDelta,
+                            })}
+                        ></Marker.Animated>
+                    </MapView>
+
+                    <View>
+                        <KeyboardAwareScrollView>
                             <View style={styles.addressContainer}>
                                 <View style={styles.rowContainer}>
                                     <View style={styles.imageContainer}>
@@ -226,9 +227,10 @@ class EditAddress extends Component {
                                     submit && !label ? <Text style={COMMON_STYLE.errorText}>Please select the label</Text> : null
                                 }
                             </View>
-                        </View>
+                        </KeyboardAwareScrollView>
 
-                    </KeyboardAwareScrollView>
+                    </View>
+
                 </View>
                 <View style={styles.footerStyle}>
                     <View style={styles.lineStyle}></View>

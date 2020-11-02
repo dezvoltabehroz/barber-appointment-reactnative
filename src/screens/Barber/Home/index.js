@@ -41,7 +41,8 @@ class BarberHome extends Component {
         const { user } = this.props
         let userData = {
             id: user.userData.id,
-            token: user.userData.token
+            token: user.userData.token,
+            current_date: moment().format('YYYY-MM-DD')
         }
         BookingServices.getBarberBookingList(userData)
             .then((res) => {
