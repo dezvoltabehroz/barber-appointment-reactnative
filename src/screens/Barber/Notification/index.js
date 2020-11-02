@@ -49,12 +49,14 @@ class Notification extends Component {
         return (
             <>
                 <TouchableOpacity style={{ flex: 1, flexDirection: 'row', alignItems: 'center', backgroundColor: THEME.COLOR_WHITE, paddingHorizontal: '5%', marginHorizontal: '5%', borderRadius: 7, paddingVertical: '5%' }}>
-                    <View style={{ lex: 0.2, marginHorizontal: '5%' }}>
-                        <Avatar source={require('../../../assets/images/logo.png')} rounded={true} size={60} />
+                    <View style={{ flex: 0.2, marginHorizontal: '2%', justifyContent: "center", alignItems: 'center', }}>
+                        <View style={{ height: 60, width: 60, borderRadius: 30, borderWidth: 1, justifyContent: "center", alignItems: 'center', }}>
+                            <Image source={require('../../../assets/images/logo.png')} resizeMode='contain' style={{ height: 50, width: 50, }} />
+                        </View>
                     </View>
                     <View style={{ flex: 1, marginHorizontal: '5%' }}>
                         <Text style={styles.upperListTitleStyle}>{moment().format('ll')} | {moment().format('LT')}</Text>
-                        <Text style={styles.upperListTitleStyle} >{item.name} {item.message}</Text>
+                        <Text style={[styles.upperListTitleStyle, { marginTop: '5%' }]} >{item.name} {item.message}</Text>
                     </View>
                 </TouchableOpacity>
             </>
@@ -73,12 +75,15 @@ class Notification extends Component {
                 <View style={{ flex: 1, paddingTop: '5%', backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, paddingBottom: '1%' }}>
                     <View><Text style={styles.headerTitleStyle}>Notification</Text>
                     </View>
-                    <FlatList
-                        data={data}
-                        showsVerticalScrollIndicator={false}
-                        ItemSeparatorComponent={this._renderSeparator}
-                        renderItem={({ item }) => this._renderItems(item)}
-                        keyExtractor={item => item.id} />
+                    {data.length == 0 ?
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={styles.headerTitleStyle}>No Record Found</Text></View>
+                        :
+                        <FlatList
+                            data={data}
+                            showsVerticalScrollIndicator={false}
+                            ItemSeparatorComponent={this._renderSeparator}
+                            renderItem={({ item }) => this._renderItems(item)}
+                            keyExtractor={item => item.id} />}
                 </View>
             </>)
     }
