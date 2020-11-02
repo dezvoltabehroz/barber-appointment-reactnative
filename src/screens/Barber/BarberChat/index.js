@@ -144,14 +144,7 @@ class customerChat extends Component {
         //Add the extra styles via containerStyle
 
         return <View style={styles.inputContainer}>
-            {/* <TextInput
-                value={this.state.inputmessage}
-                style={styles.input}
-                placeholderTextColor={THEME.COLOR_GREY}
-                underlineColorAndroid="transparent"
-                placeholder='Type a message...'
-                onChangeText={text => this.setState({ inputmessage: text })}
-            /> */}
+            
             <InputToolbar {...props} containerStyle={styles.inputContainer} placeholder="Type a message..." />
         </View>
     }
@@ -186,7 +179,7 @@ class customerChat extends Component {
             <Send
                 {...props}
             >
-                <View style={{ marginRight: '5%', paddingBottom: '20%' }}>
+                <View style={{ marginRight: '5%', paddingBottom: '17.5%' }}>
                     <Text style={styles.send}>Send</Text>
                 </View>
             </Send>
@@ -260,15 +253,15 @@ class customerChat extends Component {
                 /> */}
                 {
                     this.state.loading ?
-                        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                            <ActivityIndicator  />
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <ActivityIndicator />
                         </View>
                         :
                         <GiftedChat
                             messages={this.state.messages}
                             onSend={this.onSend}
                             placeholder={'Type a message'}
-                            maxComposerHeight={55}
+                            maxComposerHeight={50}
                             scrollToBottom
                             alignTop
                             // minInputToolbarHeight={200}
@@ -280,26 +273,31 @@ class customerChat extends Component {
 
                                 <InputToolbar
                                     {...props}
-                                    containerStyle={{
-                                        backgroundColor: "black",
-                                        height: 54,
-                                        borderTopWidth: 0,
-                                        marginTop: '2%'
+                                    multiline={false}
+                                    textInputStyle={{
+                                        color: "white",
+                                        // fontFamily: 'Poppins-Regular',
+                                        paddingTop:'5%'
                                     }}
-                                    renderComposer={props1 =>
-                                        (
-                                            <KeyboardAwareScrollView>
-                                                <Composer
-                                                    {...props1}
-                                                    multiline={false}
-                                                    textInputStyle={{
-                                                        height: 54,
-                                                        color: "white",
-                                                        fontFamily: 'Poppins-Regular',
-                                                        paddingTop: '5%'
-                                                    }} />
-                                            </KeyboardAwareScrollView>
-                                        )} />
+                                    containerStyle={{
+                                        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
+                                        // borderTopWidth: 0,
+                                        // paddingTop:'5%'
+                                    }}
+                                // renderComposer={props1 =>
+                                //     (
+                                //         //                 <KeyboardAwareScrollView>
+                                //         <Composer
+                                //             {...props1}
+                                //             multiline={false}
+                                //             textInputStyle={{
+                                //                 // height: 54,
+                                //                 color: "white",
+                                //                 fontFamily: 'Poppins-Regular',
+                                //                 // paddingTop: '5%'
+                                //             }} />
+                                //                 </KeyboardAwareScrollView>
+                                />
                             )}
                             // renderInputToolbar={this._renderInputToolbar}
                             showUserAvatar={true}
