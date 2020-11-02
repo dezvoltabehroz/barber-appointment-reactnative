@@ -55,11 +55,10 @@ class ServiceDetails extends Component {
             .catch((err) => console.log(err))
         BookingServices.getBookingTiming(userdata)
             .then((res) => {
-                console.log(res.data)
                 if (res.data.status) {
                     this.setState({
-                        bookingEndingTime: res.data.ending_time,
-                        bookingStartingTime: res.data.starting_time,
+                        bookingEndingTime: res.data.timeData[0].ending_time,
+                        bookingStartingTime: res.data.timeData[0].starting_time,
                         loading: false
                     })
                 }
