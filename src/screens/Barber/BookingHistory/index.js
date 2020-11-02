@@ -31,10 +31,7 @@ class BarberBookingHistory extends Component {
         BookingServices.getBarberBookingHistory(userData)
             .then((res) => {
                 if (res.data.status) {
-                    let items = [];
-                    items = res.data.servicesList
-                    items = items.reverse()
-                    this.setState({ bookingList: items, loading: false })
+                    this.setState({ bookingList: res.data.servicesList, loading: false })
                 }
             })
             .catch((err) => console.log(err))
