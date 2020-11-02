@@ -50,9 +50,9 @@ class Notification extends Component {
             <>
                 <TouchableOpacity style={{ flex: 1, flexDirection: 'row', alignItems: 'center', backgroundColor: THEME.COLOR_WHITE, paddingHorizontal: '5%', marginHorizontal: '5%', borderRadius: 7, paddingVertical: '5%' }}>
                     <View style={{ lex: 0.2, marginHorizontal: '5%' }}>
-                        <Avatar source={require('../../../assets/images/logo.png')} rounded={true} size={60} />
+                        <Image source={require('../../../assets/images/logo.png')} rounded={true} resizeMode='contain' style={{ height: 60, width: 60 }} />
                     </View>
-                    <View style={{ flex: 1, marginHorizontal: '5%' }}>
+                    <View style={{ flex: 1, flexDirection:'column',justifyContent: 'space-between', marginHorizontal: '5%' }}>
                         <Text style={styles.upperListTitleStyle}>{moment().format('ll')} | {moment().format('LT')}</Text>
                         <Text style={styles.upperListTitleStyle} >{item.name} {item.message}</Text>
                     </View>
@@ -70,13 +70,13 @@ class Notification extends Component {
         return (
             <View style={{ flex: 1, paddingTop: '5%', backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, paddingBottom: '1%' }}>
                 <View><Text style={styles.headerTitleStyle}>Notification</Text></View>
-                    <FlatList
-                        data={data}
-                        showsVerticalScrollIndicator={false}
-                        ItemSeparatorComponent={this._renderSeparator}
-                        renderItem={({ item }) => this._renderItems(item)}
-                        keyExtractor={item => item.id} />
-                </View>
+                <FlatList
+                    data={data}
+                    showsVerticalScrollIndicator={false}
+                    ItemSeparatorComponent={this._renderSeparator}
+                    renderItem={({ item }) => this._renderItems(item)}
+                    keyExtractor={item => item.id} />
+            </View>
         )
     }
 }

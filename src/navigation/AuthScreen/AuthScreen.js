@@ -118,7 +118,7 @@ class AuthScreen extends Component {
     handleWithOutLogin = async () => {
         const { navigate } = this.props.navigation;
         await this.props.categoryActions.getCategories();
-        navigate('Customer', { screen: 'Home' })
+        navigate('CustomerWithOutSignIn', { screen: 'Home' })
     }
 
     handleLogin = async (userData) => {

@@ -44,8 +44,6 @@ class HomeScreen extends Component {
                 onExit={()=>this.handleLogout()}
                 loading={this.props.userAddresses.loading}
                 onAppointments={() => navigate('Appointments')}
-                // onReferesh={this.componentDidMount}
-                // navigate={push}
                 searchBarber={() => navigate('BarberList',{search:true})}
                 myAddresses={() => navigate('MyAddresses')}
                 addNewAddress={() => navigate('AddYourAddress')}

@@ -17,7 +17,7 @@ const Stack = createStackNavigator();
 function AppRoutes() {
     return (
         <Stack.Navigator initialRouteName="AuthLoading" >
-             <Stack.Screen name="AuthLoading" component={AuthLoading} options={{
+            <Stack.Screen name="AuthLoading" component={AuthLoading} options={{
                 headerShown: false
             }} />
             <Stack.Screen name="Auth" component={AuthScreen} options={{
@@ -44,6 +44,9 @@ function AppRoutes() {
                 headerShown: false
             }} />
             <Stack.Screen name="Customer" component={CustomerBottomNavigationRoutes} options={{
+                headerShown: false
+            }} />
+            <Stack.Screen name="CustomerWithOutSignIn" component={CustomerRoutes} options={{
                 headerShown: false
             }} />
         </Stack.Navigator>

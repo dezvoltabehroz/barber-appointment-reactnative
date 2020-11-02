@@ -12,9 +12,9 @@ class HomeScreen extends Component {
     })
 
     handleLogout = async () => {
-        const { navigate } = this.props.navigation;
-        navigate('Auth')
-        await this.props.authActions.removeUser();
+        const { replace } = this.props.navigation;
+        // navigate('Auth')
+        await this.props.authActions.removeUser(replace);
     }
 
     on_Press_Accept = (data, bookingId, customerId) => {
@@ -80,4 +80,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps)(HomeScreen)
+export default connect(mapStateToProps,mapDispatchToProps)(HomeScreen)

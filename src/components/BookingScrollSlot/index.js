@@ -38,6 +38,7 @@ export default class BookingScrollSlot extends Component {
         const { onSubmit } = this.props;
         onSubmit(this.state.bookedSolt)
     }
+    
     handleBookedSlots = (data) => {
         let { difference } = this.state;
         var day = moment(data, 'hh:mm A');
