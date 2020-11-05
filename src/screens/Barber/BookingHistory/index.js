@@ -61,10 +61,10 @@ class BarberBookingHistory extends Component {
                 style={{ backgroundColor: THEME.COLOR_WHITE, borderRadius: 7, marginHorizontal: '5%', }}>
                 <View style={styles.locationContainer}>
                     <View style={{ marginHorizontal: '2%' }}>
-                        <Text style={[styles.upperListTitleBoldStyle, { textTransform: 'capitalize' }]}>Booking Id: #{item.id}</Text>
+                        <Text style={[styles.upperListTitleBoldStyle, { textTransform: 'capitalize' }]}>booking id: #{item.id}</Text>
                     </View>
                     <View style={{ marginRight: '2%' }}>
-                        <Text style={[styles.upperListTitleBoldStyle, { textTransform: 'capitalize' }]}>{moment(item.booking_date).format('Do MMM YYYY')} {moment(bookingStartTime).format('H:mm')}</Text>
+                        <Text style={[styles.upperListTitleBoldStyle]}>{moment(item.booking_date).format('Do MMM YYYY')} {moment(bookingStartTime).format('H:mm')}</Text>
                     </View>
                 </View>
                 <View style={styles.serviceTimeContainer}>
