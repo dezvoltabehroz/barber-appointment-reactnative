@@ -53,7 +53,7 @@ class EditYourAddress extends Component {
             val.selected = false
         })
         items[index] = { ...items[index], selected: true };
-        this.setState({ labels: items, label: items[index].label })
+        this.setState({ labels: items, label: items[index].label,submit: true, })
     }
 
     handleSaveAndContinue = async () => {
@@ -70,7 +70,7 @@ class EditYourAddress extends Component {
             // phone: this.props.phone
             phone: phoneNumber
         }
-        if (region && address && label && floor_unit && submit) {
+        if (region && address && label && submit) {
             if (this.props.isUserLogged) {
                 this.props.saveNewAddress(userData);
             }
@@ -171,9 +171,9 @@ class EditYourAddress extends Component {
                                     onActive={() => this.setState({ isSubjectFocus: true, })}
                                     onInActive={() => this.setState({ isSubjectFocus: false, submit: true })}
                                     updateText={(floor_unit) => this.setState({ floor_unit })} />
-                                {
+                                {/* {
                                     submit && !floor_unit ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
-                                }
+                                } */}
                             </View>
 
                             <View style={[styles.inputContainerStyle, { height: 74 },
@@ -214,7 +214,7 @@ class EditYourAddress extends Component {
                     <View style={styles.lineStyle}></View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.buttonContainerStyle}>
-                        <Button disabled={label && floor_unit ? false : true} loading={this.props.loading} title="Save & Continue" onPress={this.handleSaveAndContinue} />
+                        <Button disabled={label ? false : true} loading={this.props.loading} title="Save & Continue" onPress={this.handleSaveAndContinue} />
                     </View>
                 </View>
 
