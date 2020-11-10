@@ -182,20 +182,25 @@ class BarberHome extends Component {
                             this.state.loading ?
                                 <ActivityIndicator />
                                 :
-                                <FlatList
-                                    refreshControl={
-                                        <RefreshControl
-                                            refreshing={this.state.loading}
-                                            onRefresh={() => this.componentDidMount()}
-                                            tintColor={THEME.COLOR_WHITE}
-                                            colors={[THEME.PRIMARY_COLOR]}
-                                        />
-                                    }
-                                    data={bookingList}
-                                    showsVerticalScrollIndicator={false}
-                                    ItemSeparatorComponent={this._renderSeparator}
-                                    renderItem={({ item, index }) => this._renderBookingItems(item, index)}
-                                    keyExtractor={item => item} />}
+                                bookingList.length == 0 ?
+                                    <View style={[styles.nameContainer,{justifyContent:'center'}]}>
+                                        <Text style={[styles.appointmentTextStyle,{textAlign:'center'}]}>No bookings</Text>
+                                    </View>
+                                    :
+                                    <FlatList
+                                        refreshControl={
+                                            <RefreshControl
+                                                refreshing={this.state.loading}
+                                                onRefresh={() => this.componentDidMount()}
+                                                tintColor={THEME.COLOR_WHITE}
+                                                colors={[THEME.PRIMARY_COLOR]}
+                                            />
+                                        }
+                                        data={bookingList}
+                                        showsVerticalScrollIndicator={false}
+                                        ItemSeparatorComponent={this._renderSeparator}
+                                        renderItem={({ item, index }) => this._renderBookingItems(item, index)}
+                                        keyExtractor={item => item} />}
                     </View>
                 </View>
             </>
