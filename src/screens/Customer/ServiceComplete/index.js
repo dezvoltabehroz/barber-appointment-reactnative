@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, Alert, ScrollView, ActivityIndicator, } from 'react-native';
+import { View, Text, FlatList, Alert, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
 import styles from './style';
-import { FooterButton, Icon, MessageInput } from '../../../components';
+import { FooterButton, Icon, Button, MessageInput, FloatingInput } from '../../../components';
 import THEME from '../../../assets/styles/theme.style';
+import Modal from 'react-native-modal'
 import StarRating from 'react-native-star-rating';
 import { Avatar } from "react-native-elements";
 import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
@@ -16,7 +17,12 @@ export default class ServiceComplete extends Component {
             isFeedbackFocus: false,
             barberName: '',
             barberAge: '',
-            barberProfile: '', loading: false
+            barberProfile: '',
+            tipModal: false,
+            tip: '',
+            loading: false,
+            giveTip: false,
+            finishLoading: false
         }
     }
     componentDidMount = () => {
@@ -44,7 +50,9 @@ export default class ServiceComplete extends Component {
 
     render() {
         let { onHome } = this.props
-        const { starCount, isFeedbackFocus, feedback, barberAge, barberName, barberProfile, loading } = this.state;
+        const { starCount, isFeedbackFocus, feedback,
+            barberAge, barberName, barberProfile, tip, isTipFocus, giveTip, finishLoading,
+            tipModal, loading } = this.state;
         return (
             <View style={styles.container}>
                 {
@@ -90,17 +98,65 @@ export default class ServiceComplete extends Component {
                                     </View>
                                 </View>
                             </KeyboardAwareView>
-                            <FooterButton disabled={feedback&&starCount?false:true} title='Done' onPress={() => {
-                                let userData = {
-                                    barber_id: this.props.userData.barber_id,
-                                    customer_id: this.props.userData.id,
-                                    comment: feedback,
-                                    no_of_star: starCount,
-                                    token:this.props.userData.token,
-                                    review_by:this.props.userData.type
-                                }
-                                onHome(userData)
+                            <FooterButton disabled={feedback && starCount ? false : true} title='Done' onPress={() => {
+
+                                this.setState({ tipModal: true })
                             }} />
+                            <Modal isVisible={tipModal}  >
+                                <View style={styles.content}>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: '5%' }}>
+                                        <View style={styles.iconContainer}>
+                                            <Icon.FontAwesome5 name='hand-holding-usd' size={25} color={THEME.PRIMARY_COLOR} />
+                                        </View>
+                                        <Text style={styles.headingText}>Give a tip to Barber!</Text>
+                                    </View>
+                                    {
+                                        giveTip ?
+                                            <>
+
+
+                                                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                                    <View style={[styles.inputContainerStyle,
+                                                    isTipFocus || tip != '' ? THEME.inputBorder
+                                                        :
+                                                        {}]}>
+                                                        <FloatingInput
+                                                            val={tip}
+                                                            keyboardtype="email-address"
+                                                            onActive={() => this.setState({ isTipFocus: true })}
+                                                            onInActive={() => this.setState({ isTipFocus: false, submit: true })}
+                                                            label='Tip' updateText={(tip) => this.setState({ tip })} />
+                                                    </View>
+                                                </View>
+
+                                            </> : null}
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                                        <TouchableOpacity onPress={() => this.setState({ giveTip: !giveTip })} style={styles.tipContainer}>
+                                            <Text style={styles.buttonText}>{giveTip ? 'Cancel' : 'Give Tip'}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={async () => {
+                                            this.setState({ finishLoading: true })
+                                            let userData = {
+                                                barber_id: this.props.userData.barber_id,
+                                                customer_id: this.props.userData.id,
+                                                comment: feedback,
+                                                no_of_star: starCount,
+                                                token: this.props.userData.token,
+                                                review_by: this.props.userData.type
+                                            }
+                                            await onHome(userData);
+                                        }}
+                                            style={styles.tipContainer}>
+                                            {
+                                                finishLoading ?
+                                                    <ActivityIndicator size={20} color={THEME.COLOR_WHITE} />
+                                                    :
+                                                    <Text style={styles.buttonText}>Finish</Text>
+                                            }
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            </Modal>
                         </>
                 }
             </View>

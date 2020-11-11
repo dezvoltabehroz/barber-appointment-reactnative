@@ -19,7 +19,6 @@ export default StyleSheet.create({
         justifyContent: "space-between"
     },
     iconContainer: {
-        flex: 0.7,
         justifyContent: "center", alignItems: "center"
     },
     rowStyle: {
@@ -65,7 +64,7 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     nameContainer: {
-        marginHorizontal:'5%',
+        marginHorizontal: '5%',
         flex: 1,
         justifyContent: 'center',
     },
@@ -78,5 +77,36 @@ export default StyleSheet.create({
         color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Regular'
     },
-
+    content: {
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
+        padding: 22,
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        borderRadius: 5,
+        borderColor: 'rgba(0, 0, 0, 0.1)',
+    },
+    contentTitle: {
+        fontSize: 20,
+        marginBottom: 12,
+    },
+    inputContainerStyle: {
+        height: 54,
+        width: screenWidth * 0.75,
+        borderRadius: 5,
+        marginBottom: '5%',
+        backgroundColor: THEME.COLOR_WHITE
+    },
+    tipContainer: {
+        height: 54,
+        backgroundColor: THEME.PRIMARY_COLOR,
+        justifyContent: "center",
+        alignItems: "center",
+        width: screenWidth * 0.35,
+        borderRadius: 7
+    },
+    buttonText: {
+        color: THEME.COLOR_WHITE,
+        textAlign: 'right',
+        fontFamily: 'Poppins-Medium'
+    }
 })
