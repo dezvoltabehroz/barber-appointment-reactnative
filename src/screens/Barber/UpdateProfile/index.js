@@ -10,14 +10,14 @@ import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoder';
 import { connect } from 'react-redux';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import moment from 'moment'
 class UpdateProfile extends Component {
     constructor(props) {
         super(props);
-        let { name } = this.props.user
         this.state = {
             male: true,
             female: false,
-            name: name ? name : '',
+            name: '',
             isNameFocus: false,
             isLocationFocus: false,
             profile_Url: '',
@@ -27,15 +27,32 @@ class UpdateProfile extends Component {
             location: '',
             date: '',
             minDistance: 5,
-            maxDistance: 10,
+            maxDistance: 20,
             showDatePicker: false,
             submit: false,
             modalView: false,
-            filePath: { uri: 'https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Bearded_Man-17-512.png' },
+            filePath: 'https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Bearded_Man-17-512.png',
         };
     }
 
     componentDidMount = () => {
+        console.log(this.props.user.userData);
+        if (this.props.user.userData != null && this.props.user.userData != 'undefined') {
+            const { full_name, profile_picture, dob, gender,max_distance_radius } = this.props.user.userData;
+            this.setState({
+                name: full_name,
+                filePath: profile_picture,
+                minDistance:max_distance_radius,
+                date: moment(dob).format('DD/MM/YYYY'),
+                dob: moment(dob).format('YYYY-MM-DD'),
+            })
+            if (gender == 'Male') {
+                this.setState({ male: true, female: false, gender: 'Male', })
+            }
+            else {
+                this.setState({ female: true, male: false, gender: 'Female', })
+            }
+        }
         this.findCoordinates();
     }
 
@@ -51,7 +68,7 @@ class UpdateProfile extends Component {
     chooseFile = () => {
         var options = {
             title: 'Select Avatar',
-
+            noData: true,
             storageOptions: {
                 skipBackup: true,
                 path: 'images',
@@ -60,18 +77,12 @@ class UpdateProfile extends Component {
 
         ImagePicker.showImagePicker(options, response => {
             console.log('response  ', response);
-
             if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-                alert(response.customButton);
             } else {
                 let source = response;
                 this.setState({
-                    filePath: source,
+                    filePath: source.uri,
+                    profile_Url: source
                 });
             }
         });
@@ -85,7 +96,7 @@ class UpdateProfile extends Component {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 }
-
+                this.setState({ latitude: pos.lat, longitude: pos.lng })
                 Geocoder.geocodePosition(pos).then(res => {
                     this.setState({ location: res[0].formattedAddress })
                 })
@@ -123,9 +134,36 @@ class UpdateProfile extends Component {
         this.hideDatePicker();
     };
 
+    handleNext = () => {
+        const { onNext } = this.props;
+        let { name, profile_Url, dob, minDistance, gender, latitude, longitude } = this.state;
+        let userData = {
+            name: name,
+            gender: gender,
+            dob: dob,
+            image: profile_Url,
+            max_distance_radius: minDistance,
+            latitude: latitude,
+            longitude: longitude,
+            phone: this.props.user.userData.phone,
+            update: true,
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token
+        }
+        this.setState({ submit: true });
+        console.log(userData)
+        if (name && gender && dob && minDistance) {
+            onNext(userData);
+        }
+
+    }
+
     render() {
         const { onNext } = this.props;
-        const { isNameFocus, name, isLocationFocus, location, date, showDatePicker, maxDistance, minDistance, modalView, filePath } = this.state;
+        const { isNameFocus, name,
+            isLocationFocus, location, date,
+            showDatePicker, maxDistance, minDistance,
+            modalView, filePath, longitude, latitude } = this.state;
 
         return (
 
@@ -137,7 +175,7 @@ class UpdateProfile extends Component {
                                 <View style={styles.avatarContainer}>
                                     <Avatar
                                         avatarStyle={styles.avatarStyle}
-                                        source={{ uri: filePath.uri }}
+                                        source={{ uri: filePath }}
                                         rounded
                                         accessory={{ name: 'ios-camera', type: 'ionicon', color: '#fff', underlayColor: '#000', iconStyle: { fontSize: 20 } }}
                                         showAccessory={true}
@@ -196,6 +234,7 @@ class UpdateProfile extends Component {
                             <View style={[styles.inputContainerStyle, { marginBottom: '2%' },
                             isLocationFocus || location != '' ? THEME.inputBorder : {}]}>
                                 <FloatingInput val={location}
+                                    editable={false}
                                     onInActive={() => this.setState({ isLocationFocus: false })}
                                     onActive={() => this.setState({ isLocationFocus: true })}
                                     label='Your Location' val={this.state.location} />
@@ -206,15 +245,16 @@ class UpdateProfile extends Component {
                             <View style={styles.distanceContainerStyle}>
                                 <View style={styles.distanceHeadingContainer}>
                                     <Text style={styles.distanceTextStyle}>Maximum Distance</Text>
-                                    <Text style={styles.distanceStyle}>{minDistance} - {maxDistance} miles</Text>
+                                    <Text style={styles.distanceStyle}>{minDistance} {/*- {maxDistance*/} miles</Text>
                                 </View>
                                 <View style={styles.sliderContainer}>
                                     <RangeSlider
                                         style={styles.sliderStyle}
                                         gravity={"top"}
                                         min={5}
-                                        max={10}
+                                        max={20}
                                         step={1}
+                                        rangeEnabled={false}
                                         thumbColor={THEME.PRIMARY_COLOR}
                                         labelBackgroundColor={THEME.PRIMARY_COLOR}
                                         labelBorderWidth={0}
@@ -222,6 +262,7 @@ class UpdateProfile extends Component {
                                         selectionColor={THEME.PRIMARY_COLOR}
                                         blankColor={THEME.COLOR_GREY}
                                         onValueChanged={(low, high, fromUser) => {
+                                            console.log(low, high)
                                             this.setState({ minDistance: low, maxDistance: high })
                                         }} />
                                 </View>
@@ -229,7 +270,7 @@ class UpdateProfile extends Component {
                         </View>
                     </ScrollView>
                 </View>
-                <FooterButton title='Update Profile' onPress={onNext} />
+                <FooterButton disabled={latitude && longitude ? false : true} title='Update Profile' onPress={this.handleNext} />
                 <Modal visible={modalView}>
                     <View style={styles.modalContainer}>
                         <View>

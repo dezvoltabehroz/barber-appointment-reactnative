@@ -30,7 +30,7 @@ class BarberEditProfile extends Component {
     }
 
     componentDidMount = () => {
-        console.log(this.props.user)
+        console.log("user",this.props.user.userData)
     }
 
     chooseFile = () => {
@@ -101,7 +101,7 @@ class BarberEditProfile extends Component {
             <>
 
                 <View style={styles.container}>
-                    <View><Text style={styles.headerTitleStyle}>Edit Profile</Text></View>
+                    {/* <View><Text style={styles.headerTitleStyle}>Edit Profile</Text></View> */}
                     <ScrollView>
                         <View style={{ marginTop: '5%', marginHorizontal: '5%' }}>
 

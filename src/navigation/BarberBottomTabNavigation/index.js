@@ -7,6 +7,7 @@ import { Icon } from '../../components';
 import NotificationScreen from '../BarberNavigation/NotificationScreen';
 import EditProfileScreen from '../BarberNavigation/EditProfileScreen';
 import THEME from '../../assets/styles/theme.style'
+import BarberProfileRoutes from './barberUpdateProfileNavigation';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
@@ -38,7 +39,7 @@ function BarberBottomNavigationRoutes() {
             }}
         >
             <Bottom.Screen name="Home" component={BarberRoutes} />
-            <Bottom.Screen name="Profile" component={EditProfileScreen} options={{
+            <Bottom.Screen name="Profile" component={BarberProfileRoutes} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,

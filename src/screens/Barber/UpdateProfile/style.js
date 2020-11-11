@@ -7,7 +7,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' ? '15%' : null
+        paddingTop: Platform.OS == 'ios' ? '15%' : '15%'
     },
     avatarStyle: {
         borderWidth: 1,
@@ -19,8 +19,8 @@ export default StyleSheet.create({
         flex: 0.8,
     },
     imageContainer: {
-        marginTop: '5%',
-        justifyContent: "center",
+        // marginTop: '5%',
+        // justifyContent: "center",
         alignItems: 'center'
     },
     imageStyle: {
@@ -28,7 +28,7 @@ export default StyleSheet.create({
         height: screenHeight * 0.3,
     },
     avatarContainer: {
-        marginTop: '8%',
+        // marginTop: '8%',
         justifyContent: "center",
         alignItems: 'center'
     },

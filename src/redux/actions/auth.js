@@ -48,6 +48,8 @@ const getUserProfile = (userData, navigate) => {
                         if (navigate) {
                             if (responseData.data.userData[0].type == "customer") {
                                 navigate('Customer');
+                            } else if (userData.update) {
+                                navigate();
                             }
                             else {
                                 navigate('Barber');

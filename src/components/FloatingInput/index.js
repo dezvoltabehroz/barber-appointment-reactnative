@@ -1,10 +1,11 @@
 import React from 'react';
 import FloatingInput from 'react-native-floating-labels';
 import styles from './style'
-const FloatInput = ({ label, updateText, secureEntry, iconInput,multilines, iconSmallInput, onSubmit, onChangeValue, maxLength, val, onActive, onInActive, keyboardtype }) => {
+const FloatInput = ({ label, updateText, editable, secureEntry, iconInput, multilines, iconSmallInput, onSubmit, onChangeValue, maxLength, val, onActive, onInActive, keyboardtype }) => {
 
     return (
         <FloatingInput
+            editable={editable}
             onChangeText={updateText}
             keyboardType={keyboardtype}
             password={secureEntry}
