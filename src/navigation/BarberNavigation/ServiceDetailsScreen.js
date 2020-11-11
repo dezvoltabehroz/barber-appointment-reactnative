@@ -10,9 +10,13 @@ export default class ServiceDetailsScreen extends Component {
 
     render() {
         const { navigate } = this.props.navigation;
-        const { bookingId,customerId,history,cancelled } = this.props.route.params;
+        const { bookingId, customerId, history, cancelled } = this.props.route.params;
         return (
-            <MainScreenPaths.Barber.ServiceDetails cancelled={cancelled} history={history} bookingId={bookingId} onPayment={() => navigate('BarberServiceComplete',{customerId})} />
+            <MainScreenPaths.Barber.ServiceDetails
+                cancelled={cancelled}
+                history={history}
+                bookingId={bookingId}
+                onPayment={(totalPrice) => navigate('BarberServiceComplete', { customerId, totalPrice: totalPrice })} />
         )
     }
 }

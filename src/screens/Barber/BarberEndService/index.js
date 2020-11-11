@@ -130,7 +130,7 @@ class EndService extends Component {
                                                             <Text style={styles.textStyle}>{item.service_name}{item.quantity == '1' ? "" : ` (${item.quantity})`}</Text>
                                                         </View>
                                                         <View style={styles.priceContainer} >
-                                                            <Text style={styles.timeTextStyle}>{(item.price * item.quantity)}$</Text>
+                                                            <Text style={styles.timeTextStyle}>${(item.price * item.quantity)}</Text>
                                                         </View>
                                                         <View style={styles.timeContainer}>
                                                             <View style={styles.priceAndTimeContainer}>

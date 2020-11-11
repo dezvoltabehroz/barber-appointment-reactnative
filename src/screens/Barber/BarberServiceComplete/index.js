@@ -24,7 +24,7 @@ class BarberServiceComplete extends Component {
     }
 
     render() {
-        let { onHome } = this.props
+        let { onHome, totalPrice } = this.props
         const { starCount, isFeedbackFocus, feedback } = this.state;
         return (
             <View style={styles.container}>
@@ -32,7 +32,7 @@ class BarberServiceComplete extends Component {
                     <View style={styles.upperContainer}>
                         <View style={styles.rowStyle}>
                             <Text style={styles.headingTextStyle1}>Total Amount Paid:</Text>
-                            <Text style={[styles.headingTextStyle1, { color: THEME.PRIMARY_COLOR }]}>  $260</Text>
+                            <Text style={[styles.headingTextStyle1, { color: THEME.PRIMARY_COLOR }]}>  ${totalPrice}</Text>
                         </View>
                         <View style={styles.iconContainer}>
                             <Icon.FontAwesome5 name='hand-holding-usd' size={120} color={THEME.PRIMARY_COLOR} />
