@@ -21,7 +21,7 @@ const Api = {
         formData.append('full_name', userData.name);
         formData.append('gender', userData.gender);
         formData.append('dob', userData.dob);
-        formData.append('phone', phone);
+        formData.append('phone', userData.phone ? userData.phone : phone);
         formData.append('image', userData.image ? {
             uri: Platform.OS === 'android' ? 'file://' + userData.image.path : userData.image.uri,
             name: `${new Date().getTime().toString()}.jpg`,

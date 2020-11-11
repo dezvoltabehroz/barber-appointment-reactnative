@@ -7,6 +7,7 @@ import StarRating from 'react-native-star-rating';
 import THEME from '../../../assets/styles/theme.style';
 import { BookingServices } from "../../../services";
 import { connect } from "react-redux";
+import moment from 'moment'
 class Appointments extends Component {
     constructor(props) {
         super(props);
@@ -25,7 +26,7 @@ class Appointments extends Component {
         BookingServices.getAllBooking(userData)
             .then((response) => {
                 if (response.data.status) {
-                    this.setState({ bookingList: response.data.booking_list.reverse(), loading: false })
+                    this.setState({ bookingList: response.data.booking_list, loading: false })
                 }
             })
             .catch((err) => { console.log(err) })
@@ -50,7 +51,7 @@ class Appointments extends Component {
                     <View style={styles.nameContainer}>
                         <Text style={styles.nameTextStyle} >{item.full_name}</Text>
                         <Text style={styles.dateTextStyle} >Age: {item.age}</Text>
-                        {/* <Text style={styles.dateTextStyle} > {item.rating==null?'':'Rating: '+item.rating+' / 5'} </Text> */}
+                        <Text style={styles.dateTextStyle} >{moment(item.booking_date).format('Do MMM YYYY')} </Text>
                     </View>
                     <View style={styles.iconContainer}>
                         <Icon.Ionicons name="ios-pencil" size={25} />
@@ -59,7 +60,7 @@ class Appointments extends Component {
                     </View>
                 </View>
                 {/* <View style={styles.buttonContainer}>
-                    <Button title='View' onPress={()=>onView(item.booking_id)} />
+                    <Button title='View' onPress={() => onView(item.booking_id)} />
                 </View> */}
             </TouchableOpacity>
         )

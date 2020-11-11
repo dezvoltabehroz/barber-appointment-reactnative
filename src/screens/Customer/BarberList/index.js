@@ -71,7 +71,7 @@ class BarberList extends Component {
                         <View style={styles.avatarContainer}>
                             <Avatar source={{ uri: item.profile_picture }} rounded size={70} />
                             <View style={{ paddingVertical: '5%' }} >
-                                <TouchableOpacity onPress={()=>bookNow(item.id)} style={styles.buttonStyle}>
+                                <TouchableOpacity onPress={() => bookNow(item.id)} style={styles.buttonStyle}>
                                     <Text style={styles.buttonTextStyle}>
                                         Book Now
                                 </Text>
@@ -96,7 +96,7 @@ class BarberList extends Component {
                                         :
                                         <Text style={styles.textStyles}> mins</Text>
                                 }</Text>
-                            <Text style={styles.dateTextStyle} >Charges: {item.price ? item.price + "$" : ''}</Text>
+                            <Text style={styles.dateTextStyle} >Charges: {item.price ? "$" + item.price : ''}</Text>
                             <View>
                                 <Text style={styles.dateTextStyle} >Working Days: </Text>
                             </View>
@@ -126,7 +126,7 @@ class BarberList extends Component {
                         <View style={styles.avatarContainer}>
                             <Avatar source={{ uri: item.profile_picture }} rounded size={70} />
                             <View style={{ paddingVertical: '5%' }} >
-                                <TouchableOpacity onPress={()=>bookNow(item.id)} style={styles.buttonStyle}>
+                                <TouchableOpacity onPress={() => bookNow(item.id)} style={styles.buttonStyle}>
                                     <Text style={styles.buttonTextStyle}>
                                         Book Now
                                 </Text>

@@ -40,7 +40,7 @@ function CustomerBottomNavigationRoutes() {
             }}
         >
             <Bottom.Screen name="Home" component={CustomerRoutes} />
-            <Bottom.Screen name="Profile" component={EditProfile} options={{
+            <Bottom.Screen name="Profile" component={EditProfileScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,

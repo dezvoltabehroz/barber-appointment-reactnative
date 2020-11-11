@@ -120,7 +120,6 @@ export default class CustomerServices extends Component {
                                 <View style={styles.flatlistContainer}>
                                     {
                                         serviceList.map((item) => {
-                                            console.log(item)
                                             let time = (parseInt(moment.duration(item.time_duration).asMinutes()) * item.quantity)
                                             var h = time / 60 | 0;
                                             var m = time % 60 | 0;
@@ -133,7 +132,7 @@ export default class CustomerServices extends Component {
                                                             <Text style={styles.textStyle}>{item.service_name}{item.quantity=='1'?"":` (${item.quantity})`}</Text>
                                                         </View>
                                                         <View style={styles.priceContainer} >
-                                                            <Text style={styles.timeTextStyle}>{(item.price * item.quantity)}$</Text>
+                                                            <Text style={styles.timeTextStyle}>${(item.price * item.quantity)}</Text>
                                                         </View>
                                                         <View style={styles.timeContainer}>
                                                             <View style={styles.priceAndTimeContainer}>
@@ -184,7 +183,7 @@ export default class CustomerServices extends Component {
                                     </View>
                                     <View style={styles.rowStyle}>
                                         <Text style={styles.headingText}>Amount to be paid:</Text>
-                                        <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}> {totalPrice}$</Text>
+                                        <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}> ${totalPrice}</Text>
                                     </View>
                                 </View>
 

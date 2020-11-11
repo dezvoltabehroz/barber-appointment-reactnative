@@ -10,6 +10,8 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoder';
 import { connect } from 'react-redux';
+import moment from 'moment';
+import { set } from 'react-native-reanimated';
 class EditProfile extends Component {
     constructor(props) {
         super(props);
@@ -34,24 +36,37 @@ class EditProfile extends Component {
     }
 
     componentDidMount = () => {
-        if (this.props.user.name != null && this.props.user.name != 'undefined') {
-            const { name } = this.props.user
-            if (name !== '' && name !== 'undefined') {
-                this.setState({ name: name })
+        if (this.props.user.userData != null && this.props.user.userData != 'undefined') {
+            const { full_name, profile_picture, dob, gender } = this.props.user.userData
+            this.setState({
+                name: full_name,
+                avatar: profile_picture,
+                date: moment(dob).format('DD/MM/YYYY'),
+                dob: moment(dob).format('YYYY-MM-DD'),
+            })
+            if (gender == 'Male') {
+                this.setState({ male: true })
+            }
+            else {
+                this.setState({ female: true })
             }
         }
+
         // this.findCoordinates();
     }
 
     handleNext = () => {
-        console.log("Handle Next===>")
+        console.log("Handle Next Edit ===>")
         const { onNext } = this.props;
         let { name, profile_Url, dob, gender } = this.state;
         let userData = {
             name: name,
             gender: gender,
             dob: dob,
-            image: profile_Url
+            image: profile_Url,
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token,
+            phone: this.props.user.userData.phone
         }
         this.setState({ submit: true });
         if (name && gender && dob) {
@@ -73,7 +88,7 @@ class EditProfile extends Component {
             } else {
                 let source = response;
                 this.setState({
-                    avatar: source,
+                    avatar: source.uri,
                     profile_Url: response
                 });
             }
@@ -133,7 +148,7 @@ class EditProfile extends Component {
         return (
 
             <View style={styles.container}>
-                  <View><Text style={styles.headerTitleStyle}>Edit Profile</Text></View>
+                <View><Text style={styles.headerTitleStyle}>Edit Profile</Text></View>
                 <View style={styles.upperContainer}>
                     <ScrollView>
                         <View style={styles.imageContainer}>
@@ -141,7 +156,7 @@ class EditProfile extends Component {
                                 <View style={styles.avatarContainer}>
                                     <Avatar
                                         avatarStyle={styles.avatarStyle}
-                                        source={this.state.avatar ? this.state.avatar : require('../../../assets/images/avatar.png')}
+                                        source={this.state.avatar != '' ? { uri: this.state.avatar } : require('../../../assets/images/avatar.png')}
                                         rounded
                                         size={120} />
                                     <TouchableOpacity onPress={this.chooseFile}>
@@ -202,10 +217,8 @@ class EditProfile extends Component {
                     </ScrollView>
                 </View>
                 <FooterButton disabled={gender && name && dob && date ? false : true} loading={this.props.user.loading} title="Update Profile"
-                 onPress={()=>{}
-                    //  this.handleNext
-                    } 
-                 />
+                    onPress={this.handleNext}
+                />
             </View>
 
         );

@@ -95,7 +95,7 @@ class CartDetail extends Component {
                         <Text style={styles.textStyle}>{item.quantity != '' && item.quantity > 1 ? (parseInt(moment.duration(item.time_duration).asMinutes()) * item.quantity) : parseInt(moment.duration(item.time_duration).asMinutes())}</Text>
                     </View>
                     <View style={styles.columnChange}>
-                        <Text style={styles.textStyle}>{item.quantity != '' && item.quantity > 1 ? (item.price * item.quantity) : item.price}$</Text>
+                        <Text style={styles.textStyle}>${item.quantity != '' && item.quantity > 1 ? (item.price * item.quantity) : item.price}</Text>
                     </View>
                     <View style={styles.column} >
                         {item.quantity != '' ?
