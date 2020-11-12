@@ -37,7 +37,7 @@ class BarberEditProfile extends Component {
         return (
             <>
 
-                <View style={styles.container}>
+                <View style={[styles.container,{paddingBottom:'1%'}]}>
                     <ScrollView>
                         <View style={{ marginTop: '5%', marginHorizontal: '5%' }}>
 

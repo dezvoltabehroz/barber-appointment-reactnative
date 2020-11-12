@@ -222,58 +222,6 @@ export default class PersonalInfo extends Component {
                                         null
                                 }
                             </View>
-                            <View style={styles.certificationContainer}>
-                                <View style={styles.labelContainer} >
-                                    <Text style={styles.labelTextStyle}>National Identification No:</Text>
-                                </View>
-                                <TouchableOpacity
-                                    style={styles.iconContainer}
-                                    onPress={() => this.chooseFile('nic')}>
-                                    <Icon.Entypo
-                                        name="attachment"
-                                        size={THEME.ICON_SIZE}
-                                        color={THEME.COLOR_WHITE} />
-                                </TouchableOpacity>
-                                {
-                                    nationalIdImage != '' ?
-                                        <LightBox
-                                            style={styles.imageContainer}
-                                            renderContent={() => this.renderImage('nic')}  >
-                                            <Image
-                                                source={nationalIdImage}
-                                                resizeMode='cover'
-                                                style={styles.imageStyle} />
-                                        </LightBox>
-                                        :
-                                        null
-                                }
-                            </View>
-                            {/* <View style={styles.certificationContainer}>
-                                <View style={styles.labelContainer} >
-                                    <Text style={styles.labelTextStyle}>Upload CV/Resume</Text>
-                                </View>
-                                <TouchableOpacity
-                                    style={styles.iconContainer}
-                                    onPress={() => this.chooseFile('cv')}>
-                                    <Icon.Entypo
-                                        name="attachment"
-                                        size={THEME.ICON_SIZE}
-                                        color={THEME.COLOR_WHITE} />
-                                </TouchableOpacity>
-                                {
-                                    cv != '' ?
-                                        <LightBox
-                                            style={styles.imageContainer}
-                                            renderContent={() => this.renderImage('cv')}  >
-                                            <Image
-                                                source={cv}
-                                                resizeMode='cover'
-                                                style={styles.imageStyle} />
-                                        </LightBox>
-                                        :
-                                        null
-                                }
-                            </View> */}
                         </ScrollView>
                     </View>
                     <FooterButton title='Save & Continue' onPress={onNext} />

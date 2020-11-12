@@ -7,7 +7,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '10%' : '5%'
+        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '20%' : '12%'
 
     },
     headerTitleStyle: {

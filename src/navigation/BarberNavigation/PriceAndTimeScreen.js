@@ -11,7 +11,7 @@ export default class PriceAndTimeScreen extends Component {
     render() {
         const { navigate,goBack } = this.props.navigation;
         return (
-            <MainScreenPaths.Barber.BarberPriceAndTime  onNext={() => goBack()} />
+            <MainScreenPaths.Barber.BarberPriceAndTime  onNext={(getData) => navigate('AddServices',{getData})} />
         )
     }
 }

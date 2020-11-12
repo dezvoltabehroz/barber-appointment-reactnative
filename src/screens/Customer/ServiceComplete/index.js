@@ -122,7 +122,7 @@ export default class ServiceComplete extends Component {
                                                         {}]}>
                                                         <FloatingInput
                                                             val={tip}
-                                                            keyboardtype="email-address"
+                                                            keyboardtype="number-pad"
                                                             onActive={() => this.setState({ isTipFocus: true })}
                                                             onInActive={() => this.setState({ isTipFocus: false, submit: true })}
                                                             label='Tip' updateText={(tip) => this.setState({ tip })} />

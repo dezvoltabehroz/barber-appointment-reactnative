@@ -8,7 +8,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '20%'
+        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '13%'
     },
     upperContainer: {
         flex: 0.8,
@@ -127,6 +127,12 @@ export default StyleSheet.create({
         alignSelf: "center",
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
     },
+    modalServiceContainer: {
+        flex: 1,
+        height: screenHeight * 1,
+        width: screenWidth * 1,
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
+    },
     headingTextStyle: {
         fontSize: THEME.FONT_SIZE_LARGE,
         color: THEME.COLOR_WHITE,
@@ -145,6 +151,16 @@ export default StyleSheet.create({
         paddingVertical: '3%',
         borderRadius: 10,
         alignItems: "center",
+    },
+    headerTitleStyle: {
+        fontSize: 16,
+        color: "#fff",
+        fontFamily: 'Poppins-Bold'
+    },
+    contentContainer: {
+        flexDirection: 'row',
+        justifyContent: "space-between",
+        alignItems: 'center'
     },
 
 })

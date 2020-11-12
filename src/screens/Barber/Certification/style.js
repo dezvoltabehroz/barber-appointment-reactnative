@@ -56,6 +56,9 @@ export default StyleSheet.create({
         flex: 0.2,
         flexDirection: 'column'
     },
+    buttonContainer: {
+        marginHorizontal: '10%'
+    },
     modalContainer: {
         flexDirection: 'row',
         marginHorizontal: '10%'

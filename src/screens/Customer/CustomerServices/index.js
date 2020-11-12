@@ -18,7 +18,8 @@ export default class CustomerServices extends Component {
             timerReset: false,
             stopwatchReset: false,
             totalTime: null,
-            timeInHour: ''
+            timeInHour: '',
+            bookingDate: ''
         }
     }
 
@@ -28,10 +29,12 @@ export default class CustomerServices extends Component {
         BookingServices.getBookingDetails(userData)
             .then((res) => {
                 if (res.data.status) {
+                    console.log(res.data.booking_service_details.services)
                     this.setState({
                         serviceList: res.data.booking_service_details.services,
                         totalPrice: res.data.booking_service_details.booking_price,
-                        totalTime: res.data.booking_service_details.booking_time_duration
+                        totalTime: res.data.booking_service_details.booking_time_duration,
+                        bookingDate: userData.bookingDate
                     }, () => {
                         let time = parseInt(moment.duration(res.data.booking_service_details.booking_time_duration).asMinutes())
                         console.log('Time is that', time)
@@ -79,7 +82,7 @@ export default class CustomerServices extends Component {
 
     render() {
         const { onApproved } = this.props;
-        const { serviceList, totalPrice, totalTime, timeInHour } = this.state;
+        const { serviceList, totalPrice, totalTime, timeInHour,bookingDate } = this.state;
         const options = {
             container: {
                 backgroundColor: THEME.PRIMARY_COLOR,
@@ -129,7 +132,7 @@ export default class CustomerServices extends Component {
                                                 <>
                                                     <View style={styles.row}>
                                                         <View style={styles.nameContainer}>
-                                                            <Text style={styles.textStyle}>{item.service_name}{item.quantity=='1'?"":` (${item.quantity})`}</Text>
+                                                            <Text style={styles.textStyle}>{item.service_name}{item.quantity == '1' ? "" : ` (${item.quantity})`}</Text>
                                                         </View>
                                                         <View style={styles.priceContainer} >
                                                             <Text style={styles.timeTextStyle}>${(item.price * item.quantity)}</Text>
@@ -190,7 +193,7 @@ export default class CustomerServices extends Component {
                                 <View style={styles.stopwatchContainer}>
                                 </View>
                             </View>
-                            <FooterButton title='Approve' onPress={() => onApproved(this.props.userData)} />
+                            <FooterButton disabled={moment(bookingDate).format('YYYY-MM-DD')>moment().format('YYYY-MM-DD')?true:false} title='Approve' onPress={() => onApproved(this.props.userData)} />
                         </View>}
             </>
         );

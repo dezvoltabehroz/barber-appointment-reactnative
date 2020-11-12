@@ -90,7 +90,29 @@ const Api = {
         };
         return axios.post('http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/barber/uploadPortfolio', formData, config)
 
-    }
+    },
+    getBarberAllPortfolio: function (userData) {
+        return axiosInstance.post('barber/viewAllPortfolio', {
+            id: userData.id,
+        }, configToken(userData.token))
+    },
+    deleteSelectedPortfolio: function (userData) {
+        return axiosInstance.post('barber/deletePortfolio', {
+            id: userData.id,
+            attachment_id: userData.attachment_id
+        }, configToken(userData.token))
+    },
+    getBarberAllCertificates: function (userData) {
+        return axiosInstance.post('barber/viewAllCertificates', {
+            id: userData.id,
+        }, configToken(userData.token))
+    },
+    deleteSelectedCertificates: function (userData) {
+        return axiosInstance.post('barber/deleteCertificates', {
+            id: userData.id,
+            attachment_id: userData.attachment_id
+        }, configToken(userData.token))
+    },
 
 };
 

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, Alert, Modal } from 'react-native';
+import { View, Text, FlatList, Alert, Modal, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import { Button, FooterButton, FloatingInput, DateTimeModal, Icon, } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import COMMON_STYLE from '../../../assets/styles/common.style';
+import { Categories } from '../../../services';
 
 export default class PriceAndTime extends Component {
 
@@ -16,19 +17,20 @@ export default class PriceAndTime extends Component {
         this.num4 = React.createRef();
         this.state = {
             barberServices: [
-                { id: 1, serviceName: 'Hair Cuttuing', serviceDescription: '', selected: false, price: '$30', time: '15', isFilled: '1' },
-                { id: 2, serviceName: 'Hair Trimming', serviceDescription: '', selected: false, price: '$30', time: '15', isFilled: '1' },
-                { id: 3, serviceName: 'Blowout', serviceDescription: '', selected: false, price: '$30', time: '15', isFilled: '1' },
-                { id: 4, serviceName: 'Hair Color', serviceDescription: '', selected: false, price: '$30', time: '15', isFilled: '1' },
-                { id: 5, serviceName: 'Double process hair color', serviceDescription: '', selected: false, price: '$30', time: '15', isFilled: '1' },
-                { id: 6, serviceName: 'Shave', serviceDescription: '', selected: false, price: '$30', time: '15', isFilled: '1' },
-                { id: 7, serviceName: 'Beard Trim', serviceDescription: '', selected: false, price: '$30', time: '15', isFilled: '1' },
-                { id: 8, serviceName: 'Braids & Twist', serviceDescription: '', selected: false, price: '$30', time: '15', isFilled: '1' },
-                { id: 9, serviceName: 'Hair color touch ups', serviceDescription: '', selected: false, price: '$30', time: '15', isFilled: '1' },
-                { id: 10, serviceName: 'Scalp Conditioning Treatment', serviceDescription: '', selected: false, price: '$30', time: '15', isFilled: '1' },
-                { id: 11, serviceName: 'Permanent Hair Retexturizing', serviceDescription: '', selected: false, price: '$30', time: '15', isFilled: '1' },
+                { id: 1, serviceName: 'Hair Cuttuing', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
+                { id: 2, serviceName: 'Hair Trimming', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
+                { id: 3, serviceName: 'Blowout', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
+                { id: 4, serviceName: 'Hair Color', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
+                { id: 5, serviceName: 'Double process hair color', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
+                { id: 6, serviceName: 'Shave', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
+                { id: 7, serviceName: 'Beard Trim', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
+                { id: 8, serviceName: 'Braids & Twist', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
+                { id: 9, serviceName: 'Hair color touch ups', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
+                { id: 10, serviceName: 'Scalp Conditioning Treatment', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
+                { id: 11, serviceName: 'Permanent Hair Retexturizing', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
             ],
             selectedArray: [],
+            selectedService: [],
             submit: false,
             showAddService: false,
             serviceName: '',
@@ -42,11 +44,28 @@ export default class PriceAndTime extends Component {
             minutes: '',
             indexValue: null,
             item: null,
+            showEditService: false,
+            showAddNewService: false,
+            services: []
         }
     }
     componentDidMount = () => {
+        Categories.getAllVendorServices()
+            .then((res) => {
+                if (res.data.status) {
+                    let array = [];
+                    array = res.data.services;
+                    let tempArray = [...res.data.services];
+                    array.map((item, index) => {
+                        tempArray[index] = { ...tempArray[index], isFilled: '0', selected: false, price: '', time: '', }
+                    });
+                    this.setState({ services: tempArray });
+                }
+            })
+            .catch((err) => console.log(err))
         // let serviceArray = this.props.data;
         // this.setState({ selectedArray: serviceArray })
+
 
     }
     componentWillUnmount = () => {
@@ -63,7 +82,7 @@ export default class PriceAndTime extends Component {
         const objIndex = this.state.barberServices.findIndex((obj => obj.id == item.id));
         let items = [...this.state.barberServices];
         items[objIndex] = { ...items[objIndex], time: data };
-        this.setState({ showTimePicker: false, barberServices: items, item: null });
+        this.setState({ showTimePicker: false, barberServices: items, });
         this.is_filled_check(items, objIndex)
     }
 
@@ -100,88 +119,96 @@ export default class PriceAndTime extends Component {
         this.setState({ barberServices: selectedArray.filter((obj => obj.id != itemData.id)) })
     }
 
-    on_Press_Edit = (index) => {
-        let selectedArray = [...this.state.barberServices];
-        let item = { ...selectedArray[index], price: '', time: '', isFilled: '' };
-        selectedArray[index] = item;
-        let newServiceCounter = selectedArray[selectedArray.length - 1].serviceCounter - 1;
-        selectedArray[selectedArray.length - 1] = { ...selectedArray[selectedArray.length - 1], serviceCounter: newServiceCounter };
-        this.setState({ barberServices: selectedArray });
+    on_Press_Edit = (item, index) => {
+        // console.log(item)
+        // console.log(index)
+        // let selectedArray = [...this.state.barberServices];
+        // let item = { ...selectedArray[index], price: '', time: '', isFilled: '' };
+        // selectedArray[index] = item;
+        // let newServiceCounter = selectedArray[selectedArray.length - 1].serviceCounter - 1;
+        // selectedArray[selectedArray.length - 1] = { ...selectedArray[selectedArray.length - 1], serviceCounter: newServiceCounter };
+        // this.setState({ barberServices: selectedArray });
+        this.setState({ item, index, })
+        setTimeout(() => {
+            console.log(this.state.item)
+            console.log(this.state.index)
+            this.setState({ showEditService: true })
+        }, 1);
+
     }
 
     _renderItems = ({ item, index }) => {
-        const { barberServices, submit } = this.state;
+        const { barberServices, submit, showEditService, services } = this.state;
         return (
-            <View style={styles.contentContainer}>
-                <View style={styles.row}>
-                    <View style={styles.nameContainer}>
-                        <Text style={styles.textStyle}>{item.serviceName}</Text>
-                    </View>
-                    <View style={styles.priceContainer} >
-                        {item.price != '' ?
-                            <View style={styles.priceAndTimeContainer}>
-                                <Text style={styles.timeTextStyle}>{item.price}</Text>
-                            </View>
-                            : null
-                        }
-                    </View>
-                    <View style={styles.timeContainer}>
-                        {item.time != '' ?
-                            <View style={styles.priceAndTimeContainer}>
-                                <Text style={styles.timeTextStyle}>{item.time}</Text>
-                            </View>
-                            : null
-                        }
-                    </View>
-                    <View style={[styles.priceContainer, { alignItems: "flex-end" }]}>
-                        {
-                            item.isFilled == '1' ?
-                                <View style={{ flex: 1, flexDirection: 'row' }}>
-                                    <TouchableOpacity onPress={() => this.on_Press_Edit(index)} >
-                                        <Icon.MaterialIcons name='edit' size={25} color={THEME.COLOR_WHITE} />
-                                    </TouchableOpacity>
-                                    <View style={styles.seperatorStyle}></View>
-                                    <TouchableOpacity onPress={() => this.on_Press_Delete(item, index)}>
-                                        <Icon.MaterialIcons name='delete' size={25} color={THEME.COLOR_WHITE} />
-                                    </TouchableOpacity>
+            <>
+                <View style={styles.contentContainer}>
+                    <View style={styles.row}>
+                        <View style={styles.nameContainer}>
+                            <Text style={styles.textStyle}>{item.serviceName}</Text>
+                        </View>
+                        <View style={styles.priceContainer} >
+                            {item.price != '' ?
+                                <View style={styles.priceAndTimeContainer}>
+                                    <Text style={styles.timeTextStyle}>${item.price}</Text>
                                 </View>
                                 : null
-                        }
-                    </View>
-                </View>
-                <View style={styles.inputContainer}>
-                    {item.price == '' ?
-                        <View style={[styles.inputContainerStyle,
-                        barberServices[index].price == '' ? THEME.inputBorder : {}]}>
-                            <FloatingInput
-                                val={barberServices[index].price}
-                                keyboardtype="number-pad"
-                                onInActive={() => this.addPrice({ item, index })}
-                                label='Price' updateText={(val) => barberServices[index].price = `$${val}`} />
-                            {
-                                submit && !barberServices[index].price ? <Text style={COMMON_STYLE.errorText1}>Please fill this field</Text> : null
                             }
                         </View>
-                        :
-                        null
-                    }
-                    {item.time == '' ?
-                        <>
-                            <View>
-                                <TouchableOpacity onPress={() => this.setTime(index, item)} style={[styles.inputDateContainerStyle,
-                                barberServices[index].time == '' ? THEME.inputBorder : {}]}>
-                                    <Text style={styles.titleStyle}>Time</Text>
+                        <View style={styles.timeContainer}>
+                            {item.time != '' ?
+                                <View style={styles.priceAndTimeContainer}>
+                                    <Text style={styles.timeTextStyle}>{item.time}</Text>
+                                </View>
+                                : null
+                            }
+                        </View>
+                        <View style={[styles.priceContainer, { alignItems: "flex-end" }]}>
+                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                                <TouchableOpacity onPress={() => this.on_Press_Edit(item, index)} >
+                                    <Icon.MaterialIcons name='edit' size={25} color={THEME.COLOR_WHITE} />
                                 </TouchableOpacity>
+                                <View style={styles.seperatorStyle}></View>
+                                <TouchableOpacity onPress={() => this.on_Press_Delete(item, index)}>
+                                    <Icon.MaterialIcons name='delete' size={25} color={THEME.COLOR_WHITE} />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                    {/* <View style={styles.inputContainer}>
+                        {item.price == '' ?
+                            <View style={[styles.inputContainerStyle,
+                            barberServices[index].price == '' ? THEME.inputBorder : {}]}>
+                                <FloatingInput
+                                    val={barberServices[index].price}
+                                    keyboardtype="number-pad"
+                                    onInActive={() => this.addPrice({ item, index })}
+                                    label='Price' updateText={(val) => barberServices[index].price = `$${val}`} />
                                 {
-                                    submit && !barberServices[index].time ? <Text style={COMMON_STYLE.errorText1}>Please select time</Text> : null
+                                    submit && !barberServices[index].price ? <Text style={COMMON_STYLE.errorText1}>Please fill this field</Text> : null
                                 }
                             </View>
+                            :
+                            null
+                        }
+                        {item.time == '' ?
+                            <>
+                                <View>
+                                    <TouchableOpacity onPress={() => this.setTime(index, item)} style={[styles.inputDateContainerStyle,
+                                    barberServices[index].time == '' ? THEME.inputBorder : {}]}>
+                                        <Text style={styles.titleStyle}>Time</Text>
+                                    </TouchableOpacity>
+                                    {
+                                        submit && !barberServices[index].time ? <Text style={COMMON_STYLE.errorText1}>Please select time</Text> : null
+                                    }
+                                </View>
 
-                        </> : null}
+                            </> : null}
+
+                    </View> */}
 
                 </View>
-            </View>
-        )
+
+            </>)
     }
     handleAddService = () => {
         const { barberServices, serviceName, serviceDescription } = this.state;
@@ -200,9 +227,32 @@ export default class PriceAndTime extends Component {
             this.setState({ showAddService: false, serviceDescription: '', serviceName: '', submit: false })
         }
     }
-
+    _renderAddServiceItems = (item) => {
+        return (
+            <>
+                <View style={styles.contentContainer}>
+                    <View style={styles.nameContainer}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <View style={{ marginHorizontal: 8 }}>
+                                <Text style={styles.idTextLabel}>{item.id}.</Text>
+                            </View>
+                            <View>
+                                <Text style={styles.textStyle}>{item.service_name}</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.iconContainer}>
+                        <TouchableOpacity onPress={() => this.handleSelected(item)}>
+                            <Icon.MaterialCommunityIcons
+                                name={item.selected == true ? 'checkbox-marked-circle' : 'checkbox-blank-circle-outline'}
+                                color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </>
+        )
+    }
     handleCancel = () => {
-
         this.setState({ showAddService: false, submit: false })
     }
     on_Press_Next = () => {
@@ -219,10 +269,34 @@ export default class PriceAndTime extends Component {
             Alert.alert('Attention', 'All required field should be filled ')
         }
     }
-
+    handleSelected = (val) => {
+        const objIndex = this.state.services.findIndex((obj => obj.id == val.id));
+        let items = [...this.state.services];
+        if (items[objIndex].selected) {
+            items[objIndex] = { ...items[objIndex], selected: false };
+            this.setState({ services: items });
+            if (!items[objIndex].selected) {
+                for (var i = 0; i < this.state.selectedService.length; i++) {
+                    if (!this.state.selectedService[i].id) {
+                        this.state.selectedService.splice(i, 1);
+                    }
+                }
+                this.setState({ selectedService: this.state.selectedService.filter(item => item.id != val.id) })
+            }
+        } else {
+            for (var i = 0; i < this.state.selectedService.length; i++) {
+                if (!this.state.selectedService[i].id) {
+                    this.state.selectedService.splice(i, 1);
+                }
+            }
+            items[objIndex] = { ...items[objIndex], selected: true };
+            this.setState({ services: items });
+            this.state.selectedService.push(items[objIndex]);
+        }
+    }
     render() {
         const { onNext } = this.props;
-        const { barberServices, showTimePicker, showAddService, serviceName, serviceDescription, isServiceNameFocus, submit, isServiceDescriptionFocus } = this.state;
+        const { barberServices, index, item, services, showAddNewService, showTimePicker, showEditService, showAddService, serviceName, serviceDescription, isServiceNameFocus, submit, isServiceDescriptionFocus } = this.state;
 
         return (
             <>
@@ -257,7 +331,7 @@ export default class PriceAndTime extends Component {
                             renderItem={({ item, index }) => this._renderItems({ item, index })}
                             keyExtractor={item => item} />
                     </View>
-                    <FooterButton title='Update' addservice onPressAddService={() => this.setState({ showAddService: true })} onPress={()=>this.props.onNext()} />
+                    <FooterButton addservice onPressAddNewService={() => this.props.onNext(this.componentDidMount())} onPressAddService={() => this.setState({ showAddService: true })} />
                 </View>
                 <DateTimeModal showTimePicker={showTimePicker}
                     onCancel={() => this.setState({ showTimePicker: false })}
@@ -306,6 +380,58 @@ export default class PriceAndTime extends Component {
 
 
                     </View>
+                </Modal>
+                <Modal visible={showEditService}
+                    animationType="slide">
+                    {
+                        item == null || index == null ?
+                            null
+                            :
+                            <View style={styles.modalContainer}  >
+                                <View style={styles.modalInputContainer}>
+                                    <View style={styles.headingContainer}>
+                                        <Text style={styles.headingTextStyle}>Update a Service</Text>
+                                    </View>
+
+                                    <View style={[styles.inputModalContainerStyle,
+                                    barberServices[index].price == '' ? THEME.inputBorder : {}]}>
+                                        <FloatingInput
+                                            val={barberServices[index].price}
+                                            keyboardtype="number-pad"
+                                            onInActive={() => this.addPrice({ item, index })}
+                                            label='Price' updateText={(val) => barberServices[index].price = `${val}`} />
+                                        {
+                                            submit && !barberServices[index].price ? <Text style={COMMON_STYLE.errorText1}>Please fill this field</Text> : null
+                                        }
+                                    </View>
+
+                                    <View style={[styles.inputModalContainerStyle,
+                                    barberServices[index].time == '' ? THEME.inputBorder : {}]}>
+                                        <FloatingInput
+                                            val={barberServices[index].time}
+                                            onActive={() => this.setTime(index, item)}
+                                            label='Time' updateText={(val) => barberServices[index].time = `${val}`} />
+                                        {/* <TouchableOpacity onPress={() => this.setTime(index, item)} style={[styles.inputModalContainerStyle,
+                                barberServices[index].time == '' ? THEME.inputBorder : {}]}>
+                                    <Text style={styles.titleStyle}>{barberServices[index].time}</Text>
+                                </TouchableOpacity> */}
+                                    </View>
+                                    {
+                                        submit && !barberServices[index].time ? <Text style={COMMON_STYLE.errorText1}>Please select time</Text> : null
+                                    }
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <View style={styles.rowButtonContainer}>
+                                            <Button title="Cancel" onPress={() => this.setState({ showEditService: false })} />
+                                        </View>
+                                        <View style={styles.rowButtonContainer}>
+                                            <Button title="Update" onPress={() => this.setState({ showEditService: false })} />
+                                        </View>
+                                    </View>
+                                </View>
+
+                            </View>
+                    }
+
                 </Modal>
             </>
         );

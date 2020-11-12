@@ -8,11 +8,18 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '20%'
+        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '15%'
+    },
+    buttonContainer: {
+        marginHorizontal: '10%'
     },
     upperContainer: {
         flex: 0.8,
-        marginHorizontal: '10%'
+        // marginHorizontal: '10%'
+    },
+    iconContainer: {
+        flex: 0.2,
+        flexDirection: 'column'
     },
     rowContainer: {
         flexDirection: 'row',
@@ -30,10 +37,18 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    contentContainerStyle: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        width: screenWidth,
+        paddingVertical: "3%",
+        paddingBottom: '10%',
+        paddingHorizontal: "4%"
+    },
     imageStyle: {
-        height: screenHeight * 0.2,
-        width: screenWidth * 0.8,
-        borderRadius: 7
+        height: 100,
+        width: 100,
+        borderRadius: 15
     },
     renderImageStyle: {
         height: screenHeight,
@@ -49,5 +64,20 @@ export default StyleSheet.create({
         borderColor: '#BBBAB9',
         borderWidth: 1,
         resizeMode: 'center'
+    },
+    certificationContainer1: {
+        // height: 54,
+        flexDirection: 'row',
+        justifyContent: "space-between"
+
+    },
+    labelContainer: {
+        flexDirection: 'column',
+        flex: 0.8,
+        marginLeft: '10%'
+    },
+    labelTextStyle: {
+        color: THEME.COLOR_WHITE,
+        fontFamily: 'Poppins-Medium'
     },
 })
