@@ -13,7 +13,6 @@ export default StyleSheet.create({
     //upper Container Styles
     upperContainer: {
         flex: 0.8,
-        marginHorizontal: '10%',
     },
 
     certificationContainer: {
@@ -23,15 +22,24 @@ export default StyleSheet.create({
         justifyContent: "space-between"
 
     },
+    contentContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        width: screenWidth,
+        paddingVertical: "3%",
+        paddingBottom: '10%',
+        paddingHorizontal: "4%"
+    },
     certificationContainer1: {
-        height: 54,
+        // height: 54,
         flexDirection: 'row',
         justifyContent: "space-between"
 
     },
     labelContainer: {
         flexDirection: 'column',
-        flex: 0.5
+        flex: 0.8,
+        marginLeft: '10%'
     },
     renderImageStyle: {
         height: screenHeight,
@@ -136,8 +144,8 @@ export default StyleSheet.create({
         fontFamily: "Poppins-Regular",
     },
     seperatorStyle: {
-        height:10
-     },
+       height:10
+    },
     addButtonContainer: {
         paddingVertical: '3%',
         justifyContent: 'center',
@@ -147,14 +155,6 @@ export default StyleSheet.create({
     cancelButtonContainer: {
         justifyContent: 'center',
         alignItems: 'center'
-    },
-    contentContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        width: screenWidth,
-        paddingVertical: "3%",
-        paddingBottom: '10%',
-        paddingHorizontal: "4%"
     },
 
 })

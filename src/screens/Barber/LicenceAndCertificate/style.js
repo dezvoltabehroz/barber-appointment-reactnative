@@ -8,7 +8,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '5%' : '5%'
+        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '25%' : '15%'
     },
     //upper Container Styles
     upperContainer: {
@@ -42,7 +42,7 @@ export default StyleSheet.create({
         flexDirection: 'column'
     },
     imageStyle: {
-        height: 100, width: 100, borderRadius: 15
+        height: 50, width: 50, borderRadius: 5
     },
     iconContainer: {
         flex: 0.2,
@@ -136,8 +136,8 @@ export default StyleSheet.create({
         fontFamily: "Poppins-Regular",
     },
     seperatorStyle: {
-        height:10
-     },
+        width: 5
+    },
     addButtonContainer: {
         paddingVertical: '3%',
         justifyContent: 'center',
@@ -147,14 +147,6 @@ export default StyleSheet.create({
     cancelButtonContainer: {
         justifyContent: 'center',
         alignItems: 'center'
-    },
-    contentContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        width: screenWidth,
-        paddingVertical: "3%",
-        paddingBottom: '10%',
-        paddingHorizontal: "4%"
     },
 
 })

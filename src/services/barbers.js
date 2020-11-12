@@ -70,6 +70,26 @@ const Api = {
             }
         };
         return axios.post('http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/barber/updatePersonalInfo', formData, config)
+    },
+    uploadBarberPortfolio: function (userData) {
+        let formData = new FormData();
+        formData.append('user_id', userData.id);
+        userData.images.forEach(element => {
+            formData.append('images', {
+                uri: element.path,
+                name: `${new Date().getTime().toString()}.jpg`,
+                filename: new Date().getTime().toString() + '.jpg',
+                type: 'image/jpg'
+            });
+        });
+        let config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json',
+            }
+        };
+        return axios.post('http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/barber/uploadPortfolio', formData, config)
+
     }
 
 };

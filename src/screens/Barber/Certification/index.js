@@ -6,9 +6,8 @@ import ImagePicker from 'react-native-image-picker';
 import THEME from '../../../assets/styles/theme.style';
 import LightBox from "react-native-lightbox";
 import ImageView from 'react-native-image-view';
-import BarberTopNavigationRoutes from '../../../navigation/BarberTopTabNavigator';
 
-export default class Resume extends Component {
+export default class Certification extends Component {
 
     constructor(props) {
         super(props);
@@ -60,7 +59,7 @@ export default class Resume extends Component {
         return (
             <>
                 <View style={styles.gapHeight}></View>
-                <TouchableOpacity onPress={() =>
+                <TouchableOpacity style={{  marginHorizontal: 5,}} onPress={() =>
                     this.setState({ isImageViewVisible: true })
                 }>
                     <Image source={image} resizeMode='cover' style={styles.imageStyle} />
@@ -134,11 +133,10 @@ export default class Resume extends Component {
             <>
                 <View style={styles.container}>
                     <View style={styles.upperContainer}>
-
                         <View>
                             <View style={styles.certificationContainer1}>
                                 <View style={styles.labelContainer}  >
-                                    <Text style={styles.labelTextStyle}>Upload Resume</Text>
+                                    <Text style={styles.labelTextStyle}>Upload Certification</Text>
                                 </View>
                                 <TouchableOpacity
                                     style={styles.iconContainer}
@@ -174,10 +172,6 @@ export default class Resume extends Component {
                                     null
                             }
                         </View>
-
-
-
-
                     </View>
                     <FooterButton title='Save & Continue' onPress={onNext} />
                 </View>

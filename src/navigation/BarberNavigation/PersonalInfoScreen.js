@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { MainScreenPaths } from '../../screens';
 import { connect } from 'react-redux';
 import { Barbers } from '../../services';
-class PortfolioScreen extends Component {
+class PersonalInfoScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })
@@ -30,7 +30,7 @@ class PortfolioScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Barber.BarberPortfolio onNext={(data) => this.handleUploadPortfolio(data)} />
+            <MainScreenPaths.Barber.BarberPersonalInfo onNext={(data) => this.handleUploadPortfolio(data)} />
         )
     }
 }
@@ -40,4 +40,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(PortfolioScreen)
+export default connect(mapStateToProps)(PersonalInfoScreen)

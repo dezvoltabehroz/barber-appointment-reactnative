@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, Platform } from 'react-native';
 import { FooterButton, Icon } from '../../../components'
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
@@ -12,7 +12,8 @@ export default class Portfolio extends Component {
         super(props);
         this.state = {
             portfolioImagesArray: [],
-            isImageViewVisible: false
+            isImageViewVisible: false,
+            imagestoUpload: []
         }
     }
 
@@ -24,12 +25,14 @@ export default class Portfolio extends Component {
         })
             .then(response => {
                 let tempArray = this.state.portfolioImagesArray;
+                let uploadingArray = [];
                 response.forEach((item) => {
                     let image = {
                         uri: `${item.path}`,
                     }
                     tempArray.push(image)
-                    this.setState({ portfolioImagesArray: tempArray })
+                    uploadingArray.push(item)
+                    this.setState({ portfolioImagesArray: tempArray, imagestoUpload: uploadingArray })
                 })
             })
     };
@@ -63,7 +66,7 @@ export default class Portfolio extends Component {
 
     render() {
         const { onNext } = this.props;
-        const { portfolioImagesArray } = this.state;
+        const { portfolioImagesArray, imagestoUpload } = this.state;
         const imageURLs: Array<Object> = portfolioImagesArray.map((img: Object, index: number) => ({
             source: { uri: img.uri },
             title: img + index,
@@ -98,7 +101,7 @@ export default class Portfolio extends Component {
                             null
                     }
                 </View>
-                <FooterButton title='Save & Continue' onPress={onNext} />
+                <FooterButton title='Save & Continue' onPress={() => onNext(imagestoUpload)} />
             </View>
 
         );

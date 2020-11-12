@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Avatar } from 'react-native-elements';
 import Geocoder from 'react-native-geocoder';
 import THEME from '../../../assets/styles/theme.style';
-// import ProfileCard from '../../../components/ProfileCard'
+import moment from 'moment'
 import ImagePicker from 'react-native-image-picker';
 class BarberEditProfile extends Component {
     constructor(props) {
@@ -30,78 +30,14 @@ class BarberEditProfile extends Component {
     }
 
     componentDidMount = () => {
-        console.log("user",this.props.user.userData)
     }
-
-    chooseFile = () => {
-        var options = {
-            title: 'Select Image',
-            storageOptions: {
-                skipBackup: true,
-                path: 'images',
-            },
-        };
-
-        ImagePicker.showImagePicker(options, response => {
-            console.log('response  ', response);
-
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-                alert(response.customButton);
-            } else {
-                let source = response;
-                this.setState({
-                    filePath: source,
-                });
-            }
-        });
-    };
-
-
-    _renderItems = ({ item, index }) => {
-        const { barberServices, submit } = this.state;
-        return (
-            <>
-                <View style={styles.lineStyle}></View>
-                <View style={styles.rowContainer}>
-                    <View style={styles.nameContainer}>
-                        <Text style={styles.textStyle}>{item.serviceName}</Text>
-                    </View>
-                    <View style={styles.priceContainer} >
-                        <Text style={styles.textStyle}>{item.price}</Text>
-                    </View>
-                    <View style={styles.timeContainer}>
-                        <Text style={styles.textStyle}>${item.time}</Text>
-                    </View>
-                    <View style={styles.priceContainer}>
-                        <View style={[styles.rowStyle, { justifyContent: 'space-evenly' }]}>
-                            <TouchableOpacity onPress={() => { }} style={styles.row}>
-                                <Icon.AntDesign name="edit" size={15} color={THEME.COLOR_GREY} />
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => { }} style={styles.row}>
-                                <Icon.AntDesign name="delete" size={15} color={THEME.COLOR_GREY} />
-                            </TouchableOpacity>
-                        </View>
-
-                    </View>
-                </View>
-            </>
-        )
-    }
-
 
     render() {
         const { filePath } = this.state;
-        console.log(this.props.user.userData)
         return (
             <>
 
                 <View style={styles.container}>
-                    {/* <View><Text style={styles.headerTitleStyle}>Edit Profile</Text></View> */}
                     <ScrollView>
                         <View style={{ marginTop: '5%', marginHorizontal: '5%' }}>
 
@@ -110,21 +46,14 @@ class BarberEditProfile extends Component {
                                     avatarStyle={styles.avatarStyle}
                                     source={{ uri: this.props.user.userData ? this.props.user.userData.profile_picture : filePath.uri }}
                                     rounded
-                                    accessory={{ name: 'ios-camera', type: 'ionicon', color: '#fff', underlayColor: '#000', iconStyle: { fontSize: 20 } }}
-                                    // showAccessory={true}
-                                    onAccessoryPress={this.chooseFile}
                                     size={120} />
                                 <View style={{ justifyContent: 'center', }}>
-                                    {/* <View style={{ justifyContent: 'center', alignItems: 'center' }}> */}
                                     <Text style={styles.textStyle}>{this.props.user.userData ? this.props.user.userData.full_name : 'JOHN DOE'}</Text>
-                                    {/* </View> */}
-                                    <Text style={styles.textStyle}>Age: {97}</Text>
+                                    <Text style={styles.textStyle}>Age: {this.props.user.userData ? moment().diff(this.props.user.userData.dob, 'years') : ''} </Text>
                                     <Text style={styles.textStyle}>Rating: 4.5/5</Text>
                                 </View>
                             </View>
                         </View>
-
-
                         <View style={{ marginTop: '5%' }}>
                             <ProfileCard
                                 icon={"ios-person"}
@@ -148,7 +77,7 @@ class BarberEditProfile extends Component {
                                 icon={"drivers-license"}
                                 heading={'LICENCE/CERTIFICATE'}
                                 description={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}
-                                onPress={() => this.props.onResume()}
+                                onPress={() => this.props.onCertificate()}
                             />
                             <ProfileCard
                                 icon={"clock-o"}
@@ -157,64 +86,6 @@ class BarberEditProfile extends Component {
                                 onPress={() => this.props.onManageSchedule()}
                             />
                         </View>
-
-                        {/* <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 30 }}> */}
-
-                        {/* <ProfileCard
-                            Icon={() => <SettingsDash height={20} width={20} />}
-                            heading={'SETTINGS'}
-                            description={'Update or change your personal app preferences and login information.'}
-                            onPress={() => {
-                                firebase.analytics().logEvent('Settings_Opened', {
-                                    userId: props.signUp.user.id,
-                                    userEmail: props.signUp.user.email,
-                                    userTimeZone: props.signUp.user.timeZone,
-                                    deviceType: Platform.OS
-                                });
-                                navigation.navigate('DashboardSettings');
-                            }}
-                        />
-                        <ProfileCard
-                            Icon={() => <FamilyTree height={24} width={24} />}
-                            heading={'FAMILY TREE'}
-                            description={'Interact with family, learn about your ancestors and build your legacy.'}
-                            onPress={() => { navigation.navigate('FamilyTree') }}
-                        /> */}
-                        {/* <View style={{
-                            flex: 0.4,
-                            marginTop: '5%',
-                            backgroundColor: '#3B3F52',
-                            borderRadius: 5,
-                            marginHorizontal: '5%',
-                            paddingHorizontal: "3%",
-                        }}>
-                            <View style={styles.headingContainer}>
-                                <View style={styles.nameContainer}>
-                                    <Text style={styles.headingTextStyle}>Services</Text>
-                                </View>
-                                <View style={styles.priceContainer} >
-                                    <Text style={styles.headingTextStyle}>Price</Text>
-                                </View>
-                                <View style={styles.timeContainer}>
-                                    <Text style={styles.headingTextStyle}>Est.Time</Text>
-                                </View>
-                                <View style={styles.priceContainer}>
-                                    <TouchableOpacity onPress={() => { }} style={{alignItems:'center'}}>
-                                        <Icon.Ionicons name="ios-add-circle" size={35} color={THEME.COLOR_GREY} />
-                                    </TouchableOpacity>
-                                </View>
-
-                            </View>
-                            <View>
-
-                            </View>
-                            <FlatList
-                                data={this.state.barberServices}
-                                showsVerticalScrollIndicator={false}
-                                ItemSeparatorComponent={this._renderSeparator}
-                                renderItem={({ item, index }) => this._renderItems({ item, index })}
-                                keyExtractor={item => item} />
-                        </View> */}
                     </ScrollView>
                 </View>
             </>

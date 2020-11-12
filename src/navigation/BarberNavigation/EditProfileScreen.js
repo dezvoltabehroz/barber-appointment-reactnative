@@ -27,7 +27,7 @@ class EditProfileScreen extends Component {
             <MainScreenPaths.Barber.BarberEditProfile
                 onServices={() =>navigate("PriceandTime")}
                 onPortfolio={() => navigate("Portfolio")}
-                onResume={() => navigate("Resume")}
+                onCertificate={() => navigate("LicenceAndCertificate")}
                 onProfile={()=>navigate('UpdateProfile')}
                 onManageSchedule={()=>navigate('WorkingDays')}
                 onExit={this.handleLogout}

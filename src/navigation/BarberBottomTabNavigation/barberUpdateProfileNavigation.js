@@ -10,6 +10,7 @@ import PriceAndTimeScreen from '../BarberNavigation/PriceAndTimeScreen';
 import WorkingDaysScreen from '../BarberNavigation/WorkingDaysScreen';
 import ScheduleTimeScreen from '../BarberNavigation/ScheduleTimeScreen';
 import EditProfileScreen from '../BarberNavigation/EditProfileScreen';
+import LicenceAndCertificateScreen from '../BarberNavigation/LicenceAndCertificateScreen';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -75,6 +76,13 @@ function BarberProfileRoutes() {
                 headerTransparent: true,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Schedule Time</Text></View>),
                 headerTitleAlign: 'center',
+            }} />
+             <Stack.Screen name="LicenceAndCertificate" component={LicenceAndCertificateScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitleAlign: 'center',
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Licence/Certificate</Text></View>),
             }} />
         </Stack.Navigator>
     )
