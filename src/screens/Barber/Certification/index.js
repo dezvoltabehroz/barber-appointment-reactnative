@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, FlatList, ActivityIndicator, } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, FlatList, ActivityIndicator, Linking, Alert, } from 'react-native';
 import { Button, Icon } from '../../../components';
 import styles from './style';
 import Image from 'react-native-fast-image';
@@ -41,7 +41,7 @@ class Certification extends Component {
                     tempArr.forEach((item, index) => {
                         arr[index].is_selected = false;
                     })
-                    this.setState({ imageCertification: arr, loading: false })
+                    this.setState({ imageCertification: arr, loading: false, selectActions: false, selectedArray: [] })
                 }
             })
             .catch((err) => {
@@ -68,10 +68,11 @@ class Certification extends Component {
         return (
             <>
                 <View style={styles.gapHeight}></View>
-                <TouchableOpacity onLongPress={() => this.setState({ selectActions: true })} style={{ marginHorizontal: 4 }} onPress={() =>
+                <TouchableOpacity onLongPress={() => this.setState({ selectActions: true })} style={{ marginHorizontal: 4 }} onPress={() => {
                     this.setState({ isImageViewVisible: true })
-                }>
-                    <Image source={{ uri: image.file_name }} resizeMode='contain' style={styles.imageStyle} />
+                    // Linking.openURL(`${image.file_name}`);
+                }}>
+                    <Image source={{ uri: image.file_name }} resizeMode='cover' style={styles.imageStyle} />
                     {
                         selectActions ?
                             <TouchableOpacity style={{ position: 'absolute', flexDirection: "row", justifyContent: 'flex-end', marginRight: '5%', marginTop: '5%' }}
@@ -99,15 +100,11 @@ class Certification extends Component {
                     id: this.props.user.userData.id,
                     images: response
                 }
-                Barbers.uploadBarberPortfolio(userData)
+                Barbers.uploadBarberCertificates(userData)
                     .then((res) => {
-                        if (res.data.status) {
-                            this.componentDidMount();
-                        }
+                        if (res.data.status) { this.componentDidMount(); }
                     })
-                    .catch((err) => {
-                        console.log(err)
-                    })
+                    .catch((err) => { console.log(err) })
             })
     };
 
@@ -117,14 +114,60 @@ class Certification extends Component {
         let items = [...imageCertification];
         if (items[index].is_selected) {
             items[index] = { ...items[index], is_selected: false };
-            delete_array.splice(items[index].file_name, 1);
+            delete_array.splice(items[index].id, 1);
+
             this.setState({ selectedArray: delete_array, imageCertification: items })
         }
         else {
             items[index] = { ...items[index], is_selected: true };
-            delete_array.push(items[index].attachment_id);
+            delete_array.push(items[index].id);
             this.setState({ selectedArray: delete_array, imageCertification: items })
         }
+    }
+
+    deleteCertificates = () => {
+        Alert.alert('Attension', 'Are you sure you want to delete videos',
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => this.handleCancel(),
+                    style: "cancel"
+                },
+                { text: "OK", onPress: () => this.handleDeleteImages() }
+            ],
+
+        );
+
+    }
+
+    handleDeleteImages = () => {
+        let userData = {
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token,
+            attachment_id: this.state.selectedArray
+        }
+        Barbers.deleteSelectedCertificates(userData)
+            .then(res => {
+                if (res.data.status) {
+                    Alert.alert('Success', res.data.message);
+                    this.componentDidMount()
+                }
+            })
+            .catch(err => { console.log(err) })
+    }
+
+    handleCancel = () => {
+        let certificateArray = [...this.state.imageCertification];
+
+        certificateArray.forEach((item) => {
+            if (item.is_selected) {
+                const index = certificateArray.indexOf(item);
+                if (index > -1) {
+                    certificateArray[index] = { ...certificateArray[index], is_selected: false }
+                }
+            }
+        })
+        this.setState({ selectActions: false, selectedArray: [], imageCertification: certificateArray })
     }
 
     render() {
@@ -195,15 +238,15 @@ class Certification extends Component {
                                         selectActions ?
                                             <View style={[styles.buttonContainer, { flexDirection: "row", justifyContent: 'space-between' }]}>
                                                 <View style={{ flex: 0.45 }}>
-                                                    <Button title="Cancel  " onPress={() => this.setState({ selectActions: false, selectedArray: [] })} />
+                                                    <Button title="Cancel  " onPress={this.handleCancel} />
                                                 </View>
                                                 <View style={{ flex: 0.45 }}>
-                                                    <Button disabled={selectedArray.length != 0 ? false : true} title="Delete  " onPress={() => { console.log('delete') }} />
+                                                    <Button disabled={selectedArray.length != 0 ? false : true} title="Delete  " onPress={this.deleteCertificates} />
                                                 </View>
                                             </View>
                                             :
                                             <View style={styles.buttonContainer}>
-                                                <Button disabled={selectedArray.length != 0 ? false : true} title="Delete" onPress={() => { console.log('delete') }} />
+                                                <Button disabled={selectedArray.length != 0 ? false : true} title="Delete" onPress={this.deleteCertificates} />
                                             </View>}
                                 </View>
                             </>}

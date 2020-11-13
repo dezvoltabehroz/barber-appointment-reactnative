@@ -13,7 +13,7 @@ export default StyleSheet.create({
     //upper Container Styles
     upperContainer: {
         flex: 0.8,
-        marginHorizontal: '10%',
+        // marginHorizontal: '10%',
     },
 
     certificationContainer: {
@@ -24,14 +24,16 @@ export default StyleSheet.create({
 
     },
     certificationContainer1: {
-        height: 54,
+        height: 30,
         flexDirection: 'row',
         justifyContent: "space-between"
 
     },
+    
     labelContainer: {
-        flexDirection: 'column',
-        flex: 0.5
+        // flexDirection: 'column',
+        flex: 0.8,
+        marginLeft: '10%'
     },
     renderImageStyle: {
         height: screenHeight,
@@ -42,11 +44,11 @@ export default StyleSheet.create({
         flexDirection: 'column'
     },
     imageStyle: {
-        height: 50, width: 50, borderRadius: 5
+        height: 100, width: 100, borderRadius: 5
     },
     iconContainer: {
         flex: 0.2,
-        flexDirection: 'column'
+        // flexDirection: 'column'
     },
     modalContainer: {
         flexDirection: 'row',
@@ -147,6 +149,17 @@ export default StyleSheet.create({
     cancelButtonContainer: {
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    buttonContainer: {
+        marginHorizontal: '10%',
+    },
+    contentContainerStyle: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        width: screenWidth,
+        // paddingVertical: "3%",
+        paddingBottom: '10%',
+        paddingHorizontal: "4%"
     },
 
 })

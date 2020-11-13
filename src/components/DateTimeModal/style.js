@@ -13,7 +13,8 @@ export default StyleSheet.create({
     },
     modalContainer: {
         height: screenHeight,
-        width: screenWidth * 0.8,
+        width: screenWidth ,
+        paddingHorizontal:'10%',
         justifyContent: "center",
         alignSelf: "center",
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,

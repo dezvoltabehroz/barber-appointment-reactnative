@@ -13,7 +13,7 @@ export default StyleSheet.create({
     //upper Container Styles
     upperContainer: {
         flex: 0.8,
-        marginHorizontal: '10%',
+
     },
 
     certificationContainer: {
@@ -136,8 +136,8 @@ export default StyleSheet.create({
         fontFamily: "Poppins-Regular",
     },
     seperatorStyle: {
-        height:10
-     },
+        height: 10
+    },
     addButtonContainer: {
         paddingVertical: '3%',
         justifyContent: 'center',
@@ -155,6 +155,24 @@ export default StyleSheet.create({
         paddingVertical: "3%",
         paddingBottom: '10%',
         paddingHorizontal: "4%"
+    },
+    buttonContainer: {
+        marginHorizontal: '10%',
+    },
+    certificationContainer1: {
+        // height: 54,
+        flexDirection: 'row',
+        justifyContent: "space-between"
+
+    },
+    labelContainer: {
+        flexDirection: 'column',
+        flex: 0.8,
+        marginLeft: '10%'
+    },
+    labelTextStyle: {
+        color: THEME.COLOR_WHITE,
+        fontFamily: 'Poppins-Medium'
     },
 
 })

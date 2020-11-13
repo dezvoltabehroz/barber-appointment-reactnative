@@ -15,7 +15,7 @@ export default class AddServicesScreen extends Component {
             Alert.alert('Attention', 'Please select atleast one service')
         }
         else {
-            navigate('PriceandTime', { item: data })
+            navigate('AddPriceandTime', { item: data })
         }
     }
 

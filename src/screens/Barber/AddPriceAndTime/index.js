@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, Alert, } from 'react-native';
-import { FooterButton, FloatingInput, DateTimeModal, Icon, } from '../../../components';
+import { View, Text, FlatList, Alert, Modal } from 'react-native';
+import { FooterButton, FloatingInput,Button, DateTimeModal, Icon, } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -11,9 +11,6 @@ export default class PriceAndTime extends Component {
     constructor(props) {
         super(props);
 
-        this.num2 = React.createRef();
-        this.num3 = React.createRef();
-        this.num4 = React.createRef();
         this.state = {
             selectedArray: [],
             submit: false,
@@ -27,8 +24,9 @@ export default class PriceAndTime extends Component {
             val: '',
             hours: '',
             minutes: '',
-            indexValue: null,
+            index: null,
             item: null,
+            showEditService: false
         }
     }
     componentDidMount = () => {
@@ -50,7 +48,7 @@ export default class PriceAndTime extends Component {
         const objIndex = this.state.selectedArray.findIndex((obj => obj.id == item.id));
         let items = [...this.state.selectedArray];
         items[objIndex] = { ...items[objIndex], time: data };
-        this.setState({ showTimePicker: false, selectedArray: items, item: null });
+        this.setState({ showTimePicker: false, selectedArray: items,  });
         this.is_filled_check(items, objIndex)
     }
 
@@ -87,13 +85,19 @@ export default class PriceAndTime extends Component {
         this.setState({ selectedArray: selectedArray.filter((obj => obj.id != itemData.id)) })
     }
 
-    on_Press_Edit = (index) => {
-        let selectedArray = [...this.state.selectedArray];
-        let item = { ...selectedArray[index], price: '', time: '', isFilled: '' };
-        selectedArray[index] = item;
-        let newServiceCounter = selectedArray[selectedArray.length - 1].serviceCounter - 1;
-        selectedArray[selectedArray.length - 1] = { ...selectedArray[selectedArray.length - 1], serviceCounter: newServiceCounter };
-        this.setState({ selectedArray });
+    on_Press_Edit = (item, index) => {
+        // let selectedArray = [...this.state.selectedArray];
+        // let item = { ...selectedArray[index], price: '', time: '', isFilled: '' };
+        // selectedArray[index] = item;
+        // let newServiceCounter = selectedArray[selectedArray.length - 1].serviceCounter - 1;
+        // selectedArray[selectedArray.length - 1] = { ...selectedArray[selectedArray.length - 1], serviceCounter: newServiceCounter };
+        // this.setState({ selectedArray });
+        this.setState({ item, index })
+        setTimeout(() => {
+            console.log(this.state.item)
+            console.log(this.state.index)
+            this.setState({ showEditService: true })
+        }, 1);
     }
 
     _renderItems = ({ item, index }) => {
@@ -102,7 +106,7 @@ export default class PriceAndTime extends Component {
             <View style={styles.contentContainer}>
                 <View style={styles.row}>
                     <View style={styles.nameContainer}>
-                        <Text style={styles.textStyle}>{item.serviceName}</Text>
+                        <Text style={styles.textStyle}>{item.service_name}</Text>
                     </View>
                     <View style={styles.priceContainer} >
                         {item.price != '' ?
@@ -124,7 +128,7 @@ export default class PriceAndTime extends Component {
                         {
                             item.isFilled == '1' ?
                                 <View style={{ flex: 1, flexDirection: 'row' }}>
-                                    <TouchableOpacity onPress={() => this.on_Press_Edit(index)} >
+                                    <TouchableOpacity onPress={() => this.on_Press_Edit(item, index)} >
                                         <Icon.MaterialIcons name='edit' size={25} color={THEME.COLOR_WHITE} />
                                     </TouchableOpacity>
                                     <View style={styles.seperatorStyle}></View>
@@ -139,14 +143,14 @@ export default class PriceAndTime extends Component {
                 <View style={styles.inputContainer}>
                     {item.price == '' ?
                         <View style={[styles.inputContainerStyle,
-                            selectedArray[index].price == '' ? THEME.inputBorder : {}]}>
+                        selectedArray[index].price == '' ? THEME.inputBorder : {}]}>
                             <FloatingInput
-                               val={selectedArray[index].price}
+                                val={selectedArray[index].price}
                                 keyboardtype="number-pad"
                                 onInActive={() => this.addPrice({ item, index })}
-                                label='Price' updateText={(val) => selectedArray[index].price = `$${val}`}  />
+                                label='Price' updateText={(val) => selectedArray[index].price = `$${val}`} />
                             {
-                               submit && !selectedArray[index].price ? <Text style={COMMON_STYLE.errorText1}>Please fill this field</Text> : null
+                                submit && !selectedArray[index].price ? <Text style={COMMON_STYLE.errorText1}>Please fill this field</Text> : null
                             }
                         </View>
                         :
@@ -170,7 +174,7 @@ export default class PriceAndTime extends Component {
             </View>
         )
     }
-    
+
     on_Press_Next = () => {
         this.setState({ submit: true })
         const { onNext } = this.props;
@@ -188,7 +192,7 @@ export default class PriceAndTime extends Component {
 
     render() {
         const { onNext } = this.props;
-        const { selectedArray, showTimePicker } = this.state;
+        const { selectedArray, showTimePicker, showEditService, item, index, submit } = this.state;
 
         return (
             <>
@@ -207,7 +211,7 @@ export default class PriceAndTime extends Component {
                                         <Text style={styles.headingTextStyle1}>Est.Time</Text>
                                     </View>
                                     <View style={styles.priceContainer}>
-                                         {/* <Text style={styles.headingTextStyle1}>Est.Time</Text> */}
+                                        {/* <Text style={styles.headingTextStyle1}>Est.Time</Text> */}
                                         {/* <TouchableOpacity onPress={() => { }} style={{ alignItems: 'center' }}>
                                             <Icon.Ionicons name="ios-add-circle" size={35} color={THEME.COLOR_WHITE} />
                                         </TouchableOpacity> */}
@@ -224,11 +228,61 @@ export default class PriceAndTime extends Component {
                             renderItem={({ item, index }) => this._renderItems({ item, index })}
                             keyExtractor={item => item} />
                     </View>
-                    <FooterButton title='Update'  onPress={this.on_Press_Next} />
+                    <FooterButton title='Update' onPress={this.on_Press_Next} />
                 </View>
                 <DateTimeModal showTimePicker={showTimePicker}
                     onCancel={() => this.setState({ showTimePicker: false })}
                     onSet={(time) => this.setTimeChange(time)} />
+                <Modal visible={showEditService}
+                    animationType="slide">
+                    {
+                        item == null || index == null ?
+                            null
+                            :
+                            <View style={styles.modalContainer}  >
+                                <View style={styles.modalInputContainer}>
+                                    <View style={styles.headingContainer}>
+                                        <Text style={styles.headingTextStyle}>Update a Service</Text>
+                                    </View>
+
+                                    <View style={[styles.inputModalContainerStyle,
+                                    selectedArray[index].price == '' ? THEME.inputBorder : {}]}>
+                                        <FloatingInput
+                                            val={selectedArray[index].price}
+                                            keyboardtype="number-pad"
+                                            onInActive={() => this.addPrice({ item, index })}
+                                            label='Price' updateText={(val) => selectedArray[index].price = `$${val}`} />
+                                        {
+                                            submit && !selectedArray[index].price ? <Text style={COMMON_STYLE.errorText1}>Please fill this field</Text> : null
+                                        }
+                                    </View>
+
+                                    <View style={[styles.inputModalContainerStyle,
+                                    selectedArray[index].time == '' ? THEME.inputBorder : {}]}>
+                                        <FloatingInput
+                                            val={selectedArray[index].time}
+                                            onActive={() => this.setTime(index, item)}
+                                            label='Time' updateText={(val) => selectedArray[index].time = `${val}`} />
+                                        {/* <TouchableOpacity onPress={() => this.setTime(index, item)} style={[styles.inputModalContainerStyle,
+                                barberServices[index].time == '' ? THEME.inputBorder : {}]}>
+                                    <Text style={styles.titleStyle}>{barberServices[index].time}</Text>
+                                </TouchableOpacity> */}
+                                    </View>
+                                    {
+                                        submit && !selectedArray[index].time ? <Text style={COMMON_STYLE.errorText1}>Please select time</Text> : null
+                                    }
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <View style={styles.rowButtonContainer}>
+                                            <Button title="Cancel" onPress={() => this.setState({ showEditService: false })} />
+                                        </View>
+                                        <View style={styles.rowButtonContainer}>
+                                            <Button title="Update" onPress={() => this.setState({ showEditService: false })} />
+                                        </View>
+                                    </View>
+                                </View>
+                            </View>
+                    }
+                </Modal>
             </>
         );
     }

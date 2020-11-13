@@ -103,7 +103,8 @@ export default class AddServices extends Component {
 
     on_Next_press = () => {
         const { onNext } = this.props;
-        let selectedArray = this.state.selectedService;
+        let selectedArray = [...this.state.selectedService];
+        console.log(selectedArray.length)
         if (selectedArray.length == 0) {
             Alert.alert('Attention', 'Please select atleast one service');
         }

@@ -124,7 +124,7 @@ export default StyleSheet.create({
         height: screenHeight * 1,
         width: screenWidth * 1,
         paddingTop: "40%",
-        alignSelf: "center",
+        // alignSelf: "center",
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
     },
     headingTextStyle: {

@@ -91,28 +91,149 @@ const Api = {
         return axios.post('http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/barber/uploadPortfolio', formData, config)
 
     },
+    uploadBarberCertificates: function (userData) {
+        let formData = new FormData();
+        formData.append('user_id', userData.id);
+        userData.images.forEach(element => {
+            formData.append('images', {
+                uri: element.path,
+                name: `${new Date().getTime().toString()}.jpg`,
+                filename: new Date().getTime().toString() + '.jpg',
+                type: 'image/jpg'
+            });
+        });
+        let config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json',
+            }
+        };
+        return axios.post('http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/barber/uploadCertificates', formData, config)
+
+    },
+    uploadBarberResumes: function (userData) {
+        let formData = new FormData();
+        formData.append('user_id', userData.id);
+        userData.images.forEach(element => {
+            formData.append('images', {
+                uri: element.path,
+                name: `${new Date().getTime().toString()}.jpg`,
+                filename: new Date().getTime().toString() + '.jpg',
+                type: 'image/jpg'
+            });
+        });
+        let config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json',
+            }
+        };
+        return axios.post('http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/barber/uploadResume', formData, config)
+
+    },
+    uploadBarberDrivingLicence: function (userData) {
+        let formData = new FormData();
+        formData.append('user_id', userData.id);
+        userData.images.forEach(element => {
+            formData.append('images', {
+                uri: element.path,
+                name: `${new Date().getTime().toString()}.jpg`,
+                filename: new Date().getTime().toString() + '.jpg',
+                type: 'image/jpg'
+            });
+        });
+        let config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json',
+            }
+        };
+        return axios.post('http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/barber/uploadDrivingLicense', formData, config)
+
+    },
+    uploadBarberPassport: function (userData) {
+        let formData = new FormData();
+        formData.append('user_id', userData.id);
+        userData.images.forEach(element => {
+            formData.append('images', {
+                uri: element.path,
+                name: `${new Date().getTime().toString()}.jpg`,
+                filename: new Date().getTime().toString() + '.jpg',
+                type: 'image/jpg'
+            });
+        });
+        let config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json',
+            }
+        };
+        return axios.post('http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/barber/uploadPassport', formData, config)
+
+    },
     getBarberAllPortfolio: function (userData) {
         return axiosInstance.post('barber/viewAllPortfolio', {
-            id: userData.id,
+            user_id: userData.id,
         }, configToken(userData.token))
     },
     deleteSelectedPortfolio: function (userData) {
         return axiosInstance.post('barber/deletePortfolio', {
-            id: userData.id,
+            user_id: userData.id,
             attachment_id: userData.attachment_id
         }, configToken(userData.token))
     },
     getBarberAllCertificates: function (userData) {
         return axiosInstance.post('barber/viewAllCertificates', {
-            id: userData.id,
+            user_id: userData.id,
         }, configToken(userData.token))
     },
     deleteSelectedCertificates: function (userData) {
         return axiosInstance.post('barber/deleteCertificates', {
-            id: userData.id,
+            user_id: userData.id,
             attachment_id: userData.attachment_id
         }, configToken(userData.token))
     },
+    getBarberAllResumes: function (userData) {
+        return axiosInstance.post('barber/viewAllResume', {
+            user_id: userData.id,
+        }, configToken(userData.token))
+    },
+    deleteSelectedResumes: function (userData) {
+        return axiosInstance.post('barber/deleteResume', {
+            user_id: userData.id,
+            attachment_id: userData.attachment_id
+        }, configToken(userData.token))
+    },
+    getBarberAllPassportAndLicence: function (userData) {
+        return axiosInstance.post('barber/viewAllPassportAndLicence', {
+            user_id: userData.id,
+        }, configToken(userData.token))
+    },
+    deleteSelectedPassportAndLicence: function (userData) {
+        return axiosInstance.post('barber/deletePassportAndLicence', {
+            user_id: userData.id,
+            attachment_id: userData.attachment_id
+        }, configToken(userData.token))
+    },
+    getBarberAllServices: function (userData) {
+        return axiosInstance.post('barber/viewAllBarberServices', {
+            user_id: userData.id,
+        }, configToken(userData.token))
+    },
+    deleteBarberService: function (userData) {
+        return axiosInstance.post('barber/deleteBarberService', {
+            user_id: userData.id,
+            service_id: userData.service_id
+        }, configToken(userData.token))
+    },
+    updateBarberService: function (userData) {
+        return axiosInstance.post('barber/updateBarberService', {
+            user_id: userData.id,
+            service_id: userData.service_id,
+            price: userData.price,
+            time_duration: userData.time_duration
+        }, configToken(userData.token))
+    }
 
 };
 

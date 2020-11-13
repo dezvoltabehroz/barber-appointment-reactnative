@@ -22,7 +22,8 @@ import _BarberBookingHistory from './BookingHistory';
 import _LicenceAndCertificate from './LicenceAndCertificate';
 import _Certification from './Certification';
 import _PersonalInfo from './PersonalInfo';
-import _AddServices from './AddServices'
+import _AddServices from './AddServices';
+import _AddPriceAndTime from './AddPriceAndTime';
 export const BarberScreenPaths = {
     BarberPhoneNumber: _BarberPhoneNumber,
     BarberPhoneVerification: _BarberPhoneVerification,
@@ -48,5 +49,6 @@ export const BarberScreenPaths = {
     BarberLicenceAndCertificate: _LicenceAndCertificate,
     BarberCertification: _Certification,
     BarberPersonalInfo: _PersonalInfo,
-    BarberAddServices:_AddServices,
+    BarberAddServices: _AddServices,
+    BarberAddPriceAndTime: _AddPriceAndTime
 }

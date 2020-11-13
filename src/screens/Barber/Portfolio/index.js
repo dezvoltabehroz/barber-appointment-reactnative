@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, FlatList, Platform, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, Platform, ActivityIndicator, Linking, Alert } from 'react-native';
 import { FooterButton, Icon, Button } from '../../../components'
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
@@ -28,14 +28,11 @@ class Portfolio extends Component {
         Barbers.getBarberAllPortfolio(userData)
             .then((res) => {
                 if (res.data.status) {
-                    let tempArr = [];
                     let arr = [...res.data.data];
-                    tempArr = res.data.data;
-                    tempArr.forEach((item, index) => {
+                    arr.forEach((item, index) => {
                         arr[index].is_selected = false;
                     })
-                    this.setState({ portfolioImagesArray: arr, loading: false })
-                    console.log(this.state.portfolioImagesArray)
+                    this.setState({ portfolioImagesArray: arr, loading: false, selectActions: false, selectedArray: [] })
                 }
             })
             .catch((err) => {
@@ -89,17 +86,16 @@ class Portfolio extends Component {
     }
     handleSelection = (index) => {
         const { portfolioImagesArray } = this.state;
-        console.log(portfolioImagesArray)
         let delete_array = this.state.selectedArray;
         let items = [...portfolioImagesArray];
         if (items[index].is_selected) {
             items[index] = { ...items[index], is_selected: false };
-            delete_array.splice(items[index].file_name, 1);
+            delete_array.splice(items[index].id, 1);
             this.setState({ selectedArray: delete_array, portfolioImagesArray: items })
         }
         else {
             items[index] = { ...items[index], is_selected: true };
-            delete_array.push(items[index].attachment_id);
+            delete_array.push(items[index].id);
             this.setState({ selectedArray: delete_array, portfolioImagesArray: items })
         }
     }
@@ -108,10 +104,13 @@ class Portfolio extends Component {
         return (
             <>
                 <View style={styles.gapHeight}></View>
-                <TouchableOpacity onLongPress={() => this.setState({ selectActions: true })} style={{ marginHorizontal: 4 }} onPress={() =>
+                <TouchableOpacity onLongPress={() => this.setState({ selectActions: true })} style={{ marginHorizontal: 4 }} onPress={() => {
                     this.setState({ isImageViewVisible: true })
-                }>
-                    <Image source={{ uri: image.file_name }} resizeMode='contain' style={styles.imageStyle} />
+                    // http://docs.google.com/viewer?url=${image.file_name}&embedded=true
+                    // https://docs.google.com/viewerng/viewer?url=https://fleek-dev.s3-accelerate.amazonaws.com/attachments/6ffee7b5bd11062cdfce33f4b475b670
+                    // Linking.openURL(`${image.file_name}`);
+                }}>
+                    <Image source={{ uri: image.file_name }} resizeMode='cover' style={styles.imageStyle} />
                     {
                         selectActions ?
                             <TouchableOpacity style={{ position: 'absolute', flexDirection: "row", justifyContent: 'flex-end', marginRight: '5%', marginTop: '5%' }}
@@ -128,9 +127,54 @@ class Portfolio extends Component {
         )
     }
 
+    deletePortfolios = () => {
+        Alert.alert('Attension', 'Are you sure you want to delete videos',
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => this.handleCancel(),
+                    style: "cancel"
+                },
+                { text: "OK", onPress: () => this.handleDeletePortfolios() }
+            ],
+
+        );
+
+    }
+
+    handleDeletePortfolios = () => {
+        let userData = {
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token,
+            attachment_id: this.state.selectedArray
+        }
+        Barbers.deleteSelectedPortfolio(userData)
+            .then(res => {
+                if (res.data.status) {
+                    Alert.alert('Success', res.data.message);
+                    this.componentDidMount()
+                }
+            })
+            .catch(err => { console.log(err) })
+    }
+
+    handleCancel = () => {
+        let portfolioArray = [...this.state.portfolioImagesArray];
+
+        portfolioArray.forEach((item) => {
+            if (item.is_selected) {
+                const index = portfolioArray.indexOf(item);
+                if (index > -1) {
+                    portfolioArray[index] = { ...portfolioArray[index], is_selected: false }
+                }
+            }
+        })
+        this.setState({ selectActions: false, selectedArray: [], portfolioImagesArray: portfolioArray })
+    }
+
     render() {
         const { onNext } = this.props;
-        const { portfolioImagesArray, imagestoUpload, loading, selectedArray,selectActions } = this.state;
+        const { portfolioImagesArray, imagestoUpload, loading, selectedArray, selectActions } = this.state;
         const imageURLs: Array<Object> = portfolioImagesArray.map((img: Object, index: number) => ({
             source: { uri: img.file_name },
             title: img + index,
@@ -189,10 +233,10 @@ class Portfolio extends Component {
                                     selectActions ?
                                         <View style={[styles.buttonContainer, { flexDirection: "row", justifyContent: 'space-between' }]}>
                                             <View style={{ flex: 0.45 }}>
-                                                <Button title="Cancel  " onPress={() => this.setState({ selectActions: false, selectedArray: [] })} />
+                                                <Button title="Cancel  " onPress={this.handleCancel} />
                                             </View>
                                             <View style={{ flex: 0.45 }}>
-                                                <Button disabled={selectedArray.length != 0 ? false : true} title="Delete  " onPress={() => { console.log('delete') }} />
+                                                <Button disabled={selectedArray.length != 0 ? false : true} title="Delete  " onPress={this.deletePortfolios} />
                                             </View>
                                         </View>
                                         :
