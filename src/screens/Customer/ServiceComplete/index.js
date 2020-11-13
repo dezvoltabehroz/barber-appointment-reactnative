@@ -125,7 +125,7 @@ export default class ServiceComplete extends Component {
                                                             keyboardtype="number-pad"
                                                             onActive={() => this.setState({ isTipFocus: true })}
                                                             onInActive={() => this.setState({ isTipFocus: false, submit: true })}
-                                                            label='Tip' updateText={(tip) => this.setState({ tip })} />
+                                                            label='$5' updateText={(tip) => this.setState({ tip })} />
                                                     </View>
                                                 </View>
 
