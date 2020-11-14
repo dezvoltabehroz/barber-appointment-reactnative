@@ -24,14 +24,15 @@ export default StyleSheet.create({
 
     },
     certificationContainer1: {
-        height: 54,
+        height: 40,
         flexDirection: 'row',
         justifyContent: "space-between"
 
     },
     labelContainer: {
         flexDirection: 'column',
-        flex: 0.5
+        flex: 0.8,
+        marginLeft: '10%'
     },
     renderImageStyle: {
         height: screenHeight,
@@ -153,26 +154,11 @@ export default StyleSheet.create({
         flexWrap: 'wrap',
         width: screenWidth,
         paddingVertical: "3%",
-        paddingBottom: '10%',
+        paddingBottom: '15%',
         paddingHorizontal: "4%"
     },
     buttonContainer: {
         marginHorizontal: '10%',
-    },
-    certificationContainer1: {
-        // height: 54,
-        flexDirection: 'row',
-        justifyContent: "space-between"
-
-    },
-    labelContainer: {
-        flexDirection: 'column',
-        flex: 0.8,
-        marginLeft: '10%'
-    },
-    labelTextStyle: {
-        color: THEME.COLOR_WHITE,
-        fontFamily: 'Poppins-Medium'
     },
 
 })

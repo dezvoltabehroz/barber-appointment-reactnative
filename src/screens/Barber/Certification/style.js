@@ -31,7 +31,7 @@ export default StyleSheet.create({
         paddingHorizontal: "4%"
     },
     certificationContainer1: {
-        // height: 54,
+        height: 40,
         flexDirection: 'row',
         justifyContent: "space-between"
 

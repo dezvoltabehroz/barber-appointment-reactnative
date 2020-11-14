@@ -188,7 +188,7 @@ class Certification extends Component {
                             </View>
                             :
                             <>
-                                <View style={styles.upperContainer}>
+                                <View style={{ flex: selectActions ? 0.8 : 1 }}>
                                     <View>
                                         <View style={styles.certificationContainer1}>
                                             <View style={styles.labelContainer}  >
@@ -233,9 +233,10 @@ class Certification extends Component {
                                         }
                                     </View>
                                 </View>
-                                <View style={{ flex: 0.2, justifyContent: "center" }}>
-                                    {
-                                        selectActions ?
+
+                                {
+                                    selectActions ?
+                                        <View style={{ flex: 0.2, justifyContent: "center" }}>
                                             <View style={[styles.buttonContainer, { flexDirection: "row", justifyContent: 'space-between' }]}>
                                                 <View style={{ flex: 0.45 }}>
                                                     <Button title="Cancel  " onPress={this.handleCancel} />
@@ -244,11 +245,11 @@ class Certification extends Component {
                                                     <Button disabled={selectedArray.length != 0 ? false : true} title="Delete  " onPress={this.deleteCertificates} />
                                                 </View>
                                             </View>
-                                            :
-                                            <View style={styles.buttonContainer}>
-                                                <Button disabled={selectedArray.length != 0 ? false : true} title="Delete" onPress={this.deleteCertificates} />
-                                            </View>}
-                                </View>
+                                        </View>
+                                        :
+                                        null
+                                }
+
                             </>}
                 </View>
             </>

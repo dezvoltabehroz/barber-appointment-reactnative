@@ -123,13 +123,13 @@ class PriceAndTime extends Component {
                     // onPress: () => this.handleCancel(),
                     style: "cancel"
                 },
-                { text: "OK", onPress: () => this.handleDeleteService() }
+                { text: "OK", onPress: () => this.handleDeleteService(itemData) }
             ],
 
         );
     }
 
-    handleDeleteService = () => {
+    handleDeleteService = (itemData) => {
 
         let userData = {
             id: this.props.user.userData.id,

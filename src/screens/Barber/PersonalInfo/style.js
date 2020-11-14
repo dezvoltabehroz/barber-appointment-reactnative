@@ -24,7 +24,7 @@ export default StyleSheet.create({
 
     },
     certificationContainer1: {
-        height: 30,
+        height: 40,
         flexDirection: 'row',
         justifyContent: "space-between"
 

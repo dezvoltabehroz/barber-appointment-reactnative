@@ -66,7 +66,7 @@ export default StyleSheet.create({
         resizeMode: 'center'
     },
     certificationContainer1: {
-        // height: 54,
+        height: 40,
         flexDirection: 'row',
         justifyContent: "space-between"
 
