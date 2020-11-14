@@ -6,9 +6,9 @@ import THEME from '../../../assets/styles/theme.style';
 import COMMON_STYLE from '../../../assets/styles/common.style';
 import { Barbers, Categories } from '../../../services';
 import { SearchBar } from 'react-native-elements';
+import { connect } from 'react-redux';
 
-
-export default class AddServices extends Component {
+class AddServices extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -29,17 +29,22 @@ export default class AddServices extends Component {
 
     componentDidMount = () => {
         this.setState({ loading: true })
-        Categories.getAllVendorServices()
+        let userData = {
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token
+        }
+        Barbers.getBarberAllServices(userData)
             .then((res) => {
                 if (res.data.status) {
-                    let array = [];
-                    array = res.data.services;
-                    let tempArray = [...res.data.services];
-                    array.map((item, index) => {
-                        tempArray[index] = { ...tempArray[index], isFilled: '0', selected: false, price: '', time: '', }
+                    var myArray = [...this.props.category.vendorServices];
+                    var toRemove = [...res.data.data];
+                    let ids = toRemove.map(c => c.id);
+                    myArray = myArray.filter(({ id }) => !ids.includes(id))
+                    myArray.map((item, index) => {
+                        myArray[index] = { ...myArray[index], isFilled: '0', selected: false, price: '', time: '', }
                     });
-                    this.setState({ barberServices: tempArray, loading: false });
-                    this.arrayHolder = tempArray;
+                    this.setState({ barberServices: myArray, loading: false });
+                    this.arrayHolder = myArray;
                 }
             })
             .catch((err) => console.log(err))
@@ -101,20 +106,19 @@ export default class AddServices extends Component {
         )
     }
 
-    on_Next_press = () => {
+    on_Next_press = async () => {
         const { onNext } = this.props;
         let selectedArray = [...this.state.selectedService];
-        console.log(selectedArray.length)
         if (selectedArray.length == 0) {
             Alert.alert('Attention', 'Please select atleast one service');
         }
         else {
-            if (selectedArray[selectedArray.length - 1].serviceCounter == 0) {
-                this.setState({ selectedService: selectedArray })
+            if (selectedArray[selectedArray.length - 1].serviceCounter!='') {
+                selectedArray.push({ serviceCounter: 0 })
+                await this.setState({ selectedService: selectedArray })
                 onNext(this.state.selectedService)
             }
             else {
-                selectedArray.push({ serviceCounter: 0 })
                 this.setState({ selectedService: selectedArray })
                 onNext(this.state.selectedService)
             }
@@ -198,3 +202,11 @@ export default class AddServices extends Component {
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer || {},
+        category: state.categoryReducer || {}
+    };
+};
+
+export default connect(mapStateToProps)(AddServices)

@@ -10,7 +10,7 @@ export default class AddPriceAndTimeScreen extends Component {
         const { navigate, goBack } = this.props.navigation;
         const { item } = this.props.route.params;
         return (
-            <MainScreenPaths.Barber.BarberAddPriceAndTime data={item} />
+            <MainScreenPaths.Barber.BarberAddPriceAndTime data={item} addService={() => navigate('EditProfile')} />
         )
     }
 }

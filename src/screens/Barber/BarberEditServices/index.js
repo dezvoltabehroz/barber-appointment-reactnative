@@ -7,7 +7,7 @@ import COMMON_STYLE from '../../../assets/styles/common.style';
 import { Barbers, Categories } from '../../../services';
 import { connect } from 'react-redux';
 import moment from 'moment';
-class PriceAndTime extends Component {
+class BarberEditServices extends Component {
 
     constructor(props) {
         super(props);
@@ -16,19 +16,7 @@ class PriceAndTime extends Component {
         this.num3 = React.createRef();
         this.num4 = React.createRef();
         this.state = {
-            barberServices: [
-                // { id: 1, serviceName: 'Hair Cuttuing', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
-                // { id: 2, serviceName: 'Hair Trimming', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
-                // { id: 3, serviceName: 'Blowout', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
-                // { id: 4, serviceName: 'Hair Color', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
-                // { id: 5, serviceName: 'Double process hair color', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
-                // { id: 6, serviceName: 'Shave', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
-                // { id: 7, serviceName: 'Beard Trim', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
-                // { id: 8, serviceName: 'Braids & Twist', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
-                // { id: 9, serviceName: 'Hair color touch ups', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
-                // { id: 10, serviceName: 'Scalp Conditioning Treatment', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
-                // { id: 11, serviceName: 'Permanent Hair Retexturizing', serviceDescription: '', selected: false, price: '30', time: '15', isFilled: '1' },
-            ],
+            barberServices: [],
             selectedArray: [],
             selectedService: [],
             submit: false,
@@ -58,10 +46,8 @@ class PriceAndTime extends Component {
         Barbers.getBarberAllServices(userData)
             .then((res) => {
                 if (res.data.status) {
-                    console.log(res.data)
                     let array = [];
                     array = [...res.data.data];
-
                     array.map((item, index) => {
                         array[index] = { ...array[index], isFilled: '1', selected: false, }
                     });
@@ -72,9 +58,10 @@ class PriceAndTime extends Component {
 
 
     }
+
     componentWillUnmount = () => {
-        // let data = []
-        // this.setState({ selectedArray: data })
+        let data = []
+        this.setState({ selectedArray: data })
     }
 
     setTime = (index, item) => {
@@ -83,12 +70,7 @@ class PriceAndTime extends Component {
 
     setTimeChange = (data) => {
         this.setState({ time: data, showTimePicker: false })
-        // const { item } = this.state;
-        // const objIndex = this.state.barberServices.findIndex((obj => obj.id == item.id));
-        // let items = [...this.state.barberServices];
-        // items[objIndex] = { ...items[objIndex], time_duration: data };
-        // this.setState({ showTimePicker: false, barberServices: items, });
-        // this.is_filled_check(items, objIndex)
+
     }
 
     addPrice = ({ index, item }) => {
@@ -141,7 +123,6 @@ class PriceAndTime extends Component {
                 if (res.data.status) {
                     let selectedArray = [...this.state.barberServices];
                     this.setState({ barberServices: selectedArray.filter((obj => obj.id != itemData.id)) })
-                    // this.componentDidMount()
                 }
             })
             .catch((err) => {
@@ -255,7 +236,7 @@ class PriceAndTime extends Component {
         let counter = (selectedArray[(selectedArray.length - 1)].serviceCounter);
         let length = (selectedArray.length - 1);
         if (counter === length) {
-            onNext();
+            onNext(this.state.notSelectedServices);
             this.setState({ submit: false })
         }
         else {
@@ -349,7 +330,7 @@ class PriceAndTime extends Component {
                                     renderItem={({ item, index }) => this._renderItems({ item, index })}
                                     keyExtractor={item => item} />
                             </View>
-                            <FooterButton addservice onPressAddNewService={() => this.props.onNext(this.componentDidMount())} onPressAddService={() => this.setState({ showAddService: true })} />
+                            <FooterButton title="Add Service" onPress={() => this.props.onNext(() => this.componentDidMount())}  /*addservice onPressAddNewService={() => this.props.onNext(this.componentDidMount())} onPressAddService={() => this.setState({ showAddService: true })}*/ />
 
                         </>
 
@@ -431,7 +412,7 @@ class PriceAndTime extends Component {
                                     barberServices[index].time_duration != '' ? THEME.inputBorder : {}]}>
                                         <View style={{ marginLeft: '3.5%' }}>
                                             <Text style={styles.titleStyle}>Time</Text>
-                                            <Text style={{ fontFamily: 'Poppins-Medium' }}>{this.state.time}</Text>
+                                            <Text style={{ fontFamily: 'Poppins-Medium' }}>{moment(moment(this.state.time, 'H:mm')).format('HH:mm')}</Text>
                                         </View>
                                     </TouchableOpacity>
                                     {
@@ -455,8 +436,9 @@ class PriceAndTime extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        user: state.authReducer || {}
+        user: state.authReducer || {},
+        category: state.categoryReducer || {}
     };
 };
 
-export default connect(mapStateToProps)(PriceAndTime)
+export default connect(mapStateToProps)(BarberEditServices)

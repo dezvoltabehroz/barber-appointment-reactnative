@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, ImageBackground, TouchableOpacity, Alert, Image, Dimensions, ActivityIndicator, RefreshControl } from "react-native";
 import styles from './style';
-import { Button, Icon, SearchandMapView } from '../../../components'
+import { Button, Icon } from '../../../components'
 import { connect } from 'react-redux';
-import Geocoder from 'react-native-geocoder';
 import THEME from '../../../assets/styles/theme.style'
 import { BookingServices } from '../../../services';
 import moment from 'moment';
@@ -183,8 +182,8 @@ class BarberHome extends Component {
                                 <ActivityIndicator />
                                 :
                                 bookingList.length == 0 ?
-                                    <View style={[styles.nameContainer,{justifyContent:'center'}]}>
-                                        <Text style={[styles.appointmentTextStyle,{textAlign:'center'}]}>No bookings</Text>
+                                    <View style={[styles.nameContainer, { justifyContent: 'center' }]}>
+                                        <Text style={[styles.appointmentTextStyle, { textAlign: 'center' }]}>No bookings</Text>
                                     </View>
                                     :
                                     <FlatList

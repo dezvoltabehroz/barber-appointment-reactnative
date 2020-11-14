@@ -6,7 +6,7 @@ import UpdateProfileScreen from '../BarberNavigation/UpdateProfileScreen';
 import ResumeScreen from '../BarberNavigation/ResumeScreen';
 import PortfolioScreen from '../BarberNavigation/PortfolioScreen';
 import ServicesScreen from '../BarberNavigation/ServicesScreen';
-import PriceAndTimeScreen from '../BarberNavigation/PriceAndTimeScreen';
+import BarberEditServicesScreen from '../BarberNavigation/BarberEditServicesScreen';
 import WorkingDaysScreen from '../BarberNavigation/WorkingDaysScreen';
 import ScheduleTimeScreen from '../BarberNavigation/ScheduleTimeScreen';
 import EditProfileScreen from '../BarberNavigation/EditProfileScreen';
@@ -57,11 +57,11 @@ function BarberProfileRoutes() {
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Services</Text></View>),
                 headerTitleAlign: 'center',
             }} />
-            <Stack.Screen name="PriceandTime" component={PriceAndTimeScreen} options={{
+            <Stack.Screen name="BarberEditServices" component={BarberEditServicesScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
-                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Services</Text></View>),
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Barber Edit Services</Text></View>),
                 headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="WorkingDays" component={WorkingDaysScreen} options={{

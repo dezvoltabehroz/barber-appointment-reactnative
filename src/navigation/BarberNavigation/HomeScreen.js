@@ -6,11 +6,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../redux/actions/auth';
 import { BookingServices } from '../../services';
+import { categoryActions } from '../../redux/actions/category';
 class HomeScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })
-
+    componentDidMount = () => {
+        this.props.categoryActions.getAllVendorServices();
+    }
     handleLogout = async () => {
         const { replace } = this.props.navigation;
         // navigate('Auth')
@@ -59,7 +62,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     return {
         authActions: bindActionCreators(authActions, dispatch),
+        categoryActions: bindActionCreators(categoryActions, dispatch),
     };
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(HomeScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)

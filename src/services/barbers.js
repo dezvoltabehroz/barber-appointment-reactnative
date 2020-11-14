@@ -233,6 +233,12 @@ const Api = {
             price: userData.price,
             time_duration: userData.time_duration
         }, configToken(userData.token))
+    },
+    addBarberService:function(userData){
+        return axiosInstance.post('barber/addServiceAcrossBarber', {
+            user_id: userData.id,
+            services_data: userData.services,
+        }, configToken(userData.token))
     }
 
 };

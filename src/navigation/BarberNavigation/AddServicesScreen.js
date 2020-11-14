@@ -20,7 +20,7 @@ export default class AddServicesScreen extends Component {
     }
 
     render() {
-        const { navigate, goBack } = this.props.navigation
+        const { navigate, goBack } = this.props.navigation;
         return (
             <MainScreenPaths.Barber.BarberAddServices onNext={(data) => this.handleFunction(data)} />
         )

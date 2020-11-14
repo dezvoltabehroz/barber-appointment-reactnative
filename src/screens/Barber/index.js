@@ -7,7 +7,7 @@ import _BarberHome from './Home';
 import _BarberResume from './Resume';
 import _BarberPortfolio from './Portfolio';
 import _BarberServices from './Services';
-import _BarberPriceAndTime from './PriceAndTime';
+import _BarberEditServices from './BarberEditServices';
 import _BarberWorkingDays from './WorkingDays';
 import _BarberScheduleTime from './ScheduleTime';
 import _BarberServiceAccept from './BarberServiceAccept';
@@ -34,7 +34,7 @@ export const BarberScreenPaths = {
     BarberResume: _BarberResume,
     BarberPortfolio: _BarberPortfolio,
     BarberServices: _BarberServices,
-    BarberPriceAndTime: _BarberPriceAndTime,
+    BarberEditServices: _BarberEditServices,
     BarberWorkingDays: _BarberWorkingDays,
     BarberScheduleTime: _BarberScheduleTime,
     BarberServiceAccept: _BarberServiceAccept,

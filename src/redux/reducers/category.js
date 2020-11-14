@@ -2,7 +2,8 @@ import {
     CATEGORIES_SUCCESS,
     SERVICES_SUCCESS,
     SUB_CATEGORIES_SUCCESS,
-    LOADING_CATEGORIES_SUCCESS
+    LOADING_CATEGORIES_SUCCESS,
+    ALL_SERVICES_SUCCESS
 } from '../types';
 
 const initialState = {
@@ -37,8 +38,13 @@ const categories = (state = initialState, action) => {
             return {
                 ...state,
                 loading: action.loading
+            };
+        case ALL_SERVICES_SUCCESS:
+            return {
+                ...state,
+                loading: action.loading,
+                vendorServices: action.vendorServices
             }
-
         default:
             return state;
     }
