@@ -160,7 +160,6 @@ class PersonalInfo extends Component {
                         .catch((err) => {
                             console.log(err)
                         })
-
                 }
                 else {
                     Barbers.uploadBarberPassport(userData)
@@ -172,7 +171,6 @@ class PersonalInfo extends Component {
                         .catch((err) => {
                             console.log(err)
                         })
-
                 }
             })
     };
