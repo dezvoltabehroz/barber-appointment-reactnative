@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, Alert, ScrollView, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, Alert, ScrollView } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 import { Icon, FloatingInput, Button, DateTime, RadioButton, FooterButton, SearchandMapView } from '../../../components'
 import styles from './style';
@@ -11,7 +11,9 @@ import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoder';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { set } from 'react-native-reanimated';
+import Modal from 'react-native-modal';
+import { ActivityIndicator } from 'react-native';
+
 class EditProfile extends Component {
     constructor(props) {
         super(props);
@@ -31,7 +33,8 @@ class EditProfile extends Component {
             showDatePicker: false,
             modalView: false,
             submit: false,
-            gender: 'Male'
+            gender: 'Male',
+            uploading: false
         };
     }
 
@@ -51,8 +54,9 @@ class EditProfile extends Component {
         }
     }
 
-    handleNext = () => {
+    handleNext = async () => {
         console.log("Handle Next Edit ===>")
+        this.setState({ uploading: true })
         const { onNext } = this.props;
         let { name, profile_Url, dob, gender } = this.state;
         let userData = {
@@ -66,7 +70,8 @@ class EditProfile extends Component {
         }
         this.setState({ submit: true });
         if (name && gender && dob) {
-            onNext(userData);
+            await onNext(userData);
+            // this.setState({ uploading: false })
         }
     };
 
@@ -139,85 +144,89 @@ class EditProfile extends Component {
 
     render() {
         const { onNext } = this.props;
-        const { isNameFocus, name, submit, date, showDatePicker, gender, dob } = this.state;
+        const { isNameFocus, name, submit, date, showDatePicker, gender, dob, uploading } = this.state;
 
         return (
+            <>
+                <View style={styles.container}>
+                    <View><Text style={styles.headerTitleStyle}>Edit Profile</Text></View>
+                    <View style={styles.upperContainer}>
+                        <ScrollView>
+                            <View style={styles.imageContainer}>
+                                <ImageBackground style={styles.imageStyle} resizeMode="contain" source={require('../../../assets/images/decor.png')}>
+                                    <View style={styles.avatarContainer}>
+                                        <Avatar
+                                            avatarStyle={styles.avatarStyle}
+                                            source={this.state.avatar != '' ? { uri: this.state.avatar } : require('../../../assets/images/avatar.png')}
+                                            rounded
+                                            size={120} />
+                                        <TouchableOpacity onPress={this.chooseFile}>
+                                            <Text style={styles.profileTextStyle}>Choose Profile Photo</Text>
+                                        </TouchableOpacity>
+                                    </View>
 
-            <View style={styles.container}>
-                <View><Text style={styles.headerTitleStyle}>Edit Profile</Text></View>
-                <View style={styles.upperContainer}>
-                    <ScrollView>
-                        <View style={styles.imageContainer}>
-                            <ImageBackground style={styles.imageStyle} resizeMode="contain" source={require('../../../assets/images/decor.png')}>
-                                <View style={styles.avatarContainer}>
-                                    <Avatar
-                                        avatarStyle={styles.avatarStyle}
-                                        source={this.state.avatar != '' ? { uri: this.state.avatar } : require('../../../assets/images/avatar.png')}
-                                        rounded
-                                        size={120} />
-                                    <TouchableOpacity onPress={this.chooseFile}>
-                                        <Text style={styles.profileTextStyle}>Choose Profile Photo</Text>
-                                    </TouchableOpacity>
-                                </View>
-
-                            </ImageBackground>
-                        </View>
-                        <View style={styles.lowerContainer}>
-                            <View style={{ marginHorizontal: '10%', }}>
-                                <View style={[styles.inputContainerStyle,
-                                isNameFocus || name != '' ? THEME.inputBorder : {}]}>
-                                    <FloatingInput
-                                        val={name}
-                                        onActive={() => this.setState({ isNameFocus: true })}
-                                        onInActive={() => this.setState({ isNameFocus: false })}
-                                        label='Your Name' iconInput updateText={(name) => this.setState({ name })} />
-                                    <Icon.Feather name='user' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
-                                </View>
-                                {
-                                    submit && !name ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
-                                }
+                                </ImageBackground>
                             </View>
-
-                            <RadioButton gender
-                                option1={this.state.male} option2={this.state.female}
-                                option1Text="Male" option2Text="Female"
-                                onPressOption1={() => this.setState({ gender: 'Male', male: true, female: false })}
-                                onPressOption2={() => this.setState({ gender: 'Female', female: true, male: false })} />
-                            <View>
-                                <View style={{ marginHorizontal: '10%' }}>
-                                    <TouchableOpacity onPress={() => this.setState({ showDatePicker: true })}>
-                                        <View style={[styles.dateContainer,
-                                        showDatePicker || date != '' ? THEME.inputBorder : {}]}>
-                                            <Text style={[styles.dateTextStyle, date ? { color: THEME.COLOR_BLACK } : {}]}>{date && date != "" ? date : "Date of Birth"}</Text>
-                                        </View>
-                                    </TouchableOpacity>
-
-                                </View>
-                                <View style={{ marginHorizontal: '10%' }}>
+                            <View style={styles.lowerContainer}>
+                                <View style={{ marginHorizontal: '10%', }}>
+                                    <View style={[styles.inputContainerStyle,
+                                    isNameFocus || name != '' ? THEME.inputBorder : {}]}>
+                                        <FloatingInput
+                                            val={name}
+                                            onActive={() => this.setState({ isNameFocus: true })}
+                                            onInActive={() => this.setState({ isNameFocus: false })}
+                                            label='Your Name' iconInput updateText={(name) => this.setState({ name })} />
+                                        <Icon.Feather name='user' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
+                                    </View>
                                     {
-                                        submit && !date ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
+                                        submit && !name ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
                                     }
                                 </View>
 
-                                {/* {showDatePicker ? */}
-                                <DateTimePickerModal
-                                    isVisible={this.state.showDatePicker}
-                                    mode="date"
-                                    minimumDate={new Date(1950, 0, 1)}
-                                    onConfirm={this.handleConfirm}
-                                    onCancel={this.hideDatePicker}
-                                />
-                                {/* : null} */}
-                            </View>
-                        </View>
-                    </ScrollView>
-                </View>
-                <FooterButton disabled={gender && name && dob && date ? false : true} loading={this.props.user.loading} title="Update Profile"
-                    onPress={this.handleNext}
-                />
-            </View>
+                                <RadioButton gender
+                                    option1={this.state.male} option2={this.state.female}
+                                    option1Text="Male" option2Text="Female"
+                                    onPressOption1={() => this.setState({ gender: 'Male', male: true, female: false })}
+                                    onPressOption2={() => this.setState({ gender: 'Female', female: true, male: false })} />
+                                <View>
+                                    <View style={{ marginHorizontal: '10%' }}>
+                                        <TouchableOpacity onPress={() => this.setState({ showDatePicker: true })}>
+                                            <View style={[styles.dateContainer,
+                                            showDatePicker || date != '' ? THEME.inputBorder : {}]}>
+                                                <Text style={[styles.dateTextStyle, date ? { color: THEME.COLOR_BLACK } : {}]}>{date && date != "" ? date : "Date of Birth"}</Text>
+                                            </View>
+                                        </TouchableOpacity>
 
-        );
+                                    </View>
+                                    <View style={{ marginHorizontal: '10%' }}>
+                                        {
+                                            submit && !date ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
+                                        }
+                                    </View>
+
+                                    {/* {showDatePicker ? */}
+                                    <DateTimePickerModal
+                                        isVisible={this.state.showDatePicker}
+                                        mode="date"
+                                        minimumDate={new Date(1950, 0, 1)}
+                                        onConfirm={this.handleConfirm}
+                                        onCancel={this.hideDatePicker}
+                                    />
+                                    {/* : null} */}
+                                </View>
+                            </View>
+                        </ScrollView>
+                    </View>
+                    <FooterButton disabled={gender && name && dob && date ? false : true} title="Update Profile"
+                        onPress={this.handleNext}
+                    />
+                </View>
+                <Modal isVisible={uploading}>
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <ActivityIndicator size={60} />
+                    </View>
+                </Modal>
+            </>);
     }
 }
 
