@@ -3,7 +3,7 @@ import { View, Text, Image, Alert, TouchableOpacity, ActivityIndicator, ScrollVi
 import { FooterButton, Button, Icon } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
-import ImageView from 'react-native-image-crop-picker';
+import ImageView from 'react-native-image-view';
 import { connect } from 'react-redux';
 import { Barbers } from '../../../services';
 import ImagePicker from 'react-native-image-crop-picker'
@@ -138,78 +138,7 @@ class PersonalInfo extends Component {
         this.setState({ selectActions: false, selectedArray: [], passportImage: passportArray, drivingLicense: drivingLicenceArray })
     }
 
-    _renderSeparator = () => {
-        return (
-            <View style={styles.seperatorStyle}></View>
-        )
-    }
 
-    _renderItems = (image, index) => {
-        const { selectActions } = this.state;
-        return (
-            <>
-                <View style={styles.gapHeight}></View>
-                <TouchableOpacity onLongPress={() => this.setState({ selectActions: true })} style={{ marginHorizontal: 4 }} onPress={() => {
-                    this.setState({ isImageViewVisible: true })
-                }}>
-                    <Image source={{ uri: image.file_name }} resizeMode='cover' style={styles.imageStyle} />
-                    {
-                        selectActions ?
-                            <TouchableOpacity style={{ position: 'absolute', flexDirection: "row", justifyContent: 'flex-end', marginRight: '5%', marginTop: '5%' }}
-                                onPress={() => this.handleSelection(index)}>
-                                <Icon.MaterialCommunityIcons
-                                    name={image.is_selected == true ? 'checkbox-marked-circle' : 'checkbox-blank-circle-outline'}
-                                    color={THEME.PRIMARY_COLOR} size={THEME.ICON_SIZE} />
-                            </TouchableOpacity>
-                            :
-                            null
-                    }
-                </TouchableOpacity>
-                <ImageView
-                    // image
-                    image={{ uri: image.file_name }}
-                    imageIndex={0}
-                    isVisible={this.state.isImageViewVisible}
-                    isSwipeCloseEnabled={true}
-                    onClose={() => { this.setState({ isImageViewVisible: false }) }}
-                />
-            </>
-        )
-    }
-
-    _renderPassportItems = (image, index) => {
-        const { selectActions } = this.state;
-        console.log(image)
-        return (
-            <>
-                <View style={styles.seperatorStyle}></View>
-                <TouchableOpacity onLongPress={() => this.setState({ selectActions: true })} style={{ marginHorizontal: 4 }} onPress={() => {
-                    this.setState({ isImageViewVisiblePassport: true })
-                }}>
-                    <Image source={{ uri: image.file_name }} resizeMode='cover' style={styles.imageStyle} />
-                    {
-                        selectActions ?
-                            <TouchableOpacity style={{ position: 'absolute', flexDirection: "row", justifyContent: 'flex-end', marginRight: '5%', marginTop: '5%' }}
-                                onPress={() => this.handleSelection(image, index)}>
-                                <Icon.MaterialCommunityIcons
-                                    name={image.is_selected == true ? 'checkbox-marked-circle' : 'checkbox-blank-circle-outline'}
-                                    color={THEME.PRIMARY_COLOR} size={THEME.ICON_SIZE} />
-                            </TouchableOpacity>
-                            :
-                            null
-                    }
-                </TouchableOpacity>
-                <ImageView
-                    // image
-                    images={imageURLs}
-                    imageIndex={0}
-                    isVisible={this.state.isImageViewVisiblePassport}
-                    isSwipeCloseEnabled={true}
-                    onClose={() => { this.setState({ isImageViewVisiblePassport: false }) }}
-                />
-            </>
-        )
-    }
 
     takePics = (value) => {
         ImagePicker.openPicker({
@@ -218,6 +147,7 @@ class PersonalInfo extends Component {
             compressImageMaxWidth: 400, cropping: true, multiple: true
         })
             .then(response => {
+                this.setState({ loading: true })
                 let userData = {
                     id: this.props.user.userData.id,
                     images: response
@@ -252,6 +182,11 @@ class PersonalInfo extends Component {
         const { onNext } = this.props;
         const { passportImage, drivingLicense, selectActions, loading, selectedArray } = this.state;
         const imageURLs: Array<Object> = drivingLicense.map((img: Object, index: number) => ({
+            source: { uri: img.file_name },
+            title: img + index,
+            width: 806
+        }))
+        const imagePassportURLs: Array<Object> = passportImage.map((img: Object, index: number) => ({
             source: { uri: img.file_name },
             title: img + index,
             width: 806
@@ -291,7 +226,7 @@ class PersonalInfo extends Component {
                                                                     <>
                                                                         <View style={styles.seperatorStyle}></View>
                                                                         <TouchableOpacity onLongPress={() => this.setState({ selectActions: true })} style={{ marginHorizontal: 4, marginTop: 10 }} onPress={() => {
-                                                                            this.setState({ isImageViewVisiblePassport: true })
+                                                                            this.setState({ isImageViewVisible: true })
                                                                         }}>
                                                                             <Image source={{ uri: image.file_name }} resizeMode='cover' style={styles.imageStyle} />
                                                                             {
@@ -311,6 +246,14 @@ class PersonalInfo extends Component {
                                                             })
                                                         }
                                                     </View>
+                                                    <ImageView
+                                                        // image
+                                                        images={imageURLs}
+                                                        imageIndex={0}
+                                                        isVisible={this.state.isImageViewVisible}
+                                                        isSwipeCloseEnabled={true}
+                                                        onClose={() => { this.setState({ isImageViewVisible: false }) }}
+                                                    />
                                                 </>
                                                 :
                                                 null
@@ -360,14 +303,14 @@ class PersonalInfo extends Component {
                                                             })
                                                         }
                                                     </View>
-                                                    {/* <ImageView
+                                                    <ImageView
                                                         // image
-                                                        images={imageURLs}
+                                                        images={imagePassportURLs}
                                                         imageIndex={0}
                                                         isVisible={this.state.isImageViewVisiblePassport}
                                                         isSwipeCloseEnabled={true}
                                                         onClose={() => { this.setState({ isImageViewVisiblePassport: false }) }}
-                                                    /> */}
+                                                    />
                                                 </>
                                                 :
                                                 null
