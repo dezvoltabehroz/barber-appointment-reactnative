@@ -121,7 +121,7 @@ class Portfolio extends Component {
     }
 
     deletePortfolios = () => {
-        Alert.alert('Attension', 'Are you sure you want to delete videos',
+        Alert.alert('Attension', 'Are you sure you want to delete portfolios',
             [
                 {
                     text: "Cancel",

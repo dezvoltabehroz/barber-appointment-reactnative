@@ -116,7 +116,21 @@ class PriceAndTime extends Component {
     }
 
     on_Press_Delete = (itemData, index) => {
-       
+        Alert.alert('Attension', 'Are you sure you want to delete service',
+            [
+                {
+                    text: "Cancel",
+                    // onPress: () => this.handleCancel(),
+                    style: "cancel"
+                },
+                { text: "OK", onPress: () => this.handleDeleteService() }
+            ],
+
+        );
+    }
+
+    handleDeleteService = () => {
+
         let userData = {
             id: this.props.user.userData.id,
             token: this.props.user.userData.token,

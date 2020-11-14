@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, Alert, Modal } from 'react-native';
-import { FooterButton, FloatingInput,Button, DateTimeModal, Icon, } from '../../../components';
+import { FooterButton, FloatingInput, Button, DateTimeModal, Icon, } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -30,7 +30,8 @@ export default class PriceAndTime extends Component {
         }
     }
     componentDidMount = () => {
-        let serviceArray = this.props.data;
+        let serviceArray = [...this.props.data];
+        serviceArray.push({ serviceCounter: 0 })
         this.setState({ selectedArray: serviceArray })
 
     }
@@ -48,7 +49,7 @@ export default class PriceAndTime extends Component {
         const objIndex = this.state.selectedArray.findIndex((obj => obj.id == item.id));
         let items = [...this.state.selectedArray];
         items[objIndex] = { ...items[objIndex], time: data };
-        this.setState({ showTimePicker: false, selectedArray: items,  });
+        this.setState({ showTimePicker: false, selectedArray: items, });
         this.is_filled_check(items, objIndex)
     }
 
@@ -89,8 +90,8 @@ export default class PriceAndTime extends Component {
         // let selectedArray = [...this.state.selectedArray];
         // let item = { ...selectedArray[index], price: '', time: '', isFilled: '' };
         // selectedArray[index] = item;
-        // let newServiceCounter = selectedArray[selectedArray.length - 1].serviceCounter - 1;
-        // selectedArray[selectedArray.length - 1] = { ...selectedArray[selectedArray.length - 1], serviceCounter: newServiceCounter };
+        let newServiceCounter = selectedArray[selectedArray.length - 1].serviceCounter - 1;
+        selectedArray[selectedArray.length - 1] = { ...selectedArray[selectedArray.length - 1], serviceCounter: newServiceCounter };
         // this.setState({ selectedArray });
         this.setState({ item, index })
         setTimeout(() => {
@@ -181,8 +182,10 @@ export default class PriceAndTime extends Component {
         const { selectedArray } = this.state;
         let counter = (selectedArray[(selectedArray.length - 1)].serviceCounter);
         let length = (selectedArray.length - 1);
+        console.log(counter, length)
         if (counter === length) {
-            onNext();
+            // onNext();
+            Alert.alert('Attention', 'Next Screen is UnderDEvelopment ')
             this.setState({ submit: false })
         }
         else {

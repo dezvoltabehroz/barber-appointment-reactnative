@@ -125,7 +125,7 @@ class Resume extends Component {
     }
 
     deleteResume = () => {
-        Alert.alert('Attension', 'Are you sure you want to delete videos',
+        Alert.alert('Attension', 'Are you sure you want to delete resumes',
             [
                 {
                     text: "Cancel",

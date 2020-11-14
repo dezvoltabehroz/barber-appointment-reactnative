@@ -126,7 +126,7 @@ class Certification extends Component {
     }
 
     deleteCertificates = () => {
-        Alert.alert('Attension', 'Are you sure you want to delete videos',
+        Alert.alert('Attension', 'Are you sure you want to delete certifications',
             [
                 {
                     text: "Cancel",
