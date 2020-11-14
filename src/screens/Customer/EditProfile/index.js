@@ -24,7 +24,7 @@ class EditProfile extends Component {
             isLocationFocus: false,
             profile_Url: null,
             data: "HI HOW are you",
-            avatar: null,
+            avatar: '',
             location: '',
             date: '',
             dob: '',
