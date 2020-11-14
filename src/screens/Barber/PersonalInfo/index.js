@@ -136,7 +136,39 @@ class PersonalInfo extends Component {
         this.setState({ selectActions: false, selectedArray: [], passportImage: passportArray, drivingLicense: drivingLicenceArray })
     }
 
+    _renderItems = (image, index, value) => {
+        const { selectActions } = this.state;
+        return (
+            <>
+                <View style={styles.gapHeight}></View>
+                <TouchableOpacity onLongPress={() => this.setState({ selectActions: true })} style={{ marginHorizontal: 4 }} onPress={() => {
+                    if (value == 'driver')
+                        this.setState({ isImageViewVisible: true })
+                    else if (value == 'passport')
+                        this.setState({ isImageViewVisiblePassport: true })
+                }}>
+                    <Image source={{ uri: image.file_name }} resizeMode='cover' style={styles.imageStyle} />
+                    {
+                        selectActions ?
+                            <TouchableOpacity style={{ position: 'absolute', flexDirection: "row", justifyContent: 'flex-end', marginRight: '5%', marginTop: '5%' }}
+                                onPress={() => this.handleSelection(index)}>
+                                <Icon.MaterialCommunityIcons
+                                    name={image.is_selected == true ? 'checkbox-marked-circle' : 'checkbox-blank-circle-outline'}
+                                    color={THEME.PRIMARY_COLOR} size={THEME.ICON_SIZE} />
+                            </TouchableOpacity>
+                            :
+                            null
+                    }
+                </TouchableOpacity>
+            </>
+        )
+    }
 
+    _renderSeparator = () => {
+        return (
+            <View style={styles.seperatorStyle}></View>
+        )
+    }
 
     takePics = (value) => {
         ImagePicker.openPicker({
@@ -213,36 +245,18 @@ class PersonalInfo extends Component {
                                         </View>
                                         {
                                             drivingLicense != null ?
+
                                                 <>
-                                                    <View style={styles.contentContainerStyle}>
-                                                        {
-                                                            drivingLicense.map((image, index) => {
-                                                                return (
-                                                                    <>
-                                                                        <View style={styles.seperatorStyle}></View>
-                                                                        <TouchableOpacity onLongPress={() => this.setState({ selectActions: true })} style={{ marginHorizontal: 4, marginTop: 10 }} onPress={() => {
-                                                                            this.setState({ isImageViewVisible: true })
-                                                                        }}>
-                                                                            <Image source={{ uri: image.file_name }} resizeMode='cover' style={styles.imageStyle} />
-                                                                            {
-                                                                                selectActions ?
-                                                                                    <TouchableOpacity style={{ position: 'absolute', flexDirection: "row", justifyContent: 'flex-end', marginRight: '5%', marginTop: '5%' }}
-                                                                                        onPress={() => this.handleSelection(image, index)}>
-                                                                                        <Icon.MaterialCommunityIcons
-                                                                                            name={image.is_selected == true ? 'checkbox-marked-circle' : 'checkbox-blank-circle-outline'}
-                                                                                            color={THEME.PRIMARY_COLOR} size={THEME.ICON_SIZE} />
-                                                                                    </TouchableOpacity>
-                                                                                    :
-                                                                                    null
-                                                                            }
-                                                                        </TouchableOpacity>
-                                                                    </>
-                                                                )
-                                                            })
-                                                        }
-                                                    </View>
+                                                    <FlatList
+                                                        data={drivingLicense}
+                                                        numColumns={3}
+                                                        showsVerticalScrollIndicator={false}
+                                                        contentContainerStyle={styles.contentContainerStyle}
+                                                        ItemSeparatorComponent={this._renderSeparator}
+                                                        renderItem={({ item, index }) => this._renderItems(item, index, 'driver')}
+                                                        keyExtractor={item => item}
+                                                    />
                                                     <ImageView
-                                                        // image
                                                         images={imageURLs}
                                                         imageIndex={0}
                                                         isVisible={this.state.isImageViewVisible}
@@ -250,6 +264,8 @@ class PersonalInfo extends Component {
                                                         onClose={() => { this.setState({ isImageViewVisible: false }) }}
                                                     />
                                                 </>
+
+
                                                 :
                                                 null
                                         }
@@ -271,33 +287,15 @@ class PersonalInfo extends Component {
                                         {
                                             passportImage != null ?
                                                 <>
-                                                    <View style={styles.contentContainerStyle}>
-                                                        {
-                                                            passportImage.map((image, index) => {
-                                                                return (
-                                                                    <>
-                                                                        <View style={styles.seperatorStyle}></View>
-                                                                        <TouchableOpacity onLongPress={() => this.setState({ selectActions: true })} style={{ marginHorizontal: 4, marginTop: 10 }} onPress={() => {
-                                                                            this.setState({ isImageViewVisiblePassport: true })
-                                                                        }}>
-                                                                            <Image source={{ uri: image.file_name }} resizeMode='cover' style={styles.imageStyle} />
-                                                                            {
-                                                                                selectActions ?
-                                                                                    <TouchableOpacity style={{ position: 'absolute', flexDirection: "row", justifyContent: 'flex-end', marginRight: '5%', marginTop: '5%' }}
-                                                                                        onPress={() => this.handleSelection(image, index)}>
-                                                                                        <Icon.MaterialCommunityIcons
-                                                                                            name={image.is_selected == true ? 'checkbox-marked-circle' : 'checkbox-blank-circle-outline'}
-                                                                                            color={THEME.PRIMARY_COLOR} size={THEME.ICON_SIZE} />
-                                                                                    </TouchableOpacity>
-                                                                                    :
-                                                                                    null
-                                                                            }
-                                                                        </TouchableOpacity>
-                                                                    </>
-                                                                )
-                                                            })
-                                                        }
-                                                    </View>
+                                                    <FlatList
+                                                        data={passportImage}
+                                                        numColumns={3}
+                                                        showsVerticalScrollIndicator={false}
+                                                        contentContainerStyle={styles.contentContainerStyle}
+                                                        ItemSeparatorComponent={this._renderSeparator}
+                                                        renderItem={({ item, index }) => this._renderItems(item, index, 'passport')}
+                                                        keyExtractor={item => item}
+                                                    />
                                                     <ImageView
                                                         // image
                                                         images={imagePassportURLs}

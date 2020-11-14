@@ -43,7 +43,9 @@ export default StyleSheet.create({
         flexDirection: 'column'
     },
     imageStyle: {
-        height: 100, width: 100, borderRadius: 15
+        height:screenWidth * 0.29,
+        width: screenWidth * 0.29,
+         borderRadius: 15
     },
     iconContainer: {
         flex: 0.2,

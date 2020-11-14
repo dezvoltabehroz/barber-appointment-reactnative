@@ -142,10 +142,13 @@ class UpdateProfile extends Component {
                                         avatarStyle={styles.avatarStyle}
                                         source={this.state.avatar ? this.state.avatar : require('../../../assets/images/avatar.png')}
                                         rounded
+                                        accessory={{ name: 'ios-camera', type: 'ionicon', color: '#fff', underlayColor: '#000', iconStyle: { fontSize: 20 } }}
+                                        showAccessory={true}
+                                        onAccessoryPress={this.chooseFile}
                                         size={120} />
-                                    <TouchableOpacity onPress={this.chooseFile}>
+                                    {/* <TouchableOpacity onPress={this.chooseFile}>
                                         <Text style={styles.profileTextStyle}>Choose Profile Photo</Text>
-                                    </TouchableOpacity>
+                                    </TouchableOpacity> */}
                                 </View>
 
                             </ImageBackground>

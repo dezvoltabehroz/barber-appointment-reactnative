@@ -8,7 +8,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '15%'
+        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '20%'
     },
     buttonContainer: {
         marginHorizontal: '10%'
@@ -46,8 +46,8 @@ export default StyleSheet.create({
         paddingHorizontal: "4%"
     },
     imageStyle: {
-        height: 100,
-        width: 100,
+        height:screenWidth * 0.29,
+        width: screenWidth * 0.29,
         borderRadius: 15
     },
     renderImageStyle: {
