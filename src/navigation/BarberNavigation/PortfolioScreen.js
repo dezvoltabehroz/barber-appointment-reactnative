@@ -9,28 +9,10 @@ class PortfolioScreen extends Component {
 
     })
 
-    handleUploadPortfolio = (data) => {
-        const { navigate, goBack } = this.props.navigation
-        let userData = {
-            id: this.props.user.userData.id,
-            images: data
-        }
-        Barbers.uploadBarberPortfolio(userData)
-            .then((res) => {
-                if (res.data.status) {
-                    goBack();
-                    console.log(res.data);
-                }
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }
-
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Barber.BarberPortfolio onNext={(data) => this.handleUploadPortfolio(data)} />
+            <MainScreenPaths.Barber.BarberPortfolio  />
         )
     }
 }

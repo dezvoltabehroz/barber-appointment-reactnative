@@ -170,7 +170,6 @@ class Resume extends Component {
     }
 
     render() {
-        const { onNext } = this.props;
         const { resume, selectedArray, loading, selectActions } = this.state;
         const imageURLs: Array<Object> = resume.map((img: Object, index: number) => ({
             source: { uri: img.file_name },

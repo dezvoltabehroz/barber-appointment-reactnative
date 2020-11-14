@@ -171,7 +171,6 @@ class Certification extends Component {
     }
 
     render() {
-        const { onNext } = this.props;
         const { imageCertification, selectedArray, loading, selectActions } = this.state;
         const imageURLs: Array<Object> = imageCertification.map((img: Object, index: number) => ({
             source: { uri: img.file_name },

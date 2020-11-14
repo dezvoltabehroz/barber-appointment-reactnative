@@ -32,7 +32,6 @@ class AddPriceAndTime extends Component {
     }
     componentDidMount = () => {
         let serviceArray = [...this.props.data];
-        console.log('Array', serviceArray)
         this.setState({ selectedArray: serviceArray })
 
     }
@@ -199,7 +198,6 @@ class AddPriceAndTime extends Component {
         const { selectedArray } = this.state;
         let counter = (selectedArray[(selectedArray.length - 1)].serviceCounter);
         let length = (selectedArray.length - 1);
-        console.log(length, counter)
         let array = [];
         selectedArray.forEach((item, index) => {
             if (index == (selectedArray.length - 1)) {
@@ -217,11 +215,9 @@ class AddPriceAndTime extends Component {
             token: this.props.user.userData.token,
             services: array
         }
-        console.log(userData)
         if (counter === length) {
             Barbers.addBarberService(userData)
                 .then((res) => {
-                    console.log(res.data)
                     if (res.data.status) {
                         this.props.addService()
                     }

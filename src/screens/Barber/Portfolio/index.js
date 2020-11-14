@@ -166,7 +166,6 @@ class Portfolio extends Component {
     }
 
     render() {
-        const { onNext } = this.props;
         const { portfolioImagesArray, imagestoUpload, loading, selectedArray, selectActions } = this.state;
         const imageURLs: Array<Object> = portfolioImagesArray.map((img: Object, index: number) => ({
             source: { uri: img.file_name },

@@ -179,7 +179,6 @@ class PersonalInfo extends Component {
             })
     };
     render() {
-        const { onNext } = this.props;
         const { passportImage, drivingLicense, selectActions, loading, selectedArray } = this.state;
         const imageURLs: Array<Object> = drivingLicense.map((img: Object, index: number) => ({
             source: { uri: img.file_name },
