@@ -43,8 +43,6 @@ class PersonalInfo extends Component {
                             passportArr.push(arr[index])
                         }
                     })
-                    console.log('driving', drivingLicenseArr)
-                    console.log('passport', passportArr)
                     this.setState({ drivingLicense: drivingLicenseArr, passportImage: passportArr, loading: false, selectActions: false, selectedArray: [] })
                 }
             })
