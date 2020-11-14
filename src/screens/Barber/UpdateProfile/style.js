@@ -7,7 +7,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' ? '30%' : '20%'
+        paddingTop: Platform.OS == 'ios' ? '20%' : '15%'
     },
     avatarStyle: {
         borderWidth: 1,
@@ -19,7 +19,7 @@ export default StyleSheet.create({
         flex: 0.8,
     },
     imageContainer: {
-        marginTop: '5%',
+        // marginTop: '5%',
         justifyContent: "center",
         alignItems: 'center'
     },
