@@ -70,7 +70,6 @@ class Certification extends Component {
                 <View style={styles.gapHeight}></View>
                 <TouchableOpacity onLongPress={() => this.setState({ selectActions: true })} style={{ marginHorizontal: 4 }} onPress={() => {
                     this.setState({ isImageViewVisible: true })
-                    // Linking.openURL(`${image.file_name}`);
                 }}>
                     <Image source={{ uri: image.file_name }} resizeMode='cover' style={styles.imageStyle} />
                     {
@@ -96,6 +95,7 @@ class Certification extends Component {
             compressImageMaxWidth: 400, cropping: true, multiple: true
         })
             .then(response => {
+                this.setState({ loading: true })
                 let userData = {
                     id: this.props.user.userData.id,
                     images: response
