@@ -7,7 +7,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' ? '25%' : '20%'
+        paddingTop: Platform.OS == 'ios' ? '30%' : '20%'
     },
     avatarStyle: {
         borderWidth: 1,
