@@ -3,7 +3,7 @@ import { View, Text, FlatList, TouchableOpacity, } from 'react-native';
 import THEME from '../../../assets/styles/theme.style'
 import styles from './style'
 import Image from 'react-native-fast-image';
-import { Avatar } from 'react-native-elements';
+import { Avatar, Header } from 'react-native-elements';
 import moment from 'moment'
 class Notification extends Component {
     constructor(props) {
@@ -70,18 +70,26 @@ class Notification extends Component {
     render() {
         const { data } = this.state
         return (
-            <View style={{ flex: 1, paddingTop: '5%', backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, paddingBottom: '1%' }}>
-                <View><Text style={styles.headerTitleStyle}>Notification</Text></View>
-                {data.length == 0 ?
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={styles.headerTitleStyle}>No Record Found</Text></View>
-                    :
-                    <FlatList
-                        data={data}
-                        showsVerticalScrollIndicator={false}
-                        ItemSeparatorComponent={this._renderSeparator}
-                        renderItem={({ item }) => this._renderItems(item)}
-                        keyExtractor={item => item.id} />}
-            </View>
+            <>
+                <Header centerComponent={{ text: 'Notification', style: { fontSize: 16, color: '#fff', fontFamily: 'Poppins-Bold' } }}
+                    containerStyle={{
+                        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
+                        alignItems: 'center',
+                        borderBottomWidth: 0
+                    }} />
+                <View style={{ flex: 1, backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, paddingBottom: '1%' }}>
+
+                    {data.length == 0 ?
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={styles.headerTitleStyle}>No Record Found</Text></View>
+                        :
+                        <FlatList
+                            data={data}
+                            showsVerticalScrollIndicator={false}
+                            ItemSeparatorComponent={this._renderSeparator}
+                            renderItem={({ item }) => this._renderItems(item)}
+                            keyExtractor={item => item.id} />}
+                </View>
+            </>
         )
     }
 }
