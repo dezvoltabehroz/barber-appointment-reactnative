@@ -79,7 +79,6 @@ class Booking extends Component {
             this.setState({ currentPosition: this.state.currentPosition, disabled: false });
         } else {
             if (this.state.currentPosition == 3) {
-                console.log(moment(totalTime, 'hh:mm:ss'))
                 let userData = {
                     token: userdata.token,
                     id: userdata.id,
@@ -98,7 +97,6 @@ class Booking extends Component {
                     is_accepted_time: moment(bookingDate).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? null : moment().format('YYYY-MM-DD') + ' ' + moment().format('HH:mm:ss'),
 
                 }
-                // console.log(userData);
                 BookingServices.makeCustomerBooking(userData)
                     .then((res) => { console.log(res.data) })
                     .catch((err) => { console.log(err) })
@@ -220,7 +218,6 @@ class Booking extends Component {
                                 key="cart"
                                 price={(price) => this.setState({ totalPrice: price }, () => console.log(price))}
                                 time={(time) => this.setState({ totalTime: time }, () => {
-                                    console.log(time)
                                     var h = time / 60 | 0;
                                     var m = time % 60 | 0;
                                     this.setState({ timeInHour: moment.utc().hours(h).minutes(m).format("HH:mm") })

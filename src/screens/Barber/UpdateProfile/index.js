@@ -151,7 +151,6 @@ class UpdateProfile extends Component {
             token: this.props.user.userData.token
         }
         this.setState({ submit: true });
-        console.log(userData)
         if (name && gender && dob && minDistance) {
             onNext(userData);
         }
@@ -262,7 +261,6 @@ class UpdateProfile extends Component {
                                         selectionColor={THEME.PRIMARY_COLOR}
                                         blankColor={THEME.COLOR_GREY}
                                         onValueChanged={(low, high, fromUser) => {
-                                            console.log(low, high)
                                             this.setState({ minDistance: low, maxDistance: high })
                                         }} />
                                 </View>

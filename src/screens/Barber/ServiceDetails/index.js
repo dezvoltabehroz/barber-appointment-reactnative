@@ -35,7 +35,6 @@ class ServiceDetails extends Component {
             // barber_id: this.props.user.userData.id,
             booking_id: this.props.bookingId
         }
-        console.log(userData)
         BookingServices.getBookingDetails(userData)
             .then((res) => {
                 if (res.data.status) {

@@ -51,7 +51,6 @@ class EditProfile extends Component {
                 this.setState({ female: true })
             }
         }
-
         // this.findCoordinates();
     }
 

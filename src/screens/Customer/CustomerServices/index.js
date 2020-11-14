@@ -29,7 +29,6 @@ export default class CustomerServices extends Component {
         BookingServices.getBookingDetails(userData)
             .then((res) => {
                 if (res.data.status) {
-                    console.log(res.data.booking_service_details.services)
                     this.setState({
                         serviceList: res.data.booking_service_details.services,
                         totalPrice: res.data.booking_service_details.booking_price,
@@ -37,7 +36,6 @@ export default class CustomerServices extends Component {
                         bookingDate: userData.bookingDate
                     }, () => {
                         let time = parseInt(moment.duration(res.data.booking_service_details.booking_time_duration).asMinutes())
-                        console.log('Time is that', time)
                         var h = time / 60 | 0;
                         var m = time % 60 | 0;
                         this.setState({ timeInHour: moment.utc().hours(h).minutes(m).format("HH:mm"), loading: false })

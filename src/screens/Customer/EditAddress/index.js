@@ -82,7 +82,6 @@ class EditAddress extends Component {
     handleSaveAndContinue = () => {
         // this.setState({ submit: true })
         const { region, address, label, floor_unit, message, submit } = this.state;
-        console.log(region, address, label, floor_unit, message, submit)
         if (region && address && label && submit) {
             if (this.props.isUserLogged) {
                 let userdata = {
@@ -95,7 +94,6 @@ class EditAddress extends Component {
                     id: this.state.user_id,
                     address_id: this.state.address_id
                 }
-                console.log(userdata)
                 this.props.updateAddress(userdata)
             }
             else{

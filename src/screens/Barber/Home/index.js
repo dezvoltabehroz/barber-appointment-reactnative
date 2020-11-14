@@ -83,7 +83,6 @@ class BarberHome extends Component {
         }
         BookingServices.acceptBookingOfCustomer(userData)
             .then((res) => {
-                console.log(res.data)
                 if (res.data.status) {
                     this.componentDidMount()
                 }
