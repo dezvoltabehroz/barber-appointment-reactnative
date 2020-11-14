@@ -36,22 +36,19 @@ class EditProfile extends Component {
     }
 
     componentDidMount = () => {
-        if (this.props.user.userData != null && this.props.user.userData != 'undefined') {
-            const { full_name, profile_picture, dob, gender } = this.props.user.userData
-            this.setState({
-                name: full_name,
-                avatar: profile_picture,
-                date: moment(dob).format('DD/MM/YYYY'),
-                dob: moment(dob).format('YYYY-MM-DD'),
-            })
-            if (gender == 'Male') {
-                this.setState({ male: true })
-            }
-            else {
-                this.setState({ female: true })
-            }
+        const { full_name, profile_picture, dob, gender } = this.props.user.userData;
+        this.setState({
+            name: full_name,
+            avatar: profile_picture,
+            date: moment(dob).format('DD/MM/YYYY'),
+            dob: moment(dob).format('YYYY-MM-DD'),
+        })
+        if (gender == 'Male') {
+            this.setState({ male: true })
         }
-        // this.findCoordinates();
+        else {
+            this.setState({ female: true })
+        }
     }
 
     handleNext = () => {
