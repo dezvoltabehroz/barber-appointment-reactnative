@@ -66,6 +66,18 @@ const Api = {
             password: userData.password,
         }, config)
     },
+    userStepCount: function (userData) {
+        return axiosInstance.post('/registration/updateStepsCount', {
+            user_id: userData.id,
+            steps_count: userData.steps_count
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + userData.token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+    }
 };
 
 export default Api;

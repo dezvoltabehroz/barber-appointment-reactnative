@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { MainScreenPaths } from '../../screens';
 
-export default class PriceAndTimeScreen extends Component {
+export default class BarberEditServicesScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     })

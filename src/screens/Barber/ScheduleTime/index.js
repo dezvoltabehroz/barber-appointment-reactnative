@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { FooterButton, Icon, DateTimeModal } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
 import COMMON_STYLE from '../../../assets/styles/common.style';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Calendar } from 'react-native-calendars';
-
-export default class ScheduleTime extends Component {
+import { Barbers, RegisterUser } from '../../../services';
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { authActions } from '../../../redux/actions/auth';
+class ScheduleTime extends Component {
 
     constructor(props) {
         super(props);
@@ -17,13 +20,29 @@ export default class ScheduleTime extends Component {
             indexValue: '',
             item: '',
             val: '',
-            submit: false
+            submit: false,
+            loading: false,
+            buttonLoading: false
         }
     }
 
     componentDidMount = () => {
-        let daysArray = this.props.data;
-        this.setState({ selectedDays: daysArray })
+        this.setState({ loading: true, });
+        let userData = {
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token
+        }
+        Barbers.getBarberWorkingDays(userData)
+            .then((res) => {
+                if (res.data.status) {
+                    let myArray = [...res.data.data]
+                    myArray.map((item, index) => {
+                        myArray[index] = { ...myArray[index], isFilled: '0', startTime: '', endTime: '', }
+                    });
+                    myArray.push({ dayCounter: 0 })
+                    this.setState({ selectedDays: myArray, loading: false })
+                }
+            })
     }
 
     setStartTime = (index, item) => {
@@ -171,14 +190,43 @@ export default class ScheduleTime extends Component {
     }
 
     on_Press_Next = () => {
-        this.setState({ submit: true })
+        this.setState({ submit: true, buttonLoading: true })
         const { onNext } = this.props;
+        let days = [];
         const { selectedDays } = this.state;
         let counter = (selectedDays[(selectedDays.length - 1)].dayCounter);
         let length = selectedDays.length - 1;
 
         if (counter === length) {
-            onNext();
+            // onNext();
+            selectedDays.forEach((item, index) => {
+                days.push({
+                    schedule_id: item.id,
+                    start_time: item.startTime,
+                    end_time: item.endTime
+                })
+            })
+            let userData = {
+                id: this.props.user.userData.id,
+                token: this.props.user.userData.token,
+                steps_count: 4,
+                working_days: days
+            }
+            Barbers.updateWorkingDaysTime(userData)
+                .then((res) => {
+                    console.log(res.data)
+                    if (res.data.status) {
+                        RegisterUser.userStepCount(userData)
+                            .then((res) => {
+                                if (res.data.status) {
+                                    this.props.authActions.getUserProfile(userData, this.props.navigate);
+                                    this.setState({ buttonLoading: false })
+                                }
+                            })
+                            .catch(err => console.log(err))
+                    }
+                })
+                .catch((err) => console.log(err))
             this.setState({ submit: false })
         }
         else {
@@ -189,33 +237,38 @@ export default class ScheduleTime extends Component {
 
     render() {
         const { onNext } = this.props;
-        const { selectedDays, showTimePicker, } = this.state;
+        const { selectedDays, showTimePicker, loading, buttonLoading } = this.state;
         return (
             <>
                 <View style={styles.container}>
-
-                    <View style={styles.upperContainer}>
-                        <KeyboardAwareScrollView>
-                            {selectedDays.length == 0 || selectedDays[0].startTime != '' || selectedDays[0].endTime != '' ?
-                                <View style={styles.headingContainer}>
-                                    <View style={styles.dayContainer}>
-                                        <Text style={styles.headingTextStyle}>Days</Text>
-                                    </View>
-                                    <View style={styles.startTimeContainer} >
-                                        <Text style={styles.headingTextStyle}>Start Time</Text>
-                                    </View>
-                                    <View style={styles.endTimeContainer}>
-                                        <Text style={styles.headingTextStyle}>End Time</Text>
-                                    </View>
-                                    <View style={[styles.iconContainer]}></View>
-                                </View> : null}
-                            <FlatList
-                                data={selectedDays}
-                                showsVerticalScrollIndicator={false}
-                                ItemSeparatorComponent={this._renderSeparator}
-                                renderItem={({ item, index }) => this._renderItems({ item, index })}
-                                keyExtractor={item => item} />
-                            <Calendar
+                    {
+                        loading ?
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <ActivityIndicator />
+                            </View>
+                            :
+                            <View style={styles.upperContainer}>
+                                <KeyboardAwareScrollView>
+                                    {selectedDays.length == 0 || selectedDays[0].startTime != '' || selectedDays[0].endTime != '' ?
+                                        <View style={styles.headingContainer}>
+                                            <View style={styles.dayContainer}>
+                                                <Text style={styles.headingTextStyle}>Days</Text>
+                                            </View>
+                                            <View style={styles.startTimeContainer} >
+                                                <Text style={styles.headingTextStyle}>Start Time</Text>
+                                            </View>
+                                            <View style={styles.endTimeContainer}>
+                                                <Text style={styles.headingTextStyle}>End Time</Text>
+                                            </View>
+                                            <View style={[styles.iconContainer]}></View>
+                                        </View> : null}
+                                    <FlatList
+                                        data={selectedDays}
+                                        showsVerticalScrollIndicator={false}
+                                        ItemSeparatorComponent={this._renderSeparator}
+                                        renderItem={({ item, index }) => this._renderItems({ item, index })}
+                                        keyExtractor={item => item} />
+                                    {/* <Calendar
                                 minDate={new Date()}
                                 maxDate={new Date().setDate(new Date().getDate() + 30)}
                                 onDayPress={(day) => this.handleDayPress(day)}
@@ -238,13 +291,13 @@ export default class ScheduleTime extends Component {
                                     textMonthFontSize: 16,
                                     textDayHeaderFontSize: 10,
                                 }}
-                            />
+                            /> */}
 
 
 
-                        </KeyboardAwareScrollView>
-                    </View>
-                    <FooterButton title='Update & Continue' onPress={this.on_Press_Next} />
+                                </KeyboardAwareScrollView>
+                            </View>}
+                    <FooterButton loading={buttonLoading} title='Update & Continue' onPress={this.on_Press_Next} />
                 </View>
                 <DateTimeModal showTimePicker={showTimePicker}
                     dayNight={true}
@@ -254,3 +307,16 @@ export default class ScheduleTime extends Component {
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer || {},
+        category: state.categoryReducer || {}
+    };
+};
+const mapDispatchToProps = dispatch => {
+    return {
+        authActions: bindActionCreators(authActions, dispatch),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ScheduleTime)

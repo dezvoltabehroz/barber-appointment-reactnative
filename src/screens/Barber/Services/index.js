@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Modal, Alert } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Modal, Alert, ActivityIndicator } from 'react-native';
 import { FooterButton, Icon, Button, FloatingInput } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
 import COMMON_STYLE from '../../../assets/styles/common.style';
-
-
-export default class Services extends Component {
+import { Barbers, Categories, RegisterUser } from '../../../services';
+import { SearchBar } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { authActions } from '../../../redux/actions/auth';
+class AddServices extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,20 +21,25 @@ export default class Services extends Component {
             isServiceNameFocus: false,
             isServiceDescriptionFocus: false,
             submit: false,
-            barberServices: [
-                { id: 1, serviceName: 'Hair Cuttuing', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
-                { id: 2, serviceName: 'Hair Trimming', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
-                { id: 3, serviceName: 'Blowout', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
-                { id: 4, serviceName: 'Hair Color', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
-                { id: 5, serviceName: 'Double process hair color', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
-                { id: 6, serviceName: 'Shave', serviceDescription: '', selected: false, price: '', time: '', isFilled: '', isFilled: '' },
-                { id: 7, serviceName: 'Beard Trim', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
-                { id: 8, serviceName: 'Braids & Twist', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
-                { id: 9, serviceName: 'Hair color touch ups', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
-                { id: 10, serviceName: 'Scalp Conditioning Treatment', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
-                { id: 11, serviceName: 'Permanent Hair Retexturizing', serviceDescription: '', selected: false, price: '', time: '', isFilled: '' },
-            ],
+            loading: false,
+            barberServices: [],
+            value: '',
+            buttonLoading: false
         }
+        this.arrayHolder = this.state.barberServices
+    }
+
+    componentDidMount = () => {
+        this.setState({ loading: true })
+
+        Categories.getAllVendorServices()
+            .then((res) => {
+                if (res.data.status) {
+                    this.setState({ barberServices: res.data.services, loading: false });
+                    this.arrayHolder = res.data.services;
+                }
+            })
+            .catch((err) => console.log(err))
     }
 
     handleSelected = (val) => {
@@ -75,7 +83,7 @@ export default class Services extends Component {
                             <Text style={styles.idTextLabel}>{item.id}.</Text>
                         </View>
                         <View>
-                            <Text style={styles.textStyle}>{item.serviceName}</Text>
+                            <Text style={[styles.textStyle, { color: THEME.COLOR_WHITE }]}>{item.service_name}</Text>
                         </View>
                     </View>
                     <View style={styles.iconContainer}>
@@ -90,22 +98,46 @@ export default class Services extends Component {
         )
     }
 
-    on_Next_press = () => {
-        const { onNext } = this.props;
-        let selectedArray = this.state.selectedService;
+    on_Next_press = async () => {
+        this.setState({ buttonLoading: true })
+        let services = [];
+        let selectedArray = [...this.state.selectedService];
         if (selectedArray.length == 0) {
             Alert.alert('Attention', 'Please select atleast one service');
         }
         else {
-            if (selectedArray[selectedArray.length - 1].serviceCounter == 0) {
-                this.setState({ selectedService: selectedArray })
-                onNext(this.state.selectedService)
+            // if (selectedArray[selectedArray.length - 1].serviceCounter != '') {
+            //     selectedArray.push({ serviceCounter: 0 })
+            //     await this.setState({ selectedService: selectedArray })
+            //     onNext(this.state.selectedService)
+            // }
+            // else {
+            //     this.setState({ selectedService: selectedArray })
+            //     onNext(this.state.selectedService)
+            // }
+            selectedArray.forEach((item, index) => {
+                services.push(item.id)
+            })
+            let userData = {
+                id: this.props.user.userData.id,
+                token: this.props.user.userData.token,
+                steps_count: 1,
+                services: services
             }
-            else {
-                selectedArray.push({ serviceCounter: 0 })
-                this.setState({ selectedService: selectedArray })
-                onNext(this.state.selectedService)
-            }
+            Barbers.addBarberServices(userData)
+                .then((res) => {
+                    if (res.data.status) {
+                        RegisterUser.userStepCount(userData)
+                            .then((res) => {
+                                if (res.data.status) {
+                                    this.props.authActions.getUserProfile(userData, this.props.navigate);
+                                    this.setState({ buttonLoading: false })
+                                }
+                            })
+                            .catch(err => console.log(err))
+                    }
+                })
+                .catch((err) => console.log(err))
 
         }
 
@@ -134,69 +166,68 @@ export default class Services extends Component {
         this.setState({ showAddService: false, submit: false })
     }
 
+    searchFilterBarber = text => {
+        this.setState({ value: text });
+        const newData = this.arrayHolder.filter(item => {
+            const itemData = `${item.service_name.toUpperCase()} ${item.service_name.toUpperCase()} ${item.service_name.toUpperCase()} `;
+            const textData = text.toUpperCase();
+            return itemData.indexOf(textData) > -1;
+        });
+        if (newData.length != 0) {
+            this.setState({ barberServices: newData });
+        }
+    };
+
     render() {
-        const { barberServices, showAddService, serviceName, serviceDescription, isServiceNameFocus, submit, isServiceDescriptionFocus } = this.state;
+        const { barberServices, loading, selectedService } = this.state;
         return (
             <>
                 <View style={styles.container}>
-                    <View style={styles.upperContainer}>
-                        <FlatList
-                            data={barberServices}
-                            showsVerticalScrollIndicator={false}
-                            ItemSeparatorComponent={this._renderSeparator}
-                            renderItem={({ item }) => this._renderItems(item)}
-                            keyExtractor={item => item} />
-                    </View>
-                    <FooterButton title='Next' addservice onPressAddService={() => this.setState({ showAddService: true })} onPress={this.on_Next_press} />
+                    {
+                        loading ?
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <ActivityIndicator />
+                            </View>
+                            :
+                            <>
+                                <SearchBar
+                                    placeholder='Search...'
+                                    round
+                                    onChangeText={text => this.searchFilterBarber(text)}
+                                    value={this.state.value}
+                                    autoCorrect={false}
+                                    inputStyle={{ fontSize: 14, }}
+                                    leftIconContainerStyle={{ paddingLeft: 10 }}
+                                    rightIconContainerStyle={{ paddingRight: 10 }}
+                                    containerStyle={styles.containerStyle}
+                                    inputContainerStyle={styles.inputSearchContainerStyle}
+                                />
+                                <View style={styles.upperContainer}>
+                                    <FlatList
+                                        initialNumToRender={150}
+                                        data={barberServices}
+                                        showsVerticalScrollIndicator={false}
+                                        ItemSeparatorComponent={this._renderSeparator}
+                                        renderItem={({ item }) => this._renderItems(item)}
+                                        keyExtractor={item => item} />
+                                </View>
+                            </>}
+                    <FooterButton loading={this.state.buttonLoading} disabled={selectedService.length == 0 ? true : false} title='Add' onPress={this.on_Next_press} />
                 </View>
-                <Modal visible={showAddService}
-                    animationType="slide">
-                    <View style={styles.modalContainer}  >
-                        <View style={styles.modalInputContainer}>
-                            <View style={styles.headingContainer}>
-                                <Text style={styles.headingTextStyle}>Add a Service</Text>
-                            </View>
-
-                            <View style={[styles.inputContainerStyle,
-                            serviceName != '' || isServiceNameFocus ? THEME.inputBorder : {}]}>
-                                <FloatingInput
-                                    val={serviceName}
-                                    onActive={() => this.setState({ isServiceNameFocus: true })}
-                                    onInActive={() => this.setState({ isServiceNameFocus: false })}
-                                    label='Service Name'
-                                    updateText={(serviceName) => this.setState({ serviceName })} />
-                                {
-                                    submit && !serviceName ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
-                                }
-                            </View>
-                            <View style={[styles.inputContainerStyle,
-                            serviceDescription != '' || isServiceDescriptionFocus ? THEME.inputBorder : {}]}>
-                                <FloatingInput
-                                    val={serviceDescription}
-                                    onActive={() => this.setState({ isServiceDescriptionFocus: true })}
-                                    onInActive={() => this.setState({ isServiceDescriptionFocus: false })}
-                                    label='Service Description'
-                                    updateText={(serviceDescription) => this.setState({ serviceDescription })} />
-                                {
-                                    submit && !serviceDescription ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
-                                }
-                            </View>
-                            <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                <View style={styles.rowButtonContainer}>
-                                    <Button title="Cancel" onPress={this.handleCancel} />
-                                </View>
-                                <View style={styles.rowButtonContainer}>
-                                    <Button title="Submit" onPress={this.handleAddService} />
-                                </View>
-                            </View>
-                        </View>
-
-
-                    </View>
-                </Modal>
-
-
             </>
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer || {},
+        category: state.categoryReducer || {}
+    };
+};
+const mapDispatchToProps = dispatch => {
+    return {
+        authActions: bindActionCreators(authActions, dispatch),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddServices)

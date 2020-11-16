@@ -36,14 +36,14 @@ const getUserProfile = (userData, navigate) => {
             dispatch({ type: LOADING_SUCCESS, loading: loading })
         }
         RegisterUser.getUserProfile(userData)
-            .then((responseData) => {
+            .then(async (responseData) => {
                 if (responseData.data.success != 'undefined' && responseData.data.success == false) {
                     dispatch(removeUser(navigate));
                     dispatch({ type: LOADING_SUCCESS, loading: !loading })
                 }
                 else {
                     if (responseData.data.status) {
-                        dispatch(setUserProfile(responseData.data.userData[0]))
+                        await dispatch(setUserProfile(responseData.data.userData[0]))
                         AsyncStorage.setItem('USER', JSON.stringify(responseData.data.userData[0]))
                         if (navigate) {
                             if (responseData.data.userData[0].type == "customer") {
@@ -52,7 +52,23 @@ const getUserProfile = (userData, navigate) => {
                                 navigate();
                             }
                             else {
-                                navigate('Barber');
+                                switch (responseData.data.userData[0].steps_count) {
+                                    case 0:
+                                        navigate('Services');
+                                        break;
+                                    case 1:
+                                        navigate('PriceandTime');
+                                        break;
+                                    case 2:
+                                        navigate('WorkingDays');
+                                        break;
+                                    case 3:
+                                        navigate('ScheduleTime');
+                                        break;
+                                    default:
+                                        navigate('Barber');
+                                        break;
+                                }
                             }
                         }
                         dispatch({ type: LOADING_SUCCESS, loading: false })

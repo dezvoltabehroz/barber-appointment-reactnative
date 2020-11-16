@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, Alert, Modal, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, Alert, Modal, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { FooterButton, FloatingInput, Button, DateTimeModal, Icon, } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
 import COMMON_STYLE from '../../../assets/styles/common.style';
-import { Barbers } from '../../../services';
-import { connect } from 'react-redux'
+import { Barbers, RegisterUser } from '../../../services';
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { authActions } from '../../../redux/actions/auth';
 
-class AddPriceAndTime extends Component {
+class PriceAndTime extends Component {
 
     constructor(props) {
         super(props);
@@ -27,12 +29,29 @@ class AddPriceAndTime extends Component {
             minutes: '',
             index: null,
             item: null,
-            showEditService: false
+            showEditService: false, time: '', price: ''
         }
     }
     componentDidMount = () => {
-        let serviceArray = [...this.props.data];
-        this.setState({ selectedArray: serviceArray })
+        this.setState({ loading: true });
+        let userData = {
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token
+        }
+        Barbers.getBarberSelectedServices(userData)
+            .then((res) => {
+                if (res.data.status) {
+                    let myArray = [...res.data.data]
+                    myArray.map((item, index) => {
+                        myArray[index] = { ...myArray[index], isFilled: '0', selected: false, price: '', time: '', }
+                    });
+                    myArray.push({ serviceCounter: 0 })
+                    this.setState({ selectedArray: myArray, loading: false })
+                }
+            })
+        // myArray.map((item, index) => {
+        //     myArray[index] = { ...myArray[index], isFilled: '0', selected: false, price: '', time: '', }
+        // });
 
     }
     componentWillUnmount = () => {
@@ -49,7 +68,7 @@ class AddPriceAndTime extends Component {
         const objIndex = this.state.selectedArray.findIndex((obj => obj.id == item.id));
         let items = [...this.state.selectedArray];
         items[objIndex] = { ...items[objIndex], time: data };
-        this.setState({ showTimePicker: false, selectedArray: items, time: data });
+        this.setState({ showTimePicker: false, selectedArray: items, });
         this.is_filled_check(items, objIndex)
     }
 
@@ -68,7 +87,7 @@ class AddPriceAndTime extends Component {
         let items = [...selectedArray];
         items[objIndex] = { ...items[objIndex], price: this.state.price };
         items[objIndex] = { ...items[objIndex], time: this.state.time };
-        this.setState({ selectedArray: items, showEditService: false });
+        this.setState({ selectedArray: items, showEditService: false, time: '', price: '' });
         this.is_filled_check(items, objIndex)
     }
 
@@ -193,7 +212,7 @@ class AddPriceAndTime extends Component {
     }
 
     on_Press_Next = () => {
-        this.setState({ submit: true, loading: true })
+        this.setState({ submit: true, buttonLoading: true })
         const { onNext } = this.props;
         const { selectedArray } = this.state;
         let counter = (selectedArray[(selectedArray.length - 1)].serviceCounter);
@@ -206,20 +225,28 @@ class AddPriceAndTime extends Component {
                 array.push({
                     service_id: item.id,
                     price: item.price,
-                    time_duration: item.time
+                    time: item.time
                 })
             }
         })
         let userData = {
             id: this.props.user.userData.id,
             token: this.props.user.userData.token,
+            steps_count: 2,
             services: array
         }
         if (counter === length) {
-            Barbers.addServiceAcrossBarber(userData)
+            Barbers.updatePriceAndDuration(userData)
                 .then((res) => {
                     if (res.data.status) {
-                        this.props.addService()
+                        RegisterUser.userStepCount(userData)
+                            .then((res) => {
+                                if (res.data.status) {
+                                    this.props.authActions.getUserProfile(userData, this.props.navigate);
+                                    this.setState({ buttonLoading: false })
+                                }
+                            })
+                            .catch(err => console.log(err))
                     }
                 })
                 .catch((err) => { console.log(err) })
@@ -227,7 +254,7 @@ class AddPriceAndTime extends Component {
         }
         else {
             Alert.alert('Attention', 'All required field should be filled ')
-            this.setState({ submit: false, loading: false })
+            this.setState({ submit: false, buttonLoading: false })
         }
     }
 
@@ -238,38 +265,46 @@ class AddPriceAndTime extends Component {
         return (
             <>
                 <View style={styles.container}>
-                    <View style={styles.upperContainer}>
-                        {
-                            selectedArray.length == 0 || selectedArray[0].price != '' || selectedArray[0].time != '' ?
-                                <View style={styles.headingContainer}>
-                                    <View style={styles.nameContainer}>
-                                        <Text style={styles.headingTextStyle}>Services</Text>
-                                    </View>
-                                    <View style={styles.priceContainer} >
-                                        <Text style={styles.headingTextStyle1}>Price</Text>
-                                    </View>
-                                    <View style={styles.timeContainer}>
-                                        <Text style={styles.headingTextStyle1}>Est.Time</Text>
-                                    </View>
-                                    <View style={styles.priceContainer}>
-                                    </View>
-                                </View>
-                                :
-                                null
-                        }
-                        <FlatList
-                            contentContainerStyle={{ paddingBottom: '5%' }}
-                            data={selectedArray}
-                            showsVerticalScrollIndicator={false}
-                            ItemSeparatorComponent={this._renderSeparator}
-                            renderItem={({ item, index }) => this._renderItems({ item, index })}
-                            keyExtractor={item => item} />
-                    </View>
-                    <FooterButton loading={loading} title='Add' onPress={this.on_Press_Next} />
+                    {
+                        loading ?
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <ActivityIndicator />
+                            </View>
+                            :
+                            <View style={styles.upperContainer}>
+                                {
+                                    selectedArray.length == 0 || selectedArray[0].price != '' || selectedArray[0].time != '' ?
+                                        <View style={styles.headingContainer}>
+                                            <View style={styles.nameContainer}>
+                                                <Text style={styles.headingTextStyle}>Services</Text>
+                                            </View>
+                                            <View style={styles.priceContainer} >
+                                                <Text style={styles.headingTextStyle1}>Price</Text>
+                                            </View>
+                                            <View style={styles.timeContainer}>
+                                                <Text style={styles.headingTextStyle1}>Est.Time</Text>
+                                            </View>
+                                            <View style={styles.priceContainer}>
+                                            </View>
+                                        </View>
+                                        :
+                                        null
+                                }
+                                <FlatList
+                                    contentContainerStyle={{ paddingBottom: '5%' }}
+                                    data={selectedArray}
+                                    showsVerticalScrollIndicator={false}
+                                    ItemSeparatorComponent={this._renderSeparator}
+                                    renderItem={({ item, index }) => this._renderItems({ item, index })}
+                                    keyExtractor={item => item} />
+                            </View>
+                    }
+
+                    <FooterButton loading={this.state.buttonLoading} title='Add' onPress={this.on_Press_Next} />
                 </View>
                 <DateTimeModal showTimePicker={showTimePicker}
                     onCancel={() => this.setState({ showTimePicker: false })}
-                    onSet={(time) => { this.state.time ? this.setState({ time: time, showTimePicker: false }) : this.setTimeChange(time) }} />
+                    onSet={(time) => { this.state.time != '' ? this.setState({ time, showTimePicker: false }) : this.setTimeChange(time) }} />
                 <Modal visible={showEditService}
                     animationType="slide">
                     {
@@ -328,5 +363,10 @@ const mapStateToProps = (state) => {
         category: state.categoryReducer || {}
     };
 };
+const mapDispatchToProps = dispatch => {
+    return {
+        authActions: bindActionCreators(authActions, dispatch),
+    };
+};
 
-export default connect(mapStateToProps)(AddPriceAndTime)
+export default connect(mapStateToProps, mapDispatchToProps)(PriceAndTime)

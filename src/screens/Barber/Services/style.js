@@ -8,7 +8,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '20%'
+        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '12%'
     },
     upperContainer: {
         flex: 0.8,
@@ -17,6 +17,23 @@ export default StyleSheet.create({
     },
     buttonContainer: {
         marginHorizontal: '10%'
+    },
+    inputSearchContainerStyle: {
+        backgroundColor: 'white',
+        // height: 40,
+        // elevation: 3,
+        // width: '90%',
+        // alignItem s: "center",
+        // alignSelf: 'center',
+        marginBottom: 10,
+        borderRadius: 5
+    },
+    containerStyle: {
+        backgroundColor: 'transparent',
+        borderBottomWidth: 0,
+        borderTopWidth: 0,
+        paddingTop: 5,
+        paddingBottom: 5
     },
     rowButtonContainer: {
         width: '46%',

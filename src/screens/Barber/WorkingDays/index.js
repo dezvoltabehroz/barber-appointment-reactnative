@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity,Alert } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
 import { FooterButton, Icon } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
+import { Barbers, RegisterUser } from '../../../services';
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { authActions } from '../../../redux/actions/auth';
 
-
-export default class WorkingDays extends Component {
+class WorkingDays extends Component {
 
     constructor(props) {
         super(props);
@@ -51,20 +54,45 @@ export default class WorkingDays extends Component {
 
     on_Next_press = () => {
         const { onNext } = this.props;
+        let working_days = [];
         let selectedArray = this.state.selectedDays;
         if (selectedArray.length == 0) {
-            Alert.alert('Attention', 'Please select atleast one service')
+            Alert.alert('Attention', 'Please select atleast one Day of working')
         }
         else {
-            if (selectedArray[selectedArray.length - 1].dayCounter == 0) {
-                this.setState({ selectedDays: selectedArray })
-                onNext(this.state.selectedDays)
+            // if (selectedArray[selectedArray.length - 1].dayCounter == 0) {
+            //     this.setState({ selectedDays: selectedArray })
+            //     onNext(this.state.selectedDays)
+            // }
+            // else {
+            //     selectedArray.push({ dayCounter: 0 })
+            //     this.setState({ selectedDays: selectedArray })
+            //     onNext(this.state.selectedDays)
+            // }
+            selectedArray.forEach((item, index) => {
+                working_days.push(item.day)
+            })
+            let userData = {
+                id: this.props.user.userData.id,
+                token: this.props.user.userData.token,
+                steps_count: 3,
+                working_days: working_days
             }
-            else {
-                selectedArray.push({ dayCounter: 0 })
-                this.setState({ selectedDays: selectedArray })
-                onNext(this.state.selectedDays)
-            }
+            Barbers.addBarberWorkingDays(userData)
+                .then((res) => {
+                    console.log(res.data)
+                    if (res.data.status) {
+                        RegisterUser.userStepCount(userData)
+                            .then((res) => {
+                                if (res.data.status) {
+                                    this.props.authActions.getUserProfile(userData, this.props.navigate);
+                                    this.setState({ buttonLoading: false })
+                                }
+                            })
+                            .catch(err => console.log(err))
+                    }
+                })
+                .catch((err) => console.log(err))
         }
     }
 
@@ -109,9 +137,22 @@ export default class WorkingDays extends Component {
                             renderItem={({ item }) => this._renderItems(item)}
                             keyExtractor={item => item} />
                     </View>
-                    <FooterButton title='Next' onPress={this.on_Next_press} />
+                    <FooterButton disabled={this.state.selectedDays.length == 0 ? true : false} title='Add' onPress={this.on_Next_press} />
                 </View>
             </>
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer || {},
+        category: state.categoryReducer || {}
+    };
+};
+const mapDispatchToProps = dispatch => {
+    return {
+        authActions: bindActionCreators(authActions, dispatch),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WorkingDays)

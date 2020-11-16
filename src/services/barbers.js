@@ -234,10 +234,44 @@ const Api = {
             time_duration: userData.time_duration
         }, configToken(userData.token))
     },
-    addBarberService:function(userData){
+    addServiceAcrossBarber: function (userData) {
         return axiosInstance.post('barber/addServiceAcrossBarber', {
             user_id: userData.id,
             services_data: userData.services,
+        }, configToken(userData.token))
+    },
+    addBarberServices: function (userData) {
+        return axiosInstance.post('barber/addBarberServices', {
+            user_id: userData.id,
+            services: userData.services,
+        }, configToken(userData.token))
+    },
+    getBarberSelectedServices: function (userData) {
+        return axiosInstance.post('barber/getBarberSelectedService', {
+            user_id: userData.id,
+        }, configToken(userData.token))
+    },
+    updatePriceAndDuration: function (userData) {
+        return axiosInstance.post('barber/updatePriceAndDuration', {
+            user_id: userData.id,
+            services: userData.services
+        }, configToken(userData.token))
+    },
+    addBarberWorkingDays: function (userData) {
+        return axiosInstance.post('barber/updateWorkingDays', {
+            user_id: userData.id,
+            working_days: userData.working_days
+        }, configToken(userData.token))
+    },
+    getBarberWorkingDays: function (userData) {
+        return axiosInstance.post('barber/getWorkingDays', {
+            user_id: userData.id,
+        }, configToken(userData.token))
+    },
+    updateWorkingDaysTime: function (userData) {
+        return axiosInstance.post('barber/updateWorkingDaysTime', {
+            user_id: userData.id,
+            working_days: userData.working_days
         }, configToken(userData.token))
     }
 

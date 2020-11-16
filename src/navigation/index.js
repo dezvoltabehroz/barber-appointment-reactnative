@@ -11,6 +11,10 @@ import ContactUsScreen from './ContactUsScreen';
 import AuthLoading from './AuthLoading';
 import CustomerBottomNavigationRoutes from './CustomerBottomTabNavigation';
 import BarberBottomNavigationRoutes from './BarberBottomTabNavigation';
+import ServicesScreen from './BarberNavigation/ServicesScreen';
+import WorkingDaysScreen from './BarberNavigation/WorkingDaysScreen';
+import ScheduleTimeScreen from './BarberNavigation/ScheduleTimeScreen';
+import PriceAndTimeScreen from './BarberNavigation/PriceAndTimeScreen';
 
 const Stack = createStackNavigator();
 
@@ -45,6 +49,34 @@ function AppRoutes() {
             }} />
             <Stack.Screen name="Customer" component={CustomerBottomNavigationRoutes} options={{
                 headerShown: false
+            }} />
+            <Stack.Screen name="Services" component={ServicesScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Add Services</Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+            <Stack.Screen name="PriceandTime" component={PriceAndTimeScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitleAlign: 'center',
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Price and Duration</Text></View>),
+            }} />
+            <Stack.Screen name="WorkingDays" component={WorkingDaysScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Working Days</Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+            <Stack.Screen name="ScheduleTime" component={ScheduleTimeScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Schedule Time</Text></View>),
+                headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="CustomerWithOutSignIn" component={CustomerRoutes} options={{
                 headerShown: false

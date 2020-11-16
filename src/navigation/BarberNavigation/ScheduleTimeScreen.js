@@ -10,11 +10,9 @@ export default class ScheduleTimeScreen extends Component {
     })
 
     render() {
-        const { navigate } = this.props.navigation;
-        const { itemDays } = this.props.route.params;
+        const { navigate, replace } = this.props.navigation;
         return (
-            <MainScreenPaths.Barber.BarberScheduleTime
-                data={(itemDays)}
+            <MainScreenPaths.Barber.BarberScheduleTime navigate={replace}
                 onNext={() => navigate('Barber', { screen: 'EditProfile' })} />
         )
     }
