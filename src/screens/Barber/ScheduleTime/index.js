@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
-import { FooterButton, Icon, DateTimeModal } from '../../../components';
+import { View, Text, FlatList, TouchableOpacity, Alert, ActivityIndicator, Modal } from 'react-native';
+import { FooterButton, Button, Icon, DateTimeModal } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
 import COMMON_STYLE from '../../../assets/styles/common.style';
@@ -18,11 +18,14 @@ class ScheduleTime extends Component {
             selectedDays: [],
             showTimePicker: false,
             indexValue: '',
-            item: '',
+            item: null,
             val: '',
             submit: false,
             loading: false,
-            buttonLoading: false
+            buttonLoading: false,
+            startTime: '',
+            endTime: '',
+            showEditService: false
         }
     }
 
@@ -46,11 +49,11 @@ class ScheduleTime extends Component {
     }
 
     setStartTime = (index, item) => {
-        this.setState({ showTimePicker: true, indexValue: index, item: item, val: '1' })
+        this.setState({ showTimePicker: true, indexValue: index, index: index, item: item, val: '1' })
     }
 
     setEndTime = (index, item) => {
-        this.setState({ showTimePicker: true, indexValue: index, item: item, val: '0' })
+        this.setState({ showTimePicker: true, indexValue: index, index: index, item: item, val: '0' })
     }
 
     setTimeChange = (data) => {
@@ -75,13 +78,20 @@ class ScheduleTime extends Component {
         }
 
     }
-
+    setEditTimeChange = (item, index) => {
+        const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
+        let items = [...this.state.selectedDays];
+        items[objIndex] = { ...items[objIndex], startTime: this.state.startTime, endTime: this.state.endTime };
+        this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, showEditService: false });
+        this.is_filled_check(items, objIndex)
+    }
+    
     is_filled_check(dayArray, index) {
         if (dayArray[index].startTime != '' && dayArray[index].endTime != '') {
             let newDayCounter = dayArray[dayArray.length - 1].dayCounter + 1;
             dayArray[dayArray.length - 1] = { ...dayArray[dayArray.length - 1], dayCounter: newDayCounter };
             dayArray[index] = { ...dayArray[index], isFilled: '1' };
-            this.setState({ selectedDays: dayArray });
+            this.setState({ selectedDays: dayArray, startTime: '', endTime: '', });
         }
     }
 
@@ -90,24 +100,48 @@ class ScheduleTime extends Component {
             <View style={styles.seperatorStyle}></View>
         )
     }
-
     on_Press_Delete = (itemData, index) => {
+        Alert.alert('Attension', 'Are you sure you want to delete service',
+            [
+                {
+                    text: "Cancel",
+                    // onPress: () => this.handleCancel(),
+                    style: "cancel"
+                },
+                { text: "OK", onPress: () => this.handleDeleteService(itemData) }
+            ],
 
-        let selectedDays = [...this.state.selectedDays];
-        let item = { ...selectedDays[index], startTime: '', endTime: '', isFilled: '' };
-        selectedDays[index] = item;
-        let newDayCounter = selectedDays[selectedDays.length - 1].dayCounter - 1;
-        selectedDays[selectedDays.length - 1] = { ...selectedDays[selectedDays.length - 1], dayCounter: newDayCounter };
-        this.setState({ selectedDays: selectedDays.filter((obj => obj.id != itemData.id)) })
+        );
     }
 
-    on_Press_Edit = (index) => {
+    handleDeleteService = (itemData) => {
+        this.setState({ loading: true })
+        let userData = {
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token,
+            schedule_id: itemData.id
+        }
+        Barbers.deleteBarberWorkingDay(userData)
+            .then((res) => {
+                if (res.data.status) {
+                    let selectedDays = [...this.state.selectedDays];
+                    let newDayCounter = selectedDays[selectedDays.length - 1].dayCounter - 1;
+                    selectedDays[selectedDays.length - 1] = { ...selectedDays[selectedDays.length - 1], dayCounter: newDayCounter };
+                    this.setState({ selectedDays: selectedDays.filter((obj => obj.id != itemData.id)), loading: false })
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
+    on_Press_Edit = (item, index) => {
         let selectedDays = [...this.state.selectedDays];
-        let item = { ...selectedDays[index], startTime: '', endTime: '', isFilled: '' };
-        selectedDays[index] = item;
+        this.setState({ item, index, })
         let newDayCounter = selectedDays[selectedDays.length - 1].dayCounter - 1;
         selectedDays[selectedDays.length - 1] = { ...selectedDays[selectedDays.length - 1], dayCounter: newDayCounter };
         this.setState({ selectedDays });
+        this.setState({ showEditService: true, startTime: selectedDays[index].startTime, endTime: selectedDays[index].endTime })
     }
 
     _renderItems = ({ item, index }) => {
@@ -142,7 +176,7 @@ class ScheduleTime extends Component {
                         {
                             item.isFilled == '1' ?
                                 <View style={{ flexDirection: 'row', flex: 1 }}>
-                                    <TouchableOpacity onPress={() => this.on_Press_Edit(index)} >
+                                    <TouchableOpacity onPress={() => this.on_Press_Edit(item, index)} >
                                         <Icon.MaterialIcons name='edit' size={25} color={THEME.COLOR_WHITE} />
                                     </TouchableOpacity>
                                     <View style={{ width: 5 }}></View>
@@ -237,7 +271,7 @@ class ScheduleTime extends Component {
 
     render() {
         const { onNext } = this.props;
-        const { selectedDays, showTimePicker, loading, buttonLoading } = this.state;
+        const { selectedDays, showTimePicker, loading, buttonLoading, startTime, index, endTime, submit, showEditService, item, indexValue } = this.state;
         return (
             <>
                 <View style={styles.container}>
@@ -302,7 +336,55 @@ class ScheduleTime extends Component {
                 <DateTimeModal showTimePicker={showTimePicker}
                     dayNight={true}
                     onCancel={() => this.setState({ showTimePicker: false })}
-                    onSet={(time) => this.setTimeChange(time)} />
+                    onSet={(time) => { this.state.startTime != "" && this.state.endTime != "" ? this.state.val == '1' ? this.setState({ startTime: time, showTimePicker: false }) : this.setState({ endTime: time, showTimePicker: false }) : this.setTimeChange(time) }} />
+                <Modal visible={showEditService}
+                    animationType="slide">
+                    {
+                        item == null || index == null ?
+                            null
+                            :
+                            <View style={styles.modalContainer}  >
+                                <View style={styles.modalInputContainer}>
+                                    <View style={styles.headingContainer}>
+                                        <Text style={styles.headingTextStyle}>Update a Time</Text>
+                                    </View>
+
+                                    <View>
+                                        <TouchableOpacity onPress={() => this.setStartTime(index, item)} style={[styles.inputModalContainerStyle,
+                                        startTime == '' ? THEME.inputBorder : {}]}>
+                                            <View style={{ marginLeft: '3.5%' }}>
+                                                <Text style={styles.titleStyle}>Start Time</Text>
+                                                <Text style={{ fontFamily: 'Poppins-Medium' }}>{startTime}</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                        {
+                                            submit && !startTime == '' ? <Text style={COMMON_STYLE.errorText1}>Please select time</Text> : null
+                                        }
+                                    </View>
+                                    <View>
+                                        <TouchableOpacity onPress={() => this.setEndTime(index, item)} style={[styles.inputModalContainerStyle,
+                                        endTime == '' ? THEME.inputBorder : {}]}>
+                                            <View style={{ marginLeft: '3.5%' }}>
+                                                <Text style={styles.titleStyle}>End Time</Text>
+                                                <Text style={{ fontFamily: 'Poppins-Medium' }}>{endTime}</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                        {
+                                            submit && !endTime == '' ? <Text style={COMMON_STYLE.errorText1}>Please select time</Text> : null
+                                        }
+                                    </View>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <View style={styles.rowButtonContainer}>
+                                            <Button title="Cancel" onPress={() => this.setState({ showEditService: false })} />
+                                        </View>
+                                        <View style={styles.rowButtonContainer}>
+                                            <Button title="Update" onPress={() => this.setEditTimeChange(item, index)} />
+                                        </View>
+                                    </View>
+                                </View>
+                            </View>
+                    }
+                </Modal>
             </>
         );
     }

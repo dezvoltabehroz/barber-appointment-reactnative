@@ -107,11 +107,45 @@ class PriceAndTime extends Component {
     }
 
     on_Press_Delete = (itemData, index) => {
-        let selectedArray = [...this.state.selectedArray];
-        let newServiceCounter = serviceArray[serviceArray.length - 1].serviceCounter - 1;
-        serviceArray[serviceArray.length - 1] = { ...serviceArray[serviceArray.length - 1], serviceCounter: newServiceCounter };
-        this.setState({ selectedArray: selectedArray.filter((obj => obj.id != itemData.id)) })
+        Alert.alert('Attension', 'Are you sure you want to delete service',
+            [
+                {
+                    text: "Cancel",
+                    // onPress: () => this.handleCancel(),
+                    style: "cancel"
+                },
+                { text: "OK", onPress: () => this.handleDeleteService(itemData) }
+            ],
+
+        );
     }
+
+    handleDeleteService = (itemData) => {
+
+        let userData = {
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token,
+            service_id: itemData.id
+        }
+        Barbers.deleteBarberService(userData)
+            .then((res) => {
+                if (res.data.status) {
+                    let selectedArray = [...this.state.selectedArray];
+                    let newServiceCounter = selectedArray[selectedArray.length - 1].serviceCounter - 1;
+                    selectedArray[selectedArray.length - 1] = { ...selectedArray[selectedArray.length - 1], serviceCounter: newServiceCounter };
+                    this.setState({ selectedArray: selectedArray.filter((obj => obj.id != itemData.id)) })
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+    // on_Press_Delete = (itemData, index) => {
+    //     let selectedArray = [...this.state.selectedArray];
+    //     let newServiceCounter = serviceArray[serviceArray.length - 1].serviceCounter - 1;
+    //     serviceArray[serviceArray.length - 1] = { ...serviceArray[serviceArray.length - 1], serviceCounter: newServiceCounter };
+    //     this.setState({ selectedArray: selectedArray.filter((obj => obj.id != itemData.id)) })
+    // }
 
     on_Press_Edit = (item, index) => {
         let selectedArray = [...this.state.selectedArray];

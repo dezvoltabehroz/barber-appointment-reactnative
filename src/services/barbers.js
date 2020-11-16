@@ -273,6 +273,12 @@ const Api = {
             user_id: userData.id,
             working_days: userData.working_days
         }, configToken(userData.token))
+    },
+    deleteBarberWorkingDay: function (userData) {
+        return axiosInstance.post('barber/deleteBarberWorkingDays', {
+            user_id: userData.id,
+            schedule_id: userData.schedule_id
+        }, configToken(userData.token))
     }
 
 };
