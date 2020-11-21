@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, Alert, Dimensions, ScrollView, Platform, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, Alert, ActivityIndicator, ScrollView, Platform, } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 import { Icon, FloatingInput, FooterButton, DateTime, RadioButton, SearchandMapView } from '../../../components'
 import styles from './style';
@@ -9,6 +9,7 @@ import RangeSlider from 'rn-range-slider';
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoder';
 import { connect } from 'react-redux';
+import Modal from 'react-native-modal'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from 'moment'
 class UpdateProfile extends Component {
@@ -32,17 +33,18 @@ class UpdateProfile extends Component {
             submit: false,
             modalView: false,
             filePath: 'https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Bearded_Man-17-512.png',
+            uploading: false
         };
     }
 
     componentDidMount = () => {
         console.log(this.props.user.userData);
         if (this.props.user.userData != null && this.props.user.userData != 'undefined') {
-            const { full_name, profile_picture, dob, gender,max_distance_radius } = this.props.user.userData;
+            const { full_name, profile_picture, dob, gender, max_distance_radius } = this.props.user.userData;
             this.setState({
                 name: full_name,
                 filePath: profile_picture,
-                minDistance:max_distance_radius,
+                minDistance: max_distance_radius,
                 date: moment(dob).format('DD/MM/YYYY'),
                 dob: moment(dob).format('YYYY-MM-DD'),
             })
@@ -135,6 +137,7 @@ class UpdateProfile extends Component {
     };
 
     handleNext = () => {
+        this.setState({ uploading: true })
         const { onNext } = this.props;
         let { name, profile_Url, dob, minDistance, gender, latitude, longitude } = this.state;
         let userData = {
@@ -162,7 +165,7 @@ class UpdateProfile extends Component {
         const { isNameFocus, name,
             isLocationFocus, location, date,
             showDatePicker, maxDistance, minDistance,
-            modalView, filePath, longitude, latitude } = this.state;
+            modalView, filePath, longitude, latitude, uploading } = this.state;
 
         return (
 
@@ -269,7 +272,7 @@ class UpdateProfile extends Component {
                     </ScrollView>
                 </View>
                 <FooterButton disabled={latitude && longitude ? false : true} title='Update Profile' onPress={this.handleNext} />
-                <Modal visible={modalView}>
+                {/* <Modal visible={modalView}>
                     <View style={styles.modalContainer}>
                         <View>
                             <SearchandMapView
@@ -279,6 +282,11 @@ class UpdateProfile extends Component {
                         </View>
                     </View>
                     <FooterButton title="Cancel" onPress={() => this.setState({ modalView: false })} />
+                </Modal> */}
+                <Modal isVisible={uploading}>
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <ActivityIndicator size={60} />
+                    </View>
                 </Modal>
             </View>
         );

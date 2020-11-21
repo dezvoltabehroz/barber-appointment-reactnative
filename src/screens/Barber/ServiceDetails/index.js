@@ -18,7 +18,8 @@ class ServiceDetails extends Component {
             totalPrice: '',
             loading: false,
             bookingStartingTime: '',
-            bookingEndingTime: ''
+            bookingEndingTime: '',
+            bookingDate: '2020-12-10'
         }
     }
     componentDidMount = () => {
@@ -38,11 +39,12 @@ class ServiceDetails extends Component {
         BookingServices.getBookingDetails(userData)
             .then((res) => {
                 if (res.data.status) {
-
+                    console.log(res.data)
                     this.setState({
                         serviceList: res.data.booking_service_details.services,
                         totalPrice: res.data.booking_service_details.booking_price,
-                        totalTime: res.data.booking_service_details.booking_time_duration
+                        totalTime: res.data.booking_service_details.booking_time_duration,
+                        bookingDate: res.data.booking_service_details.booking_date
                     }, () => {
                         let time = parseInt(moment.duration(res.data.booking_service_details.booking_time_duration).asMinutes())
                         var h = time / 60 | 0;
@@ -55,11 +57,30 @@ class ServiceDetails extends Component {
         BookingServices.getBookingTiming(userdata)
             .then((res) => {
                 if (res.data.status) {
-                    this.setState({
-                        bookingEndingTime: res.data.timeData[0].ending_time,
-                        bookingStartingTime: res.data.timeData[0].starting_time,
-                        loading: false
-                    })
+                    console.log(this.props.notification)
+                    if (this.props.notification) {
+                        this.setState({
+                            bookingEndingTime: '',
+                            bookingStartingTime: '',
+                            loading: false
+                        })
+                    } else {
+                        if (res.data.timeData.length != 0) {
+                            this.setState({
+                                bookingEndingTime: res.data.timeData[0].ending_time,
+                                bookingStartingTime: res.data.timeData[0].starting_time,
+                                loading: false
+                            })
+                        }
+                        else {
+                            this.setState({
+                                bookingEndingTime: '',
+                                bookingStartingTime: '',
+                                loading: false
+                            })
+                        }
+                    }
+
                 }
             })
             .catch((err) => console.log(err))
@@ -94,7 +115,7 @@ class ServiceDetails extends Component {
 
     render() {
         const { onPayment, history, cancelled } = this.props;
-        const { serviceList, timeInHour, totalPrice, bookingEndingTime, bookingStartingTime } = this.state;
+        const { serviceList, timeInHour, totalPrice, bookingEndingTime, bookingStartingTime, bookingDate } = this.state;
 
         return (
             <>
@@ -185,31 +206,43 @@ class ServiceDetails extends Component {
                                         <Text style={styles.headingText}>Total Amount of Service:</Text>
                                         <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}> ${totalPrice}</Text>
                                     </View>
+                                    {
+                                        this.props.notification ?
+                                            <View style={styles.rowStyle}>
+                                                <Text style={styles.headingText}>Booking Date:</Text>
+                                                <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}> {moment(bookingDate).format('Do MMM YYYY')}</Text>
+                                            </View>
+                                            :
+                                            null
+                                    }
                                 </View>
                                 {
                                     cancelled ?
                                         null
-                                        :
-                                        <View style={styles.borderStyle}>
+                                        : bookingEndingTime == '' && bookingStartingTime == '' ?
+                                            null
+                                            :
+                                            <View style={styles.borderStyle}>
 
-                                            <View style={styles.rowStyle}>
-                                                {/* <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} /> */}
-                                                <Text style={styles.headingText}>Service Start Time:</Text>
-                                                <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>  {moment(bookingStartingTime).format('hh:mm A')}</Text>
+                                                <View style={styles.rowStyle}>
+                                                    {/* <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} /> */}
+                                                    <Text style={styles.headingText}>Service Start Time:</Text>
+                                                    <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>  {moment(bookingStartingTime).format('hh:mm A')}</Text>
+                                                </View>
+                                                <View style={styles.rowStyle}>
+                                                    {/* <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} /> */}
+                                                    <Text style={styles.headingText}>Service End Time:</Text>
+                                                    <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>  {moment(bookingEndingTime).format('hh:mm A')}</Text>
+                                                </View>
                                             </View>
-                                            <View style={styles.rowStyle}>
-                                                {/* <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} /> */}
-                                                <Text style={styles.headingText}>Service End Time:</Text>
-                                                <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>  {moment(bookingEndingTime).format('hh:mm A')}</Text>
-                                            </View>
-                                        </View>}
+                                }
 
                             </View>
                             {
                                 history ?
                                     null
                                     :
-                                    <FooterButton title='Done' onPress={()=>onPayment(totalPrice)} />}
+                                    <FooterButton title='Done' onPress={() => onPayment(totalPrice)} />}
                         </View>
                 }
             </>

@@ -8,6 +8,7 @@ import NotificationScreen from '../BarberNavigation/NotificationScreen';
 import EditProfileScreen from '../BarberNavigation/EditProfileScreen';
 import THEME from '../../assets/styles/theme.style'
 import BarberProfileRoutes from './barberUpdateProfileNavigation';
+import BarberNotificationRoutes from './barberNotificationNavigation';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
@@ -39,15 +40,8 @@ function BarberBottomNavigationRoutes() {
             }}
         >
             <Bottom.Screen name="Home" component={BarberRoutes} />
-            <Bottom.Screen name="Profile" component={BarberProfileRoutes} options={{
-                headerBackTitleVisible: false,
-                headerTintColor: 'white',
-                headerTransparent: true,
-                headerTitleAlign: 'center',
-                headerLeft: null,
-                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Profile</Text></View>),
-            }} />
-            <Bottom.Screen name="Notification" component={NotificationScreen} />
+            <Bottom.Screen name="Profile" component={BarberProfileRoutes} />
+            <Bottom.Screen name="Notification" component={BarberNotificationRoutes} />
         </Bottom.Navigator>
     )
 

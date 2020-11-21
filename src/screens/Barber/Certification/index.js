@@ -180,76 +180,75 @@ class Certification extends Component {
         return (
             <>
                 <View style={styles.container}>
-                    {
-                        loading ?
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                <ActivityIndicator />
-                            </View>
-                            :
-                            <>
-                                <View style={{ flex: selectActions ? 0.8 : 1 }}>
-                                    <View>
-                                        <View style={styles.certificationContainer1}>
-                                            <View style={styles.labelContainer}  >
-                                                <Text style={styles.labelTextStyle}>Upload Certification</Text>
-                                            </View>
 
-
-                                            <TouchableOpacity
-                                                style={styles.iconContainer}
-                                                onPress={() => this.takePics()}>
-                                                <Icon.Entypo
-                                                    name="attachment"
-                                                    size={THEME.ICON_SIZE}
-                                                    color={THEME.COLOR_WHITE} />
-                                            </TouchableOpacity>
-
-
-                                        </View>
-                                        {
-                                            imageCertification != null || imageCertification[0] != 'undefined' ?
-                                                <>
-                                                    <FlatList
-                                                        data={imageCertification}
-                                                        numColumns={3}
-                                                        showsVerticalScrollIndicator={false}
-                                                        contentContainerStyle={styles.contentContainer}
-                                                        ItemSeparatorComponent={this._renderSeparator}
-                                                        renderItem={({ item, index }) => this._renderItems(item, index)}
-                                                        keyExtractor={item => item}
-                                                        extraData={this.state.imageCertification}
-                                                    />
-                                                    <ImageView
-                                                        images={imageURLs}
-                                                        imageIndex={0}
-                                                        isVisible={this.state.isImageViewVisible}
-                                                        isSwipeCloseEnabled={true}
-                                                        onClose={() => { this.setState({ isImageViewVisible: false }) }}
-                                                    />
-                                                </>
-                                                :
-                                                null
-                                        }
-                                    </View>
+                    <View style={{ flex: selectActions ? 0.8 : 1 }}>
+                        <View>
+                            <View style={styles.certificationContainer1}>
+                                <View style={styles.labelContainer}  >
+                                    <Text style={styles.labelTextStyle}>Upload Certification</Text>
                                 </View>
 
-                                {
-                                    selectActions ?
-                                        <View style={{ flex: 0.2, justifyContent: "center" }}>
-                                            <View style={[styles.buttonContainer, { flexDirection: "row", justifyContent: 'space-between' }]}>
-                                                <View style={{ flex: 0.45 }}>
-                                                    <Button title="Cancel  " onPress={this.handleCancel} />
-                                                </View>
-                                                <View style={{ flex: 0.45 }}>
-                                                    <Button disabled={selectedArray.length != 0 ? false : true} title="Delete  " onPress={this.deleteCertificates} />
-                                                </View>
-                                            </View>
-                                        </View>
+
+                                <TouchableOpacity
+                                    style={styles.iconContainer}
+                                    onPress={() => this.takePics()}>
+                                    <Icon.Entypo
+                                        name="attachment"
+                                        size={THEME.ICON_SIZE}
+                                        color={THEME.COLOR_WHITE} />
+                                </TouchableOpacity>
+
+
+                            </View>
+                            {
+
+                                loading ?
+                                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                        <ActivityIndicator />
+                                    </View>
+                                    :
+
+                                    imageCertification != null || imageCertification[0] != 'undefined' ?
+                                        <>
+                                            <FlatList
+                                                data={imageCertification}
+                                                numColumns={3}
+                                                showsVerticalScrollIndicator={false}
+                                                contentContainerStyle={styles.contentContainer}
+                                                ItemSeparatorComponent={this._renderSeparator}
+                                                renderItem={({ item, index }) => this._renderItems(item, index)}
+                                                keyExtractor={item => item}
+                                                extraData={this.state.imageCertification}
+                                            />
+                                            <ImageView
+                                                images={imageURLs}
+                                                imageIndex={0}
+                                                isVisible={this.state.isImageViewVisible}
+                                                isSwipeCloseEnabled={true}
+                                                onClose={() => { this.setState({ isImageViewVisible: false }) }}
+                                            />
+                                        </>
                                         :
                                         null
-                                }
+                            }
+                        </View>
+                    </View>
 
-                            </>}
+                    {
+                        selectActions ?
+                            <View style={{ flex: 0.2, justifyContent: "center" }}>
+                                <View style={[styles.buttonContainer, { flexDirection: "row", justifyContent: 'space-between' }]}>
+                                    <View style={{ flex: 0.45 }}>
+                                        <Button title="Cancel  " onPress={this.handleCancel} />
+                                    </View>
+                                    <View style={{ flex: 0.45 }}>
+                                        <Button disabled={selectedArray.length != 0 ? false : true} title="Delete  " onPress={this.deleteCertificates} />
+                                    </View>
+                                </View>
+                            </View>
+                            :
+                            null
+                    }
                 </View>
             </>
         );
