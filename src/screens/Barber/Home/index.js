@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import THEME from '../../../assets/styles/theme.style'
 import { BookingServices } from '../../../services';
 import moment from 'moment';
+import messaging from '@react-native-firebase/messaging'
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -36,6 +37,9 @@ class BarberHome extends Component {
         }
     }
     componentDidMount = () => {
+        messaging().onMessage(async remoteMessage => {
+            console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
+        });
         this.setState({ loading: true })
         const { user } = this.props
         let userData = {
@@ -181,9 +185,17 @@ class BarberHome extends Component {
                                 <ActivityIndicator />
                                 :
                                 bookingList.length == 0 ?
-                                    <View style={[styles.nameContainer, { justifyContent: 'center' }]}>
-                                        <Text style={[styles.appointmentTextStyle, { textAlign: 'center' }]}>No bookings</Text>
-                                    </View>
+                                    <>
+                                        <View style={[styles.nameContainer, { justifyContent: 'center' }]}>
+                                            <Text style={[styles.appointmentTextStyle, { textAlign: 'center' }]}>No bookings</Text>
+                                        </View>
+                                        <TouchableOpacity onPress={() => this.componentDidMount()} style={[styles.nameContainer, { justifyContent: 'center', alignItems: 'center' }]}>
+                                            <Text style={[styles.upperListTitleStyle, { fontSize: 12, color: THEME.COLOR_WHITE, textAlign: 'center' }]}>Tap to refresh</Text>
+                                            <View style={{ marginLeft: '1%', paddingBottom: '1%' }} >
+                                                <Icon.EvilIcons name="refresh" size={20} color={THEME.COLOR_WHITE} />
+                                            </View>
+                                        </TouchableOpacity>
+                                    </>
                                     :
                                     <FlatList
                                         refreshControl={

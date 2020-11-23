@@ -4,18 +4,21 @@ import { View, Text, StyleSheet, Image, Dimensions, Platform, TouchableOpacity }
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CustomerRoutes from '../CustomerNavigation';
 import { Icon } from '../../components';
-import NotificationScreen from '../CustomerNavigation/NotificationScreen';
 import EditProfileScreen from '../CustomerNavigation/EditProfileScreen';
-import THEME from '../../assets/styles/theme.style'
-import UpdateProfileScreen from '../CustomerNavigation/UpdateProfileScreen';
-import EditProfile from '../../screens/Customer/EditProfile';
+import THEME from '../../assets/styles/theme.style';
+import CustomerNotificationRoutes from './CustomerNotificationNavigation';
+import { connect } from 'react-redux';
+import { notificationActions } from '../../redux/actions/notification';
+import { bindActionCreators } from "redux";
+import { Notifications } from '../../services';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 const Bottom = createBottomTabNavigator();
 
 
-function CustomerBottomNavigationRoutes() {
+
+function CustomerBottomNavigationRoutes(props) {
     return (
         <Bottom.Navigator
             screenOptions={({ route }) => ({
@@ -48,7 +51,10 @@ function CustomerBottomNavigationRoutes() {
                 headerLeft: null,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Profile</Text></View>),
             }} />
-            <Bottom.Screen name="Notification" component={NotificationScreen} />
+            <Bottom.Screen name="Notification" component={CustomerNotificationRoutes} options={{
+                tabBarBadge: props.notification.notificationCount == 0 ? null : props.notification.notificationCount,
+                unmountOnBlur: true,
+            }} />
         </Bottom.Navigator>
     )
 
@@ -62,4 +68,17 @@ const styles = StyleSheet.create({
     }
 })
 
-export default CustomerBottomNavigationRoutes;
+const mapStateToProps = ({ notificationReducer, authReducer }) => {
+    return {
+        notification: notificationReducer || {},
+        user: authReducer.userData || {}
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        notificationActions: bindActionCreators(notificationActions, dispatch),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerBottomNavigationRoutes)

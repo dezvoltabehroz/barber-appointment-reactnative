@@ -7,7 +7,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '20%' : '5%'
+        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '20%' : '15%'
 
     },
     upperListContainer: {
@@ -36,6 +36,11 @@ export default StyleSheet.create({
     upperListTitleStyle: {
         // color: THEME.COLOR_WHITE,
         fontSize: THEME.FONT_SIZE_SMALL,
+        fontFamily: 'Poppins-Medium'
+    },
+    upperListTimeStyle: {
+        fontSize: 10,
+        // color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Medium'
     },
     lowerListContainer: {
@@ -92,7 +97,7 @@ export default StyleSheet.create({
         width: 15
     },
     seperatorHeightStyle: {
-        height: 10
+        height: 5
     },
     exitContainer: {
         flexDirection: 'row',

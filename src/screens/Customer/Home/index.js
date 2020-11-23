@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ActivityIndicator, Text, FlatList, LayoutAnimation, RefreshControl, UIManager, ImageBackground, TouchableOpacity, Dimensions, ScrollView } from "react-native";
+import { View, ActivityIndicator, Text, FlatList, LayoutAnimation, RefreshControl, UIManager, ImageBackground, Alert, TouchableOpacity, Dimensions, ScrollView } from "react-native";
 import styles from './style';
 import { Button, Icon } from '../../../components'
 import { connect } from 'react-redux'
@@ -10,7 +10,7 @@ import { userAddressActions } from '../../../redux/actions/addresses';
 import { categoryActions } from '../../../redux/actions/category';
 import { UserAddresses } from '../../../services';
 import Image from 'react-native-fast-image';
-
+import messaging from '@react-native-firebase/messaging'
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -61,23 +61,26 @@ class Home extends Component {
 
 
     componentDidMount = async () => {
-        let { isUserLogedIn,userData } = this.props.user;
+        messaging().onMessage(async remoteMessage => {
+            Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+        });
+        let { isUserLogedIn, userData } = this.props.user;
         let data = {
             id: userData.id,
             token: userData.token
         }
         if (isUserLogedIn) {
-                UserAddresses.viewAllAddresses(data)
-                    .then((res) => {
-                        res.data.addresses.forEach(element => {
-                            if (element.is_selected == '1') {
-                                this.setState({ address: element.address, addresses: res.data.addresses })
-                            }
-                        })
+            UserAddresses.viewAllAddresses(data)
+                .then((res) => {
+                    res.data.addresses.forEach(element => {
+                        if (element.is_selected == '1') {
+                            this.setState({ address: element.address, addresses: res.data.addresses })
+                        }
                     })
-                    .catch((err) => {
-                        console.log(err)
-                    })
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
         }
     }
 

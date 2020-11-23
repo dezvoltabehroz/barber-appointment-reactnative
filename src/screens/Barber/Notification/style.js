@@ -21,6 +21,11 @@ export default StyleSheet.create({
         paddingRight: 10,
 
     },
+    upperListTimeStyle: {
+        fontSize: 10,
+        // color: THEME.COLOR_WHITE,
+        fontFamily: 'Poppins-Medium'
+    },
     upperListImageStyle: {
         height: 80,
         width: 145,
@@ -91,7 +96,7 @@ export default StyleSheet.create({
         width: 15
     },
     seperatorHeightStyle: {
-        height: 10
+        height: 5
     },
     exitContainer: {
         flexDirection: 'row',

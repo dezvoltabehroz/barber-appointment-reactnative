@@ -15,7 +15,11 @@ import { Alert, Platform } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { categoryActions } from './category';
 import { barberActions } from './barbers';
+import { notificationActions } from './notification'
 import auth from '@react-native-firebase/auth';
+import messaging from '@react-native-firebase/messaging';
+import io from 'socket.io-client';
+const socket = io.connect('http://ec2-18-204-20-183.compute-1.amazonaws.com:3000'); //dev
 
 const setUserProfile = (userData) => {
     return (dispatch) => {
@@ -25,6 +29,7 @@ const setUserProfile = (userData) => {
                 dispatch(barberActions.getBarbersList(userData));
                 dispatch(categoryActions.getCategories(userData));
             }
+            dispatch(notificationActions.getNotification(userData));
         }
     }
 };
@@ -43,6 +48,12 @@ const getUserProfile = (userData, navigate) => {
                 }
                 else {
                     if (responseData.data.status) {
+                        socket.on("updateNotification", async ({ receiver_id }) => {
+                            console.log(receiver_id)
+                            if (receiver_id === responseData.data.userData[0].id) {
+                                await dispatch(notificationActions.getNotification(responseData.data.userData[0]));
+                            }
+                        });
                         await dispatch(setUserProfile(responseData.data.userData[0]))
                         AsyncStorage.setItem('USER', JSON.stringify(responseData.data.userData[0]))
                         if (navigate) {
@@ -259,9 +270,10 @@ const userLogin = (userData, navigate) => {
             dispatch({ type: LOADING_SUCCESS, loading: loading })
         }
         RegisterUser.userLogin(userData)
-            .then(responseData => {
+            .then(async (responseData) => {
                 if (responseData.data.status) {
-                    dispatch(getUserProfile(responseData.data.userData[0], navigate))
+                    await requestUserPermission(responseData.data.userData[0], dispatch, navigate)
+
                     AsyncStorage.setItem('Email', JSON.stringify(userData))
                 }
                 else {
@@ -272,7 +284,36 @@ const userLogin = (userData, navigate) => {
             .catch(err => { console.log(err) })
     }
 };
+const requestUserPermission = async function (data, dispatch, navigate) {
+    const authStatus = await messaging().hasPermission();
+    const enabled =
+        authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+        authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+    if (enabled) {
+        getFcmToken(data, dispatch, navigate);
+    } else {
+        console.log('Authorization status:', authStatus);
+    }
+}
 
+const getFcmToken = async (userData, dispatch, navigate) => {
+    const fcmToken = await messaging().getToken();
+    if (fcmToken) {
+        let data = {
+            id: userData.id,
+            fcmToken: fcmToken,
+            token: userData.token
+        }
+        RegisterUser.updateFCMToken(data)
+            .then(async (res) => {
+                if (res.data.status) {
+                    dispatch(getUserProfile(userData, navigate))
+                }
+            }).catch((err) => console.log(err))
+    } else {
+        console.log("Failed", "No token received");
+    }
+}
 export const authActions = {
     setUserProfile,
     removeUser,

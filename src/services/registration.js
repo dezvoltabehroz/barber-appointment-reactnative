@@ -67,7 +67,7 @@ const Api = {
         }, config)
     },
     userStepCount: function (userData) {
-        return axiosInstance.post('/registration/updateStepsCount', {
+        return axiosInstance.post('registration/updateStepsCount', {
             user_id: userData.id,
             steps_count: userData.steps_count
         }, {
@@ -77,6 +77,18 @@ const Api = {
                 'Content-Type': 'application/json',
             }
         })
+    },
+    updateFCMToken:function(userData){
+        return axiosInstance.post('registration/updateFcmtoken', {
+            user_id:userData.id,
+            fcmToken:userData.fcmToken
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + userData.token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })   
     }
 };
 

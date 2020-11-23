@@ -15,3 +15,6 @@ export const About = _AboutUs;
 
 import _Booking from './booking';
 export const BookingServices = _Booking;
+
+import _Notifications from './notifications';
+export const Notifications = _Notifications;

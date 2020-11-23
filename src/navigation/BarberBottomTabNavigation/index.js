@@ -9,13 +9,17 @@ import EditProfileScreen from '../BarberNavigation/EditProfileScreen';
 import THEME from '../../assets/styles/theme.style'
 import BarberProfileRoutes from './barberUpdateProfileNavigation';
 import BarberNotificationRoutes from './barberNotificationNavigation';
+import { connect } from 'react-redux';
+import { notificationActions } from '../../redux/actions/notification';
+import { bindActionCreators } from "redux";
+
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 const Bottom = createBottomTabNavigator();
 
 
-function BarberBottomNavigationRoutes() {
+function BarberBottomNavigationRoutes(props) {
     return (
         <Bottom.Navigator
             screenOptions={({ route }) => ({
@@ -41,7 +45,10 @@ function BarberBottomNavigationRoutes() {
         >
             <Bottom.Screen name="Home" component={BarberRoutes} />
             <Bottom.Screen name="Profile" component={BarberProfileRoutes} />
-            <Bottom.Screen name="Notification" component={BarberNotificationRoutes} />
+            <Bottom.Screen name="Notification" component={BarberNotificationRoutes}  options={{
+                tabBarBadge: props.notification.notificationCount == 0 ? null : props.notification.notificationCount,
+                unmountOnBlur: true,
+            }}  />
         </Bottom.Navigator>
     )
 
@@ -54,5 +61,17 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins-Bold'
     }
 })
+const mapStateToProps = ({ notificationReducer, authReducer }) => {
+    return {
+        notification: notificationReducer || {},
+        user: authReducer.userData || {}
+    };
+};
 
-export default BarberBottomNavigationRoutes;
+const mapDispatchToProps = dispatch => {
+    return {
+        notificationActions: bindActionCreators(notificationActions, dispatch),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BarberBottomNavigationRoutes);

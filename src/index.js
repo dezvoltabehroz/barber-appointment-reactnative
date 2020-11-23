@@ -20,7 +20,8 @@ export default function App() {
     React.useEffect(() => {
         SplashScreen.hide();
         console.disableYellowBox = true;
-    })
+    });
+    
     React.useEffect(() => {
 
         const restoreState = async () => {
