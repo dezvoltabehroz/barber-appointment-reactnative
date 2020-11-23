@@ -73,7 +73,7 @@ class Booking extends Component {
     }
 
     onNextPageChange = () => {
-        const { userdata } = this.props;
+        const { userdata, userDetail } = this.props;
         const { totalPrice, totalTime, latitude, longitude, bookingDate, bookingTime, data, timeInHour } = this.state;
         if (this.state.currentPosition == 4) {
             this.setState({ currentPosition: this.state.currentPosition, disabled: false });
@@ -82,11 +82,12 @@ class Booking extends Component {
                 let userData = {
                     token: userdata.token,
                     id: userdata.id,
+                    full_name: userDetail.full_name,
                     booking_price: totalPrice,
                     booking_time_duration: timeInHour,
                     customer_lat: latitude,
                     customer_long: longitude,
-                    customer_address:this.state.location,
+                    customer_address: this.state.location,
                     booking_date: moment(bookingDate).format('YYYY-MM-DD'),
                     booking_time: moment(bookingTime, ["h:mm A"]).format('HH:mm'),
                     barber_id: userdata.barber_id,
@@ -333,7 +334,8 @@ class Booking extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        user: state.userAddresses || {}
+        user: state.userAddresses || {},
+        userDetail: state.authReducer.userData || {}
     };
 };
 

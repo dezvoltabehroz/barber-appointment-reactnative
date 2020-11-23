@@ -14,6 +14,7 @@ const Api = {
     makeCustomerBooking: function (userData) {
         return axiosInstance.post('booking/makeBooking', {
             id: userData.id,
+            userName:userData.full_name,
             booking_price: userData.booking_price,
             booking_time_duration: userData.booking_time_duration,
             customer_lat: userData.customer_lat,
