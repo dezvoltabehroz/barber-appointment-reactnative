@@ -114,7 +114,7 @@ class ServiceDetails extends Component {
 
 
     render() {
-        const { onPayment, history, cancelled } = this.props;
+        const { onPayment, notification, cancelled } = this.props;
         const { serviceList, timeInHour, totalPrice, bookingEndingTime, bookingStartingTime, bookingDate } = this.state;
 
         return (
@@ -238,11 +238,7 @@ class ServiceDetails extends Component {
                                 }
 
                             </View>
-                            {
-                                history ?
-                                    null
-                                    :
-                                    <FooterButton title='Done' onPress={() => onPayment(totalPrice)} />}
+                            <FooterButton title={notification ? 'Next' : 'Done'} onPress={() => onPayment(totalPrice)} />
                         </View>
                 }
             </>

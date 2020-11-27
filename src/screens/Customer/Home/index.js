@@ -62,7 +62,7 @@ class Home extends Component {
 
     componentDidMount = async () => {
         messaging().onMessage(async remoteMessage => {
-            Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+            // console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
         });
         let { isUserLogedIn, userData } = this.props.user;
         let data = {

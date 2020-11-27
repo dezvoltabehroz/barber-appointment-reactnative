@@ -69,7 +69,10 @@ class BarberServiceComplete extends Component {
                         comment: feedback,
                         no_of_star: starCount,
                         token: this.props.user.userData.token,
-                        review_by: this.props.user.userData.type
+                        review_by: this.props.user.userData.type,
+                        is_customer_rate_time:moment().format('YYYY-MM-DD H:mm:ss'),
+                        userName: this.props.user.userData.full_name,
+                        booking_id:this.props.bookingId
                     }
                     onHome(userData);
                 }} />

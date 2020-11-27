@@ -59,3 +59,6 @@ export const CartDetails = _CartDetail;
 
 import _ProfileCard from './ProfileCard';
 export const ProfileCard = _ProfileCard;
+
+import _Tabs from './Tabs';
+export const Tabs = _Tabs;

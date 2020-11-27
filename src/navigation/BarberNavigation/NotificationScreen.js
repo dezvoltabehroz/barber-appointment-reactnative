@@ -11,7 +11,7 @@ export default class NotificationScreen extends Component {
     render() {
         const { navigate, replace, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Barber.Notification onItemPress={(bookingId, cancelled) => navigate('ServiceDetails', { bookingId: bookingId, history: true, cancelled: cancelled, notification: true })} />
+            <MainScreenPaths.Barber.Notification onItemPress={(bookingId, cancelled) => navigate('ServiceDetails', { bookingId: bookingId,cancelled, notification: true })} />
         )
     }
 }

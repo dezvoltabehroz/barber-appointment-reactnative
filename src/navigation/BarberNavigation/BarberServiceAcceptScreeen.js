@@ -18,7 +18,9 @@ class BarberServiceAcceptScreen extends Component {
             id: user.userData.id,
             token: user.userData.token,
             booking_id: bookingId,
-            is_arrived_time: moment().format('YYYY-MM-DD HH:mm:ss')
+            is_arrived_time: moment().format('YYYY-MM-DD HH:mm:ss'),
+            userName: user.userData.full_name,
+            customer_id: customerId
         }
         BookingServices.arrivedAtCustomerLocation(userData)
             .then((res) => {

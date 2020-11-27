@@ -8,7 +8,10 @@ import StarRating from 'react-native-star-rating';
 import { Avatar } from "react-native-elements";
 import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
 import { Barbers } from '../../../services';
-export default class ServiceComplete extends Component {
+import { connect } from 'react-redux';
+import moment from 'moment';
+
+class ServiceComplete extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -135,14 +138,17 @@ export default class ServiceComplete extends Component {
                                             <Text style={styles.buttonText}>{giveTip ? 'Cancel' : 'Give Tip'}</Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity onPress={async () => {
-                                            this.setState({ finishLoading: true })
+                                            this.setState({ finishLoading: true });
                                             let userData = {
                                                 barber_id: this.props.userData.barber_id,
                                                 customer_id: this.props.userData.id,
                                                 comment: feedback,
                                                 no_of_star: starCount,
                                                 token: this.props.userData.token,
-                                                review_by: this.props.userData.type
+                                                review_by: this.props.userData.type,
+                                                is_services_rate_time: moment().format("YYYY-MM-DD H:mm:ss"),
+                                                userName: this.props.user.userData.full_name,
+                                                booking_id: this.props.userData.booking_id
                                             }
                                             await onHome(userData);
                                         }}
@@ -163,3 +169,9 @@ export default class ServiceComplete extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer || {}
+    };
+};
+export default connect(mapStateToProps)(ServiceComplete);

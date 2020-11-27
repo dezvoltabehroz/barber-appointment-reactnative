@@ -33,6 +33,7 @@ class Notification extends Component {
     }
 
     _renderItems = (item) => {
+        console.log(item)
         const { onItemPress } = this.props;
         let difference = moment.duration(moment().diff(item.created_at)).as("hours");
         const time = difference > 20 ? moment(item.created_at).format('MMM DD, YYYY | hh:mm A') : moment(item.created_at).fromNow()
@@ -40,7 +41,7 @@ class Notification extends Component {
             <>
                 <View style={{ backgroundColor: item.is_read == '1' ? THEME.COLOR_WHITE : 'rgb(224, 250, 255)' }}>
                     <TouchableOpacity onPress={async () => {
-                        // onItemPress(item.id, item.is_decline == '1' ? true : false)
+                        onItemPress(item.bookingId, item.is_decline == '1' ? true : false,)
                         await this.props.notificationActions.loading();
                         Notifications.readAllNotifications(this.props.user)
                             .then(async (res) => {

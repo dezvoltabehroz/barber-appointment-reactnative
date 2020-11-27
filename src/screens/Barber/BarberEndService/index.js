@@ -15,7 +15,8 @@ class EndService extends Component {
             totalTime: null,
             timeInHour: '',
             totalPrice: '',
-            loading: false
+            loading: false,
+            customerId: ''
         }
     }
 
@@ -31,6 +32,7 @@ class EndService extends Component {
             .then((res) => {
                 if (res.data.status) {
                     this.setState({
+                        customerId: res.data.booking_service_details.customer_id,
                         serviceList: res.data.booking_service_details.services,
                         totalPrice: res.data.booking_service_details.booking_price,
                         totalTime: res.data.booking_service_details.booking_time_duration
@@ -93,7 +95,7 @@ class EndService extends Component {
         };
         return (
             <>
-               {
+                {
                     this.state.loading ?
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR }} >
                             <ActivityIndicator />
@@ -166,7 +168,7 @@ class EndService extends Component {
                                 getTime={this.getFormattedTime} /> */}
                                 </View>
                             </View>
-                            <FooterButton title='End Service' onPress={() => onEndService()} />
+                            <FooterButton title='End Service' onPress={() => onEndService(this.state.customerId)} />
                         </View>
                 }
 

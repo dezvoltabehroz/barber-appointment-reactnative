@@ -15,7 +15,8 @@ class StartService extends Component {
             totalTime: null,
             timeInHour: '',
             totalPrice: '',
-            loading: false
+            loading: false,
+            customerId: ""
         }
     }
     componentDidMount = () => {
@@ -30,6 +31,7 @@ class StartService extends Component {
             .then((res) => {
                 if (res.data.status) {
                     this.setState({
+                        customerId: res.data.booking_service_details.customer_id,
                         serviceList: res.data.booking_service_details.services,
                         totalPrice: res.data.booking_service_details.booking_price,
                         totalTime: res.data.booking_service_details.booking_time_duration
@@ -150,7 +152,7 @@ class StartService extends Component {
                                     </View>
                                 </View>
                             </View>
-                            <FooterButton title='Start Service' onPress={onStartService} />
+                            <FooterButton title='Start Service' onPress={() => onStartService(this.state.customerId)} />
                         </View>
                 }
             </>

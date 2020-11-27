@@ -7,6 +7,8 @@ import THEME from '../../../assets/styles/theme.style'
 import { BookingServices } from '../../../services';
 import moment from 'moment';
 import messaging from '@react-native-firebase/messaging'
+import { notificationActions } from '../../../redux/actions/notification';
+import { bindActionCreators } from "redux";
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -36,10 +38,7 @@ class BarberHome extends Component {
 
         }
     }
-    componentDidMount = () => {
-        messaging().onMessage(async remoteMessage => {
-            console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
-        });
+    getAllBookings = () => {
         this.setState({ loading: true })
         const { user } = this.props
         let userData = {
@@ -54,6 +53,19 @@ class BarberHome extends Component {
                 }
             })
             .catch((err) => console.log(err))
+    }
+    componentDidMount = () => {
+        const { user } = this.props
+        let userData = {
+            id: user.userData.id,
+            token: user.userData.token,
+        }
+        messaging().onMessage(async remoteMessage => {
+            console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
+            this.getAllBookings();
+            await this.props.notificationActions.getNotification(userData);
+        });
+        this.getAllBookings();
     }
 
     _renderSeparator = () => {
@@ -83,7 +95,9 @@ class BarberHome extends Component {
         let userData = {
             id: this.props.user.userData.id,
             token: this.props.user.userData.token,
-            booking_id: bookingId
+            booking_id: bookingId,
+            userName: this.props.user.userData.full_name,
+            customer_id: customerId
         }
         BookingServices.acceptBookingOfCustomer(userData)
             .then((res) => {
@@ -139,7 +153,7 @@ class BarberHome extends Component {
                         < View style={styles.buttonContainer}>
                             <View>
                                 <TouchableOpacity onPress={async () => {
-                                    await onDecline(item.id)
+                                    await onDecline(item.id, item.customer_id)
                                     this.setState({ bookingList: this.state.bookingList.filter(obj => obj.id != item.id) })
                                 }} style={styles.cancelContainer}>
                                     <Text style={[styles.upperListTitleStyle, { color: THEME.COLOR_WHITE }]}>Decline</Text>
@@ -224,5 +238,10 @@ const mapStateToProps = (state) => {
         user: state.authReducer || {}
     };
 };
+const mapDispatchToProps = dispatch => {
+    return {
+        notificationActions: bindActionCreators(notificationActions, dispatch)
+    };
+};
 
-export default connect(mapStateToProps)(BarberHome)
+export default connect(mapStateToProps, mapDispatchToProps)(BarberHome)

@@ -11,7 +11,7 @@ class BarberStartServiceScreen extends Component {
 
     })
 
-    handleStartService = () => {
+    handleStartService = (id) => {
         const { bookingId, customerId } = this.props.route.params;
         const { navigate, goBack } = this.props.navigation
         const { user } = this.props;
@@ -26,15 +26,17 @@ class BarberStartServiceScreen extends Component {
                     text: "Yes", onPress: () => {
                         let userData = {
                             id: user.userData.id,
+                            userName: user.userData.full_name,
                             booking_id: bookingId,
                             is_started_time: moment().format('YYYY-MM-DD HH:mm:ss'),
-                            token: user.userData.token
+                            token: user.userData.token,
+                            customer_id: id
                         }
                         BookingServices.barberStartServices(userData)
                             .then((res) => {
                                 console.log(res.data)
                                 if (res.data.status) {
-                                    navigate('BarberEndService', { bookingId: bookingId ,customerId:customerId})
+                                    navigate('BarberEndService', { bookingId: bookingId, customerId: customerId })
                                 }
                             })
                             .catch((err) => console.log(err))
@@ -50,7 +52,7 @@ class BarberStartServiceScreen extends Component {
         const { navigate, goBack } = this.props.navigation
         const { bookingId } = this.props.route.params
         return (
-            <MainScreenPaths.Barber.BarberStartService bookingId={bookingId} onStartService={this.handleStartService} />
+            <MainScreenPaths.Barber.BarberStartService bookingId={bookingId} onStartService={(id) => this.handleStartService(id)} />
         )
     }
 }

@@ -7,7 +7,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '20%'
+        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '25%' : '15%'
     },
     listItemContainer: {
         borderRadius: 10,
@@ -85,4 +85,9 @@ export default StyleSheet.create({
         justifyContent: 'center',
         fontFamily: 'Poppins-Regular'
     },
+    tabContainer: {
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingBottom:'2%'
+    }
 })

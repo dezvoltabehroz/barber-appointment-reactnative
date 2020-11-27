@@ -10,19 +10,21 @@ class BarberEndServiceScreen extends Component {
 
     })
 
-    handleEndService = () => {
+    handleEndService = (id) => {
         const { navigate, goBack } = this.props.navigation
-        const { bookingId,customerId } = this.props.route.params;
+        const { bookingId, customerId } = this.props.route.params;
         let userData = {
             id: this.props.user.userData.id,
             token: this.props.user.userData.token,
+            userName: this.props.user.userData.full_name,
             booking_id: bookingId,
             is_completed_time: moment().format('YYYY-MM-DD HH:mm:ss'),
+            customer_id: id
         }
         BookingServices.barberEndServices(userData)
             .then((res) => {
                 if (res.data.status) {
-                    navigate('ServiceDetails', { bookingId:bookingId,customerId:customerId })
+                    navigate('ServiceDetails', { bookingId: bookingId, customerId: customerId })
                 }
             })
             .catch((err) => console.log(err))
@@ -32,7 +34,7 @@ class BarberEndServiceScreen extends Component {
         const { navigate, goBack } = this.props.navigation
         const { bookingId } = this.props.route.params;
         return (
-            <MainScreenPaths.Barber.BarberEndService bookingId={(bookingId)} onEndService={() => this.handleEndService()} />
+            <MainScreenPaths.Barber.BarberEndService bookingId={(bookingId)} onEndService={(id) => this.handleEndService(id)} />
         )
     }
 }

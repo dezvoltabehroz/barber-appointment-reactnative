@@ -19,7 +19,11 @@ export default class CustomerServices extends Component {
             stopwatchReset: false,
             totalTime: null,
             timeInHour: '',
-            bookingDate: ''
+            bookingDate: '',
+            isCompleted: '0',
+            isAccepted: '0',
+            isStarted: '0',
+            isArrived: '0'
         }
     }
 
@@ -30,10 +34,14 @@ export default class CustomerServices extends Component {
             .then((res) => {
                 if (res.data.status) {
                     this.setState({
+                        isCompleted: res.data.booking_service_details.is_completed,
+                        isArrived: res.data.booking_service_details.is_arrived,
+                        isAccepted: res.data.booking_service_details.is_accepted,
+                        isStarted: res.data.booking_service_details.is_started,
                         serviceList: res.data.booking_service_details.services,
                         totalPrice: res.data.booking_service_details.booking_price,
                         totalTime: res.data.booking_service_details.booking_time_duration,
-                        bookingDate: userData.bookingDate
+                        bookingDate: res.data.booking_service_details.bookingDate
                     }, () => {
                         let time = parseInt(moment.duration(res.data.booking_service_details.booking_time_duration).asMinutes())
                         var h = time / 60 | 0;
@@ -80,7 +88,7 @@ export default class CustomerServices extends Component {
 
     render() {
         const { onApproved } = this.props;
-        const { serviceList, totalPrice, totalTime, timeInHour,bookingDate } = this.state;
+        const { serviceList, totalPrice, totalTime, timeInHour, bookingDate, isAccepted, isArrived, isCompleted, isStarted } = this.state;
         const options = {
             container: {
                 backgroundColor: THEME.PRIMARY_COLOR,
@@ -191,7 +199,7 @@ export default class CustomerServices extends Component {
                                 <View style={styles.stopwatchContainer}>
                                 </View>
                             </View>
-                            <FooterButton disabled={moment(bookingDate).format('YYYY-MM-DD')>moment().format('YYYY-MM-DD')?true:false} title='Approve' onPress={() => onApproved(this.props.userData)} />
+                            <FooterButton  disabled={isCompleted == '1' && isArrived == '1' && isStarted == '1' && isAccepted == '1'  ? false : true} title='Approve' onPress={() => onApproved(this.props.userData)} />
                         </View>}
             </>
         );

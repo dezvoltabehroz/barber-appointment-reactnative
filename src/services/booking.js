@@ -14,7 +14,7 @@ const Api = {
     makeCustomerBooking: function (userData) {
         return axiosInstance.post('booking/makeBooking', {
             id: userData.id,
-            userName:userData.full_name,
+            userName: userData.full_name,
             booking_price: userData.booking_price,
             booking_time_duration: userData.booking_time_duration,
             customer_lat: userData.customer_lat,
@@ -50,7 +50,10 @@ const Api = {
             id: userData.customer_id,
             comment: userData.comment,
             no_of_star: userData.no_of_star,
-            review_by: userData.review_by
+            review_by: userData.review_by,
+            is_services_rate_time: userData.is_services_rate_time,
+            userName: userData.userName,
+            booking_id: userData.booking_id
         }, configToken(userData.token))
     },
     getBarberBookingList: function (userData) {
@@ -67,13 +70,17 @@ const Api = {
     acceptBookingOfCustomer: function (userData) {
         return axiosInstance.post('booking/acceptBooking', {
             id: userData.id,
-            booking_id: userData.booking_id
+            booking_id: userData.booking_id,
+            userName: userData.userName,
+            customer_id: userData.customer_id
         }, configToken(userData.token))
     },
     declineBookingOfCustomer: function (userData) {
         return axiosInstance.post('booking/declineBooking', {
             id: userData.id,
-            booking_id: userData.booking_id
+            booking_id: userData.booking_id,
+            userName: userData.userName,
+            customer_id: userData.customer_id
         }, configToken(userData.token))
     },
     getCustomerDetails: function (userData) {
@@ -86,21 +93,27 @@ const Api = {
         return axiosInstance.post('booking/arrivedLocation', {
             id: userData.id,
             booking_id: userData.booking_id,
-            is_arrived_time: userData.is_arrived_time
+            is_arrived_time: userData.is_arrived_time,
+            userName: userData.userName,
+            customer_id: userData.customer_id
         }, configToken(userData.token))
     },
     barberStartServices: function (userData) {
         return axiosInstance.post('booking/startedServices', {
             id: userData.id,
             booking_id: userData.booking_id,
-            is_started_time: userData.is_started_time
+            is_started_time: userData.is_started_time,
+            userName: userData.userName,
+            customer_id: userData.customer_id
         }, configToken(userData.token))
     },
     barberEndServices: function (userData) {
         return axiosInstance.post('booking/endServices', {
             id: userData.id,
             booking_id: userData.booking_id,
-            is_completed_time: userData.is_completed_time
+            is_completed_time: userData.is_completed_time,
+            userName: userData.userName,
+            customer_id: userData.customer_id
         }, configToken(userData.token))
     },
     getBookingTiming: function (userData) {
@@ -115,9 +128,28 @@ const Api = {
             id: userData.id,
             comment: userData.comment,
             no_of_star: userData.no_of_star,
-            review_by: userData.review_by
+            review_by: userData.review_by,
+            is_customer_rate_time: userData.is_customer_rate_time,
+            userName: userData.userName,
+            booking_id: userData.booking_id
         }, configToken(userData.token))
     },
+    approveBookingByCustomer: function (userData) {
+        return axiosInstance.post('booking/approveBookingByCustomer', {
+            id: userData.id,
+            booking_id: userData.booking_id,
+            is_services_accepted_time: userData.is_services_accepted_time,
+            userName: userData.userName,
+            barber_id: userData.barber_id
+        }, configToken(userData.token))
+    },
+    getAllCompletedBooking:function(userData){
+        let date = moment().format('YYYY-MM-DD');
+        return axiosInstance.post('booking/allCompletedBooking', {
+            id: userData.id,
+            curr_date: date
+        }, configToken(userData.token))
+    }
 
 };
 

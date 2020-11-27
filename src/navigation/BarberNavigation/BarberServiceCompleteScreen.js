@@ -21,9 +21,10 @@ export default class BarberServiceCompleteScreen extends Component {
     }
 
     render() {
-        const { customerId, totalPrice } = this.props.route.params;
+        const { customerId, totalPrice,bookingId } = this.props.route.params;
+        console.log(this.props.route.params)
         return (
-            <MainScreenPaths.Barber.BarberServiceComplete customerId={customerId} totalPrice={totalPrice} onHome={(userData) => this.handleOnHome(userData)} />
+            <MainScreenPaths.Barber.BarberServiceComplete customerId={customerId} bookingId={bookingId} totalPrice={totalPrice} onHome={(userData) => this.handleOnHome(userData)} />
         )
     }
 }

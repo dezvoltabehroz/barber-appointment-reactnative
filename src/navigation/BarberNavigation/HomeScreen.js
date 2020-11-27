@@ -25,11 +25,13 @@ class HomeScreen extends Component {
         push('BarberServiceAccept', { item: data, bookingId, customerId })
     }
 
-    on_Press_Decline = (data) => {
+    on_Press_Decline = (data, id) => {
         let userData = {
             id: this.props.user.userData.id,
             token: this.props.user.userData.token,
-            booking_id: data
+            booking_id: data,
+            userName: this.props.user.userData.full_name,
+            customer_id: id
         }
         BookingServices.declineBookingOfCustomer(userData)
             .then((res) => {
@@ -48,7 +50,7 @@ class HomeScreen extends Component {
                 onAboutUs={() => navigate("AboutUs")}
                 onExit={this.handleLogout}
                 onView={(data, bookingId, customerId) => this.on_Press_Booking(data, bookingId, customerId)}
-                onDecline={(data) => this.on_Press_Decline(data)} />
+                onDecline={(data, id) => this.on_Press_Decline(data, id)} />
         )
     }
 }
