@@ -49,7 +49,6 @@ const getUserProfile = (userData, navigate) => {
                 else {
                     if (responseData.data.status) {
                         socket.on("updateNotification", async ({ receiver_id }) => {
-                            console.log(receiver_id)
                             if (receiver_id === responseData.data.userData[0].id) {
                                 await dispatch(notificationActions.getNotification(responseData.data.userData[0]));
                             }
@@ -152,9 +151,7 @@ const sendVerificationCode = (number, navigate) => {
                     Alert.alert(response.data.message)
                     dispatch({ type: LOADING_SUCCESS, loading: !loading })
                 }
-            }).catch(error => {
-                //         console.log(JSON.stringify(error))
-            })
+            }).catch(error => {})
     };
 
 };

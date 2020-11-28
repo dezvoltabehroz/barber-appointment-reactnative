@@ -60,13 +60,9 @@ class AuthScreen extends Component {
                 :
                 navigate('Barber', { screen: 'PhoneNumber' })
         } catch (error) {
-            console.log('Message', error.message);
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-                console.log('User Cancelled the Login Flow');
             } else if (error.code === statusCodes.IN_PROGRESS) {
-                console.log('Signing In');
             } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-                console.log('Play Services Not Available or Outdated');
             } else {
                 console.log('Some Other Error Happened');
             }
@@ -83,7 +79,6 @@ class AuthScreen extends Component {
                 name: result.name,
                 photo: result.picture.data.url
             }
-            console.log(result);
             await this.props.authActions.setSocialNetworkUserData(userData);
             customer ?
                 replace('Register', {

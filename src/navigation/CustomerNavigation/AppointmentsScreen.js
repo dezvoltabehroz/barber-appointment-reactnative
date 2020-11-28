@@ -22,10 +22,10 @@ class AppointmentsScreen extends Component {
                 bookingDate: bookingDate,
                 type: this.props.user.userData.type,
             }
-            if (counter == 4) {
-                navigate('CustomerServices', { userData })
-            } else if (counter == 5) {
+            if (counter == 5) {
                 navigate('ServiceComplete', { userData })
+            } else {
+                navigate('CustomerServices', { userData })
             }
 
 

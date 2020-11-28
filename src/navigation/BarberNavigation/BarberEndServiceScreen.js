@@ -13,7 +13,6 @@ class BarberEndServiceScreen extends Component {
     handleEndService = (id) => {
         const { navigate, goBack } = this.props.navigation
         const { bookingId, customerId } = this.props.route.params;
-        console.log(customerId)
         let userData = {
             id: this.props.user.userData.id,
             token: this.props.user.userData.token,

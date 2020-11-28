@@ -38,7 +38,6 @@ class UpdateProfile extends Component {
     }
 
     componentDidMount = () => {
-        console.log(this.props.user.userData);
         if (this.props.user.userData != null && this.props.user.userData != 'undefined') {
             const { full_name, profile_picture, dob, gender, max_distance_radius } = this.props.user.userData;
             this.setState({
@@ -78,7 +77,6 @@ class UpdateProfile extends Component {
         };
 
         ImagePicker.showImagePicker(options, response => {
-            console.log('response  ', response);
             if (response.didCancel) {
             } else {
                 let source = response;

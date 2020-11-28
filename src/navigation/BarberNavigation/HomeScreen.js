@@ -34,9 +34,7 @@ class HomeScreen extends Component {
             customer_id: id
         }
         BookingServices.declineBookingOfCustomer(userData)
-            .then((res) => {
-                console.log(res.data)
-            })
+            .then((res) => {})
             .catch((err) => console.log(err))
     }
 

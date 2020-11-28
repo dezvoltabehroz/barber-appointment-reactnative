@@ -14,7 +14,6 @@ class UpdateProfileScreen extends Component {
     handleNext = async (userData) => {
         let number = await AsyncStorage.getItem('Phone');
         let phoneNumber = JSON.parse(number)
-        console.log(phoneNumber)
         let data = userData;
         const { replace } = this.props.navigation
         await this.props.authActions.UpdateProfileInfo(data, phoneNumber, replace);

@@ -25,7 +25,6 @@ firebaseApp.on = (callback) => {
         .child('chat')
         .limitToLast(1)
         .on('child_added', (snapshot) => {
-            // console.log('snapshot', snapshot)
             callback(snapshot)
         })
 }

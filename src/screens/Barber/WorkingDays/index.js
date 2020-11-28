@@ -80,7 +80,6 @@ class WorkingDays extends Component {
             }
             Barbers.addBarberWorkingDays(userData)
                 .then((res) => {
-                    console.log(res.data)
                     if (res.data.status) {
                         RegisterUser.userStepCount(userData)
                             .then((res) => {

@@ -61,7 +61,6 @@ class BarberHome extends Component {
             token: user.userData.token,
         }
         messaging().onMessage(async remoteMessage => {
-            console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
             this.getAllBookings();
             await this.props.notificationActions.getNotification(userData);
         });

@@ -44,7 +44,6 @@ class UpdateProfile extends Component {
     }
 
     handleNext = () => {
-        console.log("Handle Next===>")
         const { onNext } = this.props;
         let { name, profile_Url, dob, gender } = this.state;
         let userData = {

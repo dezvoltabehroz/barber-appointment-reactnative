@@ -22,25 +22,16 @@ class Notification extends Component {
         Notifications.readAllNotifications(this.props.user)
             .then(async (res) => {
                 if (res.data.status) {
-                    console.log('Calling component did mount')
                     await this.props.notificationActions.getNotification(this.props.user)
                 }
             })
     }
     componentDidMount = async () => {
-        // await this.props.notificationActions.getNotification(this.props.user)
     }
 
     _renderItems = (item) => {
         const { onItemPress } = this.props;
         let difference = moment.duration(moment().diff(item.created_at)).as("hours");
-        // console.log(moment('2020-11-21 12:00').calendar({
-        //     lastDay: '[Yesterday at] hh:mm A',
-        //     sameDay: difference > 20 ? '[Today at] hh:mm A' : moment('2020-11-21 16:00').fromNow(),
-        //     lastWeek: '[last] dddd',
-        //     sameElse: 'MMM DD, YYYY | hh:mm A',
-
-        // }))
         const time = difference > 20 ? moment(item.created_at).format('MMM DD, YYYY | hh:mm A') : moment(item.created_at).fromNow()
         return (
             <>

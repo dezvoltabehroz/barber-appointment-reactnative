@@ -87,12 +87,6 @@ class BarberServiceAccept extends Component {
                 return true
             }
         }
-        console.log(enable())
-        // const url = Platform.select({
-        //     ios: `maps:0,0?q=${region.latitude},${region.longitude}`,
-        //     android: `geo:0,0?q=${region.latitude},${region.longitude}`,
-        // })
-        // const urlGG = `https://google.com/maps/place/${region.latitude},${region.longitude}`
         return (
             <View style={styles.container}>
                 <View style={{ flex: 0.8 }}>

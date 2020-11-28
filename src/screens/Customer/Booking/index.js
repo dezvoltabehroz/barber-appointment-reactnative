@@ -117,7 +117,6 @@ class Booking extends Component {
 
     handleSelectedServices = (data) => {
         this.setState({ selectedServices: data, });
-        console.log(this.state.selectedServices);
         let customer_services = []
         this.state.selectedServices.forEach(element => {
             customer_services.push({ service_id: element.id, quantity: element.quantity })

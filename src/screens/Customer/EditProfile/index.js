@@ -55,7 +55,6 @@ class EditProfile extends Component {
     }
 
     handleNext = async () => {
-        console.log("Handle Next Edit ===>")
         this.setState({ uploading: true })
         const { onNext } = this.props;
         let { name, profile_Url, dob, gender } = this.state;

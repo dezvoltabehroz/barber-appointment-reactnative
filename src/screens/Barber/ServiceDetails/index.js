@@ -58,7 +58,6 @@ class ServiceDetails extends Component {
         BookingServices.getBookingTiming(userdata)
             .then((res) => {
                 if (res.data.status) {
-                    console.log(this.props.notification)
                     if (this.props.notification) {
                         this.setState({
                             bookingEndingTime: '',
@@ -116,7 +115,6 @@ class ServiceDetails extends Component {
 
     render() {
         const { onPayment, history, cancelled } = this.props;
-        console.log('History: ',history)
         const { serviceList, timeInHour, totalPrice, stepCounter, bookingEndingTime, bookingStartingTime, bookingDate } = this.state;
 
         return (

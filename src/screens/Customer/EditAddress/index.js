@@ -96,9 +96,7 @@ class EditAddress extends Component {
                 }
                 this.props.updateAddress(userdata)
             }
-            else{
-                console.log('user is not login')
-            }
+            else{}
         }
         this.setState({ submit: false })
     }

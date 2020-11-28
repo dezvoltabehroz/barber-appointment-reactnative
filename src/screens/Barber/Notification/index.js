@@ -23,7 +23,6 @@ class Notification extends Component {
         Notifications.readAllNotifications(this.props.user)
             .then(async (res) => {
                 if (res.data.status) {
-                    console.log('Calling component did mount')
                     await this.props.notificationActions.getNotification(this.props.user)
                 }
             })

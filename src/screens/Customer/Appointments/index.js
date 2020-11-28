@@ -29,7 +29,6 @@ class Appointments extends Component {
         }
         BookingServices.getAllBooking(userData)
             .then((response) => {
-                console.log(response.data)
                 if (response.data.status) {
                     this.setState({
                         completedList: response.data.completedList,
@@ -39,13 +38,6 @@ class Appointments extends Component {
                 }
             })
             .catch((err) => { console.log(err) })
-        // BookingServices.getAllCompletedBooking(userData)
-        //     .then((res) => {
-        //         if (res.data.status) {
-        //             this.setState({ bookingCompletedList: res.data.booking_list })
-        //         }
-        //     })
-        //     .catch((err) => { console.log(err) })
         this.setState({ loading: false })
     }
 
@@ -124,7 +116,7 @@ class Appointments extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.tabContainer}>
-                    <Tabs active={activeTab} tabs={['SCHEDULED', 'PENDING', 'COMPLETED']} onTabChange={(activeTab) => { this.setState({ activeTab }); console.log(activeTab) }} />
+                    <Tabs active={activeTab} tabs={['SCHEDULED', 'PENDING', 'COMPLETED']} onTabChange={(activeTab) => { this.setState({ activeTab }); }} />
                 </View>
                 {
                     activeTab == 0 ?
