@@ -136,7 +136,7 @@ class Appointments extends Component {
                             :
                             upcomingList.length == 0 ?
                                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ color: THEME.COLOR_WHITE, fontSize: 18, fontFamily: 'Poppin-Regular' }} >No Appointments Found</Text>
+                                    <Text style={{ color: THEME.COLOR_WHITE, fontSize: 18, fontFamily: 'Poppins-Regular' }} >No Appointments Found</Text>
                                 </View>
                                 :
                                 <FlatList
@@ -159,7 +159,7 @@ class Appointments extends Component {
                             :
                             pendingList.length == 0 ?
                                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ color: THEME.COLOR_WHITE, fontSize: 18, fontFamily: 'Poppin-Regular' }} >No Appointments Found</Text>
+                                    <Text style={{ color: THEME.COLOR_WHITE, fontSize: 18, fontFamily: 'Poppins-Regular' }} >No Appointments Found</Text>
                                 </View>
                                 :
                                 <FlatList
@@ -182,7 +182,7 @@ class Appointments extends Component {
                             :
                             completedList.length == 0 ?
                                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ color: THEME.COLOR_WHITE, fontSize: 18, fontFamily: 'Poppin-Regular' }} >No Bookings Were Found</Text>
+                                    <Text style={{ color: THEME.COLOR_WHITE, fontSize: 18, fontFamily: 'Poppins-Regular' }} >No Bookings Were Found</Text>
                                 </View>
                                 :
                                 <FlatList
