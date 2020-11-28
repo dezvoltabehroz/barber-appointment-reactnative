@@ -17,7 +17,7 @@ export default StyleSheet.create({
     },
     customerLocationContainer: {
         height: 54,
-        backgroundColor: THEME.PRIMARY_COLOR,
+        // backgroundColor: THEME.PRIMARY_COLOR,
         justifyContent: "center",
         alignItems: "center",
         width: screenWidth * 0.65,

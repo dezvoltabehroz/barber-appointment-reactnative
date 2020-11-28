@@ -33,8 +33,6 @@ class Notification extends Component {
 
     _renderItems = (item) => {
         const { onItemPress } = this.props;
-
-
         let difference = moment.duration(moment().diff(item.created_at)).as("hours");
         // console.log(moment('2020-11-21 12:00').calendar({
         //     lastDay: '[Yesterday at] hh:mm A',
@@ -48,6 +46,7 @@ class Notification extends Component {
             <>
                 <View style={{ backgroundColor: item.is_read == '1' ? THEME.COLOR_WHITE : 'rgb(224, 250, 255)' }}>
                     <TouchableOpacity onPress={async () => {
+                        onItemPress(item.bookingId, item.barber_id)
                         await this.props.notificationActions.loading();
                         Notifications.readAllNotifications(this.props.user)
                             .then(async (res) => {

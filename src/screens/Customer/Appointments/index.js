@@ -12,10 +12,12 @@ class Appointments extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            bookingList: [],
-            bookingCompletedList: [],
+            upcomingList: [],
+            completedList: [],
             loading: false,
-            activeTab: 0
+            activeTab: 0,
+            pendingList: [],
+
         }
     }
 
@@ -27,18 +29,23 @@ class Appointments extends Component {
         }
         BookingServices.getAllBooking(userData)
             .then((response) => {
+                console.log(response.data)
                 if (response.data.status) {
-                    this.setState({ bookingList: response.data.booking_list })
+                    this.setState({
+                        completedList: response.data.completedList,
+                        pendingList: response.data.pendingList,
+                        upcomingList: response.data.upcomingList
+                    })
                 }
             })
             .catch((err) => { console.log(err) })
-        BookingServices.getAllCompletedBooking(userData)
-            .then((res) => {
-                if (res.data.status) {
-                    this.setState({ bookingCompletedList: res.data.booking_list })
-                }
-            })
-            .catch((err) => { console.log(err) })
+        // BookingServices.getAllCompletedBooking(userData)
+        //     .then((res) => {
+        //         if (res.data.status) {
+        //             this.setState({ bookingCompletedList: res.data.booking_list })
+        //         }
+        //     })
+        //     .catch((err) => { console.log(err) })
         this.setState({ loading: false })
     }
 
@@ -53,7 +60,6 @@ class Appointments extends Component {
     _renderItems = (item) => {
         const { onView } = this.props;
         let difference = moment.duration(moment(item.booking_date).diff()).as("hours");
-        console.log(difference)
         return (
             <TouchableOpacity onPress={() => onView(item.booking_id, item.barber_id, item.booking_date)} style={styles.listItemContainer}>
                 <View style={styles.cardStyle} >
@@ -114,7 +120,7 @@ class Appointments extends Component {
 
 
     render() {
-        const { loading, bookingList, activeTab, bookingCompletedList } = this.state
+        const { loading, activeTab, completedList, pendingList, upcomingList } = this.state
         return (
             <View style={styles.container}>
                 <View style={styles.tabContainer}>
@@ -128,7 +134,7 @@ class Appointments extends Component {
                                 <ActivityIndicator />
                             </View>
                             :
-                            bookingList.length == 0 ?
+                            upcomingList.length == 0 ?
                                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <Text style={{ color: THEME.COLOR_WHITE, fontSize: 18, fontFamily: 'Poppin-Regular' }} >No Appointments Found</Text>
                                 </View>
@@ -136,7 +142,30 @@ class Appointments extends Component {
                                 <FlatList
                                     refreshControl={<RefreshControl tintColor={THEME.COLOR_WHITE}
                                         colors={[THEME.PRIMARY_COLOR]} onRefresh={() => this.componentDidMount()} />}
-                                    data={bookingList}
+                                    data={upcomingList}
+                                    showsVerticalScrollIndicator={false}
+                                    ItemSeparatorComponent={this._renderSeparator}
+                                    renderItem={({ item }) => this._renderItems(item)}
+                                    keyExtractor={item => item} />
+                        : null
+                }
+                {
+                    activeTab == 1 ?
+
+                        loading ?
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <ActivityIndicator />
+                            </View>
+                            :
+                            pendingList.length == 0 ?
+                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                    <Text style={{ color: THEME.COLOR_WHITE, fontSize: 18, fontFamily: 'Poppin-Regular' }} >No Appointments Found</Text>
+                                </View>
+                                :
+                                <FlatList
+                                    refreshControl={<RefreshControl tintColor={THEME.COLOR_WHITE}
+                                        colors={[THEME.PRIMARY_COLOR]} onRefresh={() => this.componentDidMount()} />}
+                                    data={pendingList}
                                     showsVerticalScrollIndicator={false}
                                     ItemSeparatorComponent={this._renderSeparator}
                                     renderItem={({ item }) => this._renderItems(item)}
@@ -151,7 +180,7 @@ class Appointments extends Component {
                                 <ActivityIndicator />
                             </View>
                             :
-                            bookingCompletedList.length == 0 ?
+                            completedList.length == 0 ?
                                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <Text style={{ color: THEME.COLOR_WHITE, fontSize: 18, fontFamily: 'Poppin-Regular' }} >No Bookings Were Found</Text>
                                 </View>
@@ -159,7 +188,7 @@ class Appointments extends Component {
                                 <FlatList
                                     refreshControl={<RefreshControl tintColor={THEME.COLOR_WHITE}
                                         colors={[THEME.PRIMARY_COLOR]} onRefresh={() => this.componentDidMount()} />}
-                                    data={bookingCompletedList}
+                                    data={completedList}
                                     showsVerticalScrollIndicator={false}
                                     ItemSeparatorComponent={this._renderSeparator}
                                     renderItem={({ item }) => this._renderBookingItems(item)}

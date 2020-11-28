@@ -18,7 +18,7 @@ const getNotification = (userData) => {
                     dispatch({ type: GET_NOTIFICATIONS, notifications: response.data.addresses, notificationCount:response.data.notificationCount, loading: !loading })
                 }
                 else {
-                    Alert.alert(response.data.message)
+                    // Alert.alert(response.data.message)
                     dispatch({ type: LOADING_NOTIFICATIONS_SUCCESS, loading: !loading })
                 }
             })

@@ -29,7 +29,6 @@ class CustomerServicesScreen extends Component {
         BookingServices.approveBookingByCustomer(userData)
             .then((res) => {
                 if (res.data.status) {
-                    console.log(res.data)
                     navigate('ServiceComplete', { userData: data });
                 }
             })

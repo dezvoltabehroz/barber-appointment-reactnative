@@ -199,7 +199,7 @@ export default class CustomerServices extends Component {
                                 <View style={styles.stopwatchContainer}>
                                 </View>
                             </View>
-                            <FooterButton  disabled={isCompleted == '1' && isArrived == '1' && isStarted == '1' && isAccepted == '1'  ? false : true} title='Approve' onPress={() => onApproved(this.props.userData)} />
+                            <FooterButton disabled={isCompleted == '1' && isArrived == '1' && isStarted == '1' && isAccepted == '1' ? false : true} title='Approve' onPress={() => onApproved(this.props.userData)} />
                         </View>}
             </>
         );

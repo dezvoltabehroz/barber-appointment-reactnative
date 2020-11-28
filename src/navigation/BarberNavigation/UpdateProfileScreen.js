@@ -15,7 +15,6 @@ class UpdateProfileScreen extends Component {
         Barbers.updateBarberPersonalInfo(userData)
             .then(async (res) => {
                 if (res.data.status) {
-                    console.log(res.data)
                     await this.props.authActions.getUserProfile(userData, goBack)
                     // goBack()
                 }

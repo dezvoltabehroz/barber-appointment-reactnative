@@ -6,6 +6,8 @@ import { Linking, Platform } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 import { BookingServices } from '../../../services';
 import { connect } from 'react-redux';
+import moment from 'moment';
+
 class BarberServiceAccept extends Component {
     constructor(props) {
         super(props);
@@ -63,13 +65,25 @@ class BarberServiceAccept extends Component {
     }
 
     render() {
-        let { arrivedAtlocation, onChat } = this.props;
+        let { bookingDate, bookingTime, arrivedAtlocation, onChat } = this.props;
         const { region, userData } = this.state;
         const location = `${region.latitude},${region.longitude}`;
         const url = Platform.select({
             ios: `maps:${location}`,
             android: `geo:${location}?center=${location}&q=${location}&z=16`,
         });
+        let date = moment(bookingDate).format('YYYY-MM-DD') + ' ' + bookingTime;
+
+        console.log(moment(date).format('YYYY-MM-DD H:mm:ss'))
+        const enable = () => {
+            if (moment(date).format('YYYY-MM-DD H:mm:ss') > moment().format('YYYY-MM-DD H:mm:ss')) {
+                return false;
+            }
+            else {
+                return true
+            }
+        }
+        console.log(enable())
         // const url = Platform.select({
         //     ios: `maps:0,0?q=${region.latitude},${region.longitude}`,
         //     android: `geo:0,0?q=${region.latitude},${region.longitude}`,
@@ -89,7 +103,7 @@ class BarberServiceAccept extends Component {
                 </View>
                 <View style={styles.footerStyle}>
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity onPress={arrivedAtlocation} style={styles.customerLocationContainer}>
+                        <TouchableOpacity disabled={enable()} onPress={arrivedAtlocation} style={[styles.customerLocationContainer, { backgroundColor: enable() ? THEME.PRIMARY_COLOR : 'lightgrey' }]}>
                             <Text style={styles.buttonText}>Arrived</Text>
                         </TouchableOpacity>
                         <View style={{ flexDirection: "row", alignItems: 'center' }}>

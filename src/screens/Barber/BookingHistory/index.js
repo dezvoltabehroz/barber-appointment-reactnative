@@ -56,8 +56,22 @@ class BarberBookingHistory extends Component {
         let bookingDuration = parseInt(moment.duration(item.booking_time_duration).asMinutes())
         let tempStartTime = moment(item.booking_time, 'hh:mm A');
         let endTime = tempStartTime.add(bookingDuration, 'minutes');
+
+        const status = () => {
+            switch (item.stepCounter) {
+                case 0:
+                    return 'Cancelled';
+                case 1:
+                    return 'Unattended';
+                case 7:
+                    return 'Completed';
+                default:
+                    return 'In Progress';
+            }
+        }
+
         return (
-            <TouchableOpacity onPress={() => onPressBooking(item.id, item.is_decline == '1'?true: false)}
+            <TouchableOpacity onPress={() => onPressBooking(item.id, item.is_decline == '1' ? true : false)}
                 style={{ backgroundColor: THEME.COLOR_WHITE, borderRadius: 7, marginHorizontal: '5%', }}>
                 <View style={styles.locationContainer}>
                     <View style={{ marginHorizontal: '2%' }}>
@@ -78,7 +92,7 @@ class BarberBookingHistory extends Component {
                         <Text style={[styles.upperListTitleBoldStyle]}>Status: </Text>
                     </View>
                     <View style={{ marginLeft: '2%' }}>
-                        <Text style={[styles.upperListTitleStyle, { color: item.is_decline == '1' ? 'red' : THEME.PRIMARY_COLOR }]}>{item.is_decline == '1' ? 'Cancelled' : item.is_accepted == '1' && item.is_arrived == '1' && item.is_started == '1' && item.is_completed == '1' ? 'Completed' : ''} </Text>
+                        <Text style={[styles.upperListTitleStyle, { color: item.stepCounter == '1' ? '#CF550B' : item.stepCounter == '7' ? '#09F10D' : item.stepCounter == '0' ? '#F90404' : '#EAF109' }]}>{status()}</Text>
                     </View>
                 </View>
             </TouchableOpacity>

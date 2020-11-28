@@ -34,7 +34,6 @@ class BarberStartServiceScreen extends Component {
                         }
                         BookingServices.barberStartServices(userData)
                             .then((res) => {
-                                console.log(res.data)
                                 if (res.data.status) {
                                     navigate('BarberEndService', { bookingId: bookingId, customerId: customerId })
                                 }

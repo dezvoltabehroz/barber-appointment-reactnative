@@ -63,8 +63,10 @@ const Api = {
         }, configToken(userData.token))
     },
     getBarberBookingHistory: function (userData) {
+        let date = moment().format('YYYY-MM-DD');
         return axiosInstance.post('booking/barberBookingHistoryList', {
             id: userData.id,
+            curr_date: date
         }, configToken(userData.token))
     },
     acceptBookingOfCustomer: function (userData) {
@@ -143,7 +145,7 @@ const Api = {
             barber_id: userData.barber_id
         }, configToken(userData.token))
     },
-    getAllCompletedBooking:function(userData){
+    getAllCompletedBooking: function (userData) {
         let date = moment().format('YYYY-MM-DD');
         return axiosInstance.post('booking/allCompletedBooking', {
             id: userData.id,
