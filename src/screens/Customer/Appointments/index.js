@@ -61,7 +61,7 @@ class Appointments extends Component {
         const { onView } = this.props;
         let difference = moment.duration(moment(item.booking_date).diff()).as("hours");
         return (
-            <TouchableOpacity onPress={() => onView(item.booking_id, item.barber_id, item.booking_date)} style={styles.listItemContainer}>
+            <TouchableOpacity onPress={() => onView(item.booking_id, item.barber_id, item.booking_date,item.stepCounter)} style={styles.listItemContainer}>
                 <View style={styles.cardStyle} >
                     <View style={styles.avatarContainer}>
                         <Avatar source={{ uri: item.profile_picture }} rounded={true} size={70} />
@@ -69,7 +69,7 @@ class Appointments extends Component {
                     <View style={styles.nameContainer}>
                         <Text style={styles.nameTextStyle} >{item.full_name}</Text>
                         <Text style={styles.dateTextStyle} >Age: {item.age}</Text>
-                        <Text style={styles.dateTextStyle} >{moment(item.booking_date).format('Do MMM YYYY')} </Text>
+                        <Text style={styles.dateTextStyle} >{moment(item.booking_date).format('Do MMM YYYY')} at {item.booking_time}</Text>
                     </View>
                     {
                         difference > 24 ?
@@ -91,7 +91,7 @@ class Appointments extends Component {
         const { onView } = this.props;
 
         return (
-            <TouchableOpacity onPress={() => onView(item.booking_id, item.barber_id, item.booking_date)} style={styles.listItemContainer}>
+            <TouchableOpacity onPress={() => onView(item.booking_id, item.barber_id, item.booking_date,item.stepCounter)} style={styles.listItemContainer}>
                 <View style={styles.cardStyle} >
                     <View style={styles.avatarContainer}>
                         <Avatar source={{ uri: item.profile_picture }} rounded={true} size={70} />
@@ -99,7 +99,7 @@ class Appointments extends Component {
                     <View style={styles.nameContainer}>
                         <Text style={styles.nameTextStyle} >{item.full_name}</Text>
                         <Text style={styles.dateTextStyle} >Age: {item.age}</Text>
-                        <Text style={styles.dateTextStyle} >{moment(item.booking_date).format('Do MMM YYYY')} </Text>
+                        <Text style={styles.dateTextStyle} >{moment(item.booking_date).format('Do MMM YYYY')} at {item.booking_time} </Text>
                     </View>
 
                     {/* difference > 24 ?

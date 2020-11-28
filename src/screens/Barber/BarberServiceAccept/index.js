@@ -73,11 +73,15 @@ class BarberServiceAccept extends Component {
             android: `geo:${location}?center=${location}&q=${location}&z=16`,
         });
         let date = moment(bookingDate).format('YYYY-MM-DD') + ' ' + bookingTime;
-
-        console.log(moment(date).format('YYYY-MM-DD H:mm:ss'))
         const enable = () => {
-            if (moment(date).format('YYYY-MM-DD H:mm:ss') > moment().format('YYYY-MM-DD H:mm:ss')) {
-                return false;
+            if (moment(date).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD')) {
+                if (moment(date).format('YYYY-MM-DD H:mm:ss') <= moment().format('YYYY-MM-DD H:mm:ss')) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+
             }
             else {
                 return true
@@ -103,7 +107,7 @@ class BarberServiceAccept extends Component {
                 </View>
                 <View style={styles.footerStyle}>
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity disabled={enable()} onPress={arrivedAtlocation} style={[styles.customerLocationContainer, { backgroundColor: enable() ? THEME.PRIMARY_COLOR : 'lightgrey' }]}>
+                        <TouchableOpacity disabled={enable()} onPress={arrivedAtlocation} style={[styles.customerLocationContainer, { backgroundColor: enable() ? 'lightgrey' : THEME.PRIMARY_COLOR }]}>
                             <Text style={styles.buttonText}>Arrived</Text>
                         </TouchableOpacity>
                         <View style={{ flexDirection: "row", alignItems: 'center' }}>

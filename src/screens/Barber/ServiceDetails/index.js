@@ -44,7 +44,8 @@ class ServiceDetails extends Component {
                         serviceList: res.data.booking_service_details.services,
                         totalPrice: res.data.booking_service_details.booking_price,
                         totalTime: res.data.booking_service_details.booking_time_duration,
-                        bookingDate: res.data.booking_service_details.booking_date
+                        bookingDate: res.data.booking_service_details.booking_date,
+                        stepCounter: res.data.booking_service_details.stepCounter
                     }, () => {
                         let time = parseInt(moment.duration(res.data.booking_service_details.booking_time_duration).asMinutes())
                         var h = time / 60 | 0;
@@ -114,8 +115,9 @@ class ServiceDetails extends Component {
 
 
     render() {
-        const { onPayment, notification, cancelled } = this.props;
-        const { serviceList, timeInHour, totalPrice, bookingEndingTime, bookingStartingTime, bookingDate } = this.state;
+        const { onPayment, history, cancelled } = this.props;
+        console.log('History: ',history)
+        const { serviceList, timeInHour, totalPrice, stepCounter, bookingEndingTime, bookingStartingTime, bookingDate } = this.state;
 
         return (
             <>
@@ -238,7 +240,13 @@ class ServiceDetails extends Component {
                                 }
 
                             </View>
-                            <FooterButton title={notification ? 'Next' : 'Done'} onPress={() => onPayment(totalPrice)} />
+                            {
+                                history ?
+                                    null
+                                    :
+                                    <FooterButton disabled={stepCounter == 6 ? false : true} title={'Rate'} onPress={() => onPayment(totalPrice)} />
+                            }
+
                         </View>
                 }
             </>

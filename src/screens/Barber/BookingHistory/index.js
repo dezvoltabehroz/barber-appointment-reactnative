@@ -71,7 +71,103 @@ class BarberBookingHistory extends Component {
         }
 
         return (
-            <TouchableOpacity onPress={() => onPressBooking(item.id, item.is_decline == '1' ? true : false)}
+            <TouchableOpacity onPress={() => {
+                switch (item.stepCounter) {
+                    case 1:
+                        let caseOneData = {
+                            route: 'BarberServiceAccept',
+                            bookingId: item.id,
+                            region: {
+                                latitude: parseFloat(item.customer_lat),
+                                longitude: parseFloat(item.customer_long),
+                                latitudeDelta: 0.9922,
+                                longitudeDelta: 0.9421,
+                            },
+                            bookingDate: item.booking_date,
+                            bookingTime: item.booking_time,
+                            customerId: item.customer_id,
+                            totalPrice: item.booking_price,
+                            barberId: item.barber_id
+                        }
+                        this.props.navigation(caseOneData)
+                        break;
+                    case 2:
+                        let caseTwoData = {
+                            route: 'BarberStartService',
+                            region: {
+                                latitude: parseFloat(item.customer_lat),
+                                longitude: parseFloat(item.customer_long),
+                                latitudeDelta: 0.9922,
+                                longitudeDelta: 0.9421,
+                            },
+                            bookingId: item.id,
+                            bookingDate: item.booking_date,
+                            bookingTime: item.booking_time,
+                            customerId: item.customer_id,
+                            totalPrice: item.booking_price,
+                            barberId: item.barber_id
+                        }
+                        this.props.navigation(caseTwoData)
+                        break;
+                    case 3:
+                        let caseThreeData = {
+                            route: 'BarberEndService',
+                            region: {
+                                latitude: parseFloat(item.customer_lat),
+                                longitude: parseFloat(item.customer_long),
+                                latitudeDelta: 0.9922,
+                                longitudeDelta: 0.9421,
+                            },
+                            bookingId: item.id,
+                            bookingDate: item.booking_date,
+                            bookingTime: item.booking_time,
+                            customerId: item.customer_id,
+                            totalPrice: item.booking_price,
+                            barberId: item.barber_id
+                        }
+                        this.props.navigation(caseThreeData)
+                        break;
+                    case 4:
+                        let caseFourData = {
+                            route: 'ServiceDetails',
+                            region: {
+                                latitude: parseFloat(item.customer_lat),
+                                longitude: parseFloat(item.customer_long),
+                                latitudeDelta: 0.9922,
+                                longitudeDelta: 0.9421,
+                            },
+                            bookingId: item.id,
+                            bookingDate: item.booking_date,
+                            bookingTime: item.booking_time,
+                            customerId: item.customer_id,
+                            totalPrice: item.booking_price,
+                            barberId: item.barber_id
+                        }
+                        this.props.navigation(caseFourData);
+                        break;
+                    case 6:
+                        let caseSixData = {
+                            route: 'ServiceDetails',
+                            region: {
+                                latitude: parseFloat(item.customer_lat),
+                                longitude: parseFloat(item.customer_long),
+                                latitudeDelta: 0.9922,
+                                longitudeDelta: 0.9421,
+                            },
+                            bookingId: item.id,
+                            bookingDate: item.booking_date,
+                            bookingTime: item.booking_time,
+                            customerId: item.customer_id,
+                            totalPrice: item.booking_price,
+                            barberId: item.barber_id
+                        }
+                        this.props.navigation(caseSixData);
+                        break;
+                    default:
+                        onPressBooking(item.id, item.is_decline == '1' ? true : false, item.customer_id)
+                        break;
+                }
+            }}
                 style={{ backgroundColor: THEME.COLOR_WHITE, borderRadius: 7, marginHorizontal: '5%', }}>
                 <View style={styles.locationContainer}>
                     <View style={{ marginHorizontal: '2%' }}>

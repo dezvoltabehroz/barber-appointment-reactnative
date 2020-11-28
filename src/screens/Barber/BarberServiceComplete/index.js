@@ -5,7 +5,8 @@ import { FooterButton, Icon, MessageInput } from '../../../components';
 import THEME from '../../../assets/styles/theme.style';
 import StarRating from 'react-native-star-rating';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import moment from 'moment';
 class BarberServiceComplete extends Component {
     constructor(props) {
         super(props);
@@ -70,9 +71,9 @@ class BarberServiceComplete extends Component {
                         no_of_star: starCount,
                         token: this.props.user.userData.token,
                         review_by: this.props.user.userData.type,
-                        is_customer_rate_time:moment().format('YYYY-MM-DD H:mm:ss'),
+                        is_customer_rate_time: moment().format('YYYY-MM-DD H:mm:ss'),
                         userName: this.props.user.userData.full_name,
-                        booking_id:this.props.bookingId
+                        booking_id: this.props.bookingId
                     }
                     onHome(userData);
                 }} />
