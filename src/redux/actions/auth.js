@@ -151,7 +151,7 @@ const sendVerificationCode = (number, navigate) => {
                     Alert.alert(response.data.message)
                     dispatch({ type: LOADING_SUCCESS, loading: !loading })
                 }
-            }).catch(error => {})
+            }).catch(error => { })
     };
 
 };
@@ -282,6 +282,22 @@ const userLogin = (userData, navigate) => {
     }
 };
 const requestUserPermission = async function (data, dispatch, navigate) {
+    const authorizationStatus = await messaging().requestPermission({
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: true,
+        provisional: false,
+        sound: true,
+    });
+    if (authorizationStatus === messaging.AuthorizationStatus.AUTHORIZED) {
+        console.log('User has notification permissions enabled.');
+    } else if (authorizationStatus === messaging.AuthorizationStatus.PROVISIONAL) {
+        console.log('User has provisional notification permissions.');
+    } else {
+        console.log('User has notification permissions disabled');
+    }
+
     const authStatus = await messaging().hasPermission();
     const enabled =
         authStatus === messaging.AuthorizationStatus.AUTHORIZED ||

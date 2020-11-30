@@ -21,23 +21,23 @@ const socket = io.connect("http://ec2-18-204-20-183.compute-1.amazonaws.com:3000
 class AuthLoadingScreen extends React.Component {
     constructor(props) {
         super(props);
-
         this._bootstrapAsync();
-
     }
 
     _bootstrapAsync = async () => {
-        socket.on("connection", function(data) {
+        socket.on("connection", function (connectionData) {
+            console.log("Connection Data : ", connectionData)
         });
+
         const userToken = await AsyncStorage.getItem('USER');
         if (userToken) {
-            let data = JSON.parse(userToken);
-            socket.on("updateNotification", async (data) => {
-                if (data.receiver_id === data.id) {
-                    await this.props.notification.getNotification(data);
+            let loggedInUser = JSON.parse(userToken);
+            socket.on("updateNotification", async (socketData) => {
+                if (socketData.receiver_id === loggedInUser.id) {
+                    await this.props.notification.getNotification(loggedInUser);
                 }
             });
-            this.requestUserPermission(data)
+            this.requestUserPermission(loggedInUser)
 
         } else {
             this.props.navigation.replace('Auth');
@@ -47,29 +47,14 @@ class AuthLoadingScreen extends React.Component {
     };
     requestUserPermission = async function (data) {
         try {
-            const granted = await messaging().requestPermission({
-                alert: true,
-                announcement: false,
-                badge: true,
-                carPlay: true,
-                provisional: false,
-                sound: true,
-            });
-            if (granted) {
-                if (!messaging().isDeviceRegisteredForRemoteMessages) {
-                    await messaging().registerDeviceForRemoteMessages();
-                }
-                const authStatus = await messaging().hasPermission();
-                const enabled =
-                    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-                    authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+            const authStatus = await messaging().hasPermission();
+            const enabled =
+                authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+                authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
-                if (enabled) {
-                    this.getFcmToken(data);
-                }
+            if (enabled) {
+                this.getFcmToken(data);
             }
-            // User has authorised
-
         } catch (error) {
             // User has rejected permissions
             console.log('permission rejected');
