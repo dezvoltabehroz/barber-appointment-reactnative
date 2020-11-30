@@ -122,6 +122,7 @@ const Api = {
         return axiosInstance.post('booking/startAndEndTime', {
             id: userData.id,
             booking_id: userData.booking_id,
+            type: userData.type
         }, configToken(userData.token))
     },
     rateAndReviewCustomer: function (userData) {

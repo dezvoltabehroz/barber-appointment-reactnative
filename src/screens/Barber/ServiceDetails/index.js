@@ -33,7 +33,7 @@ class ServiceDetails extends Component {
         let userdata = {
             id: this.props.user.userData.id,
             token: this.props.user.userData.token,
-            // barber_id: this.props.user.userData.id,
+            type: this.props.user.userData.type,
             booking_id: this.props.bookingId
         }
         BookingServices.getBookingDetails(userData)

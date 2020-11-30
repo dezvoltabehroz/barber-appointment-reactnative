@@ -83,7 +83,7 @@ class Appointments extends Component {
         const { onView } = this.props;
 
         return (
-            <TouchableOpacity onPress={() => onView(item.booking_id, item.barber_id, item.booking_date,item.stepCounter)} style={styles.listItemContainer}>
+            <TouchableOpacity onPress={() => onView(item.booking_id, item.barber_id, item.booking_date,true)} style={styles.listItemContainer}>
                 <View style={styles.cardStyle} >
                     <View style={styles.avatarContainer}>
                         <Avatar source={{ uri: item.profile_picture }} rounded={true} size={70} />

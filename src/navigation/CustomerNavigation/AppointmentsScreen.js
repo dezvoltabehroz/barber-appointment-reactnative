@@ -21,6 +21,7 @@ class AppointmentsScreen extends Component {
                 barber_id: barberId,
                 bookingDate: bookingDate,
                 type: this.props.user.userData.type,
+                counter: counter
             }
             if (counter == 5) {
                 navigate('ServiceComplete', { userData })

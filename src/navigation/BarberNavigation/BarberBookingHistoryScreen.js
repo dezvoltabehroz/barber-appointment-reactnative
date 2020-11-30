@@ -9,10 +9,10 @@ export default class BarberBookingHistoryScreen extends Component {
     })
 
     render() {
-        const { navigate,replace, goBack } = this.props.navigation
+        const { navigate, replace, goBack } = this.props.navigation
         return (
             <MainScreenPaths.Barber.BarberBookingHistory navigation={(data) =>
-                replace(data.route, {
+                navigate(data.route, {
                     bookingId: data.bookingId,
                     customerId: data.customerId,
                     barberId: data.barberId,

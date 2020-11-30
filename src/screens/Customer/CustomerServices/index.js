@@ -23,7 +23,10 @@ export default class CustomerServices extends Component {
             isCompleted: '0',
             isAccepted: '0',
             isStarted: '0',
-            isArrived: '0'
+            isArrived: '0',
+            bookingStartingTime: '',
+            bookingEndingTime: '',
+            stepCounter: ''
         }
     }
 
@@ -41,16 +44,37 @@ export default class CustomerServices extends Component {
                         serviceList: res.data.booking_service_details.services,
                         totalPrice: res.data.booking_service_details.booking_price,
                         totalTime: res.data.booking_service_details.booking_time_duration,
-                        bookingDate: res.data.booking_service_details.bookingDate
+                        bookingDate: res.data.booking_service_details.booking_date,
+                        stepCounter: res.data.booking_service_details.stepCounter
                     }, () => {
                         let time = parseInt(moment.duration(res.data.booking_service_details.booking_time_duration).asMinutes())
                         var h = time / 60 | 0;
                         var m = time % 60 | 0;
-                        this.setState({ timeInHour: moment.utc().hours(h).minutes(m).format("HH:mm"), loading: false })
+                        this.setState({ timeInHour: moment.utc().hours(h).minutes(m).format("HH:mm") })
                     })
                 }
             })
             .catch((err) => console.log(err))
+        BookingServices.getBookingTiming(userData)
+            .then((res) => {
+                if (res.data.timeData.length != 0) {
+                    this.setState({
+                        bookingEndingTime: res.data.timeData[0].ending_time,
+                        bookingStartingTime: res.data.timeData[0].starting_time,
+                        loading: false
+                    })
+                }
+                else {
+                    this.setState({
+                        bookingEndingTime: '',
+                        bookingStartingTime: '',
+                        loading: false
+                    })
+                }
+            })
+            .catch((err) => {
+
+            })
     }
 
 
@@ -88,7 +112,8 @@ export default class CustomerServices extends Component {
 
     render() {
         const { onApproved } = this.props;
-        const { serviceList, totalPrice, totalTime, timeInHour, bookingDate, isAccepted, isArrived, isCompleted, isStarted } = this.state;
+        const { serviceList, totalPrice, totalTime, bookingEndingTime,
+            bookingStartingTime, timeInHour, bookingDate, isAccepted, isArrived, isCompleted, isStarted } = this.state;
         const options = {
             container: {
                 backgroundColor: THEME.PRIMARY_COLOR,
@@ -170,36 +195,96 @@ export default class CustomerServices extends Component {
                                         })
                                     }
                                 </View>
-                                <View style={styles.timeAndAmountCotainer}>
-                                    <View style={[styles.rowStyle, { marginTop: '5%' }]}>
-                                        <Text style={styles.headingText}>Est Time for Service:</Text>
-                                        <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>
-                                            {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " + timeInHour[0] + timeInHour[1]}
-                                            {
-                                                timeInHour[0] == '0' && timeInHour[1] == '0' ?
-                                                    null
-                                                    :
-                                                    <Text style={styles.textStyles}> hr</Text>
-                                            }
-                                            {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
-                                            {
-                                                timeInHour[3] == 0 && timeInHour[4] == 0 ?
-                                                    null
-                                                    :
-                                                    <Text style={styles.textStyles}> mins</Text>
-                                            }
-                                        </Text>
-                                    </View>
-                                    <View style={styles.rowStyle}>
-                                        <Text style={styles.headingText}>Amount to be paid:</Text>
-                                        <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}> ${totalPrice}</Text>
-                                    </View>
-                                </View>
+                                {
+                                    this.state.stepCounter >= 6 ?
+                                        <>
+                                            <View style={styles.timeAndAmountCotainer}>
+                                                <View style={[styles.rowStyle, { marginTop: '5%' }]}>
+                                                    <Text style={styles.headingText}>Total Time of Service:</Text>
+                                                    <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>
+                                                        {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " + timeInHour[0] + timeInHour[1]}
+                                                        {
+                                                            timeInHour[0] == '0' && timeInHour[1] == '0' ?
+                                                                null
+                                                                :
+                                                                <Text style={styles.textStyles}> hr</Text>
+                                                        }
+                                                        {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                                                        {
+                                                            timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                                                null
+                                                                :
+                                                                <Text style={styles.textStyles}> mins</Text>
+                                                        }
+                                                    </Text>
+                                                </View>
+                                                <View style={styles.rowStyle}>
+                                                    <Text style={styles.headingText}>Total Amount of Service:</Text>
+                                                    <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}> ${totalPrice}</Text>
+                                                </View>
 
-                                <View style={styles.stopwatchContainer}>
-                                </View>
+                                                <View style={styles.rowStyle}>
+                                                    <Text style={styles.headingText}>Booking Date:</Text>
+                                                    <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}> {moment(bookingDate).format('Do MMM YYYY')}</Text>
+                                                </View>
+
+                                            </View>
+
+                                            <View style={styles.borderStyle}>
+
+                                                <View style={styles.rowStyle}>
+                                                    {/* <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} /> */}
+                                                    <Text style={styles.headingText}>Service Start Time:</Text>
+                                                    <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>  {moment(bookingStartingTime).format('hh:mm A')}</Text>
+                                                </View>
+                                                <View style={styles.rowStyle}>
+                                                    {/* <Icon.Entypo name='dot-single' color={THEME.COLOR_WHITE} size={20} /> */}
+                                                    <Text style={styles.headingText}>Service End Time:</Text>
+                                                    <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>  {moment(bookingEndingTime).format('hh:mm A')}</Text>
+                                                </View>
+                                            </View>
+                                        </>
+                                        :
+                                        <>
+                                            <View style={styles.timeAndAmountCotainer}>
+                                                <View style={[styles.rowStyle, { marginTop: '5%' }]}>
+                                                    <Text style={styles.headingText}>Est Time for Service:</Text>
+                                                    <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>
+                                                        {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " + timeInHour[0] + timeInHour[1]}
+                                                        {
+                                                            timeInHour[0] == '0' && timeInHour[1] == '0' ?
+                                                                null
+                                                                :
+                                                                <Text style={styles.textStyles}> hr</Text>
+                                                        }
+                                                        {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                                                        {
+                                                            timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                                                null
+                                                                :
+                                                                <Text style={styles.textStyles}> mins</Text>
+                                                        }
+                                                    </Text>
+                                                </View>
+                                                <View style={styles.rowStyle}>
+                                                    <Text style={styles.headingText}>Amount to be paid:</Text>
+                                                    <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}> ${totalPrice}</Text>
+                                                </View>
+                                            </View>
+                                            <View style={styles.stopwatchContainer}>
+                                            </View>
+                                        </>
+                                }
+
+
+
                             </View>
-                            <FooterButton disabled={isCompleted == '1' && isArrived == '1' && isStarted == '1' && isAccepted == '1' ? false : true} title='Approve' onPress={() => onApproved(this.props.userData)} />
+                            {
+                                this.props.userData.counter == true ?
+                                    null
+                                    :
+                                    <FooterButton disabled={isCompleted == '1' && isArrived == '1' && isStarted == '1' && isAccepted == '1' ? false : true} title='Approve' onPress={() => onApproved(this.props.userData)} />
+                            }
                         </View>}
             </>
         );

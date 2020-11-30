@@ -39,6 +39,7 @@ export default StyleSheet.create({
     },
     rowStyle: {
         flexDirection: "row",
+        paddingTop: '5%',
     },
     borderStyle: {
         flex: 0.8,
@@ -94,7 +95,7 @@ export default StyleSheet.create({
         height: 10,
     },
     timeAndAmountCotainer: {
-        flex: 0.35
+        // flex: 0.35
     },
     stopwatchContainer: {
         flex: 0.25,
