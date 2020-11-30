@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ActivityIndicator, Text, FlatList, LayoutAnimation, RefreshControl, UIManager, ImageBackground, Alert, TouchableOpacity, Dimensions, ScrollView } from "react-native";
+import { View, ActivityIndicator, Text, FlatList, LayoutAnimation, RefreshControl, UIManager, ImageBackground, Alert, TouchableOpacity, Dimensions, ScrollView, Platform } from "react-native";
 import styles from './style';
 import { Button, Icon } from '../../../components'
 import { connect } from 'react-redux'
@@ -12,6 +12,8 @@ import { UserAddresses } from '../../../services';
 import Image from 'react-native-fast-image';
 import messaging from '@react-native-firebase/messaging';
 import Modal from 'react-native-modal';
+const screenHeight = Dimensions.get('screen').height;
+const screenWidth = Dimensions.get('screen').width
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -179,7 +181,7 @@ class Home extends Component {
     }
 
     render() {
-        let { onExit, searchBarber } = this.props
+        let { onExit, searchBarber, goBack } = this.props
         let { isUserLogedIn } = this.props.user;
         const { servicelist, servicelist1, address, addresses } = this.state;
         // const { user } = this.props;
@@ -196,7 +198,14 @@ class Home extends Component {
                     }>
                         <View style={styles.nameContainer}>
                             {/* <Text style={styles.appNameTextStyle}>Fleek</Text> */}
-                            <Image source={require('../../../assets/images/logo.png')} resizeMode='contain' style={styles.logoStyle} />
+                            {
+                                isUserLogedIn ?
+                                    <Image source={require('../../../assets/images/logo.png')} resizeMode='contain' style={styles.logoStyle} />
+                                    :
+                                    <TouchableOpacity onPress={() => goBack()}>
+                                        <Image source={require('../../../assets/images/logo.png')} resizeMode='contain' style={styles.logoStyle} />
+                                    </TouchableOpacity>
+                            }
                             {
                                 isUserLogedIn ?
                                     <>
@@ -287,10 +296,10 @@ class Home extends Component {
                     </ScrollView>
                 </View>
                 <Modal isVisible={this.props.user.modal}>
-                    <View style={{ flex: 1, backgroundColor: 'white', borderRadius: 10, }}>
-                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginHorizontal: '6%' }}>
+                    <View style={{ backgroundColor: 'white', borderRadius: 10, }}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', marginHorizontal: '6%' }}>
                             <ScrollView showsVerticalScrollIndicator={false}>
-                                <Text style={[{ marginTop: '10%',textAlign: 'center' }, styles.modalMainHeading]}>
+                                <Text style={[{ marginTop: '10%', textAlign: 'center' }, styles.modalMainHeading]}>
                                     Health and Safety Commitment
                                 </Text>
                                 <Text style={[{ marginTop: '5%' }, styles.modalTextStyle]}>
@@ -324,12 +333,15 @@ class Home extends Component {
                                     </Text>
                             </ScrollView>
                         </View>
-                        <View style={{ flex: 0.1 }}>
-                            <Button title="Accept" onPress={() => { this.props.authActions.healthAndSafety(false) }} />
+                        <View style={{ paddingTop: '5%' }}>
+                            <TouchableOpacity onPress={() => { this.props.authActions.healthAndSafety(false) }} style={{ backgroundColor: themeStyle.PRIMARY_COLOR, height: 50, borderRadius: 10, justifyContent: 'center' }}>
+                                <Text style={{ color: 'white', textAlign: 'center', fontFamily: 'Poppins-Medium' }} >Accept</Text>
+                            </TouchableOpacity>
+
                         </View>
                     </View>
 
-                </Modal>
+                </Modal >
             </>
         );
     }

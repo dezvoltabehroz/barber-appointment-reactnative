@@ -36,15 +36,16 @@ class HomeScreen extends Component {
     }
 
     render() {
-        const { navigate, push } = this.props.navigation
+        const { navigate, push, goBack } = this.props.navigation
         return (
             <MainScreenPaths.Customer.Home
+                goBack={goBack}
                 onContactUs={() => navigate("ContactUs")}
                 onAboutUs={() => navigate("AboutUs")}
-                onExit={()=>this.handleLogout()}
+                onExit={() => this.handleLogout()}
                 loading={this.props.userAddresses.loading}
                 onAppointments={() => navigate('Appointments')}
-                searchBarber={() => navigate('BarberList',{search:true})}
+                searchBarber={() => navigate('BarberList', { search: true })}
                 myAddresses={() => navigate('MyAddresses')}
                 addNewAddress={() => navigate('AddYourAddress')}
                 onItemPress={(item) => this.handleItemPress(item)} />
