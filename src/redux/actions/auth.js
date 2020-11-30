@@ -151,7 +151,7 @@ const sendVerificationCode = (number, navigate) => {
                     Alert.alert(response.data.message)
                     dispatch({ type: LOADING_SUCCESS, loading: !loading })
                 }
-            }).catch(error => {})
+            }).catch(error => { })
     };
 
 };
@@ -282,15 +282,29 @@ const userLogin = (userData, navigate) => {
     }
 };
 const requestUserPermission = async function (data, dispatch, navigate) {
-    const authStatus = await messaging().hasPermission();
-    const enabled =
-        authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-        authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-    if (enabled) {
-        getFcmToken(data, dispatch, navigate);
-    } else {
-        console.log('Authorization status:', authStatus);
+    try {
+        const granted = await messaging().requestPermission({
+            alert: true,
+            announcement: false,
+            badge: true,
+            carPlay: true,
+            provisional: false,
+            sound: true,
+        });
+        if (granted) {
+            const authStatus = await messaging().hasPermission();
+            const enabled =
+                authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+                authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+            if (enabled) {
+                getFcmToken(data, dispatch, navigate);
+            }
+        }
+    } catch (error) {
+        // User has rejected permissions
+        console.log('permission rejected');
     }
+
 }
 
 const getFcmToken = async (userData, dispatch, navigate) => {

@@ -56,9 +56,9 @@ class AuthLoadingScreen extends React.Component {
                 sound: true,
             });
             if (granted) {
-                if (!messaging().isDeviceRegisteredForRemoteMessages) {
-                    await messaging().registerDeviceForRemoteMessages();
-                }
+                // if (!messaging().isDeviceRegisteredForRemoteMessages) {
+                //     await messaging().registerDeviceForRemoteMessages();
+                // }
                 const authStatus = await messaging().hasPermission();
                 const enabled =
                     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
