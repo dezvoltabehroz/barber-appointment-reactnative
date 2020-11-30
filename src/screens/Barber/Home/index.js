@@ -232,8 +232,8 @@ class BarberHome extends Component {
                     </View>
                 </View>
                 <Modal isVisible={this.props.user.modal}>
-                    <View style={{ flex: 1, backgroundColor: 'white', borderRadius: 10, }}>
-                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginHorizontal: '6%' }}>
+                    <View style={{ backgroundColor: 'white', borderRadius: 10, }}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', marginHorizontal: '6%' }}>
                             <ScrollView showsVerticalScrollIndicator={false}>
                                 <Text style={[{ marginTop: '10%', textAlign: 'center' }, styles.modalMainHeading]}>
                                     Health and Safety Commitment
@@ -269,11 +269,12 @@ class BarberHome extends Component {
                                     </Text>
                             </ScrollView>
                         </View>
-                        <View style={{ flex: 0.1 }}>
-                            <Button title="Accept" onPress={() => { this.props.authActions.healthAndSafety(false) }} />
+                        <View style={{ paddingTop: '5%' }}>
+                            <TouchableOpacity onPress={() => { this.props.authActions.healthAndSafety(false) }} style={{ backgroundColor: themeStyle.PRIMARY_COLOR, height: 50, borderRadius: 10, justifyContent: 'center' }}>
+                                <Text style={{ color: 'white', textAlign: 'center', fontFamily: 'Poppins-Medium' }} >Accept</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
-
                 </Modal>
             </>
         );
