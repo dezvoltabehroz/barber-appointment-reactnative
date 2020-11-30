@@ -6,7 +6,8 @@ import {
     SEND_CODE_TO_USER_PHONENUMBER_SUCCESS,
     LOADING_SUCCESS,
     USER_UPDATE_PROFILE_INFO_SUCCESS,
-    USER_EMAIL_AND_PASSWORD_SUCCESS
+    USER_EMAIL_AND_PASSWORD_SUCCESS,
+    HEALTH_AND_SEFATY_SUCCESS
 } from '../types';
 
 const initialState = {
@@ -21,7 +22,8 @@ const initialState = {
     isVerified: false,
     verificationCode: '',
     loading: false,
-    userToken: ''
+    userToken: '',
+    modal: true
 
 };
 
@@ -76,6 +78,11 @@ const authReducer = (state = initialState, action) => {
                 email: action.email,
                 password: action.password,
                 loading: action.loading
+            }
+        case HEALTH_AND_SEFATY_SUCCESS:
+            return {
+                ...state,
+                modal: action.modal
             }
         default:
             return state;

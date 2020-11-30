@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import EmailandPasswordScreen from './EmailandPasswordScreen';
@@ -61,7 +61,7 @@ function BarberRoutes() {
             }} />
             <Stack.Screen name="BarberServiceAccept" component={BarberServiceAcceptScreen} options={{
                 headerBackTitleVisible: false,
-                headerBackImage: () => (<View><Text style={styles.headerBackTitle}>Cancel</Text></View>),
+                headerBackImage: () => (<View><Text style={[styles.headerBackTitle, { marginLeft: Platform.OS == 'ios' ? 10 : 0 }]}>Cancel</Text></View>),
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Customer Location</Text></View>),

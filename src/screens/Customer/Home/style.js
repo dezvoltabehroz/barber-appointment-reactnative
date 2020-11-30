@@ -126,8 +126,18 @@ export default StyleSheet.create({
         paddingLeft: '10%',
         borderBottomRightRadius: 10,
         borderBottomLeftRadius: 10
-    }, logoStyle: {
+    },
+    logoStyle: {
         height: 40, width: 60
+    },
+    modalMainHeading: {
+        fontFamily: 'Poppins-Medium',
+        fontSize: 14
+    },
+    modalTextStyle: {
+        fontSize: 10,
+        textAlign: 'justify',
+        fontFamily: 'Poppins-Regular'
     }
 
 

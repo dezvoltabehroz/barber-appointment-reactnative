@@ -70,33 +70,26 @@ class Notification extends Component {
         return (
             <>
                 <View style={[styles.container, { paddingBottom: '1%' }]}>
-
-                    {
-                        loading ?
-                            <View style={{ flex: 1, backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, justifyContent: 'center', alignItems: 'center' }}>
-                                <ActivityIndicator />
-                            </View>
+                    
+                    <View style={{ flex: 1, backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, paddingBottom: '1%' }}>
+                        {notifications.length == 0 ?
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={styles.headerTitleStyle}>No Record Found</Text></View>
                             :
-                            <View style={{ flex: 1, backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, paddingBottom: '1%' }}>
-                                {notifications.length == 0 ?
-                                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={styles.headerTitleStyle}>No Record Found</Text></View>
-                                    :
-                                    <FlatList
-                                        data={notifications}
-                                        refreshControl={
-                                            <RefreshControl
-                                                refreshing={loading}
-                                                onRefresh={() => this.props.notificationActions.getNotification(this.props.user)}
-                                                tintColor={THEME.COLOR_WHITE}
-                                                colors={[THEME.PRIMARY_COLOR]}
-                                            />
-                                        }
-                                        showsVerticalScrollIndicator={false}
-                                        ItemSeparatorComponent={this._renderSeparator}
-                                        renderItem={({ item }) => this._renderItems(item)}
-                                        keyExtractor={item => item.id} />}
-                            </View>
-                    }
+                            <FlatList
+                                data={notifications}
+                                refreshControl={
+                                    <RefreshControl
+                                        refreshing={loading}
+                                        onRefresh={() => this.props.notificationActions.getNotification(this.props.user)}
+                                        tintColor={THEME.COLOR_WHITE}
+                                        colors={[THEME.PRIMARY_COLOR]}
+                                    />
+                                }
+                                showsVerticalScrollIndicator={false}
+                                ItemSeparatorComponent={this._renderSeparator}
+                                renderItem={({ item }) => this._renderItems(item)}
+                                keyExtractor={item => item.id} />}
+                    </View>
                 </View>
             </>
         )

@@ -128,6 +128,15 @@ export default StyleSheet.create({
     logoStyle:{
         height:40,
         width:60
+    },
+    modalMainHeading: {
+        fontFamily: 'Poppins-Medium',
+        fontSize: 14,
+    },
+    modalTextStyle: {
+        fontSize: 10 ,
+        textAlign: 'justify',
+        fontFamily: 'Poppins-Regular'
     }
 
 })

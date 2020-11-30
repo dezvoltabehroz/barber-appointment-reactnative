@@ -111,7 +111,7 @@ export default class CustomerServices extends Component {
 
 
     render() {
-        const { onApproved } = this.props;
+        const { onApproved,userData } = this.props;
         const { serviceList, totalPrice, totalTime, bookingEndingTime,
             bookingStartingTime, timeInHour, bookingDate, isAccepted, isArrived, isCompleted, isStarted } = this.state;
         const options = {
@@ -280,7 +280,7 @@ export default class CustomerServices extends Component {
 
                             </View>
                             {
-                                this.props.userData.counter == true ?
+                               this.state.stepCounter >= 6 ?
                                     null
                                     :
                                     <FooterButton disabled={isCompleted == '1' && isArrived == '1' && isStarted == '1' && isAccepted == '1' ? false : true} title='Approve' onPress={() => onApproved(this.props.userData)} />

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, ImageBackground, TouchableOpacity, Alert, Image, Dimensions, ActivityIndicator, RefreshControl } from "react-native";
+import { View, Text, FlatList, ImageBackground, ScrollView, TouchableOpacity, Alert, Image, Dimensions, ActivityIndicator, RefreshControl } from "react-native";
 import styles from './style';
 import { Button, Icon } from '../../../components'
 import { connect } from 'react-redux';
@@ -9,7 +9,8 @@ import moment from 'moment';
 import messaging from '@react-native-firebase/messaging'
 import { notificationActions } from '../../../redux/actions/notification';
 import { bindActionCreators } from "redux";
-
+import { authActions } from '../../../redux/actions/auth';
+import Modal from 'react-native-modal';
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 class BarberHome extends Component {
@@ -30,6 +31,10 @@ class BarberHome extends Component {
                 },
                 {
                     name: 'Contact Us',
+                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                },
+                {
+                    name: 'PPE (Formerly About US)',
                     imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
                 },
             ],
@@ -78,7 +83,7 @@ class BarberHome extends Component {
         return (
             <>
                 <TouchableOpacity
-                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "Edit Profile" ? onEditProfile() : item.name == "Bookings History" ? onBookingHistory() : Alert.alert("Atention", "This screen is under Development") }} style={styles.upperListItemContainer}>
+                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "Edit Profile" ? onEditProfile() : item.name == "Bookings History" ? onBookingHistory() : item.name == "PPE (Formerly About US)" ? this.props.authActions.healthAndSafety(true) : Alert.alert("Atention", "This screen is under Development") }} style={styles.upperListItemContainer}>
                     <ImageBackground source={{ uri: `${item.imageUrl}` }}
                         style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }}>
                         <View style={styles.upperListTitleContainer}>
@@ -127,7 +132,7 @@ class BarberHome extends Component {
         let endTime = tempStartTime.add(bookingDuration, 'minutes');
         let bookingEndTime = new moment(endTime).format('hh:mm A');
         return (
-            <TouchableOpacity disabled={item.is_accepted == '1' ? false : true} onPress={() => onView(region, item.id, item.customer_id, item.booking_date, item.booking_time,item.booking_time_duration)} style={{ backgroundColor: THEME.COLOR_WHITE, borderRadius: 7, marginHorizontal: '5%', }}>
+            <TouchableOpacity disabled={item.is_accepted == '1' ? false : true} onPress={() => onView(region, item.id, item.customer_id, item.booking_date, item.booking_time, item.booking_time_duration)} style={{ backgroundColor: THEME.COLOR_WHITE, borderRadius: 7, marginHorizontal: '5%', }}>
                 <View style={styles.locationContainer}>
                     <Icon.Entypo name='dot-single' color={THEME.COLOR_BLACK} size={20} />
                     <Text style={[styles.upperListTitleStyle, { textTransform: 'capitalize' }]}>{item.customer_address}</Text>
@@ -226,6 +231,50 @@ class BarberHome extends Component {
                                         keyExtractor={item => item} />}
                     </View>
                 </View>
+                <Modal isVisible={this.props.user.modal}>
+                    <View style={{ flex: 1, backgroundColor: 'white', borderRadius: 10, }}>
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginHorizontal: '6%' }}>
+                            <ScrollView showsVerticalScrollIndicator={false}>
+                                <Text style={[{ marginTop: '10%', textAlign: 'center' }, styles.modalMainHeading]}>
+                                    Health and Safety Commitment
+                                </Text>
+                                <Text style={[{ marginTop: '5%' }, styles.modalTextStyle]}>
+                                    We will require clients & providers to sanitize their hands before undergoing any services.
+                                    Customers experiencing flu-like symptoms will be required to reschedule until they are symptom-free. Providers have the right to refuse services for his or her own safety.
+                                    Customers and/or providers may be asked to take a temperature reading before beginning the service to ensure your safety.
+                                    If you or someone you are in close contact with are sick within 24 hours of your appointment, please reschedule immediately.
+                                    ALL appointments must be rescheduled via the Fleek App along with submitting a medical Doctor’s note as confirmation to waive fees.
+                                    We will help you reschedule your appointment at a later date.
+                                    </Text>
+                                <Text style={[{ marginTop: '5%' }, styles.modalMainHeading]}>
+                                    Face Coverings
+                                    </Text>
+                                <Text style={styles.modalTextStyle}>
+                                    You must have your mask or face covering on AT ALL TIMES during the appointment. Please be sure to have a well fitted mask that covers both your whole mouth and nose. This must be worn throughout the entire appointment.
+                                    </Text>
+                                <Text style={[{ marginTop: '5%', }, styles.modalMainHeading]}>
+                                    Fleek Provider Duty
+                                    </Text>
+                                <Text style={styles.modalTextStyle} >
+                                    As a safety percaution, all Fleek providers are required to:
+                                    </Text>
+                                <Text style={styles.modalTextStyle}>
+                                    "Wear a face covering throughout the entire appointment."
+                                    </Text>
+                                <Text style={styles.modalTextStyle}>
+                                    "Wear rubber gloves while conducting the service."
+                                    </Text>
+                                <Text style={styles.modalTextStyle}>
+                                    "Maintain sanitary equipment for the health and safety of our customers"
+                                    </Text>
+                            </ScrollView>
+                        </View>
+                        <View style={{ flex: 0.1 }}>
+                            <Button title="Accept" onPress={() => { this.props.authActions.healthAndSafety(false) }} />
+                        </View>
+                    </View>
+
+                </Modal>
             </>
         );
     }
@@ -239,7 +288,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = dispatch => {
     return {
-        notificationActions: bindActionCreators(notificationActions, dispatch)
+        notificationActions: bindActionCreators(notificationActions, dispatch),
+        authActions: bindActionCreators(authActions, dispatch)
     };
 };
 

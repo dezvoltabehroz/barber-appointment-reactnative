@@ -7,8 +7,7 @@ import {
     LOADING_SUCCESS,
     USER_UPDATE_PROFILE_INFO_SUCCESS,
     USER_EMAIL_AND_PASSWORD_SUCCESS,
-    USER_ALL_ADDRESS_SUCCESS,
-    LOADING_ADDRESSES_SUCCESS
+    HEALTH_AND_SEFATY_SUCCESS
 } from '../types';
 import { RegisterUser } from '../../services';
 import { Alert, Linking, Platform } from 'react-native';
@@ -332,6 +331,11 @@ const getFcmToken = async (userData, dispatch, navigate) => {
         console.log("Failed", "No token received");
     }
 }
+const healthAndSafety = (modal) => {
+    return (dispatch) => {
+        dispatch({ type: HEALTH_AND_SEFATY_SUCCESS, modal: modal })
+    }
+}
 export const authActions = {
     setUserProfile,
     removeUser,
@@ -341,5 +345,6 @@ export const authActions = {
     UpdateProfileInfo,
     UpdateEmailAddressandToken,
     getUserProfile,
-    userLogin
+    userLogin,
+    healthAndSafety
 };

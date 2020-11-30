@@ -10,7 +10,8 @@ import { userAddressActions } from '../../../redux/actions/addresses';
 import { categoryActions } from '../../../redux/actions/category';
 import { UserAddresses } from '../../../services';
 import Image from 'react-native-fast-image';
-import messaging from '@react-native-firebase/messaging'
+import messaging from '@react-native-firebase/messaging';
+import Modal from 'react-native-modal';
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -39,6 +40,10 @@ class Home extends Component {
                     name: 'Contact Us',
                     imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
                 },
+                {
+                    name: 'PPE (Formerly About US)',
+                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                },
             ],
             servicelist: [
                 {
@@ -61,7 +66,7 @@ class Home extends Component {
 
 
     componentDidMount = async () => {
-        messaging().onMessage(async remoteMessage => {  });
+        messaging().onMessage(async remoteMessage => { });
         let { isUserLogedIn, userData } = this.props.user;
         let data = {
             id: userData.id,
@@ -95,7 +100,7 @@ class Home extends Component {
         return (
             <>
                 <TouchableOpacity
-                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "My Addresses" ? myAddresses() : item.name == "My Fleek" ? onAppointments() : {} }} style={styles.upperListItemContainer}>
+                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "My Addresses" ? myAddresses() : item.name == "My Fleek" ? onAppointments() : this.props.authActions.healthAndSafety(true) }} style={styles.upperListItemContainer}>
                     <ImageBackground source={{ uri: `${item.imageUrl}` }}
                         style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }} >
                         <View style={styles.upperListTitleContainer}>
@@ -281,6 +286,50 @@ class Home extends Component {
                         </View>
                     </ScrollView>
                 </View>
+                <Modal isVisible={this.props.user.modal}>
+                    <View style={{ flex: 1, backgroundColor: 'white', borderRadius: 10, }}>
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginHorizontal: '6%' }}>
+                            <ScrollView showsVerticalScrollIndicator={false}>
+                                <Text style={[{ marginTop: '10%',textAlign: 'center' }, styles.modalMainHeading]}>
+                                    Health and Safety Commitment
+                                </Text>
+                                <Text style={[{ marginTop: '5%' }, styles.modalTextStyle]}>
+                                    We will require clients & providers to sanitize their hands before undergoing any services.
+                                    Customers experiencing flu-like symptoms will be required to reschedule until they are symptom-free. Providers have the right to refuse services for his or her own safety.
+                                    Customers and/or providers may be asked to take a temperature reading before beginning the service to ensure your safety.
+                                    If you or someone you are in close contact with are sick within 24 hours of your appointment, please reschedule immediately.
+                                    ALL appointments must be rescheduled via the Fleek App along with submitting a medical Doctor’s note as confirmation to waive fees.
+                                    We will help you reschedule your appointment at a later date.
+                                    </Text>
+                                <Text style={[{ marginTop: '5%' }, styles.modalMainHeading]}>
+                                    Face Coverings
+                                    </Text>
+                                <Text style={styles.modalTextStyle}>
+                                    You must have your mask or face covering on AT ALL TIMES during the appointment. Please be sure to have a well fitted mask that covers both your whole mouth and nose. This must be worn throughout the entire appointment.
+                                    </Text>
+                                <Text style={[{ marginTop: '5%', }, styles.modalMainHeading]}>
+                                    Fleek Provider Duty
+                                    </Text>
+                                <Text style={styles.modalTextStyle} >
+                                    As a safety percaution, all Fleek providers are required to:
+                                    </Text>
+                                <Text style={styles.modalTextStyle}>
+                                    "Wear a face covering throughout the entire appointment."
+                                    </Text>
+                                <Text style={styles.modalTextStyle}>
+                                    "Wear rubber gloves while conducting the service."
+                                    </Text>
+                                <Text style={styles.modalTextStyle}>
+                                    "Maintain sanitary equipment for the health and safety of our customers"
+                                    </Text>
+                            </ScrollView>
+                        </View>
+                        <View style={{ flex: 0.1 }}>
+                            <Button title="Accept" onPress={() => { this.props.authActions.healthAndSafety(false) }} />
+                        </View>
+                    </View>
+
+                </Modal>
             </>
         );
     }
