@@ -287,7 +287,7 @@ const requestUserPermission = async function (data, dispatch, navigate) {
         announcement: false,
         badge: true,
         carPlay: true,
-        provisional: false,
+        provisional: true,
         sound: true,
     });
     if (authorizationStatus === messaging.AuthorizationStatus.AUTHORIZED) {
@@ -307,6 +307,7 @@ const requestUserPermission = async function (data, dispatch, navigate) {
     } else {
         console.log('Authorization status:', authStatus);
     }
+
 }
 
 const getFcmToken = async (userData, dispatch, navigate) => {
