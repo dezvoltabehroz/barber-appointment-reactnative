@@ -20,9 +20,9 @@ class HomeScreen extends Component {
         await this.props.authActions.removeUser(replace);
     }
 
-    on_Press_Booking = (data, bookingId, customerId, bookingDate, bookingTime) => {
+    on_Press_Booking = (data, bookingId, customerId, bookingDate, bookingTime,bookingDuration) => {
         const { push } = this.props.navigation
-        push('BarberServiceAccept', { item: data, bookingId, customerId, bookingDate, bookingTime })
+        push('BarberServiceAccept', { item: data, bookingId, customerId, bookingDate, bookingTime,bookingDuration })
     }
 
     on_Press_Decline = (data, id) => {
@@ -47,7 +47,7 @@ class HomeScreen extends Component {
                 onContactUs={() => navigate("ContactUs")}
                 onAboutUs={() => navigate("AboutUs")}
                 onExit={this.handleLogout}
-                onView={(data, bookingId, customerId, bookingDate, bookingTime) => this.on_Press_Booking(data, bookingId, customerId, bookingDate, bookingTime)}
+                onView={(data, bookingId, customerId, bookingDate, bookingTime,bookingDuration) => this.on_Press_Booking(data, bookingId, customerId, bookingDate, bookingTime,bookingDuration)}
                 onDecline={(data, id) => this.on_Press_Decline(data, id)} />
         )
     }

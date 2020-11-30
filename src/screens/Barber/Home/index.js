@@ -127,7 +127,7 @@ class BarberHome extends Component {
         let endTime = tempStartTime.add(bookingDuration, 'minutes');
         let bookingEndTime = new moment(endTime).format('hh:mm A');
         return (
-            <TouchableOpacity disabled={item.is_accepted == '1' ? false : true} onPress={() => onView(region, item.id, item.customer_id, item.booking_date, item.booking_time)} style={{ backgroundColor: THEME.COLOR_WHITE, borderRadius: 7, marginHorizontal: '5%', }}>
+            <TouchableOpacity disabled={item.is_accepted == '1' ? false : true} onPress={() => onView(region, item.id, item.customer_id, item.booking_date, item.booking_time,item.booking_time_duration)} style={{ backgroundColor: THEME.COLOR_WHITE, borderRadius: 7, marginHorizontal: '5%', }}>
                 <View style={styles.locationContainer}>
                     <Icon.Entypo name='dot-single' color={THEME.COLOR_BLACK} size={20} />
                     <Text style={[styles.upperListTitleStyle, { textTransform: 'capitalize' }]}>{item.customer_address}</Text>
