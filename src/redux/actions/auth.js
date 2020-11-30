@@ -11,7 +11,7 @@ import {
     LOADING_ADDRESSES_SUCCESS
 } from '../types';
 import { RegisterUser } from '../../services';
-import { Alert, Platform } from 'react-native';
+import { Alert, Linking, Platform } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { categoryActions } from './category';
 import { barberActions } from './barbers';
@@ -295,6 +295,10 @@ const requestUserPermission = async function (data, dispatch, navigate) {
     } else if (authorizationStatus === messaging.AuthorizationStatus.PROVISIONAL) {
         console.log('User has provisional notification permissions.');
     } else {
+        Alert.alert("Attension", "You need to allow push notification from settings",
+            [
+                { text: "OK", onPress: () => Linking.openSettings() }
+            ])
         console.log('User has notification permissions disabled');
     }
 

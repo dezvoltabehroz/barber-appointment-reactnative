@@ -14,6 +14,7 @@ export default class BarberBookingHistoryScreen extends Component {
             <MainScreenPaths.Barber.BarberBookingHistory navigation={(data) =>
                 navigate(data.route, {
                     bookingId: data.bookingId,
+                    bookingDuration:data.bookingDuration,
                     customerId: data.customerId,
                     barberId: data.barberId,
                     item: data.region,

@@ -65,7 +65,7 @@ class BarberServiceAccept extends Component {
     }
 
     render() {
-        let { bookingDate, bookingTime, arrivedAtlocation, onChat } = this.props;
+        let { bookingDate, bookingTime, arrivedAtlocation, onChat, bookingDuration } = this.props;
         const { region, userData } = this.state;
         const location = `${region.latitude},${region.longitude}`;
         const url = Platform.select({
@@ -73,15 +73,24 @@ class BarberServiceAccept extends Component {
             android: `geo:${location}?center=${location}&q=${location}&z=16`,
         });
         let date = moment(bookingDate).format('YYYY-MM-DD') + ' ' + bookingTime;
+        let time = parseInt(moment.duration(bookingDuration).asMinutes())
+        var h = time / 60 | 0;
+        var m = time % 60 | 0;
+        let timeInHour = moment.utc().hours(h).minutes(m).format("HH:mm");
+        let bookingEndTime = moment(date).add(timeInHour, 'hours')
         const enable = () => {
             if (moment(date).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD')) {
-                if (moment(date).format('YYYY-MM-DD H:mm:ss') <= moment().format('YYYY-MM-DD H:mm:ss')) {
-                    return false;
+                if (moment().format('YYYY-MM-DD H:mm:ss') >= moment(date).format('YYYY-MM-DD H:mm:ss')) {
+                    if (moment(bookingEndTime).format('YYYY-MM-DD H:mm:ss') >= moment().format('YYYY-MM-DD H:mm:ss')) {
+                        return false;
+                    }
+                    else{
+                        return true;
+                    }
                 }
                 else {
                     return true;
                 }
-
             }
             else {
                 return true

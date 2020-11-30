@@ -33,11 +33,12 @@ class BarberServiceAcceptScreen extends Component {
 
     render() {
         const { navigate } = this.props.navigation
-        const { item, bookingId, bookingDate, bookingTime } = this.props.route.params;
+        const { item, bookingId, bookingDate,bookingDuration, bookingTime } = this.props.route.params;
         return (
             <MainScreenPaths.Barber.BarberServiceAccept
                 item={(item)}
                 bookingId={bookingId}
+                bookingDuration={bookingDuration}
                 bookingDate={bookingDate}
                 bookingTime={bookingTime}
                 onChat={(data) => navigate('BarberChat', { userData: data })}

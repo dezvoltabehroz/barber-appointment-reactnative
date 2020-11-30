@@ -87,7 +87,8 @@ class BarberBookingHistory extends Component {
                             bookingTime: item.booking_time,
                             customerId: item.customer_id,
                             totalPrice: item.booking_price,
-                            barberId: item.barber_id
+                            barberId: item.barber_id,
+                            bookingDuration: item.booking_time_duration
                         }
                         this.props.navigation(caseOneData)
                         break;
