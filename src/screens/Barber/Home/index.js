@@ -270,7 +270,7 @@ class BarberHome extends Component {
                             </ScrollView>
                         </View>
                         <View style={{ paddingTop: '5%' }}>
-                            <TouchableOpacity onPress={() => { this.props.authActions.healthAndSafety(false) }} style={{ backgroundColor: themeStyle.PRIMARY_COLOR, height: 50, borderRadius: 10, justifyContent: 'center' }}>
+                            <TouchableOpacity onPress={() => { this.props.authActions.healthAndSafety(false) }} style={{ backgroundColor: THEME.PRIMARY_COLOR, height: 50, borderRadius: 10, justifyContent: 'center' }}>
                                 <Text style={{ color: 'white', textAlign: 'center', fontFamily: 'Poppins-Medium' }} >Accept</Text>
                             </TouchableOpacity>
                         </View>
