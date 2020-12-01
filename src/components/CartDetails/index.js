@@ -7,14 +7,15 @@ import {
     ScrollView,
     Text,
     TouchableOpacity,
-    Modal,
+    Dimensions,
     FlatList
 } from 'react-native';
 import styles from './style'
 import { FloatingInput, Icon } from '..';
 import THEME from '../../assets/styles/theme.style';
 import moment from 'moment'
-
+const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
 class CartDetail extends Component {
     constructor(prop) {
         super(prop);
@@ -29,6 +30,7 @@ class CartDetail extends Component {
 
     componentDidMount = () => {
         const { services } = this.props
+        console.log("services: ", services)
         this.setState({ services });
         const notEqual = (currentValue) => currentValue.quantity != '';
         const data = this.state.services.every(notEqual)
@@ -108,14 +110,32 @@ class CartDetail extends Component {
             </>)
     }
 
+    handleMultipleBooking = () => {
+        let array = [...this.state.services]
+        array.map((element, index) => {
+            if(element.quantity!='1'){
+                array[index] = { ...element, selected: false, quantity: '1' }
+            }
+            else{
+                array[index] = { ...element, selected: false, quantity: '' }
+            }
+        })
+        this.setState({ services: array })
+    }
+
     render() {
         const { addresslocation, region } = this.props;
         return (
             <>
                 <ScrollView>
                     <View style={styles.marginVertical}>
-                        <View style={styles.generalMargin}>
+                        <View style={[styles.generalMargin, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }]}>
                             <Text style={styles.colorTextStyle}>Cart Items</Text>
+                            <View style={{ alignSelf: 'center' }}>
+                                <TouchableOpacity onPress={() => this.handleMultipleBooking()} style={{ backgroundColor: THEME.PRIMARY_COLOR, justifyContent: "center", alignItems: 'center', height: 45, width: screenWidth * 0.34, borderRadius: 5 }}>
+                                    <Text style={styles.textStyle}>Multi Booking</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                         <View style={styles.container}>
                             <View style={styles.rowContainer}>
@@ -140,6 +160,7 @@ class CartDetail extends Component {
                                     renderItem={({ index, item }) => this._renderItems({ index, item })} />
                             </View>
                         </View>
+
                     </View>
                 </ScrollView>
             </>

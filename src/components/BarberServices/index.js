@@ -23,7 +23,7 @@ export default class BarberServices extends Component {
                 if (response.data.status) {
                     let array = [...response.data.barber_services_list]
                     array.map((element, index) => {
-                        array[index] = { ...element, selected: false, quantity: '' }
+                        array[index] = { ...element, selected: false, quantity: '1' }
                     })
                     this.setState({ services: array })
                 }
