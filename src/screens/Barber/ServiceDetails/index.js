@@ -217,7 +217,7 @@ class ServiceDetails extends Component {
                                     }
                                 </View>
                                 {
-                                    cancelled ?
+                                    stepCounter == 0 ?
                                         null
                                         : bookingEndingTime == '' && bookingStartingTime == '' ?
                                             null
