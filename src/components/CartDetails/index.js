@@ -31,10 +31,12 @@ class CartDetail extends Component {
     componentDidMount = () => {
         const { services } = this.props
         console.log("services: ", services)
-        this.setState({ services });
-        const notEqual = (currentValue) => currentValue.quantity != '';
-        const data = this.state.services.every(notEqual)
-        this.props.isDisable(data);
+        this.setState({ services },()=>{
+            const notEqual = (currentValue) => currentValue.quantity != '';
+            const data = this.state.services.every(notEqual)
+            this.props.isDisable(data);
+        });
+      
     }
 
     handleTimeAndPrice = () => {
@@ -120,6 +122,9 @@ class CartDetail extends Component {
                 array[index] = { ...element, selected: false, quantity: '' }
             }
         })
+        const notEqual = (currentValue) => currentValue.quantity != '';
+        const data = array.every(notEqual)
+        this.props.isDisable(data);
         this.setState({ services: array })
     }
 

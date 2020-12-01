@@ -4,8 +4,6 @@ import { View, Text, StyleSheet, Image, Dimensions, Platform, TouchableOpacity }
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import BarberRoutes from '../BarberNavigation';
 import { Icon } from '../../components';
-import NotificationScreen from '../BarberNavigation/NotificationScreen';
-import EditProfileScreen from '../BarberNavigation/EditProfileScreen';
 import THEME from '../../assets/styles/theme.style'
 import BarberProfileRoutes from './barberUpdateProfileNavigation';
 import BarberNotificationRoutes from './barberNotificationNavigation';
