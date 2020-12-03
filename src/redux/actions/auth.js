@@ -228,11 +228,13 @@ const UpdateEmailAddressandToken = (userData, navigate) => {
                         loading: !loading
                     })
                     RegisterUser.userLogin(userData)
-                        .then(responseData => {
+                        .then(async responseData => {
                             if (responseData.data.status) {
-                                AsyncStorage.removeItem('Phone');
-                                dispatch({ type: USER_LOGIN_SUCCESS, userData: responseData.data.userData[0], loading: loading })
-                                dispatch(getUserProfile(responseData.data.userData[0], navigate))
+                                await requestUserPermission(responseData.data.userData[0], dispatch, navigate)
+                                AsyncStorage.setItem('Email', JSON.stringify(userData))
+                                // AsyncStorage.removeItem('Phone');
+                                // dispatch({ type: USER_LOGIN_SUCCESS, userData: responseData.data.userData[0], loading: loading })
+                                // dispatch(getUserProfile(responseData.data.userData[0], navigate))
                             }
                             else {
                                 Alert.alert(response.data.message)
