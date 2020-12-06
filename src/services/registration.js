@@ -78,18 +78,34 @@ const Api = {
             }
         })
     },
-    updateFCMToken:function(userData){
+    updateFCMToken: function (userData) {
         return axiosInstance.post('registration/updateFcmtoken', {
-            user_id:userData.id,
-            fcmToken:userData.fcmToken
+            user_id: userData.id,
+            fcmToken: userData.fcmToken
         }, {
             headers: {
                 'Authorization': 'Bearer ' + userData.token,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             }
-        })   
-    }
+        })
+    },
+    getCodeForResetPass: function (email) {
+        return axiosInstance.post('registration/getCodeForResetPass', {
+            email: email
+        }, config)
+    },
+    updatePassword: function (userData) {
+        return axiosInstance.post('registration/updatePassword', {
+            id: userData.id,
+            newPassword: userData.password
+        }, config)
+    },
+    verifyCodeForResetPass: function (code) {
+        return axiosInstance.post('registration/verifyCodeForResetPass', {
+            code: code
+        }, config)
+    },
 };
 
 export default Api;

@@ -75,7 +75,7 @@ export default class ForgetPassword extends Component {
                 </View>
 
                 <View style={styles.buttonContainer}>
-                    <Button title='Submit' onPress={onComplete} />
+                    <Button loading={this.props.loading} disabled={password && confirmPassword ? false : true} title='Submit' onPress={() => onComplete(password)} />
                 </View>
             </View>
         )
