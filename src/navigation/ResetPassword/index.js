@@ -31,11 +31,24 @@ export default class ResetPasswordScreen extends Component {
                 console.log(error)
             })
     }
+    handleResendCode = () => {
+        const { email } = this.props.route.params;
+        const { navigate, goBack, replace } = this.props.navigation
+        RegisterUser.getCodeForResetPass(email)
+            .then((respone) => {
+                if (respone.data.status) {
+                    console.log(respone.data)
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
 
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.ResetPassword loading={this.state.loading} onVerify={(code) => this.handleVerifyCode(code)} />
+            <MainScreenPaths.ResetPassword onResend={() => this.handleResendCode()} loading={this.state.loading} onVerify={(code) => this.handleVerifyCode(code)} />
         )
     }
 }

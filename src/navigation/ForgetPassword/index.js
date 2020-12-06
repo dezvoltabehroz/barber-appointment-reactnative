@@ -19,7 +19,7 @@ export default class ForgetPasswordScreen extends Component {
         RegisterUser.getCodeForResetPass(email)
             .then((respone) => {
                 if (respone.data.status) {
-                    replace('ResetPassword')
+                    replace('ResetPassword', { email: email })
                     this.setState({ loading: false })
                 }
             })
