@@ -43,7 +43,7 @@ class AuthScreen extends Component {
     }
 
     render() {
-        const { onPhone, onPressCustomer, onPressBarber, customer, barber, signUpAsBarber, onContinueWithOutLogin, onFacebook, submit, isSubmit, onGoogle } = this.props
+        const { onPhone, onForgetPassword, onPressBarber, customer, barber, signUpAsBarber, onContinueWithOutLogin, onFacebook, submit, isSubmit, onGoogle } = this.props
         const { email, password, isEmailFocus, isPasswordFocus } = this.state;
         return (
             <>
@@ -97,6 +97,7 @@ class AuthScreen extends Component {
                                 <Button loading={this.props.loading} title="Login" onPress={() => { this.props.isSubmit(); this.handleLogin() }} />
                             </View>
                         </View>
+                        <Text onPress={()=>onForgetPassword()} style={styles.forgetPasswordTextStyle}>Forget Password?</Text>
                         <View style={styles.lowerContainer}>
                             <Text style={styles.signUpAndLoginTextStyle}>Sign up with:</Text>
 

@@ -128,6 +128,7 @@ class AuthScreen extends Component {
         const { customer, barber, submit, loading } = this.state;
         return (
             <MainScreenPaths.Auth
+                onForgetPassword={()=>navigate('Forget') }
                 loading={this.props?.user?.loading}
                 onLogin={(userData) => this.handleLogin(userData)}
                 onPhone={() => customer ?

@@ -15,6 +15,10 @@ import ServicesScreen from './BarberNavigation/ServicesScreen';
 import WorkingDaysScreen from './BarberNavigation/WorkingDaysScreen';
 import ScheduleTimeScreen from './BarberNavigation/ScheduleTimeScreen';
 import PriceAndTimeScreen from './BarberNavigation/PriceAndTimeScreen';
+import ForgetPasswordScreen from './ForgetPassword';
+import NewPasswordScreen from './NewPassword';
+import ResetPasswordScreen from './ResetPassword';
+import PasswordResetRoutes from './PasswordResetNavigation';
 
 const Stack = createStackNavigator();
 
@@ -36,6 +40,9 @@ function AppRoutes() {
                 headerTransparent: true,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>About Us</Text></View>),
                 headerTitleAlign: 'center',
+            }} />
+            <Stack.Screen name="Forget" component={PasswordResetRoutes} options={{
+                headerShown: false
             }} />
             <Stack.Screen name="ContactUs" component={ContactUsScreen} options={{
                 headerBackTitleVisible: false,

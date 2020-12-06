@@ -115,6 +115,12 @@ export default StyleSheet.create({
         textAlign: "center",
         color: THEME.COLOR_WHITE
     },
+    forgetPasswordTextStyle: {
+        marginVertical: "1%",
+        fontFamily: "Poppins-Regular",
+        textAlign: "center",
+        color: THEME.COLOR_WHITE
+    },
     continueWithoutTextStyle: {
         marginTop: "5%",
         marginBottom:'5%',
