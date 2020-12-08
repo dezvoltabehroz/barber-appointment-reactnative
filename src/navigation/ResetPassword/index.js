@@ -33,7 +33,6 @@ export default class ResetPasswordScreen extends Component {
     }
     handleResendCode = () => {
         const { email } = this.props.route.params;
-        const { navigate, goBack, replace } = this.props.navigation
         RegisterUser.getCodeForResetPass(email)
             .then((respone) => {
                 if (respone.data.status) {

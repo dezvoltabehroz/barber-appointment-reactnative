@@ -25,12 +25,10 @@ function BarberTopNavigationRoutes() {
             },
         })}
             tabBarOptions={{
-                
                 activeTintColor: THEME.PRIMARY_COLOR,
                 inactiveTintColor: 'gray',
                 indicatorContainerStyle:{
                   backgroundColor:  THEME.PRIMARY_BACKGROUND_COLOR
-
                 },
                 indicatorStyle: {
                     backgroundColor: THEME.PRIMARY_COLOR
