@@ -139,7 +139,7 @@ class BarberHome extends Component {
                 </View>
                 <View style={styles.serviceTimeContainer}>
                     <Icon.Entypo name='dot-single' color={THEME.COLOR_BLACK} size={20} />
-                    <Text style={[styles.upperListTitleStyle, { width: screenWidth * 0.8 }]}>{moment(item.booking_date).format('dddd')} {moment(item.booking_date).format('DD/MM/YYYY')} at {moment(bookingStartTime).format('hh:mm A')} to {bookingEndTime} </Text>
+                    <Text style={[styles.upperListTitleStyle, { width: screenWidth * 0.8 }]}>{moment(item.booking_date).format('MM/DD/YYYY')} at {moment(bookingStartTime).format('hh:mm A')} to {bookingEndTime} </Text>
                 </View>
                 <View style={styles.serviceTimeContainer}>
                     <Icon.Entypo name='dot-single' color={THEME.COLOR_BLACK} size={20} />
