@@ -28,10 +28,9 @@ class SubCategoryServices extends Component {
 
     _renderItems = (item) => {
         let { onItemPress } = this.props;
-        const image_Url = 'https://media1.popsugar-assets.com/files/thumbor/8FQjnhO5KDETJlIw-9YrAxbFORg/fit-in/1024x1024/filters:format_auto-!!-:strip_icc-!!-/2013/11/25/741/n/1922153/f86754a8a6f036d0_headband-braid-2/i/Starting-section-hair-from-behind-one-ear-separate.jpg';
         return (
             <TouchableOpacity onPress={()=>onItemPress(item.id)} style={styles.lowerListItemContainer}>
-                <Image source={item.picture ? { uri: item.picture } : { uri: image_Url }} resizeMode="contain"
+                <Image source={require('../../../assets/images/background.png')} resizeMode="contain"
                     style={styles.lowerListImageStyle} >
                     <View style={styles.lowerListTitleContainer}>
                         <Text numberOfLines={3} style={styles.lowerListTitleStyle}>{item.service_name}</Text>
