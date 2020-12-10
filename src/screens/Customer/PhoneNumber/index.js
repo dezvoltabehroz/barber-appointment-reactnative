@@ -71,13 +71,14 @@ export default class PhoneNumber extends Component {
     };
 
     render() {
-        const { number, isNumberFocus, submit,callingCode } = this.state;
+        const { number, isNumberFocus, submit, callingCode } = this.state;
         return (
             <View style={styles.container}>
                 <View style={styles.innerContainer}>
                     <View style={styles.labelHeadingStyle}>
                         <Text style={styles.countryLabelHeading}>Choose Country</Text>
                         <CountryPicker
+                            countryCodes={['PK', 'US']}
                             theme={styles.themeText}
                             withFilter={true}
                             visible={this.state.isVisible}
@@ -110,7 +111,7 @@ export default class PhoneNumber extends Component {
                     <View style={styles.gapHeight}></View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.buttonContainer}>
-                        <Button disabled={callingCode&&number?false:true} title="Send Verification" loading={this.props.loading} onPress={this.handleSendCode} />
+                        <Button disabled={callingCode && number ? false : true} title="Send Verification" loading={this.props.loading} onPress={this.handleSendCode} />
                     </View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.textContainer}>
