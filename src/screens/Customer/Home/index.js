@@ -24,27 +24,27 @@ class Home extends Component {
             servicelist1: [
                 {
                     name: 'My Fleek',
-                    imageUrl: require('../../../assets/images/Rectangle.jpg')
+                    imageUrl: require('../../../assets/images/Rectangle.png')
                 },
                 {
                     name: 'My Addresses',
-                    imageUrl: require('../../../assets/images/Rectangle.jpg')
+                    imageUrl: require('../../../assets/images/Rectangle.png')
                 },
                 {
                     name: 'Payment Method',
-                    imageUrl: require('../../../assets/images/Rectangle.jpg')
+                    imageUrl: require('../../../assets/images/Rectangle.png')
                 },
                 {
                     name: 'About Us',
-                    imageUrl: require('../../../assets/images/Rectangle.jpg')
+                    imageUrl: require('../../../assets/images/Rectangle.png')
                 },
                 {
                     name: 'Contact Us',
-                    imageUrl: require('../../../assets/images/Rectangle.jpg')
+                    imageUrl: require('../../../assets/images/Rectangle.png')
                 },
                 {
                     name: 'PPE (Formerly About US)',
-                    imageUrl: require('../../../assets/images/Rectangle.jpg')
+                    imageUrl: require('../../../assets/images/Rectangle.png')
                 },
             ],
             servicelist: [
