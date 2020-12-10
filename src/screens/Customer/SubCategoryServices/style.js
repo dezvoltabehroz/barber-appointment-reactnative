@@ -35,15 +35,15 @@ export default StyleSheet.create({
     lowerListTitleContainer: {
         // flex: 1,
         marginTop: '5%',
-        margin: '5%',
+        margin: 15,
         // margin:,
         // borderRadius: 10,
         // height: screenHeight * 0.16,
         // width: screenWidth * 0.9,
         // backgroundColor: 'rgba(0,0,0,.4)',
         // paddingHorizontal: '10%',
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start'
+        // justifyContent: 'flex-start',
+        // alignItems: 'flex-start'
     },
     lowerListTitleStyle: {
         fontSize: THEME.FONT_SIZE_LARGE,
