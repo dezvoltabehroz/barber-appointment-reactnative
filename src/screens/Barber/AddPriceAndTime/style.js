@@ -69,9 +69,18 @@ export default StyleSheet.create({
     },
     headingTextStyle1: {
         color: THEME.COLOR_WHITE,
-        textAlign: 'center',
+        // textAlign: 'center',
         fontFamily: 'Poppins-Bold',
         fontSize: THEME.FONT_SIZE_SMALL,
+    },
+    headingTextStyle2: {
+        color: THEME.COLOR_WHITE,
+        textAlign: 'center',
+        fontFamily: 'Poppins-Bold',
+        fontSize: 9,
+    },
+    viewDatePlaceHolder: {
+        width: screenWidth * 0.05,
     },
     inputContainerStyle: {
         height: 54,

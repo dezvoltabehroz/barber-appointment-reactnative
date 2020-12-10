@@ -168,12 +168,13 @@ class AddPriceAndTime extends Component {
                                     :
                                     null
                                 }
+                                <View style={styles.viewDatePlaceHolder}></View>
                                 {item.time == '' ?
                                     <>
                                         <View>
                                             <TouchableOpacity onPress={() => this.setTime(index, item)} style={[styles.inputDateContainerStyle,
                                             selectedArray[index].time == '' ? THEME.inputBorder : {}]}>
-                                                <Text style={styles.titleStyle}>Time</Text>
+                                                <Text style={styles.titleStyle}>Duration</Text>
                                             </TouchableOpacity>
                                             {
                                                 submit && !selectedArray[index].time ? <Text style={COMMON_STYLE.errorText1}>Please select time</Text> : null
@@ -240,16 +241,16 @@ class AddPriceAndTime extends Component {
                 <View style={styles.container}>
                     <View style={styles.upperContainer}>
                         {
-                            selectedArray.length == 0 || selectedArray[0].price != '' || selectedArray[0].time != '' ?
+                            selectedArray.length == 0 || selectedArray[0].price != '' || selectedArray[0].time != ''||selectedArray[1].price != '' || selectedArray[1].time != ''  ?
                                 <View style={styles.headingContainer}>
                                     <View style={styles.nameContainer}>
                                         <Text style={styles.headingTextStyle}>Services</Text>
                                     </View>
                                     <View style={styles.priceContainer} >
-                                        <Text style={styles.headingTextStyle1}>Price</Text>
+                                        <Text style={styles.headingTextStyle2}>Price</Text>
                                     </View>
                                     <View style={styles.timeContainer}>
-                                        <Text style={styles.headingTextStyle1}>Est.Time</Text>
+                                    <Text style={styles.headingTextStyle2}>Est.Duration</Text>
                                     </View>
                                     <View style={styles.priceContainer}>
                                     </View>
