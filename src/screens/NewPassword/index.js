@@ -5,7 +5,7 @@ import CodeInput from 'react-native-confirmation-code-input';
 import { Button, FloatingInput } from '../../components';
 import THEME from "../../assets/styles/theme.style";
 import COMMON_STYLE from '../../assets/styles/common.style';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 export default class ForgetPassword extends Component {
     constructor(props) {
         super(props);

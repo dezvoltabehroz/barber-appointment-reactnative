@@ -15,7 +15,8 @@ class AuthScreen extends Component {
             isEmailFocus: false,
             isPasswordFocus: null,
             emailValid: true,
-            submiting: true
+            submiting: true,
+            staySignIn: true
         }
     }
 
@@ -44,7 +45,7 @@ class AuthScreen extends Component {
 
     render() {
         const { onPhone, onForgetPassword, onPressBarber, customer, barber, signUpAsBarber, onContinueWithOutLogin, onFacebook, submit, isSubmit, onGoogle } = this.props
-        const { email, password, isEmailFocus, isPasswordFocus } = this.state;
+        const { email, password, isEmailFocus, isPasswordFocus, staySignIn } = this.state;
         return (
             <>
                 <View style={styles.container}>
@@ -93,11 +94,19 @@ class AuthScreen extends Component {
                                         submit && !password ? <Text style={[COMMON_STYLE.errorText, submit ? styles.onSubmitTrue : {}]}>Please fill this field</Text> : null
                                     }
                                 </View>
-
+                                <View style={{ flexDirection: 'row', marginBottom: '2.5%',alignItems:'center' }}>
+                                    {
+                                        staySignIn ?
+                                            <Icon.MaterialIcons onPress={() => this.setState({ staySignIn: !staySignIn })} name="check-box" size={30} color={THEME.PRIMARY_COLOR} />
+                                            :
+                                            <Icon.MaterialIcons onPress={() => this.setState({ staySignIn: !staySignIn })}   name="check-box-outline-blank" size={30} color={THEME.PRIMARY_COLOR} />
+                                    }
+                                    <Text style={styles.forgetPasswordTextStyle}>Stay signed in</Text>
+                                </View>
                                 <Button loading={this.props.loading} title="Login" onPress={() => { this.props.isSubmit(); this.handleLogin() }} />
                             </View>
                         </View>
-                        <Text onPress={()=>onForgetPassword()} style={styles.forgetPasswordTextStyle}>Forget Password?</Text>
+                        <Text onPress={() => onForgetPassword()} style={styles.forgetPasswordTextStyle}>Forget Password?</Text>
                         <View style={styles.lowerContainer}>
                             <Text style={styles.signUpAndLoginTextStyle}>Sign up with:</Text>
 

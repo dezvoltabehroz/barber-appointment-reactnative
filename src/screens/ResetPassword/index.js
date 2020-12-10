@@ -4,7 +4,7 @@ import styles from "./style";
 import CodeInput from 'react-native-confirmation-code-input';
 import { Button } from '../../components';
 import THEME from "../../assets/styles/theme.style";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 export default class ResetPassword extends Component {
     constructor(props) {
         super(props);
