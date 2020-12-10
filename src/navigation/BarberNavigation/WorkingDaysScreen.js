@@ -19,9 +19,10 @@ export default class WorkingDaysScreen extends Component {
     }
 
     render() {
-        const { navigate, goBack, replace } = this.props.navigation
+        const { navigate, goBack, replace } = this.props.navigation;
+        const { editing } = this.props.route.params;
         return (
-            <MainScreenPaths.Barber.BarberWorkingDays navigate={replace} onNext={(data) => this.handleFunction(data)} />
+            <MainScreenPaths.Barber.BarberWorkingDays navigate={replace} disabled={editing} onNext={(data) => this.handleFunction(data)} />
         )
     }
 }

@@ -28,24 +28,26 @@ export default StyleSheet.create({
 
     },
     lowerListImageStyle: {
-        height: screenHeight * 0.15,
+        height: screenHeight * 0.16,
         width: screenWidth * 0.9,
         borderRadius: 10
     },
     lowerListTitleContainer: {
-        flex: 1,
-        paddingTop: '5%',
-        borderRadius: 10,
-        height: screenHeight * 0.15,
-        width: screenWidth * 0.9,
-        backgroundColor: 'rgba(0,0,0,.4)',
-        paddingHorizontal: '10%',
+        // flex: 1,
+        padding: 15,
+        // margin:,
+        // borderRadius: 10,
+        // height: screenHeight * 0.16,
+        // width: screenWidth * 0.9,
+        // backgroundColor: 'rgba(0,0,0,.4)',
+        // paddingHorizontal: '10%',
         justifyContent: 'flex-start',
         alignItems: 'flex-start'
     },
     lowerListTitleStyle: {
         fontSize: THEME.FONT_SIZE_LARGE,
         color: THEME.COLOR_WHITE,
+        width: screenWidth * 0.3,
         fontFamily: 'Poppins-Medium'
     },
     lowerListDescriptionStyle: {

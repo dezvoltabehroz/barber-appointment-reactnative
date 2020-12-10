@@ -136,7 +136,7 @@ class WorkingDays extends Component {
                             renderItem={({ item }) => this._renderItems(item)}
                             keyExtractor={item => item} />
                     </View>
-                    <FooterButton disabled={this.state.selectedDays.length == 0 ? true : false} title='Add' onPress={this.on_Next_press} />
+                    <FooterButton disabled={this.state.selectedDays.length == 0 || this.props.disabled == true ? true : false} title='Add' onPress={this.on_Next_press} />
                 </View>
             </>
         );

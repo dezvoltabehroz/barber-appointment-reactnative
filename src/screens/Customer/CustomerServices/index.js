@@ -111,7 +111,7 @@ export default class CustomerServices extends Component {
 
 
     render() {
-        const { onApproved,userData } = this.props;
+        const { onApproved, userData } = this.props;
         const { serviceList, totalPrice, totalTime, bookingEndingTime,
             bookingStartingTime, timeInHour, bookingDate, isAccepted, isArrived, isCompleted, isStarted } = this.state;
         const options = {
@@ -153,46 +153,49 @@ export default class CustomerServices extends Component {
                                 </View>
                                 <View style={styles.flatlistContainer}>
                                     {
-                                        serviceList.map((item) => {
-                                            let time = (parseInt(moment.duration(item.time_duration).asMinutes()) * item.quantity)
-                                            var h = time / 60 | 0;
-                                            var m = time % 60 | 0;
-                                            let timeInHour = moment.utc().hours(h).minutes(m).format("HH:mm");
+                                        serviceList != undefined ?
+                                            serviceList.map((item) => {
+                                                let time = (parseInt(moment.duration(item.time_duration).asMinutes()) * item.quantity)
+                                                var h = time / 60 | 0;
+                                                var m = time % 60 | 0;
+                                                let timeInHour = moment.utc().hours(h).minutes(m).format("HH:mm");
 
-                                            return (
-                                                <>
-                                                    <View style={styles.row}>
-                                                        <View style={styles.nameContainer}>
-                                                            <Text style={styles.textStyle}>{item.service_name}{item.quantity == '1' ? "" : ` (${item.quantity})`}</Text>
-                                                        </View>
-                                                        <View style={styles.priceContainer} >
-                                                            <Text style={styles.timeTextStyle}>${(item.price * item.quantity)}</Text>
-                                                        </View>
-                                                        <View style={styles.timeContainer}>
-                                                            <View style={styles.priceAndTimeContainer}>
-                                                                <Text style={styles.timeTextStyle}>
-                                                                    {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " + timeInHour[0] + timeInHour[1]}
-                                                                    {
-                                                                        timeInHour[0] == '0' && timeInHour[1] == '0' ?
-                                                                            null
-                                                                            :
-                                                                            <Text style={styles.textStyles}> hr</Text>
-                                                                    }
-                                                                    {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
-                                                                    {
-                                                                        timeInHour[3] == 0 && timeInHour[4] == 0 ?
-                                                                            null
-                                                                            :
-                                                                            <Text style={styles.textStyles}> mins</Text>
-                                                                    }
-                                                                </Text>
+                                                return (
+                                                    <>
+                                                        <View style={styles.row}>
+                                                            <View style={styles.nameContainer}>
+                                                                <Text style={styles.textStyle}>{item.service_name}{item.quantity == '1' ? "" : ` (${item.quantity})`}</Text>
+                                                            </View>
+                                                            <View style={styles.priceContainer} >
+                                                                <Text style={styles.timeTextStyle}>${(item.price * item.quantity)}</Text>
+                                                            </View>
+                                                            <View style={styles.timeContainer}>
+                                                                <View style={styles.priceAndTimeContainer}>
+                                                                    <Text style={styles.timeTextStyle}>
+                                                                        {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " + timeInHour[0] + timeInHour[1]}
+                                                                        {
+                                                                            timeInHour[0] == '0' && timeInHour[1] == '0' ?
+                                                                                null
+                                                                                :
+                                                                                <Text style={styles.textStyles}> hr</Text>
+                                                                        }
+                                                                        {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                                                                        {
+                                                                            timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                                                                null
+                                                                                :
+                                                                                <Text style={styles.textStyles}> mins</Text>
+                                                                        }
+                                                                    </Text>
+                                                                </View>
                                                             </View>
                                                         </View>
-                                                    </View>
-                                                    <View style={styles.seperatorStyle}></View>
-                                                </>
-                                            )
-                                        })
+                                                        <View style={styles.seperatorStyle}></View>
+                                                    </>
+                                                )
+                                            })
+                                            :
+                                            null
                                     }
                                 </View>
                                 {
@@ -280,7 +283,7 @@ export default class CustomerServices extends Component {
 
                             </View>
                             {
-                               this.state.stepCounter >= 6 ?
+                                this.state.stepCounter >= 6 ?
                                     null
                                     :
                                     <FooterButton disabled={isCompleted == '1' && isArrived == '1' && isStarted == '1' && isAccepted == '1' ? false : true} title='Approve' onPress={() => onApproved(this.props.userData)} />

@@ -135,6 +135,7 @@ export default StyleSheet.create({
     },
     headingContainer: {
         flexDirection: 'row',
+        marginBottom: '5%'
     },
     rowButtonContainer: {
         width: '46%',

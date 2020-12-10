@@ -140,46 +140,49 @@ class ServiceDetails extends Component {
                                 </View>
                                 <View style={styles.flatlistContainer}>
                                     {
-                                        serviceList.map((item) => {
-                                            let time = (parseInt(moment.duration(item.time_duration).asMinutes()) * item.quantity)
-                                            var h = time / 60 | 0;
-                                            var m = time % 60 | 0;
-                                            let timeInHour = moment.utc().hours(h).minutes(m).format("HH:mm");
+                                        serviceList != undefined ?
+                                            serviceList.map((item) => {
+                                                let time = (parseInt(moment.duration(item.time_duration).asMinutes()) * item.quantity)
+                                                var h = time / 60 | 0;
+                                                var m = time % 60 | 0;
+                                                let timeInHour = moment.utc().hours(h).minutes(m).format("HH:mm");
 
-                                            return (
-                                                <>
-                                                    <View style={styles.row}>
-                                                        <View style={styles.nameContainer}>
-                                                            <Text style={styles.textStyle}>{item.service_name}{item.quantity == '1' ? "" : ` (${item.quantity})`}</Text>
-                                                        </View>
-                                                        <View style={styles.priceContainer} >
-                                                            <Text style={styles.timeTextStyle}>${(item.price * item.quantity)}</Text>
-                                                        </View>
-                                                        <View style={styles.timeContainer}>
-                                                            <View style={styles.priceAndTimeContainer}>
-                                                                <Text style={styles.timeTextStyle}>
-                                                                    {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " + timeInHour[0] + timeInHour[1]}
-                                                                    {
-                                                                        timeInHour[0] == '0' && timeInHour[1] == '0' ?
-                                                                            null
-                                                                            :
-                                                                            <Text style={styles.textStyles}> hr</Text>
-                                                                    }
-                                                                    {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
-                                                                    {
-                                                                        timeInHour[3] == 0 && timeInHour[4] == 0 ?
-                                                                            null
-                                                                            :
-                                                                            <Text style={styles.textStyles}> mins</Text>
-                                                                    }
-                                                                </Text>
+                                                return (
+                                                    <>
+                                                        <View style={styles.row}>
+                                                            <View style={styles.nameContainer}>
+                                                                <Text style={styles.textStyle}>{item.service_name}{item.quantity == '1' ? "" : ` (${item.quantity})`}</Text>
+                                                            </View>
+                                                            <View style={styles.priceContainer} >
+                                                                <Text style={styles.timeTextStyle}>${(item.price * item.quantity)}</Text>
+                                                            </View>
+                                                            <View style={styles.timeContainer}>
+                                                                <View style={styles.priceAndTimeContainer}>
+                                                                    <Text style={styles.timeTextStyle}>
+                                                                        {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " + timeInHour[0] + timeInHour[1]}
+                                                                        {
+                                                                            timeInHour[0] == '0' && timeInHour[1] == '0' ?
+                                                                                null
+                                                                                :
+                                                                                <Text style={styles.textStyles}> hr</Text>
+                                                                        }
+                                                                        {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                                                                        {
+                                                                            timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                                                                null
+                                                                                :
+                                                                                <Text style={styles.textStyles}> mins</Text>
+                                                                        }
+                                                                    </Text>
+                                                                </View>
                                                             </View>
                                                         </View>
-                                                    </View>
-                                                    <View style={styles.seperatorStyle}></View>
-                                                </>
-                                            )
-                                        })
+                                                        <View style={styles.seperatorStyle}></View>
+                                                    </>
+                                                )
+                                            })
+                                            :
+                                            null
                                     }
                                 </View>
                                 <View style={styles.timeAndAmountCotainer}>

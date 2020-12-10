@@ -24,27 +24,27 @@ class Home extends Component {
             servicelist1: [
                 {
                     name: 'My Fleek',
-                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                    imageUrl: require('../../../assets/images/Rectangle.jpg')
                 },
                 {
                     name: 'My Addresses',
-                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                    imageUrl: require('../../../assets/images/Rectangle.jpg')
                 },
                 {
                     name: 'Payment Method',
-                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                    imageUrl: require('../../../assets/images/Rectangle.jpg')
                 },
                 {
                     name: 'About Us',
-                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                    imageUrl: require('../../../assets/images/Rectangle.jpg')
                 },
                 {
                     name: 'Contact Us',
-                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                    imageUrl: require('../../../assets/images/Rectangle.jpg')
                 },
                 {
                     name: 'PPE (Formerly About US)',
-                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                    imageUrl: require('../../../assets/images/Rectangle.jpg')
                 },
             ],
             servicelist: [
@@ -103,7 +103,7 @@ class Home extends Component {
             <>
                 <TouchableOpacity
                     onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "My Addresses" ? myAddresses() : item.name == "My Fleek" ? onAppointments() : this.props.authActions.healthAndSafety(true) }} style={styles.upperListItemContainer}>
-                    <ImageBackground source={{ uri: `${item.imageUrl}` }}
+                    <ImageBackground source={item.imageUrl}
                         style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }} >
                         <View style={styles.upperListTitleContainer}>
                             <Text style={styles.upperListTitleStyle} >{item.name}</Text>
