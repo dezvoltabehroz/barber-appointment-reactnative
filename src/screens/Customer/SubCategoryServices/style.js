@@ -34,7 +34,8 @@ export default StyleSheet.create({
     },
     lowerListTitleContainer: {
         // flex: 1,
-        padding: 15,
+        marginTop: '5%',
+        margin: '5%',
         // margin:,
         // borderRadius: 10,
         // height: screenHeight * 0.16,
