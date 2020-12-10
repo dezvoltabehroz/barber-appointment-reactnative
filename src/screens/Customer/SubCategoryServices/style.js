@@ -34,7 +34,7 @@ export default StyleSheet.create({
     },
     lowerListTitleContainer: {
         // flex: 1,
-        marginTop: 15,
+        marginTop: Platform.OS == 'ios' && screenHeight == 896 ? '7%' : 15,
         margin: 15,
         // margin:,
         // borderRadius: 10,
