@@ -42,11 +42,23 @@ export default class DateTimeModal extends Component {
         var range = 13;
 
         for (var i = 0; i < range; i++) {
-            if (i <= 9) {
-                set[i] = ("0" + i.toString());
-            } else {
-                set[i] = (i.toString());
+            if (dayNight) {
+                if (i <= 9) {
+
+                    set[i] = ("0" + i.toString() + ":00");
+                } else {
+                    set[i] = (i.toString() + ":00");
+                }
             }
+            else {
+                if (i <= 9) {
+
+                    set[i] = ("0" + i.toString());
+                } else {
+                    set[i] = (i.toString());
+                }
+            }
+
         }
         this.setState({ timeHourSlot: set })
     }
@@ -66,10 +78,10 @@ export default class DateTimeModal extends Component {
     handleSet = () => {
         const { onSet, dayNight } = this.props;
         const { am, pm, hours, minutes } = this.state;
-
+        console.log(hours);
         if (dayNight) {
             if (am == true && pm == false) {
-                var value = hours == 12 ? "00" + ":" + "00" : hours + ":" + "00";
+                var value = hours == '12:00' ? "00" + ":" + "00" : hours;
                 if (hours == '' || hours == '00') {
                     Alert.alert("Attention", "Please select correct Hour")
                 }
@@ -79,7 +91,8 @@ export default class DateTimeModal extends Component {
                 }
             }
             else {
-                var value = (parseInt(hours == 12 ? "00":hours) + 12) + ":" + "00";
+                let time = hours.split(':');
+                var value = `${parseInt(time[0]=='12'?0:time[0]) + 12}:00`;
                 if (hours == '' || hours == '00') {
                     Alert.alert("Attention", "Please select correct Hour")
                 }

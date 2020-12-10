@@ -10,6 +10,7 @@ import { Barbers, RegisterUser } from '../../../services';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../../redux/actions/auth';
+import moment from 'moment';
 class ScheduleTime extends Component {
 
     constructor(props) {
@@ -85,7 +86,7 @@ class ScheduleTime extends Component {
         this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, showEditService: false });
         this.is_filled_check(items, objIndex)
     }
-    
+
     is_filled_check(dayArray, index) {
         if (dayArray[index].startTime != '' && dayArray[index].endTime != '') {
             let newDayCounter = dayArray[dayArray.length - 1].dayCounter + 1;
@@ -146,6 +147,7 @@ class ScheduleTime extends Component {
 
     _renderItems = ({ item, index }) => {
         const { selectedDays, submit } = this.state;
+        let date = moment().format('YYYY-MM-DD');
         return (
             <View style={styles.contentContainer}>
                 <View style={styles.headingContainer}>
@@ -156,7 +158,8 @@ class ScheduleTime extends Component {
                         {
                             item.startTime != '' ?
                                 <View style={styles.startTimeContainer}>
-                                    <Text style={styles.textStyle}>{item.startTime}</Text>
+
+                                    <Text style={styles.textStyle}>{item.startTime != undefined ? moment(`${date} ${item.startTime}`).format('hh:mm A') : ''}</Text>
                                 </View>
                                 :
                                 null
@@ -166,7 +169,7 @@ class ScheduleTime extends Component {
                         {
                             item.endTime != '' ?
                                 <View style={styles.priceAndTimeContainer}>
-                                    <Text style={styles.textStyle}>{item.endTime}</Text>
+                                    <Text style={styles.textStyle}>{item.startTime != undefined ? moment(`${date} ${item.endTime}`).format('hh:mm A') : ''}</Text>
                                 </View>
                                 :
                                 null
@@ -272,6 +275,7 @@ class ScheduleTime extends Component {
 
     render() {
         const { onNext } = this.props;
+        let date = moment().format('YYYY-MM-DD');
         const { selectedDays, showTimePicker, loading, buttonLoading, startTime, index, endTime, submit, showEditService, item, indexValue } = this.state;
         return (
             <>
@@ -355,7 +359,7 @@ class ScheduleTime extends Component {
                                         startTime == '' ? THEME.inputBorder : {}]}>
                                             <View style={{ marginLeft: '3.5%' }}>
                                                 <Text style={styles.titleStyle}>Start Time</Text>
-                                                <Text style={{ fontFamily: 'Poppins-Medium' }}>{startTime}</Text>
+                                                <Text style={{ fontFamily: 'Poppins-Medium' }}>{moment(`${date} ${startTime}`).format('hh:mm A')}</Text>
                                             </View>
                                         </TouchableOpacity>
                                         {
@@ -367,7 +371,7 @@ class ScheduleTime extends Component {
                                         endTime == '' ? THEME.inputBorder : {}]}>
                                             <View style={{ marginLeft: '3.5%' }}>
                                                 <Text style={styles.titleStyle}>End Time</Text>
-                                                <Text style={{ fontFamily: 'Poppins-Medium' }}>{endTime}</Text>
+                                                <Text style={{ fontFamily: 'Poppins-Medium' }}>{moment(`${date} ${endTime}`).format('hh:mm A')}</Text>
                                             </View>
                                         </TouchableOpacity>
                                         {
