@@ -55,6 +55,14 @@ export default StyleSheet.create({
         fontFamily: 'Poppins-Bold',
         fontSize: THEME.FONT_SIZE_SMALL,
     },
+    headingTextStyle1: {
+        color: THEME.COLOR_WHITE,
+        fontFamily: 'Poppins-Bold',
+        fontSize: 10,
+    },
+    viewDatePlaceHolder: {
+        width: screenWidth * 0.05,
+    },
     inputContainerStyle: {
         height: 54,
         width: screenWidth * 0.45,

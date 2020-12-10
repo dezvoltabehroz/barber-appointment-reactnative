@@ -204,6 +204,7 @@ class ScheduleTime extends Component {
                             :
                             null
                     }
+                    <View style={styles.viewDatePlaceHolder}></View>
                     {
                         item.endTime == '' ?
                             <View>
@@ -289,10 +290,10 @@ class ScheduleTime extends Component {
                                                 <Text style={styles.headingTextStyle}>Days</Text>
                                             </View>
                                             <View style={styles.startTimeContainer} >
-                                                <Text style={styles.headingTextStyle}>Start Time</Text>
+                                                <Text style={styles.headingTextStyle1}>Start Time</Text>
                                             </View>
                                             <View style={styles.endTimeContainer}>
-                                                <Text style={styles.headingTextStyle}>End Time</Text>
+                                                <Text style={styles.headingTextStyle1}>End Time</Text>
                                             </View>
                                             <View style={[styles.iconContainer]}></View>
                                         </View> : null}

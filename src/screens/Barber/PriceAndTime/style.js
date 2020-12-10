@@ -43,6 +43,8 @@ export default StyleSheet.create({
     },
     inputContainer: {
         flexDirection: 'row',
+        // alignSelf: 'flex-end',
+
         justifyContent: 'space-between'
     },
     textStyle: {
@@ -69,15 +71,28 @@ export default StyleSheet.create({
     },
     headingTextStyle1: {
         color: THEME.COLOR_WHITE,
-        textAlign: 'center',
+        // textAlign: 'center',
         fontFamily: 'Poppins-Bold',
         fontSize: THEME.FONT_SIZE_SMALL,
+    },
+    headingTextStyle2: {
+        color: THEME.COLOR_WHITE,
+        textAlign: 'center',
+        fontFamily: 'Poppins-Bold',
+        fontSize: 9,
     },
     inputContainerStyle: {
         height: 54,
         width: screenWidth * 0.45,
         borderRadius: 5,
-        backgroundColor: THEME.COLOR_WHITE
+        backgroundColor: THEME.COLOR_WHITE,
+    },
+    viewPlaceHolder: {
+        height: 54,
+        width: screenWidth * 0.45,
+    },
+    viewDatePlaceHolder: {
+        width: screenWidth * 0.05,
     },
     inputDateContainerStyle: {
         justifyContent: "center",
