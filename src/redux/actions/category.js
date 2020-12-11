@@ -78,13 +78,13 @@ const getServices = (userData) => {
     };
 }
 
-const getAllVendorServices = () => {
+const getAllVendorServices = (userData) => {
     return (dispatch) => {
         let loading = true;
         if (loading) {
             dispatch({ type: LOADING_CATEGORIES_SUCCESS, loading: loading })
         }
-        Categories.getAllVendorServices()
+        Categories.getAllVendorServices(userData)
             .then(response => {
                 if (response.data.status) {
                     dispatch({ type: ALL_SERVICES_SUCCESS, vendorServices: response.data.services, loading: !loading })

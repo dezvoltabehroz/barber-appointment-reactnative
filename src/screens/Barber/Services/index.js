@@ -31,8 +31,11 @@ class AddServices extends Component {
 
     componentDidMount = () => {
         this.setState({ loading: true })
-
-        Categories.getAllVendorServices()
+        let userData = {
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token,
+        }
+        Categories.getAllVendorServices(userData)
             .then((res) => {
                 if (res.data.status) {
                     this.setState({ barberServices: res.data.services, loading: false });

@@ -12,7 +12,11 @@ class HomeScreen extends Component {
 
     })
     componentDidMount = () => {
-        this.props.categoryActions.getAllVendorServices();
+        let userData = {
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token,
+        }
+        this.props.categoryActions.getAllVendorServices(userData);
     }
     handleLogout = async () => {
         const { replace } = this.props.navigation;
