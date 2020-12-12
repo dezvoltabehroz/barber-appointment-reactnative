@@ -53,7 +53,7 @@ class Appointments extends Component {
         const { onView } = this.props;
         let difference = moment.duration(moment(item.booking_date).diff()).as("hours");
         return (
-            <TouchableOpacity onPress={() => onView(item.booking_id, item.barber_id, item.booking_date,item.stepCounter)} style={styles.listItemContainer}>
+            <TouchableOpacity onPress={() => onView(item.booking_id, item.barber_id, item.booking_date, item.stepCounter)} style={styles.listItemContainer}>
                 <View style={styles.cardStyle} >
                     <View style={styles.avatarContainer}>
                         <Avatar source={{ uri: item.profile_picture }} rounded={true} size={70} />
@@ -67,6 +67,9 @@ class Appointments extends Component {
                         difference > 24 ?
                             <View style={styles.iconContainer}>
                                 <Icon.Ionicons name="ios-pencil" size={25} />
+                                <View style={{ paddingTop: 10, paddingBottom: 15 }}>
+                                    <Icon.Ionicons onPress={() => console.log("Chat")} name="chatbubbles" size={25} />
+                                </View>
                                 <Icon.Ionicons name="ios-trash-outline" size={25} />
                                 {/* <Text style={styles.dateTextStyle} > {item.rating==null?'':'Rating: '+item.rating+' / 5'} </Text> */}
                             </View>
@@ -83,7 +86,7 @@ class Appointments extends Component {
         const { onView } = this.props;
 
         return (
-            <TouchableOpacity onPress={() => onView(item.booking_id, item.barber_id, item.booking_date,true)} style={styles.listItemContainer}>
+            <TouchableOpacity onPress={() => onView(item.booking_id, item.barber_id, item.booking_date, true)} style={styles.listItemContainer}>
                 <View style={styles.cardStyle} >
                     <View style={styles.avatarContainer}>
                         <Avatar source={{ uri: item.profile_picture }} rounded={true} size={70} />

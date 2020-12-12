@@ -25,6 +25,11 @@ import _PersonalInfo from './PersonalInfo';
 import _AddServices from './AddServices';
 import _AddPriceAndTime from './AddPriceAndTime';
 import _PriceAndTime from './PriceAndTime';
+import _ManageSchedule from './ManageSchedule';
+import _ManageWorkingDays from './ManageWorkingDays';
+import _Breaks from './Breaks';
+import _OffDays from './OffDays';
+import _ManageScheduleTime from './ManageScheduleTime';
 export const BarberScreenPaths = {
     BarberPhoneNumber: _BarberPhoneNumber,
     BarberPhoneVerification: _BarberPhoneVerification,
@@ -52,5 +57,10 @@ export const BarberScreenPaths = {
     BarberPersonalInfo: _PersonalInfo,
     BarberAddServices: _AddServices,
     BarberAddPriceAndTime: _AddPriceAndTime,
-    BarberPriceAndTime: _PriceAndTime
+    BarberPriceAndTime: _PriceAndTime,
+    BarberManageSchedule: _ManageSchedule,
+    BarberBreaks: _Breaks,
+    BarberManageWorkingDays: _ManageWorkingDays,
+    BarberOffDays: _OffDays,
+    BarberManageScheduleTime: _ManageScheduleTime,
 }

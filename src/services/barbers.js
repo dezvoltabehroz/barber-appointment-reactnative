@@ -279,7 +279,18 @@ const Api = {
             user_id: userData.id,
             schedule_id: userData.schedule_id
         }, configToken(userData.token))
-    }
+    },
+    viewBarberWorkingDays: function (userData) {
+        return axiosInstance.post('barber/viewBarberWorkingDays', {
+            id: userData.id,
+        }, configToken(userData.token))
+    },
+    updateBarberWorkingDays: function (userData) {
+        return axiosInstance.post('barber/updateBarberWorkingDays', {
+            id: userData.id,
+            working_schedule: userData.working_schedule
+        }, configToken(userData.token))
+    },
 
 };
 

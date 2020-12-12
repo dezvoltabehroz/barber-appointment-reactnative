@@ -29,7 +29,7 @@ class EditProfileScreen extends Component {
                 onPortfolio={() => navigate("Portfolio")}
                 onCertificate={() => navigate("LicenceAndCertificate")}
                 onProfile={() => navigate('UpdateProfile')}
-                onManageSchedule={() => navigate('WorkingDays', { editing: true })}
+                onManageSchedule={() => navigate('ManageSchedule')}
                 onExit={this.handleLogout}
                 onAccept={(data) => this.on_Press_Accept(data)} />
         )

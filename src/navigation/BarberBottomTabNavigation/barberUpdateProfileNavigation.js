@@ -13,6 +13,7 @@ import EditProfileScreen from '../BarberNavigation/EditProfileScreen';
 import LicenceAndCertificateScreen from '../BarberNavigation/LicenceAndCertificateScreen';
 import AddServicesScreen from '../BarberNavigation/AddServicesScreen';
 import AddPriceAndTimeScreen from '../BarberNavigation/AddPriceAndTimeScreen';
+import BaberManageScheduleScreen from '../BarberNavigation/BarberManageScheduleScreen';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
@@ -78,21 +79,35 @@ function BarberProfileRoutes() {
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Schedule Time</Text></View>),
                 headerTitleAlign: 'center',
             }} />
-             <Stack.Screen name="LicenceAndCertificate" component={LicenceAndCertificateScreen} options={{
+            <Stack.Screen name="LicenceAndCertificate" component={LicenceAndCertificateScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitleAlign: 'center',
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Licence/Certificate</Text></View>),
             }} />
-             <Stack.Screen name="AddServices" component={AddServicesScreen} options={{
+            <Stack.Screen name="ManageSchedule" component={BaberManageScheduleScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitleAlign: 'center',
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Manage Schedule</Text></View>),
+            }} />
+             <Stack.Screen name="ManageScheduleTime" component={BaberManageScheduleScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitleAlign: 'center',
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Manage Schedule Time</Text></View>),
+            }} />
+            <Stack.Screen name="AddServices" component={AddServicesScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitleAlign: 'center',
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Add Services</Text></View>),
             }} />
-              <Stack.Screen name="AddPriceandTime" component={AddPriceAndTimeScreen} options={{
+            <Stack.Screen name="AddPriceandTime" component={AddPriceAndTimeScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,

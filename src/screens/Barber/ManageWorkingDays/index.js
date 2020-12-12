@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
-import { FooterButton, Icon } from '../../../components';
+import { FooterButton, Button, Icon } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
 import { Barbers, RegisterUser } from '../../../services';
@@ -8,13 +8,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../../redux/actions/auth';
 
-class WorkingDays extends Component {
+class ManageWorkingDays extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             selectedDays: [],
-            WorkingDays: [
+            edit: false,
+            workingDays: [
                 { id: 1, day: 'Monday', selected: false, startTime: '', endTime: '', isFilled: '' },
                 { id: 2, day: 'Tuesday', selected: false, startTime: '', endTime: '', isFilled: '' },
                 { id: 3, day: 'Wednesday', selected: false, startTime: '', endTime: '', isFilled: '' },
@@ -25,13 +26,36 @@ class WorkingDays extends Component {
             ],
         }
     }
+    componentDidMount = () => {
+        let userData = {
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token,
+        }
+        Barbers.viewBarberWorkingDays(userData)
+            .then((res) => {
+                if (res.data.status) {
+                    let array = [...this.state.workingDays];
+                    let selectedArray = [];
+                    res.data.resSchedule.forEach((element, index) => {
+                        for (let index = 0; index < array.length; index++) {
+                            if (element.day == array[index].day) {
+                                array[index] = { ...array[index], selected: true, startTime: element.start_time, endTime: element.end_time, isFilled: '1' };
+                                selectedArray.push(array[index]);
+                            }
+                        }
+                    })
+                    this.setState({ workingDays: array, selectedDays: selectedArray })
+                }
+            })
+            .catch((err) => console.log(err))
+    }
 
     handleSelected = (val) => {
-        const objIndex = this.state.WorkingDays.findIndex((obj => obj.id == val.id));
-        let items = [...this.state.WorkingDays];
+        const objIndex = this.state.workingDays.findIndex((obj => obj.id == val.id));
+        let items = [...this.state.workingDays];
         if (items[objIndex].selected) {
             items[objIndex] = { ...items[objIndex], selected: false };
-            this.setState({ WorkingDays: items });
+            this.setState({ workingDays: items });
             if (!items[objIndex].selected) {
                 for (var i = 0; i < this.state.selectedDays.length; i++) {
                     if (!this.state.selectedDays[i].id) {
@@ -47,7 +71,7 @@ class WorkingDays extends Component {
                 }
             }
             items[objIndex] = { ...items[objIndex], selected: true };
-            this.setState({ WorkingDays: items });
+            this.setState({ workingDays: items });
             this.state.selectedDays.push(items[objIndex]);
         }
     }
@@ -102,6 +126,7 @@ class WorkingDays extends Component {
     }
 
     _renderItems = (item) => {
+        const { edit } = this.state;
         return (
             <>
                 <View style={styles.contentContainer}>
@@ -109,7 +134,7 @@ class WorkingDays extends Component {
                         <Text style={styles.textStyle}>{item.day}</Text>
                     </View>
                     <View style={styles.iconContainer}>
-                        <TouchableOpacity onPress={() => this.handleSelected(item)}>
+                        <TouchableOpacity disabled={edit ? false : true} onPress={() => this.handleSelected(item)}>
                             <Icon.MaterialCommunityIcons
                                 name={item.selected == true ? 'checkbox-marked-circle' : 'checkbox-blank-circle-outline'}
                                 color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
@@ -124,19 +149,40 @@ class WorkingDays extends Component {
 
     render() {
         const { onNext } = this.props;
-        const { WorkingDays } = this.state;
+        const { workingDays, edit } = this.state;
         return (
             <>
                 <View style={styles.container}>
                     <View style={styles.upperContainer}>
                         <FlatList
-                            data={WorkingDays}
+                            data={workingDays}
                             showsVerticalScrollIndicator={false}
                             ItemSeparatorComponent={this._renderSeparator}
                             renderItem={({ item }) => this._renderItems(item)}
                             keyExtractor={item => item} />
                     </View>
-                    <FooterButton disabled={this.state.selectedDays.length == 0 ? true : false} title='Add' onPress={this.on_Next_press} />
+                    <View style={styles.footerStyle}>
+                        <View style={styles.lineStyle}></View>
+                        <View style={styles.gapHeight}></View>
+                        {
+                            edit ?
+                                <>
+                                    <View style={[styles.buttonContainer, { flexDirection: "row", justifyContent: 'space-between' }]}>
+                                        <View style={{ flex: 0.45 }}>
+                                            <Button title="Cancel  " onPress={() => this.setState({ edit: false })} />
+                                        </View>
+                                        <View style={{ flex: 0.45 }}>
+                                            <Button title="Update Time  " disabled={this.state.selectedDays.length == 0 ? true : false} onPress={() => onNext(this.state.selectedDays)} />
+                                        </View>
+                                    </View>
+                                    <View style={styles.gapHeight1}></View>
+                                </>
+                                :
+                                <View style={styles.buttonContainer}>
+                                    <Button title={"Edit"} onPress={() => this.setState({ edit: true })} />
+                                </View>
+                        }
+                    </View>
                 </View>
             </>
         );
@@ -154,4 +200,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WorkingDays)
+export default connect(mapStateToProps, mapDispatchToProps)(ManageWorkingDays)

@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../../redux/actions/auth';
 
-class WorkingDays extends Component {
+class OffDays extends Component {
 
     constructor(props) {
         super(props);
@@ -136,7 +136,7 @@ class WorkingDays extends Component {
                             renderItem={({ item }) => this._renderItems(item)}
                             keyExtractor={item => item} />
                     </View>
-                    <FooterButton disabled={this.state.selectedDays.length == 0 ? true : false} title='Add' onPress={this.on_Next_press} />
+                    <FooterButton disabled={this.state.selectedDays.length == 0 || this.props.disabled == true ? true : false} title='Add Break' onPress={this.on_Next_press} />
                 </View>
             </>
         );
@@ -154,4 +154,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WorkingDays)
+export default connect(mapStateToProps, mapDispatchToProps)(OffDays)

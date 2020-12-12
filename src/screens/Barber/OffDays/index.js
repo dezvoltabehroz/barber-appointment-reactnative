@@ -7,8 +7,8 @@ import { Barbers, RegisterUser } from '../../../services';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../../redux/actions/auth';
-
-class WorkingDays extends Component {
+import { Calendar } from 'react-native-calendars';
+class OffDays extends Component {
 
     constructor(props) {
         super(props);
@@ -129,14 +129,32 @@ class WorkingDays extends Component {
             <>
                 <View style={styles.container}>
                     <View style={styles.upperContainer}>
-                        <FlatList
-                            data={WorkingDays}
-                            showsVerticalScrollIndicator={false}
-                            ItemSeparatorComponent={this._renderSeparator}
-                            renderItem={({ item }) => this._renderItems(item)}
-                            keyExtractor={item => item} />
+                        <Calendar
+                            minDate={new Date()}
+                            // maxDate={new Date().setDate(new Date().getDate() + 30)}
+                            onDayPress={(day) => this.handleDayPress(day)}
+                            monthFormat={'MMMM yyyy'}
+                            theme={{
+                                calendarBackground: THEME.PRIMARY_BACKGROUND_COLOR,
+                                selectedDotColor: '#ffffff',
+                                selectedDayBackgroundColor: '#D2A91B',
+                                selectedDayTextColor: 'black',
+                                dayTextColor: 'white',
+                                textDisabledColor: 'grey',
+                                dotColor: '#D2A91B',
+                                todayTextColor: 'white',
+                                arrowColor: THEME.PRIMARY_COLOR,
+                                monthTextColor: 'white',
+                                textDayFontFamily: "Poppins-Medium",
+                                textMonthFontFamily: "Poppins-Medium",
+                                textDayHeaderFontFamily: "Poppins-Medium",
+                                textDayFontSize: 10,
+                                textMonthFontSize: 16,
+                                textDayHeaderFontSize: 10,
+                            }}
+                        />
                     </View>
-                    <FooterButton disabled={this.state.selectedDays.length == 0 ? true : false} title='Add' onPress={this.on_Next_press} />
+                    <FooterButton disabled={this.state.selectedDays.length == 0 || this.props.disabled == true ? true : false} title='Submit Leave' onPress={this.on_Next_press} />
                 </View>
             </>
         );
@@ -154,4 +172,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WorkingDays)
+export default connect(mapStateToProps, mapDispatchToProps)(OffDays)
