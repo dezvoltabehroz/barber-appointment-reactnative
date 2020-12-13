@@ -316,6 +316,24 @@ const Api = {
             break_start_time: userData.break_start_time,
             break_end_time: userData.break_end_time
         }, configToken(userData.token))
+    },
+    addBarberOffDay: function (userData) {
+        return axiosInstance.post('barber/addBarberOffDay', {
+            id: userData.id,
+            off_date: userData.off_date,
+            off_reason: userData.off_reason
+        }, configToken(userData.token))
+    },
+    viewListBarberOffDay: function (userData) {
+        return axiosInstance.post('barber/viewListBarberOffDay', {
+            id: userData.id
+        }, configToken(userData.token))
+    },
+    deleteBarberOffDay: function (userData) {
+        return axiosInstance.post('barber/deleteBarberOffDay', {
+            id: userData.id,
+            off_day_id: userData.off_day_id
+        }, configToken(userData.token))
     }
 
 };

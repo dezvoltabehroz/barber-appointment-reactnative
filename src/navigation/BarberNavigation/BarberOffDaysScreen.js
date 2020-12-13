@@ -10,7 +10,7 @@ export default class BarberOffDaysScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Barber.BarberOffDays onNext={() => goBack()} />
+            <MainScreenPaths.Barber.BarberOffDays onNext={() => navigate('AddLeave')} />
         )
     }
 }

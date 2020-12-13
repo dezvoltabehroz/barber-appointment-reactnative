@@ -110,7 +110,7 @@ class ManageScheduleTime extends Component {
         )
     }
     on_Press_Delete = (itemData, index) => {
-        Alert.alert('Attension', 'Are you sure you want to delete service',
+        Alert.alert('Attension', 'Are you sure you want to delete this day',
             [
                 {
                     text: "Cancel",

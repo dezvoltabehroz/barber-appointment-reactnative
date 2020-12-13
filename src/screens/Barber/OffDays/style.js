@@ -12,7 +12,7 @@ export default StyleSheet.create({
     },
     upperContainer: {
         flex: 0.8,
-        marginHorizontal: '5%'
+        marginHorizontal: '10%'
     },
     contentContainer: {
         flexDirection: 'row',
@@ -39,5 +39,10 @@ export default StyleSheet.create({
     },
     seperatorStyle: {
         height: 15,
+    },
+    headingTextStyle: {
+        color: THEME.COLOR_WHITE,
+        fontFamily: 'Poppins-Bold',
+        fontSize: THEME.FONT_SIZE_MEDIUM,
     },
 })

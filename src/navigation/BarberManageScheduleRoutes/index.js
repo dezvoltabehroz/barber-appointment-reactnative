@@ -3,9 +3,9 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import ResumeScreen from '../BarberNavigation/ResumeScreen';
 import THEME from '../../assets/styles/theme.style'
 import { Text } from 'react-native';
-import BarberOffDaysScreen from '../BarberNavigation/BarberOffDaysScreen';
 import BaberBreaksRoutes from './barberBreaksRoutes';
 import BarberWorkingDaysRoutes from './barberManageScheduleRoutes';
+import BarberOffDaysRoutes from './barberOffDayRoutes';
 const Tab = createMaterialTopTabNavigator();
 
 function BarberManageScheduleRoutes() {
@@ -36,7 +36,7 @@ function BarberManageScheduleRoutes() {
             }}>
             <Tab.Screen name="Working Days" component={BarberWorkingDaysRoutes} />
             <Tab.Screen name="Break Time" component={BaberBreaksRoutes} />
-            <Tab.Screen name="OFF Day" component={BarberOffDaysScreen} />
+            <Tab.Screen name="OFF Day" component={BarberOffDaysRoutes} />
         </Tab.Navigator>
     );
 }

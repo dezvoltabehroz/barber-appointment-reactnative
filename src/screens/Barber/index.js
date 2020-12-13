@@ -31,6 +31,7 @@ import _Breaks from './Breaks';
 import _OffDays from './OffDays';
 import _ManageScheduleTime from './ManageScheduleTime';
 import _AddBreakTime from './AddBreakTime';
+import _AddLeave from './AddLeave';
 export const BarberScreenPaths = {
     BarberPhoneNumber: _BarberPhoneNumber,
     BarberPhoneVerification: _BarberPhoneVerification,
@@ -64,5 +65,6 @@ export const BarberScreenPaths = {
     BarberManageWorkingDays: _ManageWorkingDays,
     BarberOffDays: _OffDays,
     BarberManageScheduleTime: _ManageScheduleTime,
-    BarberAddBreakTime: _AddBreakTime
+    BarberAddBreakTime: _AddBreakTime,
+    BarberAddLeave: _AddLeave
 }
