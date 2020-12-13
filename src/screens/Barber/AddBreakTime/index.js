@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, Modal, ActivityIndicator, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, Modal, ActivityIndicator, TouchableOpacity, Alert, Platform } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 import { Barbers } from '../../../services';
 import { DateTimeModal, Button, FooterButton, } from '../../../components';
-import { Picker } from '@react-native-picker/picker';
+import { Picker, PickerIOS } from '@react-native-picker/picker';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
@@ -108,23 +108,38 @@ class AddBreakTime extends Component {
                                 </View>
                                 :
                                 <View style={styles.formContainer}>
-                                    <Picker
-                                        selectedValue={this.state.selectedDay}
-                                        style={{
-                                            alignItems: 'center',
-                                            width: '100%',
-                                            color: "black"
-                                        }}
-                                        mode='dropdown'
-                                        itemStyle={{ backgroundColor: 'white', marginLeft: 0, marginLeft: 15 }}
-                                        itemTextStyle={{ fontSize: 12, color: 'black' }}
-                                        onValueChange={(itemValue, itemIndex) => this.setState({ item: itemValue, index: itemIndex, showEditService: true })}
-                                    >
-                                        <Picker.Item label="Select a Day" value={''} />
-                                        {data.map((item, index) => {
-                                            return (<Picker.Item label={item.day} value={`${item.id}`} />)
-                                        })}
-                                    </Picker>
+                                    {
+                                        Platform.OS == 'ios' ?
+                                            <PickerIOS
+                                                selectedValue={this.state.selectedDay}
+                                                onValueChange={(itemValue, itemIndex) => this.setState({ item: itemValue, index: itemIndex, showEditService: true })}
+                                            >
+                                                <PickerIOS.Item label="Select a Day" value={''} />
+                                                {data.map((item, index) => {
+                                                    return (<PickerIOS.Item label={item.day} value={`${item.id}`} />)
+                                                })}
+                                            </PickerIOS>
+                                            :
+
+                                            <Picker
+                                                selectedValue={this.state.selectedDay}
+                                                style={{
+                                                    alignItems: 'center',
+                                                    width: '100%',
+                                                    color: "black"
+                                                }}
+                                                mode='dialog'
+                                                itemStyle={{ backgroundColor: 'white', marginLeft: 0, marginLeft: 15 }}
+                                                itemTextStyle={{ fontSize: 12, color: 'black' }}
+                                                onValueChange={(itemValue, itemIndex) => this.setState({ item: itemValue, index: itemIndex, showEditService: true })}
+                                            >
+                                                <Picker.Item label="Select a Day" value={''} />
+                                                {data.map((item, index) => {
+                                                    return (<Picker.Item label={item.day} value={`${item.id}`} />)
+                                                })}
+                                            </Picker>
+                                    }
+
                                 </View>
                     }
 

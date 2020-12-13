@@ -58,6 +58,8 @@ class AddLeave extends Component {
     render() {
         const { onNext } = this.props;
         const { WorkingDays, showDatePicker, buttonLoading, offDayDate, isOffDayNoteFocus, offDayNote } = this.state;
+        var date = new Date();
+        date.setDate(date.getDate() + 1);
         return (
             <>
                 <View style={styles.container}>
@@ -93,7 +95,7 @@ class AddLeave extends Component {
                 <DateTimePickerModal
                     isVisible={showDatePicker}
                     mode="date"
-                    minimumDate={new Date()}
+                    minimumDate={date}
                     onConfirm={this.handleConfirm}
                     onCancel={this.hideDatePicker}
                 />

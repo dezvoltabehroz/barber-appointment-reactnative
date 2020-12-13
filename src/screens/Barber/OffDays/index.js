@@ -69,11 +69,9 @@ class OffDays extends Component {
     }
 
     _renderItems = ({ item, index }) => {
-        const { selectedDays, submit } = this.state;
-        let date = moment().format('YYYY-MM-DD');
         return (
             <View style={styles.contentContainer}>
-                <Text style={styles.textStyle}>{moment(item.off_date).format('ll')}</Text>
+                <Text style={styles.textStyle}>{moment(item.off_date).format('dddd')} on {moment(item.off_date).format('LL')}</Text>
                 <TouchableOpacity onPress={() => this.on_Press_Delete(item, index)}>
                     <Icon.MaterialIcons name='delete' size={25} color={THEME.COLOR_WHITE} />
                 </TouchableOpacity>
@@ -81,8 +79,7 @@ class OffDays extends Component {
         )
     }
     render() {
-        const { onNext } = this.props;
-        const { WorkingDays, loading } = this.state;
+        const { loading } = this.state;
         return (
             <>
                 <View style={styles.container}>
@@ -94,7 +91,6 @@ class OffDays extends Component {
                             :
                             <>
                                 <View style={styles.upperContainer}>
-                                    <Text style={styles.headingTextStyle}>OFF Days</Text>
                                     <FlatList
                                         refreshControl={<RefreshControl
                                             refreshing={this.state.loading}
