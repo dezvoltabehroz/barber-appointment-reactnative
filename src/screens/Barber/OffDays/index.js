@@ -13,7 +13,8 @@ class OffDays extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            offDays: [], loading: true,
+            offDays: [],
+            loading: true,
         }
     }
 
@@ -30,7 +31,7 @@ class OffDays extends Component {
     }
 
     on_Press_Delete = (itemData, index) => {
-        Alert.alert('Attension', 'Are you sure you want to delete this day',
+        Alert.alert('Attension', 'Are you sure you want to delete this leave',
             [
                 {
                     text: "Cancel",
@@ -53,8 +54,8 @@ class OffDays extends Component {
         Barbers.deleteBarberOffDay(userData)
             .then((res) => {
                 if (res.data.status) {
-                    let selectedDays = [...this.state.selectedDays];
-                    this.setState({ selectedDays: selectedDays.filter((obj => obj.id != itemData.id)), loading: false })
+                    let offDays = [...this.state.offDays];
+                    this.setState({ offDays: offDays.filter((obj => obj.id != itemData.id)), loading: false })
                 }
             })
             .catch((err) => {
