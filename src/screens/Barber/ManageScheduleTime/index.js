@@ -68,18 +68,31 @@ class ManageScheduleTime extends Component {
             this.is_filled_check(items, objIndex)
         }
         else {
-            items[objIndex] = { ...items[objIndex], endTime: selectedDays[indexValue].endTime = data };
-            this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, });
-            this.is_filled_check(items, objIndex)
+            let date = moment().format('YYYY-MM-DD');
+            if (moment(`${date} ${items[objIndex].endTime}`).format("hh:mm A") > moment(`${date} ${items[objIndex].startTime}`).format("hh:mm A")) {
+                items[objIndex] = { ...items[objIndex], endTime: selectedDays[indexValue].endTime = data };
+                this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, });
+                this.is_filled_check(items, objIndex)
+            }
+            else {
+                Alert.alert("Attention", "End Time should be greater then Start Time")
+            }
         }
 
     }
     setEditTimeChange = (item, index) => {
-        const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
-        let items = [...this.state.selectedDays];
-        items[objIndex] = { ...items[objIndex], startTime: this.state.startTime, endTime: this.state.endTime };
-        this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, showEditService: false });
-        this.is_filled_check(items, objIndex)
+        let date = moment().format('YYYY-MM-DD');
+        if (moment(`${date} ${this.state.endTime}`).format("hh:mm A") > moment(`${date} ${this.state.startTime}`).format("hh:mm A")) {
+            const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
+            let items = [...this.state.selectedDays];
+            items[objIndex] = { ...items[objIndex], startTime: this.state.startTime, endTime: this.state.endTime };
+            this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, showEditService: false });
+            this.is_filled_check(items, objIndex)
+        }
+        else {
+            Alert.alert("Attention", "End Time should be greater then Start Time")
+        }
+
     }
 
     is_filled_check(dayArray, index) {
@@ -298,33 +311,6 @@ class ManageScheduleTime extends Component {
                                             ItemSeparatorComponent={this._renderSeparator}
                                             renderItem={({ item, index }) => this._renderItems({ item, index })}
                                             keyExtractor={item => item} />
-                                        {/* <Calendar
-                                minDate={new Date()}
-                                maxDate={new Date().setDate(new Date().getDate() + 30)}
-                                onDayPress={(day) => this.handleDayPress(day)}
-                                monthFormat={'MMMM yyyy'}
-                                theme={{
-                                    calendarBackground: THEME.PRIMARY_BACKGROUND_COLOR,
-                                    selectedDotColor: '#ffffff',
-                                    selectedDayBackgroundColor: '#D2A91B',
-                                    selectedDayTextColor: 'black',
-                                    dayTextColor: 'white',
-                                    textDisabledColor: 'grey',
-                                    dotColor: '#D2A91B',
-                                    todayTextColor: 'white',
-                                    arrowColor: THEME.PRIMARY_COLOR,
-                                    monthTextColor: 'white',
-                                    textDayFontFamily: "Poppins-Medium",
-                                    textMonthFontFamily: "Poppins-Medium",
-                                    textDayHeaderFontFamily: "Poppins-Medium",
-                                    textDayFontSize: 10,
-                                    textMonthFontSize: 16,
-                                    textDayHeaderFontSize: 10,
-                                }}
-                            /> */}
-
-
-
                                     </KeyboardAwareScrollView>
                                 </View>
                                 <View style={styles.footerStyle}>

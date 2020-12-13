@@ -167,5 +167,11 @@ export default StyleSheet.create({
         justifyContent: 'flex-end',
         paddingBottom: '8%',
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
+    },
+    formContainer: {
+        borderRadius: 20,
+        marginHorizontal: '10%',
+        backgroundColor: 'white',
+        padding: 5
     }
 })

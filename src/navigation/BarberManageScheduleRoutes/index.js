@@ -4,7 +4,7 @@ import ResumeScreen from '../BarberNavigation/ResumeScreen';
 import THEME from '../../assets/styles/theme.style'
 import { Text } from 'react-native';
 import BarberOffDaysScreen from '../BarberNavigation/BarberOffDaysScreen';
-import BarberBreaksScreen from '../BarberNavigation/BarberBreaksScreen';
+import BaberBreaksRoutes from './barberBreaksRoutes';
 import BarberWorkingDaysRoutes from './barberManageScheduleRoutes';
 const Tab = createMaterialTopTabNavigator();
 
@@ -16,10 +16,10 @@ function BarberManageScheduleRoutes() {
 
                 if (route.name === 'Working Days') {
                     tabName = "Working Days"
-                } else if (route.name === `BreakTime`) {
-                    tabName = "BreakTime";
-                } else if (route.name === 'OFFDay') {
-                    tabName = "OFFDay";
+                } else if (route.name === `Break Time`) {
+                    tabName = "Break Time";
+                } else if (route.name === 'OFF Day') {
+                    tabName = "OFF Day";
                 }
                 return <Text style={{ color: focused ? THEME.PRIMARY_COLOR : THEME.COLOR_GREY, fontFamily: 'Poppins-Medium' }} >{tabName}</Text>;
             },
@@ -35,8 +35,8 @@ function BarberManageScheduleRoutes() {
                 }
             }}>
             <Tab.Screen name="Working Days" component={BarberWorkingDaysRoutes} />
-            <Tab.Screen name="BreakTime" component={BarberBreaksScreen} />
-            <Tab.Screen name="OFFDay" component={BarberOffDaysScreen} />
+            <Tab.Screen name="Break Time" component={BaberBreaksRoutes} />
+            <Tab.Screen name="OFF Day" component={BarberOffDaysScreen} />
         </Tab.Navigator>
     );
 }

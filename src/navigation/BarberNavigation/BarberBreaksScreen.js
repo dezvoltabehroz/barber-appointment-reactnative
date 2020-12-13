@@ -10,7 +10,7 @@ export default class BarberBreaksScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Barber.BarberBreaks onNext={() => goBack()} />
+            <MainScreenPaths.Barber.BarberBreaks onNext={() => navigate('AddBreakTime')} />
         )
     }
 }

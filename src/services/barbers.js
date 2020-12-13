@@ -291,6 +291,32 @@ const Api = {
             working_schedule: userData.working_schedule
         }, configToken(userData.token))
     },
+    viewBarberBreaks: function (userData) {
+        return axiosInstance.post('barber/viewBarberBreaks', {
+            id: userData.id,
+        }, configToken(userData.token))
+    },
+    deleteBreakTime: function (userData) {
+        return axiosInstance.post('barber/deleteBreakTime', {
+            id: userData.id,
+            day_id: userData.day_id
+        }, configToken(userData.token))
+
+    },
+    viewBarberNoBreakDays: function (userData) {
+        return axiosInstance.post('barber/viewBarberNoBreakDays', {
+            id: userData.id,
+        }, configToken(userData.token))
+
+    },
+    addBreakTime: function (userData) {
+        return axiosInstance.post('barber/addBreakTime', {
+            id: userData.id,
+            day_id: userData.day_id,
+            break_start_time: userData.break_start_time,
+            break_end_time: userData.break_end_time
+        }, configToken(userData.token))
+    }
 
 };
 
