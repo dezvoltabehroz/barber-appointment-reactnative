@@ -108,8 +108,8 @@ export default StyleSheet.create({
     },
     modalContainer: {
         flex: 1,
-        height: screenHeight * 1,
-        width: screenWidth * 1,
+        height: screenHeight,
+        width: screenWidth,
         paddingTop: "40%",
         // alignSelf: "center",
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
@@ -169,9 +169,9 @@ export default StyleSheet.create({
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
     },
     formContainer: {
-        borderRadius: 20,
+        // borderRadius: 20,
         marginHorizontal: '10%',
-        backgroundColor: 'white',
-        padding: 5
+        // backgroundColor: 'white',
+        // padding: 5
     }
 })

@@ -3,18 +3,18 @@ import { View, Text, Modal, ActivityIndicator, TouchableOpacity, Alert, Platform
 import THEME from '../../../assets/styles/theme.style';
 import { Barbers } from '../../../services';
 import { DateTimeModal, Button, FooterButton, } from '../../../components';
-import { Picker, PickerIOS } from '@react-native-picker/picker';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../../redux/actions/auth';
 import styles from './style';
+import DropDownPicker from 'react-native-dropdown-picker';
 class AddBreakTime extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            selectedDay: '',
+            selectedDay: 'Select a day',
             data: [],
             showTimePicker: false,
             indexValue: '',
@@ -25,7 +25,8 @@ class AddBreakTime extends Component {
             buttonLoading: false,
             startTime: '',
             endTime: '',
-            showEditService: false
+            showEditService: false,
+            itemValue: ''
 
         }
     }
@@ -45,11 +46,19 @@ class AddBreakTime extends Component {
         }
         Barbers.viewBarberNoBreakDays(userData)
             .then((res) => {
+                let array = [];
+
+                res.data.resNoBreakTimes.map((item) => {
+                    array.push({
+                        id: item.id,
+                        label: item.day,
+                        value: `${item.id}`
+                    })
+                })
                 this.setState({
-                    data: res.data.resNoBreakTimes,
+                    data: array,
                     loading: false,
                 })
-
             })
             .catch((err) => console.log(err))
     }
@@ -86,6 +95,9 @@ class AddBreakTime extends Component {
         this.setState({ showTimePicker: true, indexValue: index, index: index, item: item, val: '0' })
     }
 
+    onSelectedItemsChange = (itemValue, itemIndex) => {
+        this.setState({ item: itemValue, index: itemIndex, showEditService: true })
+    }
 
     render() {
         const { onNext } = this.props;
@@ -108,54 +120,36 @@ class AddBreakTime extends Component {
                                 </View>
                                 :
                                 <View style={styles.formContainer}>
-                                    {
-                                        Platform.OS == 'ios' ?
-                                            <PickerIOS
-                                                selectedValue={this.state.selectedDay}
-                                                onValueChange={(itemValue, itemIndex) => this.setState({ item: itemValue, index: itemIndex, showEditService: true })}
-                                            >
-                                                <PickerIOS.Item label="Select a Day" value={''} />
-                                                {data.map((item, index) => {
-                                                    return (<PickerIOS.Item label={item.day} value={`${item.id}`} />)
-                                                })}
-                                            </PickerIOS>
-                                            :
-
-                                            <Picker
-                                                selectedValue={this.state.selectedDay}
-                                                style={{
-                                                    alignItems: 'center',
-                                                    width: '100%',
-                                                    color: "black"
-                                                }}
-                                                mode='dialog'
-                                                itemStyle={{ backgroundColor: 'white', marginLeft: 0, marginLeft: 15 }}
-                                                itemTextStyle={{ fontSize: 12, color: 'black' }}
-                                                onValueChange={(itemValue, itemIndex) => this.setState({ item: itemValue, index: itemIndex, showEditService: true })}
-                                            >
-                                                <Picker.Item label="Select a Day" value={''} />
-                                                {data.map((item, index) => {
-                                                    return (<Picker.Item label={item.day} value={`${item.id}`} />)
-                                                })}
-                                            </Picker>
-                                    }
+                                    <DropDownPicker
+                                        items={data}
+                                        defaultValue={this.state.country}
+                                        containerStyle={{ height: 40 }}
+                                        style={{ backgroundColor: '#fafafa' }}
+                                        itemStyle={{
+                                            justifyContent: 'flex-start'
+                                        }}
+                                        dropDownStyle={{ backgroundColor: '#fafafa' }}
+                                        onChangeItem={(item) => this.setState({
+                                            selectedDay: item.value, item: item.value, index: item.value, showEditService: true
+                                        })}
+                                    />
 
                                 </View>
                     }
-
+                    <DateTimeModal showTimePicker={showTimePicker}
+                        dayNight={true}
+                        onCancel={() => this.setState({ showTimePicker: false })}
+                        onSet={(time) => { this.state.startTime != "" && this.state.endTime != "" ? this.state.val == '1' ? this.setState({ startTime: time, showTimePicker: false }) : this.setState({ endTime: time, showTimePicker: false }) : this.setTimeChange(time) }} />
                 </View>
                 <FooterButton title='Back' onPress={() => this.props.onNext()} />
-                <DateTimeModal showTimePicker={showTimePicker}
-                    dayNight={true}
-                    onCancel={() => this.setState({ showTimePicker: false })}
-                    onSet={(time) => { this.state.startTime != "" && this.state.endTime != "" ? this.state.val == '1' ? this.setState({ startTime: time, showTimePicker: false }) : this.setState({ endTime: time, showTimePicker: false }) : this.setTimeChange(time) }} />
+
                 <Modal visible={showEditService}
                     animationType="slide">
                     {
                         item == null || index == null ?
                             null
                             :
-                            <View style={styles.modalContainer}  >
+                            <View style={styles.modalContainer}>
                                 <View style={styles.modalInputContainer}>
                                     <View style={styles.headingContainer}>
                                         <Text style={styles.headingTextStyle}>Add Break Time</Text>
