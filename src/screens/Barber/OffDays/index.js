@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Alert, ActivityIndicator, RefreshControl } from 'react-native';
 import { FooterButton, Icon } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
@@ -96,6 +96,12 @@ class OffDays extends Component {
                                 <View style={styles.upperContainer}>
                                     <Text style={styles.headingTextStyle}>OFF Days</Text>
                                     <FlatList
+                                        refreshControl={<RefreshControl
+                                            refreshing={this.state.loading}
+                                            onRefresh={() => this.componentDidMount()}
+                                            tintColor={THEME.COLOR_WHITE}
+                                            colors={[THEME.PRIMARY_COLOR]}
+                                        />}
                                         data={this.state.offDays}
                                         showsVerticalScrollIndicator={false}
                                         ItemSeparatorComponent={this._renderSeparator}

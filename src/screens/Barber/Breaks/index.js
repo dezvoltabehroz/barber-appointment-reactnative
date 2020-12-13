@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert, ActivityIndicator, Modal } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, RefreshControl, Alert, ActivityIndicator, Modal } from 'react-native';
 import { FooterButton, Button, Icon, DateTimeModal } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
@@ -70,7 +70,7 @@ class Breaks extends Component {
                 })
                 .catch((err) => console.log(err))
         }
-        else{
+        else {
             Alert.alert("Attention", "End Time should be greater then Start Time")
         }
     }
@@ -209,6 +209,12 @@ class Breaks extends Component {
                                             </View> : null}
                                         <FlatList
                                             data={selectedDays}
+                                            refreshControl={<RefreshControl
+                                                refreshing={this.state.loading}
+                                                onRefresh={() => this.componentDidMount()}
+                                                tintColor={THEME.COLOR_WHITE}
+                                                colors={[THEME.PRIMARY_COLOR]}
+                                            />}
                                             showsVerticalScrollIndicator={false}
                                             ItemSeparatorComponent={this._renderSeparator}
                                             renderItem={({ item, index }) => this._renderItems({ item, index })}

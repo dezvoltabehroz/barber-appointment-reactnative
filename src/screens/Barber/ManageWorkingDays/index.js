@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, FlatList, RefreshControl, TouchableOpacity, Alert } from 'react-native';
 import { FooterButton, Button, Icon } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
@@ -156,6 +156,12 @@ class ManageWorkingDays extends Component {
                     <View style={styles.upperContainer}>
                         <FlatList
                             data={workingDays}
+                            refreshControl={<RefreshControl
+                                refreshing={this.state.loading}
+                                onRefresh={() => this.componentDidMount()}
+                                tintColor={THEME.COLOR_WHITE}
+                                colors={[THEME.PRIMARY_COLOR]}
+                            />}
                             showsVerticalScrollIndicator={false}
                             ItemSeparatorComponent={this._renderSeparator}
                             renderItem={({ item }) => this._renderItems(item)}
