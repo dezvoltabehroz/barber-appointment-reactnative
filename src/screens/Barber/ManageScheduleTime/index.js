@@ -22,7 +22,7 @@ class ManageScheduleTime extends Component {
             item: null,
             val: '',
             submit: false,
-            loading: true,
+            loading: false,
             buttonLoading: false,
             startTime: '',
             endTime: '',
@@ -31,6 +31,7 @@ class ManageScheduleTime extends Component {
     }
 
     componentDidMount = () => {
+        this.setState({ loading: true })
         let selectedDay = [...this.props.data];
         let length = 0;
         selectedDay.forEach(element => {
@@ -45,11 +46,11 @@ class ManageScheduleTime extends Component {
     }
 
     setStartTime = (index, item) => {
-        this.setState({ showTimePicker: true, indexValue: index, index: index, item: item, val: '1' })
+        this.setState({ showEditService: false, showTimePicker: true, indexValue: index, index: index, item: item, val: '1' })
     }
 
     setEndTime = (index, item) => {
-        this.setState({ showTimePicker: true, indexValue: index, index: index, item: item, val: '0' })
+        this.setState({ showEditService: false, showTimePicker: true, indexValue: index, index: index, item: item, val: '0' })
     }
 
     setTimeChange = (data) => {
@@ -328,7 +329,7 @@ class ManageScheduleTime extends Component {
                 <DateTimeModal showTimePicker={showTimePicker}
                     dayNight={true}
                     onCancel={() => this.setState({ showTimePicker: false })}
-                    onSet={(time) => { this.state.startTime != "" && this.state.endTime != "" ? this.state.val == '1' ? this.setState({ startTime: time, showTimePicker: false }) : this.setState({ endTime: time, showTimePicker: false }) : this.setTimeChange(time) }} />
+                    onSet={(time) => { this.state.startTime != "" || this.state.endTime != "" ? this.state.val == '1' ? this.setState({ startTime: time, showTimePicker: false, showEditService: true }) : this.setState({ endTime: time, showTimePicker: false, showEditService: true }) : this.setTimeChange(time) }} />
                 <Modal visible={showEditService}
                     animationType="slide">
                     {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, RefreshControl, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, FlatList, RefreshControl, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { FooterButton, Button, Icon } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
@@ -24,6 +24,7 @@ class ManageWorkingDays extends Component {
                 { id: 6, day: 'Saturday', selected: false, startTime: '', endTime: '', isFilled: '' },
                 { id: 7, day: 'Sunday', selected: false, startTime: '', endTime: '', isFilled: '' },
             ],
+            loading: true,
         }
     }
     componentDidMount = () => {
@@ -44,7 +45,7 @@ class ManageWorkingDays extends Component {
                             }
                         }
                     })
-                    this.setState({ workingDays: array, selectedDays: selectedArray })
+                    this.setState({ workingDays: array, selectedDays: selectedArray, loading: false })
                 }
             })
             .catch((err) => console.log(err))
@@ -149,24 +150,32 @@ class ManageWorkingDays extends Component {
 
     render() {
         const { onNext } = this.props;
-        const { workingDays, edit } = this.state;
+        const { workingDays, edit, loading } = this.state;
         return (
             <>
                 <View style={styles.container}>
-                    <View style={styles.upperContainer}>
-                        <FlatList
-                            data={workingDays}
-                            refreshControl={<RefreshControl
-                                refreshing={this.state.loading}
-                                onRefresh={() => this.componentDidMount()}
-                                tintColor={THEME.COLOR_WHITE}
-                                colors={[THEME.PRIMARY_COLOR]}
-                            />}
-                            showsVerticalScrollIndicator={false}
-                            ItemSeparatorComponent={this._renderSeparator}
-                            renderItem={({ item }) => this._renderItems(item)}
-                            keyExtractor={item => item} />
-                    </View>
+                    {
+                        loading ?
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <ActivityIndicator />
+                            </View>
+                            :
+
+                            <View style={styles.upperContainer}>
+                                <FlatList
+                                    data={workingDays}
+                                    refreshControl={<RefreshControl
+                                        refreshing={this.state.loading}
+                                        onRefresh={() => this.componentDidMount()}
+                                        tintColor={THEME.COLOR_WHITE}
+                                        colors={[THEME.PRIMARY_COLOR]}
+                                    />}
+                                    showsVerticalScrollIndicator={false}
+                                    ItemSeparatorComponent={this._renderSeparator}
+                                    renderItem={({ item }) => this._renderItems(item)}
+                                    keyExtractor={item => item} />
+                            </View>
+                    }
                     <View style={styles.footerStyle}>
                         <View style={styles.lineStyle}></View>
                         <View style={styles.gapHeight}></View>
@@ -189,6 +198,7 @@ class ManageWorkingDays extends Component {
                                 </View>
                         }
                     </View>
+
                 </View>
             </>
         );
