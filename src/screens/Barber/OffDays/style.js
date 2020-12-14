@@ -34,7 +34,7 @@ export default StyleSheet.create({
     },
     textStyle: {
         color: THEME.COLOR_WHITE,
-        fontSize: THEME.FONT_SIZE_MEDIUM,
+        fontSize: THEME.FONT_SIZE_SMALL,
         fontFamily: 'Poppins-Regular'
     },
     seperatorStyle: {
@@ -43,6 +43,6 @@ export default StyleSheet.create({
     headingTextStyle: {
         color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Bold',
-        fontSize: THEME.FONT_SIZE_MEDIUM,
+        fontSize: THEME.FONT_SIZE_SMALL,
     },
 })
