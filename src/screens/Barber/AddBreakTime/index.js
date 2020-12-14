@@ -139,7 +139,12 @@ class AddBreakTime extends Component {
                     <DateTimeModal showTimePicker={showTimePicker}
                         dayNight={true}
                         onCancel={() => this.setState({ showTimePicker: false })}
-                        onSet={(time) => { this.state.startTime != "" && this.state.endTime != "" ? this.state.val == '1' ? this.setState({ startTime: time, showTimePicker: false, showEditService: true }) : this.setState({ endTime: time, showTimePicker: false, showEditService: true }) : this.setTimeChange(time) }} />
+                        onSet={(time) => {
+                            this.state.startTime == "" || this.state.endTime == "" ? this.state.val == '1' ?
+                                this.setState({ startTime: time, showTimePicker: false, showEditService: true })
+                                :
+                                this.setState({ endTime: time, showTimePicker: false, showEditService: true }) : this.setTimeChange(time)
+                        }} />
                 </View>
                 <FooterButton title='Back' onPress={() => this.props.onNext()} />
 
