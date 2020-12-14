@@ -7,6 +7,7 @@ import THEME from '../../../assets/styles/theme.style';
 import { Barbers } from '../../../services';
 import { connect } from 'react-redux';
 import moment from 'moment'
+import { Alert } from 'react-native';
 class AddLeave extends Component {
 
     constructor(props) {
@@ -40,19 +41,23 @@ class AddLeave extends Component {
         })
     };
     handleSubmit = () => {
-        this.setState({ buttonLoading: true })
-        let userData = {
-            id: this.props.user.userData.id,
-            token: this.props.user.userData.token,
-            off_date: this.state.selectedDate,
-            off_reason: this.state.offDayNote
+        if (this.state.offDayDate == moment().format('YYYY-MM-DD')) {
+            Alert.alert("Attension", "Please select a future date for leave ")
+        } else {
+            this.setState({ buttonLoading: true })
+            let userData = {
+                id: this.props.user.userData.id,
+                token: this.props.user.userData.token,
+                off_date: this.state.selectedDate,
+                off_reason: this.state.offDayNote
+            }
+            Barbers.addBarberOffDay(userData)
+                .then((res) => {
+                    this.props.replace('OffDays')
+                    this.setState({ buttonLoading: false })
+                })
+                .catch((err) => console.log(err))
         }
-        Barbers.addBarberOffDay(userData)
-            .then((res) => {
-                this.props.replace('OffDays')
-                this.setState({ buttonLoading: false })
-            })
-            .catch((err) => console.log(err))
     }
 
     render() {
