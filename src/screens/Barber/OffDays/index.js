@@ -89,21 +89,30 @@ class OffDays extends Component {
                                 <ActivityIndicator />
                             </View>
                             :
+
                             <>
-                                <View style={styles.upperContainer}>
-                                    <FlatList
-                                        refreshControl={<RefreshControl
-                                            refreshing={this.state.loading}
-                                            onRefresh={() => this.componentDidMount()}
-                                            tintColor={THEME.COLOR_WHITE}
-                                            colors={[THEME.PRIMARY_COLOR]}
-                                        />}
-                                        data={this.state.offDays}
-                                        showsVerticalScrollIndicator={false}
-                                        ItemSeparatorComponent={this._renderSeparator}
-                                        renderItem={({ item, index }) => this._renderItems({ item, index })}
-                                        keyExtractor={item => item} />
-                                </View>
+                                {
+                                    this.state.offDays.length == 0 ?
+                                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                            <Text style={styles.textStyle}>{'No leaves Found'}</Text>
+                                        </View>
+                                        :
+                                        <View style={styles.upperContainer}>
+                                            <FlatList
+                                                refreshControl={<RefreshControl
+                                                    refreshing={this.state.loading}
+                                                    onRefresh={() => this.componentDidMount()}
+                                                    tintColor={THEME.COLOR_WHITE}
+                                                    colors={[THEME.PRIMARY_COLOR]}
+                                                />}
+                                                data={this.state.offDays}
+                                                showsVerticalScrollIndicator={false}
+                                                ItemSeparatorComponent={this._renderSeparator}
+                                                renderItem={({ item, index }) => this._renderItems({ item, index })}
+                                                keyExtractor={item => item} />
+                                        </View>
+                                }
+
                                 <FooterButton title='Add Leave' onPress={() => this.props.onNext()} />
                             </>
                     }

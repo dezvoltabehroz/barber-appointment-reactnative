@@ -64,7 +64,7 @@ class AddBreakTime extends Component {
     }
     setEditTimeChange = (item, index) => {
         let date = moment().format('YYYY-MM-DD');
-        if (moment(`${date} ${this.state.endTime}`).format("hh:mm A") > moment(`${date} ${this.state.startTime}`).format("hh:mm A")) {
+        if (moment.duration(`${this.state.endTime}`).asMinutes() > moment.duration(`${this.state.startTime}`).asMinutes()) {
             this.setState({ buttonLoading: true })
             let userData = {
                 id: this.props.user.userData.id,
@@ -77,7 +77,7 @@ class AddBreakTime extends Component {
                 .then((res) => {
                     if (res.data.status) {
                         this.props.replace('BreakTime')
-                        this.setState({ buttonLoading: false, indexValue: null, showEditService: false });
+                        this.setState({ buttonLoading: false, indexValue: null, item: null, selectedDay: '', showEditService: false });
                     }
                 })
                 .catch((err) => console.log(err))
@@ -88,7 +88,7 @@ class AddBreakTime extends Component {
     }
 
     setStartTime = (index, item) => {
-        this.setState({ showTimePicker: true, indexValue: index, index: index, item: item, val: '1' })
+        this.setState({ showEditService: false, showTimePicker: true, indexValue: index, index: index, item: item, val: '1' })
     }
 
     setEndTime = (index, item) => {
@@ -139,7 +139,7 @@ class AddBreakTime extends Component {
                     <DateTimeModal showTimePicker={showTimePicker}
                         dayNight={true}
                         onCancel={() => this.setState({ showTimePicker: false })}
-                        onSet={(time) => { this.state.startTime != "" && this.state.endTime != "" ? this.state.val == '1' ? this.setState({ startTime: time, showTimePicker: false }) : this.setState({ endTime: time, showTimePicker: false }) : this.setTimeChange(time) }} />
+                        onSet={(time) => { this.state.startTime != "" && this.state.endTime != "" ? this.state.val == '1' ? this.setState({ startTime: time, showTimePicker: false, showEditService: true }) : this.setState({ endTime: time, showTimePicker: false, showEditService: true }) : this.setTimeChange(time) }} />
                 </View>
                 <FooterButton title='Back' onPress={() => this.props.onNext()} />
 

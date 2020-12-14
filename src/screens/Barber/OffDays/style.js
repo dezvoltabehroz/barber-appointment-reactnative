@@ -12,7 +12,7 @@ export default StyleSheet.create({
     },
     upperContainer: {
         flex: 0.8,
-        marginHorizontal: '10%'
+        marginHorizontal: '10%', paddingTop: '5%'
     },
     contentContainer: {
         flexDirection: 'row',
