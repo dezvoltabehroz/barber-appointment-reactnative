@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
-import { View, Text, Modal, ActivityIndicator, TouchableOpacity, Alert, Platform } from 'react-native';
+import { View, Text, Modal, ActivityIndicator, TouchableOpacity, Alert, Dimensions, ScrollView } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 import { Barbers } from '../../../services';
-import { DateTimeModal, Button, FooterButton, } from '../../../components';
+import { DateTimeModal, Button, FooterButton, Icon } from '../../../components';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../../redux/actions/auth';
 import styles from './style';
 import DropDownPicker from 'react-native-dropdown-picker';
+import ScrollPicker from 'react-native-picker-scrollview';
+const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
 class AddBreakTime extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            selectedDay: 'Select a day',
+            selectedDay: '',
             data: [],
             showTimePicker: false,
             indexValue: '',
@@ -26,10 +29,17 @@ class AddBreakTime extends Component {
             startTime: '',
             endTime: '',
             showEditService: false,
-            itemValue: ''
+            itemValue: '',
+            timeHourSlot: [],
+            timeMinutesSlot: [],
+            startHours: '',
+            startMinutes: '00',
+            endHours: '',
+            endMinutes: '00'
 
         }
     }
+
     setTimeChange = (data) => {
         const { val, selectedDays, indexValue, item } = this.state;
         if (val == '1') {
@@ -39,7 +49,33 @@ class AddBreakTime extends Component {
             this.setState({ endTime: data, showTimePicker: false });
         }
     }
+    hoursArray = () => {
+        var set = [];
+        var range = 24;
+        for (var i = 0; i < range; i++) {
+            if (i <= 9) {
+                set[i] = ("0" + i.toString());
+            } else {
+                set[i] = (i.toString());
+            }
+        }
+        this.setState({ timeHourSlot: set })
+    }
+
+    minutesArray = () => {
+        var set = [], range = 60;
+        for (var i = 0; i < range; i++) {
+            if (i <= 9) {
+                set[i] = ("0" + i.toString());
+            } else {
+                set[i] = i.toString()
+            }
+        }
+        this.setState({ timeMinutesSlot: set })
+    }
     componentDidMount = () => {
+        this.hoursArray();
+        this.minutesArray();
         let userData = {
             id: this.props.user.userData.id,
             token: this.props.user.userData.token
@@ -63,7 +99,6 @@ class AddBreakTime extends Component {
             .catch((err) => console.log(err))
     }
     setEditTimeChange = (item, index) => {
-        let date = moment().format('YYYY-MM-DD');
         if (moment.duration(`${this.state.endTime}`).asMinutes() > moment.duration(`${this.state.startTime}`).asMinutes()) {
             this.setState({ buttonLoading: true })
             let userData = {
@@ -99,10 +134,26 @@ class AddBreakTime extends Component {
         this.setState({ item: itemValue, index: itemIndex, showEditService: true })
     }
 
+    handleEndHours = (data) => {
+        this.setState({ endTime: `${data}:${this.state.endMinutes}`, endHours: data, })
+    }
+
+    handleEndMinutes = (data) => {
+        this.setState({ endTime: `${this.state.endHours}:${data}`, endMinutes: data, })
+    }
+
+    handleStartHours = (data) => {
+        this.setState({ startTime: `${data}:${this.state.startMinutes}`, startHours: data })
+    }
+
+    handleStartMinutes = (data) => {
+        this.setState({ startMinutes: data, startTime: `${this.state.startHours}:${data}` })
+    }
+
     render() {
         const { onNext } = this.props;
         let date = moment().format('YYYY-MM-DD');
-        const { selectedDays, data, selectedDay, showTimePicker, loading, buttonLoading, startTime, index, endTime, submit, showEditService, item, indexValue } = this.state;
+        const { selectedDays, data, timeHourSlot, timeMinutesSlot, selectedDay, showTimePicker, loading, buttonLoading, startTime, index, endTime, submit, showEditService, item, indexValue } = this.state;
 
         return (
             <>
@@ -119,10 +170,14 @@ class AddBreakTime extends Component {
                                     <Text style={styles.headingTextStyle}>No days found for break</Text>
                                 </View>
                                 :
+                                // <ScrollView>
+
+
                                 <View style={styles.formContainer}>
                                     <DropDownPicker
                                         items={data}
-                                        defaultValue={this.state.country}
+                                        placeholder="Select a day"
+                                        defaultValue={this.state.selectedDay ? this.state.selectedDay : null}
                                         containerStyle={{ height: 40 }}
                                         style={{ backgroundColor: '#fafafa' }}
                                         itemStyle={{
@@ -130,13 +185,132 @@ class AddBreakTime extends Component {
                                         }}
                                         dropDownStyle={{ backgroundColor: '#fafafa' }}
                                         onChangeItem={(item) => this.setState({
-                                            selectedDay: item.value, item: item.value, index: item.value, showEditService: true
+                                            selectedDay: item.value, item: item.value, index: item.value,
                                         })}
                                     />
+                                    {
+                                        selectedDay != '' ?
+                                            <>
+                                                <View style={styles.modalInputContainerTwo}>
+                                                    <View style={{ flexDirection: 'column' }}>
+                                                        <Text style={styles.headingTextStyle}>Start Time:</Text>
+                                                    </View>
+                                                    <ScrollPicker
+                                                        ref={(sp) => { this.sp = sp }}
+                                                        dataSource={timeHourSlot}
+                                                        selectedIndex={0}
+                                                        itemHeight={60}
+                                                        style={{ height: 40 }}
+                                                        wrapperHeight={70}
+                                                        wrapperColor={THEME.PRIMARY_BACKGROUND_COLOR}
+                                                        highlightColor={THEME.COLOR_WHITE}
+                                                        renderItem={(data, index, isSelected) => {
+                                                            return (<Text style={styles.textFlatlistStyle}>{data}</Text>)
+                                                        }}
+                                                        onValueChange={(data, selectedIndex) => {
+                                                            if (selectedIndex == 0 && data == '00') {
+                                                                this.handleStartHours(data)
+                                                            }
+                                                            else {
+                                                                this.handleStartHours(data)
+                                                            }
+                                                        }}
+                                                    />
 
+                                                    < View style={styles.iconContainer}>
+                                                        <Icon.Entypo name="dots-two-vertical" color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
+                                                    </View>
+
+
+                                                    <ScrollPicker
+                                                        ref={(sp) => { this.sp = sp }}
+                                                        dataSource={timeMinutesSlot}
+                                                        selectedIndex={0}
+                                                        itemHeight={60}
+                                                        style={{ height: 40 }}
+                                                        wrapperHeight={70}
+                                                        wrapperColor={THEME.PRIMARY_BACKGROUND_COLOR}
+                                                        highlightColor={THEME.COLOR_WHITE}
+                                                        renderItem={(data, index, isSelected) => {
+                                                            return (<Text style={styles.textFlatlistStyle}>{data}</Text>)
+                                                        }}
+                                                        onValueChange={(data, selectedIndex) => {
+                                                            if (selectedIndex == 0 && data == '00') {
+                                                                this.handleStartMinutes(data)
+                                                            }
+                                                            else {
+                                                                this.handleStartMinutes(data)
+                                                            }
+                                                        }}
+                                                    />
+
+                                                </View>
+                                                <View style={styles.modalInputContainerTwo}>
+                                                    <View style={{ flexDirection: 'column' }}>
+                                                        <Text style={styles.headingTextStyle}>End Time:    </Text>
+                                                    </View>
+                                                    <ScrollPicker
+                                                        ref={(sp) => { this.sp = sp }}
+                                                        dataSource={timeHourSlot}
+                                                        selectedIndex={0}
+                                                        itemHeight={60}
+                                                        style={{ height: 40 }}
+                                                        wrapperHeight={60}
+                                                        wrapperColor={THEME.PRIMARY_BACKGROUND_COLOR}
+                                                        highlightColor={THEME.COLOR_WHITE}
+                                                        renderItem={(data, index, isSelected) => {
+                                                            return (<Text style={styles.textFlatlistStyle}>{data}</Text>)
+                                                        }}
+                                                        onValueChange={(data, selectedIndex) => {
+                                                            if (selectedIndex == 0 && data == '00') {
+                                                                this.handleEndHours(data)
+                                                            }
+                                                            else {
+                                                                this.handleEndHours(data)
+                                                            }
+                                                        }}
+                                                    />
+                                                    < View style={styles.iconContainer}>
+                                                        <Icon.Entypo name="dots-two-vertical" color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
+                                                    </View>
+                                                    <ScrollPicker
+                                                        ref={(sp) => { this.sp = sp }}
+                                                        dataSource={timeMinutesSlot}
+                                                        selectedIndex={0}
+                                                        itemHeight={60}
+                                                        style={{ height: 40 }}
+                                                        wrapperHeight={60}
+                                                        wrapperColor={THEME.PRIMARY_BACKGROUND_COLOR}
+                                                        highlightColor={THEME.COLOR_WHITE}
+                                                        renderItem={(data, index, isSelected) => {
+                                                            return (<Text style={styles.textFlatlistStyle}>{data}</Text>)
+                                                        }}
+                                                        onValueChange={(data, selectedIndex) => {
+                                                            if (selectedIndex == 0 && data == '00') {
+                                                                this.handleEndMinutes(data)
+                                                            }
+                                                            else {
+                                                                this.handleEndMinutes(data)
+                                                            }
+                                                        }}
+                                                    />
+
+                                                </View>
+                                                <View style={{ marginTop: '5%', justifyContent: 'flex-end' }}>
+                                                    <Button title="Cancel" onPress={() => this.setState({ selectedDay: '' })} />
+                                                </View>
+                                            </>
+                                            :
+                                            null
+                                    }
                                 </View>
+
+
+                        // </ScrollView>
                     }
-                    <DateTimeModal showTimePicker={showTimePicker}
+
+
+                    {/* <DateTimeModal showTimePicker={showTimePicker}
                         dayNight={true}
                         onCancel={() => this.setState({ showTimePicker: false })}
                         onSet={(time) => {
@@ -144,11 +318,23 @@ class AddBreakTime extends Component {
                                 this.setState({ startTime: time, showTimePicker: false, showEditService: true })
                                 :
                                 this.setState({ endTime: time, showTimePicker: false, showEditService: true }) : this.setTimeChange(time)
-                        }} />
+                        }} /> */}
                 </View>
-                <FooterButton title='Back' onPress={() => this.props.onNext()} />
-
-                <Modal visible={showEditService}
+                {/* <FooterButton title='Back' onPress={() => this.props.onNext()} /> */}
+                <View style={styles.footerStyle}>
+                    <View style={styles.lineStyle}></View>
+                    <View style={styles.gapHeight}></View>
+                    <View style={[styles.buttonContainer, { flexDirection: "row", justifyContent: 'space-between' }]}>
+                        <View style={{ flex: 0.45 }}>
+                            <Button title="Back  " onPress={() => this.props.onNext()} />
+                        </View>
+                        <View style={{ flex: 0.45 }}>
+                            <Button disabled={this.state.endHours && this.state.startHours ? false : true} loading={buttonLoading} title="Add  " onPress={() => this.setEditTimeChange(item, index)} />
+                        </View>
+                    </View>
+                    <View style={styles.gapHeight1}></View>
+                </View>
+                {/* <Modal visible={showEditService}
                     animationType="slide">
                     {
                         item == null || index == null ?
@@ -195,7 +381,7 @@ class AddBreakTime extends Component {
                                 </View>
                             </View>
                     }
-                </Modal>
+                </Modal> */}
             </>
         )
     }
