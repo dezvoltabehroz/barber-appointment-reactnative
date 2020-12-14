@@ -54,12 +54,12 @@ class ManageScheduleTime extends Component {
 
     setTimeChange = (data) => {
         const { val, selectedDays, indexValue, item } = this.state;
-        if (val == '1') {
-            selectedDays[indexValue].startTime = data;
-        }
-        else {
-            selectedDays[indexValue].endTime = data;
-        }
+        // if (val == '1') {
+        //     selectedDays[indexValue].startTime = data;
+        // }
+        // else {
+        //     selectedDays[indexValue].endTime = data;
+        // }
         const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
         let items = [...this.state.selectedDays];
         if (val == '1') {
@@ -68,8 +68,7 @@ class ManageScheduleTime extends Component {
             this.is_filled_check(items, objIndex)
         }
         else {
-            let date = moment().format('YYYY-MM-DD');
-            if (moment(`${date} ${items[objIndex].endTime}`).format("hh:mm A") > moment(`${date} ${items[objIndex].startTime}`).format("hh:mm A")) {
+            if (moment.duration(data).asMinutes() > moment.duration(selectedDays[indexValue].startTime).asMinutes()) {
                 items[objIndex] = { ...items[objIndex], endTime: selectedDays[indexValue].endTime = data };
                 this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, });
                 this.is_filled_check(items, objIndex)
@@ -81,8 +80,7 @@ class ManageScheduleTime extends Component {
 
     }
     setEditTimeChange = (item, index) => {
-        let date = moment().format('YYYY-MM-DD');
-        if (moment(`${date} ${this.state.endTime}`).format("hh:mm A") > moment(`${date} ${this.state.startTime}`).format("hh:mm A")) {
+        if (moment.duration(this.state.endTime).asMinutes() > moment.duration(this.state.startTime).asMinutes()) {
             const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
             let items = [...this.state.selectedDays];
             items[objIndex] = { ...items[objIndex], startTime: this.state.startTime, endTime: this.state.endTime };
@@ -154,7 +152,6 @@ class ManageScheduleTime extends Component {
                         {
                             item.startTime != '' ?
                                 <View style={styles.startTimeContainer}>
-
                                     <Text style={styles.textStyle}>{item.startTime != undefined ? moment(`${date} ${item.startTime}`).format('hh:mm A') : ''}</Text>
                                 </View>
                                 :

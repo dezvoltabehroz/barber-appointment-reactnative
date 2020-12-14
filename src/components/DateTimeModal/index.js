@@ -92,7 +92,7 @@ export default class DateTimeModal extends Component {
             }
             else {
                 let time = hours.split(':');
-                var value = `${parseInt(time[0]=='12'?0:time[0]) + 12}:00`;
+                var value = `${time[0] == '12' ? 12 : (parseInt(time[0]) + 12)}:00`;
                 if (hours == '' || hours == '00') {
                     Alert.alert("Attention", "Please select correct Hour")
                 }
