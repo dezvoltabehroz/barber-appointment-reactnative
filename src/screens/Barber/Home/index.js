@@ -22,20 +22,20 @@ class BarberHome extends Component {
             servicelist: [
                 {
                     name: 'Bookings History',
-                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                    imageUrl: require('../../../assets/images/Rectangle.png')
                 },
 
                 {
                     name: 'About Us',
-                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                    imageUrl: require('../../../assets/images/Rectangle.png')
                 },
                 {
                     name: 'Contact Us',
-                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                    imageUrl: require('../../../assets/images/Rectangle.png')
                 },
                 {
                     name: 'PPE (Formerly About US)',
-                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                    imageUrl: require('../../../assets/images/Rectangle.png')
                 },
             ],
             loading: false
@@ -84,7 +84,7 @@ class BarberHome extends Component {
             <>
                 <TouchableOpacity
                     onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "Edit Profile" ? onEditProfile() : item.name == "Bookings History" ? onBookingHistory() : item.name == "PPE (Formerly About US)" ? this.props.authActions.healthAndSafety(true) : Alert.alert("Atention", "This screen is under Development") }} style={styles.upperListItemContainer}>
-                    <ImageBackground source={{ uri: `${item.imageUrl}` }}
+                    <ImageBackground source={item.imageUrl}
                         style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }}>
                         <View style={styles.upperListTitleContainer}>
                             <Text style={[styles.upperListTitleStyle, { color: THEME.COLOR_WHITE }]} >{item.name}</Text>
