@@ -170,8 +170,6 @@ class AddBreakTime extends Component {
                                     <Text style={styles.headingTextStyle}>No days found for break</Text>
                                 </View>
                                 :
-                                // <ScrollView>
-
 
                                 <View style={styles.formContainer}>
                                     <DropDownPicker
@@ -304,12 +302,7 @@ class AddBreakTime extends Component {
                                             null
                                     }
                                 </View>
-
-
-                        // </ScrollView>
                     }
-
-
                     {/* <DateTimeModal showTimePicker={showTimePicker}
                         dayNight={true}
                         onCancel={() => this.setState({ showTimePicker: false })}
@@ -329,7 +322,7 @@ class AddBreakTime extends Component {
                             <Button title="Back  " onPress={() => this.props.onNext()} />
                         </View>
                         <View style={{ flex: 0.45 }}>
-                            <Button disabled={this.state.endHours && this.state.startHours ? false : true} loading={buttonLoading} title="Add  " onPress={() => this.setEditTimeChange(item, index)} />
+                            <Button disabled={this.state.endHours && this.state.startHours ? false : true} loading={buttonLoading } title="Add  " onPress={() => this.setEditTimeChange(item, index)} />
                         </View>
                     </View>
                     <View style={styles.gapHeight1}></View>

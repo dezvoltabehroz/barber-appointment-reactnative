@@ -219,33 +219,6 @@ class Breaks extends Component {
                                             ItemSeparatorComponent={this._renderSeparator}
                                             renderItem={({ item, index }) => this._renderItems({ item, index })}
                                             keyExtractor={item => item} />
-                                        {/* <Calendar
-                                minDate={new Date()}
-                                maxDate={new Date().setDate(new Date().getDate() + 30)}
-                                onDayPress={(day) => this.handleDayPress(day)}
-                                monthFormat={'MMMM yyyy'}
-                                theme={{
-                                    calendarBackground: THEME.PRIMARY_BACKGROUND_COLOR,
-                                    selectedDotColor: '#ffffff',
-                                    selectedDayBackgroundColor: '#D2A91B',
-                                    selectedDayTextColor: 'black',
-                                    dayTextColor: 'white',
-                                    textDisabledColor: 'grey',
-                                    dotColor: '#D2A91B',
-                                    todayTextColor: 'white',
-                                    arrowColor: THEME.PRIMARY_COLOR,
-                                    monthTextColor: 'white',
-                                    textDayFontFamily: "Poppins-Medium",
-                                    textMonthFontFamily: "Poppins-Medium",
-                                    textDayHeaderFontFamily: "Poppins-Medium",
-                                    textDayFontSize: 10,
-                                    textMonthFontSize: 16,
-                                    textDayHeaderFontSize: 10,
-                                }}
-                            /> */}
-
-
-
                                     </KeyboardAwareScrollView>
                                 </View>}
                     <FooterButton title='Add Break' onPress={() => this.props.onNext()} />
