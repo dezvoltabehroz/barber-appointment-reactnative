@@ -71,17 +71,17 @@ class OffDays extends Component {
     _renderItems = ({ item, index }) => {
         return (
             <View style={styles.contentContainer}>
-                <View style={{ justifyContent: 'center' }}>
-                    <View>
-                        <Text style={styles.headingTextStyle}>{'Time: '}</Text>
+                <View style={{ justifyContent: 'center', flex: 0.9 }}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={styles.headingTextStyle}>{'Day:  '}</Text>
                         <Text style={styles.textStyle}>{moment(item.off_date).format('dddd')} on {moment(item.off_date).format('LL')}</Text>
                     </View>
-                    <View>
-                        <Text style={styles.headingTextStyle}>{"Reason: "}</Text>
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                        <Text style={styles.headingTextStyle}>{"Reason:  "}</Text>
                         <Text style={styles.textStyle}>{item.off_reason}</Text>
                     </View>
                 </View>
-                <TouchableOpacity style={{ justifyContent: 'center' }} onPress={() => this.on_Press_Delete(item, index)}>
+                <TouchableOpacity style={{ justifyContent: 'center', flex: 0.1 }} onPress={() => this.on_Press_Delete(item, index)}>
                     <Icon.MaterialIcons name='delete' size={25} color={THEME.COLOR_WHITE} />
                 </TouchableOpacity>
             </View>
