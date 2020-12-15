@@ -25,7 +25,7 @@ export default StyleSheet.create({
     iconContainer: {
         flex: 0.2,
         flexDirection: 'column',
-        alignSelf: "flex-end"
+        alignSelf: "center"
     },
     startTimeContainer: {
         flex: 0.25,
@@ -167,5 +167,20 @@ export default StyleSheet.create({
         justifyContent: 'flex-end',
         paddingBottom: '8%',
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
-    }
+    },
+    modalInputContainerTwo: {
+        flexDirection: "row",
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
+        marginTop: '10%',
+        marginHorizontal: '10%',
+        borderRadius: 10,
+        alignItems: "center",
+    },
+    textFlatlistStyle: {
+        color: THEME.COLOR_WHITE,
+        fontFamily: "Poppins-Regular",
+        margin: 7,
+        textAlign: "center",
+        width: screenWidth * 0.3,
+    },
 })
