@@ -34,7 +34,11 @@ class Breaks extends Component {
             startHours: '',
             startMinutes: '00',
             endHours: '',
-            endMinutes: '00'
+            endMinutes: '00',
+            sp1Index: null,
+            sp2Index: null,
+            sp3Index: null,
+            sp4Index: null
         }
     }
 
@@ -147,11 +151,22 @@ class Breaks extends Component {
             })
     }
 
-    on_Press_Edit = (item, index) => {
+    on_Press_Edit = async (item, index) => {
         let selectedDays = [...this.state.selectedDays];
         this.setState({ item, index, })
-        this.setState({ showEditService: true, startTime: selectedDays[index].break_start_time, endTime: selectedDays[index].break_end_time });
-        // console.log(selectedDays[index].startTime)
+        let spStart = item.break_start_time.split(":");
+        let spEnd = item.break_end_time.split(":");
+        let sp1Index = this.state.timeHourSlot.findIndex((obj => obj == spStart[0]));
+        let sp2Index = this.state.timeMinutesSlot.findIndex((obj => obj == spStart[1]));
+        let sp3Index = this.state.timeHourSlot.findIndex((obj => obj == spEnd[0]));
+        let sp4Index = this.state.timeMinutesSlot.findIndex((obj => obj == spEnd[1]));
+        await this.setState({
+            sp1Index, sp2Index, sp3Index, sp4Index,
+            startHours: `${sp1Index}`, startMinutes: `${sp2Index}`, endHours: `${sp3Index}`, endMinutes: `${sp4Index}`,
+            showEditService: true, startTime: selectedDays[index].break_start_time,
+            endTime: selectedDays[index].break_end_time
+        });
+        console.log(this.state.startHours, this.state.startMinutes, this.state.endHours, this.state.endMinutes,)
     }
 
     _renderItems = ({ item, index }) => {
@@ -284,9 +299,10 @@ class Breaks extends Component {
                                     <Text style={styles.headingTextStyle}>Start Time:</Text>
                                 </View>
                                 <ScrollPicker
-                                    ref={(sp) => { this.sp = sp }}
+                                    ref={(sp1) => { this.sp1 = sp1 }}
+
                                     dataSource={timeHourSlot}
-                                    selectedIndex={0}
+                                    selectedIndex={this.state.sp1Index}
                                     itemHeight={60}
                                     style={{ height: 40 }}
                                     wrapperHeight={70}
@@ -311,9 +327,9 @@ class Breaks extends Component {
 
 
                                 <ScrollPicker
-                                    ref={(sp) => { this.sp = sp }}
+                                    ref={(sp2) => { this.sp2 = sp2 }}
                                     dataSource={timeMinutesSlot}
-                                    selectedIndex={0}
+                                    selectedIndex={this.state.sp2Index}
                                     itemHeight={60}
                                     style={{ height: 40 }}
                                     wrapperHeight={70}
@@ -338,9 +354,9 @@ class Breaks extends Component {
                                     <Text style={styles.headingTextStyle}>End Time:    </Text>
                                 </View>
                                 <ScrollPicker
-                                    ref={(sp) => { this.sp = sp }}
+                                    ref={(sp3) => { this.sp3 = sp3 }}
                                     dataSource={timeHourSlot}
-                                    selectedIndex={0}
+                                    selectedIndex={this.state.sp3Index}
                                     itemHeight={60}
                                     style={{ height: 40 }}
                                     wrapperHeight={60}
@@ -362,9 +378,9 @@ class Breaks extends Component {
                                     <Icon.Entypo name="dots-two-vertical" color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
                                 </View>
                                 <ScrollPicker
-                                    ref={(sp) => { this.sp = sp }}
+                                    ref={(sp4) => { this.sp4 = sp4 }}
                                     dataSource={timeMinutesSlot}
-                                    selectedIndex={0}
+                                    selectedIndex={this.state.sp4Index}
                                     itemHeight={60}
                                     style={{ height: 40 }}
                                     wrapperHeight={60}
@@ -386,12 +402,12 @@ class Breaks extends Component {
                             </View>
                             <View style={{ flexDirection: "row", alignItems: "center", marginTop: '10%' }}>
                                 <View style={styles.rowButtonContainer}>
-                                    <Button title="Cancel" onPress={() => this.setState({ showTimePicker: false, showEditService: true, })} />
+                                    <Button title="Cancel" onPress={() => this.setState({ showEditService: false })} />
                                 </View>
                                 <View style={styles.rowButtonContainer}>
-                                    <Button title="Set" disabled={this.state.startHours && this.state.startMinutes && this.state.endHours && this.state.endMinutes ? false : true} loading={buttonLoading} onPress={() => this.setState({
-                                        startTime: `${this.state.startHours}:${this.state.startMinutes}`,
-                                        endTime: `${this.state.endHours}:${this.state.endMinutes}`
+                                    <Button title="Set" disabled={this.state.startHours && this.state.startMinutes && this.state.endHours && this.state.endMinutes ? false : true} loading={buttonLoading} onPress={async () => await this.setState({
+                                        startTime: `${this.state.startHours == 0 ? '00' : this.state.startHours}:${this.state.startMinutes == 0 ? '00' : this.state.startMinutes}`,
+                                        endTime: `${this.state.endHours == 0 ? '00' : this.state.endHours}:${this.state.endMinutes == 0 ? '00' : this.state.endMinutes}`
                                     }, () => this.setEditTimeChange(item, index))} />
                                 </View>
                             </View>
