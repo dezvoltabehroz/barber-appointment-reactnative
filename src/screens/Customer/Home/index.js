@@ -54,7 +54,7 @@ class Home extends Component {
                 },
                 {
                     name: 'Contact Us',
-                    imageUrl: require('../../../assets/images/Rectangle.png')
+                    imageUrl:  require('../../../assets/images/Rectangle.png')
                 },
             ],
             addresses: [],
@@ -102,7 +102,7 @@ class Home extends Component {
         return (
             <>
                 <TouchableOpacity
-                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "My Addresses" ? myAddresses() : item.name == "My Fleek" ? onAppointments() : item.name == 'Payment Method' ? Alert.alert("Attension", "This screen is Under Development") : this.props.authActions.healthAndSafety(true) }} style={styles.upperListItemContainer}>
+                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "My Addresses" ? myAddresses() : item.name == "My Fleek" ? onAppointments():item.name=='Payment Method'?Alert.alert("Attension","This screen is Under Development") : this.props.authActions.healthAndSafety(true) }} style={styles.upperListItemContainer}>
                     <ImageBackground source={item.imageUrl}
                         style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }} >
                         <View style={styles.upperListTitleContainer}>
@@ -200,22 +200,10 @@ class Home extends Component {
                             {/* <Text style={styles.appNameTextStyle}>Fleek</Text> */}
                             {
                                 isUserLogedIn ?
-                                    <TouchableOpacity disabled={address ? false : true} style={styles.exitContainer} onPress={() => onExit()}>
-                                        <View style={{ paddingRight: '5%' }}>
-                                            <Icon.Feather name="log-out" style={{
-                                                transform: [
-                                                    { rotate: "180deg" }
-                                                ]
-                                            }} color="#fff" size={25} />
-                                        </View>
-                                    </TouchableOpacity>
+                                    <Image source={require('../../../assets/images/logo.png')} resizeMode='contain' style={styles.logoStyle} />
                                     :
-                                    <TouchableOpacity onPress={() => goBack()} style={{
-                                        transform: [
-                                            { rotate: "180deg" }
-                                        ]
-                                    }}>
-                                        <Icon.Feather name="log-out" color="#fff" size={25} />
+                                    <TouchableOpacity onPress={() => goBack()}>
+                                        <Image source={require('../../../assets/images/logo.png')} resizeMode='contain' style={styles.logoStyle} />
                                     </TouchableOpacity>
                             }
                             {
@@ -231,13 +219,13 @@ class Home extends Component {
                                             }
 
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={[styles.searchBarberContainer,]} onPress={searchBarber}>
-                                            <Icon.Feather name="search" color="#fff" size={25} />
+                                        <TouchableOpacity disabled={address ? false : true} style={styles.exitContainer} onPress={() => onExit()}>
+                                            <View style={{ paddingRight: '5%' }}>
+                                                <Icon.Feather name="log-out" color="#fff" size={25} />
+                                            </View>
                                         </TouchableOpacity>
                                     </> :
-                                    <TouchableOpacity style={[styles.searchBarberContainer,]} onPress={searchBarber}>
-                                        <Icon.Feather name="search" color="#fff" size={25} />
-                                    </TouchableOpacity>
+                                    null
                             }
                         </View>
                         <View style={{ marginTop: 0 }}>
@@ -286,13 +274,13 @@ class Home extends Component {
                                 renderItem={({ item }) => this._renderItems(item)}
                                 keyExtractor={item => item} />
                         </View>
-                        {/* <View style={[styles.nameContainer, { alignItems: 'center' }]}>
+                        <View style={[styles.nameContainer, { alignItems: 'center' }]}>
                             <Text style={styles.appointmentTextStyle}></Text>
                             <TouchableOpacity style={[styles.searchBarberContainer,]} onPress={searchBarber}>
                                 <Text style={styles.appointmentTextStyle}>Search Fleek </Text>
                                 <Icon.Feather name="search" color="#fff" size={15} />
                             </TouchableOpacity>
-                        </View> */}
+                        </View>
                         <View style={styles.lowerListContainer}>
                             {
                                 this.props.category.loading ?
