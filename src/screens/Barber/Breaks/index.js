@@ -166,7 +166,6 @@ class Breaks extends Component {
             showEditService: true, startTime: selectedDays[index].break_start_time,
             endTime: selectedDays[index].break_end_time
         });
-        console.log(this.state.startHours, this.state.startMinutes, this.state.endHours, this.state.endMinutes,)
     }
 
     _renderItems = ({ item, index }) => {
