@@ -19,7 +19,7 @@ export default class PhoneVerfication extends Component {
     }
 
     render() {
-        const { number, onVerify } = this.props
+        const { number, onVerify, onResend } = this.props
         const { value, isFocus } = this.state;
         return (
             <View style={styles.container}>
@@ -46,13 +46,13 @@ export default class PhoneVerfication extends Component {
                         onFulfill={(value) => this.fullFillCode(value)}
                         onCodeChange={(code) => console(code)}
                         codeInputStyle={[styles.codeInput,
-                        isFocus ? THEME.inputBorder:{}]} />
+                        isFocus ? THEME.inputBorder : {}]} />
                 </View>
                 <View style={styles.buttonContainer}>
                     <Button title='Verify Number ' onPress={onVerify} />
                 </View>
                 <View style={styles.resendContainer}>
-                    <TouchableOpacity><Text style={styles.resendTextStyle}>Resend Code</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => onResend()}><Text style={styles.resendTextStyle}>Resend Code</Text></TouchableOpacity>
                 </View>
                 <View style={styles.termANdConditionContainer}>
                     <Text style={styles.termTextStyle}>By tapping Verify number above, you agree</Text>

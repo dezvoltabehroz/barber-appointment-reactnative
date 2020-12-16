@@ -9,9 +9,9 @@ export default class PhoneVerificationScreen extends Component {
     })
 
     render() {
-        const { navigate, goBack } = this.props.navigation
+        const { navigate, goBack,replace } = this.props.navigation
         return (
-            <MainScreenPaths.Barber.BarberPhoneVerification onVerify={()=>navigate('PhoneVerified')} />
+            <MainScreenPaths.Barber.BarberPhoneVerification onVerify={()=>navigate('PhoneVerified')} onResend={()=>replace('PhoneNumber')} />
         )
     }
 }
