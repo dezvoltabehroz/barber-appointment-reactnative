@@ -50,11 +50,11 @@ class Home extends Component {
             servicelist: [
                 {
                     name: 'About Us',
-                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                    imageUrl: require('../../../assets/images/Rectangle.png')
                 },
                 {
                     name: 'Contact Us',
-                    imageUrl: 'https://images.unsplash.com/photo-1580561650691-6562b4787600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
+                    imageUrl: require('../../../assets/images/Rectangle.png')
                 },
             ],
             addresses: [],
@@ -102,7 +102,7 @@ class Home extends Component {
         return (
             <>
                 <TouchableOpacity
-                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "My Addresses" ? myAddresses() : item.name == "My Fleek" ? onAppointments():item.name=='Payment Method'?Alert.alert("Attension","This screen is Under Development") : this.props.authActions.healthAndSafety(true) }} style={styles.upperListItemContainer}>
+                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "My Addresses" ? myAddresses() : item.name == "My Fleek" ? onAppointments() : item.name == 'Payment Method' ? Alert.alert("Attension", "This screen is Under Development") : this.props.authActions.healthAndSafety(true) }} style={styles.upperListItemContainer}>
                     <ImageBackground source={item.imageUrl}
                         style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }} >
                         <View style={styles.upperListTitleContainer}>
