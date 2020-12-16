@@ -343,57 +343,6 @@ class Breaks extends Component {
                                 />
 
                             </View>
-                            {/* <View style={styles.modalInputContainerTwo}>
-                                <View style={{ flexDirection: 'column' }}>
-                                    <Text style={styles.headingTextStyle}>End Time:    </Text>
-                                </View>
-                                <ScrollPicker
-                                    ref={(sp) => { this.sp = sp }}
-                                    dataSource={timeHourSlot}
-                                    selectedIndex={0}
-                                    itemHeight={60}
-                                    style={{ height: 40 }}
-                                    wrapperHeight={60}
-                                    wrapperColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                    highlightColor={THEME.COLOR_WHITE}
-                                    renderItem={(data, index, isSelected) => {
-                                        return (<Text style={styles.textFlatlistStyle}>{data}</Text>)
-                                    }}
-                                    onValueChange={(data, selectedIndex) => {
-                                        if (selectedIndex == 0 && data == '00') {
-                                            this.handleEndHours(data)
-                                        }
-                                        else {
-                                            this.handleEndHours(data)
-                                        }
-                                    }}
-                                />
-                                < View style={styles.iconContainer}>
-                                    <Icon.Entypo name="dots-two-vertical" color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
-                                </View>
-                                <ScrollPicker
-                                    ref={(sp) => { this.sp = sp }}
-                                    dataSource={timeMinutesSlot}
-                                    selectedIndex={0}
-                                    itemHeight={60}
-                                    style={{ height: 40 }}
-                                    wrapperHeight={60}
-                                    wrapperColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                    highlightColor={THEME.COLOR_WHITE}
-                                    renderItem={(data, index, isSelected) => {
-                                        return (<Text style={styles.textFlatlistStyle}>{data}</Text>)
-                                    }}
-                                    onValueChange={(data, selectedIndex) => {
-                                        if (selectedIndex == 0 && data == '00') {
-                                            this.handleEndMinutes(data)
-                                        }
-                                        else {
-                                            this.handleEndMinutes(data)
-                                        }
-                                    }}
-                                />
-
-                            </View> */}
                             <View style={{ flexDirection: "row", alignItems: "center", marginTop: '10%' }}>
                                 <View style={styles.rowButtonContainer}>
                                     <Button title="Cancel" onPress={() => this.setState({ showTimePicker: false, showEditService: true, startHours: '', startMinutes: '00', endHours: '', endMinutes: '00' })} />
@@ -412,10 +361,6 @@ class Breaks extends Component {
                         </View>
                     </View>
                 </Modal>
-                {/* <DateTimeModal showTimePicker={showTimePicker}
-                    dayNight={true}
-                    onCancel={() => this.setState({ showTimePicker: false })}
-                    onSet={(time) => { this.state.startTime != "" && this.state.endTime != "" ? this.state.val == '1' ? this.setState({ startTime: time, showTimePicker: false, showEditService: true }) : this.setState({ endTime: time, showTimePicker: false, showEditService: true }) : this.setTimeChange(time) }} /> */}
                 <Modal visible={showEditService}
                     animationType="slide">
                     {
