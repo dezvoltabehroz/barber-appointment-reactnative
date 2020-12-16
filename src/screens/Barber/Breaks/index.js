@@ -219,20 +219,20 @@ class Breaks extends Component {
 
     handleStartHours = (data) => {
         if (this.state.selectStartTime) {
-            this.setState({ startTime: `${data}:${this.state.startMinutes}`, startHours: data })
+            this.setState({ startHours: data })
 
         }
         else {
-            this.setState({ endTime: `${data}:${this.state.endMinutes}`, endHours: data, })
+            this.setState({ endHours: data, })
         }
     }
 
     handleStartMinutes = (data) => {
         if (this.state.selectStartTime) {
-            this.setState({ startMinutes: data, startTime: `${this.state.startHours}:${data}` })
+            this.setState({ startMinutes: data, })
         }
         else {
-            this.setState({ endTime: `${this.state.endHours}:${data}`, endMinutes: data, })
+            this.setState({ endMinutes: data, })
         }
     }
 
@@ -396,10 +396,19 @@ class Breaks extends Component {
                             </View> */}
                             <View style={{ flexDirection: "row", alignItems: "center", marginTop: '10%' }}>
                                 <View style={styles.rowButtonContainer}>
-                                    <Button title="Cancel" onPress={() => this.setState({ showTimePicker: false, showEditService: true, })} />
+                                    <Button title="Cancel" onPress={() => this.setState({ showTimePicker: false, showEditService: true, }, () => {
+
+                                    })} />
                                 </View>
                                 <View style={styles.rowButtonContainer}>
-                                    <Button title="Set" onPress={() => this.setState({ showTimePicker: false, showEditService: true, })} />
+                                    <Button title="Set" disabled={(this.state.startHours && this.state.startMinutes) || (this.state.endHours && this.state.endMinutes) ? false : true} onPress={() => this.setState({ showTimePicker: false, showEditService: true, }, () => {
+                                        if (this.state.selectStartTime) {
+                                            this.setState({ startTime: `${this.state.startHours}:${this.state.startMinutes}`, startHours: '', startMinutes: '00' })
+                                        }
+                                        else {
+                                            this.setState({ endTime: `${this.state.endHours}:${this.state.endMinutes}`, endHours: '', endMinutes: '00' })
+                                        }
+                                    })} />
                                 </View>
                             </View>
                         </View>
