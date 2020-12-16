@@ -43,8 +43,8 @@ class BarberList extends Component {
             this.arrayHolder = this.props.barberList
         } else {
             let userData = {
-                id: this.props.user.userData.id,
-                token: this.props.user.userData.token,
+                id: this.props.user.userData.id != undefined ? this.props.user.userData.id : '',
+                token: this.props.user.userData.token != undefined ? this.props.user.userData.token : '',
                 service_id: id
             }
             Barbers.getBarbersListSelectedService(userData)

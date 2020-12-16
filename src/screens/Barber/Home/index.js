@@ -181,9 +181,13 @@ class BarberHome extends Component {
                 <View style={styles.container}>
                     <View style={styles.nameContainer}>
                         {/* <Text style={styles.appNameTextStyle} >Fleek</Text> */}
-                        <Image source={require('../../../assets/images/logo.png')} resizeMode='contain' style={styles.logoStyle} />
+                        {/* <Image source={require('../../../assets/images/logo.png')} resizeMode='contain' style={styles.logoStyle} /> */}
                         {<TouchableOpacity style={styles.exitContainer} onPress={onExit}>
-                            <Icon.Feather name="log-out" color="#fff" size={25} />
+                            <Icon.Feather name="log-out" color="#fff" style={{
+                                transform: [
+                                    { rotate: "180deg" }
+                                ]
+                            }} size={25} />
                         </TouchableOpacity>}
                     </View>
                     <View style={styles.upperListContainer}>

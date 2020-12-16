@@ -200,10 +200,22 @@ class Home extends Component {
                             {/* <Text style={styles.appNameTextStyle}>Fleek</Text> */}
                             {
                                 isUserLogedIn ?
-                                    <Image source={require('../../../assets/images/logo.png')} resizeMode='contain' style={styles.logoStyle} />
+                                    <TouchableOpacity disabled={address ? false : true} style={styles.exitContainer} onPress={() => onExit()}>
+                                        <View style={{ paddingRight: '5%' }}>
+                                            <Icon.Feather name="log-out" style={{
+                                                transform: [
+                                                    { rotate: "180deg" }
+                                                ]
+                                            }} color="#fff" size={25} />
+                                        </View>
+                                    </TouchableOpacity>
                                     :
-                                    <TouchableOpacity onPress={() => goBack()}>
-                                        <Image source={require('../../../assets/images/logo.png')} resizeMode='contain' style={styles.logoStyle} />
+                                    <TouchableOpacity onPress={() => goBack()} style={{
+                                        transform: [
+                                            { rotate: "180deg" }
+                                        ]
+                                    }}>
+                                        <Icon.Feather name="log-out" color="#fff" size={25} />
                                     </TouchableOpacity>
                             }
                             {
@@ -219,13 +231,13 @@ class Home extends Component {
                                             }
 
                                         </TouchableOpacity>
-                                        <TouchableOpacity disabled={address ? false : true} style={styles.exitContainer} onPress={() => onExit()}>
-                                            <View style={{ paddingRight: '5%' }}>
-                                                <Icon.Feather name="log-out" color="#fff" size={25} />
-                                            </View>
+                                        <TouchableOpacity style={[styles.searchBarberContainer,]} onPress={searchBarber}>
+                                            <Icon.Feather name="search" color="#fff" size={25} />
                                         </TouchableOpacity>
                                     </> :
-                                    null
+                                    <TouchableOpacity style={[styles.searchBarberContainer,]} onPress={searchBarber}>
+                                        <Icon.Feather name="search" color="#fff" size={25} />
+                                    </TouchableOpacity>
                             }
                         </View>
                         <View style={{ marginTop: 0 }}>
@@ -274,13 +286,13 @@ class Home extends Component {
                                 renderItem={({ item }) => this._renderItems(item)}
                                 keyExtractor={item => item} />
                         </View>
-                        <View style={[styles.nameContainer, { alignItems: 'center' }]}>
+                        {/* <View style={[styles.nameContainer, { alignItems: 'center' }]}>
                             <Text style={styles.appointmentTextStyle}></Text>
                             <TouchableOpacity style={[styles.searchBarberContainer,]} onPress={searchBarber}>
                                 <Text style={styles.appointmentTextStyle}>Search Fleek </Text>
                                 <Icon.Feather name="search" color="#fff" size={15} />
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
                         <View style={styles.lowerListContainer}>
                             {
                                 this.props.category.loading ?
