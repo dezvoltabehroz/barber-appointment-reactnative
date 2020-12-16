@@ -202,11 +202,11 @@ class Breaks extends Component {
     }
 
     setStartTime = (index, item) => {
-        this.setState({ selectStartTime: true, selectEndTime: false, showTimePicker: true, indexValue: index, index: index, item: item, val: '1' })
+        this.setState({ selectStartTime: true, selectEndTime: false,showEditService:false, showTimePicker: true, indexValue: index, index: index, item: item, val: '1' })
     }
 
     setEndTime = (index, item) => {
-        this.setState({ selectEndTime: true, selectStartTime: false, showTimePicker: true, indexValue: index, index: index, item: item, val: '0' })
+        this.setState({ selectEndTime: true, selectStartTime: false,showEditService:false, showTimePicker: true, indexValue: index, index: index, item: item, val: '0' })
     }
 
     handleEndHours = (data) => {
