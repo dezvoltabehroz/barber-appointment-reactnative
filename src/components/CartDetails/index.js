@@ -35,6 +35,7 @@ class CartDetail extends Component {
             const notEqual = (currentValue) => currentValue.quantity != '';
             const data = this.state.services.every(notEqual)
             this.props.isDisable(data);
+            this.props.addQuantity(this.state.services)
         });
       
     }
