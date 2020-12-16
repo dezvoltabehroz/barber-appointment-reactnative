@@ -396,9 +396,7 @@ class Breaks extends Component {
                             </View> */}
                             <View style={{ flexDirection: "row", alignItems: "center", marginTop: '10%' }}>
                                 <View style={styles.rowButtonContainer}>
-                                    <Button title="Cancel" onPress={() => this.setState({ showTimePicker: false, showEditService: true, }, () => {
-
-                                    })} />
+                                    <Button title="Cancel" onPress={() => this.setState({ showTimePicker: false, showEditService: true, startHours: '', startMinutes: '00', endHours: '', endMinutes: '00' })} />
                                 </View>
                                 <View style={styles.rowButtonContainer}>
                                     <Button title="Set" disabled={(this.state.startHours && this.state.startMinutes) || (this.state.endHours && this.state.endMinutes) ? false : true} onPress={() => this.setState({ showTimePicker: false, showEditService: true, }, () => {
