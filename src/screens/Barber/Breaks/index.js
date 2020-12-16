@@ -401,10 +401,10 @@ class Breaks extends Component {
                                 <View style={styles.rowButtonContainer}>
                                     <Button title="Set" disabled={(this.state.startHours && this.state.startMinutes) || (this.state.endHours && this.state.endMinutes) ? false : true} onPress={() => this.setState({ showTimePicker: false, showEditService: true, }, () => {
                                         if (this.state.selectStartTime) {
-                                            this.setState({ startTime: `${this.state.startHours}:${this.state.startMinutes}`, startHours: '', startMinutes: '00' })
+                                            this.setState({ startTime: `${this.state.startHours}:${this.state.startMinutes}`, startHours: '', startMinutes: '00',endHours: '', endMinutes: '00'  })
                                         }
                                         else {
-                                            this.setState({ endTime: `${this.state.endHours}:${this.state.endMinutes}`, endHours: '', endMinutes: '00' })
+                                            this.setState({ endTime: `${this.state.endHours}:${this.state.endMinutes}`,startHours: '', startMinutes: '00', endHours: '', endMinutes: '00' })
                                         }
                                     })} />
                                 </View>
