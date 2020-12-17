@@ -54,7 +54,7 @@ class Home extends Component {
                 },
                 {
                     name: 'Contact Us',
-                    imageUrl:  require('../../../assets/images/Rectangle.png')
+                    imageUrl: require('../../../assets/images/Rectangle.png')
                 },
             ],
             addresses: [],
@@ -102,7 +102,7 @@ class Home extends Component {
         return (
             <>
                 <TouchableOpacity
-                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "My Addresses" ? myAddresses() : item.name == "My Fleek" ? onAppointments():item.name=='Payment Method'?Alert.alert("Attension","This screen is Under Development") : this.props.authActions.healthAndSafety(true) }} style={styles.upperListItemContainer}>
+                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "My Addresses" ? myAddresses() : item.name == "My Fleek" ? onAppointments() : item.name == 'Payment Method' ? Alert.alert("Attension", "This screen is Under Development") : this.props.authActions.healthAndSafety(true) }} style={styles.upperListItemContainer}>
                     <ImageBackground source={item.imageUrl}
                         style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }} >
                         <View style={styles.upperListTitleContainer}>
@@ -276,10 +276,12 @@ class Home extends Component {
                         </View>
                         <View style={[styles.nameContainer, { alignItems: 'center' }]}>
                             <Text style={styles.appointmentTextStyle}></Text>
-                            <TouchableOpacity style={[styles.searchBarberContainer,]} onPress={searchBarber}>
-                                <Text style={styles.appointmentTextStyle}>Search Fleek </Text>
-                                <Icon.Feather name="search" color="#fff" size={15} />
-                            </TouchableOpacity>
+                            {isUserLogedIn ?
+                                <TouchableOpacity style={[styles.searchBarberContainer,]} onPress={searchBarber}>
+                                    <Text style={styles.appointmentTextStyle}>Search Fleek </Text>
+                                    <Icon.Feather name="search" color="#fff" size={15} />
+                                </TouchableOpacity>
+                                : null}
                         </View>
                         <View style={styles.lowerListContainer}>
                             {

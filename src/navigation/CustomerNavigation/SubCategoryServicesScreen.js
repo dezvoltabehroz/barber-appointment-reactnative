@@ -14,7 +14,7 @@ class SubCategoryServicesScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Customer.SubCategoryServices onItemPress={(id) => navigate('BarberList', { search: false, serviceId: id })} />
+            <MainScreenPaths.Customer.SubCategoryServices onItemPress={(id) => navigate('BarberList', { search: false, serviceId: id })}  Auth={() => navigate('Auth')} />
         )
     }
 }

@@ -27,9 +27,24 @@ class SubCategoryServices extends Component {
     }
 
     _renderItems = (item) => {
-        let { onItemPress } = this.props;
+        let { onItemPress, Auth } = this.props;
+        let { isUserLogedIn } = this.props.user;
         return (
-            <TouchableOpacity onPress={()=>onItemPress(item.id)} style={styles.lowerListItemContainer}>
+            <TouchableOpacity onPress={() => {
+                if (isUserLogedIn) { onItemPress(item.id) } else {
+                    Alert.alert("Attention",
+                        "You need to be a registered member to explore more.",
+                        [
+                            {
+                                text: "Cancel",
+                                onPress: () => { },
+                                style: "cancel"
+                            },
+                            { text: "OK", onPress: () => Auth() }
+                        ]
+                    )
+                }
+            }} style={styles.lowerListItemContainer}>
                 <Image source={require('../../../assets/images/background.png')} resizeMode="contain"
                     style={styles.lowerListImageStyle} >
                     <View style={styles.lowerListTitleContainer}>
