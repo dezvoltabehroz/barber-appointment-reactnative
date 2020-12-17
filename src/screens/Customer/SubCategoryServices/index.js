@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ImageBackground, FlatList, TouchableOpacity, Text, ActivityIndicator } from "react-native";
+import { View, ImageBackground, FlatList, TouchableOpacity, Text, ActivityIndicator, Alert } from "react-native";
 import styles from './style';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
