@@ -79,22 +79,23 @@ class BarberServiceAccept extends Component {
         let timeInHour = moment.utc().hours(h).minutes(m).format("HH:mm");
         let bookingEndTime = moment(date).add(timeInHour, 'hours')
         const enable = () => {
-            if (moment(date).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD')) {
-                if (moment().format('YYYY-MM-DD H:mm:ss') >= moment(date).format('YYYY-MM-DD H:mm:ss')) {
-                    if (moment(bookingEndTime).format('YYYY-MM-DD H:mm:ss') >= moment().format('YYYY-MM-DD H:mm:ss')) {
-                        return false;
-                    }
-                    else{
-                        return true;
-                    }
-                }
-                else {
-                    return true;
-                }
-            }
-            else {
-                return true
-            }
+            // if (moment(date).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD')) {
+            //     if (moment().format('YYYY-MM-DD H:mm:ss') >= moment(date).format('YYYY-MM-DD H:mm:ss')) {
+            //         if (moment(bookingEndTime).format('YYYY-MM-DD H:mm:ss') >= moment().format('YYYY-MM-DD H:mm:ss')) {
+            //             return false;
+            //         }
+            //         else {
+            //             return true;
+            //         }
+            //     }
+            //     else {
+            //         return true;
+            //     }
+            // }
+            // else {
+            //     return true
+            // }
+            return false
         }
         return (
             <View style={styles.container}>
@@ -110,7 +111,9 @@ class BarberServiceAccept extends Component {
                 </View>
                 <View style={styles.footerStyle}>
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity disabled={enable()} onPress={arrivedAtlocation} style={[styles.customerLocationContainer, { backgroundColor: enable() ? 'lightgrey' : THEME.PRIMARY_COLOR }]}>
+                        <TouchableOpacity
+                            disabled={enable()}
+                            onPress={arrivedAtlocation} style={[styles.customerLocationContainer, { backgroundColor: enable() ? 'lightgrey' : THEME.PRIMARY_COLOR }]}>
                             <Text style={styles.buttonText}>Arrived</Text>
                         </TouchableOpacity>
                         <View style={{ flexDirection: "row", alignItems: 'center' }}>
