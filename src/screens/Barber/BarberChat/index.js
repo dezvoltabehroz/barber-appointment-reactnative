@@ -144,7 +144,7 @@ class customerChat extends Component {
         //Add the extra styles via containerStyle
 
         return <View style={styles.inputContainer}>
-            
+
             <InputToolbar {...props} containerStyle={styles.inputContainer} placeholder="Type a message..." />
         </View>
     }
@@ -277,7 +277,7 @@ class customerChat extends Component {
                                     textInputStyle={{
                                         color: "white",
                                         // fontFamily: 'Poppins-Regular',
-                                        paddingTop:'5%'
+                                        paddingTop: '5%'
                                     }}
                                     containerStyle={{
                                         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
@@ -300,13 +300,13 @@ class customerChat extends Component {
                                 />
                             )}
                             // renderInputToolbar={this._renderInputToolbar}
-                            showUserAvatar={true}
-                            showAvatarForEveryMessage={true}
+                            // showUserAvatar={true}
+                            showAvatarForEveryMessage={false}
                             // renderCustomView={this._renderCustomView}
                             user={{
                                 _id: this.currentUserId,
                                 name: user.last_name || user.first_name,
-                                avatar: user.photo
+                                avatar: this.props.customerData.profile_picture
 
                             }}
                             bottomOffset={0}

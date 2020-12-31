@@ -14,6 +14,7 @@ import AddYourAddressScreen from './AddYourAddressScreen';
 import EditYourAddressScreen from './EditYourAddressScreen';
 import MyAddressesScreen from './MyAddressesScreen';
 import EditAddressScreen from './EditAddressScreen';
+import RescheduleBookingScreen from './ReScheduleBookingScreen';
 import AddAddress from './AddAddress';
 import { Icon } from '../../components';
 import CustomerChatScreen from './CustomerChatscreen';
@@ -46,6 +47,14 @@ function CustomerRoutes() {
                 headerTransparent: true,
                 headerLeft: props => (<TouchableOpacity onPress={() => navigation.replace('Customer', { screen: 'Home' })} style={{ marginLeft: 10 }}><Icon.Ionicons name={Platform.OS == 'ios' ? "ios-arrow-back" : "md-arrow-back"} size={25} color="white" /></TouchableOpacity>),
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Appointments</Text></View>),
+                headerTitleAlign: 'center',
+            })} />
+            <Stack.Screen name="EditBooking" component={RescheduleBookingScreen} options={({ navigation, route }) => ({
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerLeft: props => (<TouchableOpacity onPress={() => navigation.goBack()} style={{ marginLeft: 10 }}><Icon.Ionicons name={Platform.OS == 'ios' ? "ios-arrow-back" : "md-arrow-back"} size={25} color="white" /></TouchableOpacity>),
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Reschedule Booking</Text></View>),
                 headerTitleAlign: 'center',
             })} />
             <Stack.Screen name="Chat" component={CustomerChatScreen} options={{

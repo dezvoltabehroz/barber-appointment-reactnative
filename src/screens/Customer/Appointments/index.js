@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, FlatList, TouchableOpacity, RefreshControl, ActivityIndicator } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, Alert, RefreshControl, ActivityIndicator } from "react-native";
 import styles from './style';
 import { Avatar } from "react-native-elements";
 import { Button, Icon, Tabs } from "../../../components";
@@ -33,12 +33,12 @@ class Appointments extends Component {
                     this.setState({
                         completedList: response.data.completedList,
                         pendingList: response.data.pendingList,
-                        upcomingList: response.data.upcomingList
+                        upcomingList: response.data.upcomingList,
+                        loading: false,
                     })
                 }
             })
             .catch((err) => { console.log(err) })
-        this.setState({ loading: false })
     }
 
     _renderSeparator = () => {
@@ -47,10 +47,28 @@ class Appointments extends Component {
         )
     }
 
+    handleDeleteBooking = (item) => {
+        let userData = {
+            id: this.props.user.id,
+            token: this.props.user.token,
+            booking_id: item.booking_id
+        }
+        BookingServices.deleteBookingByCustomer(userData)
+            .then((res) => {
+                if (res.data.status) {
+                    this.componentDidMount();
+                }
+                else {
+                    console.log(res.data)
+                }
+            })
+            .catch((err) => console.log(err))
+    }
+
 
 
     _renderItems = (item) => {
-        const { onView, onChat } = this.props;
+        const { onView, onChat, onEdit } = this.props;
         let userData = {
             customer_id: item.barber_id,
             full_name: item.full_name,
@@ -67,16 +85,27 @@ class Appointments extends Component {
                     <View style={styles.nameContainer}>
                         <Text style={styles.nameTextStyle} >{item.full_name}</Text>
                         <Text style={styles.dateTextStyle} >Age: {item.age}</Text>
-                        <Text style={styles.dateTextStyle} >{moment(item.booking_date).format('Do MMM YYYY')} at {item.booking_time}</Text>
+                        <Text style={styles.dateTextStyle} >{moment(item.booking_date).format('Do MMM YYYY')} at {moment(moment(item.booking_date).format('YYYY-MM-DD') + " " + item.booking_time).format('LT')}</Text>
                     </View>
                     {
                         difference > 24 ?
                             <View style={styles.iconContainer}>
-                                <Icon.Ionicons name="ios-pencil" size={25} />
+                                <Icon.Ionicons onPress={() => onEdit(item)} name="ios-pencil" size={25} />
                                 <View style={{ paddingTop: 10, paddingBottom: 15 }}>
                                     <Icon.Ionicons onPress={() => onChat(userData)} name="chatbubbles" size={25} />
                                 </View>
-                                <Icon.Ionicons name="ios-trash-outline" size={25} />
+                                <Icon.Ionicons onPress={() => Alert.alert('Attension', 'Are you sure you want to delete this booking',
+                                    [
+                                        {
+                                            text: "Cancel",
+                                            // onPress: () => this.handleCancel(),
+                                            style: "cancel"
+                                        },
+                                        { text: "OK", onPress: () => this.handleDeleteBooking(item) }
+                                    ],
+
+                                )}
+                                    name="ios-trash-outline" size={25} />
                                 {/* <Text style={styles.dateTextStyle} > {item.rating==null?'':'Rating: '+item.rating+' / 5'} </Text> */}
                             </View>
                             : null
@@ -100,7 +129,7 @@ class Appointments extends Component {
                     <View style={styles.nameContainer}>
                         <Text style={styles.nameTextStyle} >{item.full_name}</Text>
                         <Text style={styles.dateTextStyle} >Age: {item.age}</Text>
-                        <Text style={styles.dateTextStyle} >{moment(item.booking_date).format('Do MMM YYYY')} at {item.booking_time} </Text>
+                        <Text style={styles.dateTextStyle} >{moment(item.booking_date).format('Do MMM YYYY')} at {moment(moment(item.booking_date).format('YYYY-MM-DD') + " " + item.booking_time).format('LT')} </Text>
                     </View>
 
                     {/* difference > 24 ?

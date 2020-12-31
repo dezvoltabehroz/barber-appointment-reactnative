@@ -152,7 +152,23 @@ const Api = {
             id: userData.id,
             curr_date: date
         }, configToken(userData.token))
-    }
+    },
+    deleteBookingByCustomer: function (userData) {
+        return axiosInstance.post('booking/deleteBookingByCustomer', {
+            id: userData.id,
+            booking_id: userData.booking_id,
+        }, configToken(userData.token))
+    },
+    rescheduleBookingByCustomer: function (userData) {
+        return axiosInstance.post('booking/rescheduleBookingByCustomer', {
+            id: userData.id,
+            booking_id: userData.booking_id,
+            barber_id: userData.barber_id,
+            booking_time_duration: userData.booking_time_duration,
+            booking_date: userData.booking_date,
+            booking_time: userData.booking_time
+        }, configToken(userData.token))
+    },
 
 };
 

@@ -20,7 +20,7 @@ import _MyAddresses from './MyAddresses';
 import _Notification from './Notification';
 import _EditProfile from './EditProfile';
 import _CustomerChat from './CustomerChat';
-
+import _RescheduleBooking from './RescheduleBooking';
 export const CustomerScreenPaths = {
     PhoneNumber: _PhoneNumber,
     PhoneVerification: _PhoneVerification,
@@ -43,6 +43,7 @@ export const CustomerScreenPaths = {
     AddAddress: _AddAddress,
     EditAddress: _EditAddress,
     Home: _Home,
-    CustomerChat: _CustomerChat
+    CustomerChat: _CustomerChat,
+    RescheduleBooking: _RescheduleBooking
 
 }

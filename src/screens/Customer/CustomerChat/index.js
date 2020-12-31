@@ -300,13 +300,13 @@ class barberChat extends Component {
                                 />
                             )}
                             // renderInputToolbar={this._renderInputToolbar}
-                            showUserAvatar={true}
+                            // showUserAvatar={true}
                             showAvatarForEveryMessage={false}
                             // renderCustomView={this._renderCustomView}
                             user={{
                                 _id: this.currentUserId,
                                 name: user.last_name || user.first_name,
-                                avatar: user.photo
+                                avatar: this.props.barberData.profile_picture
 
                             }}
                             bottomOffset={0}

@@ -51,7 +51,9 @@ class AppointmentsScreen extends Component {
         return (
             <MainScreenPaths.Customer.Appointments
                 onView={(bookingId, barberId, bookingDate, counter) => this.handleOnView(bookingId, barberId, bookingDate, counter)}
-                onChat={(data) => navigate('Chat', { userData: data })} />
+                onChat={(data) => navigate('Chat', { userData: data })}
+                onEdit={(data) => navigate('EditBooking', { data: data })}
+            />
         )
     }
 }
