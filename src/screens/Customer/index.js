@@ -19,6 +19,7 @@ import _EditAddress from './EditAddress';
 import _MyAddresses from './MyAddresses';
 import _Notification from './Notification';
 import _EditProfile from './EditProfile';
+import _CustomerChat from './CustomerChat';
 
 export const CustomerScreenPaths = {
     PhoneNumber: _PhoneNumber,
@@ -41,5 +42,7 @@ export const CustomerScreenPaths = {
     MyAddresses: _MyAddresses,
     AddAddress: _AddAddress,
     EditAddress: _EditAddress,
-    Home: _Home
+    Home: _Home,
+    CustomerChat: _CustomerChat
+
 }

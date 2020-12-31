@@ -41,12 +41,24 @@ function BarberBottomNavigationRoutes(props) {
                 inactiveTintColor: 'gray',
             }}
         >
-            <Bottom.Screen name="Home" component={BarberRoutes} />
+            <Bottom.Screen name="Home" component={BarberRoutes} options={({ navigation }) => {
+                const { routes, index } = navigation.dangerouslyGetState();
+                const { state: exploreState } = routes[index];
+                let tabBarVisible = true;
+                if (exploreState) {
+                    const { routes: exploreRoutes, index: exploreIndex } = exploreState;
+                    const exploreActiveRoute = exploreRoutes[exploreIndex];
+                    if (exploreActiveRoute.name === "BarberChat") { tabBarVisible = false };
+                }
+                return {
+                    tabBarVisible,
+                };
+            }} />
             <Bottom.Screen name="Profile" component={BarberProfileRoutes} />
-            <Bottom.Screen name="Notification" component={BarberNotificationRoutes}  options={{
+            <Bottom.Screen name="Notification" component={BarberNotificationRoutes} options={{
                 tabBarBadge: props.notification.notificationCount == 0 ? null : props.notification.notificationCount,
                 unmountOnBlur: true,
-            }}  />
+            }} />
         </Bottom.Navigator>
     )
 

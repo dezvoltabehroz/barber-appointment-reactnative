@@ -50,7 +50,13 @@ class Appointments extends Component {
 
 
     _renderItems = (item) => {
-        const { onView } = this.props;
+        const { onView, onChat } = this.props;
+        let userData = {
+            customer_id: item.barber_id,
+            full_name: item.full_name,
+            email: 'johndoe@gmail.com',
+            profile_picture: item.profile_picture
+        }
         let difference = moment.duration(moment(item.booking_date).diff()).as("hours");
         return (
             <TouchableOpacity onPress={() => onView(item.booking_id, item.barber_id, item.booking_date, item.stepCounter)} style={styles.listItemContainer}>
@@ -68,7 +74,7 @@ class Appointments extends Component {
                             <View style={styles.iconContainer}>
                                 <Icon.Ionicons name="ios-pencil" size={25} />
                                 <View style={{ paddingTop: 10, paddingBottom: 15 }}>
-                                    <Icon.Ionicons onPress={() => console.log("Chat")} name="chatbubbles" size={25} />
+                                    <Icon.Ionicons onPress={() => onChat(userData)} name="chatbubbles" size={25} />
                                 </View>
                                 <Icon.Ionicons name="ios-trash-outline" size={25} />
                                 {/* <Text style={styles.dateTextStyle} > {item.rating==null?'':'Rating: '+item.rating+' / 5'} </Text> */}

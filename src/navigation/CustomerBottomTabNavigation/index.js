@@ -42,7 +42,19 @@ function CustomerBottomNavigationRoutes(props) {
                 inactiveTintColor: 'gray',
             }}
         >
-            <Bottom.Screen name="Home" component={CustomerRoutes} />
+            <Bottom.Screen name="Home" component={CustomerRoutes} options={({ navigation }) => {
+                const { routes, index } = navigation.dangerouslyGetState();
+                const { state: exploreState } = routes[index];
+                let tabBarVisible = true;
+                if (exploreState) {
+                    const { routes: exploreRoutes, index: exploreIndex } = exploreState;
+                    const exploreActiveRoute = exploreRoutes[exploreIndex];
+                    if (exploreActiveRoute.name === "Chat") { tabBarVisible = false };
+                }
+                return {
+                    tabBarVisible,
+                };
+            }} />
             <Bottom.Screen name="Profile" component={EditProfileScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',

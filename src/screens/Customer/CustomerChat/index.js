@@ -21,7 +21,7 @@ import { GiftedChat, GiftedAvatar, Bubble, InputToolbar, Composer, Send } from '
 import firebaseApp from '../../../services/ChatFireBase'
 import { connect } from 'react-redux'
 const { width, height } = Dimensions.get('window')
-class customerChat extends Component {
+class barberChat extends Component {
     getParamData;
     constructor(props) {
         super(props);
@@ -36,17 +36,17 @@ class customerChat extends Component {
                 photo: this.props.user.userData.profile_picture
 
             },
-            customer: {
-                id: this.props.customerData.customer_id,
-                name: this.props.customerData.full_name,
-                email: this.props.customerData.email,
-                photo: this.props.customerData.profile_picture,
+            barber: {
+                id: this.props.barberData.customer_id,
+                name: this.props.barberData.full_name,
+                email: this.props.barberData.email,
+                photo: this.props.barberData.profile_picture,
             },
             loading: false
         };
         this.currentUserId = this.state.user.id;
 
-        if (this.state.customer != null) {
+        if (this.state.barber != null) {
             this.chatRef = firebaseApp
                 .ref()
                 .child(`chat/${this.generateChatId(this.currentUserId)}`)
@@ -85,12 +85,12 @@ class customerChat extends Component {
     }
 
     generateChatId = (userId) => {
-        const { customer } = this.state;
-        if (userId > customer.id) { return `${userId}-${customer.id}` }
-        else { return `${customer.id}-${userId}` }
+        const { barber } = this.state;
+        if (userId > barber.id) { return `${userId}-${barber.id}` }
+        else { return `${barber.id}-${userId}` }
     }
     onSend = (messages = []) => {
-        const { user, customer } = this.state;
+        const { user, barber } = this.state;
         try {
 
             messages.forEach((message) => {
@@ -105,7 +105,7 @@ class customerChat extends Component {
                     email: user.email,
                     name: user.name ? user.name : user.name,
                     avatar: user.photo ? user.photo : user.photo,
-                    customer: customer.id,
+                    barber: barber.id,
                     read: 0,
                 })
             })
@@ -116,18 +116,18 @@ class customerChat extends Component {
                 .ref()
                 .child('users')
                 .child(this.currentUserId)
-                .child(customer.id)
+                .child(barber.id)
                 .set({
-                    id: customer.id,
-                    name: customer.username || customer.name,
-                    email: customer.email,
+                    id: barber.id,
+                    name: barber.username || barber.name,
+                    email: barber.email,
                 })
 
             // from author to userLogin
             firebaseApp
                 .ref()
                 .child('users')
-                .child(customer.id)
+                .child(barber.id)
                 .child(this.currentUserId)
                 .set({
                     id: this.currentUserId,
@@ -204,11 +204,11 @@ class customerChat extends Component {
     //     );
     //   }
 
-    //   sendPushNotification(customerUID,bookingId,msg){
-    //     const customerRoot=firebase.database().ref('users/'+customerUID);
-    //     customerRoot.once('value',customerData=>{
-    //         if(customerData.val()){
-    //             let allData = customerData.val()
+    //   sendPushNotification(barberUID,bookingId,msg){
+    //     const barberRoot=firebase.database().ref('users/'+barberUID);
+    //     barberRoot.once('value',barberData=>{
+    //         if(barberData.val()){
+    //             let allData = barberData.val()
     //             RequestPushMsg(allData.pushToken?allData.pushToken:null,msg)
     //         }
     //     })
@@ -301,7 +301,7 @@ class customerChat extends Component {
                             )}
                             // renderInputToolbar={this._renderInputToolbar}
                             showUserAvatar={true}
-                            showAvatarForEveryMessage={true}
+                            showAvatarForEveryMessage={false}
                             // renderCustomView={this._renderCustomView}
                             user={{
                                 _id: this.currentUserId,
@@ -323,4 +323,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(customerChat)
+export default connect(mapStateToProps)(barberChat)
