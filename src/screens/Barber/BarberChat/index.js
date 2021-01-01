@@ -268,7 +268,8 @@ class customerChat extends Component {
                             // maxInputLength={200}
                             renderSend={this._renderSend}
                             renderBubble={this._renderBubble}
-                            renderAvatar={this._renderAvatar}
+                            // renderAvatar={this._renderAvatar}
+                            renderAvatar={() => null}
                             renderInputToolbar={props => (
 
                                 <InputToolbar
@@ -301,7 +302,7 @@ class customerChat extends Component {
                             )}
                             // renderInputToolbar={this._renderInputToolbar}
                             // showUserAvatar={true}
-                            showAvatarForEveryMessage={false}
+                            showAvatarForEveryMessage={true}
                             // renderCustomView={this._renderCustomView}
                             user={{
                                 _id: this.currentUserId,

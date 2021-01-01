@@ -144,7 +144,7 @@ class barberChat extends Component {
         //Add the extra styles via containerStyle
 
         return <View style={styles.inputContainer}>
-            
+
             <InputToolbar {...props} containerStyle={styles.inputContainer} placeholder="Type a message..." />
         </View>
     }
@@ -268,7 +268,8 @@ class barberChat extends Component {
                             // maxInputLength={200}
                             renderSend={this._renderSend}
                             renderBubble={this._renderBubble}
-                            renderAvatar={this._renderAvatar}
+                            // renderAvatar={this._renderAvatar}
+                            renderAvatar={()=>null}
                             renderInputToolbar={props => (
 
                                 <InputToolbar
@@ -277,7 +278,7 @@ class barberChat extends Component {
                                     textInputStyle={{
                                         color: "white",
                                         // fontFamily: 'Poppins-Regular',
-                                        paddingTop:'5%'
+                                        paddingTop: '5%'
                                     }}
                                     containerStyle={{
                                         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
@@ -300,14 +301,13 @@ class barberChat extends Component {
                                 />
                             )}
                             // renderInputToolbar={this._renderInputToolbar}
-                            // showUserAvatar={true}
-                            showAvatarForEveryMessage={false}
+                            // showUserAvatar={fasle}
+                            showAvatarForEveryMessage={true}
                             // renderCustomView={this._renderCustomView}
                             user={{
                                 _id: this.currentUserId,
                                 name: user.last_name || user.first_name,
-                                avatar: this.props.barberData.profile_picture
-
+                                // avatar: this.props.barberData.profile_picture
                             }}
                             bottomOffset={0}
                             listViewProps={{ marginTop: '7%' }}
