@@ -75,8 +75,8 @@ export default StyleSheet.create({
         width: '100%'
     },
     daysContainer: {
-         height: 30,
-        width: 30,
+         height: 25,
+        width: 25,
         justifyContent:'center',
         alignItems:'center',
         borderWidth: 1,
@@ -86,9 +86,9 @@ export default StyleSheet.create({
     },
     textStyle: {
         fontSize: 10,
-        padding: '4%',
+        padding: '3%',
         height: 18,
-        width: 25,
+        width: 20,
         textAlign: 'center',
         justifyContent: 'center',
         fontFamily: 'Poppins-Regular'
