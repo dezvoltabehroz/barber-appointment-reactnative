@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, Alert, ActivityIndicator, ScrollView, Platform, } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, Alert, ActivityIndicator, ScrollView, Platform, Linking } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 import { Icon, FloatingInput, FooterButton, DateTime, RadioButton, SearchandMapView } from '../../../components'
 import styles from './style';
@@ -11,7 +11,8 @@ import Geocoder from 'react-native-geocoder';
 import { connect } from 'react-redux';
 import Modal from 'react-native-modal'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import moment from 'moment'
+import moment from 'moment';
+
 class UpdateProfile extends Component {
     constructor(props) {
         super(props);
@@ -43,9 +44,10 @@ class UpdateProfile extends Component {
             this.setState({
                 name: full_name,
                 filePath: profile_picture,
+                profile_Url: profile_picture,
                 minDistance: max_distance_radius,
-                date: moment(dob).format('DD/MM/YYYY'),
-                dob: moment(dob).format('YYYY-MM-DD'),
+                date: dob == null || dob == '' ? moment().format('DD/MM/YYYY') : moment(dob).format('DD/MM/YYYY'),
+                dob: dob == null || dob == '' ? moment().format('YYYY-MM-DD') : moment(dob).format('YYYY-MM-DD'),
             })
             if (gender == 'Male') {
                 this.setState({ male: true, female: false, gender: 'Male', })
@@ -102,7 +104,9 @@ class UpdateProfile extends Component {
                 })
                     .catch(error => alert(error));
             },
-            error => Alert.alert(error.message),
+            error => Alert.alert(`${error.message}`, "Please enable your location from app settings", [
+                { text: "OK", onPress: () => { this.props.goBack(); Linking.openSettings(); } }
+            ]),
             { enableHighAccuracy: true, timeout: 50000, maximumAge: 1000 }
         );
     };
@@ -137,7 +141,8 @@ class UpdateProfile extends Component {
     handleNext = () => {
         this.setState({ uploading: true })
         const { onNext } = this.props;
-        let { name, profile_Url, dob, minDistance, gender, latitude, longitude } = this.state;
+        let { name, profile_Url, dob, minDistance, gender, latitude, longitude, filePath } = this.state;
+
         let userData = {
             name: name,
             gender: gender,

@@ -314,7 +314,7 @@ class BarberEditServices extends Component {
                                                 <Text style={styles.headingTextStyle1}>Price</Text>
                                             </View>
                                             <View style={styles.timeContainer}>
-                                                <Text style={styles.headingTextStyle1}>Est.Time</Text>
+                                                <Text style={styles.headingTextStyle1}>Est. Duration</Text>
                                             </View>
                                             <View style={styles.priceContainer}>
                                             </View>

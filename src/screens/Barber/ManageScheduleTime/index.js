@@ -257,7 +257,7 @@ class ManageScheduleTime extends Component {
         let length = selectedDays.length - 1;
 
         if (counter === length) {
-            Alert.alert('Attention', 'It will update your scheduler completely but your booking remains save ', [
+            Alert.alert('Attention', 'Your schedule will be updated and your current bookings will remain saved', [
                 {
                     text: "Cancel",
                     onPress: () => this.setState({ buttonLoading: false }),

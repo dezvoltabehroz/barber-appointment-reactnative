@@ -7,7 +7,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' ? screenHeight == 896 ? '20%' : '10%':'5%'
+        paddingTop: Platform.OS == 'ios' ? screenHeight == 896 ? '20%' : '10%' : '5%'
 
     },
     upperListContainer: {
@@ -28,7 +28,7 @@ export default StyleSheet.create({
     upperListTitleContainer: {
         flex: 1,
         paddingTop: '20%',
-        marginHorizontal: '10%',
+        marginLeft: '10%',
         justifyContent: 'center',
         alignItems: 'flex-start'
     },
@@ -125,16 +125,16 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
-    logoStyle:{
-        height:40,
-        width:60
+    logoStyle: {
+        height: 40,
+        width: 60
     },
     modalMainHeading: {
         fontFamily: 'Poppins-Medium',
         fontSize: 14,
     },
     modalTextStyle: {
-        fontSize: 10 ,
+        fontSize: 10,
         textAlign: 'justify',
         fontFamily: 'Poppins-Regular'
     }

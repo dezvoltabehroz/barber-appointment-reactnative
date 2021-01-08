@@ -251,6 +251,8 @@ class customerChat extends Component {
                         // opacity: Config.Chat.opacityBg,
                     }}
                 /> */}
+
+
                 {
                     this.state.loading ?
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -262,22 +264,19 @@ class customerChat extends Component {
                             onSend={this.onSend}
                             placeholder={'Type a message'}
                             maxComposerHeight={50}
-                            scrollToBottom
-                            alignTop
-                            // minInputToolbarHeight={200}
-                            // maxInputLength={200}
                             renderSend={this._renderSend}
                             renderBubble={this._renderBubble}
-                            // renderAvatar={this._renderAvatar}
                             renderAvatar={() => null}
+                            isKeyboardInternallyHandled={false}
                             renderInputToolbar={props => (
+
 
                                 <InputToolbar
                                     {...props}
                                     multiline={false}
                                     textInputStyle={{
                                         color: "white",
-                                        // fontFamily: 'Poppins-Regular',
+                                        fontFamily: 'Poppins-Regular',
                                         paddingTop: '5%'
                                     }}
                                     containerStyle={{
@@ -302,6 +301,7 @@ class customerChat extends Component {
                             )}
                             // renderInputToolbar={this._renderInputToolbar}
                             // showUserAvatar={true}
+                            style={{ flex: 1 }}
                             showAvatarForEveryMessage={true}
                             // renderCustomView={this._renderCustomView}
                             user={{
@@ -310,9 +310,11 @@ class customerChat extends Component {
                                 avatar: this.props.customerData.profile_picture
 
                             }}
-                            bottomOffset={0}
+                            bottomOffset={1}
                             listViewProps={{ marginTop: '7%' }}
-                        />}
+                        />
+                }
+
             </View>
         );
     }

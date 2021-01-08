@@ -8,7 +8,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '20%' : '5%'
+        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '20%' : Platform.OS == 'ios' ? '10%' : '10%'
     },
     backIconStyle: {
         alignSelf: 'flex-start',
@@ -58,7 +58,7 @@ export default StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         paddingHorizontal: 10
-    }, 
+    },
     inputContainer: {
         // flex: 1,
         height: 45,

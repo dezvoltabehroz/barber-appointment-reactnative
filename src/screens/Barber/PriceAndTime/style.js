@@ -70,6 +70,7 @@ export default StyleSheet.create({
         fontSize: THEME.FONT_SIZE_SMALL,
     },
     headingTextStyle1: {
+        fontSize: 12,
         color: THEME.COLOR_WHITE,
         // textAlign: 'center',
         fontFamily: 'Poppins-Bold',

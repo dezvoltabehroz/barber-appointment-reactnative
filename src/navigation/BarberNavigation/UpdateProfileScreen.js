@@ -26,7 +26,7 @@ class UpdateProfileScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation
         return (
-            <MainScreenPaths.Barber.BarberUpdateProfile onNext={(userData) => this.handleNext(userData)} />
+            <MainScreenPaths.Barber.BarberUpdateProfile goBack={() => goBack()} onNext={(userData) => this.handleNext(userData)} />
         )
     }
 }

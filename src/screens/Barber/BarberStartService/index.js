@@ -79,7 +79,7 @@ class StartService extends Component {
                                         <Text style={styles.headingTextStyle1}>Price</Text>
                                     </View>
                                     <View style={styles.timeContainer}>
-                                        <Text style={styles.headingTextStyle1}>Est.Time</Text>
+                                        <Text style={styles.headingTextStyle1}>Est. Duration</Text>
                                     </View>
                                 </View>
                                 <View style={styles.flatlistContainer}>
@@ -102,7 +102,7 @@ class StartService extends Component {
                                                         <View style={styles.timeContainer}>
                                                             <View style={styles.priceAndTimeContainer}>
                                                                 <Text style={styles.timeTextStyle}>
-                                                                    {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " + timeInHour[0] + timeInHour[1]}
+                                                                    {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " +  timeInHour[1]}
                                                                     {
                                                                         timeInHour[0] == '0' && timeInHour[1] == '0' ?
                                                                             null
@@ -130,7 +130,7 @@ class StartService extends Component {
                                     <View style={[styles.rowStyle, { marginTop: '5%' }]}>
                                         <Text style={styles.headingText}>Est Time for Service:</Text>
                                         <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>
-                                            {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " + timeInHour[0] + timeInHour[1]}
+                                            {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " + timeInHour[1]}
                                             {
                                                 timeInHour[0] == '0' && timeInHour[1] == '0' ?
                                                     null

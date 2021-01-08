@@ -81,7 +81,7 @@ class BarberList extends Component {
                         <View style={styles.nameContainer}>
                             <Text style={styles.nameTextStyle} >{item.full_name}</Text>
                             <Text style={styles.dateTextStyle} >Age: {item.age}</Text>
-                            <Text style={styles.dateTextStyle} >Est.Time:
+                            <Text style={styles.dateTextStyle} >Est. Duration:
                             {timeInHour[0] == 0 && timeInHour[1] == 0 ? "" : timeInHour[0] + timeInHour[1]}
                                 {
                                     timeInHour[0] == 0 && timeInHour[1] == 0 ?

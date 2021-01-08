@@ -62,16 +62,11 @@ export default StyleSheet.create({
         fontFamily: 'Poppins-Regular',
         fontSize: THEME.FONT_SIZE_SMALL,
     },
-    headingTextStyle: {
-        color: THEME.COLOR_WHITE,
-        fontFamily: 'Poppins-Bold',
-        fontSize: THEME.FONT_SIZE_SMALL,
-    },
     headingTextStyle1: {
         color: THEME.COLOR_WHITE,
         textAlign: 'center',
         fontFamily: 'Poppins-Bold',
-        fontSize: THEME.FONT_SIZE_SMALL,
+        fontSize: 10,
     },
     inputContainerStyle: {
         height: 54,
@@ -134,7 +129,7 @@ export default StyleSheet.create({
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
     },
     headingTextStyle: {
-        fontSize: THEME.FONT_SIZE_LARGE,
+        fontSize: 14,
         color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Medium'
     },

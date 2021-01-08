@@ -44,14 +44,14 @@ export default class DateTimeModal extends Component {
         for (var i = 0; i < range; i++) {
             if (dayNight) {
                 if (i <= 9) {
-                    set[i] = ("0" + i.toString() + ":00");
+                    set[i] = (i.toString() + ":00");
                 } else {
                     set[i] = (i.toString() + ":00");
                 }
             }
             else {
                 if (i <= 9) {
-                    set[i] = ("0" + i.toString());
+                    set[i] = (i.toString());
                 } else {
                     set[i] = (i.toString());
                 }

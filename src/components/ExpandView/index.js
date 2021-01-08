@@ -500,7 +500,7 @@ class ExpandingView extends Component {
                                         <Text style={styles.headingTextStyle}>Price</Text>
                                     </View>
                                     <View style={styles.endTimeContainer}>
-                                        <Text style={styles.headingTextStyle}>Est.Time</Text>
+                                        <Text style={styles.headingTextStyle}>Est. Duration</Text>
                                     </View>
                                 </View>
                                 <FlatList

@@ -21,7 +21,7 @@ class BarberHome extends Component {
             bookingList: [],
             servicelist: [
                 {
-                    name: 'Bookings History',
+                    name: 'Appointments History',
                     imageUrl: require('../../../assets/images/Rectangle.png')
                 },
 
@@ -83,7 +83,7 @@ class BarberHome extends Component {
         return (
             <>
                 <TouchableOpacity
-                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "Edit Profile" ? onEditProfile() : item.name == "Bookings History" ? onBookingHistory() : item.name == "PPE (Formerly About US)" ? this.props.authActions.healthAndSafety(true) : Alert.alert("Atention", "This screen is under Development") }} style={styles.upperListItemContainer}>
+                    onPress={() => { (item.name == "About Us") ? onAboutUs() : item.name == "Contact Us" ? onContactUs() : item.name == "Edit Profile" ? onEditProfile() : item.name == "Appointments History" ? onBookingHistory() : item.name == "PPE (Formerly About US)" ? this.props.authActions.healthAndSafety(true) : Alert.alert("Atention", "This screen is under Development") }} style={styles.upperListItemContainer}>
                     <ImageBackground source={item.imageUrl}
                         style={styles.upperListImageStyle} imageStyle={{ borderRadius: 10 }}>
                         <View style={styles.upperListTitleContainer}>
@@ -195,7 +195,7 @@ class BarberHome extends Component {
                             keyExtractor={item => item} />
                     </View>
                     <View style={styles.nameContainer}>
-                        <Text style={styles.appointmentTextStyle}>My Bookings</Text>
+                        <Text style={styles.appointmentTextStyle}>My Appointments</Text>
                     </View>
                     <View style={styles.lowerListContainer}>
                         {
@@ -205,7 +205,7 @@ class BarberHome extends Component {
                                 bookingList.length == 0 ?
                                     <>
                                         <View style={[styles.nameContainer, { justifyContent: 'center' }]}>
-                                            <Text style={[styles.appointmentTextStyle, { textAlign: 'center' }]}>No bookings</Text>
+                                            <Text style={[styles.appointmentTextStyle, { textAlign: 'center' }]}>No Appointments</Text>
                                         </View>
                                         <TouchableOpacity onPress={() => this.componentDidMount()} style={[styles.nameContainer, { justifyContent: 'center', alignItems: 'center' }]}>
                                             <Text style={[styles.upperListTitleStyle, { fontSize: 12, color: THEME.COLOR_WHITE, textAlign: 'center' }]}>Tap to refresh</Text>

@@ -244,13 +244,13 @@ class AddPriceAndTime extends Component {
                             selectedArray.length == 0 || selectedArray[0].price != '' || selectedArray[0].time != ''||selectedArray[1].price != '' || selectedArray[1].time != ''  ?
                                 <View style={styles.headingContainer}>
                                     <View style={styles.nameContainer}>
-                                        <Text style={styles.headingTextStyle}>Services</Text>
+                                        <Text style={styles.headingTextStyle1}>Services</Text>
                                     </View>
                                     <View style={styles.priceContainer} >
                                         <Text style={styles.headingTextStyle2}>Price</Text>
                                     </View>
                                     <View style={styles.timeContainer}>
-                                    <Text style={styles.headingTextStyle2}>Est.Duration</Text>
+                                    <Text style={styles.headingTextStyle2}>Est. Duration</Text>
                                     </View>
                                     <View style={styles.priceContainer}>
                                     </View>

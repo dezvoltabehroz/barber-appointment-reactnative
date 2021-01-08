@@ -56,12 +56,12 @@ const Api = {
         formData.append('gender', userData.gender);
         formData.append('dob', userData.dob);
         formData.append('phone', userData.phone ? userData.phone : phone);
-        formData.append('image', userData.image ? {
+        formData.append('image', userData.image.uri ? {
             uri: Platform.OS === 'android' ? 'file://' + userData.image.path : userData.image.uri,
             name: `${new Date().getTime().toString()}.jpg`,
             filename: new Date().getTime().toString() + '.jpg',
             type: 'image/jpg'
-        } : '');
+        } : userData.image);
 
         let config = {
             headers: {

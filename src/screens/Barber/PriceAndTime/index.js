@@ -322,7 +322,7 @@ class PriceAndTime extends Component {
                                                 <Text style={styles.headingTextStyle2}>Price</Text>
                                             </View>
                                             <View style={styles.timeContainer}>
-                                                <Text style={styles.headingTextStyle2}>Est.Duration</Text>
+                                                <Text style={styles.headingTextStyle2}>Est. Duration</Text>
                                             </View>
                                             <View style={styles.priceContainer}>
                                             </View>

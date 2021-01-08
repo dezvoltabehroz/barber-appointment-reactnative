@@ -63,7 +63,7 @@ export default StyleSheet.create({
     headingTextStyle: {
         color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Bold',
-        fontSize: THEME.FONT_SIZE_SMALL,
+        fontSize: THEME.FONT_SIZE_MEDIUM,
     },
     headingTextStyle1: {
         color: THEME.COLOR_WHITE,

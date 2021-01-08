@@ -103,7 +103,7 @@ class OffDays extends Component {
                                 {
                                     this.state.offDays.length == 0 ?
                                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                            <Text style={styles.textStyle}>{'No leaves Found'}</Text>
+                                            <Text style={styles.textStyle}>{'No Off Days Found'}</Text>
                                         </View>
                                         :
                                         <View style={styles.upperContainer}>
