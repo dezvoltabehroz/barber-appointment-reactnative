@@ -19,7 +19,8 @@ import styles from './style';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { GiftedChat, GiftedAvatar, Bubble, InputToolbar, Composer, Send } from 'react-native-gifted-chat'
 import firebaseApp from '../../../services/ChatFireBase'
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import AndroidKeyboardAdjust from 'react-native-android-keyboard-adjust';
 const { width, height } = Dimensions.get('window')
 class barberChat extends Component {
     getParamData;
@@ -56,11 +57,13 @@ class barberChat extends Component {
     }
 
     componentDidMount() {
+        AndroidKeyboardAdjust.setAdjustResize();
         this.setState({ loading: true })
         this.chatRef && this.listenForItems(this.chatRefData)
     }
     componentWillUnmount() {
-        firebaseApp.off()
+        firebaseApp.off();
+        AndroidKeyboardAdjust.setAdjustPan();
     }
 
     listenForItems = (chatRef) => {

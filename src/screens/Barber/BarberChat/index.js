@@ -18,7 +18,8 @@ import THEME from '../../../assets/styles/theme.style';
 import styles from './style';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { GiftedChat, GiftedAvatar, Bubble, InputToolbar, Composer, Send } from 'react-native-gifted-chat'
-import firebaseApp from '../../../services/ChatFireBase'
+import firebaseApp from '../../../services/ChatFireBase';
+import AndroidKeyboardAdjust from 'react-native-android-keyboard-adjust';
 import { connect } from 'react-redux'
 const { width, height } = Dimensions.get('window')
 class customerChat extends Component {
@@ -56,11 +57,13 @@ class customerChat extends Component {
     }
 
     componentDidMount() {
+        AndroidKeyboardAdjust.setAdjustResize();
         this.setState({ loading: true })
         this.chatRef && this.listenForItems(this.chatRefData)
     }
     componentWillUnmount() {
-        firebaseApp.off()
+        firebaseApp.off();
+        AndroidKeyboardAdjust.setAdjustPan();
     }
 
     listenForItems = (chatRef) => {
