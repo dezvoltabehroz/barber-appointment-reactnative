@@ -143,6 +143,10 @@ class BarberEditServices extends Component {
 
     _renderItems = ({ item, index }) => {
         const { barberServices, submit, showEditService, services } = this.state;
+        var time = `${moment.duration(item.time_duration).asMinutes()}`;
+        var h = time / 60 | 0;
+        var m = time % 60 | 0;
+        let timeInHour = moment.utc().hours(h).minutes(m).format("HH:mm");
         return (
             <>
                 <View style={styles.contentContainer}>
@@ -161,7 +165,21 @@ class BarberEditServices extends Component {
                         <View style={styles.timeContainer}>
                             {item.time != '' ?
                                 <View style={styles.priceAndTimeContainer}>
-                                    <Text style={styles.timeTextStyle}>{moment(moment(item.time_duration, 'H:mm')).format('HH:mm')}</Text>
+                                    <Text style={styles.timeTextStyle}> 
+                                    {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : "  " + timeInHour[1]}
+                                        {
+                                            timeInHour[0] == '0' && timeInHour[1] == '0' ?
+                                                null
+                                                :
+                                                <Text style={styles.textStyles}> hr</Text>
+                                        }
+                                        {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                                        {
+                                            timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                                null
+                                                :
+                                                <Text style={styles.textStyles}> mins</Text>
+                                        }</Text>
                                 </View>
                                 : null
                             }
