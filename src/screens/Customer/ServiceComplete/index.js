@@ -142,7 +142,7 @@ class ServiceComplete extends Component {
                                                             keyboardtype="number-pad"
                                                             onActive={() => this.setState({ isTipFocus: true, label: this.setState({ label: 'Tip' }) })}
                                                             onInActive={() => this.setState({ isTipFocus: false, submit: true })}
-                                                            label={label != '' ? 'Tip' : '$5'} updateText={(tip) => this.setState({ tip })} />
+                                                            label={label != '' ? 'Tip' : '$0'} updateText={(tip) => this.setState({ tip })} />
                                                     </View>
                                                 </View>
 
@@ -166,8 +166,10 @@ class ServiceComplete extends Component {
                                                         value: `25%`
                                                     }]}
                                                     placeholder="Select a Tip"
+                                                    onClose={() => this.setState({ dropdownOpen: false })}
+                                                    onOpen={() => this.setState({ dropdownOpen: true })}
                                                     defaultValue={this.state.selectedTip ? this.state.selectedTip : null}
-                                                    containerStyle={{ height: 40 }}
+                                                    containerStyle={{ height: 40, marginBottom: this.state.dropdownOpen ? '50%' : 0 }}
                                                     style={{ backgroundColor: '#fafafa' }}
                                                     itemStyle={{
                                                         justifyContent: 'flex-start'

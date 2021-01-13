@@ -12,7 +12,8 @@ import {
     TouchableWithoutFeedback,
     StatusBar,
     TextInput,
-    ActivityIndicator
+    ActivityIndicator,
+    Platform
 } from "react-native";
 import THEME from '../../../assets/styles/theme.style';
 import styles from './style';
@@ -57,13 +58,18 @@ class customerChat extends Component {
     }
 
     componentDidMount() {
-        AndroidKeyboardAdjust.setAdjustResize();
+        if (Platform.OS == 'android') {
+            AndroidKeyboardAdjust.setAdjustResize();
+        }
         this.setState({ loading: true })
         this.chatRef && this.listenForItems(this.chatRefData)
     }
     componentWillUnmount() {
         firebaseApp.off();
-        AndroidKeyboardAdjust.setAdjustPan();
+        if (Platform.OS == 'android') {
+            AndroidKeyboardAdjust.setAdjustPan();
+        }
+        
     }
 
     listenForItems = (chatRef) => {

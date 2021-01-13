@@ -49,7 +49,7 @@ function BarberRoutes() {
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
-                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Booking History</Text></View>),
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Appointment History</Text></View>),
                 headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="PhoneVerification" component={PhoneVerificatinScreen} options={{

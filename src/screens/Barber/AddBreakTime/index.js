@@ -54,7 +54,7 @@ class AddBreakTime extends Component {
         var range = 24;
         for (var i = 0; i < range; i++) {
             if (i <= 9) {
-                set[i] = ("0" + i.toString());
+                set[i] = (i.toString());
             } else {
                 set[i] = (i.toString());
             }
