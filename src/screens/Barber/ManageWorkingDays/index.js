@@ -116,8 +116,6 @@ class ManageWorkingDays extends Component {
         uniq.map((item, index) => {
             array[index] = { ...array[index], id: index + 1, selected: true, startTime: '', endTime: '', isFilled: '', day: item }
         })
-        console.log(array);
-        console.log(array.length)
         this.setState({ newWorkingDays: array, editModal: false, selectedDays: array })
     }
 
