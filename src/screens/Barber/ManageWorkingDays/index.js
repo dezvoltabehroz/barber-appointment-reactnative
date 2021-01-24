@@ -7,7 +7,10 @@ import { Barbers, RegisterUser } from '../../../services';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../../redux/actions/auth';
-
+import Modal from 'react-native-modal';
+import moment from 'moment'
+import { Calendar } from 'react-native-calendars';
+import { ThemeContext } from 'react-native-elements';
 class ManageWorkingDays extends Component {
 
     constructor(props) {
@@ -25,8 +28,51 @@ class ManageWorkingDays extends Component {
                 { id: 7, day: 'Sunday', selected: false, startTime: '', endTime: '', isFilled: '' },
             ],
             loading: true,
+            startDate: '',
+            endDate: '',
+            markDaysObject: {},
+            newWorkingDays: []
         }
     }
+
+    getDates = (startDate, endDate) => {
+        var dateArray = [];
+        var currentDate = moment(startDate);
+        var stopDate = moment(endDate);
+        while (currentDate <= stopDate) {
+            dateArray.push(moment(currentDate).format('YYYY-MM-DD'))
+            currentDate = moment(currentDate).add(1, 'days');
+        }
+        let markDaysObject = {};
+        if (dateArray != 'undefined') {
+            dateArray.forEach((day) => {
+                if (day == moment(startDate).format('YYYY-MM-DD')) {
+                    markDaysObject[day] = {
+                        startingDay: true,
+                        color: THEME.PRIMARY_COLOR,
+                        textColor: 'white'
+                    };
+                }
+                else if (day == moment(endDate).format('YYYY-MM-DD')) {
+                    markDaysObject[day] = {
+                        endingDay: true,
+                        color: THEME.PRIMARY_COLOR,
+                        textColor: 'white'
+                    };
+                }
+                else {
+                    markDaysObject[day] = {
+                        color: THEME.PRIMARY_COLOR,
+                        textColor: 'white'
+                    };
+                }
+
+
+            });
+            this.setState({ markDaysObject: markDaysObject })
+        }
+    }
+
     componentDidMount = () => {
         let userData = {
             id: this.props.user.userData.id,
@@ -50,10 +96,34 @@ class ManageWorkingDays extends Component {
             })
             .catch((err) => console.log(err))
     }
+    days = () => {
+        var d = new Date(this.state.startDate),
+            a = [],
+            to = new Date(this.state.endDate),
+            y = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        while (d < to) {
+            a.push(y[d.getDay()]);
+            d.setDate(d.getDate() + 1);
+        }
+        if (d.getDay() === to.getDay()) // include last day
+            a.push(y[d.getDay()]);
+        return a
+    }
+    handlePressDone = () => {
+        let array = [];
+        let data = this.days();
+        var uniq = [...new Set(data)];
+        uniq.map((item, index) => {
+            array[index] = { ...array[index], id: index + 1, selected: true, startTime: '', endTime: '', isFilled: '', day: item }
+        })
+        console.log(array);
+        console.log(array.length)
+        this.setState({ newWorkingDays: array, editModal: false, selectedDays: array })
+    }
 
     handleSelected = (val) => {
-        const objIndex = this.state.workingDays.findIndex((obj => obj.id == val.id));
-        let items = [...this.state.workingDays];
+        const objIndex = this.state.newWorkingDays.length != 0 ? this.state.newWorkingDays.findIndex((obj => obj.id == val.id)) : this.state.workingDays.findIndex((obj => obj.id == val.id));
+        let items = [...this.state.newWorkingDays.length != 0 ? this.state.newWorkingDays : this.state.workingDays];
         if (items[objIndex].selected) {
             items[objIndex] = { ...items[objIndex], selected: false };
             this.setState({ workingDays: items });
@@ -126,6 +196,22 @@ class ManageWorkingDays extends Component {
         )
     }
 
+    handleDayPress = (date) => {
+        const { startDate, endDate } = this.state;
+        if (startDate == '') {
+            let markDaysObject = {};
+            markDaysObject[date.dateString] = {
+                color: THEME.PRIMARY_COLOR,
+                textColor: 'white'
+            };
+            this.setState({ startDate: date.dateString, markDaysObject })
+        }
+        else {
+            this.setState({ endDate: date.dateString }, () => this.getDates(startDate, date.dateString))
+        }
+
+    }
+
     _renderItems = (item) => {
         const { edit } = this.state;
         return (
@@ -150,7 +236,7 @@ class ManageWorkingDays extends Component {
 
     render() {
         const { onNext } = this.props;
-        const { workingDays, edit, loading } = this.state;
+        const { workingDays, edit, loading, markDaysObject, editModal, newWorkingDays, startDate, endDate } = this.state;
         return (
             <>
                 <View style={styles.container}>
@@ -163,7 +249,7 @@ class ManageWorkingDays extends Component {
 
                             <View style={styles.upperContainer}>
                                 <FlatList
-                                    data={workingDays}
+                                    data={newWorkingDays.length != 0 ? newWorkingDays : workingDays}
                                     refreshControl={<RefreshControl
                                         refreshing={this.state.loading}
                                         onRefresh={() => this.componentDidMount()}
@@ -184,7 +270,7 @@ class ManageWorkingDays extends Component {
                                 <>
                                     <View style={[styles.buttonContainer, { flexDirection: "row", justifyContent: 'space-between' }]}>
                                         <View style={{ flex: 0.45 }}>
-                                            <Button title="Cancel  " onPress={() => this.setState({ edit: false })} />
+                                            <Button title="Cancel  " onPress={() => this.setState({ edit: false, newWorkingDays: [] })} />
                                         </View>
                                         <View style={{ flex: 0.45 }}>
                                             <Button title="Update Time  " disabled={this.state.selectedDays.length == 0 ? true : false} onPress={() => onNext(this.state.selectedDays)} />
@@ -194,12 +280,52 @@ class ManageWorkingDays extends Component {
                                 </>
                                 :
                                 <View style={styles.buttonContainer}>
-                                    <Button title={"Edit"} onPress={() => this.setState({ edit: true })} />
+                                    <Button title={"Edit"} onPress={() => this.setState({ edit: true, editModal: true })} />
                                 </View>
                         }
                     </View>
 
                 </View>
+                <Modal isVisible={editModal}>
+                    <View style={{ backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, borderRadius: 10, padding: 20, justifyContent: 'center' }}>
+                        <Calendar
+                            markingType={'period'}
+                            markedDates={markDaysObject}
+                            minDate={new Date()}
+                            maxDate={new Date().setDate(new Date().getDate() + 30)}
+                            onDayPress={(day) => this.handleDayPress(day)}
+                            monthFormat={'MMMM yyyy'}
+                            theme={{
+                                calendarBackground: THEME.PRIMARY_BACKGROUND_COLOR,
+                                selectedDotColor: '#ffffff',
+                                selectedDayBackgroundColor: '#D2A91B',
+                                selectedDayTextColor: 'black',
+                                dayTextColor: 'white',
+                                textDisabledColor: 'grey',
+                                dotColor: '#D2A91B',
+                                todayTextColor: 'white',
+                                arrowColor: THEME.PRIMARY_COLOR,
+                                monthTextColor: 'white',
+                                textDayFontFamily: "Poppins-Medium",
+                                textMonthFontFamily: "Poppins-Medium",
+                                textDayHeaderFontFamily: "Poppins-Medium",
+                                textDayFontSize: 10,
+                                textMonthFontSize: 16,
+                                textDayHeaderFontSize: 10,
+                            }}
+                        />
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }} >
+
+                            <View style={{ flex: 0.45 }}>
+                                <Button title="Cancel" onPress={() => this.setState({ edit: false, editModal: false, startDate: '', endDate: '', markDaysObject: {} })} />
+                            </View>
+                            <View style={{ flex: 0.45 }}>
+                                <Button title="Done" disabled={startDate && endDate ? false : true} onPress={() => this.handlePressDone()} />
+                            </View>
+
+                        </View>
+                    </View>
+                </Modal>
             </>
         );
     }
