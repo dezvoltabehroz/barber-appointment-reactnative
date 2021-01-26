@@ -31,8 +31,8 @@ function CustomDrawerContent({ navigation, props }) {
                                 <Avatar containerStyle={{ backgroundColor: 'white' }} size={50} title={title ? title[0][0] + title[1][0] : ""} titleStyle={{ color: THEME.PRIMARY_COLOR, fontSize: 16 }} rounded={true} />
                             </View>
                             <View style={{ justifyContent: 'center', marginLeft: '5%' }}>
-                                <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Roboto-Bold', }} >{props?.user?.userData?.full_name}</Text>
-                                <Text style={{ color: "white", marginLeft: "10%", fontFamily: 'Roboto-Regular', fontSize: 10 }} >{props?.user?.userData?.email}</Text>
+                                <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Poppins-Bold', }} >{props?.user?.userData?.full_name}</Text>
+                                <Text style={{ color: "white", marginLeft: "10%", fontFamily: 'Poppins-Medium', fontSize: 10 }} >{props?.user?.userData?.email}</Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -40,26 +40,26 @@ function CustomDrawerContent({ navigation, props }) {
                 <View style={{ flex: 0.7, paddingTop: '10%' }}>
                     <TouchableOpacity onPress={() => navigation.navigate('EditProfie')} style={styles.itemStyle}>
                         <Icon.Feather name="user" color="#fff" size={25} />
-                        <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Roboto-Regular', fontSize: 12 }}>Edit Profile</Text>
+                        <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Poppins-Medium', fontSize: 12 }}>Edit Profile</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => alert("This screen is Under Development Coming Soon")} style={styles.itemStyle}>
                         <Icon.MaterialIcons name="payment" color="#fff" size={25} />
-                        <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Roboto-Regular', fontSize: 12 }} >Payment Method</Text>
+                        <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Poppins-Medium', fontSize: 12 }} >Payment Method</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('AboutUs')} style={styles.itemStyle}>
                         <Icon.Ionicons name="information-circle-outline" color="#fff" size={25} />
-                        <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Roboto-Regular', fontSize: 12 }} >About Us</Text>
+                        <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Poppins-Medium', fontSize: 12 }} >About Us</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('ContactUs')} style={styles.itemStyle}>
                         <Icon.MaterialCommunityIcons name="chat-alert-outline" color="#fff" size={25} />
-                        <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Roboto-Regular', fontSize: 12 }} >Contact Us</Text>
+                        <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Poppins-Medium', fontSize: 12 }} >Contact Us</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => dispatch(authActions.removeUser(navigation.replace))} style={styles.itemStyle}>
                         <Icon.Feather name="log-out" color="#fff" size={25} />
-                        <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Roboto-Regular', fontSize: 12 }} >Logout</Text>
+                        <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Poppins-Medium', fontSize: 12 }} >Logout</Text>
                     </TouchableOpacity>
                     {/* <TouchableOpacity onPress={() => alert("Terms and condition will be furnished soon")} style={styles.policyStyles}>
-                        <Text style={{ color: "#707070", fontFamily: 'Roboto-Regular', fontSize: 12 }} >Terms & conditions / policy</Text>
+                        <Text style={{ color: "#707070", fontFamily: 'Poppins-Medium', fontSize: 12 }} >Terms & conditions / policy</Text>
                     </TouchableOpacity> */}
                 </View>
                 {/* <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: '10%', height: 54, width: 150, justifyContent: 'space-between', }}>

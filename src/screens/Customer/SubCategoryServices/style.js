@@ -24,7 +24,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         paddingLeft: 10,
         paddingRight: 10,
-        height: screenHeight * 0.15,
+        height: screenHeight * 0.1,
         width: screenWidth * 0.9
 
     },
@@ -50,6 +50,7 @@ export default StyleSheet.create({
     lowerListTitleStyle: {
         fontSize: THEME.FONT_SIZE_LARGE,
         color: THEME.COLOR_WHITE,
+        textDecorationLine:"underline",
         width: screenWidth * 0.5,
         fontFamily: 'Poppins-Medium'
     },
