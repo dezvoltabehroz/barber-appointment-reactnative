@@ -85,6 +85,7 @@ export default StyleSheet.create({
     faceBookButton: {
         height: 54,
         borderRadius: 5,
+        overflow: 'hidden',
         marginHorizontal: '10%',
         justifyContent: "center",
         marginBottom: 10,
@@ -93,14 +94,14 @@ export default StyleSheet.create({
     googleButton: {
         height: 54,
         borderRadius: 5,
+        overflow: 'hidden',
         marginHorizontal: '10%',
         justifyContent: "center",
         marginBottom: 10,
-        backgroundColor: "#f0592a"
     },
     iconContainer: {
         flexDirection: "column",
-        marginLeft: '15%'
+        // marginLeft: '15%'
     },
     phoneNumberButton: {
         height: 54,
@@ -123,7 +124,7 @@ export default StyleSheet.create({
     },
     continueWithoutTextStyle: {
         marginTop: "5%",
-        marginBottom:'5%',
+        marginBottom: '5%',
         fontFamily: "Poppins-Regular",
         textAlign: "center",
         color: '#9FACBD'
@@ -142,11 +143,11 @@ export default StyleSheet.create({
     },
     phoneTextContainer: {
         flexDirection: "column",
-        marginHorizontal: "10%",
+        // marginHorizontal: "2.5%",
     },
     facebookTextContainer: {
         flexDirection: "column",
-        marginHorizontal: "18%",
+        // marginHorizontal: "2.5%",
     },
     continueContainer: {
         alignItems: "center",
@@ -170,7 +171,22 @@ export default StyleSheet.create({
         marginRight: '5%'
     },
     row: {
-        flexDirection: "row"
+        flexDirection: "row",
+        justifyContent: 'center',
+        alignItems:'center'
     },
-    onSubmitTrue: { marginTop: "1%", marginBottom: "1%" }
+    onSubmitTrue: { marginTop: "1%", marginBottom: "1%" },
+    loginButton: {
+        height: 54,
+        borderRadius: 5,
+        overflow: 'hidden',
+        justifyContent: "center",
+        backgroundColor: THEME.PRIMARY_COLOR
+    },
+    loginButtonText: {
+        color: "#fff",
+        fontSize: 16,
+        textAlign: "center",
+        fontFamily: "Poppins-Medium"
+    }
 })

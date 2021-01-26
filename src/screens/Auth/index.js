@@ -5,7 +5,8 @@ import styles from './style';
 import THEME from '../../assets/styles/theme.style';
 import COMMON_STYLE from '../../assets/styles/common.style';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import LinearGradient from 'react-native-radial-gradient';
+import { ActivityIndicator } from 'react-native';
 class AuthScreen extends Component {
     constructor(props) {
         super(props);
@@ -94,26 +95,44 @@ class AuthScreen extends Component {
                                         submit && !password ? <Text style={[COMMON_STYLE.errorText, submit ? styles.onSubmitTrue : {}]}>Please fill this field</Text> : null
                                     }
                                 </View>
-                                <View style={{ flexDirection: 'row', marginBottom: '2.5%',alignItems:'center' }}>
+                                <View style={{ flexDirection: 'row', marginBottom: '2.5%', alignItems: 'center' }}>
                                     {
                                         staySignIn ?
                                             <Icon.MaterialIcons onPress={() => this.setState({ staySignIn: !staySignIn })} name="check-box" size={30} color={THEME.PRIMARY_COLOR} />
                                             :
-                                            <Icon.MaterialIcons onPress={() => this.setState({ staySignIn: !staySignIn })}   name="check-box-outline-blank" size={30} color={THEME.PRIMARY_COLOR} />
+                                            <Icon.MaterialIcons onPress={() => this.setState({ staySignIn: !staySignIn })} name="check-box-outline-blank" size={30} color={THEME.PRIMARY_COLOR} />
                                     }
                                     <Text style={styles.forgetPasswordTextStyle}>Stay signed in</Text>
                                 </View>
-                                <Button loading={this.props.loading} title="Login" onPress={() => { this.props.isSubmit(); this.handleLogin() }} />
+                                <TouchableOpacity onPress={() => { this.props.isSubmit(); this.handleLogin() }}>
+                                    <LinearGradient stops={[0.1, 0.4, 0.3, 0.75]}
+                                        center={[100, 100]}
+                                        radius={200} colors={['#03A6A2', '#035E5B']} style={styles.loginButton}>
+                                        {
+                                            this.props.loading ?
+                                                <ActivityIndicator size={20} color="white" />
+                                                :
+                                                <Text style={styles.loginButtonText}>{'Login'}</Text>
+
+                                        }
+                                    </LinearGradient>
+                                </TouchableOpacity>
+
+                                {/* <Button loading={this.props.loading} title="Login" onPress={() => { this.props.isSubmit(); this.handleLogin() }} /> */}
                             </View>
                         </View>
                         <Text onPress={() => onForgetPassword()} style={styles.forgetPasswordTextStyle}>Forget Password?</Text>
                         <View style={styles.lowerContainer}>
                             <Text style={styles.signUpAndLoginTextStyle}>Sign up with:</Text>
 
-                            <TouchableOpacity onPress={onFacebook()} style={styles.faceBookButton} >
+                            <TouchableOpacity onPress={onFacebook()}>
+                            <LinearGradient stops={[0.1, 0.4, 0.3, 0.75]}
+                                    center={[100, 100]}
+                                    radius={200} colors={['#1380E4', '#0055A3']}
+                                    style={styles.googleButton}>
                                 <View style={styles.row}>
                                     <View style={styles.iconContainer}>
-                                        <Icon.FontAwesome
+                                        <Icon.FontAwesome5
                                             name="facebook"
                                             color={THEME.COLOR_WHITE}
                                             style={styles.iconStyle}
@@ -123,35 +142,46 @@ class AuthScreen extends Component {
                                         <Text style={styles.buttonTextStyle}>Facebook</Text>
                                     </View>
                                 </View>
+                                </LinearGradient>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={onGoogle()} style={styles.googleButton} >
-                                <View style={styles.row}>
-                                    <View style={styles.iconContainer}>
-                                        <Icon.FontAwesome
-                                            name="google"
-                                            color={THEME.COLOR_WHITE}
-                                            style={styles.iconStyle}
-                                            size={25} />
+                            <TouchableOpacity onPress={onGoogle()} >
+                                <LinearGradient stops={[0.1, 0.4, 0.3, 0.75]}
+                                    center={[100, 100]}
+                                    radius={200} colors={['#EF5A2A', '#A83B18']}
+                                    style={styles.googleButton}>
+                                    <View style={styles.row}>
+                                        <View style={styles.iconContainer}>
+                                            <Icon.FontAwesome
+                                                name="google"
+                                                color={THEME.COLOR_WHITE}
+                                                style={styles.iconStyle}
+                                                size={25} />
+                                        </View>
+                                        <View style={styles.facebookTextContainer}>
+                                            <Text style={styles.buttonTextStyle}>Google</Text>
+                                        </View>
                                     </View>
-                                    <View style={styles.facebookTextContainer}>
-                                        <Text style={styles.buttonTextStyle}>Google</Text>
-                                    </View>
-                                </View>
+                                </LinearGradient>
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={onPhone} style={[styles.phoneNumberButton, barber ? { marginBottom: '5%' } : {}]} >
-                                <View style={styles.row}>
-                                    <View style={styles.iconContainer}>
-                                        <Icon.FontAwesome
-                                            name="phone"
-                                            color={THEME.COLOR_WHITE}
-                                            style={styles.iconStyle}
-                                            size={25} />
+                            <TouchableOpacity onPress={onPhone}>
+                                <LinearGradient stops={[0.1, 0.4, 0.3, 0.75]}
+                                    center={[100, 100]}
+                                    radius={200} colors={['#03A6A2', '#035E5B']}
+                                    style={[styles.loginButton, barber ? { marginBottom: '5%' } : {}, { marginHorizontal: "10%" }]}>
+                                    <View style={styles.row}>
+                                        <View style={styles.iconContainer}>
+                                            <Icon.MaterialIcons
+                                                name="perm-phone-msg"
+                                                color={THEME.COLOR_WHITE}
+                                                style={styles.iconStyle}
+                                                size={25} />
+                                        </View>
+                                        <View style={styles.phoneTextContainer}>
+                                            <Text style={styles.buttonTextStyle}>Phone Number</Text>
+                                        </View>
                                     </View>
-                                    <View style={styles.phoneTextContainer}>
-                                        <Text style={styles.buttonTextStyle}>Phone Number</Text>
-                                    </View>
-                                </View>
+                                </LinearGradient>
                             </TouchableOpacity>
 
                             {
