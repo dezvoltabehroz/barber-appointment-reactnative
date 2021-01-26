@@ -7,7 +7,7 @@ const screenWidth = Dimensions.get('window').width;
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
+        backgroundColor: '#171717',
         paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '15%'
     },
     lowerListContainer: {
@@ -19,7 +19,8 @@ export default StyleSheet.create({
     },
     lowerListItemContainer: {
         // flex: 0.1,
-        justifyContent: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
         paddingLeft: 10,
         paddingRight: 10,
@@ -28,14 +29,15 @@ export default StyleSheet.create({
 
     },
     lowerListImageStyle: {
-        height: screenHeight * 0.16,
-        width: screenWidth * 0.9,
+        height: screenHeight * 0.1,
+        width: screenWidth * 0.2,
         borderRadius: 10
     },
     lowerListTitleContainer: {
         // flex: 1,
+        
         marginTop: Platform.OS == 'ios' && screenHeight == 896 ? '7%' : 15,
-        margin: 15,
+        // margin: 15,
         // margin:,
         // borderRadius: 10,
         // height: screenHeight * 0.16,
@@ -48,7 +50,7 @@ export default StyleSheet.create({
     lowerListTitleStyle: {
         fontSize: THEME.FONT_SIZE_LARGE,
         color: THEME.COLOR_WHITE,
-        width: screenWidth * 0.3,
+        width: screenWidth * 0.5,
         fontFamily: 'Poppins-Medium'
     },
     lowerListDescriptionStyle: {

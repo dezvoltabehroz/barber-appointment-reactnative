@@ -16,13 +16,18 @@ import WorkingDaysScreen from './BarberNavigation/WorkingDaysScreen';
 import ScheduleTimeScreen from './BarberNavigation/ScheduleTimeScreen';
 import PriceAndTimeScreen from './BarberNavigation/PriceAndTimeScreen';
 import PasswordResetRoutes from './PasswordResetNavigation';
+import CustomerDrawerNavigation from './CustomerDrawerNavigation';
+import AppTour from './AppTour';
 
 const Stack = createStackNavigator();
 
 function AppRoutes() {
     return (
-        <Stack.Navigator initialRouteName="AuthLoading" >
+        <Stack.Navigator initialRouteName="AppTour" >
             <Stack.Screen name="AuthLoading" component={AuthLoading} options={{
+                headerShown: false
+            }} />
+            <Stack.Screen name="AppTour" component={AppTour} options={{
                 headerShown: false
             }} />
             <Stack.Screen name="Auth" component={AuthScreen} options={{
@@ -51,7 +56,7 @@ function AppRoutes() {
             <Stack.Screen name="Barber" component={BarberBottomNavigationRoutes} options={{
                 headerShown: false
             }} />
-            <Stack.Screen name="Customer" component={CustomerBottomNavigationRoutes} options={{
+            <Stack.Screen name="Customer" component={CustomerDrawerNavigation} options={{
                 headerShown: false
             }} />
             <Stack.Screen name="Services" component={ServicesScreen} options={{

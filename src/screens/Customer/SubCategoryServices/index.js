@@ -45,12 +45,13 @@ class SubCategoryServices extends Component {
                     )
                 }
             }} style={styles.lowerListItemContainer}>
-                <Image source={require('../../../assets/images/background.png')} resizeMode="contain"
+                <View style={styles.lowerListTitleContainer}>
+                    <Text style={styles.lowerListTitleStyle}>{item.service_name}</Text>
+                    <Text style={styles.lowerListDescriptionStyle}>{item.service_description}</Text>
+                </View>
+                <Image source={require('../../../assets/images/Arrow.png')} resizeMode="contain"
                     style={styles.lowerListImageStyle} >
-                    <View style={styles.lowerListTitleContainer}>
-                        <Text numberOfLines={3} style={styles.lowerListTitleStyle}>{item.service_name}</Text>
-                        <Text style={styles.lowerListDescriptionStyle}>{item.service_description}</Text>
-                    </View>
+
                 </Image>
             </TouchableOpacity>
         )

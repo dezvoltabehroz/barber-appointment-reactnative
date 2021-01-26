@@ -12,6 +12,7 @@ import { UserAddresses } from '../../../services';
 import Image from 'react-native-fast-image';
 import messaging from '@react-native-firebase/messaging';
 import Modal from 'react-native-modal';
+import { Avatar } from 'react-native-elements';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width
 class Home extends Component {
@@ -182,7 +183,7 @@ class Home extends Component {
 
     render() {
         let { onExit, searchBarber, goBack } = this.props
-        let { isUserLogedIn } = this.props.user;
+        let { isUserLogedIn, userData } = this.props.user;
         const { servicelist, servicelist1, address, addresses } = this.state;
         // const { user } = this.props;
         return (
@@ -220,8 +221,13 @@ class Home extends Component {
 
                                         </TouchableOpacity>
                                         <TouchableOpacity disabled={address ? false : true} style={styles.exitContainer} onPress={() => onExit()}>
-                                            <View style={{ paddingRight: '5%' }}>
-                                                <Icon.Feather name="log-out" color="#fff" size={25} />
+                                            <View style={{ }}>
+                                                <Avatar
+                                                    avatarStyle={styles.avatarStyle}
+                                                    source={{uri:userData.profile_picture}}
+                                                    rounded
+                                                    size={50} />
+                                                {/* <Icon.Feather name="log-out" color="#fff" size={25} /> */}
                                             </View>
                                         </TouchableOpacity>
                                     </> :
@@ -266,7 +272,7 @@ class Home extends Component {
                             }
                         </View>
 
-                        <View style={[styles.upperListContainer]}>
+                        {/* <View style={[styles.upperListContainer]}>
                             <FlatList
                                 data={isUserLogedIn ? servicelist1 : servicelist}
                                 horizontal={true}
@@ -282,7 +288,7 @@ class Home extends Component {
                                     <Icon.Feather name="search" color="#fff" size={15} />
                                 </TouchableOpacity>
                                 : null}
-                        </View>
+                        </View> */}
                         <View style={styles.lowerListContainer}>
                             {
                                 this.props.category.loading ?

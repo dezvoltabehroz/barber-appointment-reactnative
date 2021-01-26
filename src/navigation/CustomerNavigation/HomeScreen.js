@@ -36,13 +36,13 @@ class HomeScreen extends Component {
     }
 
     render() {
-        const { navigate, push, goBack } = this.props.navigation
+        const { navigate, push, goBack, toggleDrawer } = this.props.navigation
         return (
             <MainScreenPaths.Customer.Home
                 goBack={goBack}
                 onContactUs={() => navigate("ContactUs")}
                 onAboutUs={() => navigate("AboutUs")}
-                onExit={() => this.handleLogout()}
+                onExit={() => toggleDrawer()}
                 loading={this.props.userAddresses.loading}
                 onAppointments={() => navigate('Appointments')}
                 searchBarber={() => navigate('BarberList', { search: true })}
