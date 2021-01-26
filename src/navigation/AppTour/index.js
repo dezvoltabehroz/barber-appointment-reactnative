@@ -34,7 +34,7 @@ class AppTour extends Component {
         };
     }
 
-    _onDone = () => { this.props.navigation.navigate('AuthLoading'); };
+    _onDone = () => { this.props.navigation.replace('AuthLoading'); };
 
     _renderItem({ item }) {
         return (
