@@ -20,7 +20,6 @@ function CustomerDrawerNavigationRoutes(props) {
 
 function CustomDrawerContent({ navigation, props }) {
     const dispatch = useDispatch();
-    let title = props?.user?.userData?.full_name.split(' ');
     return (
         <>
             <View style={{ flex: 1, backgroundColor: '#171717' }} >
@@ -28,9 +27,9 @@ function CustomDrawerContent({ navigation, props }) {
                     <TouchableOpacity onPress={() => navigation.replace('Home')} style={styles.upperContainer}>
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-start', paddingLeft: '10%', alignItems: 'center' }}>
                             <View>
-                                <Avatar containerStyle={{ backgroundColor: 'white' }} size={50} title={title ? title[0][0] + title[1][0] : ""} titleStyle={{ color: THEME.PRIMARY_COLOR, fontSize: 16 }} rounded={true} />
+                                <Avatar source={{ uri: props?.user?.userData?.profile_picture }} size={70} rounded={true} />
                             </View>
-                            <View style={{ justifyContent: 'center', marginLeft: '5%' }}>
+                            <View style={{ justifyContent: 'center', marginLeft: '2.5%' }}>
                                 <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Poppins-Bold', }} >{props?.user?.userData?.full_name}</Text>
                                 <Text style={{ color: "white", marginLeft: "10%", fontFamily: 'Poppins-Medium', fontSize: 10 }} >{props?.user?.userData?.email}</Text>
                             </View>
