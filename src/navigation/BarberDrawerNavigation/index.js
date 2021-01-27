@@ -8,7 +8,7 @@ import { useDispatch, connect } from 'react-redux';
 import THEME from '../../assets/styles/theme.style'
 import BarberBottomTabNavigation from '../BarberBottomTabNavigation';
 const Drawer = createDrawerNavigator();
-function CustomerDrawerNavigationRoutes(props) {
+function BarberDrawerNavigationRoutes(props) {
     return (
         <Drawer.Navigator drawerContent={(data) => <CustomDrawerContent props={props} {...data} />} initialRouteName="Home" >
             <Drawer.Screen name="Home" component={BarberBottomTabNavigation} options={{
@@ -84,4 +84,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(CustomerDrawerNavigationRoutes);
+export default connect(mapStateToProps)(BarberDrawerNavigationRoutes);

@@ -221,10 +221,10 @@ class Home extends Component {
 
                                         </TouchableOpacity>
                                         <TouchableOpacity disabled={address ? false : true} style={styles.exitContainer} onPress={() => onExit()}>
-                                            <View style={{ }}>
+                                            <View style={{}}>
                                                 <Avatar
                                                     avatarStyle={styles.avatarStyle}
-                                                    source={{uri:userData.profile_picture}}
+                                                    source={{ uri: this.props.user.userData ? userData.profile_picture : "" }}
                                                     rounded
                                                     size={50} />
                                                 {/* <Icon.Feather name="log-out" color="#fff" size={25} /> */}
