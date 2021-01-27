@@ -1,28 +1,43 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
 import { Icon } from '../'
-
+import THEME from '../../assets/styles/theme.style'
+import User from '../../assets/svg/user.svg';
+import Calender from '../../assets/svg/calendar.svg';
+import Services from '../../assets/svg/services.svg';
+import Portfolio from '../../assets/svg/cv.svg';
+import Licence from '../../assets/svg/diploma.svg';
+const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
 
 const ProfileCard = ({ heading, description, icon, onPress }) => {
     return (
         <TouchableOpacity activeOpacity={0.8} onPress={onPress} style={styles.dashboardCard}>
-            <View style={styles.dashboardCardIconBackground}>
-                {
-                    icon == "drivers-license" || icon == "clock-o" ?
-                        <Icon.FontAwesome name={icon} color='gray' size={20} />
-                        :
-                        <Icon.Ionicons name={icon} color='gray' size={20} />
-                }
-            </View>
-            <View style={{ flex: 1, marginLeft: 10 }}>
+            {/* <View style={[styles.dashboardCardIconBackground, { backgroundColor: icon == "calendar-alt" ? null : THEME.PRIMARY_COLOR }]}>
+                
+            </View> */}
+            {
+                heading == 'Profile' ?
+                    <User height={61} width={61} />
+                    : heading == 'Portfolio' ?
+                        <Portfolio height={61} width={61} />
+                        : heading == 'Services' ?
+                            <Services height={61} width={61} />
+                            : heading == 'Licence' ?
+                                <Licence height={61} width={61} />
+                                : heading == 'Schedule' ?
+                                    <Calender height={61} width={61} />
+                                    : null
+            }
+            <View style={{ marginTop: '5%' }}>
                 <Text
                     style={styles.dashboardCardHeading}
                 >
                     {heading}
                 </Text>
-                <Text style={styles.dashboardCardDesc}>
+                {/* <Text style={styles.dashboardCardDesc}>
                     {description}
-                </Text>
+                </Text> */}
             </View>
         </TouchableOpacity>
     )
@@ -31,15 +46,18 @@ const ProfileCard = ({ heading, description, icon, onPress }) => {
 const styles = StyleSheet.create({
 
     dashboardCard: {
-        flexDirection: 'row',
-        width: '90%',
-        borderColor: '#888',
-        // backgroundColor: 'white',
-        borderRadius: 10,
-        borderWidth: 1,
-        paddingHorizontal: 12,
-        paddingVertical: 16,
-        alignSelf: 'center',
+        marginHorizontal: 20,
+        height: screenWidth * 0.35,
+        width: screenWidth * 0.35,
+        justifyContent: "center",
+        alignItems: 'center',
+        // borderColor: '#888',
+        backgroundColor: '#171717',
+        // borderRadius: 10,
+        // borderWidth: 1,
+        // paddingHorizontal: 12,
+        // paddingVertical: 16,
+        // alignSelf: 'center',
         marginTop: '5%',
 
         // shadowOffset: { width: 2, height: 2 },
@@ -64,10 +82,10 @@ const styles = StyleSheet.create({
         marginRight: 17
     },
     dashboardCardIconBackground: {
-        backgroundColor: 'white',
-        height: 40,
-        width: 40,
-        borderRadius: 20,
+        backgroundColor: THEME.PRIMARY_COLOR,
+        height: 100,
+        width: 100,
+        borderRadius: 50,
         justifyContent: 'center',
         alignItems: 'center'
     }

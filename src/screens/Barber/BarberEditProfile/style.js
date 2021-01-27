@@ -20,6 +20,19 @@ export default StyleSheet.create({
         // height:54,
         alignItems: "center"
     },
+    contentContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        marginHorizontal: '5%',
+        width: screenWidth * 0.9,
+        paddingVertical: "5%",
+        // paddingLeft: "5%"
+    },
+    gapHeight: {
+        height: 10,
+        width: 20
+    },
     column: {
         flex: 0.2,
         flexDirection: "column"

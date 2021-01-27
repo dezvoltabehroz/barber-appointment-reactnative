@@ -39,6 +39,7 @@ class UpdateProfile extends Component {
     }
 
     componentDidMount = () => {
+        this.findCoordinates();
         if (this.props.user.userData != null && this.props.user.userData != 'undefined') {
             const { full_name, profile_picture, dob, gender, max_distance_radius } = this.props.user.userData;
             this.setState({
@@ -56,7 +57,6 @@ class UpdateProfile extends Component {
                 this.setState({ female: true, male: false, gender: 'Female', })
             }
         }
-        this.findCoordinates();
     }
 
     onChangeDate = (event, selectedDate) => {
@@ -106,8 +106,7 @@ class UpdateProfile extends Component {
             },
             error => Alert.alert(`${error.message}`, "Please enable your location from app settings", [
                 { text: "OK", onPress: () => { this.props.goBack(); Linking.openSettings(); } }
-            ]),
-            { enableHighAccuracy: true, timeout: 50000, maximumAge: 1000 }
+            ])
         );
     };
 

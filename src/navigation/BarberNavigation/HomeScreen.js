@@ -24,9 +24,9 @@ class HomeScreen extends Component {
         await this.props.authActions.removeUser(replace);
     }
 
-    on_Press_Booking = (data, bookingId, customerId, bookingDate, bookingTime,bookingDuration) => {
+    on_Press_Booking = (data, bookingId, customerId, bookingDate, bookingTime, bookingDuration) => {
         const { push } = this.props.navigation
-        push('BarberServiceAccept', { item: data, bookingId, customerId, bookingDate, bookingTime,bookingDuration })
+        push('BarberServiceAccept', { item: data, bookingId, customerId, bookingDate, bookingTime, bookingDuration })
     }
 
     on_Press_Decline = (data, id) => {
@@ -38,20 +38,20 @@ class HomeScreen extends Component {
             customer_id: id
         }
         BookingServices.declineBookingOfCustomer(userData)
-            .then((res) => {})
+            .then((res) => { })
             .catch((err) => console.log(err))
     }
 
     render() {
-        const { navigate, goBack } = this.props.navigation
+        const { navigate, goBack, toggleDrawer } = this.props.navigation
         return (
             <MainScreenPaths.Barber.BarberHome
                 onEditProfile={() => navigate("EditProfile")}
                 onBookingHistory={() => navigate('BarberBookingHistory')}
                 onContactUs={() => navigate("ContactUs")}
                 onAboutUs={() => navigate("AboutUs")}
-                onExit={this.handleLogout}
-                onView={(data, bookingId, customerId, bookingDate, bookingTime,bookingDuration) => this.on_Press_Booking(data, bookingId, customerId, bookingDate, bookingTime,bookingDuration)}
+                onExit={() => toggleDrawer()}
+                onView={(data, bookingId, customerId, bookingDate, bookingTime, bookingDuration) => this.on_Press_Booking(data, bookingId, customerId, bookingDate, bookingTime, bookingDuration)}
                 onDecline={(data, id) => this.on_Press_Decline(data, id)} />
         )
     }

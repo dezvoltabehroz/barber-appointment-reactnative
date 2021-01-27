@@ -22,6 +22,7 @@ import BarberChatScreen from './BarberChatScreen';
 import EditProfileScreen from './EditProfileScreen';
 import BarberBookingHistoryScreen from './BarberBookingHistoryScreen';
 import BarberEditServicesScreen from './BarberEditServicesScreen';
+import BarberProfileRoutes from '../BarberBottomTabNavigation/barberUpdateProfileNavigation';
 
 const Stack = createStackNavigator();
 
@@ -95,12 +96,8 @@ function BarberRoutes() {
                 headerTitleAlign: 'center',
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>List of Services & Details</Text></View>),
             }} />
-            <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{
-                headerBackTitleVisible: false,
-                headerTintColor: 'white',
-                headerTransparent: true,
-                headerTitleAlign: 'center',
-                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Edit Your Profile</Text></View>),
+            <Stack.Screen name="EditProfile" component={BarberProfileRoutes} options={{
+                headerShown: false
             }} />
             <Stack.Screen name="BarberServiceComplete" component={BarberServiceCompleteScreen} options={{
                 headerBackTitleVisible: false,

@@ -102,6 +102,7 @@ export default StyleSheet.create({
     nameContainer: {
         marginHorizontal: '5%',
         flexDirection: "row",
+        alignItems: 'center',
         justifyContent: "space-between",
     },
     appNameTextStyle: {
@@ -119,6 +120,10 @@ export default StyleSheet.create({
     },
     seperatorHeightStyle: {
         height: 10
+    },
+    avatarStyle: {
+        borderWidth: 1,
+        borderColor: '#e2e2e2'
     },
     exitContainer: {
         padding: 10,

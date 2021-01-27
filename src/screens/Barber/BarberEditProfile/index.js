@@ -4,10 +4,8 @@ import styles from './style';
 import { Button, Icon, ProfileCard } from '../../../components'
 import { connect } from 'react-redux';
 import { Avatar } from 'react-native-elements';
-import Geocoder from 'react-native-geocoder';
 import THEME from '../../../assets/styles/theme.style';
-import moment from 'moment'
-import ImagePicker from 'react-native-image-picker';
+import StarRating from 'react-native-star-rating';
 class BarberEditProfile extends Component {
     constructor(props) {
         super(props);
@@ -26,10 +24,48 @@ class BarberEditProfile extends Component {
                 { id: 10, serviceName: 'Scalp Conditioning Treatment', serviceDescription: '', selected: false, price: '$30', time: '15 min', isFilled: '' },
                 { id: 11, serviceName: 'Permanent Hair Retexturizing', serviceDescription: '', selected: false, price: '$30', time: '15 min', isFilled: '' },
             ],
+            userArray: [
+                {
+                    name: 'Profile',
+                },
+                {
+                    name: 'Portfolio',
+                },
+                {
+                    name: 'Services',
+                },
+                {
+                    name: 'Licence',
+                },
+                {
+                    name: 'Schedule',
+                },
+
+            ]
         }
     }
 
     componentDidMount = () => {
+    }
+
+    renderItem = ({ item, index }) => {
+        return (
+            <ProfileCard heading={item.name} onPress={
+                item.name == 'Profile' ? () => this.props.onProfile()
+                    : item.name == 'Portfolio' ?
+                        () => this.props.onPortfolio()
+                        : item.name == 'Services' ?
+                            () => this.props.onServices()
+                            : item.name == 'Licence' ?
+                                () => this.props.onCertificate()
+                                : item.name == 'Schedule' ?
+                                    () => this.props.onManageSchedule()
+                                    : null} />
+        )
+    }
+
+    renderSeparator = () => {
+        return (<View style={styles.gapHeight}></View>)
     }
 
     render() {
@@ -37,7 +73,7 @@ class BarberEditProfile extends Component {
         return (
             <>
 
-                <View style={[styles.container,{paddingBottom:'1%'}]}>
+                <View style={[styles.container, { paddingBottom: '1%' }]}>
                     <ScrollView>
                         <View style={{ marginTop: '5%', marginHorizontal: '5%' }}>
 
@@ -47,44 +83,34 @@ class BarberEditProfile extends Component {
                                     source={{ uri: this.props.user.userData ? this.props.user.userData.profile_picture : filePath.uri }}
                                     rounded
                                     size={120} />
-                                <View style={{ justifyContent: 'center', }}>
-                                    <Text style={styles.textStyle}>{this.props.user.userData ? this.props.user.userData.full_name : 'JOHN DOE'}</Text>
-                                    <Text style={styles.textStyle}>Age: {this.props.user.userData ? moment().diff(this.props.user.userData.dob, 'years') : ''} </Text>
-                                    <Text style={styles.textStyle}>Rating: 4.5/5</Text>
-                                </View>
+
+                            </View>
+                            <View style={{ marginTop: '5%', justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={styles.textStyle}>{this.props.user.userData ? this.props.user.userData.full_name : 'JOHN DOE'}</Text>
+                                {/* <Text style={styles.textStyle}>Age: {this.props.user.userData ? moment().diff(this.props.user.userData.dob, 'years') : ''} </Text> */}
+
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                <StarRating
+                                    disabled={true}
+                                    maxStars={5}
+                                    starSize={20}
+                                    rating={4.9}
+                                    selectedStar={(rating) => this.onStarRatingPress(rating)}
+                                    fullStarColor={THEME.PRIMARY_COLOR}
+                                />
+                                <Text style={[styles.textStyle, { marginLeft: 5 }]}>4.9/5</Text>
+
                             </View>
                         </View>
                         <View style={{ marginTop: '5%' }}>
-                            <ProfileCard
-                                icon={"ios-person"}
-                                heading={'PROFILE'}
-                                description={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}
-                                onPress={() => this.props.onProfile()}
-                            />
-                            <ProfileCard
-                                icon={"ios-images"}
-                                heading={'PORTFOLIO'}
-                                description={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}
-                                onPress={() => this.props.onPortfolio()}
-                            />
-                            <ProfileCard
-                                icon={"ios-settings"}
-                                heading={'SERVICES'}
-                                description={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}
-                                onPress={() => this.props.onServices()}
-                            />
-                            <ProfileCard
-                                icon={"drivers-license"}
-                                heading={'LICENCE/CERTIFICATE'}
-                                description={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}
-                                onPress={() => this.props.onCertificate()}
-                            />
-                            <ProfileCard
-                                icon={"clock-o"}
-                                heading={'MANAGE SCHEDULE'}
-                                description={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}
-                                onPress={() => this.props.onManageSchedule()}
-                            />
+                            <FlatList keyExtractor={item => item}
+                                ItemSeparatorComponent={this.renderSeparator}
+                                numColumns={2}
+                                showsVerticalScrollIndicator={false}
+                                contentContainerStyle={styles.contentContainer}
+                                data={this.state.userArray}
+                                renderItem={this.renderItem} />
                         </View>
                     </ScrollView>
                 </View>

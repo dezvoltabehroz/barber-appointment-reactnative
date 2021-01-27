@@ -28,7 +28,7 @@ function BarberProfileRoutes() {
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitleAlign: 'center',
-                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Edit Your Profile</Text></View>),
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Edit Account</Text></View>),
             }} />
             <Stack.Screen name="UpdateProfile" component={UpdateProfileScreen} options={{
                 headerBackTitleVisible: false,

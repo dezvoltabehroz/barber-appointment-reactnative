@@ -18,6 +18,7 @@ import PriceAndTimeScreen from './BarberNavigation/PriceAndTimeScreen';
 import PasswordResetRoutes from './PasswordResetNavigation';
 import CustomerDrawerNavigation from './CustomerDrawerNavigation';
 import AppTour from './AppTour';
+import BarberDrawerNavigation from './BarberDrawerNavigation';
 
 const Stack = createStackNavigator();
 
@@ -53,7 +54,7 @@ function AppRoutes() {
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Contact Us</Text></View>),
                 headerTitleAlign: 'center',
             }} />
-            <Stack.Screen name="Barber" component={BarberBottomNavigationRoutes} options={{
+            <Stack.Screen name="Barber" component={BarberDrawerNavigation} options={{
                 headerShown: false
             }} />
             <Stack.Screen name="Customer" component={CustomerDrawerNavigation} options={{

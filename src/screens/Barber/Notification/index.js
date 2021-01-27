@@ -37,7 +37,7 @@ class Notification extends Component {
         const time = difference > 20 ? moment(item.created_at).format('MMM DD, YYYY | hh:mm A') : moment(item.created_at).fromNow()
         return (
             <>
-                <View style={{ backgroundColor: item.is_read == '1' ? THEME.COLOR_WHITE : 'rgb(224, 250, 255)' }}>
+                <View style={{ backgroundColor: item.is_read == '1' ? '#171717' : 'rgb(224, 250, 255)' }}>
                     <TouchableOpacity onPress={async () => {
 
                         switch (item.stepCounter) {
@@ -77,8 +77,8 @@ class Notification extends Component {
                         //     })
                     }} style={{ flex: 1, flexDirection: 'row', alignItems: 'center', paddingLeft: '8%', borderRadius: 7, paddingVertical: '1%' }}>
                         <View style={{ flex: 0.1, justifyContent: "center", alignItems: 'center', }}>
-                            <View style={{ height: 40, width: 40, borderRadius: 30, borderWidth: 1, overflow: 'hidden', }}>
-                                <Image source={{ uri: item.profile_picture }} resizeMode='cover' style={{ height: 40, width: 40, }} />
+                            <View style={{ height: 40, width: 40, borderRadius: 30, borderWidth: 1, overflow: 'hidden',borderColor:'gray' }}>
+                                <Image source={{ uri: item.profile_picture }} resizeMode='cover' style={{ height: 40, width: 40 }} />
                             </View>
                         </View>
                         <View style={{ flex: 0.9, marginLeft: '5%' }}>

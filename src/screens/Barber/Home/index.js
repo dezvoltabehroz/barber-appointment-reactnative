@@ -11,6 +11,9 @@ import { notificationActions } from '../../../redux/actions/notification';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../../redux/actions/auth';
 import Modal from 'react-native-modal';
+import { Avatar } from 'react-native-elements';
+import Calendar from '../../../assets/svg/calendar.svg'
+import Refresh from '../../../assets/svg/refresh.svg'
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 class BarberHome extends Component {
@@ -176,24 +179,32 @@ class BarberHome extends Component {
     render() {
         let { onExit } = this.props
         const { servicelist, bookingList } = this.state
+        const { userData } = this.props.user
         return (
             <>
                 <View style={styles.container}>
                     <View style={styles.nameContainer}>
                         {/* <Text style={styles.appNameTextStyle} >Fleek</Text> */}
                         <Image source={require('../../../assets/images/logo.png')} resizeMode='contain' style={styles.logoStyle} />
-                        {<TouchableOpacity style={styles.exitContainer} onPress={onExit}>
-                            <Icon.Feather name="log-out" color="#fff" size={25} />
+                        {<TouchableOpacity style={styles.exitContainer} onPress={() => onExit()}>
+                            <View style={{}}>
+                                <Avatar
+                                    avatarStyle={styles.avatarStyle}
+                                    source={{ uri: userData.profile_picture }}
+                                    rounded
+                                    size={50} />
+                                {/* <Icon.Feather name="log-out" color="#fff" size={25} /> */}
+                            </View>
                         </TouchableOpacity>}
                     </View>
-                    <View style={styles.upperListContainer}>
+                    {/* <View style={styles.upperListContainer}>
                         <FlatList
                             data={servicelist}
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}
                             renderItem={({ item }) => this._renderItems(item)}
                             keyExtractor={item => item} />
-                    </View>
+                    </View> */}
                     <View style={styles.nameContainer}>
                         <Text style={styles.appointmentTextStyle}>My Appointments</Text>
                     </View>
@@ -204,15 +215,20 @@ class BarberHome extends Component {
                                 :
                                 bookingList.length == 0 ?
                                     <>
-                                        <View style={[styles.nameContainer, { justifyContent: 'center' }]}>
-                                            <Text style={[styles.appointmentTextStyle, { textAlign: 'center' }]}>No Appointments</Text>
+                                        <View style={[styles.nameContainer, { justifyContent: 'center', alignItems: 'center' }]}>
+                                            <Calendar />
                                         </View>
-                                        <TouchableOpacity onPress={() => this.componentDidMount()} style={[styles.nameContainer, { justifyContent: 'center', alignItems: 'center' }]}>
-                                            <Text style={[styles.upperListTitleStyle, { fontSize: 12, color: THEME.COLOR_WHITE, textAlign: 'center' }]}>Tap to refresh</Text>
-                                            <View style={{ marginLeft: '1%', paddingBottom: '1%' }} >
-                                                <Icon.EvilIcons name="refresh" size={20} color={THEME.COLOR_WHITE} />
+                                        <Text style={[styles.appointmentTextStyle, { textAlign: 'center', marginHorizontal: '10%', marginTop: '10%' }]}>You have no appointments right now.</Text>
+                                        <TouchableOpacity onPress={() => this.componentDidMount()}>
+                                            <Text style={[styles.upperListTitleStyle, { fontSize: 12, color: THEME.COLOR_WHITE, textAlign: 'center', marginTop: '10%' }]}>Pull to refresh</Text>
+                                            <View onPress={() => this.componentDidMount()} style={[styles.nameContainer, { justifyContent: 'center', alignItems: 'center' }]}>
+                                                <View style={{ marginLeft: '1%', paddingBottom: '1%' }} >
+                                                    {/* <Icon.EvilIcons name="refresh" size={20} color={THEME.COLOR_WHITE} /> */}
+                                                    <Refresh />
+                                                </View>
                                             </View>
                                         </TouchableOpacity>
+
                                     </>
                                     :
                                     <FlatList

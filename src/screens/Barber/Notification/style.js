@@ -23,7 +23,7 @@ export default StyleSheet.create({
     },
     upperListTimeStyle: {
         fontSize: 10,
-        // color: THEME.COLOR_WHITE,
+        color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Medium'
     },
     upperListImageStyle: {
@@ -38,7 +38,7 @@ export default StyleSheet.create({
         alignItems: 'flex-start'
     },
     upperListTitleStyle: {
-        // color: THEME.COLOR_WHITE,
+        color: THEME.COLOR_WHITE,
         fontSize:THEME.FONT_SIZE_SMALL,
         fontFamily: 'Poppins-Medium'
     },
