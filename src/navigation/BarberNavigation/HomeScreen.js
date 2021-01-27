@@ -25,8 +25,8 @@ class HomeScreen extends Component {
     }
 
     on_Press_Booking = (data, bookingId, customerId, bookingDate, bookingTime, bookingDuration) => {
-        const { push } = this.props.navigation
-        push('BarberServiceAccept', { item: data, bookingId, customerId, bookingDate, bookingTime, bookingDuration })
+        const { push,navigate } = this.props.navigation
+        navigate("Booking", { screen: 'BarberServiceAccept', params: { item: data, bookingId, customerId, bookingDate, bookingTime, bookingDuration } })
     }
 
     on_Press_Decline = (data, id) => {
