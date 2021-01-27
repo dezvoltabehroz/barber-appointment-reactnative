@@ -19,7 +19,7 @@ function CustomerNotificationRoutes() {
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitleAlign: 'center',
-                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Notification</Text></View>),
+                headerTitle: () => (<View><Text style={[styles.headerTitleStyle,{paddingBottom:'2.5%'}]}>Notification</Text></View>),
             }} />
             <Stack.Screen name="CustomerServices" component={CustomerServicesScreen} options={{
                 headerBackTitleVisible: false,
