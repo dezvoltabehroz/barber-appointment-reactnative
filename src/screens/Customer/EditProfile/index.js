@@ -40,6 +40,7 @@ class EditProfile extends Component {
 
     componentDidMount = () => {
         const { full_name, profile_picture, dob, gender } = this.props.user.userData;
+        console.log(this.props.user.userData)
         this.setState({
             name: full_name,
             avatar: profile_picture,
@@ -47,10 +48,10 @@ class EditProfile extends Component {
             dob: moment(dob).format('YYYY-MM-DD'),
         })
         if (gender == 'Male') {
-            this.setState({ male: true })
+            this.setState({ male: true, female: false, gender: gender })
         }
         else {
-            this.setState({ female: true })
+            this.setState({ female: true, male: false, gender: gender })
         }
     }
 
@@ -185,7 +186,8 @@ class EditProfile extends Component {
                                     }
                                 </View>
 
-                                <RadioButton gender
+                                <RadioButton
+                                    gender
                                     option1={this.state.male} option2={this.state.female}
                                     option1Text="Male" option2Text="Female"
                                     onPressOption1={() => this.setState({ gender: 'Male', male: true, female: false })}
