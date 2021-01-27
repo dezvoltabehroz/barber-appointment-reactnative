@@ -37,7 +37,7 @@ function CustomDrawerContent({ navigation, props }) {
                     </TouchableOpacity>
                 </View>
                 <View style={{ flex: 0.7, paddingTop: '10%' }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('EditProfie')} style={styles.itemStyle}>
+                    <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} style={styles.itemStyle}>
                         <Icon.Feather name="user" color="#fff" size={25} />
                         <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Poppins-Medium', fontSize: 12 }}>Edit Profile</Text>
                     </TouchableOpacity>

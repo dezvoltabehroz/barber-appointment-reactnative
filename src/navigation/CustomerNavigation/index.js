@@ -18,6 +18,7 @@ import RescheduleBookingScreen from './ReScheduleBookingScreen';
 import AddAddress from './AddAddress';
 import { Icon } from '../../components';
 import CustomerChatScreen from './CustomerChatscreen';
+import EditProfileScreen from './EditProfileScreen';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
@@ -122,6 +123,13 @@ function CustomerRoutes() {
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Barber List</Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+             <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}></Text></View>),
                 headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="BarberProfile" component={BarberProfileScreen} options={{
