@@ -25,10 +25,10 @@ const Bottom = createBottomTabNavigator();
 function CustomerBottomNavigationRoutes(props) {
     const CreatePlaceholder = () => (
 
-        <View style={{ flex: 1, backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, }}>
+        <View style={{ flex: 1, backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,paddingTop:'5%' }}>
             <View style={{ justifyContent: 'center', alignItems: 'center', marginHorizontal: '6%' }}>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <Text style={[{ marginTop: '10%', textAlign: 'center' }, styles.modalMainHeading]}>
+                    <Text style={[{ marginTop: '10%', textAlign: 'center' }, styles.headerTitleStyle]}>
                         Health and Safety Commitment
                     </Text>
                     <Text style={[{ marginTop: '5%' }, styles.modalTextStyle]}>
