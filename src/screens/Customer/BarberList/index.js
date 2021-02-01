@@ -103,7 +103,6 @@ class BarberList extends Component {
                             <View style={styles.daycontainer}>
                                 {
                                     item.working_days.map((item, index) => {
-                                        console.log(item)
                                         return (
                                             <View key={index} style={styles.daysContainer}>
                                                 <Text style={styles.textStyle}>{`${item.day[0]}${item.day[1]}${item.day[2]}`}</Text>
