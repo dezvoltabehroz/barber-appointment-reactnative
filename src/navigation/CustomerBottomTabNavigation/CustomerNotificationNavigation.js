@@ -14,12 +14,12 @@ const Stack = createStackNavigator();
 function CustomerNotificationRoutes() {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Notificatons" component={NotificationScreen} options={{
+            <Stack.Screen name="Notificaton" component={NotificationScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitleAlign: 'center',
-                headerTitle: () => (<View><Text style={[styles.headerTitleStyle,{paddingBottom:'2.5%'}]}>Notification</Text></View>),
+                headerTitle: () => (<View><Text style={[styles.headerTitleStyle,{paddingBottom:'2.5%'}]}>Notifications</Text></View>),
             }} />
             <Stack.Screen name="CustomerServices" component={CustomerServicesScreen} options={{
                 headerBackTitleVisible: false,
