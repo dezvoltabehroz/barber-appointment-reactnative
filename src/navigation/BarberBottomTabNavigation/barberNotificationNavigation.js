@@ -17,7 +17,7 @@ const Stack = createStackNavigator();
 function BarberNotificationRoutes() {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Notificaton" component={NotificationScreen} options={{
+            <Stack.Screen name="Notificatons" component={NotificationScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,

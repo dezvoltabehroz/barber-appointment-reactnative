@@ -11,9 +11,10 @@ export default StyleSheet.create({
         width: screenWidth * 0.8,
     },
     image_container: {
+        flex: 0.7,
         justifyContent: 'center',
         alignItems: 'center',
-        
+
     },
     title: {
         fontSize: 30,

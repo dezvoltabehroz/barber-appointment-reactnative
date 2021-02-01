@@ -68,7 +68,7 @@ class AuthScreen extends Component {
                                 <View style={[styles.inputContainerStyle, submit ? { marginBottom: "8%" } : styles.inputContainerStyle,
                                 isEmailFocus || email != '' ? THEME.inputBorder : {}]}>
                                     <FloatingInput
-                                        label={"Email / Phonenumber"}
+                                        label={"email / phone number"}
                                         val={email}
                                         keyboardtype="email-address"
                                         onActive={() => this.setState({ isEmailFocus: true })}
@@ -85,7 +85,7 @@ class AuthScreen extends Component {
                                 <View style={[styles.inputContainerStyle, submit ? { marginBottom: "8%" } : styles.inputContainerStyle,
                                 isPasswordFocus || password != '' ? THEME.inputBorder : {}]}>
                                     <FloatingInput
-                                        label={"Password"}
+                                        label={"password"}
                                         val={password}
                                         onActive={() => this.setState({ isPasswordFocus: true })}
                                         onInActive={() => this.setState({ isPasswordFocus: false })}
@@ -123,7 +123,7 @@ class AuthScreen extends Component {
                         </View>
                         <Text onPress={() => onForgetPassword()} style={styles.forgetPasswordTextStyle}>Forget Password?</Text>
                         <View style={styles.lowerContainer}>
-                            <Text style={styles.signUpAndLoginTextStyle}>Sign up with:</Text>
+                            <Text style={styles.signUpAndLoginTextStyle}>Sign up using</Text>
 
                             <TouchableOpacity onPress={onFacebook()}>
                             <LinearGradient stops={[0.1, 0.4, 0.3, 0.75]}
@@ -191,16 +191,16 @@ class AuthScreen extends Component {
                                     <>
                                         <View style={[styles.continueContainer, { marginTop: '5%' }]}>
                                             <TouchableOpacity onPress={() => Linking.openURL('http://www.signup.fleekservices.com/basic-info')} style={styles.continueContainerStyle} >
-                                                <Text style={styles.signUpAsBarberTextStyle}>Sign Up as a Provider</Text>
+                                                <Text style={styles.signUpAsBarberTextStyle}>Sign up as a Provider</Text>
                                             </TouchableOpacity>
                                         </View>
                                         <View style={styles.continueContainer}>
                                             <TouchableOpacity onPress={onContinueWithOutLogin} style={styles.continueContainerStyle} >
                                                 <Text style={styles.continueWithoutTextStyle}>Continue without Sign in </Text>
-                                                <Icon.AntDesign
+                                                {/* <Icon.AntDesign
                                                     name="arrowright"
                                                     color={THEME.COLOR_GREY}
-                                                    size={25} />
+                                                    size={25} /> */}
                                             </TouchableOpacity>
                                         </View>
                                     </>

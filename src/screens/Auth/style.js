@@ -127,13 +127,15 @@ export default StyleSheet.create({
         marginBottom: '5%',
         fontFamily: "Poppins-Regular",
         textAlign: "center",
-        color: '#9FACBD'
+        color: '#9FACBD',
+        textDecorationLine:'underline'
     },
     signUpAsBarberTextStyle: {
         marginTop: "5%",
         fontFamily: "Poppins-Regular",
         textAlign: "center",
-        color: '#9FACBD'
+        color: '#9FACBD',
+        textDecorationLine:'underline'
     },
     buttonTextStyle: {
         color: "#fff",
