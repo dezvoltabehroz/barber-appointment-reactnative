@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet } from 'react-native';
-
+import AsyncStorage from '@react-native-community/async-storage';
 import BarberRoutes from './BarberNavigation';
 import CustomerRoutes from './CustomerNavigation';
 import RegistrationRoutes from './CustomerNavigation/CustomerRegistration'
@@ -19,12 +19,21 @@ import PasswordResetRoutes from './PasswordResetNavigation';
 import CustomerDrawerNavigation from './CustomerDrawerNavigation';
 import AppTour from './AppTour';
 import BarberDrawerNavigation from './BarberDrawerNavigation';
-
+let data;
 const Stack = createStackNavigator();
+const check = AsyncStorage.getItem('APP_TOUR', (err, result) => {
+    if (!err && result != null) {
+        data = false;
+    }
+    else {
+        data = true;
+    }
+});
 
 function AppRoutes() {
+    console.log(check)
     return (
-        <Stack.Navigator initialRouteName="AppTour" >
+        <Stack.Navigator initialRouteName={data ? "AppTour" : "AuthLoading"} >
             <Stack.Screen name="AuthLoading" component={AuthLoading} options={{
                 headerShown: false
             }} />

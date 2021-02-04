@@ -7,6 +7,7 @@ import Chair from '../../assets/svg/chair';
 import Beard from '../../assets/svg/beard';
 import Calendar from '../../assets/svg/calendar(1)';
 import Mask from '../../assets/svg/mask(1)';
+import AsyncStorage from '@react-native-community/async-storage';
 const screenWidth = Math.round(Dimensions.get("window").width);
 const screenHeight = Math.round(Dimensions.get("window").height);
 const slides = [
@@ -35,11 +36,10 @@ const slides = [
 class AppTour extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-        };
     }
 
-    _onDone = () => { this.props.navigation.replace('AuthLoading'); };
+    _onDone = async () => { await AsyncStorage.setItem("APP_TOUR", JSON.stringify({ data: true })); this.props.navigation.replace('AuthLoading'); };
+
 
     _renderItem({ item }) {
         return (
