@@ -238,8 +238,6 @@ class ManageScheduleTime extends Component {
                     end_time: item.endTime
                 })
         })
-        console.log(moment(`${days[0].date}`).format('MM/DD/YYYY'))
-        console.log(moment(`${days[(days.length) - 1].date}`).format('MM/DD/YYYY'))
         let userData = {
             id: `${this.props.user.userData.id}`,
             token: this.props.user.userData.token,
@@ -250,14 +248,13 @@ class ManageScheduleTime extends Component {
         // Barbers.updateBarberWorkingDays(userData)
         SchedulerServices.createScheduler(userData)
             .then((res) => {
-                if (res.data.status) {
-                    this.setState({ buttonLoading: false })
-                    this.props.replace('ManageScheduler')
+                if (!res.data.status) {
+                    this.props.navigation.replace("ManageScheduler")
                 }
 
             })
             .catch((err) => console.log(err))
-        this.setState({ submit: false })
+        this.setState({ submit: false, buttonLoading: false })
     }
 
     on_Press_Next = () => {
