@@ -32,7 +32,8 @@ class ManageScheduler extends Component {
             endDate: '',
             markDaysObject: {},
             newWorkingDays: [],
-            schedulerArray: []
+            schedulerArray: [],
+            item: null
         }
     }
 
@@ -121,7 +122,7 @@ class ManageScheduler extends Component {
             array[index] = { ...array[index], id: index + 1, selected: true, startTime: '', endTime: '', isFilled: '', day: item.day, date: item.date }
         })
         console.log(array)
-        this.setState({ newWorkingDays: array, editModal: false, selectedDays: array }, () => this.props.onNext(array))
+        this.setState({ newWorkingDays: array, editModal: false, selectedDays: array }, () => this.props.onNext(array, this.state.edit, this.state.item))
     }
 
     // handleSelected = (val) => {
@@ -215,25 +216,25 @@ class ManageScheduler extends Component {
 
     }
 
-    _renderItems = (item) => {
-        const { edit } = this.state;
-        return (
-            <>
-                <View style={styles.contentContainer}>
-                    <View style={styles.nameContainer}>
-                        <Text style={styles.textStyle}>{item.day}</Text>
-                    </View>
-                    <View style={styles.iconContainer}>
-                        <TouchableOpacity disabled={edit ? false : true} onPress={() => this.handleSelected(item)}>
-                            <Icon.MaterialCommunityIcons
-                                name={item.selected == true ? 'checkbox-marked-circle' : 'checkbox-blank-circle-outline'}
-                                color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </>
-        )
-    }
+    // _renderItems = (item) => {
+    //     const { edit } = this.state;
+    //     return (
+    //         <>
+    //             <View style={styles.contentContainer}>
+    //                 <View style={styles.nameContainer}>
+    //                     <Text style={styles.textStyle}>{item.day}</Text>
+    //                 </View>
+    //                 <View style={styles.iconContainer}>
+    //                     <TouchableOpacity disabled={edit ? false : true} onPress={() => this.handleSelected(item)}>
+    //                         <Icon.MaterialCommunityIcons
+    //                             name={item.selected == true ? 'checkbox-marked-circle' : 'checkbox-blank-circle-outline'}
+    //                             color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
+    //                     </TouchableOpacity>
+    //                 </View>
+    //             </View>
+    //         </>
+    //     )
+    // }
 
     on_Press_Delete = (itemData, index) => {
         Alert.alert('Attension', 'Are you sure you want to delete your scheduler',
@@ -276,7 +277,7 @@ class ManageScheduler extends Component {
                         <Text style={styles.textStyle}>{item.scheduler_name}</Text>
                     </View>
                     <View style={[styles.iconContainer, { flexDirection: 'row' }]}>
-                        <TouchableOpacity onPress={() => { }}>
+                        <TouchableOpacity onPress={() => this.setState({ edit: true, item: item, editModal: true })}>
                             <Icon.MaterialIcons
                                 name={"edit"}
                                 color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
@@ -334,7 +335,7 @@ class ManageScheduler extends Component {
                         {
                             edit ?
                                 <>
-                                    <View style={[styles.buttonContainer, { flexDirection: "row", justifyContent: 'space-between' }]}>
+                                    {/* <View style={[styles.buttonContainer, { flexDirection: "row", justifyContent: 'space-between' }]}>
                                         <View style={{ flex: 0.45 }}>
                                             <Button title="Cancel  " onPress={() => this.setState({ edit: false, newWorkingDays: [] })} />
                                         </View>
@@ -342,7 +343,7 @@ class ManageScheduler extends Component {
                                             <Button title="Update Time  " disabled={this.state.selectedDays.length == 0 ? true : false} onPress={() => onNext(this.state.selectedDays)} />
                                         </View>
                                     </View>
-                                    <View style={styles.gapHeight1}></View>
+                                    <View style={styles.gapHeight1}></View> */}
                                 </>
                                 :
                                 <View style={styles.buttonContainer}>

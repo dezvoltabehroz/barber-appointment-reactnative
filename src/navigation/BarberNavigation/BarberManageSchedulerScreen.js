@@ -10,7 +10,7 @@ export default class BarberManageSchedulerScreen extends Component {
     render() {
         const { navigate, goBack, replace } = this.props.navigation
         return (
-            <MainScreenPaths.Barber.BarberManageScheduler onNext={(data) => navigate('ManageScheduleTime', { data: data })} />
+            <MainScreenPaths.Barber.BarberManageScheduler onNext={(data, edit, item) => navigate('ManageScheduleTime', { data: data, edit, item })} />
         )
     }
 }

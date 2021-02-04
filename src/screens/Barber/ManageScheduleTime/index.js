@@ -226,6 +226,38 @@ class ManageScheduleTime extends Component {
         )
     }
 
+    on_Press_Delete = (itemData, index) => {
+        Alert.alert('Attension', 'Are you sure you want to delete your scheduler',
+            [
+                {
+                    text: "Cancel",
+                    // onPress: () => this.handleCancel(),
+                    style: "cancel"
+                },
+                { text: "OK", onPress: () => this.handledelete(itemData) }
+            ],
+
+        );
+    }
+
+    handledelete = (item) => {
+        let userData = {
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token,
+            scheduler_id: item.id
+        }
+        SchedulerServices.deleteScheduler(userData)
+            .then((res) => {
+                if (res.data.status) {
+                    let selectedArray = [...this.state.schedulerArray];
+                    this.setState({ schedulerArray: selectedArray.filter((obj => obj.id != item.id)) })
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
     handleSaveFunction = () => {
         let days = [];
         const { selectedDays } = this.state;
@@ -246,14 +278,40 @@ class ManageScheduleTime extends Component {
         }
         // console.log(userData)
         // Barbers.updateBarberWorkingDays(userData)
-        SchedulerServices.createScheduler(userData)
-            .then((res) => {
-                if (!res.data.status) {
-                    this.props.navigation.replace("ManageScheduler")
-                }
+        if (this.props.edit) {
+            let data = {
+                id: this.props.user.userData.id,
+                token: this.props.user.userData.token,
+                scheduler_id: this.props.item.id
+            }
+            SchedulerServices.deleteScheduler(data)
+                .then((res) => {
+                    if (res.data.status) {
+                        SchedulerServices.createScheduler(userData)
+                            .then((res) => {
+                                if (!res.data.status) {
+                                    this.props.navigation.replace("ManageScheduler")
+                                }
 
-            })
-            .catch((err) => console.log(err))
+                            })
+                            .catch((err) => console.log(err))
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
+        else {
+            SchedulerServices.createScheduler(userData)
+                .then((res) => {
+                    if (!res.data.status) {
+                        this.props.navigation.replace("ManageScheduler")
+                    }
+
+                })
+                .catch((err) => console.log(err))
+        }
+
         this.setState({ submit: false, buttonLoading: false })
     }
 
