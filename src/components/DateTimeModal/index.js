@@ -44,9 +44,9 @@ export default class DateTimeModal extends Component {
         for (var i = 0; i < range; i++) {
             if (dayNight) {
                 if (i <= 9) {
-                    set[i] = (i.toString() + ":00");
+                    set[i] = (i.toString());
                 } else {
-                    set[i] = (i.toString() + ":00");
+                    set[i] = (i.toString());
                 }
             }
             else {
@@ -79,7 +79,7 @@ export default class DateTimeModal extends Component {
         if (dayNight) {
             if (am == true && pm == false) {
                 let time = hours.split(':');
-                var value = `${time[0] == '12' ? '00' : (parseInt(time[0]))}:00`;
+                var value = `${hours == '12' ? '00' : parseInt(hours) < 10 ? `0${hours}` : hours}:00`;
                 console.log(value)
                 if (hours == '' || hours == '00') {
                     Alert.alert("Attention", "Please select correct Hour")
@@ -142,12 +142,12 @@ export default class DateTimeModal extends Component {
                                 wrapperColor={THEME.PRIMARY_BACKGROUND_COLOR}
                                 highlightColor={THEME.COLOR_WHITE}
                                 renderItem={(data, index, isSelected) => {
-                                    return (<Text style={styles.textFlatlistStyle}>{data}</Text>)
+                                    return (<Text style={[styles.textFlatlistStyle, { color: index == 0 ? THEME.PRIMARY_BACKGROUND_COLOR : 'white' }]}>{dayNight == true ? `${data}:00` : data}</Text>)
                                 }}
                                 onValueChange={(data, selectedIndex) => {
-                                    if (selectedIndex == 0 && data == '00') {
+                                    if (selectedIndex == 0) {
                                         this.setState({ disabled: true })
-                                        this.handleHours(data)
+                                        // this.handleHours(data)
                                     }
                                     else {
                                         this.setState({ disabled: false })
@@ -178,7 +178,7 @@ export default class DateTimeModal extends Component {
                                         wrapperColor={THEME.PRIMARY_BACKGROUND_COLOR}
                                         highlightColor={THEME.COLOR_WHITE}
                                         renderItem={(data, index, isSelected) => {
-                                            return (<Text style={styles.textFlatlistStyle}>{data}</Text>)
+                                            return (<Text style={[styles.textFlatlistStyle, { color: index == 0 ? THEME.PRIMARY_BACKGROUND_COLOR : 'white' }]}>{data}</Text>)
                                         }}
                                         onValueChange={(data, selectedIndex) => {
                                             if (selectedIndex == 0 && data == '00') {
