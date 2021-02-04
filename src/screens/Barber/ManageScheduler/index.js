@@ -332,10 +332,9 @@ class ManageScheduler extends Component {
                     <View style={styles.footerStyle}>
                         <View style={styles.lineStyle}></View>
                         <View style={styles.gapHeight}></View>
-                        {
-                            edit ?
-                                <>
-                                    {/* <View style={[styles.buttonContainer, { flexDirection: "row", justifyContent: 'space-between' }]}>
+
+                        <>
+                            {/* <View style={[styles.buttonContainer, { flexDirection: "row", justifyContent: 'space-between' }]}>
                                         <View style={{ flex: 0.45 }}>
                                             <Button title="Cancel  " onPress={() => this.setState({ edit: false, newWorkingDays: [] })} />
                                         </View>
@@ -344,12 +343,12 @@ class ManageScheduler extends Component {
                                         </View>
                                     </View>
                                     <View style={styles.gapHeight1}></View> */}
-                                </>
-                                :
-                                <View style={styles.buttonContainer}>
-                                    <Button title={"Add"} onPress={() => this.setState({ edit: true, editModal: true })} />
-                                </View>
-                        }
+                        </>
+
+                        <View style={styles.buttonContainer}>
+                            <Button title={"Add"} onPress={() => this.setState({ edit: true, editModal: true })} />
+                        </View>
+
                     </View>
 
                 </View>

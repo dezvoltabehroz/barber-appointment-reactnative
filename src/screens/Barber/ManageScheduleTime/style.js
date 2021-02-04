@@ -48,7 +48,7 @@ export default StyleSheet.create({
     textStyle: {
         color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Medium',
-        fontSize: THEME.FONT_SIZE_SMALL,
+        fontSize: 10,
     },
     headingTextStyle: {
         color: THEME.COLOR_WHITE,
