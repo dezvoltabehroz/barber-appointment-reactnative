@@ -6,7 +6,7 @@ import THEME from '../../../assets/styles/theme.style';
 import COMMON_STYLE from '../../../assets/styles/common.style';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Calendar } from 'react-native-calendars';
-import { Barbers, RegisterUser } from '../../../services';
+import { Barbers, RegisterUser, SchedulerServices } from '../../../services';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../../redux/actions/auth';
@@ -53,7 +53,8 @@ class ManageScheduleTime extends Component {
         this.setState({ showEditService: false, showTimePicker: true, indexValue: index, index: index, item: item, val: '0' })
     }
 
-    setTimeChange = (data) => {
+    setTimeChange = async (data) => {
+        console.log('data:', data)
         const { val, selectedDays, indexValue, item } = this.state;
         // if (val == '1') {
         //     selectedDays[indexValue].startTime = data;
@@ -64,15 +65,18 @@ class ManageScheduleTime extends Component {
         const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
         let items = [...this.state.selectedDays];
         if (val == '1') {
-            items[objIndex] = { ...items[objIndex], startTime: selectedDays[indexValue].startTime = data };
-            this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, });
+            items[objIndex] = { ...items[objIndex], startTime: selectedDays[indexValue].startTime = `${data}` };
+            await this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, });
+            console.log(items);
+
             this.is_filled_check(items, objIndex)
         }
         else {
             if (moment.duration(data).asMinutes() > moment.duration(selectedDays[indexValue].startTime).asMinutes()) {
                 items[objIndex] = { ...items[objIndex], endTime: selectedDays[indexValue].endTime = data };
-                this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, });
-                this.is_filled_check(items, objIndex)
+                await this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, });
+                this.is_filled_check(items, objIndex);
+                console.log(items);
             }
             else {
                 Alert.alert("Attention", "End Time should be greater then Start Time")
@@ -143,17 +147,18 @@ class ManageScheduleTime extends Component {
     _renderItems = ({ item, index }) => {
         const { selectedDays, submit } = this.state;
         let date = moment().format('YYYY-MM-DD');
+        let startTime = item.startTime != undefined ? item.startTime != '' ? moment(`${date} ${item.startTime}`).format('hh:mm A') : "" : ""
         return (
             <View style={styles.contentContainer}>
                 <View style={styles.headingContainer}>
                     <View style={styles.dayContainer}>
-                        <Text style={styles.textStyle}>{item.day}</Text>
+                        <Text style={styles.textStyle}>{item.date} {item.day}</Text>
                     </View>
                     <View style={styles.startTimeContainer} >
                         {
                             item.startTime != '' ?
                                 <View style={styles.startTimeContainer}>
-                                    <Text style={styles.textStyle}>{item.startTime != undefined ? moment(`${date} ${item.startTime}`).format('hh:mm A') : ''}</Text>
+                                    <Text style={styles.textStyle}>{item.startTime != undefined ? item.startTime != '' ? startTime : '' : ''}</Text>
                                 </View>
                                 :
                                 null
@@ -228,21 +233,28 @@ class ManageScheduleTime extends Component {
             if (item.day != undefined)
                 days.push({
                     day: item.day,
+                    date: item.date,
                     start_time: item.startTime,
                     end_time: item.endTime
                 })
         })
+        console.log(moment(`${days[0].date}`).format('MM/DD/YYYY'))
+        console.log(moment(`${days[(days.length) - 1].date}`).format('MM/DD/YYYY'))
         let userData = {
             id: `${this.props.user.userData.id}`,
             token: this.props.user.userData.token,
-            working_schedule: days
+            working_days: days,
+            scheduler_name: `${moment(`${days[0].date}`).format('MM/DD/YYYY') + ' - ' + moment(`${days[(days.length) - 1].date}`).format('MM/DD/YYYY')}`
         }
-        Barbers.updateBarberWorkingDays(userData)
+        // console.log(userData)
+        // Barbers.updateBarberWorkingDays(userData)
+        SchedulerServices.createScheduler(userData)
             .then((res) => {
                 if (res.data.status) {
                     this.setState({ buttonLoading: false })
-                    this.props.replace("ManageWorkingDays")
+                    this.props.replace('ManageScheduler')
                 }
+
             })
             .catch((err) => console.log(err))
         this.setState({ submit: false })
@@ -329,7 +341,7 @@ class ManageScheduleTime extends Component {
                 <DateTimeModal showTimePicker={showTimePicker}
                     dayNight={true}
                     onCancel={() => this.setState({ showTimePicker: false })}
-                    onSet={(time) => { this.state.startTime != "" || this.state.endTime != "" ? this.state.val == '1' ? this.setState({ startTime: time, showTimePicker: false, showEditService: true }) : this.setState({ endTime: time, showTimePicker: false, showEditService: true }) : this.setTimeChange(time) }} />
+                    onSet={(time) => { this.state.startTime != "" && this.state.val == '1' ? this.setState({ startTime: time, showTimePicker: false, showEditService: true }) : this.state.endTime != "" && this.state.val == '0' ? this.setState({ endTime: time, showTimePicker: false, showEditService: true }) : this.setTimeChange(time) }} />
                 <Modal visible={showEditService}
                     animationType="slide">
                     {

@@ -78,7 +78,9 @@ export default class DateTimeModal extends Component {
         console.log(hours);
         if (dayNight) {
             if (am == true && pm == false) {
-                var value = hours == '12:00' ? "00" + ":" + "00" : hours;
+                let time = hours.split(':');
+                var value = `${time[0] == '12' ? '00' : (parseInt(time[0]))}:00`;
+                console.log(value)
                 if (hours == '' || hours == '00') {
                     Alert.alert("Attention", "Please select correct Hour")
                 }

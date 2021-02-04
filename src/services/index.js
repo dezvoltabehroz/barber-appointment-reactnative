@@ -18,3 +18,6 @@ export const BookingServices = _Booking;
 
 import _Notifications from './notifications';
 export const Notifications = _Notifications;
+
+import _Scheduler from './scheduler';
+export const SchedulerServices = _Scheduler;
