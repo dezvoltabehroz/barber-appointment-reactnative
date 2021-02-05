@@ -44,7 +44,6 @@ class BarberHome extends Component {
     }
 
     componentDidMount = () => {
-        debugger;
         const { user } = this.props
         let userData = {
             id: user.userData.id,
