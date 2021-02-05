@@ -31,18 +31,31 @@ class AddServices extends Component {
 
     componentDidMount = () => {
         this.setState({ loading: true })
+        console.log(this.props.user.userData.barber_title)
         let userData = {
             id: this.props.user.userData.id,
             token: this.props.user.userData.token,
         }
-        Categories.getAllVendorServices(userData)
-            .then((res) => {
-                if (res.data.status) {
-                    this.setState({ barberServices: res.data.services, loading: false });
-                    this.arrayHolder = res.data.services;
-                }
-            })
-            .catch((err) => console.log(err))
+        if (this.props.user.userData.barber_title == '' || this.props.user.userData.barber_title == null || this.props.user.userData.barber_title == 'undefined') {
+            Categories.getAllServices(userData)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.setState({ barberServices: res.data.services, loading: false });
+                        this.arrayHolder = res.data.services;
+                    }
+                })
+                .catch((err) => console.log(err))
+        }
+        else {
+            Categories.getAllVendorServices(userData)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.setState({ barberServices: res.data.services, loading: false });
+                        this.arrayHolder = res.data.services;
+                    }
+                })
+                .catch((err) => console.log(err))
+        }
     }
 
     handleSelected = (val) => {

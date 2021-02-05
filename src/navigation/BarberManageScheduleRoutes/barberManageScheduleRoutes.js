@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import BarberManageWorkingDaysScreen from '../BarberNavigation/BarberManageWorkingDaysScreen';
 import BarberManageScheduleTimeScreen from '../BarberNavigation/BarberManageScheduleTimeScreen';
 import BarberManageSchedulerScreen from '../BarberNavigation/BarberManageSchedulerScreen';
+import BarberManageSchedulerDetailScreen from '../BarberNavigation/BarberManageSchedulerDetailScreen'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
@@ -15,6 +16,9 @@ function BarberWorkingDaysRoutes() {
     return (
         <Stack.Navigator initialRouteName="ManageScheduler">
             <Stack.Screen name="ManageScheduler" component={BarberManageSchedulerScreen} options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="ManageSchedulerDetail" component={BarberManageSchedulerDetailScreen} options={{
                 headerShown: false,
             }} />
             <Stack.Screen name="ManageWorkingDays" component={BarberManageWorkingDaysScreen} options={{

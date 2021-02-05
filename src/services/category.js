@@ -29,7 +29,12 @@ const Api = {
     },
     getAllVendorServices: function (userData) {
         return axiosInstance.post('services/listAllServicesByTitle', {
-           id: userData.id
+            id: userData.id
+        }, configToken(userData.token))
+    },
+    getAllServices: function (userData) {
+        return axiosInstance.post('services/listAllServices', {
+            id: userData.id
         }, configToken(userData.token))
     }
 

@@ -76,6 +76,7 @@ class ManageScheduler extends Component {
     }
 
     componentDidMount = () => {
+        console.log(this.props.user.userData)
         let userData = {
             id: this.props.user.userData.id,
             token: this.props.user.userData.token,
@@ -273,9 +274,9 @@ class ManageScheduler extends Component {
         return (
             <>
                 <View style={styles.contentContainer}>
-                    <View style={styles.nameContainer}>
+                    <TouchableOpacity onPress={() => this.props.onDetail(item)} style={styles.nameContainer}>
                         <Text style={styles.textStyle}>{item.scheduler_name}</Text>
-                    </View>
+                    </TouchableOpacity>
                     <View style={[styles.iconContainer, { flexDirection: 'row' }]}>
                         <TouchableOpacity onPress={() => this.setState({ edit: true, item: item, editModal: true })}>
                             <Icon.MaterialIcons

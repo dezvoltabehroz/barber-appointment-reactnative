@@ -144,6 +144,13 @@ class ManageScheduleTime extends Component {
         this.setState({ showEditService: true, startTime: selectedDays[index].startTime, endTime: selectedDays[index].endTime })
     }
 
+    truncateString = (str, num) => {
+        if (str.length <= num) {
+            return str
+        }
+        return str.slice(0, num) + '...'
+    }
+
     _renderItems = ({ item, index }) => {
         const { selectedDays, submit } = this.state;
         let date = moment().format('YYYY-MM-DD');
@@ -152,7 +159,7 @@ class ManageScheduleTime extends Component {
             <View style={styles.contentContainer}>
                 <View style={styles.headingContainer}>
                     <View style={styles.dayContainer}>
-                        <Text style={styles.textStyle}>{item.date} {item.day}</Text>
+                        <Text style={styles.textStyle}>{item.date} {this.truncateString(item.day, 3)}</Text>
                     </View>
                     <View style={styles.startTimeContainer} >
                         {
