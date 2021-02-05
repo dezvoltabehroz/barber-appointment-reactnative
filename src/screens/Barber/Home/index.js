@@ -22,30 +22,10 @@ class BarberHome extends Component {
         this.state = {
             location: [],
             bookingList: [],
-            servicelist: [
-                {
-                    name: 'Appointments History',
-                    imageUrl: require('../../../assets/images/Rectangle.png')
-                },
-
-                {
-                    name: 'About Us',
-                    imageUrl: require('../../../assets/images/Rectangle.png')
-                },
-                {
-                    name: 'Contact Us',
-                    imageUrl: require('../../../assets/images/Rectangle.png')
-                },
-                {
-                    name: 'PPE (Formerly About US)',
-                    imageUrl: require('../../../assets/images/Rectangle.png')
-                },
-            ],
             loading: false
-
-
         }
     }
+
     getAllBookings = () => {
         this.setState({ loading: true })
         const { user } = this.props
@@ -62,7 +42,9 @@ class BarberHome extends Component {
             })
             .catch((err) => console.log(err))
     }
+
     componentDidMount = () => {
+        debugger;
         const { user } = this.props
         let userData = {
             id: user.userData.id,
@@ -178,13 +160,12 @@ class BarberHome extends Component {
 
     render() {
         let { onExit } = this.props
-        const { servicelist, bookingList } = this.state
+        const { bookingList } = this.state
         const { userData } = this.props.user
         return (
             <>
                 <View style={styles.container}>
                     <View style={styles.nameContainer}>
-                        {/* <Text style={styles.appNameTextStyle} >Fleek</Text> */}
                         <Image source={require('../../../assets/images/logo.png')} resizeMode='contain' style={styles.logoStyle} />
                         {<TouchableOpacity style={styles.exitContainer} onPress={() => onExit()}>
                             <View style={{}}>
@@ -193,18 +174,9 @@ class BarberHome extends Component {
                                     source={{ uri: this.props.user.userData ? userData.profile_picture : "" }}
                                     rounded
                                     size={50} />
-                                {/* <Icon.Feather name="log-out" color="#fff" size={25} /> */}
                             </View>
                         </TouchableOpacity>}
                     </View>
-                    {/* <View style={styles.upperListContainer}>
-                        <FlatList
-                            data={servicelist}
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                            renderItem={({ item }) => this._renderItems(item)}
-                            keyExtractor={item => item} />
-                    </View> */}
                     <View style={styles.nameContainer}>
                         <Text style={styles.appointmentTextStyle}>My Appointments</Text>
                     </View>

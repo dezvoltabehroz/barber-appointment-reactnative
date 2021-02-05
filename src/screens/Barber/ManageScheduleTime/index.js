@@ -148,7 +148,7 @@ class ManageScheduleTime extends Component {
         if (str.length <= num) {
             return str
         }
-        return str.slice(0, num) + '...'
+        return str.slice(0, num)
     }
 
     _renderItems = ({ item, index }) => {

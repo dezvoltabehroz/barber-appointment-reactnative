@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert, ActivityIndicator, Modal } from 'react-native';
-import { FooterButton, Button, Icon, DateTimeModal } from '../../../components';
+import { View, Text, FlatList, ActivityIndicator, } from 'react-native';
+import { Button } from '../../../components';
 import styles from './style';
-import THEME from '../../../assets/styles/theme.style';
-import COMMON_STYLE from '../../../assets/styles/common.style';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Calendar } from 'react-native-calendars';
-import { Barbers, RegisterUser, SchedulerServices } from '../../../services';
+import { SchedulerServices } from '../../../services';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../../redux/actions/auth';
@@ -39,16 +36,12 @@ class ManageSchedulerDetail extends Component {
         }
         SchedulerServices.schedulerDetail(userData)
             .then((response) => {
-                console.log(response.data)
                 if (response.data.status) {
                     this.setState({ selectedDays: response.data.data, loading: false })
                 }
             })
             .catch((err) => console.log(err))
-
     }
-
-
 
     _renderSeparator = () => {
         return (
@@ -60,18 +53,17 @@ class ManageSchedulerDetail extends Component {
         if (str.length <= num) {
             return str
         }
-        return str.slice(0, num) + '...'
+        return str.slice(0, num)
     }
 
     _renderItems = ({ item, index }) => {
         const { selectedDays, submit } = this.state;
         let date = moment().format('YYYY-MM-DD');
-        let startTime = item.start_time != undefined ? item.start_time != '' ? moment(`${date} ${item.start_time}`).format('hh:mm A') : "" : ""
         return (
             <View style={styles.contentContainer}>
                 <View style={styles.headingContainer}>
                     <View style={styles.dayContainer}>
-                        <Text style={styles.textStyle}>{moment(` ${item.date}`).format('YYYY-MM-DD')} {this.truncateString(item.day, 3)}</Text>
+                        <Text style={styles.textStyle}>{moment(`${item.date}`).format('YYYY-MM-DD')} {this.truncateString(item.day, 3)}</Text>
                     </View>
                     <View style={styles.startTimeContainer} >
                         {

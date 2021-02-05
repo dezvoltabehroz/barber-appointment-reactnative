@@ -38,7 +38,6 @@ class AddServices extends Component {
         if (this.props.user.userData.barber_title == '' || this.props.user.userData.barber_title == 'undefined' || this.props.user.userData.barber_title == 'null') {
             Categories.getAllServices(userData)
                 .then((res) => {
-                    console.log(res.data)
                     if (res.data.status) {
                         this.setState({ barberServices: res.data.services, loading: false });
                         this.arrayHolder = res.data.services;
