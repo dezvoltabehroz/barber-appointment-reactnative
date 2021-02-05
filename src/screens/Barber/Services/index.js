@@ -31,14 +31,14 @@ class AddServices extends Component {
 
     componentDidMount = () => {
         this.setState({ loading: true })
-        console.log(this.props.user.userData.barber_title)
         let userData = {
             id: this.props.user.userData.id,
             token: this.props.user.userData.token,
         }
-        if (this.props.user.userData.barber_title == '' || this.props.user.userData.barber_title == null || this.props.user.userData.barber_title == 'undefined') {
+        if (this.props.user.userData.barber_title == '' || this.props.user.userData.barber_title == 'undefined' || this.props.user.userData.barber_title == 'null') {
             Categories.getAllServices(userData)
                 .then((res) => {
+                    console.log(res.data)
                     if (res.data.status) {
                         this.setState({ barberServices: res.data.services, loading: false });
                         this.arrayHolder = res.data.services;
