@@ -31,11 +31,12 @@ class AddServices extends Component {
 
     componentDidMount = () => {
         this.setState({ loading: true })
+        let { barber_title } = this.props.user.userData;
         let userData = {
             id: this.props.user.userData.id,
             token: this.props.user.userData.token,
         }
-        if (this.props.user.userData.barber_title == '' || this.props.user.userData.barber_title == 'undefined' || this.props.user.userData.barber_title == 'null') {
+        if (barber_title == '' || barber_title == 'undefined' || barber_title == 'null') {
             Categories.getAllServices(userData)
                 .then((res) => {
                     if (res.data.status) {

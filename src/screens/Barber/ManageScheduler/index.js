@@ -278,7 +278,7 @@ class ManageScheduler extends Component {
                         <Text style={styles.textStyle}>{item.scheduler_name}</Text>
                     </TouchableOpacity>
                     <View style={[styles.iconContainer, { flexDirection: 'row' }]}>
-                        <TouchableOpacity onPress={() => this.setState({ edit: true, item: item, editModal: true })}>
+                        <TouchableOpacity onPress={() => this.props.onEdit(item)}>
                             <Icon.MaterialIcons
                                 name={"edit"}
                                 color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />

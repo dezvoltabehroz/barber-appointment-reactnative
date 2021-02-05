@@ -154,7 +154,7 @@ class ManageSchedulerDetail extends Component {
                                     <View style={styles.lineStyle}></View>
                                     <View style={styles.gapHeight}></View>
                                     <View style={[styles.buttonContainer, { flexDirection: "row", justifyContent: 'space-between' }]}>
-                                        <View style={{ flex: 0.9 }}>
+                                        <View style={{ flex: 1, }}>
                                             <Button title="Back  " onPress={() => this.props.goBack()} />
                                         </View>
                                     </View>

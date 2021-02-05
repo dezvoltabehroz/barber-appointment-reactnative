@@ -6,6 +6,7 @@ import BarberManageWorkingDaysScreen from '../BarberNavigation/BarberManageWorki
 import BarberManageScheduleTimeScreen from '../BarberNavigation/BarberManageScheduleTimeScreen';
 import BarberManageSchedulerScreen from '../BarberNavigation/BarberManageSchedulerScreen';
 import BarberManageSchedulerDetailScreen from '../BarberNavigation/BarberManageSchedulerDetailScreen'
+import BarberManageEditSchedulerScreen from '../BarberNavigation/BarberManageEditSchedulerScreen';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
@@ -19,6 +20,9 @@ function BarberWorkingDaysRoutes() {
                 headerShown: false,
             }} />
             <Stack.Screen name="ManageSchedulerDetail" component={BarberManageSchedulerDetailScreen} options={{
+                headerShown: false,
+            }} />
+            <Stack.Screen name="ManageEditScheduler" component={BarberManageEditSchedulerScreen} options={{
                 headerShown: false,
             }} />
             <Stack.Screen name="ManageWorkingDays" component={BarberManageWorkingDaysScreen} options={{

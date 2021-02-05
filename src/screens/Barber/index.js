@@ -34,6 +34,7 @@ import _AddBreakTime from './AddBreakTime';
 import _AddLeave from './AddLeave';
 import ManageScheduler from './ManageScheduler';
 import ManageSchedulerDetails from './ManageSchedulerDetails';
+import _ManageEditScheduler from './ManageEditScheduler';
 export const BarberScreenPaths = {
     BarberPhoneNumber: _BarberPhoneNumber,
     BarberPhoneVerification: _BarberPhoneVerification,
@@ -70,5 +71,6 @@ export const BarberScreenPaths = {
     BarberAddBreakTime: _AddBreakTime,
     BarberAddLeave: _AddLeave,
     BarberManageScheduler: ManageScheduler,
-    BarberManageSchedulerDetails: ManageSchedulerDetails
+    BarberManageSchedulerDetails: ManageSchedulerDetails,
+    BarberManageEditScheduler: _ManageEditScheduler
 }
