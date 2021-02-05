@@ -38,6 +38,9 @@ class Resume extends Component {
                     })
                     this.setState({ resume: arr, loading: false, selectActions: false, selectedArray: [] })
                 }
+                else {
+                    this.setState({ resume: [], loading: false, selectActions: false, selectedArray: [] })
+                }
             })
             .catch((err) => {
                 console.log(err)
@@ -202,28 +205,35 @@ class Resume extends Component {
                                             </TouchableOpacity>
                                         </View>
                                         {
-                                            resume != null || resume[0] != 'undefined' ?
-                                                <>
-                                                    <FlatList
-                                                        data={resume}
-                                                        numColumns={3}
-                                                        showsVerticalScrollIndicator={false}
-                                                        contentContainerStyle={styles.contentContainer}
-                                                        ItemSeparatorComponent={this._renderSeparator}
-                                                        renderItem={({ item, index }) => this._renderItems(item, index)}
-                                                        keyExtractor={item => item}
-                                                        extraData={this.state.resume}
-                                                    />
-                                                    <ImageView
-                                                        images={imageURLs}
-                                                        imageIndex={0}
-                                                        isVisible={this.state.isImageViewVisible}
-                                                        isSwipeCloseEnabled={true}
-                                                        onClose={() => { this.setState({ isImageViewVisible: false }) }}
-                                                    />
-                                                </>
+                                            resume.length == 0 ?
+                                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                                    <View style={styles.labelContainer}  >
+                                                        <Text style={styles.labelTextStyle}>No Resume Found</Text>
+                                                    </View>
+                                                </View>
                                                 :
-                                                null
+                                                resume != null || resume[0] != 'undefined' ?
+                                                    <>
+                                                        <FlatList
+                                                            data={resume}
+                                                            numColumns={3}
+                                                            showsVerticalScrollIndicator={false}
+                                                            contentContainerStyle={styles.contentContainer}
+                                                            ItemSeparatorComponent={this._renderSeparator}
+                                                            renderItem={({ item, index }) => this._renderItems(item, index)}
+                                                            keyExtractor={item => item}
+                                                            extraData={this.state.resume}
+                                                        />
+                                                        <ImageView
+                                                            images={imageURLs}
+                                                            imageIndex={0}
+                                                            isVisible={this.state.isImageViewVisible}
+                                                            isSwipeCloseEnabled={true}
+                                                            onClose={() => { this.setState({ isImageViewVisible: false }) }}
+                                                        />
+                                                    </>
+                                                    :
+                                                    null
                                         }
                                     </View>
                                 </View>

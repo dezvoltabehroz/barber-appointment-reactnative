@@ -33,6 +33,8 @@ class Portfolio extends Component {
                         arr[index].is_selected = false;
                     })
                     this.setState({ portfolioImagesArray: arr, loading: false, selectActions: false, selectedArray: [] })
+                } else {
+                    this.setState({ portfolioImagesArray: [], loading: false, })
                 }
             })
             .catch((err) => {
@@ -196,27 +198,35 @@ class Portfolio extends Component {
                                     </TouchableOpacity>
                                 </View>
                                 {
-                                    portfolioImagesArray !== null ?
-                                        <>
-                                            <FlatList
-                                                data={portfolioImagesArray}
-                                                numColumns={3}
-                                                showsVerticalScrollIndicator={false}
-                                                contentContainerStyle={styles.contentContainerStyle}
-                                                ItemSeparatorComponent={this._renderSeparator}
-                                                renderItem={({ item, index }) => this._renderItems(item, index)}
-                                                keyExtractor={item => item}
-                                            />
-                                            <ImageView
-                                                images={imageURLs}
-                                                imageIndex={0}
-                                                isVisible={this.state.isImageViewVisible}
-                                                isSwipeCloseEnabled={true}
-                                                onClose={() => { this.setState({ isImageViewVisible: false }) }}
-                                            />
-                                        </>
+                                    portfolioImagesArray.length == 0 ?
+                                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                            <View style={styles.labelContainer}  >
+                                                <Text style={styles.labelTextStyle}>No Portfolio Found</Text>
+                                            </View>
+                                        </View>
+
                                         :
-                                        null
+                                        portfolioImagesArray !== null ?
+                                            <>
+                                                <FlatList
+                                                    data={portfolioImagesArray}
+                                                    numColumns={3}
+                                                    showsVerticalScrollIndicator={false}
+                                                    contentContainerStyle={styles.contentContainerStyle}
+                                                    ItemSeparatorComponent={this._renderSeparator}
+                                                    renderItem={({ item, index }) => this._renderItems(item, index)}
+                                                    keyExtractor={item => item}
+                                                />
+                                                <ImageView
+                                                    images={imageURLs}
+                                                    imageIndex={0}
+                                                    isVisible={this.state.isImageViewVisible}
+                                                    isSwipeCloseEnabled={true}
+                                                    onClose={() => { this.setState({ isImageViewVisible: false }) }}
+                                                />
+                                            </>
+                                            :
+                                            null
                                 }
 
                             </View>

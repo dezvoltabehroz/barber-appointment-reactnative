@@ -84,20 +84,10 @@ class ManageScheduler extends Component {
         SchedulerServices.getAllListScheduler(userData)
             .then((res) => {
                 if (res.data.status) {
-                    this.setState({})
-                    console.log(res.data.data)
                     this.setState({ schedulerArray: res.data.data, loading: false })
-                    // let array = [...this.state.workingDays];
-                    // let selectedArray = [];
-                    // res.data.resSchedule.forEach((element, index) => {
-                    //     for (let index = 0; index < array.length; index++) {
-                    //         if (element.day == array[index].day) {
-                    //             array[index] = { ...array[index], selected: true, startTime: element.start_time, endTime: element.end_time, isFilled: '1' };
-                    //             selectedArray.push(array[index]);
-                    //         }
-                    //     }
-                    // })
-                    // this.setState({ workingDays: array, selectedDays: selectedArray, loading: false })
+                }
+                else {
+                    this.setState({ schedulerArray: [], loading: false })
                 }
             })
             .catch((err) => console.log(err))
