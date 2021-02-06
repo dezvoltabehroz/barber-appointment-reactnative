@@ -13,7 +13,7 @@ export default class BarberManageSchedulerScreen extends Component {
             <MainScreenPaths.Barber.BarberManageScheduler
                 onDetail={(item) => navigate('ManageSchedulerDetail', { item })}
                 onEdit={(item) => navigate('ManageEditScheduler', { item: item, edit: true })}
-                onNext={(data, edit, item) => navigate('ManageScheduleTime', { data: data, edit, item })} />
+                onNext={(data, edit, item) => navigate('ManageScheduleTime', { data: data, item })} />
         )
     }
 }

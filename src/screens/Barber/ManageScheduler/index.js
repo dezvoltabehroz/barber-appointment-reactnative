@@ -113,7 +113,7 @@ class ManageScheduler extends Component {
             array[index] = { ...array[index], id: index + 1, selected: true, startTime: '', endTime: '', isFilled: '', day: item.day, date: item.date }
         })
         console.log(array)
-        this.setState({ newWorkingDays: array, editModal: false, selectedDays: array }, () => this.props.onNext(array, this.state.edit, this.state.item))
+        this.setState({ newWorkingDays: array, editModal: false, selectedDays: array }, () => this.props.onNext(array, this.state.item))
     }
 
     // handleSelected = (val) => {

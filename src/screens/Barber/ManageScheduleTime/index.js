@@ -155,12 +155,18 @@ class ManageScheduleTime extends Component {
         const { selectedDays, submit } = this.state;
         let date = moment().format('YYYY-MM-DD');
         let startTime = item.startTime != undefined ? item.startTime != '' ? moment(`${date} ${item.startTime}`).format('hh:mm A') : "" : ""
+
         return (
             <View style={styles.contentContainer}>
                 <View style={styles.headingContainer}>
-                    <View style={styles.dayContainer}>
-                        <Text style={styles.textStyle}>{item.date} {this.truncateString(item.day, 3)}</Text>
-                    </View>
+                    {
+                        item.date != undefined && item.day != undefined ?
+                            <View style={styles.dayContainer}>
+                                <Text style={styles.textStyle}>{item.date} {this.truncateString(`${item.day}`, 3)}</Text>
+                            </View>
+                            :
+                            null
+                    }
                     <View style={styles.startTimeContainer} >
                         {
                             item.startTime != '' ?
@@ -233,40 +239,41 @@ class ManageScheduleTime extends Component {
         )
     }
 
-    on_Press_Delete = (itemData, index) => {
-        Alert.alert('Attension', 'Are you sure you want to delete your scheduler',
-            [
-                {
-                    text: "Cancel",
-                    // onPress: () => this.handleCancel(),
-                    style: "cancel"
-                },
-                { text: "OK", onPress: () => this.handledelete(itemData) }
-            ],
+    // on_Press_Delete = (itemData, index) => {
+    //     Alert.alert('Attension', 'Are you sure you want to delete your scheduler',
+    //         [
+    //             {
+    //                 text: "Cancel",
+    //                 // onPress: () => this.handleCancel(),
+    //                 style: "cancel"
+    //             },
+    //             { text: "OK", onPress: () => this.handledelete(itemData) }
+    //         ],
 
-        );
-    }
+    //     );
+    // }
 
-    handledelete = (item) => {
-        let userData = {
-            id: this.props.user.userData.id,
-            token: this.props.user.userData.token,
-            scheduler_id: item.id
-        }
-        SchedulerServices.deleteScheduler(userData)
-            .then((res) => {
-                if (res.data.status) {
-                    let selectedArray = [...this.state.schedulerArray];
-                    this.setState({ schedulerArray: selectedArray.filter((obj => obj.id != item.id)) })
-                }
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }
+    // handledelete = (item) => {
+    //     let userData = {
+    //         id: this.props.user.userData.id,
+    //         token: this.props.user.userData.token,
+    //         scheduler_id: item.id
+    //     }
+    //     SchedulerServices.deleteScheduler(userData)
+    //         .then((res) => {
+    //             if (res.data.status) {
+    //                 let selectedArray = [...this.state.schedulerArray];
+    //                 this.setState({ schedulerArray: selectedArray.filter((obj => obj.id != item.id)) })
+    //             }
+    //         })
+    //         .catch((err) => {
+    //             console.log(err)
+    //         })
+    // }
 
     handleSaveFunction = () => {
         let days = [];
+
         const { selectedDays } = this.state;
         selectedDays.forEach((item, index) => {
             if (item.day != undefined)
@@ -285,41 +292,16 @@ class ManageScheduleTime extends Component {
         }
         // console.log(userData)
         // Barbers.updateBarberWorkingDays(userData)
-        if (this.props.edit) {
-            let data = {
-                id: this.props.user.userData.id,
-                token: this.props.user.userData.token,
-                scheduler_id: this.props.item.id
-            }
-            SchedulerServices.deleteScheduler(data)
-                .then((res) => {
-                    if (res.data.status) {
-                        SchedulerServices.createScheduler(userData)
-                            .then((res) => {
-                                if (!res.data.status) {
-                                    this.props.navigation.replace("ManageScheduler")
-                                }
 
-                            })
-                            .catch((err) => console.log(err))
-                    }
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
-        }
-        else {
-            SchedulerServices.createScheduler(userData)
-                .then((res) => {
-                    if (!res.data.status) {
-                        this.props.navigation.replace("ManageScheduler")
-                    }
+        SchedulerServices.createScheduler(userData)
+            .then((res) => {
+                if (!res.data.status) {
+                    this.props.navigation.replace("ManageScheduler")
+                    this.setState({ submit: false, buttonLoading: false })
+                }
+            })
+            .catch((err) => console.log(err))
 
-                })
-                .catch((err) => console.log(err))
-        }
-
-        this.setState({ submit: false, buttonLoading: false })
     }
 
     on_Press_Next = () => {
@@ -331,15 +313,24 @@ class ManageScheduleTime extends Component {
         let length = selectedDays.length - 1;
 
         if (counter === length) {
-            Alert.alert('Attention', 'Your schedule will be updated and your current bookings will remain saved', [
-                {
-                    text: "Cancel",
-                    onPress: () => this.setState({ buttonLoading: false }),
-                    style: "cancel"
-                },
-                { text: "OK", onPress: () => this.handleSaveFunction() }
-            ]);
-
+            if (selectedDays[0].day != undefined) {
+                Alert.alert('Attention', 'Your schedule will be updated and your current bookings will remain saved', [
+                    {
+                        text: "Cancel",
+                        onPress: () => this.setState({ buttonLoading: false }),
+                        style: "cancel"
+                    },
+                    {
+                        text: "OK", onPress: () => {
+                            this.handleSaveFunction()
+                        }
+                    }
+                ]);
+            }
+            else {
+                Alert.alert("Please go back and again add days to your scheduler")
+                this.setState({ submit: false, buttonLoading: false })
+            }
         }
         else {
             Alert.alert('Attention', 'All required field should be filled ');
