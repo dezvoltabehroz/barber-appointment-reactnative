@@ -337,7 +337,14 @@ class ManageEditScheduler extends Component {
                 </View>
                 <DateTimeModal showTimePicker={showTimePicker}
                     dayNight={true}
-                    onCancel={() => this.setState({ showTimePicker: false })}
+                    onCancel={() => {
+
+                        let selectedDays = [...this.state.selectedDays];
+
+                        let newDayCounter = selectedDays[selectedDays.length - 1].dayCounter + 1;
+                        selectedDays[selectedDays.length - 1] = { ...selectedDays[selectedDays.length - 1], dayCounter: newDayCounter };
+                        this.setState({ selectedDays, showTimePicker: false });
+                    }}
                     onSet={(time) => { this.state.start_time != "" && this.state.val == '1' ? this.setState({ start_time: time, showTimePicker: false, showEditService: true }) : this.state.end_time != "" && this.state.val == '0' ? this.setState({ end_time: time, showTimePicker: false, showEditService: true }) : this.setTimeChange(time) }} />
                 <Modal visible={showEditService}
                     animationType="slide">

@@ -134,7 +134,6 @@ class ManageScheduleTime extends Component {
         this.setState({ selectedDays: selectedDays.filter((obj => obj.id != itemData.id)), loading: false })
     }
 
-
     on_Press_Edit = (item, index) => {
         let selectedDays = [...this.state.selectedDays];
         this.setState({ item, index, })
@@ -393,7 +392,12 @@ class ManageScheduleTime extends Component {
                 </View>
                 <DateTimeModal showTimePicker={showTimePicker}
                     dayNight={true}
-                    onCancel={() => this.setState({ showTimePicker: false })}
+                    onCancel={() => {
+                        let selectedDays = [...this.state.selectedDays];
+                        let newDayCounter = selectedDays[selectedDays.length - 1].dayCounter + 1;
+                        selectedDays[selectedDays.length - 1] = { ...selectedDays[selectedDays.length - 1], dayCounter: newDayCounter };
+                        this.setState({ selectedDays, showTimePicker: false });
+                    }}
                     onSet={(time) => { this.state.startTime != "" && this.state.val == '1' ? this.setState({ startTime: time, showTimePicker: false, showEditService: true }) : this.state.endTime != "" && this.state.val == '0' ? this.setState({ endTime: time, showTimePicker: false, showEditService: true }) : this.setTimeChange(time) }} />
                 <Modal visible={showEditService}
                     animationType="slide">
