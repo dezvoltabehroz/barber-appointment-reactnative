@@ -97,11 +97,11 @@ class BarberEditProfile extends Component {
                                     disabled={true}
                                     maxStars={5}
                                     starSize={20}
-                                    rating={this.props.user.userData.stars_count != null ? this.props.user.userData.stars_count : 5}
+                                    rating={this.props.user.userData.stars_count != null ? this.props.user.userData.stars_count : 0}
                                     selectedStar={(rating) => this.onStarRatingPress(rating)}
                                     fullStarColor={THEME.PRIMARY_COLOR}
                                 />
-                                <Text style={[styles.textStyle, { marginLeft: 5 }]}>{this.props.user.userData.stars_count != null ? this.props.user.userData.stars_count : 5}/5</Text>
+                                <Text style={[styles.textStyle, { marginLeft: 5 }]}>{this.props.user.userData.stars_count != null ? this.props.user.userData.stars_count : 0}/5</Text>
 
                             </View>
                         </View>
