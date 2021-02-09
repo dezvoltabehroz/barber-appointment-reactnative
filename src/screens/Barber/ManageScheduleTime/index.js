@@ -392,12 +392,7 @@ class ManageScheduleTime extends Component {
                 </View>
                 <DateTimeModal showTimePicker={showTimePicker}
                     dayNight={true}
-                    onCancel={() => {
-                        let selectedDays = [...this.state.selectedDays];
-                        let newDayCounter = selectedDays[selectedDays.length - 1].dayCounter + 1;
-                        selectedDays[selectedDays.length - 1] = { ...selectedDays[selectedDays.length - 1], dayCounter: newDayCounter };
-                        this.setState({ selectedDays, showTimePicker: false });
-                    }}
+                    onCancel={() => { this.setState({ showTimePicker: false }); }}
                     onSet={(time) => { this.state.startTime != "" && this.state.val == '1' ? this.setState({ startTime: time, showTimePicker: false, showEditService: true }) : this.state.endTime != "" && this.state.val == '0' ? this.setState({ endTime: time, showTimePicker: false, showEditService: true }) : this.setTimeChange(time) }} />
                 <Modal visible={showEditService}
                     animationType="slide">
@@ -437,7 +432,13 @@ class ManageScheduleTime extends Component {
                                     </View>
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                                         <View style={styles.rowButtonContainer}>
-                                            <Button title="Cancel" onPress={() => this.setState({ showEditService: false })} />
+                                            <Button title="Cancel" onPress={() => {
+                                                let dayArray = [...this.state.selectedDays];
+                                                let newDayCounter = dayArray[dayArray.length - 1].dayCounter + 1;
+                                                dayArray[dayArray.length - 1] = { ...dayArray[dayArray.length - 1], dayCounter: newDayCounter };
+                                                this.setState({ selectedDays: dayArray });
+                                                this.setState({ showEditService: false })
+                                            }} />
                                         </View>
                                         <View style={styles.rowButtonContainer}>
                                             <Button title="Update" onPress={() => this.setEditTimeChange(item, index)} />

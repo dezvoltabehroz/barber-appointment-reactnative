@@ -383,7 +383,12 @@ class PriceAndTime extends Component {
 
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                                         <View style={styles.rowButtonContainer}>
-                                            <Button title="Cancel" onPress={() => this.setState({ showEditService: false })} />
+                                            <Button title="Cancel" onPress={() =>{
+                                                let selectedArray = [...this.state.selectedArray];
+                                                let newServiceCounter = selectedArray[selectedArray.length - 1].serviceCounter + 1;
+                                                selectedArray[selectedArray.length - 1] = { ...selectedArray[selectedArray.length - 1], serviceCounter: newServiceCounter };
+                                                this.setState({ selectedArray });
+                                                this.setState({ showEditService: false })}} />
                                         </View>
                                         <View style={styles.rowButtonContainer}>
                                             <Button title="Update" onPress={() => this.addPriceUpdate({ item, index })} />

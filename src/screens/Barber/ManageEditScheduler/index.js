@@ -153,6 +153,7 @@ class ManageEditScheduler extends Component {
         let newDayCounter = selectedDays[selectedDays.length - 1].dayCounter - 1;
         selectedDays[selectedDays.length - 1] = { ...selectedDays[selectedDays.length - 1], dayCounter: newDayCounter };
         this.setState({ selectedDays });
+        console.log(selectedDays)
         this.setState({ showEditService: true, start_time: selectedDays[index].start_time, end_time: selectedDays[index].end_time })
     }
 
@@ -166,7 +167,6 @@ class ManageEditScheduler extends Component {
     _renderItems = ({ item, index }) => {
         const { selectedDays, submit } = this.state;
         let date = moment().format('YYYY-MM-DD');
-        console.log(item)
         return (
 
             <View style={styles.headingContainer}>
@@ -282,6 +282,14 @@ class ManageEditScheduler extends Component {
         }
     }
 
+    handleCancel = () => {
+        let dayArray = [...this.state.selectedDays];
+        console.log(this.state.selectedDays)
+        let newDayCounter = dayArray[dayArray.length - 1].dayCounter + 1;
+        dayArray[dayArray.length - 1] = { ...dayArray[dayArray.length - 1], dayCounter: newDayCounter };
+        this.setState({ selectedDays: dayArray });
+        this.setState({ showTimePicker: false });
+    }
 
     render() {
         const { onNext } = this.props;
@@ -337,14 +345,7 @@ class ManageEditScheduler extends Component {
                 </View>
                 <DateTimeModal showTimePicker={showTimePicker}
                     dayNight={true}
-                    onCancel={() => {
-
-                        let selectedDays = [...this.state.selectedDays];
-
-                        let newDayCounter = selectedDays[selectedDays.length - 1].dayCounter + 1;
-                        selectedDays[selectedDays.length - 1] = { ...selectedDays[selectedDays.length - 1], dayCounter: newDayCounter };
-                        this.setState({ selectedDays, showTimePicker: false });
-                    }}
+                    onCancel={() => { this.setState({ showTimePicker: false }); }}
                     onSet={(time) => { this.state.start_time != "" && this.state.val == '1' ? this.setState({ start_time: time, showTimePicker: false, showEditService: true }) : this.state.end_time != "" && this.state.val == '0' ? this.setState({ end_time: time, showTimePicker: false, showEditService: true }) : this.setTimeChange(time) }} />
                 <Modal visible={showEditService}
                     animationType="slide">
@@ -384,7 +385,13 @@ class ManageEditScheduler extends Component {
                                     </View>
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                                         <View style={styles.rowButtonContainer}>
-                                            <Button title="Cancel" onPress={() => this.setState({ showEditService: false })} />
+                                            <Button title="Cancel" onPress={() => {
+                                                let dayArray = [...this.state.selectedDays];
+                                                let newDayCounter = dayArray[dayArray.length - 1].dayCounter + 1;
+                                                dayArray[dayArray.length - 1] = { ...dayArray[dayArray.length - 1], dayCounter: newDayCounter };
+                                                this.setState({ selectedDays: dayArray });
+                                                this.setState({ showEditService: false })
+                                            }} />
                                         </View>
                                         <View style={styles.rowButtonContainer}>
                                             <Button title="Update" onPress={() => this.setEditTimeChange(item, index)} />

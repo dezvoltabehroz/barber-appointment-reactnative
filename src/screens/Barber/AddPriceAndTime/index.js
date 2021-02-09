@@ -241,7 +241,7 @@ class AddPriceAndTime extends Component {
                 <View style={styles.container}>
                     <View style={styles.upperContainer}>
                         {
-                            selectedArray.length == 0 || selectedArray[0].price != '' || selectedArray[0].time != ''||selectedArray[1].price != '' || selectedArray[1].time != ''  ?
+                            selectedArray.length == 0 || selectedArray[0].price != '' || selectedArray[0].time != '' || selectedArray[1].price != '' || selectedArray[1].time != '' ?
                                 <View style={styles.headingContainer}>
                                     <View style={styles.nameContainer}>
                                         <Text style={styles.headingTextStyle1}>Services</Text>
@@ -250,7 +250,7 @@ class AddPriceAndTime extends Component {
                                         <Text style={styles.headingTextStyle2}>Price</Text>
                                     </View>
                                     <View style={styles.timeContainer}>
-                                    <Text style={styles.headingTextStyle2}>Est. Duration</Text>
+                                        <Text style={styles.headingTextStyle2}>Est. Duration</Text>
                                     </View>
                                     <View style={styles.priceContainer}>
                                     </View>
@@ -309,7 +309,13 @@ class AddPriceAndTime extends Component {
 
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                                         <View style={styles.rowButtonContainer}>
-                                            <Button title="Cancel" onPress={() => this.setState({ showEditService: false })} />
+                                            <Button title="Cancel" onPress={() => {
+                                                let selectedArray = [...this.state.selectedArray];
+                                                let newServiceCounter = selectedArray[selectedArray.length - 1].serviceCounter + 1;
+                                                selectedArray[selectedArray.length - 1] = { ...selectedArray[selectedArray.length - 1], serviceCounter: newServiceCounter };
+                                                this.setState({ selectedArray });
+                                                this.setState({ showEditService: false })
+                                            }} />
                                         </View>
                                         <View style={styles.rowButtonContainer}>
                                             <Button title="Update" onPress={() => this.addPriceUpdate({ item, index })} />

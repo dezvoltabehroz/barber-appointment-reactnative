@@ -49,8 +49,11 @@ const Api = {
     },
 
     getUserProfile: function (userData) {
+        console.log(userData.id)
+        console.log(userData.token)
         return axiosInstance.post('registration/profileDetail', {
             id: userData.id,
+            review_by: userData.type
         }, {
             headers: {
                 'Authorization': 'Bearer ' + userData.token,

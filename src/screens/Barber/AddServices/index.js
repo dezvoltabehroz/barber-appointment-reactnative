@@ -82,13 +82,13 @@ class AddServices extends Component {
         )
     }
 
-    _renderItems = (item) => {
+    _renderItems = (item, index) => {
         return (
             <>
                 <View style={styles.contentContainer}>
                     <View style={styles.nameContainer}>
                         <View style={{ marginHorizontal: 8 }}>
-                            <Text style={styles.idTextLabel}>{item.id}.</Text>
+                            <Text style={styles.idTextLabel}>{index + 1}.</Text>
                         </View>
                         <View>
                             <Text style={[styles.textStyle, { color: THEME.COLOR_WHITE }]}>{item.service_name}</Text>
@@ -113,7 +113,7 @@ class AddServices extends Component {
             Alert.alert('Attention', 'Please select atleast one service');
         }
         else {
-            if (selectedArray[selectedArray.length - 1].serviceCounter!='') {
+            if (selectedArray[selectedArray.length - 1].serviceCounter != '') {
                 selectedArray.push({ serviceCounter: 0 })
                 await this.setState({ selectedService: selectedArray })
                 onNext(this.state.selectedService)
@@ -192,7 +192,7 @@ class AddServices extends Component {
                                         data={barberServices}
                                         showsVerticalScrollIndicator={false}
                                         ItemSeparatorComponent={this._renderSeparator}
-                                        renderItem={({ item }) => this._renderItems(item)}
+                                        renderItem={({ item, index }) => this._renderItems(item, index)}
                                         keyExtractor={item => item} />
                                 </View>
                             </>}

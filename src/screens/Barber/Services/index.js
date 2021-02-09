@@ -30,6 +30,7 @@ class AddServices extends Component {
     }
 
     componentDidMount = () => {
+        console.log(this.props.user.userData)
         this.setState({ loading: true })
         let { barber_title } = this.props.user.userData;
         let userData = {
@@ -90,13 +91,13 @@ class AddServices extends Component {
         )
     }
 
-    _renderItems = (item) => {
+    _renderItems = (item, index) => {
         return (
             <>
                 <View style={styles.contentContainer}>
                     <View style={styles.nameContainer}>
                         <View style={{ marginHorizontal: 8 }}>
-                            <Text style={styles.idTextLabel}>{item.id}.</Text>
+                            <Text style={styles.idTextLabel}>{index + 1}.</Text>
                         </View>
                         <View>
                             <Text style={[styles.textStyle, { color: THEME.COLOR_WHITE }]}>{item.service_name}</Text>
@@ -224,7 +225,7 @@ class AddServices extends Component {
                                         data={barberServices}
                                         showsVerticalScrollIndicator={false}
                                         ItemSeparatorComponent={this._renderSeparator}
-                                        renderItem={({ item }) => this._renderItems(item)}
+                                        renderItem={({ item, index }) => this._renderItems(item, index)}
                                         keyExtractor={item => item} />
                                 </View>
                             </>}

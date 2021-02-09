@@ -70,6 +70,8 @@ class BarberEditProfile extends Component {
 
     render() {
         const { filePath } = this.state;
+        console.log("this.props.user.userData.start_count",this.props.user.userData)
+        console.log("this.props.user.userData.start_count",this.props.user.userData.start_count)
         return (
             <>
 
@@ -95,11 +97,11 @@ class BarberEditProfile extends Component {
                                     disabled={true}
                                     maxStars={5}
                                     starSize={20}
-                                    rating={4.9}
+                                    rating={this.props.user.userData.stars_count}
                                     selectedStar={(rating) => this.onStarRatingPress(rating)}
                                     fullStarColor={THEME.PRIMARY_COLOR}
                                 />
-                                <Text style={[styles.textStyle, { marginLeft: 5 }]}>4.9/5</Text>
+                                <Text style={[styles.textStyle, { marginLeft: 5 }]}>{this.props.user.userData.stars_count}/5</Text>
 
                             </View>
                         </View>
