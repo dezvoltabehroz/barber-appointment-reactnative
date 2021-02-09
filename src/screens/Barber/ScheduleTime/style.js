@@ -8,7 +8,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '20%'
+        paddingTop: Platform.OS == 'ios' ? screenHeight == 896 ? '22%' : '15%':'15%'
     },
     upperContainer: {
         flex: 0.8,
@@ -48,7 +48,7 @@ export default StyleSheet.create({
     textStyle: {
         color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Medium',
-        fontSize: THEME.FONT_SIZE_SMALL,
+        fontSize: 10,
     },
     headingTextStyle: {
         color: THEME.COLOR_WHITE,
@@ -141,4 +141,31 @@ export default StyleSheet.create({
         width: '46%',
         paddingHorizontal: '6%'
     },
+    lineStyle: {
+        borderColor: '#44495C',
+        borderWidth: 2,
+        marginHorizontal: '10%',
+        borderRadius: 5
+    },
+    gapHeight: {
+        height: 15
+    },
+    gapHeight1: {
+        height: 5
+    },
+    buttonContainer: {
+        marginHorizontal: '10%',
+    },
+    footerStyle: {
+        flex: 0.3,
+        justifyContent: 'flex-end',
+        paddingBottom: '8%',
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
+    },
+    footerConatinerStyle: {
+        flex: 0.3,
+        justifyContent: 'flex-end',
+        paddingBottom: '8%',
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
+    }
 })

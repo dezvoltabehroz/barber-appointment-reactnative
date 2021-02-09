@@ -6,7 +6,7 @@ import THEME from '../../../assets/styles/theme.style';
 import COMMON_STYLE from '../../../assets/styles/common.style';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Calendar } from 'react-native-calendars';
-import { Barbers, RegisterUser } from '../../../services';
+import { Barbers, RegisterUser, SchedulerServices } from '../../../services';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../../redux/actions/auth';
@@ -31,60 +31,71 @@ class ScheduleTime extends Component {
     }
 
     componentDidMount = () => {
-        this.setState({ loading: true, });
-        let userData = {
-            id: this.props.user.userData.id,
-            token: this.props.user.userData.token
-        }
-        Barbers.getBarberWorkingDays(userData)
-            .then((res) => {
-                if (res.data.status) {
-                    let myArray = [...res.data.data]
-                    myArray.map((item, index) => {
-                        myArray[index] = { ...myArray[index], isFilled: '0', startTime: '', endTime: '', }
-                    });
-                    myArray.push({ dayCounter: 0 })
-                    this.setState({ selectedDays: myArray, loading: false })
-                }
-            })
+        this.setState({ loading: true })
+        let selectedDay = [...this.props.data];
+        let length = 0;
+        selectedDay.forEach(element => {
+            if (element.isFilled == '1') {
+                length = length + 1;
+            }
+
+        });
+        selectedDay.push({ dayCounter: length })
+        this.setState({ selectedDays: selectedDay, loading: false })
+
     }
 
     setStartTime = (index, item) => {
-        this.setState({ showTimePicker: true, indexValue: index, index: index, item: item, val: '1' })
+        this.setState({ showEditService: false, showTimePicker: true, indexValue: index, index: index, item: item, val: '1' })
     }
 
     setEndTime = (index, item) => {
-        this.setState({ showTimePicker: true, indexValue: index, index: index, item: item, val: '0' })
+        this.setState({ showEditService: false, showTimePicker: true, indexValue: index, index: index, item: item, val: '0' })
     }
 
-    setTimeChange = (data) => {
+    setTimeChange = async (data) => {
+        console.log('data:', data)
         const { val, selectedDays, indexValue, item } = this.state;
-        if (val == '1') {
-            selectedDays[indexValue].startTime = data;
-        }
-        else {
-            selectedDays[indexValue].endTime = data;
-        }
+        // if (val == '1') {
+        //     selectedDays[indexValue].startTime = data;
+        // }
+        // else {
+        //     selectedDays[indexValue].endTime = data;
+        // }
         const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
         let items = [...this.state.selectedDays];
         if (val == '1') {
-            items[objIndex] = { ...items[objIndex], startTime: selectedDays[indexValue].startTime = data };
-            this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, });
+            items[objIndex] = { ...items[objIndex], startTime: selectedDays[indexValue].startTime = `${data}` };
+            await this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, });
+            console.log(items);
+
             this.is_filled_check(items, objIndex)
         }
         else {
-            items[objIndex] = { ...items[objIndex], endTime: selectedDays[indexValue].endTime = data };
-            this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, });
-            this.is_filled_check(items, objIndex)
+            if (moment.duration(data).asMinutes() > moment.duration(selectedDays[indexValue].startTime).asMinutes()) {
+                items[objIndex] = { ...items[objIndex], endTime: selectedDays[indexValue].endTime = data };
+                await this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, });
+                this.is_filled_check(items, objIndex);
+                console.log(items);
+            }
+            else {
+                Alert.alert("Attention", "End Time should be greater then Start Time")
+            }
         }
 
     }
     setEditTimeChange = (item, index) => {
-        const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
-        let items = [...this.state.selectedDays];
-        items[objIndex] = { ...items[objIndex], startTime: this.state.startTime, endTime: this.state.endTime };
-        this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, showEditService: false });
-        this.is_filled_check(items, objIndex)
+        if (moment.duration(this.state.endTime).asMinutes() > moment.duration(this.state.startTime).asMinutes()) {
+            const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
+            let items = [...this.state.selectedDays];
+            items[objIndex] = { ...items[objIndex], startTime: this.state.startTime, endTime: this.state.endTime };
+            this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, showEditService: false });
+            this.is_filled_check(items, objIndex)
+        }
+        else {
+            Alert.alert("Attention", "End Time should be greater then Start Time")
+        }
+
     }
 
     is_filled_check(dayArray, index) {
@@ -102,7 +113,7 @@ class ScheduleTime extends Component {
         )
     }
     on_Press_Delete = (itemData, index) => {
-        Alert.alert('Attension', 'Are you sure you want to delete service',
+        Alert.alert('Attension', 'Are you sure you want to delete this day',
             [
                 {
                     text: "Cancel",
@@ -117,23 +128,10 @@ class ScheduleTime extends Component {
 
     handleDeleteService = (itemData) => {
         this.setState({ loading: true })
-        let userData = {
-            id: this.props.user.userData.id,
-            token: this.props.user.userData.token,
-            schedule_id: itemData.id
-        }
-        Barbers.deleteBarberWorkingDay(userData)
-            .then((res) => {
-                if (res.data.status) {
-                    let selectedDays = [...this.state.selectedDays];
-                    let newDayCounter = selectedDays[selectedDays.length - 1].dayCounter - 1;
-                    selectedDays[selectedDays.length - 1] = { ...selectedDays[selectedDays.length - 1], dayCounter: newDayCounter };
-                    this.setState({ selectedDays: selectedDays.filter((obj => obj.id != itemData.id)), loading: false })
-                }
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+        let selectedDays = [...this.state.selectedDays];
+        let newDayCounter = selectedDays[selectedDays.length - 1].dayCounter - 1;
+        selectedDays[selectedDays.length - 1] = { ...selectedDays[selectedDays.length - 1], dayCounter: newDayCounter };
+        this.setState({ selectedDays: selectedDays.filter((obj => obj.id != itemData.id)), loading: false })
     }
 
     on_Press_Edit = (item, index) => {
@@ -145,21 +143,34 @@ class ScheduleTime extends Component {
         this.setState({ showEditService: true, startTime: selectedDays[index].startTime, endTime: selectedDays[index].endTime })
     }
 
+    truncateString = (str, num) => {
+        if (str.length <= num) {
+            return str
+        }
+        return str.slice(0, num)
+    }
+
     _renderItems = ({ item, index }) => {
         const { selectedDays, submit } = this.state;
         let date = moment().format('YYYY-MM-DD');
+        let startTime = item.startTime != undefined ? item.startTime != '' ? moment(`${date} ${item.startTime}`).format('hh:mm A') : "" : ""
+
         return (
             <View style={styles.contentContainer}>
                 <View style={styles.headingContainer}>
-                    <View style={styles.dayContainer}>
-                        <Text style={styles.textStyle}>{item.day}</Text>
-                    </View>
+                    {
+                        item.date != undefined && item.day != undefined ?
+                            <View style={styles.dayContainer}>
+                                <Text style={styles.textStyle}>{item.date} {this.truncateString(`${item.day}`, 3)}</Text>
+                            </View>
+                            :
+                            null
+                    }
                     <View style={styles.startTimeContainer} >
                         {
                             item.startTime != '' ?
                                 <View style={styles.startTimeContainer}>
-
-                                    <Text style={styles.textStyle}>{item.startTime != undefined ? moment(`${date} ${item.startTime}`).format('hh:mm A') : ''}</Text>
+                                    <Text style={styles.textStyle}>{item.startTime != undefined ? item.startTime != '' ? startTime : '' : ''}</Text>
                                 </View>
                                 :
                                 null
@@ -227,6 +238,79 @@ class ScheduleTime extends Component {
         )
     }
 
+    // on_Press_Delete = (itemData, index) => {
+    //     Alert.alert('Attension', 'Are you sure you want to delete your scheduler',
+    //         [
+    //             {
+    //                 text: "Cancel",
+    //                 // onPress: () => this.handleCancel(),
+    //                 style: "cancel"
+    //             },
+    //             { text: "OK", onPress: () => this.handledelete(itemData) }
+    //         ],
+
+    //     );
+    // }
+
+    // handledelete = (item) => {
+    //     let userData = {
+    //         id: this.props.user.userData.id,
+    //         token: this.props.user.userData.token,
+    //         scheduler_id: item.id
+    //     }
+    //     SchedulerServices.deleteScheduler(userData)
+    //         .then((res) => {
+    //             if (res.data.status) {
+    //                 let selectedArray = [...this.state.schedulerArray];
+    //                 this.setState({ schedulerArray: selectedArray.filter((obj => obj.id != item.id)) })
+    //             }
+    //         })
+    //         .catch((err) => {
+    //             console.log(err)
+    //         })
+    // }
+
+    handleSaveFunction = () => {
+        let days = [];
+
+        const { selectedDays } = this.state;
+        selectedDays.forEach((item, index) => {
+            if (item.day != undefined)
+                days.push({
+                    day: item.day,
+                    date: item.date,
+                    start_time: item.startTime,
+                    end_time: item.endTime
+                })
+        })
+        let userData = {
+            id: `${this.props.user.userData.id}`,
+            token: this.props.user.userData.token,
+            working_days: days,
+            steps_count: 4,
+            scheduler_name: `${moment(`${days[0].date}`).format('MM/DD/YYYY') + ' - ' + moment(`${days[(days.length) - 1].date}`).format('MM/DD/YYYY')}`
+        }
+        // console.log(userData)
+        // Barbers.updateBarberWorkingDays(userData)
+
+        SchedulerServices.createScheduler(userData)
+            .then((res) => {
+                if (!res.data.status) {
+                    RegisterUser.userStepCount(userData)
+                        .then((res) => {
+                            if (res.data.status) {
+                                this.props.authActions.getUserProfile(userData, this.props.navigate);
+                                this.setState({ buttonLoading: false })
+                            }
+                        })
+                        .catch(err => console.log(err))
+                    this.setState({ submit: false })
+                }
+            })
+            .catch((err) => console.log(err))
+
+    }
+
     on_Press_Next = () => {
         this.setState({ submit: true, buttonLoading: true })
         const { onNext } = this.props;
@@ -236,39 +320,28 @@ class ScheduleTime extends Component {
         let length = selectedDays.length - 1;
 
         if (counter === length) {
-            // onNext();
-            selectedDays.forEach((item, index) => {
-                days.push({
-                    schedule_id: item.id,
-                    start_time: item.startTime,
-                    end_time: item.endTime
-                })
-            })
-            let userData = {
-                id: this.props.user.userData.id,
-                token: this.props.user.userData.token,
-                steps_count: 4,
-                working_days: days
-            }
-            Barbers.updateWorkingDaysTime(userData)
-                .then((res) => {
-                    console.log(res.data)
-                    if (res.data.status) {
-                        RegisterUser.userStepCount(userData)
-                            .then((res) => {
-                                if (res.data.status) {
-                                    this.props.authActions.getUserProfile(userData, this.props.navigate);
-                                    this.setState({ buttonLoading: false })
-                                }
-                            })
-                            .catch(err => console.log(err))
+            if (selectedDays[0].day != undefined) {
+                Alert.alert('Attention', 'Your schedule will be updated and your current bookings will remain saved', [
+                    {
+                        text: "Cancel",
+                        onPress: () => this.setState({ buttonLoading: false }),
+                        style: "cancel"
+                    },
+                    {
+                        text: "OK", onPress: () => {
+                            this.handleSaveFunction()
+                        }
                     }
-                })
-                .catch((err) => console.log(err))
-            this.setState({ submit: false })
+                ]);
+            }
+            else {
+                Alert.alert("Please go back and again add days to your scheduler")
+                this.setState({ submit: false, buttonLoading: false })
+            }
         }
         else {
-            Alert.alert('Attention', 'All required field should be filled ')
+            Alert.alert('Attention', 'All required field should be filled ');
+            this.setState({ buttonLoading: false })
         }
     }
 
@@ -286,62 +359,49 @@ class ScheduleTime extends Component {
                                 <ActivityIndicator />
                             </View>
                             :
-                            <View style={styles.upperContainer}>
-                                <KeyboardAwareScrollView>
-                                    {selectedDays.length == 0 || selectedDays[0].startTime != '' || selectedDays[0].endTime != '' ?
-                                        <View style={styles.headingContainer}>
-                                            <View style={styles.dayContainer}>
-                                                <Text style={styles.headingTextStyle}>Days</Text>
-                                            </View>
-                                            <View style={styles.startTimeContainer} >
-                                                <Text style={styles.headingTextStyle1}>Start Time</Text>
-                                            </View>
-                                            <View style={styles.endTimeContainer}>
-                                                <Text style={styles.headingTextStyle1}>End Time</Text>
-                                            </View>
-                                            <View style={[styles.iconContainer]}></View>
-                                        </View> : null}
-                                    <FlatList
-                                        data={selectedDays}
-                                        showsVerticalScrollIndicator={false}
-                                        ItemSeparatorComponent={this._renderSeparator}
-                                        renderItem={({ item, index }) => this._renderItems({ item, index })}
-                                        keyExtractor={item => item} />
-                                    {/* <Calendar
-                                minDate={new Date()}
-                                maxDate={new Date().setDate(new Date().getDate() + 30)}
-                                onDayPress={(day) => this.handleDayPress(day)}
-                                monthFormat={'MMMM yyyy'}
-                                theme={{
-                                    calendarBackground: THEME.PRIMARY_BACKGROUND_COLOR,
-                                    selectedDotColor: '#ffffff',
-                                    selectedDayBackgroundColor: '#D2A91B',
-                                    selectedDayTextColor: 'black',
-                                    dayTextColor: 'white',
-                                    textDisabledColor: 'grey',
-                                    dotColor: '#D2A91B',
-                                    todayTextColor: 'white',
-                                    arrowColor: THEME.PRIMARY_COLOR,
-                                    monthTextColor: 'white',
-                                    textDayFontFamily: "Poppins-Medium",
-                                    textMonthFontFamily: "Poppins-Medium",
-                                    textDayHeaderFontFamily: "Poppins-Medium",
-                                    textDayFontSize: 10,
-                                    textMonthFontSize: 16,
-                                    textDayHeaderFontSize: 10,
-                                }}
-                            /> */}
-
-
-
-                                </KeyboardAwareScrollView>
-                            </View>}
-                    <FooterButton loading={buttonLoading} title='Update & Continue' onPress={this.on_Press_Next} />
+                            <>
+                                <View style={styles.upperContainer}>
+                                    <KeyboardAwareScrollView>
+                                        {selectedDays.length == 0 || selectedDays[0].startTime != '' || selectedDays[0].endTime != '' ?
+                                            <View style={styles.headingContainer}>
+                                                <View style={styles.dayContainer}>
+                                                    <Text style={styles.headingTextStyle}>Days</Text>
+                                                </View>
+                                                <View style={styles.startTimeContainer} >
+                                                    <Text style={styles.headingTextStyle1}>Start Time</Text>
+                                                </View>
+                                                <View style={styles.endTimeContainer}>
+                                                    <Text style={styles.headingTextStyle1}>End Time</Text>
+                                                </View>
+                                                <View style={[styles.iconContainer]}></View>
+                                            </View> : null}
+                                        <FlatList
+                                            data={selectedDays}
+                                            showsVerticalScrollIndicator={false}
+                                            ItemSeparatorComponent={this._renderSeparator}
+                                            renderItem={({ item, index }) => this._renderItems({ item, index })}
+                                            keyExtractor={item => item} />
+                                    </KeyboardAwareScrollView>
+                                </View>
+                                <View style={styles.footerStyle}>
+                                    <View style={styles.lineStyle}></View>
+                                    <View style={styles.gapHeight}></View>
+                                    <View style={[styles.buttonContainer, { flexDirection: "row", justifyContent: 'space-between' }]}>
+                                        <View style={{ flex: 0.45 }}>
+                                            <Button title="Back  " onPress={() => this.props.goBack()} />
+                                        </View>
+                                        <View style={{ flex: 0.45 }}>
+                                            <Button title="Save  " loading={buttonLoading} disabled={this.state.selectedDays.length == 0 ? true : false} onPress={() => this.on_Press_Next()} />
+                                        </View>
+                                    </View>
+                                    <View style={styles.gapHeight1}></View>
+                                </View>
+                            </>}
                 </View>
                 <DateTimeModal showTimePicker={showTimePicker}
                     dayNight={true}
-                    onCancel={() => this.setState({ showTimePicker: false })}
-                    onSet={(time) => { this.state.startTime != "" && this.state.endTime != "" ? this.state.val == '1' ? this.setState({ startTime: time, showTimePicker: false }) : this.setState({ endTime: time, showTimePicker: false }) : this.setTimeChange(time) }} />
+                    onCancel={() => { this.setState({ showTimePicker: false }); }}
+                    onSet={(time) => { this.state.startTime != "" && this.state.val == '1' ? this.setState({ startTime: time, showTimePicker: false, showEditService: true }) : this.state.endTime != "" && this.state.val == '0' ? this.setState({ endTime: time, showTimePicker: false, showEditService: true }) : this.setTimeChange(time) }} />
                 <Modal visible={showEditService}
                     animationType="slide">
                     {
@@ -380,7 +440,13 @@ class ScheduleTime extends Component {
                                     </View>
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                                         <View style={styles.rowButtonContainer}>
-                                            <Button title="Cancel" onPress={() => this.setState({ showEditService: false })} />
+                                            <Button title="Cancel" onPress={() => {
+                                                let dayArray = [...this.state.selectedDays];
+                                                let newDayCounter = dayArray[dayArray.length - 1].dayCounter + 1;
+                                                dayArray[dayArray.length - 1] = { ...dayArray[dayArray.length - 1], dayCounter: newDayCounter };
+                                                this.setState({ selectedDays: dayArray });
+                                                this.setState({ showEditService: false })
+                                            }} />
                                         </View>
                                         <View style={styles.rowButtonContainer}>
                                             <Button title="Update" onPress={() => this.setEditTimeChange(item, index)} />

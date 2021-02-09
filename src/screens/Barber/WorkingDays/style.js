@@ -8,7 +8,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '20%'
+        paddingTop: Platform.OS == 'ios' ? screenHeight == 896 ? '22%' : '15%':'15%'
     },
     upperContainer: {
         flex: 0.8,
@@ -40,4 +40,31 @@ export default StyleSheet.create({
     seperatorStyle: {
         height: 15,
     },
+    lineStyle: {
+        borderColor: '#44495C',
+        borderWidth: 2,
+        marginHorizontal: '10%',
+        borderRadius: 5
+    },
+    gapHeight: {
+        height: 15
+    },
+    gapHeight1: {
+        height: 5
+    },
+    buttonContainer: {
+        marginHorizontal: '10%',
+    },
+    footerStyle: {
+        flex: 0.2,
+        justifyContent: 'flex-end',
+        paddingBottom: '8%',
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
+    },
+    footerConatinerStyle:{
+        flex: 0.3,
+        justifyContent: 'flex-end',
+        paddingBottom: '8%',
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
+    }
 })
