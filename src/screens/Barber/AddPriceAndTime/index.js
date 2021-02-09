@@ -41,6 +41,7 @@ class AddPriceAndTime extends Component {
     }
 
     setTime = (index, item) => {
+        console.log(index, item)
         this.setState({ showTimePicker: true, indexValue: index, item: item })
     }
 
@@ -49,7 +50,7 @@ class AddPriceAndTime extends Component {
         const objIndex = this.state.selectedArray.findIndex((obj => obj.id == item.id));
         let items = [...this.state.selectedArray];
         items[objIndex] = { ...items[objIndex], time: data };
-        this.setState({ showTimePicker: false, selectedArray: items, time: data });
+        this.setState({ showTimePicker: false, selectedArray: items });
         this.is_filled_check(items, objIndex)
     }
 
