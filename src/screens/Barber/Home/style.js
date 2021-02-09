@@ -126,9 +126,9 @@ export default StyleSheet.create({
         borderColor: '#e2e2e2'
     },
     exitContainer: {
-        padding: 10,
-        justifyContent: "center",
-        alignItems: "center"
+        paddingVertical: 5,
+        justifyContent: "flex-start",
+        alignItems: "flex-end"
     },
     logoStyle: {
         height: 40,
