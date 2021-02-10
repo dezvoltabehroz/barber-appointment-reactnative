@@ -7,18 +7,18 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '25%' : '15%'
+        paddingTop: Platform.OS == 'ios' ? screenHeight >= 812 ? '25%' : '15%' : '15%'
     },
     listItemContainer: {
         borderRadius: 10,
         backgroundColor: THEME.COLOR_WHITE,
         marginHorizontal: '5%',
-        paddingVertical:'5%'
+        paddingVertical: '5%'
     },
     cardStyle: {
         paddingTop: '2%',
         flexDirection: 'row',
-        justifyContent:'space-between',
+        justifyContent: 'space-between',
         backgroundColor: THEME.COLOR_WHITE,
         borderRadius: 10,
         paddingVertical: '2%'
@@ -30,7 +30,7 @@ export default StyleSheet.create({
     },
     iconContainer: {
         // paddingTop:'4%',
-        flexDirection:'column',
+        flexDirection: 'column',
         flex: 0.3,
         justifyContent: 'space-between',
     },
@@ -88,6 +88,6 @@ export default StyleSheet.create({
     tabContainer: {
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingBottom:'2%'
+        paddingBottom: '2%'
     }
 })

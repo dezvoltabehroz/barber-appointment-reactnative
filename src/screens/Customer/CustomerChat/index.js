@@ -286,7 +286,7 @@ class barberChat extends Component {
                                     textInputStyle={{
                                         color: "white",
                                         // fontFamily: 'Poppins-Regular',
-                                        paddingTop: '5%'
+                                        paddingTop: Platform.OS == 'ios' ? 0 : '5%'
                                     }}
                                     containerStyle={{
                                         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,

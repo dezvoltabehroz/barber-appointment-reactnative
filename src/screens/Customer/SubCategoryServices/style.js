@@ -8,7 +8,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#171717',
-        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '15%'
+        paddingTop: Platform.OS == 'ios' ? screenHeight >= 812 ? '25%' : '18%' : '15%'
     },
     lowerListContainer: {
         flex: 1,

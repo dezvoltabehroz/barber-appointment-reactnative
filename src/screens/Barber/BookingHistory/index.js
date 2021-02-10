@@ -217,6 +217,7 @@ class BarberBookingHistory extends Component {
                                         />
                                     }
                                     data={bookingList}
+                                    initialNumToRender={50}
                                     showsVerticalScrollIndicator={false}
                                     ItemSeparatorComponent={this._renderSeparator}
                                     renderItem={({ item, index }) => this._renderBookingItems(item, index)}

@@ -129,7 +129,7 @@ function CustomerRoutes() {
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
-                headerTitle: () => (<View><Text style={styles.headerTitleStyle}></Text></View>),
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Edit Profile</Text></View>),
                 headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="BarberProfile" component={BarberProfileScreen} options={{

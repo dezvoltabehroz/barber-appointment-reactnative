@@ -6,7 +6,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' && screenHeight == 896 ? '30%' : '15%'
+        paddingTop: Platform.OS == 'ios' ? screenHeight >= 812 ? '25%' : '18%' : '15%'
     },
     textStyles: {
         fontFamily: "Poppins-Regular",

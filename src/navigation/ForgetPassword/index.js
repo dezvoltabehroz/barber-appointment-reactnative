@@ -21,6 +21,8 @@ export default class ForgetPasswordScreen extends Component {
                 if (respone.data.status) {
                     replace('ResetPassword', { email: email })
                     this.setState({ loading: false })
+                }else{
+                    console.log(respone.data)
                 }
             })
             .catch((error) => {

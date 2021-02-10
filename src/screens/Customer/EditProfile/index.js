@@ -149,7 +149,6 @@ class EditProfile extends Component {
         return (
             <>
                 <View style={styles.container}>
-                    <View><Text style={styles.headerTitleStyle}>Edit Profile</Text></View>
                     <View style={styles.upperContainer}>
                         <ScrollView>
                             <View style={styles.imageContainer}>
