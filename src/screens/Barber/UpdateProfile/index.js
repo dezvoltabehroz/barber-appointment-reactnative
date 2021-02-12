@@ -17,7 +17,7 @@ class UpdateProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            male: true,
+            male: false,
             female: false,
             name: '',
             isNameFocus: false,
@@ -30,6 +30,7 @@ class UpdateProfile extends Component {
             date: '',
             minDistance: 5,
             maxDistance: 20,
+            gender: "",
             showDatePicker: false,
             submit: false,
             modalView: false,
@@ -40,20 +41,21 @@ class UpdateProfile extends Component {
 
     componentDidMount = () => {
         this.findCoordinates();
+        console.log("this.props.user.userData:", this.props.user.userData)
         if (this.props.user.userData != null && this.props.user.userData != 'undefined') {
-            const { full_name, profile_picture, dob, gender, max_distance_radius } = this.props.user.userData;
+            const { full_name, profile_picture, dob, gender, barber_max_distance_radius } = this.props.user.userData;
             this.setState({
                 name: full_name,
                 filePath: profile_picture,
                 profile_Url: profile_picture,
-                minDistance: max_distance_radius,
+                minDistance: barber_max_distance_radius,
                 date: dob == null || dob == '' ? moment().format('DD/MM/YYYY') : moment(dob).format('DD/MM/YYYY'),
                 dob: dob == null || dob == '' ? moment().format('YYYY-MM-DD') : moment(dob).format('YYYY-MM-DD'),
             })
-            if (gender == 'Male') {
+            if (gender == "Male") {
                 this.setState({ male: true, female: false, gender: 'Male', })
             }
-            else {
+            else if (gender == "Female") {
                 this.setState({ female: true, male: false, gender: 'Female', })
             }
         }
@@ -138,28 +140,27 @@ class UpdateProfile extends Component {
     };
 
     handleNext = () => {
-        this.setState({ uploading: true })
-        const { onNext } = this.props;
-        let { name, profile_Url, dob, minDistance, gender, latitude, longitude, filePath } = this.state;
+        this.setState({ uploading: true }, () => {
+            let { name, profile_Url, dob, minDistance, gender, latitude, longitude, male, female } = this.state;
 
-        let userData = {
-            name: name,
-            gender: gender,
-            dob: dob,
-            image: profile_Url,
-            max_distance_radius: minDistance,
-            latitude: latitude,
-            longitude: longitude,
-            phone: this.props.user.userData.phone,
-            update: true,
-            id: this.props.user.userData.id,
-            token: this.props.user.userData.token
-        }
-        this.setState({ submit: true });
-        if (name && gender && dob && minDistance) {
-            onNext(userData);
-        }
-
+            let userData = {
+                name: name,
+                gender: male ? 'Male' : 'Female',
+                dob: dob,
+                barber_title: this.props.user.userData.barber_title,
+                max_distance_radius: `${minDistance}`,
+                image: profile_Url,
+                latitude: latitude,
+                longitude: longitude,
+                update: true,
+                id: this.props.user.userData.id,
+                token: this.props.user.userData.token,
+                phone: this.props.user.userData.phone
+            }
+            if (name && gender && dob && minDistance) {
+                this.props.onNext(userData);
+            }
+        })
     }
 
     render() {
@@ -203,7 +204,7 @@ class UpdateProfile extends Component {
                             </View>
                             <RadioButton gender
                                 option1={this.state.male} option2={this.state.female}
-                                option1Text="Male" option2Text="female"
+                                option1Text="Male" option2Text="Female"
                                 onPressOption1={() => this.setState({ male: true, female: false })}
                                 onPressOption2={() => this.setState({ female: true, male: false })} />
                             <View>

@@ -12,16 +12,16 @@ class UpdateProfileScreen extends Component {
     })
     handleNext = async (userData) => {
         const { goBack } = this.props.navigation
-        Barbers.updateBarberPersonalInfo(userData)
+        Barbers.uploadBarberPersonalPic(userData)
             .then(async (res) => {
                 if (res.data.status) {
-                    await this.props.authActions.getUserProfile(userData, goBack)
-                    // goBack()
+                    Barbers.updateBarberPersonalInfo(userData)
+                        .then(async (res) => { if (res.data.status) { await this.props.authActions.getUserProfile(userData, goBack) } })
+                        .catch((err) => { console.log(err) })
                 }
             })
-            .catch((err) => {
-                console.log(err)
-            })
+            .catch((err) => { console.log(err) })
+
     }
     render() {
         const { navigate, goBack } = this.props.navigation

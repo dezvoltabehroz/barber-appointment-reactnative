@@ -46,16 +46,9 @@ const Api = {
             slot_difference: userData.slot_difference
         }, configToken(userData.token))
     },
-    updateBarberPersonalInfo: function (userData) {
+    uploadBarberPersonalPic: function (userData) {
         let formData = new FormData();
-        formData.append('full_name', userData.name);
-        formData.append('max_distance_radius', userData.max_distance_radius);
-        formData.append('latitude', userData.latitude);
-        formData.append('longitude', userData.longitude);
-        formData.append('barber_title', 'barber');
-        formData.append('gender', userData.gender);
-        formData.append('dob', userData.dob);
-        formData.append('phone', userData.phone ? userData.phone : phone);
+        formData.append('phone', userData.phone);
         formData.append('image', userData.image.uri ? {
             uri: Platform.OS === 'android' ? 'file://' + userData.image.path : userData.image.uri,
             name: `${new Date().getTime().toString()}.jpg`,
@@ -63,6 +56,24 @@ const Api = {
             type: 'image/jpg'
         } : userData.image);
 
+        let config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json',
+            }
+        };
+        return axios.post('http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/barber/uploadBarberPic', formData, config)
+    },
+    updateBarberPersonalInfo: function (userData) {
+        let formData = new FormData();
+        formData.append('full_name', userData.name);
+        formData.append('max_distance_radius', userData.max_distance_radius);
+        formData.append('latitude', userData.latitude);
+        formData.append('longitude', userData.longitude);
+        formData.append('barber_title', userData.barber_title);
+        formData.append('gender', userData.gender);
+        formData.append('dob', userData.dob);
+        formData.append('phone', userData.phone);
         let config = {
             headers: {
                 'Content-Type': 'multipart/form-data',

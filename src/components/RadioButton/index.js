@@ -14,7 +14,7 @@ export default class RadioButton extends Component {
         return (
             <View style={[styles.customerAndBarberContainer, gender ? { marginBottom: 0, marginTop: 15 } : null]}>
                 <TouchableOpacity onPress={onPressOption1}
-                    style={[styles.CustomerContainer, option2 == false && option1 ? { backgroundColor: THEME.PRIMARY_COLOR } : null]}>
+                    style={[styles.CustomerContainer, option2 == false && option1 == true ? { backgroundColor: THEME.PRIMARY_COLOR } : null]}>
                     <View style={styles.optionContainer}>
                         {
                             auth ?
@@ -36,7 +36,7 @@ export default class RadioButton extends Component {
                 </TouchableOpacity>
                 <View style={styles.gap}></View>
                 <TouchableOpacity onPress={onPressOption2}
-                    style={[styles.barberContainer, option1 == false && option2 ? { backgroundColor: THEME.PRIMARY_COLOR } : null]} >
+                    style={[styles.barberContainer, option1 == false && option2 == true ? { backgroundColor: THEME.PRIMARY_COLOR } : null]} >
                     <View style={styles.optionContainer}>
                         {
                             auth ?
