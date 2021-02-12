@@ -35,7 +35,8 @@ class UpdateProfile extends Component {
             submit: false,
             modalView: false,
             filePath: 'https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Bearded_Man-17-512.png',
-            uploading: false
+            uploading: false,
+            isImageChaged: false
         };
     }
 
@@ -86,7 +87,8 @@ class UpdateProfile extends Component {
                 let source = response;
                 this.setState({
                     filePath: source.uri,
-                    profile_Url: source
+                    profile_Url: source,
+                    isImageChaged: true
                 });
             }
         });
@@ -141,7 +143,7 @@ class UpdateProfile extends Component {
 
     handleNext = () => {
         this.setState({ uploading: true }, () => {
-            let { name, profile_Url, dob, minDistance, gender, latitude, longitude, male, female } = this.state;
+            let { name, profile_Url, dob, minDistance, gender, latitude, longitude, male, female, isImageChaged } = this.state;
 
             let userData = {
                 name: name,
@@ -155,7 +157,8 @@ class UpdateProfile extends Component {
                 update: true,
                 id: this.props.user.userData.id,
                 token: this.props.user.userData.token,
-                phone: this.props.user.userData.phone
+                phone: this.props.user.userData.phone,
+                imageChaged: isImageChaged
             }
             if (name && gender && dob && minDistance) {
                 this.props.onNext(userData);

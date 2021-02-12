@@ -12,7 +12,7 @@ class UpdateProfileScreen extends Component {
     })
     handleNext = async (userData) => {
         const { goBack } = this.props.navigation
-        if (userData.image.uri != undefined) {
+        if (userData.imageChaged) {
             Barbers.uploadBarberPersonalPic(userData)
                 .then(async (res) => {
                     if (res.data.status) {
