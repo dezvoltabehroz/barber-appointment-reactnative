@@ -9,12 +9,12 @@ export default class WorkingDaysScreen extends Component {
 
     })
     handleFunction = (data, item) => {
-        const { navigate, goBack } = this.props.navigation;
+        const { navigate, goBack,replace } = this.props.navigation;
         if (data.length == 0) {
             Alert.alert('Attention', 'Please select atleast one working day')
         }
         else {
-            navigate('ScheduleTime', { data, item })
+            replace('ScheduleTime', { data, item })
         }
     }
 
