@@ -10,7 +10,10 @@ import BarberBottomTabNavigation from '../BarberBottomTabNavigation';
 const Drawer = createDrawerNavigator();
 function BarberDrawerNavigationRoutes(props) {
     return (
-        <Drawer.Navigator drawerContent={(data) => <CustomDrawerContent props={props} {...data} />} initialRouteName="Home" >
+        <Drawer.Navigator drawerStyle={{
+            // backgroundColor: '#c6cbef',
+            width: 300,
+        }} drawerContent={(data) => <CustomDrawerContent props={props} {...data} />} initialRouteName="Home" >
             <Drawer.Screen name="Home" component={BarberBottomTabNavigation} options={{
                 swipeEnabled: false
             }} />
@@ -25,11 +28,11 @@ function CustomDrawerContent({ navigation, props }) {
             <View style={{ flex: 1, backgroundColor: '#171717' }} >
                 <View style={styles.upperContainer}>
                     <TouchableOpacity onPress={() => navigation.replace('Home')} style={styles.upperContainer}>
-                        <View style={{ flexDirection: 'row', justifyContent: 'flex-start', paddingLeft: '10%', alignItems: 'center' }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'flex-start', paddingLeft: '6%', }}>
                             <View>
                                 <Avatar source={{ uri: props?.user?.userData?.profile_picture }} size={70} rounded={true} />
                             </View>
-                            <View style={{ justifyContent: 'center', marginLeft: '2.5%' }}>
+                            <View style={{ justifyContent: 'center', }}>
                                 <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Poppins-Bold', }} >{props?.user?.userData?.full_name}</Text>
                                 <Text style={{ color: "white", marginLeft: "10%", fontFamily: 'Poppins-Medium', fontSize: 10 }} >{props?.user?.userData?.email}</Text>
                             </View>

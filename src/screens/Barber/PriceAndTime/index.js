@@ -41,7 +41,11 @@ class PriceAndTime extends Component {
         Barbers.getBarberSelectedServices(userData)
             .then((res) => {
                 if (res.data.status) {
+
                     let myArray = [...res.data.data]
+                    myArray = myArray.filter((elem, index, self) => self.findIndex(
+                        (t) => { return (t.id === elem.id && t.service_name === elem.service_name) }) === index)
+                    console.log(myArray)
                     myArray.map((item, index) => {
                         myArray[index] = { ...myArray[index], isFilled: '0', selected: false, price: '', time: '', }
                     });
@@ -60,11 +64,13 @@ class PriceAndTime extends Component {
     }
 
     setTime = (index, item) => {
+        console.log("item:", item)
         this.setState({ showTimePicker: true, indexValue: index, item: item })
     }
 
     setTimeChange = (data) => {
         const { item } = this.state;
+
         const objIndex = this.state.selectedArray.findIndex((obj => obj.id == item.id));
         let items = [...this.state.selectedArray];
         items[objIndex] = { ...items[objIndex], time: data };
@@ -313,7 +319,7 @@ class PriceAndTime extends Component {
                             :
                             <View style={styles.upperContainer}>
                                 {
-                                    selectedArray.length == 0 || selectedArray[0].price != '' || selectedArray[0].time != ''||selectedArray[1].price != '' || selectedArray[1].time != ''  ?
+                                    selectedArray.length == 0 || selectedArray[0].price != '' || selectedArray[0].time != '' || selectedArray[1].price != '' || selectedArray[1].time != '' ?
                                         <View style={styles.headingContainer}>
                                             <View style={styles.nameContainer}>
                                                 <Text style={styles.headingTextStyle1}>Services</Text>
@@ -383,12 +389,13 @@ class PriceAndTime extends Component {
 
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                                         <View style={styles.rowButtonContainer}>
-                                            <Button title="Cancel" onPress={() =>{
+                                            <Button title="Cancel" onPress={() => {
                                                 let selectedArray = [...this.state.selectedArray];
                                                 let newServiceCounter = selectedArray[selectedArray.length - 1].serviceCounter + 1;
                                                 selectedArray[selectedArray.length - 1] = { ...selectedArray[selectedArray.length - 1], serviceCounter: newServiceCounter };
                                                 this.setState({ selectedArray });
-                                                this.setState({ showEditService: false })}} />
+                                                this.setState({ showEditService: false })
+                                            }} />
                                         </View>
                                         <View style={styles.rowButtonContainer}>
                                             <Button title="Update" onPress={() => this.addPriceUpdate({ item, index })} />
