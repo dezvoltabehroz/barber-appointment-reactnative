@@ -21,12 +21,12 @@ const ProfileCard = ({ heading, description, icon, onPress }) => {
                     <User height={61} width={61} />
                     : heading == 'Portfolio' ?
                         <Portfolio height={61} width={61} />
-                        : heading == 'Services' ?
-                            <Services height={61} width={61} />
+                        : heading == 'History' ?
+                            <Calender height={61} width={61} />
                             : heading == 'Licence' ?
                                 <Licence height={61} width={61} />
-                                : heading == 'Schedule' ?
-                                    <Calender height={61} width={61} />
+                                : heading == 'Wallet' ?
+                                    <Services height={61} width={61} />
                                     : null
             }
             <View style={{ marginTop: '5%' }}>

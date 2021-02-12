@@ -33,11 +33,11 @@ export default StyleSheet.create({
         alignItems: 'flex-start'
     },
     upperListTitleStyle: {
-        // color: THEME.COLOR_WHITE,
+        color: THEME.PRIMARY_COLOR,
         fontFamily: 'Poppins-Medium'
     },
     upperListTitleBoldStyle: {
-        // color: THEME.COLOR_WHITE,
+        color: THEME.PRIMARY_COLOR,
         fontFamily: 'Poppins-Bold'
     },
     lowerListContainer: {
@@ -60,12 +60,12 @@ export default StyleSheet.create({
     locationContainer: {
         marginHorizontal: '2%',
         marginTop: '5%',
-        flexDirection: 'row',justifyContent:"space-between"
+        flexDirection: 'row', justifyContent: "space-between"
     },
     serviceTimeContainer: {
         marginHorizontal: '5%',
         flexDirection: 'row',
-        marginBottom:'2%'
+        marginBottom: '2%'
     },
     acceptContainer: {
         height: 40,
@@ -130,9 +130,9 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
-    logoStyle:{
-        height:40,
-        width:60
+    logoStyle: {
+        height: 40,
+        width: 60
     }
 
 })

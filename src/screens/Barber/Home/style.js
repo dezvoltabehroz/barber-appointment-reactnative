@@ -33,7 +33,7 @@ export default StyleSheet.create({
         alignItems: 'flex-start'
     },
     upperListTitleStyle: {
-        // color: THEME.COLOR_WHITE,
+        color: THEME.PRIMARY_COLOR,
         fontFamily: 'Poppins-Medium'
     },
     lowerListContainer: {

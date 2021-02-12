@@ -32,13 +32,13 @@ class BarberEditProfile extends Component {
                     name: 'Portfolio',
                 },
                 {
-                    name: 'Services',
+                    name: 'History',
                 },
                 {
                     name: 'Licence',
                 },
                 {
-                    name: 'Schedule',
+                    name: 'Wallet',
                 },
 
             ]
@@ -54,18 +54,28 @@ class BarberEditProfile extends Component {
                 item.name == 'Profile' ? () => this.props.onProfile()
                     : item.name == 'Portfolio' ?
                         () => this.props.onPortfolio()
-                        : item.name == 'Services' ?
+                        : item.name == 'History' ?
                             () => this.props.onServices()
                             : item.name == 'Licence' ?
                                 () => this.props.onCertificate()
-                                : item.name == 'Schedule' ?
-                                    () => this.props.onManageSchedule()
+                                : item.name == 'Wallet' ?
+                                    () => {
+                                        //  this.props.onManageSchedule()
+                                    }
                                     : null} />
         )
     }
 
     renderSeparator = () => {
         return (<View style={styles.gapHeight}></View>)
+    }
+
+
+    truncateString = (str, num) => {
+        if (str.length <= num) {
+            return str
+        }
+        return str.slice(0, num)
     }
 
     render() {
@@ -101,7 +111,7 @@ class BarberEditProfile extends Component {
                                     selectedStar={(rating) => this.onStarRatingPress(rating)}
                                     fullStarColor={THEME.PRIMARY_COLOR}
                                 />
-                                <Text style={[styles.textStyle, { marginLeft: 5 }]}>{this.props.user.userData.stars_count != null ? this.props.user.userData.stars_count : 0}/5</Text>
+                                <Text style={[styles.textStyle, { marginLeft: 5 }]}>{this.props.user.userData.stars_count != null ? this.truncateString(`${this.props.user.userData.stars_count}`, 3) : 0}/5</Text>
 
                             </View>
                         </View>

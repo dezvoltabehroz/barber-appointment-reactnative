@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, Alert, Modal, ActivityIndicator, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, Alert, Modal, ActivityIndicator, TouchableWithoutFeedback, TouchableOpacity, RefreshControl } from 'react-native';
 import { Button, FooterButton, FloatingInput, DateTimeModal, Icon, } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
@@ -165,8 +165,8 @@ class BarberEditServices extends Component {
                         <View style={styles.timeContainer}>
                             {item.time != '' ?
                                 <View style={styles.priceAndTimeContainer}>
-                                    <Text style={styles.timeTextStyle}> 
-                                    {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : "  " + timeInHour[1]}
+                                    <Text style={styles.timeTextStyle}>
+                                        {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : "  " + timeInHour[1]}
                                         {
                                             timeInHour[0] == '0' && timeInHour[1] == '0' ?
                                                 null
@@ -342,6 +342,8 @@ class BarberEditServices extends Component {
                                 }
                                 <FlatList
                                     contentContainerStyle={{ paddingBottom: '5%' }}
+                                    refreshControl={<RefreshControl tintColor={THEME.COLOR_WHITE}
+                                        colors={[THEME.PRIMARY_COLOR]} onRefresh={() => this.componentDidMount()} />}
                                     data={barberServices}
                                     showsVerticalScrollIndicator={false}
                                     ItemSeparatorComponent={this._renderSeparator}

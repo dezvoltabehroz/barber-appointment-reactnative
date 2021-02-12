@@ -11,7 +11,10 @@ import { connect } from 'react-redux';
 import { notificationActions } from '../../redux/actions/notification';
 import { bindActionCreators } from "redux";
 import BarberBookingHistoryRoutes from './barberBookingHistoryNavigation';
-
+import BarberManageSchedule from '../BarberManageScheduleRoutes';
+import ColorServices from '../../assets/svg/services.svg';
+import Services from '../../assets/svg/colorService.svg';
+import BarberEditServiceRoutes from './barberEditServiceNavigation';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
@@ -90,7 +93,9 @@ function BarberBottomNavigationRoutes(props) {
                     } else if (route.name === 'Booking') {
                         icon = <Icon.Ionicons name={"ios-calendar-sharp"} size={size} color={color} />;
                     } else if (route.name === 'Info') {
-                        icon = <Icon.MaterialCommunityIcons name={"information-outline"} size={30} color={color} />;
+                        icon = focused
+                            ? <ColorServices height={30} width={30} />
+                            : <Services height={30} width={30} />
 
                     } else if (route.name === 'Notification') {
                         icon = <Icon.FontAwesome name={"bell-o"} size={size} color={color} />;
@@ -122,7 +127,12 @@ function BarberBottomNavigationRoutes(props) {
                 };
             }} />
             <Bottom.Screen name="Mask" component={CreatePlaceholder} />
-            <Bottom.Screen name="Booking" component={BarberBookingHistoryRoutes} options={({ navigation }) => {
+            <Bottom.Screen name="Booking" component={BarberManageSchedule} />
+            <Bottom.Screen name="Notification" component={BarberNotificationRoutes} options={{
+                tabBarBadge: props.notification.notificationCount == 0 ? null : props.notification.notificationCount,
+                unmountOnBlur: true,
+            }} />
+            <Bottom.Screen name="Info" component={BarberEditServiceRoutes} options={({ navigation }) => {
                 const { routes, index } = navigation.dangerouslyGetState();
                 const { state: exploreState } = routes[index];
                 let tabBarVisible = true;
@@ -135,11 +145,6 @@ function BarberBottomNavigationRoutes(props) {
                     tabBarVisible,
                 };
             }} />
-            <Bottom.Screen name="Notification" component={BarberNotificationRoutes} options={{
-                tabBarBadge: props.notification.notificationCount == 0 ? null : props.notification.notificationCount,
-                unmountOnBlur: true,
-            }} />
-            <Bottom.Screen name="Info" component={Placeholder} />
         </Bottom.Navigator>
     )
 

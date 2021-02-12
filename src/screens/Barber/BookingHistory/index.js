@@ -169,7 +169,7 @@ class BarberBookingHistory extends Component {
                         break;
                 }
             }}
-                style={{ backgroundColor: THEME.COLOR_WHITE, borderRadius: 7, marginHorizontal: '5%', }}>
+                style={{ backgroundColor: '#171717', borderColor: 'gray', borderWidth: 1, marginHorizontal: '5%', }}>
                 <View style={styles.locationContainer}>
                     <View style={{ marginHorizontal: '2%' }}>
                         <Text style={[styles.upperListTitleBoldStyle, { textTransform: 'capitalize' }]}>booking id: #{item.id}</Text>
@@ -179,17 +179,17 @@ class BarberBookingHistory extends Component {
                     </View>
                 </View>
                 <View style={styles.serviceTimeContainer}>
-                    <Icon.Entypo name='location' color={THEME.COLOR_BLACK} size={20} />
-                    <View style={{ marginLeft: '2%' }}>
+                    {/* <Icon.Entypo name='location' color={THEME.COLOR_BLACK} size={20} /> */}
+                    <View style={{}}>
                         <Text style={[styles.upperListTitleStyle, { width: screenWidth * 0.7 }]}>{item.customer_address} </Text>
                     </View>
                 </View>
                 <View style={styles.serviceTimeContainer}>
-                    <View style={{ marginLeft: '1%' }}>
+                    <View style={{}}>
                         <Text style={[styles.upperListTitleBoldStyle]}>Status: </Text>
                     </View>
                     <View style={{ marginLeft: '2%' }}>
-                        <Text style={[styles.upperListTitleStyle, { color: item.stepCounter == '1' ? '#CF550B' : item.stepCounter == '7' ? '#09F10D' : item.stepCounter == '0' ? '#F90404' : '#EAF109' }]}>{status()}</Text>
+                        <Text style={[styles.upperListTitleStyle,]}>{status()}</Text>
                     </View>
                 </View>
             </TouchableOpacity>
