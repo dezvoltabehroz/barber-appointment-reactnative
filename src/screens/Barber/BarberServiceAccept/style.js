@@ -16,12 +16,12 @@ export default StyleSheet.create({
         fontFamily: 'Poppins-Medium'
     },
     customerLocationContainer: {
-        height: 54,
+        height: 75,
         // backgroundColor: THEME.PRIMARY_COLOR,
         justifyContent: "center",
         alignItems: "center",
-        width: screenWidth * 0.65,
-        borderRadius: 7
+        width: screenWidth * 0.8,
+        // borderRadius: 7
     },
     buttonContainer: {
         marginHorizontal: '5%',
@@ -30,12 +30,12 @@ export default StyleSheet.create({
         marginVertical: '5%'
     },
     buttonText: {
-        color: THEME.COLOR_WHITE,
+        color: THEME.PRIMARY_COLOR,
         textAlign: 'right',
         fontFamily: 'Poppins-Medium'
     },
-     footerStyle: {
-        flex: 0.2,
+    footerStyle: {
+        flex: 0.5,
         justifyContent: 'center',
         // paddingBottom: '4%',
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR

@@ -6,6 +6,7 @@ import User from '../../assets/svg/user.svg';
 import Calender from '../../assets/svg/calendar.svg';
 import Services from '../../assets/svg/services.svg';
 import Portfolio from '../../assets/svg/cv.svg';
+import Chat from '../../assets/svg/chat.svg';
 import Licence from '../../assets/svg/diploma.svg';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -27,7 +28,13 @@ const ProfileCard = ({ heading, description, icon, onPress }) => {
                                 <Licence height={61} width={61} />
                                 : heading == 'Wallet' ?
                                     <Services height={61} width={61} />
-                                    : null
+                                    : heading == 'Chat' ?
+                                        <Chat height={61} width={61} />
+                                        : heading == 'Call' ?
+                                            <View style={{ height: 71, width: 71, justifyContent: "center", alignItems: "center", backgroundColor: THEME.PRIMARY_COLOR, borderRadius: 40 }}>
+                                                <Icon.Feather name="phone-call" size={30} />
+                                            </View>
+                                            : null
             }
             <View style={{ marginTop: '5%' }}>
                 <Text
@@ -39,7 +46,7 @@ const ProfileCard = ({ heading, description, icon, onPress }) => {
                     {description}
                 </Text> */}
             </View>
-        </TouchableOpacity>
+        </TouchableOpacity >
     )
 }
 
@@ -70,7 +77,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins-Medium',
         fontSize: 14,
         lineHeight: 20,
-        color: 'white',
+        color: THEME.PRIMARY_COLOR,
         letterSpacing: 0.04,
     },
     dashboardCardDesc: {

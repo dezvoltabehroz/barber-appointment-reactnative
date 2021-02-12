@@ -7,6 +7,8 @@ import COMMON_STYLE from '../../../assets/styles/common.style';
 import { Barbers, Categories } from '../../../services';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import Edit from '../../../assets/svg/edit.svg';
+import Delete from '../../../assets/svg/delete.svg';
 class BarberEditServices extends Component {
 
     constructor(props) {
@@ -150,14 +152,40 @@ class BarberEditServices extends Component {
         return (
             <>
                 <View style={styles.contentContainer}>
-                    <View style={styles.row}>
+                    <View style={[styles.row, { flex: 1 }]}>
                         <View style={styles.nameContainer}>
-                            <Text style={styles.textStyle}>{item.service_name}</Text>
+                            <Text style={styles.textStyle}><Text style={{ fontFamily: "Poppins-Bold", color: THEME.PRIMARY_COLOR }}>Services: </Text>{item.service_name}</Text>
+                            {item.price != '' ?
+                                <View style={{ marginTop: '5%' }}>
+                                    <Text style={styles.timeTextStyle}><Text style={{ fontFamily: "Poppins-Bold", color: THEME.PRIMARY_COLOR }}>Cost:</Text> USD {item.price}</Text>
+                                </View>
+                                : null
+                            }
+                            {item.time != '' ?
+                                <View style={{ marginTop: '5%' }}>
+                                    <Text style={styles.timeTextStyle}><Text style={{ fontFamily: "Poppins-Bold", color: THEME.PRIMARY_COLOR }}>Duration:</Text>
+                                        {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : "  " + timeInHour[1]}
+                                        {
+                                            timeInHour[0] == '0' && timeInHour[1] == '0' ?
+                                                null
+                                                :
+                                                <Text style={styles.textStyles}> hr</Text>
+                                        }
+                                        {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                                        {
+                                            timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                                null
+                                                :
+                                                <Text style={styles.textStyles}> mins</Text>
+                                        }</Text>
+                                </View>
+                                : null
+                            }
                         </View>
-                        <View style={styles.priceContainer} >
+                        {/* <View style={styles.priceContainer} >
                             {item.price != '' ?
                                 <View style={styles.priceAndTimeContainer}>
-                                    <Text style={styles.timeTextStyle}>${item.price}</Text>
+                                    <Text style={styles.timeTextStyle}>Cost: USD {item.price}</Text>
                                 </View>
                                 : null
                             }
@@ -183,15 +211,17 @@ class BarberEditServices extends Component {
                                 </View>
                                 : null
                             }
-                        </View>
+                        </View> */}
                         <View style={[styles.priceContainer, { alignItems: "flex-end" }]}>
-                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                            <View style={{ flex: 1, flexDirection: 'row', alignItems: "center" }}>
                                 <TouchableOpacity onPress={() => this.on_Press_Edit(item, index)} >
-                                    <Icon.MaterialIcons name='edit' size={25} color={THEME.COLOR_WHITE} />
+                                    <Edit height={40} width={40} />
+                                    {/* <Icon.MaterialIcons name='edit' size={25} color={THEME.COLOR_WHITE} /> */}
                                 </TouchableOpacity>
                                 <View style={styles.seperatorStyle}></View>
                                 <TouchableOpacity onPress={() => this.on_Press_Delete(item, index)}>
-                                    <Icon.MaterialIcons name='delete' size={25} color={THEME.COLOR_WHITE} />
+                                    <Delete height={40} width={40} />
+                                    {/* <Icon.MaterialIcons name='delete' size={25} color={THEME.COLOR_WHITE} /> */}
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -322,24 +352,26 @@ class BarberEditServices extends Component {
                         :
                         <>
                             <View style={styles.upperContainer}>
-                                {
+                                {/* {
                                     barberServices.length == 0 || barberServices[0].price != '' || barberServices[0].time != '' ?
-                                        <View style={styles.headingContainer}>
-                                            <View style={styles.nameContainer}>
-                                                <Text style={styles.headingTextStyle}>Services</Text>
-                                            </View>
-                                            <View style={styles.priceContainer} >
-                                                <Text style={styles.headingTextStyle1}>Price</Text>
-                                            </View>
-                                            <View style={styles.timeContainer}>
-                                                <Text style={styles.headingTextStyle1}>Est. Duration</Text>
-                                            </View>
-                                            <View style={styles.priceContainer}>
-                                            </View>
-                                        </View>
+                                        // <View style={styles.headingContainer}>
+                                        //     <View style={styles.nameContainer}>
+                                        //         <Text style={styles.headingTextStyle}>Services</Text>
+                                        //     </View>
+                                        //     <View style={styles.priceContainer} >
+                                        //         <Text style={styles.headingTextStyle1}>Price</Text>
+                                        //     </View>
+                                        //     <View style={styles.timeContainer}>
+                                        //         <Text style={styles.headingTextStyle1}>Est. Duration</Text>
+                                        //     </View>
+                                        //     <View style={styles.priceContainer}>
+                                        //     </View>
+                                        // </View>
+                                        <>
+                                        </>
                                         :
                                         null
-                                }
+                                } */}
                                 <FlatList
                                     contentContainerStyle={{ paddingBottom: '5%' }}
                                     refreshControl={<RefreshControl tintColor={THEME.COLOR_WHITE}
@@ -350,7 +382,14 @@ class BarberEditServices extends Component {
                                     renderItem={({ item, index }) => this._renderItems({ item, index })}
                                     keyExtractor={item => item} />
                             </View>
-                            <FooterButton title="Add Service" onPress={() => this.props.onNext(() => this.componentDidMount())}  /*addservice onPressAddNewService={() => this.props.onNext(this.componentDidMount())} onPressAddService={() => this.setState({ showAddService: true })}*/ />
+                            <View style={{ flex: 0.2, justifyContent: "center" }}>
+                                <TouchableOpacity stye={{ backgroundColor: "#171717" }} onPress={() => this.props.onNext(() => this.componentDidMount())}>
+                                    <View style={{ height: 60, width: '100%', backgroundColor: "#171717", justifyContent: "center", alignItems: "center" }}>
+                                        <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 18, color: THEME.PRIMARY_COLOR }}>Add Service</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                            {/* <FooterButton title="Add Service" onPress={() => this.props.onNext(() => this.componentDidMount())}  /*addservice onPressAddNewService={() => this.props.onNext(this.componentDidMount())} onPressAddService={() => this.setState({ showAddService: true })} /> */}
 
                         </>
 
@@ -432,7 +471,7 @@ class BarberEditServices extends Component {
                                     barberServices[index].time_duration != '' ? THEME.inputBorder : {}]}>
                                         <View style={{ marginLeft: '3.5%' }}>
                                             <Text style={styles.titleStyle}>Time</Text>
-                                            <Text style={{ fontFamily: 'Poppins-Medium' }}>{moment(moment(this.state.time, 'H:mm')).format('HH:mm')}</Text>
+                                            <Text style={{ fontFamily: 'Poppins-Medium', color: THEME.PRIMARY_COLOR, }}>{moment(moment(this.state.time, 'H:mm')).format('HH:mm')}</Text>
                                         </View>
                                     </TouchableOpacity>
                                     {

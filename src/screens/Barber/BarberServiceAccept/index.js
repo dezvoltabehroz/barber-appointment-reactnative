@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './style';
-import { SearchandMapView, Icon } from '../../../components';
+import { SearchandMapView, Icon, ProfileCard } from '../../../components';
 import { Linking, Platform } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 import { BookingServices } from '../../../services';
@@ -99,7 +99,7 @@ class BarberServiceAccept extends Component {
         }
         return (
             <View style={styles.container}>
-                <View style={{ flex: 0.8 }}>
+                <View style={{ flex: 0.5 }}>
                     <View>
                         <TouchableOpacity onPress={() => Linking.openURL(url)}>
                             <Text style={styles.getDirectionText}>Get Direction</Text>
@@ -110,13 +110,17 @@ class BarberServiceAccept extends Component {
                     </View>
                 </View>
                 <View style={styles.footerStyle}>
+                    <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: "center" }}>
+                        <ProfileCard heading={"Chat"} onPress={() => onChat()} />
+                        <ProfileCard heading={"Call"} onPress={() => this.on_Phone()} />
+                    </View>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
                             disabled={enable()}
-                            onPress={arrivedAtlocation} style={[styles.customerLocationContainer, { backgroundColor: enable() ? 'lightgrey' : THEME.PRIMARY_COLOR }]}>
+                            onPress={arrivedAtlocation} style={[styles.customerLocationContainer, { backgroundColor: enable() ? 'lightgrey' : "#171717" }]}>
                             <Text style={styles.buttonText}>Arrived</Text>
                         </TouchableOpacity>
-                        <View style={{ flexDirection: "row", alignItems: 'center' }}>
+                        {/* <View style={{ flexDirection: "row", alignItems: 'center' }}>
                             <TouchableOpacity onPress={() => onChat(userData)}>
                                 <Icon.MaterialCommunityIcons name='chat' color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
                             </TouchableOpacity>
@@ -124,7 +128,7 @@ class BarberServiceAccept extends Component {
                             <TouchableOpacity onPress={this.on_Phone}>
                                 <Icon.MaterialCommunityIcons name='phone' color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
                     </View>
                 </View>
             </View>

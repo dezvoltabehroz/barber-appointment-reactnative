@@ -11,8 +11,8 @@ export default StyleSheet.create({
         paddingTop: Platform.OS == 'ios' ? screenHeight >= 812 ? '25%' : '18%' : '15%'
     },
     upperContainer: {
-        flex: 0.8,
-        marginHorizontal: '10%'
+        flex: 0.9,
+        marginHorizontal: '5%'
     },
     row: {
         flexDirection: 'row',
@@ -21,7 +21,7 @@ export default StyleSheet.create({
     nameContainer: {
         flex: 0.6,
         flexDirection: 'column',
-        justifyContent: 'center'
+        // justifyContent: 'center'
     },
     priceContainer: {
         flex: 0.2,
@@ -32,7 +32,7 @@ export default StyleSheet.create({
         flex: 0.25,
         width: screenWidth * 0.2,
         flexDirection: 'column',
-        justifyContent: 'center',
+        // justifyContent: 'center',
     },
     headingContainer: {
         flexDirection: 'row',
@@ -46,19 +46,19 @@ export default StyleSheet.create({
         justifyContent: 'space-between'
     },
     textStyle: {
-        color: THEME.COLOR_WHITE,
+        color: THEME.PRIMARY_COLOR,
         fontFamily: 'Poppins-Medium',
         fontSize: 11,
     },
     titleStyle: {
-        color: THEME.COLOR_GREY,
+        color: THEME.PRIMARY_COLOR,
         // textAlign: 'center',
         fontFamily: 'Poppins-Regular',
         fontSize: THEME.FONT_SIZE_SMALL,
     },
     timeTextStyle: {
-        color: THEME.COLOR_WHITE,
-        textAlign: 'center',
+        color: THEME.PRIMARY_COLOR,
+        // textAlign: 'center',
         fontFamily: 'Poppins-Regular',
         fontSize: THEME.FONT_SIZE_SMALL,
     },
@@ -139,7 +139,7 @@ export default StyleSheet.create({
         borderRadius: 5,
         marginHorizontal: '3%',
         marginBottom: '5%',
-        backgroundColor: THEME.COLOR_WHITE
+        backgroundColor: '#171717'
     },
     modalInputContainer: {
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
@@ -153,6 +153,9 @@ export default StyleSheet.create({
         fontFamily: 'Poppins-Bold'
     },
     contentContainer: {
+        paddingHorizontal: '5%',
+        paddingVertical: '5%',
+        backgroundColor: '#171717',
         flexDirection: 'row',
         justifyContent: "space-between",
         alignItems: 'center'

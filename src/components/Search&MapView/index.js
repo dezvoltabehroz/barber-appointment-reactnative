@@ -127,7 +127,7 @@ class SearchandMapView extends Component {
                         booking ? { height: screenHeight < 600 ? screenHeight * 0.25 : screenHeight * 0.3, }
                             :
                             accept ?
-                                { height: screenHeight < 600 ? screenHeight * 0.65 : screenHeight * 0.7, }
+                                { height: screenHeight < 600 ? screenHeight * 0.325 : screenHeight * 0.35, }
                                 :
                                 {}]}
                     customMapStyle={THEME.mapStyle}
