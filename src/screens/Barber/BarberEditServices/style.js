@@ -68,12 +68,6 @@ export default StyleSheet.create({
         fontFamily: 'Poppins-Bold',
         fontSize: 10,
     },
-    inputContainerStyle: {
-        height: 54,
-        width: screenWidth * 0.45,
-        borderRadius: 5,
-        backgroundColor: THEME.COLOR_WHITE
-    },
     inputDateContainerStyle: {
         justifyContent: "center",
         paddingTop: '20%',
@@ -161,6 +155,27 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: "space-between",
         alignItems: 'center'
+    },
+    containerStyle: {
+        height: 60,
+    },
+
+    inputContainerStyle: {
+        height: 54,
+        marginLeft: -8,
+        paddingLeft: 0,
+        // marginTop: 3.5,
+        borderBottomWidth: 0,
+    },
+    inputStyle: {
+        // flex: 1,
+        // textAlign: 'center',
+        marginLeft: 1,
+        paddingLeft: 0,
+        marginTop: 5,
+        fontSize: THEME.FONT_SIZE_MEDIUM,
+        fontFamily: 'Poppins-Medium',
+        color: THEME.PRIMARY_COLOR,
     },
 
 })

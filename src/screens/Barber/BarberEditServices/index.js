@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, Alert, Modal, ActivityIndicator, TouchableWithoutFeedback, TouchableOpacity, RefreshControl } from 'react-native';
-import { Button, FooterButton, FloatingInput, DateTimeModal, Icon, Input, } from '../../../components';
+import { Button, FooterButton, FloatingInput, DateTimeModal, Icon, } from '../../../components';
 import styles from './style';
+import { Input } from 'react-native-elements';
 import THEME from '../../../assets/styles/theme.style';
 import COMMON_STYLE from '../../../assets/styles/common.style';
 import { Barbers, Categories } from '../../../services';
@@ -457,13 +458,23 @@ class BarberEditServices extends Component {
                                     <View style={styles.headingContainer}>
                                         <Text style={styles.headingTextStyle}>Update a Service</Text>
                                     </View>
-                                    <View style={{ marginTop: '15%' }}>
-                                        <Input
-                                            placeholder="Price:"
-                                            keyboardtype="number-pad"
-                                            onBlur={() => this.addPrice({ item, index })}
-                                            onChangeText={(price) => { this.setState({ price: price }) }}
-                                            value={`Price: USD ${this.state.price}`} />
+                                    <View style={{ marginTop: '15%', marginHorizontal: 30 }}>
+                                        <View style={{ marginHorizontal: '12%', paddingHorizontal: "5%", backgroundColor: '#171717' }}>
+                                            <View style={{ height: 54, flexDirection: "row", alignItems: "center", }}>
+                                                <Text style={{ fontSize: 16, color: THEME.PRIMARY_COLOR, fontFamily: 'Poppins-Medium', }}>Price: USD</Text>
+                                                <Input
+                                                    placeholder=""
+                                                    keyboardtype="number-pad"
+                                                    containerStyle={styles.containerStyle}
+                                                    inputStyle={styles.inputStyle}
+                                                    inputContainerStyle={styles.inputContainerStyle}
+                                                    onBlur={() => this.addPrice({ item, index })}
+                                                    onChangeText={(price) => { this.setState({ price: price }) }}
+                                                    value={`${this.state.price}`} />
+                                            </View>
+                                        </View>
+
+
                                         {/* <View style={[styles.inputModalContainerStyle,
                                         barberServices[index].price != '' ? THEME.inputBorder : {}]}>
 
@@ -478,30 +489,33 @@ class BarberEditServices extends Component {
                                                 submit && !this.state.price ? <Text style={COMMON_STYLE.errorText1}>Please fill this field</Text> : null
                                             }
                                         </View> */}
-                                        <TouchableOpacity onPress={() => this.setTime(index, item)} style={[styles.inputModalContainerStyle]}>
-                                            <View style={{ marginLeft: '5%', justifyContent: 'center' }}>
-                                                <Text style={{ fontFamily: 'Poppins-Medium', color: THEME.PRIMARY_COLOR, fontSize: 16 }}> Time: {moment(moment(this.state.time, 'H:mm')).format('HH:mm')}</Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                        {
-                                            submit && !this.state.time ? <Text style={COMMON_STYLE.errorText1}>Please select time</Text> : null
-                                        }
+                                        <View style={{ marginTop: 20, marginHorizontal: 30 }}>
+                                            <TouchableOpacity onPress={() => this.setTime(index, item)} style={[styles.inputModalContainerStyle]}>
+                                                <View style={{ marginLeft: '5%', justifyContent: 'center' }}>
+                                                    <Text style={{ fontFamily: 'Poppins-Medium', color: THEME.PRIMARY_COLOR, fontSize: 16 }}> Time: {moment(moment(this.state.time, 'H:mm')).format('HH:mm')}</Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                            {
+                                                submit && !this.state.time ? <Text style={COMMON_STYLE.errorText1}>Please select time</Text> : null
+                                            }
+                                        </View>
+
                                     </View>
 
 
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                        <TouchableOpacity style={styles.rowButtonContainer}>
+                                        <TouchableOpacity onPress={() => this.setState({ showEditService: false })} style={styles.rowButtonContainer}>
                                             <View style={{ backgroundColor: THEME.PRIMARY_COLOR, height: 54, justifyContent: "center", alignItems: "center" }}>
                                                 <Text style={{ fontFamily: 'Poppins-Bold' }}>Cancel</Text>
                                             </View>
                                             {/* <Button title="Cancel" onPress={() => this.setState({ showEditService: false })} /> */}
                                         </TouchableOpacity>
-                                        <View style={styles.rowButtonContainer}>
+                                        <TouchableOpacity onPress={this.on_Update_Press} style={styles.rowButtonContainer}>
                                             <View style={{ backgroundColor: THEME.PRIMARY_COLOR, height: 54, justifyContent: "center", alignItems: "center" }}>
                                                 <Text style={{ fontFamily: 'Poppins-Bold' }}>Update</Text>
                                             </View>
                                             {/* <Button title="Update" onPress={this.on_Update_Press} /> */}
-                                        </View>
+                                        </TouchableOpacity>
                                     </View>
                                 </View>
 

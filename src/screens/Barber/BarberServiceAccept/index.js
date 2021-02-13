@@ -111,7 +111,7 @@ class BarberServiceAccept extends Component {
                 </View>
                 <View style={styles.footerStyle}>
                     <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: "center" }}>
-                        <ProfileCard heading={"Chat"} onPress={() => onChat()} />
+                        <ProfileCard heading={"Chat"} onPress={() => onChat(userData)} />
                         <ProfileCard heading={"Call"} onPress={() => this.on_Phone()} />
                     </View>
                     <View style={styles.buttonContainer}>

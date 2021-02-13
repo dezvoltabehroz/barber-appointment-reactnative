@@ -17,6 +17,7 @@ import Gift from '../../../assets/svg/gift.svg'
 import Beard from '../../../assets/svg/beard.svg';
 import BeardGray from '../../../assets/svg/beardgray.svg';
 import Female from '../../../assets/svg/female.svg';
+import FemaleGray from '../../../assets/svg/femaleGray.svg';
 class UpdateProfile extends Component {
     constructor(props) {
         super(props);
@@ -328,7 +329,7 @@ class UpdateProfile extends Component {
                                     this.state.female == true && this.state.male == false ?
                                         <Female height={80} width={80} />
                                         :
-                                        <BeardGray height={80} width={80} />
+                                        <FemaleGray height={80} width={80} />
                                 }
 
                             </TouchableOpacity>

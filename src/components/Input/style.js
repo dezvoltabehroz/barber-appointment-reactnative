@@ -45,7 +45,7 @@ export default StyleSheet.create({
         color: THEME.PRIMARY_COLOR,
     },
     messageInputContainerStyle: {
-        height: 140,
+        height: 200,
         width: '100%',
         paddingTop: 2,
         borderBottomWidth: 0,
