@@ -68,11 +68,11 @@ class BarberEditServices extends Component {
     }
 
     setTime = (index, item) => {
-        this.setState({ showTimePicker: true, indexValue: index, item: item })
+        this.setState({ showEditService: false, showTimePicker: true, indexValue: index, item: item })
     }
 
     setTimeChange = (data) => {
-        this.setState({ time: data, showTimePicker: false })
+        this.setState({ time: data, showTimePicker: false, showEditService: true })
 
     }
 
@@ -400,7 +400,7 @@ class BarberEditServices extends Component {
 
                 }
                 <DateTimeModal showTimePicker={showTimePicker}
-                    onCancel={() => this.setState({ showTimePicker: false })}
+                    onCancel={() => this.setState({ showTimePicker: false, showEditService: true })}
                     onSet={(time) => this.setTimeChange(time)} />
                 <Modal visible={showAddService}
                     animationType="slide">
