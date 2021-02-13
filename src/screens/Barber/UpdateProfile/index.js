@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, Alert, ActivityIndicator, ScrollView, Platform, Linking } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
-import { Icon, FloatingInput, FooterButton, DateTime, RadioButton, SearchandMapView } from '../../../components'
+import { Icon, FloatingInput, FooterButton, DateTime, RadioButton, SearchandMapView, Input } from '../../../components'
 import styles from './style';
 import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
@@ -12,7 +12,11 @@ import { connect } from 'react-redux';
 import Modal from 'react-native-modal'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from 'moment';
-
+import User from '../../../assets/svg/user.svg'
+import Gift from '../../../assets/svg/gift.svg'
+import Beard from '../../../assets/svg/beard.svg';
+import BeardGray from '../../../assets/svg/beardgray.svg';
+import Female from '../../../assets/svg/female.svg';
 class UpdateProfile extends Component {
     constructor(props) {
         super(props);
@@ -197,24 +201,47 @@ class UpdateProfile extends Component {
                             </ImageBackground>
                         </View>
                         <View style={styles.lowerContainer}>
-                            <View style={[styles.inputContainerStyle, isNameFocus || name != '' ? THEME.inputBorder : {}]}>
+                            {/* <View style={[styles.inputContainerStyle, isNameFocus || name != '' ? THEME.inputBorder : {}]}>
                                 <FloatingInput
                                     val={name}
                                     onActive={() => this.setState({ isNameFocus: true })}
                                     onInActive={() => this.setState({ isNameFocus: false })}
                                     label='Your Name' iconInput updateText={(name) => this.setState({ name })} />
                                 <Icon.Feather name='user' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
+                            </View> */}
+                            <View style={{ marginHorizontal: "7%" }}>
+                                <Input placeholder="Your Full Name"
+                                    rightIcon={(<View style={{ padding: 5 }}><User height={25} width={25} /></View>)}
+                                    value={name} onChangeText={(name) => { this.setState({ name }) }} />
                             </View>
-                            <RadioButton gender
-                                option1={this.state.male} option2={this.state.female}
-                                option1Text="Male" option2Text="Female"
-                                onPressOption1={() => this.setState({ male: true, female: false })}
-                                onPressOption2={() => this.setState({ female: true, male: false })} />
+
+                            {/* <View style={[styles.inputContainerStyle, { marginBottom: '2%' },
+                            isLocationFocus || location != '' ? THEME.inputBorder : {}]}>
+                                <FloatingInput val={location}
+                                    editable={false}
+                                    onInActive={() => this.setState({ isLocationFocus: false })}
+                                    onActive={() => this.setState({ isLocationFocus: true })}
+                                    label='Your Location' val={this.state.location} />
+                                 <TouchableOpacity onPress={() => this.setState({ modalView: true })}>
+                                    <Icon.SimpleLineIcons name='location-pin' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
+                                </TouchableOpacity> 
+                            </View> */}
+                            <View style={{ marginHorizontal: "7%", marginTop: 3 }}>
+                                <Input placeholder="Address | Location"
+                                    rightIcon={(<View style={{ padding: 5 }}><Icon.Ionicons name='location-sharp' size={THEME.ICON_SIZE} color={THEME.PRIMARY_COLOR} /></View>)}
+                                    editable={false} value={this.state.location} />
+                            </View>
                             <View>
                                 <TouchableOpacity onPress={() => this.setState({ showDatePicker: true })}>
                                     <View style={[styles.dateContainer,
-                                    showDatePicker || date != '' ? THEME.inputBorder : {}]}>
-                                        <Text style={[styles.dateTextStyle, date ? { color: THEME.COLOR_BLACK } : {}]}>{date && date != "" ? date : "Date of Birth"}</Text>
+                                        // showDatePicker || date != '' ? THEME.inputBorder : {}
+                                    ]}>
+                                        <View>
+                                            <Text style={[styles.dateTextStyle,]}>{date && date != "" ? date : "DD/MM/YYYY | Birthday"}</Text>
+                                        </View>
+                                        <View style={{ marginRight: '2.5%' }}>
+                                            <Gift height={25} width={25} />
+                                        </View>
                                     </View>
                                 </TouchableOpacity>
                                 {/* {showDatePicker ?
@@ -239,21 +266,10 @@ class UpdateProfile extends Component {
                                     onCancel={this.hideDatePicker}
                                 />
                             </View>
-                            <View style={[styles.inputContainerStyle, { marginBottom: '2%' },
-                            isLocationFocus || location != '' ? THEME.inputBorder : {}]}>
-                                <FloatingInput val={location}
-                                    editable={false}
-                                    onInActive={() => this.setState({ isLocationFocus: false })}
-                                    onActive={() => this.setState({ isLocationFocus: true })}
-                                    label='Your Location' val={this.state.location} />
-                                {/* <TouchableOpacity onPress={() => this.setState({ modalView: true })}>
-                                    <Icon.SimpleLineIcons name='location-pin' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
-                                </TouchableOpacity> */}
-                            </View>
-                            <View style={styles.distanceContainerStyle}>
+                            {/* <View style={styles.distanceContainerStyle}>
                                 <View style={styles.distanceHeadingContainer}>
                                     <Text style={styles.distanceTextStyle}>Maximum Distance</Text>
-                                    <Text style={styles.distanceStyle}>{minDistance} {/*- {maxDistance*/} miles</Text>
+                                    <Text style={styles.distanceStyle}>{minDistance} Miles</Text>
                                 </View>
                                 <View style={styles.sliderContainer}>
                                     <RangeSlider
@@ -273,8 +289,55 @@ class UpdateProfile extends Component {
                                             this.setState({ minDistance: low, maxDistance: high })
                                         }} />
                                 </View>
+                            </View> */}
+                            <View style={styles.distanceContainerStyle}>
+                                <View style={styles.sliderContainer}>
+                                    <RangeSlider
+                                        style={styles.sliderStyle}
+                                        gravity={"top"}
+                                        min={5}
+                                        max={20}
+                                        step={1}
+                                        rangeEnabled={false}
+                                        thumbColor={THEME.PRIMARY_COLOR}
+                                        labelBackgroundColor={THEME.PRIMARY_COLOR}
+                                        labelBorderWidth={0}
+                                        thumbBorderWidth={0}
+                                        selectionColor={THEME.PRIMARY_COLOR}
+                                        blankColor={THEME.PRIMARY_BACKGROUND_COLOR}
+                                        onValueChanged={(low, high, fromUser) => {
+                                            this.setState({ minDistance: low, maxDistance: high })
+                                        }} />
+                                    <Text style={styles.distanceStyle}>{minDistance} Miles</Text>
+                                </View>
                             </View>
                         </View>
+                        <View style={{ marginTop: "5%", flexDirection: 'row', justifyContent: "center" }}>
+                            <TouchableOpacity onPress={() => this.setState({ male: true, female: false })}>
+                                {
+                                    this.state.male == true && this.state.female == false ?
+                                        <Beard height={80} width={80} />
+                                        :
+                                        <BeardGray height={80} width={80} />
+                                }
+
+                            </TouchableOpacity>
+                            <View style={{ width: 20 }}></View>
+                            <TouchableOpacity onPress={() => this.setState({ female: true, male: false })}>
+                                {
+                                    this.state.female == true && this.state.male == false ?
+                                        <Female height={80} width={80} />
+                                        :
+                                        <BeardGray height={80} width={80} />
+                                }
+
+                            </TouchableOpacity>
+                        </View>
+                        {/* <RadioButton gender
+                            option1={this.state.male} option2={this.state.female}
+                            option1Text="Male" option2Text="Female"
+                            onPressOption1={() => this.setState({ male: true, female: false })}
+                            onPressOption2={() => this.setState({ female: true, male: false })} /> */}
                     </ScrollView>
                 </View>
                 <FooterButton disabled={latitude && longitude ? false : true} title='Update Profile' onPress={this.handleNext} />

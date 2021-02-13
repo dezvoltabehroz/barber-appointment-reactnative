@@ -6,7 +6,8 @@ export default StyleSheet.create({
     labelTextStyle: {
         marginTop: 17,
         paddingLeft: 9,
-        color: THEME.PRIMARY_COLOR,
+        // color: THEME.PRIMARY_COLOR,
+        color: THEME.COLOR_GREY,
         fontSize: 12,
         fontFamily: 'Poppins-Regular'
     },
@@ -15,7 +16,7 @@ export default StyleSheet.create({
         paddingLeft: 10,
         marginTop: 10,
         borderWidth: 0,
-        color: THEME.PRIMARY_COLOR,
+        // color: THEME.PRIMARY_COLOR,
         fontFamily: 'Poppins-Medium'
     },
     phonelabelTextStyle: {

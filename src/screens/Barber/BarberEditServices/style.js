@@ -118,7 +118,7 @@ export default StyleSheet.create({
         flex: 1,
         height: screenHeight * 1,
         width: screenWidth * 1,
-        paddingTop: "40%",
+        paddingTop: "10%",
         alignSelf: "center",
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
     },
@@ -129,14 +129,16 @@ export default StyleSheet.create({
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
     },
     headingTextStyle: {
-        fontSize: 14,
+        fontSize: 16,
         color: THEME.COLOR_WHITE,
-        fontFamily: 'Poppins-Medium'
+        fontFamily: 'Poppins-Bold'
     },
     inputModalContainerStyle: {
+        // marginTop: '10%',
+        justifyContent: "center",
         height: 54,
-        width: screenWidth * 0.8,
-        borderRadius: 5,
+        // width: screenWidth * 0.8,
+        // borderRadius: 5,
         marginHorizontal: '3%',
         marginBottom: '5%',
         backgroundColor: '#171717'

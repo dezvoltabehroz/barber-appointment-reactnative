@@ -55,24 +55,27 @@ export default StyleSheet.create({
         backgroundColor: THEME.COLOR_WHITE
     },
     distanceContainerStyle: {
+        marginTop:5,
         marginHorizontal: '10%',
         justifyContent: "center",
         height: 80,
         marginBottom: '2%',
         width: screenWidth * 0.8,
-        borderRadius: 5,
-        backgroundColor: THEME.COLOR_WHITE
+        borderRadius: 0,
+        backgroundColor: '#171717'
     },
     distanceHeadingContainer: {
-        // paddingTop: "5%",
+        // paddingTop: "2%",
         flexDirection: "row",
         justifyContent: "space-between"
     },
     sliderContainer: {
-        alignItems: "center",
+        paddingHorizontal: '2%',
+        flexDirection: "row",
+        justifyContent: "space-between", alignItems: "center",
     },
     sliderStyle: {
-        width: screenWidth * 0.75,
+        width: screenWidth * 0.6,
         height: 60,
         bottom: 20,
     },
@@ -132,18 +135,20 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     dateContainer: {
-        backgroundColor: THEME.COLOR_WHITE,
-        borderRadius: 5,
+        flexDirection: "row",
+        backgroundColor: "#171717",
+        // borderRadius: 5,
+        marginTop: 5,
         marginVertical: '2%',
         marginHorizontal: '10%',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: "center",
         height: 54,
-        width: screenWidth * 0.8,
+        width: screenWidth * 0.81,
     },
     dateTextStyle: {
-        width: screenWidth * 0.765,
-        color: THEME.COLOR_GREY,
+        width: screenWidth * 0.65,
+        color: THEME.PRIMARY_COLOR,
         marginLeft: 11,
         fontFamily: 'Poppins-Regular'
     },
@@ -153,12 +158,13 @@ export default StyleSheet.create({
         fontFamily: 'Poppins-Regular'
     },
     distanceStyle: {
-        color: THEME.COLOR_GREY,
-        marginRight: 11,
+        color: THEME.PRIMARY_COLOR,
+        marginRight: 10,
+        marginBottom: 5,
         fontFamily: 'Poppins-Regular'
     },
     modalContainer: {
-        flex:1,
+        flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
     },
 })

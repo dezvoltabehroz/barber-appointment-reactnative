@@ -3,21 +3,22 @@ import THEME from '../../assets/styles/theme.style';
 const screenWidth = Dimensions.get('window').width;
 export default StyleSheet.create({
     containerStyle: {
-        height: 70,
+        height: 60,
     },
     inputContainerStyle: {
         height: 54,
         width: '100%',
         borderBottomWidth: 0,
-        backgroundColor: '#FFFFFF',
-        borderRadius: 5,
+        backgroundColor: '#171717',
+        // borderRadius: 5,
     },
     inputStyle: {
         flex: 1,
-        textAlign: 'center',
-        fontSize: THEME.FONT_SIZE_XLARGE,
+        // textAlign: 'center',
+        marginLeft: "5%",
+        fontSize: THEME.FONT_SIZE_MEDIUM,
         fontFamily: 'Poppins-Regular',
-        color: THEME.INPUT_PRIMARY_TEXT_COLOR,
+        color: THEME.PRIMARY_COLOR,
     },
     phoneInputContainerStyle: {
         height: 54,
@@ -34,6 +35,22 @@ export default StyleSheet.create({
         marginLeft: 10,
         color: '#1E2023',
         fontSize: 14
-    }
+    },
+    messageinputStyle: {
+        textAlignVertical: 'top',
+        marginLeft: "5%",
+        alignSelf: "flex-start",
+        fontSize: THEME.FONT_SIZE_MEDIUM,
+        fontFamily: 'Poppins-Regular',
+        color: THEME.PRIMARY_COLOR,
+    },
+    messageInputContainerStyle: {
+        height: 140,
+        width: '100%',
+        paddingTop: 2,
+        borderBottomWidth: 0,
+        backgroundColor: '#171717',
+        borderRadius: 0,
+    },
 }
 );

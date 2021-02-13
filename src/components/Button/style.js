@@ -7,15 +7,15 @@ export default StyleSheet.create({
         height: 54,
         width: '100%',
         elevation: 2,
-        borderRadius: 5,
+        borderRadius: 0.0000000000001,
         marginBottom: 10,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: THEME.BUTTON_COLOR
     },
     btnPrimaryText: {
-        fontFamily:'Poppins-Medium',
+        fontFamily: 'Poppins-Medium',
         fontSize: THEME.FONT_SIZE_MEDIUM,
-        color: THEME.PRIMARY_TEXT_COLOR,
+        color: THEME.COLOR_BLACK,
     },
 });

@@ -9,7 +9,7 @@ const Input = (props) => {
             {...props}
             ref={props.inputRef}
             containerStyle={inputStyles.containerStyle}
-            placeholderTextColor={THEME.INPUT_PRIMARY_TEXT_COLOR}
+            placeholderTextColor={THEME.PRIMARY_COLOR}
             inputContainerStyle={inputStyles.inputContainerStyle}
             inputStyle={inputStyles.inputStyle}
         />

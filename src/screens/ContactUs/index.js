@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, } from 'react-native'
-import { Button, FloatingInput, MessageInput } from "../../components";
+import { Button, FloatingInput, Input, MessageInput, MessageTextInput } from "../../components";
 import styles from './style';
 import THEME from '../../assets/styles/theme.style';
 import COMMON_STYLE from '../../assets/styles/common.style';
@@ -56,21 +56,29 @@ class ContactUs extends Component {
                 <View style={styles.container}>
                     <View style={styles.upperContainer}>
                         <View style={styles.buttonContainer}>
-                            <View style={[styles.inputContainerStyle, submit ? { marginBottom: "8%" } : styles.inputContainerStyle,
-                            isNameFocus || name != '' ? THEME.inputBorder : {}]}>
+                            <Input placeholder="Your Name" value={name} onChangeText={(name) => this.setState({ name })} />
+                            {/* <View style={[styles.inputContainerStyle, submit ? { marginBottom: "8%" } : styles.inputContainerStyle,
+                                isNameFocus || name != '' ? THEME.inputBorder : {}
+                            ]}>
+                                
                                 <FloatingInput
                                     label={"Your Name"}
                                     val={name}
                                     onActive={() => this.setState({ isNameFocus: true })}
                                     onInActive={() => this.setState({ isNameFocus: false, submit: true })}
                                     updateText={(name) => this.setState({ name })} />
-                                {
-                                    submit && !name ? <Text style={[COMMON_STYLE.errorText, submit ? styles.onSubmitTrue : {}]}>Please fill this field</Text> : null
-                                }
-                            </View>
+                               {
+                                submit && !name ? <Text style={[COMMON_STYLE.errorText, submit ? styles.onSubmitTrue : {}]}>Please fill this field</Text> : null
+                            }
+                            </View> */}
+                            {
+                                submit && !name ? <Text style={[COMMON_STYLE.errorText, submit ? styles.onSubmitTrue : {}]}>Please fill this field</Text> : null
+                            }
+                            <Input placeholder="Your Email" value={email} onChangeText={(email) => this.setState({ email })} />
+                            {/* <View style={[styles.inputContainerStyle, submit ? { marginBottom: "8%" } : styles.inputContainerStyle,
+                                isEmailFocus || email != '' ? THEME.inputBorder : {}
+                            ]}>
 
-                            <View style={[styles.inputContainerStyle, submit ? { marginBottom: "8%" } : styles.inputContainerStyle,
-                            isEmailFocus || email != '' ? THEME.inputBorder : {}]}>
                                 <FloatingInput
                                     label={"Your Email"}
                                     val={email}
@@ -84,9 +92,15 @@ class ContactUs extends Component {
                                 {
                                     submit && email.length && !this.isEmailValid(email) ? <Text style={[COMMON_STYLE.errorText, submit ? styles.onSubmitTrue : {}]}>Email is invalid</Text> : null
                                 }
-                            </View>
+                            </View> */}
 
-                            <View style={[styles.inputContainerStyle, submit ? { marginBottom: "8%" } : styles.inputContainerStyle,
+                            {
+                                submit && !email ? <Text style={[COMMON_STYLE.errorText, submit ? styles.onSubmitTrue : {}]}>Please fill this field</Text> : null
+                            }
+                            {
+                                submit && email.length && !this.isEmailValid(email) ? <Text style={[COMMON_STYLE.errorText, submit ? styles.onSubmitTrue : {}]}>Email is invalid</Text> : null
+                            }
+                            {/* <View style={[styles.inputContainerStyle, submit ? { marginBottom: "8%" } : styles.inputContainerStyle,
                             isSubjectFocus || subject != '' ? THEME.inputBorder : {}]}>
                                 <FloatingInput
                                     label={"Your Subject"}
@@ -97,8 +111,16 @@ class ContactUs extends Component {
                                 {
                                     submit && !subject ? <Text style={[COMMON_STYLE.errorText, submit ? styles.onSubmitTrue : {}]}>Please fill this field</Text> : null
                                 }
-                            </View>
-                            <View style={[styles.messageContainerStyle, submit ? { marginBottom: '8%' } : styles.messageContainerStyle,
+                            </View> */}
+                            <Input placeholder="Your Subject" value={subject} onChangeText={(subject) => this.setState({ subject })} />
+                            {
+                                submit && !subject ? <Text style={[COMMON_STYLE.errorText, submit ? styles.onSubmitTrue : {}]}>Please fill this field</Text> : null
+                            }
+                            <MessageTextInput placeholder="Please type your message" multiline={true} value={message} onChangeText={(message) => this.setState({ message })} />
+                            {
+                                submit && !message ? <Text style={[COMMON_STYLE.errorText, submit ? [styles.onSubmitTrue, { marginTop: '6%' }] : {}]}>Please fill this field</Text> : null
+                            }
+                            {/* <View style={[styles.messageContainerStyle, submit ? { marginBottom: '8%' } : styles.messageContainerStyle,
                             isMessageFocus || message != '' ? THEME.inputBorder : {}]}>
                                 <MessageInput
                                     label={"Please type your message"}
@@ -110,9 +132,11 @@ class ContactUs extends Component {
                                 {
                                     submit && !message ? <Text style={[COMMON_STYLE.errorText, submit ? [styles.onSubmitTrue, { marginTop: '6%' }] : {}]}>Please fill this field</Text> : null
                                 }
+                            </View> */}
+                            <View style={{ marginHorizontal: '2.5%' }}>
+                                <Button title="Send" onPress={this.handleSubmit} />
                             </View>
 
-                            <Button title="Send" onPress={this.handleSubmit} />
                         </View>
                     </View>
                 </View>

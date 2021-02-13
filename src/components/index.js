@@ -62,3 +62,6 @@ export const ProfileCard = _ProfileCard;
 
 import _Tabs from './Tabs';
 export const Tabs = _Tabs;
+
+import _MessageTextInput from './Input/messageInput';
+export const MessageTextInput = _MessageTextInput;
