@@ -40,6 +40,7 @@ export default StyleSheet.create({
     },
     //Lower Container Style
     lowerContainer: {
+        marginTop: '5%',
         justifyContent: "center",
         alignItems: "center"
     },
@@ -55,7 +56,7 @@ export default StyleSheet.create({
         backgroundColor: THEME.COLOR_WHITE
     },
     distanceContainerStyle: {
-        marginTop:5,
+        marginTop: 5,
         marginHorizontal: '10%',
         justifyContent: "center",
         height: 80,

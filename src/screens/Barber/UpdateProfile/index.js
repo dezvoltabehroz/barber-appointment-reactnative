@@ -184,7 +184,7 @@ class UpdateProfile extends Component {
                 <View style={styles.upperContainer}>
                     <ScrollView>
                         <View style={styles.imageContainer}>
-                            <ImageBackground style={styles.imageStyle} resizeMode="contain" source={require('../../../assets/images/decor.png')}>
+                            {/* <ImageBackground style={styles.imageStyle} resizeMode="contain" source={require('../../../assets/images/decor.png')}> */}
                                 <View style={styles.avatarContainer}>
                                     <Avatar
                                         avatarStyle={styles.avatarStyle}
@@ -199,7 +199,7 @@ class UpdateProfile extends Component {
                                     </TouchableOpacity> */}
                                 </View>
 
-                            </ImageBackground>
+                            {/* </ImageBackground> */}
                         </View>
                         <View style={styles.lowerContainer}>
                             {/* <View style={[styles.inputContainerStyle, isNameFocus || name != '' ? THEME.inputBorder : {}]}>
