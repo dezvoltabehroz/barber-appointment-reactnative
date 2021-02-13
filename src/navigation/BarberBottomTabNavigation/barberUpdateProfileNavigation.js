@@ -16,20 +16,21 @@ import AddPriceAndTimeScreen from '../BarberNavigation/AddPriceAndTimeScreen';
 import BaberManageScheduleScreen from '../BarberNavigation/BarberManageScheduleScreen';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-
+import { Icon } from '../../components';
 const Stack = createStackNavigator();
 
 
 function BarberProfileRoutes() {
     return (
         <Stack.Navigator initialRouteName="EditProfile">
-            <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{
+            <Stack.Screen name="EditProfile" component={EditProfileScreen} options={({ navigation, route }) => ({
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitleAlign: 'center',
+                headerLeft: props => (<TouchableOpacity onPress={() => navigation.replace('Home')} style={{ marginLeft: 10 }}><Icon.Ionicons name={Platform.OS == 'ios' ? "ios-arrow-back" : "md-arrow-back"} size={25} color="white" /></TouchableOpacity>),
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Edit Account</Text></View>),
-            }} />
+            })} />
             <Stack.Screen name="UpdateProfile" component={UpdateProfileScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
@@ -93,7 +94,7 @@ function BarberProfileRoutes() {
                 headerTitleAlign: 'center',
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Manage Schedule</Text></View>),
             }} />
-             <Stack.Screen name="ManageScheduleTime" component={BaberManageScheduleScreen} options={{
+            <Stack.Screen name="ManageScheduleTime" component={BaberManageScheduleScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,

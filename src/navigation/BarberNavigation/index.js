@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import EmailandPasswordScreen from './EmailandPasswordScreen';
@@ -23,7 +23,7 @@ import EditProfileScreen from './EditProfileScreen';
 import BarberBookingHistoryScreen from './BarberBookingHistoryScreen';
 import BarberEditServicesScreen from './BarberEditServicesScreen';
 import BarberProfileRoutes from '../BarberBottomTabNavigation/barberUpdateProfileNavigation';
-
+import { Icon } from '../../components';
 const Stack = createStackNavigator();
 
 function BarberRoutes() {
@@ -46,13 +46,14 @@ function BarberRoutes() {
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter your phone number</Text></View>),
                 headerTitleAlign: 'center',
             }} />
-            <Stack.Screen name="BarberBookingHistory" component={BarberBookingHistoryScreen} options={{
+            <Stack.Screen name="BarberBookingHistory" component={BarberBookingHistoryScreen} options={({ navigation, route }) => ({
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
+                headerLeft: props => (<TouchableOpacity onPress={() => navigation.replace('EditProfile')} style={{ marginLeft: 10 }}><Icon.Ionicons name={Platform.OS == 'ios' ? "ios-arrow-back" : "md-arrow-back"} size={25} color="white" /></TouchableOpacity>),
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Appointment History</Text></View>),
                 headerTitleAlign: 'center',
-            }} />
+            })} />
             <Stack.Screen name="PhoneVerification" component={PhoneVerificatinScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
