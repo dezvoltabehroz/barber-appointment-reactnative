@@ -169,47 +169,52 @@ class BarberList extends Component {
                             <ActivityIndicator />
                         </View>
                         :
-                        this.props.search ?
-                            <>
-                                <SearchBar
-                                    placeholder='Search...'
-                                    round
-                                    onChangeText={text => this.searchFilterBarber(text)}
-                                    value={this.state.value}
-                                    autoCorrect={false}
-                                    inputStyle={{ fontSize: 14, }}
-                                    leftIconContainerStyle={{ paddingLeft: 10 }}
-                                    rightIconContainerStyle={{ paddingRight: 10 }}
-                                    containerStyle={styles.containerStyle}
-                                    inputContainerStyle={styles.inputContainerStyle}
-                                />
-                                <FlatList
-                                    data={this.state.barberList}
-                                    showsVerticalScrollIndicator={false}
-                                    ItemSeparatorComponent={this._renderSeparator}
-                                    renderItem={({ item }) => this._renderItemsBarber(item)}
-                                    keyExtractor={item => item} />
-                            </>
+                        this.state.barberList.length == 0 ?
+                            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                                <Text style={{ fontSize: 16, fontFamily: "Poppins-Medium", color: "white" }}>No Barber Found </Text>
+                            </View>
                             :
-                            <>
-                                <SearchBar
-                                    placeholder='Search...'
-                                    round
-                                    onChangeText={text => this.searchFilterBarber(text)}
-                                    value={this.state.value}
-                                    autoCorrect={false}
-                                    inputStyle={{ fontSize: 14, }}
-                                    leftIconContainerStyle={{ paddingLeft: 10 }}
-                                    rightIconContainerStyle={{ paddingRight: 10 }}
-                                    containerStyle={styles.containerStyle}
-                                    inputContainerStyle={styles.inputContainerStyle} />
-                                <FlatList
-                                    data={this.state.barberList}
-                                    showsVerticalScrollIndicator={false}
-                                    ItemSeparatorComponent={this._renderSeparator}
-                                    renderItem={({ item }) => this._renderItems(item)}
-                                    keyExtractor={item => item} />
-                            </>
+                            this.props.search ?
+                                <>
+                                    <SearchBar
+                                        placeholder='Search...'
+                                        round
+                                        onChangeText={text => this.searchFilterBarber(text)}
+                                        value={this.state.value}
+                                        autoCorrect={false}
+                                        inputStyle={{ fontSize: 14, }}
+                                        leftIconContainerStyle={{ paddingLeft: 10 }}
+                                        rightIconContainerStyle={{ paddingRight: 10 }}
+                                        containerStyle={styles.containerStyle}
+                                        inputContainerStyle={styles.inputContainerStyle}
+                                    />
+                                    <FlatList
+                                        data={this.state.barberList}
+                                        showsVerticalScrollIndicator={false}
+                                        ItemSeparatorComponent={this._renderSeparator}
+                                        renderItem={({ item }) => this._renderItemsBarber(item)}
+                                        keyExtractor={item => item} />
+                                </>
+                                :
+                                <>
+                                    <SearchBar
+                                        placeholder='Search...'
+                                        round
+                                        onChangeText={text => this.searchFilterBarber(text)}
+                                        value={this.state.value}
+                                        autoCorrect={false}
+                                        inputStyle={{ fontSize: 14, }}
+                                        leftIconContainerStyle={{ paddingLeft: 10 }}
+                                        rightIconContainerStyle={{ paddingRight: 10 }}
+                                        containerStyle={styles.containerStyle}
+                                        inputContainerStyle={styles.inputContainerStyle} />
+                                    <FlatList
+                                        data={this.state.barberList}
+                                        showsVerticalScrollIndicator={false}
+                                        ItemSeparatorComponent={this._renderSeparator}
+                                        renderItem={({ item }) => this._renderItems(item)}
+                                        keyExtractor={item => item} />
+                                </>
                 }
             </View>
         );
