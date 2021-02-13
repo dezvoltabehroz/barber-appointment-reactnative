@@ -121,6 +121,9 @@ class ServiceComplete extends Component {
                             }} />
                             <Modal isVisible={tipModal}  >
                                 <View style={styles.content}>
+                                    <View style={{ alignItems: 'flex-end', justifyContent: "flex-end" }}>
+                                        <Icon.FontAwesome onPress={() => this.setState({ tipModal: false })} name='close' size={25} color={THEME.COLOR_WHITE} />
+                                    </View>
                                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: '5%' }}>
                                         <View style={styles.iconContainer}>
                                             <Icon.FontAwesome5 name='hand-holding-usd' size={25} color={THEME.PRIMARY_COLOR} />

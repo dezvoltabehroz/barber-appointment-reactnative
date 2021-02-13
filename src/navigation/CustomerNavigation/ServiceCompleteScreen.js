@@ -10,11 +10,11 @@ export default class ServiceCompleteScreen extends Component {
     })
 
     handleDone = (userData) => {
-        const { replace } = this.props.navigation;
+        const { replace, popToTop } = this.props.navigation;
         BookingServices.rateAndReviewBarberServices(userData)
             .then((res) => {
                 if (res.data.status) {
-                    replace('Customer')
+                    popToTop();
                 }
             })
     }
