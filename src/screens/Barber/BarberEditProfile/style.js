@@ -26,7 +26,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
         marginHorizontal: '5%',
         width: screenWidth * 0.9,
-        paddingVertical: "5%",
+        paddingVertical: "2.5%",
         // paddingLeft: "5%"
     },
     gapHeight: {

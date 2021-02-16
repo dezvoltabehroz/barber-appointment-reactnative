@@ -112,10 +112,9 @@ class BarberEditProfile extends Component {
                                     fullStarColor={THEME.PRIMARY_COLOR}
                                 />
                                 <Text style={[styles.textStyle, { marginLeft: 5 }]}>{this.props.user.userData.stars_count != null ? this.truncateString(`${this.props.user.userData.stars_count}`, 3) : 0}/5</Text>
-
                             </View>
                         </View>
-                        <View style={{ marginTop: '5%' }}>
+                        <View style={{  }}>
                             <FlatList keyExtractor={item => item}
                                 ItemSeparatorComponent={this.renderSeparator}
                                 numColumns={2}
