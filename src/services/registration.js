@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Platform } from 'react-native';
 let config = { headers: { 'Content-Type': 'application/json' } }
 const Api = {
+  
     sendCodeToPhoneNumber: function (number) {
         return axiosInstance.post('registration/regPhoneNumber', {
             phone: `${number}`,

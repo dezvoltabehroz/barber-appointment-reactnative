@@ -7,7 +7,7 @@ import {
     ScrollView,
     Text,
     TouchableOpacity,
-    Modal,
+    Modal, Image,
     FlatList
 } from 'react-native';
 import styles from './style'
@@ -28,7 +28,9 @@ class Payment extends Component {
             cvv: '',
             isCvvFocus: false,
             showDatePicker: false,
-            date: ''
+            date: '',
+            payWithCard: false,
+            payWithPayPal: false,
         }
     }
     handleConfirmPayment = () => {
@@ -54,7 +56,7 @@ class Payment extends Component {
     };
 
     render() {
-        const { name, isNameFocus, number, isNumberFocus, expDate, isexpDateFocus, cvv, isCvvFocus, showDatePicker } = this.state;
+        const { name, isNameFocus, number, isNumberFocus, expDate, isexpDateFocus, cvv, isCvvFocus, showDatePicker, payWithPayPal, payWithCard } = this.state;
         return (
             <>
                 <ScrollView>
@@ -62,7 +64,7 @@ class Payment extends Component {
                         <View style={styles.generalMargin}>
                             <Text style={styles.colorTextStyle}>Payment Method</Text>
                         </View>
-                        <View style={styles.container}>
+                        {/* <View style={styles.container}>
                             <View style={styles.payByCardContainer}>
                                 <Text style={styles.colorTextStyle}>Pay by card: </Text>
                                 <View style={styles.rowStyle}>
@@ -83,83 +85,125 @@ class Payment extends Component {
                                         color={THEME.COLOR_GREY} />
                                 </View>
                             </View>
+                        </View> */}
+                        <View style={styles.container}>
+                            <View style={[styles.payByCardContainer, { justifyContent: "center" }]}>
+                                <Text style={[styles.colorTextStyle, { textAlign: "center" }]}>Pay With: </Text>
+                            </View>
+                            <View style={[styles.rowStyle, { marginHorizontal: '10%', marginBottom: "5%", justifyContent: "center" }]}>
+                                <Icon.FontAwesome
+                                    onPress={() => {
+                                        this.setState({ payWithPayPal: false, payWithCard: true }, () => {
+                                            this.props.paymentMethod("Credit");
+                                        })
+                                    }}
+                                    name='credit-card'
+                                    style={styles.iconStyle}
+                                    size={50}
+                                    color={payWithCard ? THEME.PRIMARY_COLOR : THEME.COLOR_GREY} />
+                                <View style={{ width: 30 }} />
+                                <Icon.FontAwesome
+                                    onPress={() => {
+                                        this.setState({ payWithPayPal: true, payWithCard: false }, () => {
+                                            this.props.paymentMethod("Paypal"); this.props.isConfirm("false", {
+                                                card_number: "",
+                                                card_holder: "",
+                                                exp_date: "",
+                                                ccv_code: ""
+                                            })
+                                        })
+                                    }}
+                                    name='cc-paypal'
+                                    style={styles.iconStyle}
+                                    size={50}
+                                    color={payWithPayPal ? THEME.PRIMARY_COLOR : THEME.COLOR_GREY} />
+                            </View>
                         </View>
-                    </View>
-                    <View style={styles.marginVertical}>
-                        <View style={styles.contentContainer}>
-                            <View style={{ alignItems: "center" }}>
-                                <View style={[styles.inputContainerStyle,
-                                isNumberFocus || number != '' ? THEME.inputBorder : {}]}>
-                                    <FloatingInput
-                                        val={number}
-                                        keyboardtype={"number-pad"}
-                                        onActive={() => this.setState({ isNumberFocus: true })}
-                                        onInActive={() => this.setState({ isNumberFocus: false }, () => {
-                                            this.handleConfirmPayment()
-                                        })}
-                                        label='Card Number'
-                                        iconInput
-                                        updateText={(number) => this.setState({ number })} />
-                                    <Icon.Feather
-                                        name='credit-card'
-                                        style={styles.iconStyle}
-                                        size={THEME.ICON_SIZE}
-                                        color={THEME.COLOR_GREY} />
-                                </View>
-                                <View style={[styles.inputContainerStyle,
-                                isNameFocus || name != '' ? THEME.inputBorder : {}]}>
-                                    <FloatingInput
-                                        val={name}
-                                        onActive={() => this.setState({ isNameFocus: true })}
-                                        onInActive={() => this.setState({ isNameFocus: false }, () => {
-                                            this.handleConfirmPayment()
-                                        })}
-                                        label='Card Holder'
-                                        iconInput
-                                        updateText={(name) => this.setState({ name }, () => {
-                                            this.handleConfirmPayment()
-                                        })} />
-                                    <Icon.Feather
-                                        name='user'
-                                        style={styles.iconStyle}
-                                        size={THEME.ICON_SIZE}
-                                        color={THEME.COLOR_GREY} />
-                                </View>
-                            </View>
-                            <View style={styles.row}>
-                                <TouchableOpacity onPress={() => this.setState({ isexpDateFocus: true, showDatePicker: true })} style={[styles.inputRowContainerStyle,
-                                isexpDateFocus || expDate != '' ? THEME.inputBorder : {}]}>
-                                    {
-                                        expDate ?
-                                            <Text style={styles.colorTextStyle}>{expDate}</Text>
-                                            :
-                                            <Text style={styles.colorTextStyle}>Exp Date</Text>
-                                    }
-                                    <Icon.Feather name='calendar' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
-                                </TouchableOpacity>
-                                <View style={[styles.inputRowContainerStyle,
-                                isCvvFocus || cvv != '' ? THEME.inputBorder : {}]}>
-                                    <FloatingInput
-                                        val={cvv}
-                                        maxLength={3}
-                                        keyboardtype={'number-pad'}
-                                        onActive={() => this.setState({ isCvvFocus: true })}
-                                        onInActive={() => this.setState({ isCvvFocus: false }, () => {
-                                            this.handleConfirmPayment()
-                                        })}
-                                        label='CCV Code' iconSmallInput updateText={(cvv) => this.setState({ cvv })} />
-                                    <Icon.Feather name='lock' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
-                                </View>
-                            </View>
 
-                            <View style={[styles.rowStyle, styles.generalMargin]}>
-                                <Icon.Feather name='lock' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
-                                <Text style={[styles.colorTextStyle, { width: "90%" }]}>
-                                    Your payment information is safe with us. We use secure transmission and encrypted storage.
-                                    </Text>
-                            </View>
-                        </View>
                     </View>
+                    {payWithPayPal ?
+                        <TouchableOpacity onPress={() => this.handlePaypal()} style={{ justifyContent: "center", alignItems: "center" }}>
+                            <Image style={{ height: 250, width: 250 }} source={require('../../assets/images/paypal.png')} />
+                        </TouchableOpacity>
+                        :
+                        payWithCard ?
+                            <View style={styles.marginVertical}>
+                                <View style={styles.contentContainer}>
+                                    <View style={{ alignItems: "center" }}>
+                                        <View style={[styles.inputContainerStyle,
+                                        isNumberFocus || number != '' ? THEME.inputBorder : {}]}>
+                                            <FloatingInput
+                                                val={number}
+                                                keyboardtype={"number-pad"}
+                                                onActive={() => this.setState({ isNumberFocus: true })}
+                                                onInActive={() => this.setState({ isNumberFocus: false }, () => {
+                                                    this.handleConfirmPayment()
+                                                })}
+                                                label='Card Number'
+                                                iconInput
+                                                updateText={(number) => this.setState({ number })} />
+                                            <Icon.Feather
+                                                name='credit-card'
+                                                style={styles.iconStyle}
+                                                size={THEME.ICON_SIZE}
+                                                color={THEME.COLOR_GREY} />
+                                        </View>
+                                        <View style={[styles.inputContainerStyle,
+                                        isNameFocus || name != '' ? THEME.inputBorder : {}]}>
+                                            <FloatingInput
+                                                val={name}
+                                                onActive={() => this.setState({ isNameFocus: true })}
+                                                onInActive={() => this.setState({ isNameFocus: false }, () => {
+                                                    this.handleConfirmPayment()
+                                                })}
+                                                label='Card Holder'
+                                                iconInput
+                                                updateText={(name) => this.setState({ name }, () => {
+                                                    this.handleConfirmPayment()
+                                                })} />
+                                            <Icon.Feather
+                                                name='user'
+                                                style={styles.iconStyle}
+                                                size={THEME.ICON_SIZE}
+                                                color={THEME.COLOR_GREY} />
+                                        </View>
+                                    </View>
+                                    <View style={styles.row}>
+                                        <TouchableOpacity onPress={() => this.setState({ isexpDateFocus: true, showDatePicker: true })} style={[styles.inputRowContainerStyle,
+                                        isexpDateFocus || expDate != '' ? THEME.inputBorder : {}]}>
+                                            {
+                                                expDate ?
+                                                    <Text style={styles.colorTextStyle}>{expDate}</Text>
+                                                    :
+                                                    <Text style={styles.colorTextStyle}>Exp Date</Text>
+                                            }
+                                            <Icon.Feather name='calendar' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
+                                        </TouchableOpacity>
+                                        <View style={[styles.inputRowContainerStyle,
+                                        isCvvFocus || cvv != '' ? THEME.inputBorder : {}]}>
+                                            <FloatingInput
+                                                val={cvv}
+                                                maxLength={3}
+                                                keyboardtype={'number-pad'}
+                                                onActive={() => this.setState({ isCvvFocus: true })}
+                                                onInActive={() => this.setState({ isCvvFocus: false }, () => {
+                                                    this.handleConfirmPayment()
+                                                })}
+                                                label='CCV Code' iconSmallInput updateText={(cvv) => this.setState({ cvv })} />
+                                            <Icon.Feather name='lock' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
+                                        </View>
+                                    </View>
+
+                                    <View style={[styles.rowStyle, styles.generalMargin]}>
+                                        <Icon.Feather name='lock' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
+                                        <Text style={[styles.colorTextStyle, { width: "90%" }]}>
+                                            Your payment information is safe with us. We use secure transmission and encrypted storage.
+                                    </Text>
+                                    </View>
+                                </View>
+                            </View>
+                            :
+                            null}
                 </ScrollView>
                 {showDatePicker ?
                     <MonthPicker

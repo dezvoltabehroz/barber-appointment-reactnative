@@ -30,6 +30,20 @@ const Api = {
             is_accepted_time: userData.is_accepted_time
         }, configToken(userData.token))
     },
+    initiatePayment: function (userData) {
+        return axiosInstance.post('paypal/initiatePayment', {
+            id: userData.id,
+            cost: parseInt(userData.booking_price)
+        }, configToken(userData.token))
+    },
+    savePaymentData: function (userData) {
+        console.log("userData", userData)
+        return axiosInstance.post('paypal/savePaymentData', {
+            id: userData.id,
+            order_id: userData.order_id,
+            booking_id: userData.booking_id
+        }, configToken(userData.token))
+    },
     getAllBooking: function (userData) {
         let date = moment().format('YYYY-MM-DD');
         return axiosInstance.post('booking/allBooking', {

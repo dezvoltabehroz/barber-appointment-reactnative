@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Linking } from 'react-native';
 import styles from './style';
 import { Button, BarberServices, CartDetails, BookAppointment, Summary, Payment } from '../../../components';
 import StepProgress from 'react-native-step-progress';
@@ -29,7 +29,9 @@ class Booking extends Component {
             latitude: '',
             longitude: '',
             data: null,
-            customer_services: []
+            customer_services: [],
+            paymentMethod: "",
+            btnBookingLoading: false
         }
     }
     componentDidMount = () => {
@@ -78,7 +80,9 @@ class Booking extends Component {
         if (this.state.currentPosition == 4) {
             this.setState({ currentPosition: this.state.currentPosition, disabled: false });
         } else {
+
             if (this.state.currentPosition == 3) {
+                this.setState({ btnBookingLoading: true })
                 let userData = {
                     token: userdata.token,
                     id: userdata.id,
@@ -99,19 +103,50 @@ class Booking extends Component {
 
                 }
                 BookingServices.makeCustomerBooking(userData)
-                    .then((res) => { console.log(res.data) })
+                    .then((res) => {
+
+                        if (this.state.paymentMethod == "Paypal") {
+                            if (res.data.status)
+                                BookingServices.initiatePayment(userData)
+                                    .then((response) => {
+                                        if (response.data.status) {
+                                            let orderDetail = {
+                                                ...userData,
+                                                order_id: response.data.payment.id,
+                                                booking_id: res.data.booking_id
+                                            }
+                                            BookingServices.savePaymentData(orderDetail)
+                                                .then(async (responseData) => {
+                                                    if (responseData.data.status) {
+                                                        await Linking.openURL(`${response.data.payment.links[1].href}`)
+                                                        this.setState({ btnBookingLoading: false })
+                                                        this.setState({ currentPosition: this.state.currentPosition + 1 }, () => {
+                                                            if (this.state.currentPosition === 4) {
+                                                                this.setState({ disabled: false, btnBooking: false })
+                                                            } else { this.setState({ disabled: true }) }
+                                                        })
+                                                    }
+                                                })
+                                        }
+                                    })
+                                    .catch((err => { console.log(err) }))
+                        } else {
+
+                        }
+                    })
                     .catch((err) => { console.log(err) })
-
-
             }
-            this.setState({ currentPosition: this.state.currentPosition + 1 }, () => {
-                if (this.state.currentPosition === 4) {
-                    this.setState({ disabled: false })
-                }
-                else {
-                    this.setState({ disabled: true })
-                }
-            })
+            else {
+                this.setState({ currentPosition: this.state.currentPosition + 1 }, () => {
+                    if (this.state.currentPosition === 4) {
+                        this.setState({ disabled: false })
+                    }
+                    else {
+                        this.setState({ disabled: true })
+                    }
+                })
+            }
+
         }
     }
 
@@ -184,7 +219,7 @@ class Booking extends Component {
             currentStepLabelColor: THEME.COLOR_WHITE
         }
 
-        const { currentPosition, services, selectedServices, totalPrice, disabled, totalTime, timeInHour, bookingDate, bookingTime } = this.state
+        const { currentPosition, services, btnBookingLoading, selectedServices, totalPrice, disabled, totalTime, timeInHour, bookingDate, bookingTime } = this.state
         const { userdata } = this.props;
         return (
             <View style={styles.container}>
@@ -246,6 +281,7 @@ class Booking extends Component {
                         this.state.currentPosition == 3 ?
                             <Payment
                                 key="payment"
+                                paymentMethod={(paymentMethod) => this.setState({ paymentMethod })}
                                 isConfirm={(isDisable, data) => this.setState({ disabled: isDisable == "false" ? false : true, data: data })} />
                             :
                             null
@@ -272,7 +308,7 @@ class Booking extends Component {
                     {
                         this.state.currentPosition == 0 ?
                             <View style={{ marginHorizontal: '10%' }}>
-                                <Button disabled={disabled} title={this.state.currentPosition == 4 ? 'Done' : 'Confirm'} onPress={this.state.currentPosition == 4 ? () => this.props.onDone() : this.onNextPageChange} />
+                                <Button disabled={disabled} loading={btnBookingLoading} title={this.state.currentPosition == 4 ? 'Done' : 'Confirm'} onPress={this.state.currentPosition == 4 ? () => this.props.onDone() : this.onNextPageChange} />
                             </View> :
                             <View style={styles.row}>
                                 <View style={styles.buttonContainer}>
@@ -319,7 +355,7 @@ class Booking extends Component {
                                                 </TouchableOpacity>
                                             </View>
                                             :
-                                            <Button disabled={disabled} title={this.state.currentPosition == 4 ? 'Done' : 'Confirm'} onPress={this.state.currentPosition == 4 ? () => this.props.onDone() : this.onNextPageChange} />
+                                            <Button disabled={disabled} loading={btnBookingLoading} title={this.state.currentPosition == 4 ? 'Done' : 'Confirm'} onPress={this.state.currentPosition == 4 ? () => this.props.onDone() : this.onNextPageChange} />
                                     }
                                 </View>
 

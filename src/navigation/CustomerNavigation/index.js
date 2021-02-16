@@ -42,14 +42,14 @@ function CustomerRoutes() {
                 headerTitleAlign: 'center',
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Review and Rate</Text></View>),
             }} />
-            <Stack.Screen name="Appointments" component={AppointmentsScreen} options={({ navigation, route }) => ({
+            {/* <Stack.Screen name="Appointments" component={AppointmentsScreen} options={({ navigation, route }) => ({
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerLeft: props => (<TouchableOpacity onPress={() => navigation.replace('Customer', { screen: 'Home' })} style={{ marginLeft: 10 }}><Icon.Ionicons name={Platform.OS == 'ios' ? "ios-arrow-back" : "md-arrow-back"} size={25} color="white" /></TouchableOpacity>),
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Appointments</Text></View>),
                 headerTitleAlign: 'center',
-            })} />
+            })} /> */}
             <Stack.Screen name="EditBooking" component={RescheduleBookingScreen} options={({ navigation, route }) => ({
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
