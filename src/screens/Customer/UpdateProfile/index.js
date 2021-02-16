@@ -44,18 +44,21 @@ class UpdateProfile extends Component {
     }
 
     handleNext = () => {
-        const { onNext } = this.props;
-        let { name, profile_Url, dob, gender } = this.state;
-        let userData = {
-            name: name,
-            gender: gender,
-            dob: dob,
-            image: profile_Url
-        }
-        this.setState({ submit: true });
-        if (name && gender && dob) {
-            onNext(userData);
-        }
+        this.setState({ submit: true }, () => {
+            const { onNext } = this.props;
+            let { name, profile_Url, dob, gender } = this.state;
+            let userData = {
+                name: name,
+                gender: gender,
+                dob: dob,
+                image: profile_Url
+            }
+
+            if (name && gender && dob && this.isNameValid(name)) {
+                onNext(userData);
+            }
+        });
+
     };
 
     chooseFile = () => {
@@ -124,6 +127,9 @@ class UpdateProfile extends Component {
     };
 
 
+    isNameValid = (name) => {
+        return /^[A-Za-z\.\s]{3,25}$/.test(name)
+    }
 
     render() {
         const { onNext } = this.props;
@@ -165,6 +171,9 @@ class UpdateProfile extends Component {
                                 </View>
                                 {
                                     submit && !name ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
+                                }
+                                {
+                                    name.length && !this.isNameValid(name) ? <Text style={COMMON_STYLE.errorText}>Name is Invalid</Text> : null
                                 }
                             </View>
 

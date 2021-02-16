@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import Modal from 'react-native-modal';
 import { ActivityIndicator } from 'react-native';
+import EmailandPasssword from '../../Barber/EmailandPasssword';
 
 class EditProfile extends Component {
     constructor(props) {
@@ -55,24 +56,27 @@ class EditProfile extends Component {
         }
     }
 
-    handleNext = async () => {
-        this.setState({ uploading: true })
-        const { onNext } = this.props;
-        let { name, profile_Url, dob, gender } = this.state;
-        let userData = {
-            name: name,
-            gender: gender,
-            dob: dob,
-            image: profile_Url,
-            id: this.props.user.userData.id,
-            token: this.props.user.userData.token,
-            phone: this.props.user.userData.phone
-        }
-        this.setState({ submit: true });
-        if (name && gender && dob) {
-            await onNext(userData);
-            // this.setState({ uploading: false })
-        }
+    handleNext = () => {
+        this.setState({ submit: true }, async () => {
+            const { onNext } = this.props;
+            let { name, profile_Url, dob, gender, submit } = this.state;
+            let userData = {
+                name: name,
+                gender: gender,
+                dob: dob,
+                image: profile_Url,
+                id: this.props.user.userData.id,
+                token: this.props.user.userData.token,
+                phone: this.props.user.userData.phone
+            }
+
+            if (name && gender && dob && submit && this.isNameValid(name)) {
+                this.setState({ uploading: true })
+                await onNext(userData);
+                // this.setState({ uploading: false })
+            }
+        })
+
     };
 
     chooseFile = () => {
@@ -140,6 +144,9 @@ class EditProfile extends Component {
         this.hideDatePicker();
     };
 
+    isNameValid = (name) => {
+        return /^[A-Za-z\.\s]{3,25}$/.test(name)
+    }
 
 
     render() {
@@ -151,7 +158,20 @@ class EditProfile extends Component {
                 <View style={styles.container}>
                     <View style={styles.upperContainer}>
                         <ScrollView>
-                            <View style={styles.imageContainer}>
+                            <View style={styles.avatarContainer}>
+                                <Avatar
+                                    avatarStyle={styles.avatarStyle}
+                                    source={this.state.avatar != '' ? { uri: this.state.avatar } : require('../../../assets/images/avatar.png')}
+                                    rounded
+                                    accessory={{ name: 'ios-camera', type: 'ionicon', color: '#fff', underlayColor: '#000', iconStyle: { fontSize: 20 } }}
+                                    showAccessory={true}
+                                    onAccessoryPress={this.chooseFile}
+                                    size={120} />
+                                {/* <TouchableOpacity onPress={this.chooseFile}>
+                                            <Text style={styles.profileTextStyle}>Choose Profile Photo</Text>
+                                        </TouchableOpacity> */}
+                            </View>
+                            {/* <View style={styles.imageContainer}>
                                 <ImageBackground style={styles.imageStyle} resizeMode="contain" source={require('../../../assets/images/decor.png')}>
                                     <View style={styles.avatarContainer}>
                                         <Avatar
@@ -162,13 +182,13 @@ class EditProfile extends Component {
                                             showAccessory={true}
                                             onAccessoryPress={this.chooseFile}
                                             size={120} />
-                                        {/* <TouchableOpacity onPress={this.chooseFile}>
+                                         <TouchableOpacity onPress={this.chooseFile}>
                                             <Text style={styles.profileTextStyle}>Choose Profile Photo</Text>
-                                        </TouchableOpacity> */}
+                                        </TouchableOpacity> 
                                     </View>
 
                                 </ImageBackground>
-                            </View>
+                            </View> */}
                             <View style={styles.lowerContainer}>
                                 <View style={{ marginHorizontal: '10%', }}>
                                     <View style={[styles.inputContainerStyle,
@@ -182,6 +202,9 @@ class EditProfile extends Component {
                                     </View>
                                     {
                                         submit && !name ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
+                                    }
+                                    {
+                                        name.length && !this.isNameValid(name) ? <Text style={COMMON_STYLE.errorText}>Name is Invalid</Text> : null
                                     }
                                 </View>
 

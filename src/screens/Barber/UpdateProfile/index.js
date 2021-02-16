@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, ImageBackground, Alert, ActivityIndicator
 import THEME from '../../../assets/styles/theme.style';
 import { Icon, FloatingInput, FooterButton, DateTime, RadioButton, SearchandMapView, Input } from '../../../components'
 import styles from './style';
+import COMMON_STYLE from '../../../assets/styles/common.style';
 import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
 import RangeSlider from 'rn-range-slider';
@@ -145,9 +146,11 @@ class UpdateProfile extends Component {
         })
         this.hideDatePicker();
     };
-
+    isNameValid = (name) => {
+        return /^[A-Za-z\.\s]{3,25}$/.test(name)
+    }
     handleNext = () => {
-        this.setState({ uploading: true }, () => {
+        this.setState({ submit: true }, () => {
             let { name, profile_Url, dob, minDistance, gender, latitude, longitude, male, female, isImageChaged } = this.state;
 
             let userData = {
@@ -165,7 +168,8 @@ class UpdateProfile extends Component {
                 phone: this.props.user.userData.phone,
                 imageChaged: isImageChaged
             }
-            if (name && gender && dob && minDistance) {
+            this.setState({ uploading: true })
+            if (name && gender && dob && minDistance && submit && this.isNameValid(name)) {
                 this.props.onNext(userData);
             }
         })
@@ -176,7 +180,7 @@ class UpdateProfile extends Component {
         const { isNameFocus, name,
             isLocationFocus, location, date,
             showDatePicker, maxDistance, minDistance,
-            modalView, filePath, longitude, latitude, uploading } = this.state;
+            modalView, filePath, longitude, latitude, uploading, submit } = this.state;
 
         return (
 
@@ -185,19 +189,19 @@ class UpdateProfile extends Component {
                     <ScrollView>
                         <View style={styles.imageContainer}>
                             {/* <ImageBackground style={styles.imageStyle} resizeMode="contain" source={require('../../../assets/images/decor.png')}> */}
-                                <View style={styles.avatarContainer}>
-                                    <Avatar
-                                        avatarStyle={styles.avatarStyle}
-                                        source={{ uri: filePath }}
-                                        rounded
-                                        accessory={{ name: 'ios-camera', type: 'ionicon', color: '#fff', underlayColor: '#000', iconStyle: { fontSize: 20 } }}
-                                        showAccessory={true}
-                                        onAccessoryPress={this.chooseFile}
-                                        size={120} />
-                                    {/* <TouchableOpacity onPress={this.chooseFile}>
+                            <View style={styles.avatarContainer}>
+                                <Avatar
+                                    avatarStyle={styles.avatarStyle}
+                                    source={{ uri: filePath }}
+                                    rounded
+                                    accessory={{ name: 'ios-camera', type: 'ionicon', color: '#fff', underlayColor: '#000', iconStyle: { fontSize: 20 } }}
+                                    showAccessory={true}
+                                    onAccessoryPress={this.chooseFile}
+                                    size={120} />
+                                {/* <TouchableOpacity onPress={this.chooseFile}>
                                         <Text style={styles.profileTextStyle}>Choose Profile Photo</Text>
                                     </TouchableOpacity> */}
-                                </View>
+                            </View>
 
                             {/* </ImageBackground> */}
                         </View>
@@ -214,6 +218,13 @@ class UpdateProfile extends Component {
                                 <Input placeholder="Your Full Name"
                                     rightIcon={(<View style={{ padding: 5 }}><User height={25} width={25} /></View>)}
                                     value={name} onChangeText={(name) => { this.setState({ name }) }} />
+                                {
+                                    submit && !name ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
+                                }
+                                {
+                                    name.length && !this.isNameValid(name) ? <Text style={COMMON_STYLE.errorText}>Name is Invalid</Text> : null
+                                }
+
                             </View>
 
                             {/* <View style={[styles.inputContainerStyle, { marginBottom: '2%' },

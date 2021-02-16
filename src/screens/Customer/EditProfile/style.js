@@ -36,12 +36,13 @@ export default StyleSheet.create({
     },
     //Lower Container Style
     lowerContainer: {
+        marginTop: "5%"
         // marginHorizontal:'5%'
         // justifyContent: "center",
         // alignItems: "center"
     },
     modalContainer: {
-        flex:1,
+        flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
     },
     inputContainerStyle: {

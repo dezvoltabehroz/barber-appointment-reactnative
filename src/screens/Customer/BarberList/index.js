@@ -59,10 +59,11 @@ class BarberList extends Component {
     }
 
     _renderItems = (item) => {
-        const time = item.time_duration.split(':')
-        const hours = parseInt(time[0])
-        const minutes = parseInt(time[1])
-        const timeInHour = moment.utc().hours(hours).minutes(minutes).format("HH:mm")
+        console.log(item)
+        const time = item.time_duration != null ? item.time_duration.split(':') : ""
+        const hours = time != "" ? parseInt(time[0]) : ""
+        const minutes = time != "" ? parseInt(time[1]) : ""
+        const timeInHour = time != "" ? moment.utc().hours(hours).minutes(minutes).format("HH:mm") : ""
         const { onPress, bookNow } = this.props;
         return (
             <>
@@ -82,19 +83,25 @@ class BarberList extends Component {
                             <Text style={styles.nameTextStyle} >{item.full_name}</Text>
                             <Text style={styles.dateTextStyle} >Age: {item.age}</Text>
                             <Text style={styles.dateTextStyle} >Est. Duration:
-                            {timeInHour[0] == 0 && timeInHour[1] == 0 ? "" : timeInHour[0] + timeInHour[1]}
-                                {
-                                    timeInHour[0] == 0 && timeInHour[1] == 0 ?
-                                        null
-                                        :
-                                        <Text style={styles.textStyles}> hr</Text>
-                                }
-                                {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
-                                {
-                                    timeInHour[3] == 0 && timeInHour[4] == 0 ?
-                                        null
-                                        :
-                                        <Text style={styles.textStyles}> mins</Text>
+                         {time != "" ?
+                                    <>
+                                        {
+                                            timeInHour[0] == 0 && timeInHour[1] == 0 ? "" : timeInHour[0] + timeInHour[1]}
+                                        {
+                                            timeInHour[0] == 0 && timeInHour[1] == 0 ?
+                                                null
+                                                :
+                                                <Text style={styles.textStyles}> hr</Text>
+                                        }
+                                        {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                                        {
+                                            timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                                null
+                                                :
+                                                <Text style={styles.textStyles}> mins</Text>
+                                        }
+                                    </>
+                                    : null
                                 }</Text>
                             <Text style={styles.dateTextStyle} >Charges: {item.price ? "$" + item.price : ''}</Text>
                             <View>

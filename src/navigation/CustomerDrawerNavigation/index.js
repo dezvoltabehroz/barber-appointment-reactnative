@@ -29,9 +29,9 @@ function CustomDrawerContent({ navigation, props }) {
                             <View>
                                 <Avatar source={{ uri: props?.user?.userData?.profile_picture }} size={70} rounded={true} />
                             </View>
-                            <View style={{ justifyContent: 'center', marginLeft: '2.5%' }}>
+                            <View style={{ justifyContent: 'center', width: "70%" }}>
                                 <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Poppins-Bold', }} >{props?.user?.userData?.full_name}</Text>
-                                <Text style={{ color: "white", marginLeft: "10%", fontFamily: 'Poppins-Medium', fontSize: 10 }} >{props?.user?.userData?.email}</Text>
+                                <Text style={{ color: "white", marginLeft: "10%", width: "80%", fontFamily: 'Poppins-Medium', fontSize: 10 }} >{props?.user?.userData?.email}</Text>
                             </View>
                         </View>
                     </TouchableOpacity>
