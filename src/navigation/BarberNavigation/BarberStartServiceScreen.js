@@ -15,7 +15,7 @@ class BarberStartServiceScreen extends Component {
         const { bookingId, customerId } = this.props.route.params;
         const { navigate, goBack } = this.props.navigation
         const { user } = this.props;
-        Alert.alert('Attention', 'Are you sure you want to start service',
+        Alert.alert('Attention', 'Are you sure you want to start service?',
             [
                 {
                     text: "No",

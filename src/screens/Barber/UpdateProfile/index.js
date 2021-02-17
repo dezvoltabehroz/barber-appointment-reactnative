@@ -307,7 +307,7 @@ class UpdateProfile extends Component {
                                     <RangeSlider
                                         style={styles.sliderStyle}
                                         gravity={"top"}
-                                        min={5}
+                                        min={1}
                                         max={20}
                                         step={1}
                                         rangeEnabled={false}
