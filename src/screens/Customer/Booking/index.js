@@ -131,7 +131,17 @@ class Booking extends Component {
                                     })
                                     .catch((err => { console.log(err) }))
                         } else {
-
+                            BookingServices.makeCustomerBooking(userData)
+                                .then((res) => {
+                                    console.log(res)
+                                    this.setState({ btnBookingLoading: false })
+                                    this.setState({ currentPosition: this.state.currentPosition + 1 }, () => {
+                                        if (this.state.currentPosition === 4) {
+                                            this.setState({ disabled: false, btnBooking: false })
+                                        } else { this.setState({ disabled: true }) }
+                                    })
+                                })
+                                .catch((err => { console.log(err) }))
                         }
                     })
                     .catch((err) => { console.log(err) })

@@ -94,7 +94,12 @@ class Payment extends Component {
                                 <Icon.FontAwesome
                                     onPress={() => {
                                         this.setState({ payWithPayPal: false, payWithCard: true }, () => {
-                                            this.props.paymentMethod("Credit");
+                                            this.props.paymentMethod("Credit");  this.props.isConfirm("true", {
+                                                card_number: "",
+                                                card_holder: "",
+                                                exp_date: "",
+                                                ccv_code: ""
+                                            })
                                         })
                                     }}
                                     name='credit-card'
@@ -122,9 +127,9 @@ class Payment extends Component {
 
                     </View>
                     {payWithPayPal ?
-                        <TouchableOpacity onPress={() => this.handlePaypal()} style={{ justifyContent: "center", alignItems: "center" }}>
+                        <View style={{ justifyContent: "center", alignItems: "center" }}>
                             <Image style={{ height: 250, width: 250 }} source={require('../../assets/images/paypal.png')} />
-                        </TouchableOpacity>
+                        </View>
                         :
                         payWithCard ?
                             <View style={styles.marginVertical}>
