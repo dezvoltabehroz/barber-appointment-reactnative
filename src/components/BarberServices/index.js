@@ -13,7 +13,8 @@ export default class BarberServices extends Component {
             disabled: true,
             totalPrice: 0,
             totalTime: 0,
-            services: []
+            services: [],
+            loading: true
         }
     }
 
@@ -25,7 +26,7 @@ export default class BarberServices extends Component {
                     array.map((element, index) => {
                         array[index] = { ...element, selected: false, quantity: '1' }
                     })
-                    this.setState({ services: array })
+                    this.setState({ services: array,loading:false })
                 }
             })
             .catch((err) => {
@@ -138,17 +139,15 @@ export default class BarberServices extends Component {
                             <ActivityIndicator />
                         </View>
                         :
-                        this.state.services.length == 0 ?
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <FlatList
+                            data={this.state.services}
+                            showsVerticalScrollIndicator={false}
+                            ItemSeparatorComponent={this._renderSeparator}
+                            renderItem={({ item, index }) => this._renderItems({ item, index })}
+                            keyExtractor={item => item}
+                            ListEmptyComponent={<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                 <Text style={{ color: 'white' }} >Barber didn't update services</Text>
-                            </View>
-                            :
-                            <FlatList
-                                data={this.state.services}
-                                showsVerticalScrollIndicator={false}
-                                ItemSeparatorComponent={this._renderSeparator}
-                                renderItem={({ item, index }) => this._renderItems({ item, index })}
-                                keyExtractor={item => item} />
+                            </View>} />
                 }
 
             </View>

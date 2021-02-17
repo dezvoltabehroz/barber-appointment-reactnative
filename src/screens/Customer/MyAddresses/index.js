@@ -14,7 +14,15 @@ class MyAddresses extends Component {
     }
 
     componentDidMount = () => {
-        this.setState({ addresses: this.props.userAddresses.addresses });
+        let address = [...this.props.userAddresses.addresses];
+        for (var n = 0; n < address.length; n++) {
+            if (address[n].is_selected == 1) {
+                var removedObject = address.splice(n, 1);
+                removedObject = null;
+                break;
+            }
+        }
+        this.setState({ addresses: address });
     }
 
     handleOnDelete = (item) => {
@@ -64,22 +72,27 @@ class MyAddresses extends Component {
         return (
             <View style={styles.container}>
                 <View style={{ flex: 0.8 }}>
-                    <FlatList
-                        data={this.props.userAddresses.addresses}
-                        showsVerticalScrollIndicator={false}
-                        ItemSeparatorComponent={this._renderSeparator}
-                        renderItem={({ item, index }) => this._renderItems({ item, index })}
-                        keyExtractor={item => item}
-                        refreshControl={
-                            <RefreshControl
-                                refreshing={this.props.userAddresses.loading}
-                                onRefresh={() => { this.props.onReferesh(); this.componentDidMount() }}
-                                tintColor={THEME.PRIMARY_COLOR}
-                                colors={[THEME.PRIMARY_COLOR]}
-                            />
-                        }
-                    />
-
+                    {this.state.addresses.length != 0 ?
+                        < FlatList
+                            data={this.state.addresses}
+                            showsVerticalScrollIndicator={false}
+                            ItemSeparatorComponent={this._renderSeparator}
+                            renderItem={({ item, index }) => this._renderItems({ item, index })}
+                            keyExtractor={item => item}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={this.props.userAddresses.loading}
+                                    onRefresh={() => { this.props.onReferesh(); this.componentDidMount() }}
+                                    tintColor={THEME.PRIMARY_COLOR}
+                                    colors={[THEME.PRIMARY_COLOR]}
+                                />
+                            }
+                        />
+                        :
+                        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                            <Text style={styles.labelTextStyle}>No Address Found</Text>
+                        </View>
+                    }
                 </View>
                 <FooterButton title="Add New Address" onPress={() => this.props.addAddress()} />
             </View>

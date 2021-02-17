@@ -12,6 +12,7 @@ import { Calendar } from 'react-native-calendars'
 import moment from 'moment';
 import THEME from '../../assets/styles/theme.style';
 import { Barbers } from '../../services';
+import { ActivityIndicator } from 'react-native';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 export default class BookAppointment extends Component {
@@ -34,12 +35,14 @@ export default class BookAppointment extends Component {
       barber_booking_list: [],
       bookingDate: moment().format('LL'),
       modalVisible: false,
+      loading: true,
 
     }
 
   }
 
   componentDidMount = () => {
+    this.setState({ loading: true })
     const { userdata } = this.props;
     let userData = {
       id: userdata.id,
@@ -57,7 +60,8 @@ export default class BookAppointment extends Component {
             end_time: res.data.end_time,
             isSchedule: res.data.isSchedule,
             availableSlots: res.data.availableSlots,
-            barber_booking_list: res.data.barber_booking_list
+            barber_booking_list: res.data.barber_booking_list,
+            loading: false
           }, () => {
             const { start_time, end_time, difference } = this.state;
             if (res.data.isSchedule && res.data.barber_booking_list == 0 && res.data.availableSlots.length == 0) {
@@ -73,7 +77,7 @@ export default class BookAppointment extends Component {
                 timeSlots.push({ slotStartTime: `${new moment(startTime).format('hh:mm A')}`, slotEndTime: `${new moment(slotTime).format('hh:mm A')}`, isBooked: false });
                 startTime.add(difference, 'minutes');
               }
-              this.setState({ slots: timeSlots });
+              this.setState({ slots: timeSlots, });
             }
             else {
               this.setState({ slots: res.data.availableSlots })
@@ -142,11 +146,11 @@ export default class BookAppointment extends Component {
           </TouchableOpacity>
           <View style={styles.lineStyle}></View>
           {
-            !isSchedule ?
-              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ fontSize: 18, color: 'white', fontFamily: 'Poppins-Regular' }} >Barber is not working today</Text></View>
+            this.state.loading ?
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><ActivityIndicator /></View>
               :
-              this.state.slots.length == 0 ?
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ fontSize: 18, color: 'white', fontFamily: 'Poppins-Regular' }} >No Booking Available today</Text></View>
+              !isSchedule ?
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ fontSize: 18, color: 'white', fontFamily: 'Poppins-Regular' }} >Barber is not working today</Text></View>
                 :
                 <FlatList data={this.state.slots}
                   keyExtractor={item => item}
