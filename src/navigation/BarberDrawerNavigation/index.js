@@ -7,6 +7,7 @@ import { authActions } from '../../redux/actions/auth';
 import { useDispatch, connect } from 'react-redux';
 import THEME from '../../assets/styles/theme.style'
 import BarberBottomTabNavigation from '../BarberBottomTabNavigation';
+import { Linking } from 'react-native';
 const Drawer = createDrawerNavigator();
 function BarberDrawerNavigationRoutes(props) {
     return (
@@ -48,7 +49,7 @@ function CustomDrawerContent({ navigation, props }) {
                         <Icon.MaterialIcons name="payment" color="#fff" size={25} />
                         <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Poppins-Medium', fontSize: 12 }} >Payment Method</Text>
                     </TouchableOpacity> */}
-                    <TouchableOpacity onPress={() => navigation.navigate('AboutUs')} style={styles.itemStyle}>
+                    <TouchableOpacity onPress={() => Linking.openURL('https://fleekservices.com/')} style={styles.itemStyle}>
                         <Icon.Ionicons name="information-circle-outline" color="#fff" size={25} />
                         <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Poppins-Medium', fontSize: 12 }} >About Us</Text>
                     </TouchableOpacity>
