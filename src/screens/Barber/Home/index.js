@@ -240,10 +240,10 @@ class BarberHome extends Component {
                                     You must have your mask or face covering on AT ALL TIMES during the appointment. Please be sure to have a well fitted mask that covers both your whole mouth and nose. This must be worn throughout the entire appointment.
                                     </Text>
                                 <Text style={[{ marginTop: '5%', }, styles.modalMainHeading]}>
-                                    Fleek Provider Duty
+                                    Fleek provider duty
                                     </Text>
                                 <Text style={styles.modalTextStyle} >
-                                    As a safety percaution, all Fleek providers are required to:
+                                    As a safety precaution, all Fleek providers are required to:
                                     </Text>
                                 <Text style={styles.modalTextStyle}>
                                     "Wear a face covering throughout the entire appointment."
