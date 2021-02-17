@@ -116,7 +116,7 @@ const deleteAddress = (userData) => {
         UserAddresses.deleteAddress(userData)
             .then(response => {
                 if (response.data.status) {
-                    dispatch({ type: DELETE_ADDRESS_SUCESS, addresses: store().userAddresses.addresses.filter((obj => obj.id != userData.id)), loading: !loading })
+                    dispatch({ type: DELETE_ADDRESS_SUCESS, addresses: store().userAddresses.addresses.filter((obj => obj.id != userData.id)),  })
                 }
                 else {
                     Alert.alert(response.data.message)

@@ -120,6 +120,7 @@ function CustomerBottomNavigationRoutes(props) {
                 }
                 return {
                     tabBarVisible,
+                    unmountOnBlur: true,
                 };
             }} />
             <Bottom.Screen name="Mask" component={CreatePlaceholder} options={{

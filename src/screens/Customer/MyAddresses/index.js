@@ -4,30 +4,43 @@ import styles from './styles';
 import { FooterButton, Icon, } from '../../../components';
 import THEME from '../../../assets/styles/theme.style';
 import { connect } from 'react-redux';
+import { UserAddresses } from '../../../services';
+import { ActivityIndicator } from 'react-native';
 
 class MyAddresses extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            addresses: []
+            addresses: [],
+            loading: true
         }
     }
 
     componentDidMount = () => {
-        let address = [...this.props.userAddresses.addresses];
-        for (var n = 0; n < address.length; n++) {
-            if (address[n].is_selected == 1) {
-                var removedObject = address.splice(n, 1);
-                removedObject = null;
-                break;
-            }
+        let userData = {
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token
         }
-        this.setState({ addresses: address });
+        UserAddresses.viewAllAddresses(userData)
+            .then((res) => {
+                let address = [];
+                let data = [...res.data.addresses]
+                data.forEach((item, index) => {
+                    if (item.is_selected == 1) {
+
+                    } else {
+                        address.push(item)
+                    }
+                })
+                this.setState({ addresses: address, loading: false });
+            })
+            .catch((error) => console.log(error))
+
     }
 
     handleOnDelete = (item) => {
         this.props.onDelete(item);
-        // this.setState({ addresses: this.state.addresses.filter((obj => obj.id != item.id)) })
+        this.setState({ addresses: this.state.addresses.filter((obj => obj.id != item.id)) })
     }
 
     _renderSeparator = () => {
@@ -72,26 +85,32 @@ class MyAddresses extends Component {
         return (
             <View style={styles.container}>
                 <View style={{ flex: 0.8 }}>
-                    {this.state.addresses.length != 0 ?
-                        < FlatList
-                            data={this.state.addresses}
-                            showsVerticalScrollIndicator={false}
-                            ItemSeparatorComponent={this._renderSeparator}
-                            renderItem={({ item, index }) => this._renderItems({ item, index })}
-                            keyExtractor={item => item}
-                            refreshControl={
-                                <RefreshControl
-                                    refreshing={this.props.userAddresses.loading}
-                                    onRefresh={() => { this.props.onReferesh(); this.componentDidMount() }}
-                                    tintColor={THEME.PRIMARY_COLOR}
-                                    colors={[THEME.PRIMARY_COLOR]}
+                    {
+                        this.state.loading ?
+                            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                                <ActivityIndicator />
+                            </View>
+                            :
+                            this.state.addresses.length != 0 ?
+                                < FlatList
+                                    data={this.state.addresses}
+                                    showsVerticalScrollIndicator={false}
+                                    ItemSeparatorComponent={this._renderSeparator}
+                                    renderItem={({ item, index }) => this._renderItems({ item, index })}
+                                    keyExtractor={item => item}
+                                    refreshControl={
+                                        <RefreshControl
+                                            refreshing={this.state.loading}
+                                            onRefresh={() => { this.props.onReferesh(); this.componentDidMount() }}
+                                            tintColor={THEME.PRIMARY_COLOR}
+                                            colors={[THEME.PRIMARY_COLOR]}
+                                        />
+                                    }
                                 />
-                            }
-                        />
-                        :
-                        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                            <Text style={styles.labelTextStyle}>No Address Found</Text>
-                        </View>
+                                :
+                                <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                                    <Text style={styles.labelTextStyle}>No Address Found</Text>
+                                </View>
                     }
                 </View>
                 <FooterButton title="Add New Address" onPress={() => this.props.addAddress()} />
