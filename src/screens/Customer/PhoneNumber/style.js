@@ -29,14 +29,18 @@ export default StyleSheet.create({
     },
     column1: {
         flex: 0.1,
-        flexDirection: 'column',
+        flexDirection: 'column', marginRight: '5%'
     },
     labelHeadingStyle: {
+        justifyContent: "center",
+        height: 54,
         marginHorizontal: '10%',
-        backgroundColor: "#FAFAFA",
-        borderRadius: 5,
-        borderWidth: 2,
-        borderColor: "#00A9A5"
+        backgroundColor: THEME.PRIMARY_COLOR,
+        // backgroundColor: "#171717",
+        // backgroundColor: "#FAFAFA",
+        // borderRadius: 5,
+        // borderWidth: 2,
+        // borderColor: "#00A9A5"
     },
     countryLabelHeading: {
         color: '#9FACBD',
@@ -52,14 +56,14 @@ export default StyleSheet.create({
         borderRadius: 5,
         overflow: "hidden",
         height: 54,
-        backgroundColor: '#fff'
+        backgroundColor: '#171717'
     },
     gapHeight: {
         height: 15
     },
     countryCodeContainer: {
-        borderRightWidth: 1,
-        paddingTop: 10,
+        // borderRightWidth: 1,
+        // paddingTop: 5,
         borderColor: "#9FACBD",
         justifyContent: "center",
         alignItems: "center",
@@ -67,7 +71,7 @@ export default StyleSheet.create({
         height: 54
     },
     coutryCodeTextStyle: {
-        color: '#9FACBD',
+        color: THEME.PRIMARY_COLOR,
         fontFamily: "Poppins-Regular",
     },
     lineStyle: {
@@ -93,6 +97,7 @@ export default StyleSheet.create({
     },
     themeText: {
         fontSize: 12,
+
         fontFamily: 'Poppins-Bold'
     }
 

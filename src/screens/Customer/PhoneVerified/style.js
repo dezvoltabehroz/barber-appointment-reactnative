@@ -18,6 +18,7 @@ export default StyleSheet.create({
     phoneTextContainer: {
         flex: 0.25,
         justifyContent: 'center',
+        alignItems: "center",
         marginVertical: '5%',
         marginHorizontal: '10%'
     },

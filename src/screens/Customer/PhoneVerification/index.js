@@ -33,7 +33,7 @@ export default class PhoneVerfication extends Component {
                         codeLength={6}
                         autoFocus={false}
                         ref="codeInputRef1"
-                        cellBorderWidth={2}
+                        cellBorderWidth={0}
                         activeColor={THEME.PRIMARY_COLOR}
                         inactiveColor={THEME.COLOR_WHITE}
                         keyboardType='numeric'
@@ -41,7 +41,7 @@ export default class PhoneVerfication extends Component {
                         inputPosition='center'
                         value={value}
                         size={40}
-                        placeholder={"*"}
+                        placeholder={""}
                         onFulfill={(isValid) => this._onFulfill(isValid)}
                         onCodeChange={(code) => this.setState({ value: code })}
                         codeInputStyle={[styles.codeInput, value != '' ? THEME.inputBorder : {}]} />

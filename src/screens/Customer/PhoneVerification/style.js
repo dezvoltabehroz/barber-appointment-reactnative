@@ -32,8 +32,9 @@ export default StyleSheet.create({
     codeInput: {
         marginLeft: 8,
         marginRight: 8,
-        backgroundColor: '#F0F1F3',
-        borderRadius: 5,
+        backgroundColor: THEME.PRIMARY_COLOR,
+        // borderRadius: 5,
+        fontFamily: 'Poppins-Bold',
         fontSize: 13,
         color: '#3F4B59'
     },

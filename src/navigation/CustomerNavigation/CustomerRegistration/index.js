@@ -35,7 +35,7 @@ function RegistrationRoutes() {
                     headerTransparent: true,
                     headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Enter your phone number</Text></View>),
                     headerTitleAlign: 'center',
-                    headerLeft: props => (<TouchableOpacity onPress={() => navigation.replace('Auth')} style={{ marginLeft: 10 }}><Icon.Ionicons name={Platform.OS == 'ios' ? "ios-arrow-back" : "md-arrow-back"} size={25} color="white" /></TouchableOpacity>),
+                    headerLeft: props => (<TouchableOpacity onPress={() => navigation.replace('Auth')} style={{ marginLeft: 15 }}><Icon.AntDesign name="caretleft" size={25} color="white" /></TouchableOpacity>),
                 })} />
             <Stack.Screen name="PhoneVerification" component={PhoneVerificatinScreen} options={{
                 headerBackTitleVisible: false,

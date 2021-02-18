@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, Alert, ScrollView, Modal } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
-import { Icon, FloatingInput, Button, DateTime, RadioButton, FooterButton, SearchandMapView } from '../../../components'
+import { Icon, FloatingInput, Button, DateTime, RadioButton, FooterButton, Input, SearchandMapView } from '../../../components'
 import styles from './style';
 import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
@@ -10,6 +10,14 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoder';
 import { connect } from 'react-redux';
+import moment from 'moment'
+import User from '../../../assets/svg/user.svg'
+import Gift from '../../../assets/svg/gift.svg'
+import Beard from '../../../assets/svg/beard.svg';
+import BeardGray from '../../../assets/svg/beardgray.svg';
+import Female from '../../../assets/svg/female.svg';
+import FemaleGray from '../../../assets/svg/femaleGray.svg';
+
 class UpdateProfile extends Component {
     constructor(props) {
         super(props);
@@ -109,11 +117,8 @@ class UpdateProfile extends Component {
     };
 
     handleConfirm = (selectedDate) => {
-        var date = selectedDate.getDate() < 10 ? "0" + selectedDate.getDate() : selectedDate.getDate();
-        date += "/";
-        date += (selectedDate.getMonth() + 1) < 10 ? "0" + (selectedDate.getMonth() + 1) : (selectedDate.getMonth() + 1);
-        date += "/";
-        date += (selectedDate.getYear() + 1900);
+        console.log()
+        var date = moment(selectedDate).format('YYYY-MM-DD')
         var dob = (selectedDate.getYear() + 1900);
         dob += "-";
         dob += (selectedDate.getMonth() + 1) < 10 ? "0" + (selectedDate.getMonth() + 1) : (selectedDate.getMonth() + 1);
@@ -141,56 +146,78 @@ class UpdateProfile extends Component {
                 <View style={styles.upperContainer}>
                     <ScrollView>
                         <View style={styles.imageContainer}>
-                            <ImageBackground style={styles.imageStyle} resizeMode="contain" source={require('../../../assets/images/decor.png')}>
-                                <View style={styles.avatarContainer}>
-                                    <Avatar
-                                        avatarStyle={styles.avatarStyle}
-                                        source={this.state.avatar ? this.state.avatar : require('../../../assets/images/avatar.png')}
-                                        rounded
-                                        accessory={{ name: 'ios-camera', type: 'ionicon', color: '#fff', underlayColor: '#000', iconStyle: { fontSize: 20 } }}
-                                        showAccessory={true}
-                                        onAccessoryPress={this.chooseFile}
-                                        size={120} />
-                                    {/* <TouchableOpacity onPress={this.chooseFile}>
+                            <View style={styles.avatarContainer}>
+                                <Avatar
+                                    avatarStyle={styles.avatarStyle}
+                                    source={this.state.avatar ? this.state.avatar : require('../../../assets/images/avatar.png')}
+                                    rounded
+                                    accessory={{ name: 'ios-camera', type: 'ionicon', color: '#fff', underlayColor: '#000', iconStyle: { fontSize: 20 } }}
+                                    showAccessory={true}
+                                    onAccessoryPress={this.chooseFile}
+                                    size={120} />
+                                {/* <TouchableOpacity onPress={this.chooseFile}>
                                         <Text style={styles.profileTextStyle}>Choose Profile Photo</Text>
                                     </TouchableOpacity> */}
-                                </View>
+                            </View>
+                            {/* <ImageBackground style={styles.imageStyle} resizeMode="contain" source={require('../../../assets/images/decor.png')}>
+                               
 
-                            </ImageBackground>
+                            </ImageBackground> */}
                         </View>
                         <View style={styles.lowerContainer}>
-                            <View style={{ marginHorizontal: '10%', }}>
-                                <View style={[styles.inputContainerStyle,
-                                isNameFocus || name != '' ? THEME.inputBorder : {}]}>
-                                    <FloatingInput
-                                        val={name}
-                                        onActive={() => this.setState({ isNameFocus: true })}
-                                        onInActive={() => this.setState({ isNameFocus: false })}
-                                        label='Your Name' iconInput updateText={(name) => this.setState({ name })} />
-                                    <Icon.Feather name='user' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
-                                </View>
+                            <View style={{ marginHorizontal: "7%" }}>
+                                <Input placeholder="Your Full Name"
+                                    rightIcon={(<View style={{ padding: 5 }}><User height={25} width={25} /></View>)}
+                                    value={name} onChangeText={(name) => { this.setState({ name }) }} />
                                 {
                                     submit && !name ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
                                 }
                                 {
                                     name.length && !this.isNameValid(name) ? <Text style={COMMON_STYLE.errorText}>Name is Invalid</Text> : null
                                 }
+
                             </View>
 
-                            <RadioButton gender
+                            {/* <RadioButton gender
                                 option1={this.state.male} option2={this.state.female}
                                 option1Text="Male" option2Text="Female"
                                 onPressOption1={() => this.setState({ gender: 'Male', male: true, female: false })}
-                                onPressOption2={() => this.setState({ gender: 'Female', female: true, male: false })} />
+                                onPressOption2={() => this.setState({ gender: 'Female', female: true, male: false })} /> */}
                             <View>
-                                <View style={{ marginHorizontal: '10%' }}>
+                                <View>
                                     <TouchableOpacity onPress={() => this.setState({ showDatePicker: true })}>
                                         <View style={[styles.dateContainer,
-                                        showDatePicker || date != '' ? THEME.inputBorder : {}]}>
-                                            <Text style={[styles.dateTextStyle, date ? { color: THEME.COLOR_BLACK } : {}]}>{date && date != "" ? date : "Date of Birth"}</Text>
+                                            // showDatePicker || date != '' ? THEME.inputBorder : {}
+                                        ]}>
+                                            <View>
+                                                <Text style={[styles.dateTextStyle,]}>{date && date != "" ? moment(date).format('Do MMMM YYYY') : "DD/MM/YYYY | Birthday"}</Text>
+                                            </View>
+                                            <View style={{ marginRight: '2.5%' }}>
+                                                <Gift height={25} width={25} />
+                                            </View>
                                         </View>
                                     </TouchableOpacity>
-
+                                    {/* {showDatePicker ?
+                                    <>
+                                        <View>
+                                            <DateTime
+                                                date
+                                                onChangeDate={this.onChangeDate} />
+                                        </View>
+                                        {
+                                            Platform.OS == 'ios' ?
+                                                <View style={styles.buttonContainer}>
+                                                    <Button title='Save' onPress={() => this.setState({ showDatePicker: false })} />
+                                                </View> : null
+                                        }
+                                    </> : null} */}
+                                    <DateTimePickerModal
+                                        isVisible={this.state.showDatePicker}
+                                        mode="date"
+                                        minimumDate={new Date(1950, 0, 1)}
+                                        onConfirm={this.handleConfirm}
+                                        onCancel={this.hideDatePicker}
+                                    />
                                 </View>
                                 <View style={{ marginHorizontal: '10%' }}>
                                     {
@@ -198,7 +225,7 @@ class UpdateProfile extends Component {
                                     }
                                 </View>
 
-                                {/* {showDatePicker ? */}
+                                {/* {showDatePicker ?
                                 <DateTimePickerModal
                                     isVisible={this.state.showDatePicker}
                                     mode="date"
@@ -206,7 +233,28 @@ class UpdateProfile extends Component {
                                     onConfirm={this.handleConfirm}
                                     onCancel={this.hideDatePicker}
                                 />
-                                {/* : null} */}
+                                : null} */}
+                            </View>
+                            <View style={{ marginTop: "5%", flexDirection: 'row', justifyContent: "center" }}>
+                                <TouchableOpacity onPress={() => this.setState({ male: true, female: false })}>
+                                    {
+                                        this.state.male == true && this.state.female == false ?
+                                            <Beard height={80} width={80} />
+                                            :
+                                            <BeardGray height={80} width={80} />
+                                    }
+
+                                </TouchableOpacity>
+                                <View style={{ width: 20 }}></View>
+                                <TouchableOpacity onPress={() => this.setState({ female: true, male: false })}>
+                                    {
+                                        this.state.female == true && this.state.male == false ?
+                                            <Female height={80} width={80} />
+                                            :
+                                            <FemaleGray height={80} width={80} />
+                                    }
+
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </ScrollView>

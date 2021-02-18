@@ -11,6 +11,8 @@ export const Icon = _Icon;
 // Input Text Field Component
 import _Input from './Input';
 export const Input = _Input;
+import _PhonTextInput from './Input/phoneInput';
+export const PhonTextInput = _PhonTextInput;
 
 import _MessageInput from './FloatingInput/messageInput';
 export const MessageInput = _MessageInput;

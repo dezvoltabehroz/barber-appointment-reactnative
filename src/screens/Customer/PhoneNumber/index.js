@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Platform } from 'react-native';
-import { Icon, PhoneInput, Button } from '../../../components'
+import { Icon, PhoneInput, PhonTextInput, Button } from '../../../components'
 import styles from "./style";
-import CountryPicker, { FlagButton } from 'react-native-country-picker-modal';
+import CountryPicker, { FlagButton, } from 'react-native-country-picker-modal';
 import THEME from '../../../assets/styles/theme.style'
 import COMMON_STYLE from '../../../assets/styles/common.style';
 
@@ -32,6 +32,7 @@ export default class PhoneNumber extends Component {
                         onOpen={() => this.setState({ isVisible: !this.state.isVisible })}
                         onClose={() => this.setState({ isVisible: !this.state.isVisible })}
                         placeholder="Select Country"
+                        placeholderTextStyle={{ color: "white" }}
                         withEmoji={false}
                         withFlagButton={false}
                         countryCode={this.state.countryCode}
@@ -40,7 +41,7 @@ export default class PhoneNumber extends Component {
                     />
                 </View>
                 <View style={styles.column1}>
-                    <Icon.AntDesign name="down" color={THEME.PRIMARY_COLOR} size={15} />
+                    <Icon.AntDesign name="caretdown" color={THEME.COLOR_BLACK} size={18} />
                 </View>
             </TouchableOpacity>
         )
@@ -76,7 +77,7 @@ export default class PhoneNumber extends Component {
             <View style={styles.container}>
                 <View style={styles.innerContainer}>
                     <View style={styles.labelHeadingStyle}>
-                        <Text style={styles.countryLabelHeading}>Choose Country</Text>
+                        {/* <Text style={styles.countryLabelHeading}>Choose Country</Text> */}
                         <CountryPicker
                             countryCodes={['PK', 'US']}
                             theme={styles.themeText}
@@ -93,14 +94,15 @@ export default class PhoneNumber extends Component {
                     <View style={[styles.callingCodeAndPhoneNumberConatiner,
                     isNumberFocus || number != '' ? THEME.inputBorder : {}]}>
                         <View style={styles.countryCodeContainer} >
-                            <Text style={styles.coutryCodeTextStyle} >{this.state.callingCode != '' ? '+' + this.state.callingCode : null}</Text>
+                            <Text style={styles.coutryCodeTextStyle} >{this.state.callingCode != '' ? '+' + this.state.callingCode : "+1"}</Text>
                         </View>
-                        <PhoneInput
-                            val={number}
-                            label={"Phone Number"}
-                            onActive={() => this.setState({ isNumberFocus: true })}
-                            onInActive={() => this.setState({ isNumberFocus: false })}
-                            updateText={(number) => this.setState({ number })} />
+                        <PhonTextInput
+                            phone
+                            value={number}
+                            placeholder={"Phone Number"}
+                            onFocus={() => this.setState({ isNumberFocus: true })}
+                            onBlur={() => this.setState({ isNumberFocus: false })}
+                            onChangeText={(number) => this.setState({ number })} />
                     </View>
                     {
                         submit && !number ? <Text style={[COMMON_STYLE.errorText, { marginLeft: "10%" }]}>Please fill this field</Text> : null

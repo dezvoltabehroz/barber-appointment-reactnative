@@ -22,19 +22,17 @@ export default StyleSheet.create({
     },
     phoneInputContainerStyle: {
         height: 54,
-        width: '80%',
-        paddingTop: 2,
+        width: '100%',
         borderBottomWidth: 0,
-        backgroundColor: '#FFFFFF',
-        borderRadius: 5,
-        justifyContent: "center"
+        backgroundColor: '#171717',
     },
     phoneIputStyle: {
         flex: 1,
-        fontFamily: "Poppins-Regular",
-        marginLeft: 10,
-        color: '#1E2023',
-        fontSize: 14
+        // textAlign: 'center',
+        // marginLeft: "5%",
+        fontSize: THEME.FONT_SIZE_MEDIUM,
+        fontFamily: 'Poppins-Regular',
+        color: THEME.PRIMARY_COLOR,
     },
     messageinputStyle: {
         textAlignVertical: 'top',

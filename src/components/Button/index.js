@@ -6,9 +6,9 @@ const Button = (props) => {
     const {
         disabled = false,
         loading = false,
-        disabledStyle = {},
+        disabledStyle = {backgroundColor:"#A8A8A8"},
         buttonStyle = {},
-        disabledTitleStyle = {},
+        disabledTitleStyle = {color:'white'},
         titleStyle = {},
         loadingStyle = {},
         icon = {},
