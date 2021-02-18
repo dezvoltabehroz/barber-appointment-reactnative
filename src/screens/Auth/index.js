@@ -195,13 +195,13 @@ class AuthScreen extends Component {
                                             </TouchableOpacity>
                                         </View>
                                         <View style={styles.continueContainer}>
-                                            {/* // <TouchableOpacity onPress={onContinueWithOutLogin} style={styles.continueContainerStyle} >
-                                            //     <Text style={styles.continueWithoutTextStyle}>Continue without Sign in </Text>
-                                            //     <Icon.AntDesign
-                                            //         name="arrowright"
-                                            //         color={THEME.COLOR_GREY}
-                                            //         size={25} /> 
-                                            </TouchableOpacity> */}
+                                            <TouchableOpacity onPress={onContinueWithOutLogin} style={styles.continueContainerStyle} >
+                                                <Text style={styles.continueWithoutTextStyle}>Continue without Sign in </Text>
+                                                {/* <Icon.AntDesign
+                                                    name="arrowright"
+                                                    color={THEME.COLOR_GREY}
+                                                    size={25} /> */}
+                                            </TouchableOpacity>
                                         </View>
                                     </>
                             }
