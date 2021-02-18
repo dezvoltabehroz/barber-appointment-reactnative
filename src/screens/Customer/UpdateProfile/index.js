@@ -17,7 +17,7 @@ import Beard from '../../../assets/svg/beard.svg';
 import BeardGray from '../../../assets/svg/beardgray.svg';
 import Female from '../../../assets/svg/female.svg';
 import FemaleGray from '../../../assets/svg/femaleGray.svg';
-import Other from '../../../assets/svg/other.svg';
+import Other from '../../../assets/svg/othercolor.svg';
 import OtherGray from '../../../assets/svg/other.svg';
 class UpdateProfile extends Component {
     constructor(props) {
