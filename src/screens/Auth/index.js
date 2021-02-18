@@ -121,27 +121,27 @@ class AuthScreen extends Component {
                                 {/* <Button loading={this.props.loading} title="Login" onPress={() => { this.props.isSubmit(); this.handleLogin() }} /> */}
                             </View>
                         </View>
-                        <Text onPress={() => onForgetPassword()} style={styles.forgetPasswordTextStyle}>Forget Password?</Text>
+                        {/* <Text onPress={() => onForgetPassword()} style={styles.forgetPasswordTextStyle}>Forget Password?</Text> */}
                         <View style={styles.lowerContainer}>
                             <Text style={styles.signUpAndLoginTextStyle}>Sign up using</Text>
 
                             <TouchableOpacity onPress={onFacebook()}>
-                            <LinearGradient stops={[0.1, 0.4, 0.3, 0.75]}
+                                <LinearGradient stops={[0.1, 0.4, 0.3, 0.75]}
                                     center={[100, 100]}
                                     radius={200} colors={['#1380E4', '#0055A3']}
-                                    style={styles.googleButton}>
-                                <View style={styles.row}>
-                                    <View style={styles.iconContainer}>
-                                        <Icon.FontAwesome5
-                                            name="facebook"
-                                            color={THEME.COLOR_WHITE}
-                                            style={styles.iconStyle}
-                                            size={25} />
+                                    style={styles.faceBookButton}>
+                                    <View style={styles.row}>
+                                        <View style={styles.iconContainer}>
+                                            <Icon.FontAwesome5
+                                                name="facebook"
+                                                color={THEME.COLOR_WHITE}
+                                                style={styles.iconStyle}
+                                                size={25} />
+                                        </View>
+                                        <View style={[styles.facebookTextContainer, { marginHorizontal: "10%", }]}>
+                                            <Text style={styles.buttonTextStyle}>Facebook</Text>
+                                        </View>
                                     </View>
-                                    <View style={styles.facebookTextContainer}>
-                                        <Text style={styles.buttonTextStyle}>Facebook</Text>
-                                    </View>
-                                </View>
                                 </LinearGradient>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={onGoogle()} >
@@ -157,7 +157,7 @@ class AuthScreen extends Component {
                                                 style={styles.iconStyle}
                                                 size={25} />
                                         </View>
-                                        <View style={styles.facebookTextContainer}>
+                                        <View style={[styles.facebookTextContainer, { marginHorizontal: "10%", }]}>
                                             <Text style={styles.buttonTextStyle}>Google</Text>
                                         </View>
                                     </View>

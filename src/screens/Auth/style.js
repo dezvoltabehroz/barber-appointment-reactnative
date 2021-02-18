@@ -84,8 +84,6 @@ export default StyleSheet.create({
     },
     faceBookButton: {
         height: 54,
-        borderRadius: 5,
-        overflow: 'hidden',
         marginHorizontal: '10%',
         justifyContent: "center",
         marginBottom: 10,
@@ -93,19 +91,16 @@ export default StyleSheet.create({
     },
     googleButton: {
         height: 54,
-        borderRadius: 5,
-        overflow: 'hidden',
         marginHorizontal: '10%',
         justifyContent: "center",
         marginBottom: 10,
     },
     iconContainer: {
         flexDirection: "column",
-        // marginLeft: '15%'
+        marginLeft: '25%'
     },
     phoneNumberButton: {
         height: 54,
-        borderRadius: 5,
         marginHorizontal: '10%',
         justifyContent: "center",
         backgroundColor: THEME.PRIMARY_COLOR
@@ -113,6 +108,7 @@ export default StyleSheet.create({
     signUpAndLoginTextStyle: {
         marginVertical: "1%",
         fontFamily: "Poppins-Regular",
+        fontSize: 16,
         textAlign: "center",
         color: THEME.COLOR_WHITE
     },
@@ -128,28 +124,28 @@ export default StyleSheet.create({
         fontFamily: "Poppins-Regular",
         textAlign: "center",
         color: '#9FACBD',
-        textDecorationLine:'underline'
+        textDecorationLine: 'underline'
     },
     signUpAsBarberTextStyle: {
         marginTop: "5%",
         fontFamily: "Poppins-Regular",
         textAlign: "center",
         color: '#9FACBD',
-        textDecorationLine:'underline'
+        textDecorationLine: 'underline'
     },
     buttonTextStyle: {
         color: "#fff",
         fontSize: 15,
-        textAlign: "center",
+        // textAlign: "center",
         fontFamily: "Poppins-Medium"
     },
     phoneTextContainer: {
         flexDirection: "column",
-        // marginHorizontal: "2.5%",
+        marginHorizontal: "10%",
     },
     facebookTextContainer: {
         flexDirection: "column",
-        // marginHorizontal: "2.5%",
+        // marginHorizontal: "18%",
     },
     continueContainer: {
         alignItems: "center",
@@ -174,19 +170,17 @@ export default StyleSheet.create({
     },
     row: {
         flexDirection: "row",
-        justifyContent: 'center',
-        alignItems:'center'
+        // justifyContent: 'center',
+        alignItems: 'center'
     },
     onSubmitTrue: { marginTop: "1%", marginBottom: "1%" },
     loginButton: {
         height: 54,
-        borderRadius: 5,
-        overflow: 'hidden',
         justifyContent: "center",
         backgroundColor: THEME.PRIMARY_COLOR
     },
     loginButtonText: {
-        color: "#fff",
+        // color: "#fff",
         fontSize: 16,
         textAlign: "center",
         fontFamily: "Poppins-Medium"
