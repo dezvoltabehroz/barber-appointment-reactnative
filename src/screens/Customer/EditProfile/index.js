@@ -20,6 +20,8 @@ import Beard from '../../../assets/svg/beard.svg';
 import BeardGray from '../../../assets/svg/beardgray.svg';
 import Female from '../../../assets/svg/female.svg';
 import FemaleGray from '../../../assets/svg/femaleGray.svg';
+import Other from '../../../assets/svg/other.svg';
+import OtherGray from '../../../assets/svg/other.svg';
 class EditProfile extends Component {
     constructor(props) {
         super(props);
@@ -40,7 +42,8 @@ class EditProfile extends Component {
             modalView: false,
             submit: false,
             gender: 'Male',
-            uploading: false
+            uploading: false,
+            other: false
         };
     }
 
@@ -54,10 +57,12 @@ class EditProfile extends Component {
             dob: moment(dob).format('YYYY-MM-DD'),
         })
         if (gender == 'Male') {
-            this.setState({ male: true, female: false, gender: gender })
+            this.setState({ male: true, female: false, other: false, gender: gender })
+        } else if (gender == 'Other') {
+            this.setState({ other: true, male: false, female: false, gender: gender })
         }
         else {
-            this.setState({ female: true, male: false, gender: gender })
+            this.setState({ female: true, other: false, male: false, gender: gender })
         }
     }
 
@@ -254,7 +259,7 @@ class EditProfile extends Component {
                                 : null} */}
                                 </View>
                                 <View style={{ marginTop: "5%", flexDirection: 'row', justifyContent: "center" }}>
-                                    <TouchableOpacity onPress={() => this.setState({ male: true, female: false })}>
+                                    <TouchableOpacity onPress={() => this.setState({ male: true, female: false, gender: "Male" })}>
                                         {
                                             this.state.male == true && this.state.female == false ?
                                                 <Beard height={80} width={80} />
@@ -264,12 +269,22 @@ class EditProfile extends Component {
 
                                     </TouchableOpacity>
                                     <View style={{ width: 20 }}></View>
-                                    <TouchableOpacity onPress={() => this.setState({ female: true, male: false })}>
+                                    <TouchableOpacity onPress={() => this.setState({ female: true, male: false, gender: "Female" })}>
                                         {
                                             this.state.female == true && this.state.male == false ?
                                                 <Female height={80} width={80} />
                                                 :
                                                 <FemaleGray height={80} width={80} />
+                                        }
+
+                                    </TouchableOpacity>
+                                    <View style={{ width: 20 }}></View>
+                                    <TouchableOpacity onPress={() => this.setState({ other: true, female: false, male: false, gender: "Other" })}>
+                                        {
+                                            this.state.other == true && this.state.male == false && this.state.female == false ?
+                                                <Other height={80} width={80} />
+                                                :
+                                                <OtherGray height={80} width={80} />
                                         }
 
                                     </TouchableOpacity>

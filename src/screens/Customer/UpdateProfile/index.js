@@ -17,7 +17,8 @@ import Beard from '../../../assets/svg/beard.svg';
 import BeardGray from '../../../assets/svg/beardgray.svg';
 import Female from '../../../assets/svg/female.svg';
 import FemaleGray from '../../../assets/svg/femaleGray.svg';
-
+import Other from '../../../assets/svg/other.svg';
+import OtherGray from '../../../assets/svg/other.svg';
 class UpdateProfile extends Component {
     constructor(props) {
         super(props);
@@ -37,7 +38,8 @@ class UpdateProfile extends Component {
             showDatePicker: false,
             modalView: false,
             submit: false,
-            gender: 'Male'
+            gender: 'Male',
+            other: false
         };
     }
 
@@ -236,7 +238,7 @@ class UpdateProfile extends Component {
                                 : null} */}
                             </View>
                             <View style={{ marginTop: "5%", flexDirection: 'row', justifyContent: "center" }}>
-                                <TouchableOpacity onPress={() => this.setState({ male: true, female: false })}>
+                                <TouchableOpacity onPress={() => this.setState({ male: true, female: false, gender: "Male" })}>
                                     {
                                         this.state.male == true && this.state.female == false ?
                                             <Beard height={80} width={80} />
@@ -246,12 +248,22 @@ class UpdateProfile extends Component {
 
                                 </TouchableOpacity>
                                 <View style={{ width: 20 }}></View>
-                                <TouchableOpacity onPress={() => this.setState({ female: true, male: false })}>
+                                <TouchableOpacity onPress={() => this.setState({ female: true, male: false, gender: "Female" })}>
                                     {
                                         this.state.female == true && this.state.male == false ?
                                             <Female height={80} width={80} />
                                             :
                                             <FemaleGray height={80} width={80} />
+                                    }
+
+                                </TouchableOpacity>
+                                <View style={{ width: 20 }}></View>
+                                <TouchableOpacity onPress={() => this.setState({ other: true, female: false, male: false, gender: "Other" })}>
+                                    {
+                                        this.state.other == true && this.state.male == false && this.state.female == false ?
+                                            <Other height={80} width={80} />
+                                            :
+                                            <OtherGray height={80} width={80} />
                                     }
 
                                 </TouchableOpacity>

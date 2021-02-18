@@ -14,7 +14,7 @@ export default StyleSheet.create({
         backgroundColor: THEME.BUTTON_COLOR
     },
     btnPrimaryText: {
-        fontFamily: 'Poppins-Medium',
+        fontFamily: 'Poppins-Bold',
         fontSize: THEME.FONT_SIZE_MEDIUM,
         color: THEME.COLOR_BLACK,
     },
