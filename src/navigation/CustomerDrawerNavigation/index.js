@@ -54,7 +54,13 @@ function CustomDrawerContent({ navigation, props }) {
                         <Icon.MaterialCommunityIcons name="chat-alert-outline" color="#fff" size={25} />
                         <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Poppins-Medium', fontSize: 12 }} >Contact Us</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => dispatch(authActions.removeUser(navigation.replace))} style={styles.itemStyle}>
+                    <TouchableOpacity onPress={() => {
+                        let userData = {
+                            id: props.user.userData.id,
+                            token: props.user.userData.token,
+                        }
+                        dispatch(authActions.removeUser(navigation.replace, userData))
+                    }} style={styles.itemStyle}>
                         <Icon.Feather name="log-out" color="#fff" size={25} />
                         <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Poppins-Medium', fontSize: 12 }} >Logout</Text>
                     </TouchableOpacity>

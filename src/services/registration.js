@@ -131,6 +131,17 @@ const Api = {
             }
         })
     },
+    removeFcmToken: function (userData) {
+        return axiosInstance.post('registration/removeFcmToken', {
+            user_id: userData.id
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + userData.token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+    },
     getCodeForResetPass: function (email) {
         return axiosInstance.post('registration/getCodeForResetPass', {
             email: email

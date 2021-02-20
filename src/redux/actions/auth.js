@@ -253,11 +253,15 @@ const UpdateEmailAddressandToken = (userData, navigate) => {
     }
 };
 
-const removeUser = (navigate) => {
+const removeUser = (navigate, userData) => {
     return (dispatch) => {
+
         dispatch({ type: USER_LOGOUT_SUCCESS })
         AsyncStorage.removeItem('USER');
         navigate('Auth')
+        RegisterUser.removeFcmToken(userData)
+            .then((res) => console.log(res.data))
+            .catch((err) => console.log(err))
     }
 };
 
