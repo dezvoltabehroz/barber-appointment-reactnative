@@ -19,6 +19,8 @@ import Beard from '../../../assets/svg/beard.svg';
 import BeardGray from '../../../assets/svg/beardgray.svg';
 import Female from '../../../assets/svg/female.svg';
 import FemaleGray from '../../../assets/svg/femaleGray.svg';
+import Other from '../../../assets/svg/othercolor.svg';
+import OtherGray from '../../../assets/svg/other.svg';
 class UpdateProfile extends Component {
     constructor(props) {
         super(props);
@@ -42,7 +44,8 @@ class UpdateProfile extends Component {
             modalView: false,
             filePath: 'https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Bearded_Man-17-512.png',
             uploading: false,
-            isImageChaged: false
+            isImageChaged: false,
+            other: false
         };
     }
 
@@ -60,10 +63,12 @@ class UpdateProfile extends Component {
                 dob: dob == null || dob == '' ? moment().format('YYYY-MM-DD') : moment(dob).format('YYYY-MM-DD'),
             })
             if (gender == "Male") {
-                this.setState({ male: true, female: false, gender: 'Male', })
+                this.setState({ male: true, female: false, other: false, gender: 'Male', })
             }
             else if (gender == "Female") {
-                this.setState({ female: true, male: false, gender: 'Female', })
+                this.setState({ female: true, male: false, other: false, gender: 'Female', })
+            } else {
+                this.setState({ other: true, male: false, female: false, gender: 'Other', })
             }
         }
     }
@@ -151,11 +156,11 @@ class UpdateProfile extends Component {
     }
     handleNext = () => {
         this.setState({ submit: true }, () => {
-            let { name, profile_Url, dob, minDistance, gender, latitude, longitude, male, female, isImageChaged } = this.state;
+            let { name, profile_Url, dob, minDistance, gender, latitude, longitude, submit, isImageChaged } = this.state;
 
             let userData = {
                 name: name,
-                gender: male ? 'Male' : 'Female',
+                gender: gender,
                 dob: dob,
                 barber_title: this.props.user.userData.barber_title,
                 max_distance_radius: `${minDistance}`,
@@ -325,9 +330,9 @@ class UpdateProfile extends Component {
                             </View>
                         </View>
                         <View style={{ marginTop: "5%", flexDirection: 'row', justifyContent: "center" }}>
-                            <TouchableOpacity onPress={() => this.setState({ male: true, female: false })}>
+                            <TouchableOpacity onPress={() => this.setState({ male: true, female: false, other: false, gender: "Male" })}>
                                 {
-                                    this.state.male == true && this.state.female == false ?
+                                    this.state.male == true && this.state.female == false && this.state.other == false ?
                                         <Beard height={80} width={80} />
                                         :
                                         <BeardGray height={80} width={80} />
@@ -335,12 +340,22 @@ class UpdateProfile extends Component {
 
                             </TouchableOpacity>
                             <View style={{ width: 20 }}></View>
-                            <TouchableOpacity onPress={() => this.setState({ female: true, male: false })}>
+                            <TouchableOpacity onPress={() => this.setState({ female: true, male: false, other: false, gender: "Female" })}>
                                 {
-                                    this.state.female == true && this.state.male == false ?
+                                    this.state.female == true && this.state.male == false && this.state.other == false ?
                                         <Female height={80} width={80} />
                                         :
                                         <FemaleGray height={80} width={80} />
+                                }
+
+                            </TouchableOpacity>
+                            <View style={{ width: 20 }}></View>
+                            <TouchableOpacity onPress={() => this.setState({ other: true, female: false, male: false, gender: "Other" })}>
+                                {
+                                    this.state.other == true && this.state.male == false && this.state.female == false ?
+                                        <Other height={80} width={80} />
+                                        :
+                                        <OtherGray height={80} width={80} />
                                 }
 
                             </TouchableOpacity>
