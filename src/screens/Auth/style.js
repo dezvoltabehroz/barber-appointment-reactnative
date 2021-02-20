@@ -94,6 +94,7 @@ export default StyleSheet.create({
         marginHorizontal: '10%',
         justifyContent: "center",
         marginBottom: 10,
+        backgroundColor: "#EF5A2A"
     },
     iconContainer: {
         flexDirection: "column",

@@ -105,9 +105,7 @@ class AuthScreen extends Component {
                                     <Text style={styles.forgetPasswordTextStyle}>Stay signed in</Text>
                                 </View>
                                 <TouchableOpacity onPress={() => { this.props.isSubmit(); this.handleLogin() }}>
-                                    <LinearGradient stops={[0.1, 0.4, 0.3, 0.75]}
-                                        center={[100, 100]}
-                                        radius={200} colors={['#03A6A2', '#035E5B']} style={styles.loginButton}>
+                                    <View  style={styles.loginButton}>
                                         {
                                             this.props.loading ?
                                                 <ActivityIndicator size={20} color="white" />
@@ -115,7 +113,7 @@ class AuthScreen extends Component {
                                                 <Text style={styles.loginButtonText}>{'Login'}</Text>
 
                                         }
-                                    </LinearGradient>
+                                    </View>
                                 </TouchableOpacity>
 
                                 {/* <Button loading={this.props.loading} title="Login" onPress={() => { this.props.isSubmit(); this.handleLogin() }} /> */}
@@ -126,9 +124,7 @@ class AuthScreen extends Component {
                             <Text style={styles.signUpAndLoginTextStyle}>Sign up using</Text>
 
                             <TouchableOpacity onPress={onFacebook()}>
-                                <LinearGradient stops={[0.1, 0.4, 0.3, 0.75]}
-                                    center={[100, 100]}
-                                    radius={200} colors={['#1380E4', '#0055A3']}
+                                <View 
                                     style={styles.faceBookButton}>
                                     <View style={styles.row}>
                                         <View style={styles.iconContainer}>
@@ -142,12 +138,10 @@ class AuthScreen extends Component {
                                             <Text style={styles.buttonTextStyle}>Facebook</Text>
                                         </View>
                                     </View>
-                                </LinearGradient>
+                                </View>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={onGoogle()} >
-                                <LinearGradient stops={[0.1, 0.4, 0.3, 0.75]}
-                                    center={[100, 100]}
-                                    radius={200} colors={['#EF5A2A', '#A83B18']}
+                                <View 
                                     style={styles.googleButton}>
                                     <View style={styles.row}>
                                         <View style={styles.iconContainer}>
@@ -161,13 +155,11 @@ class AuthScreen extends Component {
                                             <Text style={styles.buttonTextStyle}>Google</Text>
                                         </View>
                                     </View>
-                                </LinearGradient>
+                                </View>
                             </TouchableOpacity>
 
                             <TouchableOpacity onPress={onPhone}>
-                                <LinearGradient stops={[0.1, 0.4, 0.3, 0.75]}
-                                    center={[100, 100]}
-                                    radius={200} colors={['#03A6A2', '#035E5B']}
+                                <View
                                     style={[styles.loginButton, barber ? { marginBottom: '5%' } : {}, { marginHorizontal: "10%" }]}>
                                     <View style={styles.row}>
                                         <View style={styles.iconContainer}>
@@ -181,7 +173,7 @@ class AuthScreen extends Component {
                                             <Text style={styles.buttonTextStyle}>Phone Number</Text>
                                         </View>
                                     </View>
-                                </LinearGradient>
+                                </View>
                             </TouchableOpacity>
 
                             {
