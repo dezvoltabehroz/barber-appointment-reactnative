@@ -59,7 +59,6 @@ class BarberList extends Component {
     }
 
     _renderItems = (item) => {
-        console.log(item)
         const time = item.time_duration != null ? item.time_duration.split(':') : ""
         const hours = time != "" ? parseInt(time[0]) : ""
         const minutes = time != "" ? parseInt(time[1]) : ""
