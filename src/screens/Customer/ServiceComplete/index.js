@@ -104,13 +104,13 @@ class ServiceComplete extends Component {
                             </View>
 
 
-                            <FooterButton disabled={feedback && starCount ? false : true} loading={finishLoading} title='Done' onPress={async () => {
+                            <FooterButton loading={finishLoading} title='Done' onPress={async () => {
                                 this.setState({ finishLoading: true });
                                 let userData = {
                                     barber_id: this.props.userData.barber_id,
                                     customer_id: this.props.userData.id,
                                     comment: feedback,
-                                    no_of_star: starCount,
+                                    no_of_star: starCount != 0 ? starCount : 5,
                                     token: this.props.userData.token,
                                     review_by: this.props.userData.type,
                                     is_services_rate_time: moment().format("YYYY-MM-DD H:mm:ss"),

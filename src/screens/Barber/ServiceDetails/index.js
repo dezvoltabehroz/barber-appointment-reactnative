@@ -39,13 +39,13 @@ class ServiceDetails extends Component {
         BookingServices.getBookingDetails(userData)
             .then((res) => {
                 if (res.data.status) {
-                    console.log(res.data)
                     this.setState({
                         serviceList: res.data.booking_service_details.services,
                         totalPrice: res.data.booking_service_details.booking_price,
                         totalTime: res.data.booking_service_details.booking_time_duration,
                         bookingDate: res.data.booking_service_details.booking_date,
-                        stepCounter: res.data.booking_service_details.stepCounter
+                        stepCounter: res.data.booking_service_details.stepCounter,
+                        customerId: res.data.booking_service_details.customer_id
                     }, () => {
                         let time = parseInt(moment.duration(res.data.booking_service_details.booking_time_duration).asMinutes())
                         var h = time / 60 | 0;
@@ -115,7 +115,7 @@ class ServiceDetails extends Component {
 
     render() {
         const { onPayment, history, cancelled } = this.props;
-        const { serviceList, timeInHour, totalPrice, stepCounter, bookingEndingTime, bookingStartingTime, bookingDate } = this.state;
+        const { serviceList, timeInHour, totalPrice, stepCounter, bookingEndingTime, bookingStartingTime, bookingDate,customerId } = this.state;
 
         return (
             <>
@@ -159,7 +159,7 @@ class ServiceDetails extends Component {
                                                             <View style={styles.timeContainer}>
                                                                 <View style={styles.priceAndTimeContainer}>
                                                                     <Text style={styles.timeTextStyle}>
-                                                                        {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " +  timeInHour[1]}
+                                                                        {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " + timeInHour[1]}
                                                                         {
                                                                             timeInHour[0] == '0' && timeInHour[1] == '0' ?
                                                                                 null
@@ -189,7 +189,7 @@ class ServiceDetails extends Component {
                                     <View style={[styles.rowStyle, { marginTop: '5%' }]}>
                                         <Text style={styles.headingText}>Total Time of Service:</Text>
                                         <Text style={[styles.headingText, { color: THEME.PRIMARY_COLOR }]}>
-                                            {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : "  " +  timeInHour[1]}
+                                            {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : "  " + timeInHour[1]}
                                             {
                                                 timeInHour[0] == '0' && timeInHour[1] == '0' ?
                                                     null
@@ -245,7 +245,7 @@ class ServiceDetails extends Component {
                                 history ?
                                     null
                                     :
-                                    <FooterButton disabled={stepCounter == 6 ? false : true} title={'Rate'} onPress={() => onPayment(totalPrice)} />
+                                    <FooterButton disabled={stepCounter == 6 ? false : true} title={'Rate'} onPress={() => onPayment(totalPrice,customerId)} />
                             }
 
                         </View>

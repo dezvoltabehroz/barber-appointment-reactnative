@@ -17,7 +17,7 @@ export default class ServiceDetailsScreen extends Component {
                 history={history}
                 notification={notification ? notification : false}
                 bookingId={bookingId}
-                onPayment={(totalPrice) => navigate('BarberServiceComplete', { customerId: customerId, totalPrice: totalPrice, bookingId })} />
+                onPayment={(totalPrice, customerId) => navigate('BarberServiceComplete', { customerId: customerId, totalPrice: totalPrice, bookingId })} />
         )
     }
 }

@@ -23,10 +23,10 @@ class BarberBookingHistory extends Component {
     }
     componentDidMount = () => {
         this.setState({ loading: true })
-        const { user } = this.props
+        const { user } = this.props;
         let userData = {
-            id: user.userData.id,
-            token: user.userData.token
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token
         }
         BookingServices.getBarberBookingHistory(userData)
             .then((res) => {

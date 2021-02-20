@@ -52,5 +52,26 @@ export default StyleSheet.create({
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
     },
+    lineStyle: {
+        borderColor: '#44495C',
+        borderWidth: 2,
+        marginHorizontal: '10%',
+        borderRadius: 5
+    },
+    gapHeight: {
+        height: 15
+    },
+    gapHeight1: {
+        height: 5
+    },
+    buttonContainer: {
+        marginHorizontal: '10%',
+    },
+    footerStyle: {
+        flex: 0.2,
+        justifyContent: 'flex-end',
+        paddingBottom: '8%',
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
+    },
 
 })
