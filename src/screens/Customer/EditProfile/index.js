@@ -43,13 +43,14 @@ class EditProfile extends Component {
             submit: false,
             gender: 'Male',
             uploading: false,
-            other: false
+            other: false,
+            isImageChaged: false
         };
     }
 
     componentDidMount = () => {
         const { full_name, profile_picture, dob, gender } = this.props.user.userData;
-        console.log(this.props.user.userData)
+        console.log(this.props.user.userData.dob)
         this.setState({
             name: full_name,
             avatar: profile_picture,
@@ -64,12 +65,13 @@ class EditProfile extends Component {
         else {
             this.setState({ female: true, other: false, male: false, gender: gender })
         }
+        console.log(this.props.user.userData.dob)
     }
 
     handleNext = () => {
         this.setState({ submit: true }, async () => {
             const { onNext } = this.props;
-            let { name, profile_Url, dob, gender, submit } = this.state;
+            let { name, profile_Url, dob, gender, submit, isImageChaged } = this.state;
             let userData = {
                 name: name,
                 gender: gender,
@@ -77,7 +79,8 @@ class EditProfile extends Component {
                 image: profile_Url,
                 id: this.props.user.userData.id,
                 token: this.props.user.userData.token,
-                phone: this.props.user.userData.phone
+                phone: this.props.user.userData.phone,
+                imageChaged: isImageChaged
             }
 
             if (name && gender && dob && submit && this.isNameValid(name)) {
@@ -104,7 +107,8 @@ class EditProfile extends Component {
                 let source = response;
                 this.setState({
                     avatar: source.uri,
-                    profile_Url: response
+                    profile_Url: response,
+                    isImageChaged: true
                 });
             }
         });
@@ -148,7 +152,7 @@ class EditProfile extends Component {
         dob += "-";
         dob += selectedDate.getDate() < 10 ? "0" + selectedDate.getDate() : selectedDate.getDate();
         this.setState({
-            date,
+            date: moment(selectedDate).format('Do MMMM YYYY'),
             dob
         })
         this.hideDatePicker();

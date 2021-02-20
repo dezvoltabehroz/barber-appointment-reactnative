@@ -12,13 +12,21 @@ class EditProfileScreen extends Component {
     })
     handleNext = (userData) => {
         const { replace, goBack } = this.props.navigation
-        RegisterUser.updateProfileInfo(userData)
-            .then(async (res) => {
-                if (res.data.status) {
-                    await this.props.authActions.getUserProfile(userData, replace)
-                }
-            })
-            .catch((err) => { console.log(err) })
+        if (userData.imageChaged) {
+            RegisterUser.updateProfilePicture(userData)
+                .then(async (res) => {
+                    if (res.data.status) {
+                        RegisterUser.updateProfileInfo(userData)
+                            .then(async (res) => { if (res.data.status) { await this.props.authActions.getUserProfile(userData, replace) } })
+                            .catch((err) => { console.log(err) })
+                    }
+                })
+                .catch((err) => { console.log(err) })
+        } else {
+            RegisterUser.updateProfileInfo(userData)
+                .then(async (res) => { if (res.data.status) { await this.props.authActions.getUserProfile(userData, replace) } })
+                .catch((err) => { console.log(err) })
+        }
     }
     render() {
         const { replace, goBack } = this.props.navigation

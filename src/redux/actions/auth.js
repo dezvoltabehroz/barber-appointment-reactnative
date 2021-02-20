@@ -187,7 +187,7 @@ const UpdateProfileInfo = (userData, phone, navigate) => {
         if (loading) {
             dispatch({ type: LOADING_SUCCESS, loading: loading })
         }
-        RegisterUser.updateProfileInfo(userData, phone)
+        RegisterUser.updatePersonalInfo(userData, phone)
             .then(response => {
                 if (response.data.status) {
                     dispatch({

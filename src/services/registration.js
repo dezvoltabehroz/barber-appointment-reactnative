@@ -1,9 +1,18 @@
 import axiosInstance from './Interceptor';
 import axios from 'axios';
 import { Platform } from 'react-native';
-let config = { headers: { 'Content-Type': 'application/json' } }
+let config = { headers: { 'Content-Type': 'application/json' } };
+let configToken = (token) => {
+    return {
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        }
+    }
+}
 const Api = {
-  
+
     sendCodeToPhoneNumber: function (number) {
         return axiosInstance.post('registration/regPhoneNumber', {
             phone: `${number}`,
@@ -17,7 +26,7 @@ const Api = {
         }, config)
     },
 
-    updateProfileInfo: function (userData, phone) {
+    updatePersonalInfo: function (userData, phone) {
         let formData = new FormData();
         formData.append('full_name', userData.name);
         formData.append('gender', userData.gender);
@@ -37,6 +46,34 @@ const Api = {
             }
         };
         return axios.post("http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/registration/updatePersonalInfo", formData, config);
+    },
+    updateProfileInfo: function (userData) {
+        return axiosInstance.post('registration/updateProfileInfo', {
+            user_id: userData.id,
+            full_name: userData.name,
+            gender: userData.gender,
+            dob: userData.dob
+        }, configToken(userData.token))
+    },
+    updateProfilePicture: function (userData) {
+        console.log("userData:", userData)
+        let formData = new FormData();
+        formData.append('user_id', userData.id);
+        formData.append('image', userData.image ? {
+            uri: Platform.OS === 'android' ? 'file://' + userData.image.path : userData.image.uri,
+            name: `${new Date().getTime().toString()}.jpg`,
+            filename: new Date().getTime().toString() + '.jpg',
+            type: 'image/jpg'
+        } : '');
+
+        let config = {
+            headers: {
+                'Authorization': 'Bearer ' + userData.token,
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json',
+            }
+        };
+        return axios.post("http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/registration/updateProfilePic", formData, config);
     },
 
     updateEmailAndPassword: function (userData) {
