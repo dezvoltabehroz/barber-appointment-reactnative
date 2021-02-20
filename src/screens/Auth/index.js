@@ -194,15 +194,15 @@ class AuthScreen extends Component {
                                                 <Text style={styles.signUpAsBarberTextStyle}>Sign up as a Provider</Text>
                                             </TouchableOpacity>
                                         </View>
-                                        <View style={styles.continueContainer}>
+                                        {/* <View style={styles.continueContainer}>
                                             <TouchableOpacity onPress={onContinueWithOutLogin} style={styles.continueContainerStyle} >
                                                 <Text style={styles.continueWithoutTextStyle}>Continue without Sign in </Text>
-                                                {/* <Icon.AntDesign
+                                                <Icon.AntDesign
                                                     name="arrowright"
                                                     color={THEME.COLOR_GREY}
-                                                    size={25} /> */}
+                                                    size={25} />
                                             </TouchableOpacity>
-                                        </View>
+                                        </View> */}
                                     </>
                             }
                         </View>
