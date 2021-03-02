@@ -141,7 +141,8 @@ export default StyleSheet.create({
     modalTextStyle: {
         fontSize: 10,
         textAlign: 'justify',
-        fontFamily: 'Poppins-Regular'
+        fontFamily: 'Poppins-Regular',
+        color:"white"
     }
 
 })

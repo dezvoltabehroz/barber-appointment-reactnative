@@ -304,13 +304,13 @@ class Home extends Component {
                     </ScrollView>
                 </View>
                 <Modal isVisible={this.props.user.modal}>
-                    <View style={{ backgroundColor: 'white', borderRadius: 10, }}>
+                    <View style={{ backgroundColor: '#171717', borderRadius: 10, }}>
                         <View style={{ justifyContent: 'center', alignItems: 'center', marginHorizontal: '6%' }}>
                             <ScrollView showsVerticalScrollIndicator={false}>
-                                <Text style={[{ marginTop: '10%', textAlign: 'center' }, styles.modalMainHeading]}>
+                                <Text style={[{ marginTop: '10%', textAlign: 'center', color: "white" }, styles.modalMainHeading]}>
                                     Health and Safety Commitment
                                 </Text>
-                                <Text style={[{ marginTop: '5%' }, styles.modalTextStyle]}>
+                                <Text style={[{ marginTop: '5%', color: "white",textAlign: 'center' }, styles.modalTextStyle]}>
                                     We will require clients & providers to sanitize their hands before undergoing any services.
                                     Customers experiencing flu-like symptoms will be required to reschedule until they are symptom-free. Providers have the right to refuse services for his or her own safety.
                                     Customers and/or providers may be asked to take a temperature reading before beginning the service to ensure your safety.
@@ -318,32 +318,32 @@ class Home extends Component {
                                     ALL appointments must be rescheduled via the Fleek App along with submitting a medical Doctor’s note as confirmation to waive fees.
                                     We will help you reschedule your appointment at a later date.
                                     </Text>
-                                <Text style={[{ marginTop: '5%' }, styles.modalMainHeading]}>
+                                <Text style={[{ marginTop: '5%', color: "white",textAlign: 'center' }, styles.modalMainHeading]}>
                                     Face Coverings
                                     </Text>
                                 <Text style={styles.modalTextStyle}>
                                     You must have your mask or face covering on AT ALL TIMES during the appointment. Please be sure to have a well fitted mask that covers both your whole mouth and nose. This must be worn throughout the entire appointment.
                                     </Text>
-                                <Text style={[{ marginTop: '5%', }, styles.modalMainHeading]}>
+                                <Text style={[{ marginTop: '5%', textAlign: "center", color: "white" }, styles.modalMainHeading]}>
                                     Fleek provider duty
                                     </Text>
                                 <Text style={styles.modalTextStyle} >
-                                    As a safety precaution, all Fleek providers are required to:
+                                    - As a safety precaution, all Fleek providers are required to:
                                     </Text>
                                 <Text style={styles.modalTextStyle}>
-                                    "Wear a face covering throughout the entire appointment."
+                                    - "Wear a face covering throughout the entire appointment."
                                     </Text>
                                 <Text style={styles.modalTextStyle}>
-                                    "Wear rubber gloves while conducting the service."
+                                    - "Wear rubber gloves while conducting the service."
                                     </Text>
                                 <Text style={styles.modalTextStyle}>
-                                    "Maintain sanitary equipment for the health and safety of our customers"
+                                    - "Maintain sanitary equipment for the health and safety of our customers"
                                     </Text>
                             </ScrollView>
                         </View>
-                        <View style={{ paddingTop: '5%' }}>
-                            <TouchableOpacity onPress={() => { this.props.authActions.healthAndSafety(false) }} style={{ backgroundColor: themeStyle.PRIMARY_COLOR, height: 50, borderRadius: 10, justifyContent: 'center' }}>
-                                <Text style={{ color: 'white', textAlign: 'center', fontFamily: 'Poppins-Medium' }} >Accept</Text>
+                        <View style={{ paddingTop: '5%', marginHorizontal: "25%",paddingBottom: '5%', }}>
+                            <TouchableOpacity onPress={() => { this.props.authActions.healthAndSafety(false) }} style={{ backgroundColor: themeStyle.PRIMARY_COLOR, height: 50,  justifyContent: 'center' }}>
+                                <Text style={{ color: '#171717', textAlign: 'center', fontFamily: 'Poppins-Bold' }} >Accept</Text>
                             </TouchableOpacity>
 
                         </View>
