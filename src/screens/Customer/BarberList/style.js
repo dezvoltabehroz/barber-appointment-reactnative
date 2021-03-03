@@ -15,8 +15,8 @@ export default StyleSheet.create({
     },
     cardStyle: {
         paddingTop: '2%',
-        flexDirection: 'row',
-        backgroundColor: THEME.COLOR_WHITE,
+        // flexDirection: 'row',
+        backgroundColor: '#171717',
         borderRadius: 10,
         paddingVertical: '2%'
 
@@ -29,7 +29,7 @@ export default StyleSheet.create({
         paddingBottom: 5
     },
     inputContainerStyle: {
-        backgroundColor: 'white',
+        backgroundColor: '#171717',
         // height: 40,
         // elevation: 3,
         // width: '102%',
@@ -39,58 +39,62 @@ export default StyleSheet.create({
     },
     nameContainer: {
         flex: 1,
-        justifyContent: 'center',
+        marginHorizontal: "5%",
+        flexDirection: "row",
+        justifyContent: 'space-between',
     },
     nameTextStyle: {
         fontSize: THEME.FONT_SIZE_LARGE,
-        color: THEME.COLOR_BLACK,
+        color: THEME.PRIMARY_COLOR,
         fontFamily: 'Poppins-Medium'
     },
     dateTextStyle: {
-        color: THEME.COLOR_BLACK,
+        color: THEME.PRIMARY_COLOR,
         fontFamily: 'Poppins-Regular'
     },
     seperatorHeightStyle: {
         height: 15
     },
     avatarContainer: {
+        flex: 0.3,
         justifyContent: 'center',
         alignItems: 'center',
     },
     buttonTextStyle: {
         marginHorizontal: '10%',
-        color: '#fff',
-        fontFamily: 'Poppins-Medium'
+        color: '#000',
+        fontFamily: 'Poppins-Bold'
     },
     buttonStyle: {
         backgroundColor: THEME.PRIMARY_COLOR,
-        borderRadius: 7,
+        // borderRadius: 7,
         height: 40,
         justifyContent: "center",
         alignItems: "center"
     },
     daycontainer: {
-        flexWrap:'wrap',
+        flexWrap: 'wrap',
         flexDirection: 'row',
         width: '100%'
     },
     daysContainer: {
-         height: 30,
-        width: 30,
-        justifyContent:'center',
-        alignItems:'center',
-        borderWidth: 1,
-        borderColor: '#000',
+        height: 20,
+        width: 20,
+        backgroundColor: THEME.PRIMARY_COLOR,
+        justifyContent: 'center',
+        alignItems: 'center',
+        // borderWidth: 1,
+        // borderColor: '#000',
         borderRadius: 20,
         marginHorizontal: '0.5%'
     },
     textStyle: {
-        fontSize: 10,
-        padding: '4%',
-        height: 18,
-        width: 25,
+        fontSize: 8,
+        // padding: '2%',
+        // height: 20,
+        // width: 20,
         textAlign: 'center',
         justifyContent: 'center',
-        fontFamily: 'Poppins-Regular'
+        fontFamily: 'Poppins-Bold'
     },
 })

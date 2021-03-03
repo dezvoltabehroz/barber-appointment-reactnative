@@ -5,6 +5,8 @@ import { Avatar, SearchBar } from "react-native-elements";
 import { Barbers } from "../../../services";
 import { connect } from 'react-redux';
 import moment from 'moment'
+import themeStyle from "../../../assets/styles/theme.style";
+import Search from '../../../assets/svg/search.svg'
 class BarberList extends Component {
     constructor(props) {
         super(props);
@@ -12,6 +14,15 @@ class BarberList extends Component {
             value: '',
             loading: false,
             barberList: [],
+            days: [
+                { day: "Monday" },
+                { day: "Tuesday" },
+                { day: "Wednesday" },
+                { day: "Thursday" },
+                { day: "Friday" },
+                { day: "Saturday" },
+                { day: "Sunday" }
+            ]
         }
         this.arrayHolder = this.state.barberList
     }
@@ -68,55 +79,62 @@ class BarberList extends Component {
             <>
                 <TouchableOpacity onPress={() => onPress(item.id)} style={styles.listItemContainer}>
                     <View style={styles.cardStyle} >
-                        <View style={styles.avatarContainer}>
-                            <Avatar source={{ uri: item.profile_picture }} rounded size={70} />
-                            <View style={{ paddingVertical: '5%' }} >
-                                <TouchableOpacity onPress={() => bookNow(item.id)} style={styles.buttonStyle}>
-                                    <Text style={styles.buttonTextStyle}>
-                                        Book Now
-                                </Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
+
                         <View style={styles.nameContainer}>
-                            <Text style={styles.nameTextStyle} >{item.full_name}</Text>
-                            <Text style={styles.dateTextStyle} >Age: {item.age}</Text>
-                            <Text style={styles.dateTextStyle} >Est. Duration:
+                            {/* <View> */}
+
+                            <View style={{ flex: 0.8 }}>
+                                <Text style={styles.nameTextStyle} >{item.full_name}</Text>
+                                <Text style={styles.dateTextStyle} >Age: {item.age}</Text>
+                                <Text style={[styles.dateTextStyle, { textTransform: "capitalize" }]} >Estimated Duration:
                          {time != "" ?
-                                    <>
-                                        {
-                                            timeInHour[0] == 0 && timeInHour[1] == 0 ? "" : timeInHour[0] + timeInHour[1]}
-                                        {
-                                            timeInHour[0] == 0 && timeInHour[1] == 0 ?
-                                                null
-                                                :
-                                                <Text style={styles.textStyles}> hr</Text>
-                                        }
-                                        {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
-                                        {
-                                            timeInHour[3] == 0 && timeInHour[4] == 0 ?
-                                                null
-                                                :
-                                                <Text style={styles.textStyles}> mins</Text>
-                                        }
-                                    </>
-                                    : null
-                                }</Text>
-                            <Text style={styles.dateTextStyle} >Charges: {item.price ? "$" + item.price : ''}</Text>
-                            <View>
-                                <Text style={styles.dateTextStyle} >Working Days: </Text>
+                                        <>
+                                            {
+                                                timeInHour[0] == 0 && timeInHour[1] == 0 ? "" : timeInHour[0] + timeInHour[1]}
+                                            {
+                                                timeInHour[0] == 0 && timeInHour[1] == 0 ?
+                                                    null
+                                                    :
+                                                    <Text style={styles.textStyles}> hr</Text>
+                                            }
+                                            {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                                            {
+                                                timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                                    null
+                                                    :
+                                                    <Text style={styles.textStyles}> mins</Text>
+                                            }
+                                        </>
+                                        : null
+                                    }</Text>
+                                <Text style={styles.dateTextStyle} >Charges: {item.price ? "$" + item.price : ''}</Text>
+                                {/* <View>
+                                    <Text style={styles.dateTextStyle} >Working Days: </Text>
+                                </View> */}
+                                <View style={styles.daycontainer}>
+                                    {
+                                        item.working_days.map((item, index) => {
+                                            return (
+                                                <View key={index} style={styles.daysContainer}>
+                                                    <Text style={styles.textStyle}>{`${item.day[0]}`}</Text>
+                                                </View>
+                                            )
+                                        })
+                                    }
+                                </View>
                             </View>
-                            <View style={styles.daycontainer}>
-                                {
-                                    item.working_days.map((item, index) => {
-                                        return (
-                                            <View key={index} style={styles.daysContainer}>
-                                                <Text style={styles.textStyle}>{`${item.day[0]}${item.day[1]}${item.day[2]}`}</Text>
-                                            </View>
-                                        )
-                                    })
-                                }
+                            <View style={styles.avatarContainer}>
+                                <Avatar source={{ uri: item.profile_picture }} rounded size={70} />
                             </View>
+                            {/* </View> */}
+
+                        </View>
+                        <View style={{ padding: '5%' }} >
+                            <TouchableOpacity onPress={() => bookNow(item.id)} style={styles.buttonStyle}>
+                                <Text style={styles.buttonTextStyle}>
+                                    Book Now
+                                </Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </TouchableOpacity>
@@ -129,33 +147,67 @@ class BarberList extends Component {
             <>
                 <TouchableOpacity onPress={() => onPress(item.id)} style={styles.listItemContainer}>
                     <View style={styles.cardStyle} >
-                        <View style={styles.avatarContainer}>
-                            <Avatar source={{ uri: item.profile_picture }} rounded size={70} />
-                            <View style={{ paddingVertical: '5%' }} >
-                                <TouchableOpacity onPress={() => bookNow(item.id)} style={styles.buttonStyle}>
-                                    <Text style={styles.buttonTextStyle}>
-                                        Book Now
-                                </Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
+
                         <View style={styles.nameContainer}>
-                            <Text style={styles.nameTextStyle} >{item.full_name}</Text>
-                            <Text style={styles.dateTextStyle} >Age: {item.age}</Text>
+                            {/* <View> */}
+
                             <View>
-                                <Text style={styles.dateTextStyle} >Working Days: </Text>
+                                <Text style={styles.nameTextStyle} >{item.full_name}</Text>
+                                <Text style={styles.dateTextStyle} >Age: {item.age}</Text>
+                                <Text style={styles.dateTextStyle} >Est. Duration:
+                         {time != "" ?
+                                        <>
+                                            {
+                                                timeInHour[0] == 0 && timeInHour[1] == 0 ? "" : timeInHour[0] + timeInHour[1]}
+                                            {
+                                                timeInHour[0] == 0 && timeInHour[1] == 0 ?
+                                                    null
+                                                    :
+                                                    <Text style={styles.textStyles}> hr</Text>
+                                            }
+                                            {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                                            {
+                                                timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                                    null
+                                                    :
+                                                    <Text style={styles.textStyles}> mins</Text>
+                                            }
+                                        </>
+                                        : null
+                                    }</Text>
+                                <Text style={styles.dateTextStyle} >Charges: {item.price ? "$" + item.price : ''}</Text>
+                                <View>
+                                    <Text style={styles.dateTextStyle} >Working Days: </Text>
+                                </View>
+                                <View style={styles.daycontainer}>
+                                    {
+                                        this.state.days.forEach((d, i) => {
+                                            item.working_days.map((item, index) => {
+                                                console.log(d.day, item.day)
+                                                return (
+                                                    <View key={index} style={[styles.daysContainer, { backgroundColor: d.day == item.day ? themeStyle.PRIMARY_COLOR : "#000" }]}>
+                                                        <Text style={styles.textStyle}>{`${item.day[0]}${item.day[1]}${item.day[2]}`}</Text>
+                                                    </View>
+                                                )
+                                            })
+
+                                        })
+                                    }
+                                </View>
                             </View>
-                            <View style={styles.daycontainer}>
-                                {
-                                    item.working_days.map((item, index) => {
-                                        return (
-                                            <View key={index} style={styles.daysContainer}>
-                                                <Text style={styles.textStyle}>{`${item.day[0]}${item.day[1]}${item.day[2]}`}</Text>
-                                            </View>
-                                        )
-                                    })
-                                }
+                            <View style={styles.avatarContainer}>
+                                <Avatar source={{ uri: item.profile_picture }} rounded size={70} />
+
                             </View>
+                            {/* </View> */}
+
+                        </View>
+                        <View style={{ padding: '5%' }} >
+                            <TouchableOpacity onPress={() => bookNow(item.id)} style={styles.buttonStyle}>
+                                <Text style={styles.buttonTextStyle}>
+                                    Book Now
+                                </Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </TouchableOpacity>
@@ -188,6 +240,7 @@ class BarberList extends Component {
                                         onChangeText={text => this.searchFilterBarber(text)}
                                         value={this.state.value}
                                         autoCorrect={false}
+                                        leftIcon={<Search height={20} width={20} />}
                                         inputStyle={{ fontSize: 14, }}
                                         leftIconContainerStyle={{ paddingLeft: 10 }}
                                         rightIconContainerStyle={{ paddingRight: 10 }}
@@ -205,7 +258,8 @@ class BarberList extends Component {
                                 <>
                                     <SearchBar
                                         placeholder='Search...'
-                                        round
+                                        // round
+                                        searchIcon={()=>(<Search height={20} width={20} />)}
                                         onChangeText={text => this.searchFilterBarber(text)}
                                         value={this.state.value}
                                         autoCorrect={false}
