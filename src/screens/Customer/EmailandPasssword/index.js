@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Alert } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
-import { FloatingInput, FooterButton } from '../../../components'
+import { FloatingInput, Input, FooterButton } from '../../../components'
 import styles from './style';
 import COMMON_STYLE from '../../../assets/styles/common.style';
 import { connect } from 'react-redux';
@@ -37,7 +37,7 @@ class EmailandPassword extends Component {
     }
 
     handleNext = async () => {
-        
+
         let { email, password, confirmPassword, submit, macAddress } = this.state
         const { onUpdate } = this.props;
         const number = await AsyncStorage.getItem('Phone');
@@ -55,7 +55,7 @@ class EmailandPassword extends Component {
                     password: password,
                     macAddress: macAddress,
                     // phone: this.props.phone
-                    phone:phoneNumber
+                    phone: phoneNumber
                 }
                 onUpdate(userData);
             }
@@ -75,7 +75,19 @@ class EmailandPassword extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.upperContainer}>
-                    <View style={[styles.inputContainerStyle,
+                    <Input
+                        value={email}
+                        keyboardtype="email-address"
+                        // onActive={() => this.setState({ isEmailFocus: true })}
+                        onBlur={() => this.setState({ submit: true })}
+                        placeholder='Email' onChangeText={(email) => this.setState({ email })} />
+                    {
+                        submit && !email ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%' }]}>Please fill this field</Text> : null
+                    }
+                    {
+                        submit && email.length && !this.isEmailValid(email) ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%' }]}>Email is invalid</Text> : null
+                    }
+                    {/* <View style={[styles.inputContainerStyle,
                     { marginBottom: submit ? '6%' : '5%' },
                     isEmailFocus || email != '' ? THEME.inputBorder
                         :
@@ -92,8 +104,34 @@ class EmailandPassword extends Component {
                         {
                             submit && email.length && !this.isEmailValid(email) ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%' }]}>Email is invalid</Text> : null
                         }
-                    </View>
-                    <View style={[styles.inputContainerStyle, password.length && !this.isPasswordValid(password) ? { marginBottom: 0 } : { marginBottom: submit && !password ? 0 : submit ? '6%' : '5%' },
+                    </View> */}
+                    <Input
+                        value={password}
+                        keyboardtype="email-address"
+                        secureTextEntry={true}
+                        // onActive={() => this.setState({ isEmailFocus: true })}
+                        onBlur={() => this.setState({ submit: true })}
+                        placeholder='Password' onChangeText={(password) => this.setState({ password })} />
+                    {
+                        submit && !password ? <Text style={[COMMON_STYLE.errorText, { color: "white" }]}>Please fill this field</Text> : null
+                    }
+                    {
+                        password.length && !this.isPasswordValid(password) ?
+                            <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Password must be 8 letters along which must contain one special character, one capital, and one digit</Text> : null
+                    }
+                    <Input
+                        value={confirmPassword}
+                        keyboardtype="email-address"
+                        secureTextEntry={true}
+                        // onActive={() => this.setState({ isEmailFocus: true })}
+                        onBlur={() => this.setState({ submit: true })}
+                        placeholder='Confirm Password' onChangeText={(confirmPassword) => this.setState({ confirmPassword })} />
+                    {
+                        submit && !confirmPassword ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Please fill this field</Text> :
+                            submit && password != confirmPassword ?
+                                <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Password Mismatch</Text> : null
+                    }
+                    {/* <View style={[styles.inputContainerStyle, password.length && !this.isPasswordValid(password) ? { marginBottom: 0 } : { marginBottom: submit && !password ? 0 : submit ? '6%' : '5%' },
                     isPasswordFocus || password != '' ? THEME.inputBorder : {}]}>
                         <FloatingInput
                             val={password}
@@ -105,14 +143,14 @@ class EmailandPassword extends Component {
                     </View>
                     <View style={{ marginHorizontal: '10%' }}>
                         {
-                            submit && !password ? <Text style={[COMMON_STYLE.errorText]}>Please fill this field</Text> : null
+                            submit && !password ? <Text style={[COMMON_STYLE.errorText,{color:"white" }]}>Please fill this field</Text> : null
                         }
                         {
                             password.length && !this.isPasswordValid(password) ?
-                                <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%' }]}>Password should have at least 1 uppercase, 1 lowercase, 1 digit and 1 special character and length range 6-16 characters</Text> : null
+                                <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%',color:"white" }]}>Password must be 8 letters along which must contain one special character, one capital, and one digit</Text> : null
                         }
-                    </View>
-                    <View style={[styles.inputContainerStyle, isConfirmPasswordFocus || confirmPassword != '' ? THEME.inputBorder : {}]}>
+                    </View> */}
+                    {/* <View style={[styles.inputContainerStyle, isConfirmPasswordFocus || confirmPassword != '' ? THEME.inputBorder : {}]}>
                         <FloatingInput
                             val={confirmPassword}
                             secureEntry
@@ -122,9 +160,9 @@ class EmailandPassword extends Component {
                         {
                             submit && !confirmPassword ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%' }]}>Please fill this field</Text> :
                                 submit && password != confirmPassword ?
-                                    <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%' }]}>Password Mismatch</Text> : null
+                                    <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Password Mismatch</Text> : null
                         }
-                    </View>
+                    </View> */}
                 </View>
                 <FooterButton disabled={email && password && confirmPassword ? false : true} loading={this.props.loading} title='Save & Continue' onPress={this.handleNext} />
             </View>

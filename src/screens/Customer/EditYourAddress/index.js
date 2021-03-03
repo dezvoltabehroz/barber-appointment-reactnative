@@ -6,11 +6,11 @@ import THEME from '../../../assets/styles/theme.style';
 import styles from './style';
 import Geocoder from 'react-native-geocoder';
 import MapView, { PROVIDER_GOOGLE, Marker, AnimatedRegion } from 'react-native-maps';
-import { Button, FloatingInput, MessageInput, FooterButton } from "../../../components";
+import { Button, FloatingInput, Input, FooterButton, MessageTextInput } from "../../../components";
 import COMMON_STYLE from '../../../assets/styles/common.style';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import AsyncStorage from '@react-native-community/async-storage';
-
+import Edit from '../../../assets/svg/edit.svg';
 class EditYourAddress extends Component {
     constructor(props) {
         super(props);
@@ -53,7 +53,7 @@ class EditYourAddress extends Component {
             val.selected = false
         })
         items[index] = { ...items[index], selected: true };
-        this.setState({ labels: items, label: items[index].label,submit: true, })
+        this.setState({ labels: items, label: items[index].label, submit: true, })
     }
 
     handleSaveAndContinue = async () => {
@@ -151,52 +151,53 @@ class EditYourAddress extends Component {
                         <View style={styles.addressContainer}>
                             <View style={styles.rowContainer}>
                                 <View style={styles.imageContainer}>
-                                    <Image source={require('../../../assets/images/avatar.png')} style={{ height: 35, width: 35 }} />
+                                    {/* <Image source={require('../../../assets/images/avatar.png')} style={{ height: 35, width: 35 }} /> */}
                                     <View style={styles.addressTextContainer}>
-                                        <Text style={styles.addressTextStyle}>{this.state.address}</Text>
-                                        <Text style={styles.addressTextStyle1}>{this.state.address}</Text>
+                                        <Text style={[styles.addressTextStyle,{textTransform:"capitalize",color:THEME.PRIMARY_COLOR}]}>{this.state.address}</Text>
+                                        {/* <Text style={styles.addressTextStyle1}>{this.state.address}</Text> */}
                                     </View>
                                 </View>
                                 <TouchableOpacity onPress={() => this.props.onEdit(true)} style={styles.editContainer}>
-                                    <Text style={styles.addressTextStyle}>Edit</Text>
+                                    {/* <Text style={styles.addressTextStyle}>Edit</Text> */}
+                                    <Edit height={30} width={30} />
                                 </TouchableOpacity>
                             </View>
                         </View>
                         <View style={styles.buttonContainer}>
-                            <View style={[styles.inputContainerStyle, submit ? { marginBottom: "6%" } : styles.inputContainerStyle,
-                            isSubjectFocus || floor_unit != '' ? THEME.inputBorder : {}]}>
-                                <FloatingInput
-                                    label={"Floor/Unit"}
-                                    val={floor_unit}
-                                    onActive={() => this.setState({ isSubjectFocus: true, })}
-                                    onInActive={() => this.setState({ isSubjectFocus: false, submit: true })}
-                                    updateText={(floor_unit) => this.setState({ floor_unit })} />
+                            {/* <View style={[styles.inputContainerStyle, submit ? { marginBottom: "6%" } : styles.inputContainerStyle,
+                            isSubjectFocus || floor_unit != '' ? THEME.inputBorder : {}]}> */}
+                                <Input
+                                    placeholder={"Floor/Unit"}
+                                    value={floor_unit}
+                                    // onActive={() => this.setState({ isSubjectFocus: true, })}
+                                    // onInActive={() => this.setState({ isSubjectFocus: false, submit: true })}
+                                    onChangeText={(floor_unit) => this.setState({ floor_unit })} />
                                 {/* {
                                     submit && !floor_unit ? <Text style={COMMON_STYLE.errorText}>Please fill this field</Text> : null
                                 } */}
-                            </View>
+                            {/* </View> */}
 
-                            <View style={[styles.inputContainerStyle, { height: 74 },
-                            isMessageFocus || message != '' ? THEME.inputBorder : {}]}>
-                                <FloatingInput
-                                    label={"(Optional Note)"}
-                                    val={message}
+                            {/* <View style={[styles.inputContainerStyle, { height: 74 },
+                            isMessageFocus || message != '' ? THEME.inputBorder : {}]}> */}
+                                <MessageTextInput
+                                    placeholder={"(Optional Note)"}
+                                    value={message}
                                     // multiline={true}
-                                    onActive={() => this.setState({ isMessageFocus: true })}
-                                    onInActive={() => this.setState({ isMessageFocus: false })}
-                                    updateText={(message) => this.setState({ message })} />
-                            </View>
+                                    // onActive={() => this.setState({ isMessageFocus: true })}
+                                    // onInActive={() => this.setState({ isMessageFocus: false })}
+                                    onChangeText={(message) => this.setState({ message })} />
+                            {/* </View> */}
                         </View>
-                        <View style={{ marginHorizontal: '5%' }}>
+                        {/* <View style={{ marginHorizontal: '5%' }}>
                             <Text style={styles.labelHeading}>Label as</Text>
-                        </View>
+                        </View> */}
                         <View style={styles.labelRowContainer}>
                             {
                                 labels.map((item, index) => {
                                     return (
                                         <TouchableOpacity key={index} onPress={() => this.handlePressLabel(index)} style={[styles.labelButtonContainer,
                                         item.selected ? styles.selectedButton : styles.nonSelectedButton]}>
-                                            <Text style={{ fontFamily: 'Poppins-Medium', color: item.selected ? THEME.PRIMARY_COLOR : THEME.COLOR_GREY }}>{item.label}</Text>
+                                            <Text style={{ fontFamily: 'Poppins-Bold', color: item.selected ? '#171717' : THEME.PRIMARY_COLOR }}>{item.label}</Text>
                                         </TouchableOpacity>
                                     )
                                 })

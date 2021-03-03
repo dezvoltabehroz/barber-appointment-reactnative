@@ -14,6 +14,7 @@ export default StyleSheet.create({
     upperContainer: {
         flex: 0.8,
         marginTop: Platform.OS == 'ios' ? '10%' : null,
+        marginHorizontal: "5%",
 
     },
     imageContainer: {
