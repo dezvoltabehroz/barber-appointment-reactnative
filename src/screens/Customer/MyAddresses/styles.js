@@ -10,15 +10,17 @@ export default StyleSheet.create({
         paddingTop: Platform.OS == 'ios' ? screenHeight >= 812 ? '25%' : '18%' : '15%'
     },
     contentContainer: {
+        backgroundColor: "#171717",
         marginHorizontal: '5%'
     },
     row: {
+        flex: 1,
         flexDirection: 'row',
         justifyContent: "space-between"
     },
     labelTextStyle: {
-        fontSize: THEME.FONT_SIZE_LARGE,
-        color: THEME.COLOR_WHITE,
+        fontSize: THEME.FONT_SIZE_MEDIUM,
+        color: THEME.PRIMARY_COLOR,
         fontFamily: 'Poppins-Medium'
     },
     textStyle: {
@@ -38,11 +40,15 @@ export default StyleSheet.create({
         borderColor: THEME.COLOR_WHITE
     },
     labelRowContainer: {
-        flex: 1, flexDirection: 'row', alignItems: 'center',
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: "center",
+        alignItems: 'center',
     },
     buttonEditContainer: {
         flex: 1,
         flexDirection: 'row',
+        alignItems: "center",
         justifyContent: "flex-end"
     }
 

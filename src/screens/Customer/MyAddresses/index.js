@@ -57,13 +57,17 @@ class MyAddresses extends Component {
             <View style={styles.contentContainer}>
                 <View style={styles.gapHeight}></View>
                 <View style={styles.row}>
-                    <View style={styles.labelRowContainer}>
+                    <View style={{ flex: 0.8, marginHorizontal: "5%" }}>
+                        <Text style={styles.labelTextStyle}>Label: {item.label_as}</Text>
+                        <Text style={styles.labelTextStyle}>{item.address}</Text>
+                    </View>
+                    {/* <View style={styles.labelRowContainer}>
                         <Icon.FontAwesome name={item.label_as == 'Home' ? 'home' : item.label_as == 'Work' ? 'building' : 'group'} size={25} color={THEME.COLOR_WHITE} />
                         <View style={{ marginLeft: '5%', marginTop: '3%' }}>
                             <Text style={styles.labelTextStyle}>{item.label_as}</Text>
                         </View>
-                    </View>
-                    <View style={styles.buttonEditContainer}>
+                    </View> */}
+                    <View style={[styles.buttonEditContainer, { flex: 0.2 }]}>
                         <TouchableOpacity style={{ marginRight: '10%' }} onPress={() => this.props.onEdit(item)} >
                             <Icon.MaterialIcons name='edit' size={25} color={THEME.COLOR_WHITE} />
                         </TouchableOpacity>
@@ -73,7 +77,7 @@ class MyAddresses extends Component {
                     </View>
                 </View>
                 <View style={styles.addressContainer} >
-                    <Text style={styles.textStyle}>{item.address}</Text>
+                    {/* <Text style={styles.textStyle}>{item.address}</Text> */}
                     <Text style={styles.textStyle}>{item.city}</Text>
                 </View>
             </View>
