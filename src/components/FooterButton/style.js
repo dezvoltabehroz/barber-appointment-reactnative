@@ -20,7 +20,7 @@ export default StyleSheet.create({
         flex: 0.2,
         justifyContent: 'flex-end',
         paddingBottom: '8%',
-        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
+        backgroundColor: "#171717"
     },
     footerConatinerStyle:{
         flex: 0.3,

@@ -108,7 +108,8 @@ function BarberBottomNavigationRoutes(props) {
                 activeTintColor: THEME.PRIMARY_COLOR,
                 inactiveTintColor: 'gray',
                 style: {
-                    borderTopWidth: 0,
+                    borderTopWidth: 2,
+                    borderTopColor:"black",
                     backgroundColor: '#171717'
                 }
             }}

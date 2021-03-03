@@ -212,7 +212,7 @@ class EditYourAddress extends Component {
                     {/* </ScrollView> */}
                 </View>
                 <View style={styles.footerStyle}>
-                    <View style={styles.lineStyle}></View>
+                    {/* <View style={styles.lineStyle}></View> */}
                     <View style={styles.gapHeight}></View>
                     <View style={styles.buttonContainerStyle}>
                         <Button disabled={label ? false : true} loading={this.props.loading} title="Save & Continue" onPress={this.handleSaveAndContinue} />

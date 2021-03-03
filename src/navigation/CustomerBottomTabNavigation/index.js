@@ -104,7 +104,8 @@ function CustomerBottomNavigationRoutes(props) {
                 inactiveTintColor: 'gray',
 
                 style: {
-                    borderTopWidth: 0,
+                    borderTopWidth: 2,
+                    borderTopColor:"black",
                     backgroundColor: '#171717'
                 }
             }}

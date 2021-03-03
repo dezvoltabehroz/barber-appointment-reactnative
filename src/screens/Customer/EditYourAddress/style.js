@@ -120,6 +120,6 @@ export default StyleSheet.create({
         justifyContent: 'flex-end',
         marginTop: Platform.OS == 'ios' ? 0 : '3%',
         paddingBottom: '8%',
-        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
+        backgroundColor: "#171717"
     },
 })
