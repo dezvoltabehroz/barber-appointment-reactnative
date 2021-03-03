@@ -5,8 +5,8 @@ import THEME from '../../assets/styles/theme.style';
 
 export default StyleSheet.create({
     container: {
-        backgroundColor: '#3B3F52',
-        borderRadius: 5,
+        backgroundColor: '#171717',
+        // borderRadius: 5,
         marginHorizontal: "5%",
     },
     rowContainer: {
@@ -35,7 +35,7 @@ export default StyleSheet.create({
         marginHorizontal: '5%'
     },
     textStyle: {
-        color: THEME.COLOR_WHITE,
+        color: THEME.PRIMARY_COLOR,
         fontFamily: "Poppins-Regular",
         fontSize: THEME.FONT_SIZE_SMALL
     },
@@ -60,7 +60,7 @@ export default StyleSheet.create({
         alignItems: "center"
     },
     colorTextStyle: {
-        color: THEME.COLOR_GREY,
+        color: THEME.PRIMARY_COLOR,
         fontFamily: "Poppins-Regular",
         fontSize: THEME.FONT_SIZE_SMALL
     },

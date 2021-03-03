@@ -31,13 +31,13 @@ class CartDetail extends Component {
     componentDidMount = () => {
         const { services } = this.props
         console.log("services: ", services)
-        this.setState({ services },()=>{
+        this.setState({ services }, () => {
             const notEqual = (currentValue) => currentValue.quantity != '';
             const data = this.state.services.every(notEqual)
             this.props.isDisable(data);
             this.props.addQuantity(this.state.services)
         });
-      
+
     }
 
     handleTimeAndPrice = () => {
@@ -68,14 +68,17 @@ class CartDetail extends Component {
     }
 
     _renderItems = ({ index, item }) => {
+        var h = parseInt(moment.duration(item.time_duration).asMinutes()) / 60 | 0;
+        var m = parseInt(moment.duration(item.time_duration).asMinutes()) % 60 | 0;
+        const timeInHour = moment.utc().hours(h).minutes(m).format("HH:mm")
         return (
             <>
-                <View style={styles.lineStyle}></View>
+                {/* <View style={styles.lineStyle}></View> */}
                 <View style={styles.rowContainer}>
                     <View style={styles.columnChange}>
-                        <Text style={styles.textStyle}>{item.service_name}</Text>
+                        <Text style={[styles.textStyle, { fontFamily: "Poppins-Bold" }]}>{item.service_name}</Text>
                     </View>
-                    <View style={styles.columnChange} >
+                    {/* <View style={styles.columnChange} >
                         {
                             item.quantity != "" ?
                                 <Text style={styles.textStyle}>{item.quantity}</Text>
@@ -95,20 +98,36 @@ class CartDetail extends Component {
                                 </View>
                         }
 
-                    </View>
+                    </View> */}
                     <View style={styles.columnChange}>
-                        <Text style={styles.textStyle}>{item.quantity != '' && item.quantity > 1 ? (parseInt(moment.duration(item.time_duration).asMinutes()) * item.quantity) : parseInt(moment.duration(item.time_duration).asMinutes())}</Text>
+                        <Text style={styles.textStyle}>
+                            {timeInHour[0] == 0 && timeInHour[1] == 0 ? "" : timeInHour[0] + timeInHour[1]}
+                            {
+                                timeInHour[0] == 0 && timeInHour[1] == 0 ?
+                                    null
+                                    :
+                                    <Text style={styles.textStyles}> Hour</Text>
+                            }
+                            {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                            {
+                                timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                    null
+                                    :
+                                    <Text style={styles.textStyles}> Minutes</Text>
+                            }
+                            {/* {item.quantity != '' && item.quantity > 1 ? `${(parseInt(moment.duration(item.time_duration).asMinutes()) * item.quantity)}` : parseInt(moment.duration(item.time_duration).asMinutes())} */}
+                        </Text>
                     </View>
                     <View style={styles.columnChange}>
                         <Text style={styles.textStyle}>${item.quantity != '' && item.quantity > 1 ? (item.price * item.quantity) : item.price}</Text>
                     </View>
-                    <View style={styles.column} >
+                    {/* <View style={styles.column} >
                         {item.quantity != '' ?
                             <TouchableOpacity onPress={() => this.on_Press_Edit(index)}>
                                 <Icon.FontAwesome name='edit' color={THEME.COLOR_WHITE} size={20} />
                             </TouchableOpacity>
                             : null}
-                    </View>
+                    </View> */}
                 </View>
             </>)
     }
@@ -116,10 +135,10 @@ class CartDetail extends Component {
     handleMultipleBooking = () => {
         let array = [...this.state.services]
         array.map((element, index) => {
-            if(element.quantity!='1'){
+            if (element.quantity != '1') {
                 array[index] = { ...element, selected: false, quantity: '1' }
             }
-            else{
+            else {
                 array[index] = { ...element, selected: false, quantity: '' }
             }
         })
@@ -130,40 +149,60 @@ class CartDetail extends Component {
     }
 
     render() {
-        const { addresslocation, region } = this.props;
+        const { addresslocation, region, totalTime, totalPrice } = this.props;
+        console.log(totalTime)
+        var h = totalTime / 60 | 0;
+        var m = totalTime % 60 | 0;
+        const timeInHour = moment.utc().hours(h).minutes(m).format("HH:mm")
         return (
             <>
                 <ScrollView>
                     <View style={styles.marginVertical}>
                         <View style={[styles.generalMargin, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }]}>
                             <Text style={styles.colorTextStyle}>Cart Items</Text>
-                            <View style={{ alignSelf: 'center' }}>
+                            {/* <View style={{ alignSelf: 'center' }}>
                                 <TouchableOpacity onPress={() => this.handleMultipleBooking()} style={{ backgroundColor: THEME.PRIMARY_COLOR, justifyContent: "center", alignItems: 'center', height: 45, width: screenWidth * 0.34, borderRadius: 5 }}>
                                     <Text style={styles.textStyle}>Multi Booking</Text>
                                 </TouchableOpacity>
-                            </View>
+                            </View> */}
                         </View>
                         <View style={styles.container}>
-                            <View style={styles.rowContainer}>
-                                <View style={styles.columnChange}>
-                                    <Text style={styles.colorTextStyle}>Services</Text>
-                                </View>
-                                <View style={styles.columnChange}>
-                                    <Text style={styles.colorTextStyle}>Qty</Text>
-                                </View>
-                                <View style={styles.columnChange}>
-                                    <Text style={styles.colorTextStyle}>Time</Text>
-                                </View>
-                                <View style={styles.columnChange}>
-                                    <Text style={styles.colorTextStyle}>Price</Text>
-                                </View>
-                                <View style={styles.column}></View>
-                            </View>
+
                             <View style={styles.rowStyle}>
                                 <FlatList data={this.state.services}
                                     keyExtractor={item => item}
                                     ItemSeparatorComponent={this.renderSeparator}
                                     renderItem={({ index, item }) => this._renderItems({ index, item })} />
+                            </View>
+                        </View>
+                        <View style={{ marginHorizontal: "5%", }}>
+                            <View style={[styles.rowContainer, { marginHorizontal: "5%", }]}>
+                                {/* <View style={styles.columnChange}>
+                                <Text style={styles.colorTextStyle}></Text>
+                            </View> */}
+                                <View style={[styles.columnChange,{alignItems:"flex-start"}]}>
+                                    <Text style={[styles.textStyle, { fontFamily: "Poppins-Bold" }]}>Total</Text>
+                                </View>
+                                <View style={styles.columnChange}>
+                                    <Text style={styles.colorTextStyle}>
+                                        {timeInHour[0] == 0 && timeInHour[1] == 0 ? "" : timeInHour[0] + timeInHour[1]}
+                                        {
+                                            timeInHour[0] == 0 && timeInHour[1] == 0 ?
+                                                null
+                                                :
+                                                <Text style={styles.textStyles}> Hour</Text>
+                                        }
+                                        {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                                        {
+                                            timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                                null
+                                                :
+                                                <Text style={styles.textStyles}> Minutes</Text>
+                                        }</Text>
+                                </View>
+                                <View style={[styles.columnChange, { flex: 0.2 }]}>
+                                    <Text style={styles.colorTextStyle}>${totalPrice}</Text>
+                                </View>
                             </View>
                         </View>
 

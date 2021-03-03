@@ -42,29 +42,46 @@ class Summary extends Component {
 
     _renderItems = ({ index, item }) => {
         const { onChangePress } = this.props;
+        var h = parseInt(moment.duration(item.time_duration).asMinutes()) / 60 | 0;
+        var m = parseInt(moment.duration(item.time_duration).asMinutes()) % 60 | 0;
+        const timeInHour = moment.utc().hours(h).minutes(m).format("HH:mm")
         return (
             <>
-                <View style={styles.lineStyle}></View>
+                {/* <View style={styles.lineStyle}></View> */}
                 <View style={styles.rowContainer}>
-                    <View style={styles.columnChange}>
+                    <View style={[styles.columnChange,{alignItems:"flex-start"}]}>
                         <Text style={styles.textStyle}>{item.service_name} {item.quantity == '1' ? '' : `(${item.quantity})`}</Text>
                     </View>
                     <View style={styles.column} >
-                        <Text style={styles.textStyle}>{(moment.duration(item.time_duration).asMinutes()*item.quantity)}</Text>
+                        <Text style={styles.textStyle}>
+                            {timeInHour[0] == 0 && timeInHour[1] == 0 ? "" : timeInHour[0] + timeInHour[1]}
+                            {
+                                timeInHour[0] == 0 && timeInHour[1] == 0 ?
+                                    null
+                                    :
+                                    <Text style={styles.textStyles}> Hour</Text>
+                            }
+                            {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                            {
+                                timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                    null
+                                    :
+                                    <Text style={styles.textStyles}> Minutes</Text>
+                            }</Text>
                     </View>
                     <View style={styles.column}>
-                        <Text style={styles.textStyle}>${(item.price*item.quantity)}</Text>
+                        <Text style={styles.textStyle}>${(item.price * item.quantity)}</Text>
                     </View>
                 </View>
             </>)
     }
 
     render() {
-        const { services, addresslocation, bookingTime,totalTime } = this.props;
+        const { services, addresslocation, bookingTime, totalTime } = this.props;
         const { barberAge, barberName, barberProfilePicture } = this.state;
         let dateString = moment(bookingTime, 'hh:mm A')
         dateString.add(totalTime, 'minutes')
-        let time=bookingTime + ' - ' + moment(dateString).format('hh:mm A')
+        let time = bookingTime + ' - ' + moment(dateString).format('hh:mm A')
         return (
             <>
                 <ScrollView>
@@ -73,7 +90,7 @@ class Summary extends Component {
                             <Text style={styles.colorTextStyle}>Services</Text>
                         </View>
                         <View style={styles.container}>
-                            <View style={[styles.rowContainer,{marginTop:'2%'}]}>
+                            {/* <View style={[styles.rowContainer,{marginTop:'2%'}]}>
                                 <View style={styles.columnChange}>
                                     <Text style={styles.colorTextStyle}>Title</Text>
                                 </View>
@@ -83,7 +100,7 @@ class Summary extends Component {
                                 <View style={styles.column}>
                                     <Text style={styles.colorTextStyle}>price</Text>
                                 </View>
-                            </View>
+                            </View> */}
                             <View style={styles.rowStyle}>
                                 <FlatList data={services}
                                     keyExtractor={item => item}
@@ -92,44 +109,44 @@ class Summary extends Component {
                             </View>
                         </View>
                     </View>
-                    <View style={styles.borderStyle}></View>
+                    {/* <View style={styles.borderStyle}></View> */}
                     <View style={styles.marginVertical}>
                         <View style={styles.generalMargin}>
                             <Text style={styles.colorTextStyle}>Location</Text>
                         </View>
                         <View style={styles.container}>
                             <View style={styles.addressRowContainer}>
-                                <View>
+                                {/* <View>
                                     <Text style={styles.colorTextStyle}>Address: </Text>
-                                </View>
+                                </View> */}
                                 <View style={styles.textFlex}>
                                     <Text style={styles.textStyle}> {addresslocation}</Text>
                                 </View>
                             </View>
                         </View>
                     </View>
-                    <View style={styles.borderStyle}></View>
+                    {/* <View style={styles.borderStyle}></View> */}
                     <View style={styles.marginVertical}>
                         <View style={styles.generalMargin}>
-                            <Text style={styles.colorTextStyle}>Booking</Text>
+                            <Text style={styles.colorTextStyle}>Date and Time</Text>
                         </View>
                         <View style={styles.container}>
-                            <View style={[styles.rowContainer,{marginTop:'2%'}]}>
-                                <Text style={styles.colorTextStyle}>Time: </Text>
+                            <View style={[styles.rowContainer, { marginTop: '2%', }]}>
+                                <Text style={styles.textStyle}>{this.props.bookingDate}</Text>
                                 <View style={styles.textFlex}>
                                     <Text style={styles.textStyle}>{time}</Text>
                                 </View>
                             </View>
-                            <View style={styles.lineStyle}></View>
+                            {/* <View style={styles.lineStyle}></View>
                             <View style={styles.rowContainer}>
                                 <Text style={styles.colorTextStyle}>Date: </Text>
                                 <View style={styles.textFlex}>
                                     <Text style={styles.textStyle}>{this.props.bookingDate}</Text>
                                 </View>
-                            </View>
+                            </View> */}
                         </View>
                     </View>
-                    <View style={styles.borderStyle}></View>
+                    {/* <View style={styles.borderStyle}></View> */}
                     <View style={styles.marginVertical}>
                         <View style={styles.generalMargin}>
                             <Text style={styles.colorTextStyle}>Barber</Text>

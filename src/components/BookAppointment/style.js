@@ -13,6 +13,7 @@ export default StyleSheet.create({
     },
     rowContainer: {
         flexDirection: 'row',
+        paddingTop:"5%",
         paddingHorizontal: '5%',
         justifyContent: 'center',
         alignItems: 'center',
@@ -48,18 +49,24 @@ export default StyleSheet.create({
         fontFamily: "Poppins-Regular"
     },
     textFlatlistStyle: {
+        color: "#171717",
+        fontSize: 14,
+        fontFamily: "Poppins-Medium",
+        margin: 7
+    },
+    textDateStyle: {
         color: THEME.COLOR_WHITE,
         fontSize: 14,
-        fontFamily: "Poppins-Regular",
+        fontFamily: "Poppins-Medium",
         margin: 7
     },
     flatlistContainer: {
-        backgroundColor: THEME.PRIMARY_COLOR,
+        backgroundColor: "#171717",
         height: 44,
         width: screenWidth * 0.275,
         justifyContent: "center",
         alignItems: 'center',
-        borderRadius: 5,
+        // borderRadius: 5,
         marginHorizontal: 5,
     },
     marginHorizontal: {

@@ -208,36 +208,37 @@ class Booking extends Component {
         const customStyles = {
             stepIndicatorSize: 25,
             currentStepIndicatorSize: 30,
-            separatorStrokeWidth: 2,
-            currentStepStrokeWidth: 1,
+            separatorStrokeWidth: 0,
+            currentStepStrokeWidth: 0,
             stepStrokeCurrentColor: THEME.COLOR_WHITE,
             stepStrokeWidth: 0,
             stepStrokeFinishedColor: THEME.PRIMARY_BACKGROUND_COLOR,
             stepStrokeUnFinishedColor: THEME.PRIMARY_BACKGROUND_COLOR,
-            separatorFinishedColor: '#3B3F52',
-            separatorUnFinishedColor: '#1E2023',
-            stepIndicatorFinishedColor: '#3B3F52',
-            stepIndicatorUnFinishedColor: '#1E2023',
+            separatorFinishedColor: '#171717',
+            separatorUnFinishedColor:  THEME.COLOR_GREY,
+            stepIndicatorFinishedColor: THEME.COLOR_GREY,
+            stepIndicatorUnFinishedColor:  THEME.COLOR_GREY,
             stepIndicatorCurrentColor: THEME.PRIMARY_COLOR,
             stepIndicatorLabelFontSize: 13,
             currentStepIndicatorLabelFontSize: 13,
-            stepIndicatorLabelCurrentColor: THEME.COLOR_WHITE,
-            stepIndicatorLabelFinishedColor: THEME.COLOR_WHITE,
-            stepIndicatorLabelUnFinishedColor: THEME.COLOR_GREY,
+            stepIndicatorLabelCurrentColor: "#171717",
+            stepIndicatorLabelFinishedColor: "#171717",
+            stepIndicatorLabelUnFinishedColor: "#171717",
             labelColor: THEME.COLOR_GREY,
             labelSize: 13,
-            currentStepLabelColor: THEME.COLOR_WHITE
+            currentStepLabelColor: "#171717"
         }
 
         const { currentPosition, services, btnBookingLoading, selectedServices, totalPrice, disabled, totalTime, timeInHour, bookingDate, bookingTime } = this.state
         const { userdata } = this.props;
+        console.log("totalTime:", totalTime)
         return (
             <View style={styles.container}>
                 <View style={{ flex: 1 }}>
                     <StepProgress
                         customStyles={customStyles}
                         currentPosition={currentPosition}
-                        labels={labels}
+                        // labels={labels}
                     // onPress={this.onPageChange}
                     />
                     {
@@ -261,6 +262,8 @@ class Booking extends Component {
                         this.state.currentPosition == 1 ?
                             <CartDetails
                                 key="cart"
+                                totalPrice={totalPrice}
+                                totalTime={totalTime}
                                 price={(price) => this.setState({ totalPrice: price }, () => console.log(price))}
                                 time={(time) => this.setState({ totalTime: time }, () => {
                                     var h = time / 60 | 0;
@@ -289,14 +292,24 @@ class Booking extends Component {
 
                     {
                         this.state.currentPosition == 3 ?
-                            <Payment
-                                key="payment"
-                                paymentMethod={(paymentMethod) => this.setState({ paymentMethod })}
-                                isConfirm={(isDisable, data) => this.setState({ disabled: isDisable == "false" ? false : true, data: data })} />
+                            <Summary
+                                key="summary"
+                                userdata={userdata}
+                                bookingTime={bookingTime}
+                                totalTime={totalTime}
+                                bookingDate={bookingDate}
+                                addresslocation={(this.state.location)}
+                                // onChangePress={this.handleOnChange}
+                                services={(selectedServices)}
+                            />
+                            // <Payment
+                            //     key="payment"
+                            //     paymentMethod={(paymentMethod) => this.setState({ paymentMethod })}
+                            //     isConfirm={(isDisable, data) => this.setState({ disabled: isDisable == "false" ? false : true, data: data })} />
                             :
                             null
                     }
-                    {
+                    {/* {
                         this.state.currentPosition == 4 ?
                             <Summary
                                 key="summary"
@@ -310,16 +323,20 @@ class Booking extends Component {
                             />
                             :
                             null
-                    }
+                    } */}
                 </View>
                 <View style={styles.footerStyle}>
                     <View style={styles.lineStyle}></View>
                     <View style={styles.gapHeight}></View>
-                    {
+                    <View style={{ marginHorizontal: '10%' }}>
+                        <Button disabled={disabled} loading={btnBookingLoading} title={this.state.currentPosition == 4 ? 'Done' : this.state.currentPosition == 1 ? "Next" : 'Confirm'} onPress={this.state.currentPosition == 4 ? () => this.props.onDone() : this.onNextPageChange} />
+                    </View>
+                    {/* {
                         this.state.currentPosition == 0 ?
                             <View style={{ marginHorizontal: '10%' }}>
                                 <Button disabled={disabled} loading={btnBookingLoading} title={this.state.currentPosition == 4 ? 'Done' : 'Confirm'} onPress={this.state.currentPosition == 4 ? () => this.props.onDone() : this.onNextPageChange} />
-                            </View> :
+                            </View> 
+                            :
                             <View style={styles.row}>
                                 <View style={styles.buttonContainer}>
                                     {
@@ -365,13 +382,13 @@ class Booking extends Component {
                                                 </TouchableOpacity>
                                             </View>
                                             :
-                                            <Button disabled={disabled} loading={btnBookingLoading} title={this.state.currentPosition == 4 ? 'Done' : 'Confirm'} onPress={this.state.currentPosition == 4 ? () => this.props.onDone() : this.onNextPageChange} />
+                                            <Button disabled={disabled} loading={btnBookingLoading} title={this.state.currentPosition == 4 ? 'Done' : this.state.currentPosition == 1 ? 'Next' : 'Confirm'} onPress={this.state.currentPosition == 4 ? () => this.props.onDone() : this.onNextPageChange} />
                                     }
                                 </View>
 
 
                             </View>
-                    }
+                    } */}
                 </View>
             </View>
         );

@@ -29,8 +29,10 @@ export default StyleSheet.create({
     },
     contentContainer: {
         backgroundColor: '#3B3F52',
-        borderRadius: 10,
+        // borderRadius: 10,
         marginHorizontal: '5%',
+        paddingHorizontal: '5%',
+        paddingVertical: '2%'
     },
     checkBoxContainer: {
         flex: 0.2,
@@ -46,13 +48,13 @@ export default StyleSheet.create({
         flex: 0.3,
         flexDirection: 'column',
         justifyContent: "center",
-        alignItems: 'center'
+        // alignItems: 'center'
     },
     serviceCostContainer: {
         flex: 0.2,
         flexDirection: 'column',
         justifyContent: "center",
-        alignItems: 'center'
+        // alignItems: 'center'
     },
     descriptionContainer: {
         width: 250,
@@ -66,16 +68,16 @@ export default StyleSheet.create({
         fontFamily: 'Poppins-Regular'
     },
     textWhite: {
-        color: THEME.COLOR_WHITE,
+        color: THEME.PRIMARY_COLOR,
         fontFamily: 'Poppins-Medium'
     },
     textGrey: {
-        fontSize:12,
+        fontSize: 12,
         color: THEME.COLOR_GREY,
         fontFamily: 'Poppins-Regular'
     },
     coloredText: {
-        fontSize:12,
+        fontSize: 12,
         color: THEME.PRIMARY_COLOR,
         fontFamily: 'Poppins-Medium'
     }

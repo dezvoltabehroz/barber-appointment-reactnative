@@ -13,6 +13,7 @@ import moment from 'moment';
 import THEME from '../../assets/styles/theme.style';
 import { Barbers } from '../../services';
 import { ActivityIndicator } from 'react-native';
+import Calender from "../../assets/svg/calender.svg";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 export default class BookAppointment extends Component {
@@ -115,8 +116,8 @@ export default class BookAppointment extends Component {
           this.props.bookingTime(this.state.bookedSlot)
 
         });
-      }} style={[styles.flatlistContainer, { backgroundColor: item.isBooked ? THEME.COLOR_GREY : THEME.PRIMARY_COLOR }]}>
-        <Text style={styles.textFlatlistStyle} >{item.slotStartTime}</Text>
+      }} style={[styles.flatlistContainer, { backgroundColor: item.isBooked ? THEME.PRIMARY_COLOR : "#171717" }]}>
+        <Text style={[styles.textFlatlistStyle, { color: item.isBooked ? "#171717" : THEME.PRIMARY_COLOR }]} >{item.slotStartTime}</Text>
       </TouchableOpacity>
     )
   }
@@ -137,14 +138,15 @@ export default class BookAppointment extends Component {
     return (
       <>
         <View style={styles.container}>
-          <View style={styles.lineStyle}></View>
+          {/* <View style={styles.lineStyle}></View> */}
           <TouchableOpacity onPress={() => this.setState({ modalVisible: true })} style={styles.rowContainer}>
-            <View style={styles.rowContainer}>
-              <Text style={styles.textFlatlistStyle} >{moment(bookingDate).format('LL')}</Text>
-              <Icon.FontAwesome name="calendar" size={20} color={THEME.COLOR_WHITE} />
-            </View>
+            <Calender height={60} width={60} />
           </TouchableOpacity>
-          <View style={styles.lineStyle}></View>
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <Text style={styles.textDateStyle} >{moment(bookingDate).format('LL')}</Text>
+          </View>
+
+          {/* <View style={styles.lineStyle}></View> */}
           {
             this.state.loading ?
               <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><ActivityIndicator /></View>

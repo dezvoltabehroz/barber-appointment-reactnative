@@ -5,8 +5,8 @@ import THEME from '../../assets/styles/theme.style';
 
 export default StyleSheet.create({
     container: {
-        backgroundColor: '#3B3F52',
-        borderRadius: 5,
+        backgroundColor: '#171717',
+        // borderRadius: 5,
         marginHorizontal: "5%",
     },
     rowContainer: {
@@ -22,7 +22,7 @@ export default StyleSheet.create({
         justifyContent: "space-between",
         height: screenHeight*0.08,
         alignItems: 'center',
-        marginHorizontal: "5%"
+        // marginHorizontal: "%"
     },
     lineStyle: {
         borderColor: '#44495C',
@@ -36,7 +36,7 @@ export default StyleSheet.create({
         marginHorizontal: '5%'
     },
     textStyle: {
-        color: THEME.COLOR_WHITE,
+        color: THEME.PRIMARY_COLOR,
         fontFamily: "Poppins-Regular",
         fontSize: THEME.FONT_SIZE_SMALL
     },
@@ -58,8 +58,8 @@ export default StyleSheet.create({
         alignItems: "center"
     },
     colorTextStyle: {
-        color: THEME.COLOR_GREY,
-        fontFamily: "Poppins-Regular",
+        color: THEME.PRIMARY_COLOR,
+        fontFamily: "Poppins-Bold",
         fontSize: THEME.FONT_SIZE_SMALL
     },
     pointTExtStyle: {
@@ -79,6 +79,6 @@ export default StyleSheet.create({
     },
     textFlex: {
         marginHorizontal: "5%",
-        flex: 1
+        // flex: 1
     }
 })

@@ -26,7 +26,7 @@ export default class BarberServices extends Component {
                     array.map((element, index) => {
                         array[index] = { ...element, selected: false, quantity: '1' }
                     })
-                    this.setState({ services: array,loading:false })
+                    this.setState({ services: array, loading: false })
                 }
             })
             .catch((err) => {
@@ -68,6 +68,7 @@ export default class BarberServices extends Component {
             this.state.selectedService.push(items[objIndex]);
             price = (price + parseInt(val.price))
             time = (time + parseInt(moment.duration(val.time_duration).asMinutes()))
+            console.log(time)
             this.props.time(time);
             this.props.price(price);
             this.props.isDisable("false")
@@ -81,8 +82,8 @@ export default class BarberServices extends Component {
 
         return (
             <>
-                <View style={styles.contentContainer}>
-                    <View style={styles.rowContainer}>
+                <TouchableOpacity onPress={() => this.onPressCheckedItem(item)} style={[styles.contentContainer, { backgroundColor: item.selected == true ? THEME.PRIMARY_COLOR : "#171717" }]}>
+                    {/* <View style={styles.rowContainer}>
                         <View style={styles.checkBoxContainer}>
                             <TouchableOpacity onPress={() => this.onPressCheckedItem(item)}
                                 style={{ padding: '5%' }} >
@@ -100,32 +101,33 @@ export default class BarberServices extends Component {
                                 }
                             </TouchableOpacity>
                         </View>
-                        <View style={styles.serviceNameContainer}>
-                            <Text style={styles.textWhite} >
-                                {item.service_name}
-                            </Text>
-                        </View>
 
-                        <View style={styles.serviceEstTimeContainer}>
-                            <Text style={styles.textGrey}>
-                                {item.time_duration ? `${moment.duration(item.time_duration).asMinutes()} minutes` : ''}
-                            </Text>
-                        </View>
-                        <View style={styles.serviceCostContainer}>
-                            <Text style={styles.coloredText}>
-                                ${item.price}
-                            </Text>
-                        </View>
+                    </View> */}
+                    <View style={styles.serviceNameContainer}>
+                        <Text style={[styles.textWhite,{color:item.selected == true ?"#171717":THEME.PRIMARY_COLOR}]} >
+                            {item.service_name}
+                        </Text>
                     </View>
-                    <View style={styles.gapHeight}></View>
+
+                    <View style={styles.serviceEstTimeContainer}>
+                        <Text style={[styles.coloredText,{color:item.selected == true ?"#171717":THEME.PRIMARY_COLOR}]}>
+                            Estimated Duration: {item.time_duration ? `${moment.duration(item.time_duration).asMinutes()} minutes` : ''}
+                        </Text>
+                    </View>
+                    <View style={styles.serviceCostContainer}>
+                        <Text style={[styles.coloredText,{color:item.selected == true ?"#171717":THEME.PRIMARY_COLOR}]}>
+                            Charges: ${item.price}
+                        </Text>
+                    </View>
+                    {/* <View style={styles.gapHeight}></View>
                     <View style={styles.lineStyle}></View>
                     <View style={styles.gapHeight}></View>
                     <View style={styles.descriptionContainer}>
                         <View style={styles.gapHeight}></View>
                         <Text style={styles.descriptionText}>{item.service_description ? item.service_description : ''}</Text>
                     </View>
-                    <View style={styles.gapHeight}></View>
-                </View>
+                    <View style={styles.gapHeight}></View> */}
+                </TouchableOpacity>
             </>
         )
     }
