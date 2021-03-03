@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Alert } from 'react-native';
+import { View, Text, Alert, TouchableOpacity } from 'react-native';
 import THEME from '../../../assets/styles/theme.style';
 import { FloatingInput, Input, FooterButton } from '../../../components'
 import styles from './style';
@@ -7,7 +7,8 @@ import COMMON_STYLE from '../../../assets/styles/common.style';
 import { connect } from 'react-redux';
 import DeviceInfo from 'react-native-device-info';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import ColorEye from '../../../assets/svg/colorfuleye.svg';
+import Eye from '../../../assets/svg/eye.svg';
 class EmailandPassword extends Component {
     constructor(props) {
         super(props);
@@ -19,7 +20,9 @@ class EmailandPassword extends Component {
             isEmailFocus: false,
             isConfirmPasswordFocus: false,
             submit: false,
-            macAddress: ''
+            macAddress: '',
+            showPassword:false,
+            showConfirm:false
 
         };
     }
@@ -82,10 +85,10 @@ class EmailandPassword extends Component {
                         onBlur={() => this.setState({ submit: true })}
                         placeholder='Email' onChangeText={(email) => this.setState({ email })} />
                     {
-                        submit && !email ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%' }]}>Please fill this field</Text> : null
+                        submit && !email ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%',color:"white" }]}>Please fill this field</Text> : null
                     }
                     {
-                        submit && email.length && !this.isEmailValid(email) ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%' }]}>Email is invalid</Text> : null
+                        submit && email.length && !this.isEmailValid(email) ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%',color:"white" }]}>Email is invalid</Text> : null
                     }
                     {/* <View style={[styles.inputContainerStyle,
                     { marginBottom: submit ? '6%' : '5%' },
@@ -108,7 +111,8 @@ class EmailandPassword extends Component {
                     <Input
                         value={password}
                         keyboardtype="email-address"
-                        secureTextEntry={true}
+                        secureTextEntry={!this.state.showPassword}
+                        rightIcon={<TouchableOpacity onPress={() => this.setState({ showPassword: !this.state.showPassword })} >{this.state.showPassword ? <ColorEye height={25} width={25} /> : <Eye height={25} width={25} />}</TouchableOpacity>}
                         // onActive={() => this.setState({ isEmailFocus: true })}
                         onBlur={() => this.setState({ submit: true })}
                         placeholder='Password' onChangeText={(password) => this.setState({ password })} />
@@ -122,7 +126,8 @@ class EmailandPassword extends Component {
                     <Input
                         value={confirmPassword}
                         keyboardtype="email-address"
-                        secureTextEntry={true}
+                        secureTextEntry={!this.state.showConfirm}
+                        rightIcon={<TouchableOpacity onPress={() => this.setState({ showConfirm: !this.state.showConfirm })} >{this.state.showConfirm ? <ColorEye height={25} width={25} /> : <Eye height={25} width={25} />}</TouchableOpacity>}
                         // onActive={() => this.setState({ isEmailFocus: true })}
                         onBlur={() => this.setState({ submit: true })}
                         placeholder='Confirm Password' onChangeText={(confirmPassword) => this.setState({ confirmPassword })} />
