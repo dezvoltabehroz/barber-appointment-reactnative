@@ -70,11 +70,19 @@ class BarberList extends Component {
     }
 
     _renderItems = (item) => {
+        let days = []
         const time = item.time_duration != null ? item.time_duration.split(':') : ""
         const hours = time != "" ? parseInt(time[0]) : ""
         const minutes = time != "" ? parseInt(time[1]) : ""
         const timeInHour = time != "" ? moment.utc().hours(hours).minutes(minutes).format("HH:mm") : ""
         const { onPress, bookNow } = this.props;
+        this.state.days.map((element, index) => {
+            item.working_days.forEach((d, i) => {
+                if (element.day == d.day) {
+                    this.state.days[index] = { ...this.state.days[index], isWorking: true }
+                }
+            })
+        })
         return (
             <>
                 <TouchableOpacity onPress={() => onPress(item.id)} style={styles.listItemContainer}>
@@ -113,9 +121,9 @@ class BarberList extends Component {
                                 </View> */}
                                 <View style={styles.daycontainer}>
                                     {
-                                        item.working_days.map((item, index) => {
+                                        this.state.days.map((item, index) => {
                                             return (
-                                                <View key={index} style={styles.daysContainer}>
+                                                <View key={index} style={[styles.daysContainer, { backgroundColor: item.isWorking == true ? themeStyle.PRIMARY_COLOR : "#171717" }]}>
                                                     <Text style={styles.textStyle}>{`${item.day[0]}`}</Text>
                                                 </View>
                                             )
@@ -259,7 +267,7 @@ class BarberList extends Component {
                                     <SearchBar
                                         placeholder='Search...'
                                         // round
-                                        searchIcon={()=>(<Search height={20} width={20} />)}
+                                        searchIcon={() => (<Search height={20} width={20} />)}
                                         onChangeText={text => this.searchFilterBarber(text)}
                                         value={this.state.value}
                                         autoCorrect={false}
