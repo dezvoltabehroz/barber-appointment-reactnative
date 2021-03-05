@@ -37,7 +37,7 @@ const Api = {
         }, configToken(userData.token))
     },
     savePaymentData: function (userData) {
-        console.log("userData", userData)
+        // console.log("userData", userData)
         return axiosInstance.post('paypal/savePaymentData', {
             id: userData.id,
             order_id: userData.order_id,

@@ -24,7 +24,7 @@ const Api = {
         }, configToken(userData.token))
     },
     createScheduler: function (userData) {
-        console.log("userData:", userData)
+        // console.log("userData:", userData)
         return axiosInstance.post('scheduler/createScheduler', {
             id: userData.id,
             scheduler_name: userData.scheduler_name,

@@ -76,7 +76,7 @@ class ManageScheduler extends Component {
     }
 
     componentDidMount = () => {
-        console.log(this.props.user.userData)
+        // console.log(this.props.user.userData)
         let userData = {
             id: this.props.user.userData.id,
             token: this.props.user.userData.token,

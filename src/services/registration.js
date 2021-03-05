@@ -56,7 +56,7 @@ const Api = {
         }, configToken(userData.token))
     },
     updateProfilePicture: function (userData) {
-        console.log("userData:", userData)
+        // console.log("userData:", userData)
         let formData = new FormData();
         formData.append('user_id', userData.id);
         formData.append('image', userData.image ? {
@@ -87,8 +87,8 @@ const Api = {
     },
 
     getUserProfile: function (userData) {
-        console.log(userData.id)
-        console.log(userData.token)
+        // console.log(userData.id)
+        // console.log(userData.token)
         return axiosInstance.post('registration/profileDetail', {
             id: userData.id,
             review_by: userData.type

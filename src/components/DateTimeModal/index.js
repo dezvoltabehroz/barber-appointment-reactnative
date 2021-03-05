@@ -75,12 +75,12 @@ export default class DateTimeModal extends Component {
     handleSet = () => {
         const { onSet, dayNight } = this.props;
         const { am, pm, hours, minutes } = this.state;
-        console.log(hours);
+        // console.log(hours);
         if (dayNight) {
             if (am == true && pm == false) {
                 let time = hours.split(':');
                 var value = `${hours == '12' ? '00' : parseInt(hours) < 10 ? `0${hours}` : hours}:00`;
-                console.log(value)
+                // console.log(value)
                 if (hours == '' || hours == '00') {
                     Alert.alert("Attention", "Please select correct Hour")
                 }

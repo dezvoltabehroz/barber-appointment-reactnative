@@ -79,7 +79,7 @@ class ManageEditScheduler extends Component {
         if (val == '1') {
             items[objIndex] = { ...items[objIndex], start_time: selectedDays[indexValue].start_time = `${data}` };
             await this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, });
-            console.log(items);
+            // console.log(items);
 
             this.is_filled_check(items, objIndex)
         }
@@ -88,7 +88,7 @@ class ManageEditScheduler extends Component {
                 items[objIndex] = { ...items[objIndex], end_time: selectedDays[indexValue].end_time = data };
                 await this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, });
                 this.is_filled_check(items, objIndex);
-                console.log(items);
+                // console.log(items);
             }
             else {
                 Alert.alert("Attention", "End Time should be greater then Start Time")
@@ -284,7 +284,7 @@ class ManageEditScheduler extends Component {
 
     handleCancel = () => {
         let dayArray = [...this.state.selectedDays];
-        console.log(this.state.selectedDays)
+        // console.log(this.state.selectedDays)
         let newDayCounter = dayArray[dayArray.length - 1].dayCounter + 1;
         dayArray[dayArray.length - 1] = { ...dayArray[dayArray.length - 1], dayCounter: newDayCounter };
         this.setState({ selectedDays: dayArray });

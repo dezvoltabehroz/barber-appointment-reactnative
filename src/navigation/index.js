@@ -31,7 +31,7 @@ const check = AsyncStorage.getItem('APP_TOUR', (err, result) => {
 });
 
 function AppRoutes() {
-    console.log(check)
+    // console.log(check)
     return (
         <Stack.Navigator initialRouteName={data ? "AppTour" : "AuthLoading"} >
             <Stack.Screen name="AuthLoading" component={AuthLoading} options={{

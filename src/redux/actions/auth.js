@@ -302,7 +302,9 @@ const userLogin = (userData, navigate) => {
                     dispatch({ type: LOADING_SUCCESS, loading: !loading })
                 }
             })
-            .catch(err => { console.log(err) })
+            .catch(err => { 
+                Alert.alert("Your account is not verified")
+                dispatch({ type: LOADING_SUCCESS, loading: !loading }) })
     }
 };
 const requestUserPermission = async function (data, dispatch, navigate) {

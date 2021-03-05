@@ -54,7 +54,7 @@ class ManageScheduleTime extends Component {
     }
 
     setTimeChange = async (data) => {
-        console.log('data:', data)
+        // console.log('data:', data)
         const { val, selectedDays, indexValue, item } = this.state;
         // if (val == '1') {
         //     selectedDays[indexValue].startTime = data;
@@ -67,7 +67,7 @@ class ManageScheduleTime extends Component {
         if (val == '1') {
             items[objIndex] = { ...items[objIndex], startTime: selectedDays[indexValue].startTime = `${data}` };
             await this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, });
-            console.log(items);
+            // console.log(items);
 
             this.is_filled_check(items, objIndex)
         }
@@ -76,7 +76,7 @@ class ManageScheduleTime extends Component {
                 items[objIndex] = { ...items[objIndex], endTime: selectedDays[indexValue].endTime = data };
                 await this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, });
                 this.is_filled_check(items, objIndex);
-                console.log(items);
+                // console.log(items);
             }
             else {
                 Alert.alert("Attention", "End Time should be greater then Start Time")

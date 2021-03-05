@@ -80,8 +80,8 @@ class BarberEditProfile extends Component {
 
     render() {
         const { filePath } = this.state;
-        console.log("this.props.user.userData.start_count", this.props.user.userData)
-        console.log("this.props.user.userData.start_count", this.props.user.userData.start_count)
+        // console.log("this.props.user.userData.start_count", this.props.user.userData)
+        // console.log("this.props.user.userData.start_count", this.props.user.userData.start_count)
         return (
             <>
 

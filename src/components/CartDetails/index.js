@@ -30,7 +30,7 @@ class CartDetail extends Component {
 
     componentDidMount = () => {
         const { services } = this.props
-        console.log("services: ", services)
+        // console.log("services: ", services)
         this.setState({ services }, () => {
             const notEqual = (currentValue) => currentValue.quantity != '';
             const data = this.state.services.every(notEqual)
@@ -150,7 +150,7 @@ class CartDetail extends Component {
 
     render() {
         const { addresslocation, region, totalTime, totalPrice } = this.props;
-        console.log(totalTime)
+        // console.log(totalTime)
         var h = totalTime / 60 | 0;
         var m = totalTime % 60 | 0;
         const timeInHour = moment.utc().hours(h).minutes(m).format("HH:mm")
