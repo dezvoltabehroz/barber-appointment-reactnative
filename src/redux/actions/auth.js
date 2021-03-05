@@ -63,6 +63,7 @@ const getUserProfile = (userData, navigate) => {
                                 navigate();
                             }
                             else {
+
                                 switch (responseData.data.userData[0].steps_count) {
                                     case 0:
                                         navigate('Services');
@@ -77,7 +78,12 @@ const getUserProfile = (userData, navigate) => {
                                         navigate('ScheduleTime');
                                         break;
                                     default:
-                                        navigate('Barber');
+                                        if (responseData.data.userData[0].is_verified == "1") {
+                                            navigate('Barber');
+                                        }
+                                        else {
+                                            dispatch(removeUser(navigate, userData))
+                                        }
                                         break;
                                 }
                             }
@@ -191,7 +197,7 @@ const verifyCode = (userData, navigate) => {
                     }
                     else if (error.code == "auth/session-expired") {
                         dispatch({ type: LOADING_SUCCESS, loading: !loading })
-                        dispatch({ type: EXPIRE_CODE_ERROR,  codeExpire: true })
+                        dispatch({ type: EXPIRE_CODE_ERROR, codeExpire: true })
                     }
 
                 })
@@ -302,9 +308,10 @@ const userLogin = (userData, navigate) => {
                     dispatch({ type: LOADING_SUCCESS, loading: !loading })
                 }
             })
-            .catch(err => { 
+            .catch(err => {
                 Alert.alert("Your account is not verified")
-                dispatch({ type: LOADING_SUCCESS, loading: !loading }) })
+                dispatch({ type: LOADING_SUCCESS, loading: !loading })
+            })
     }
 };
 const requestUserPermission = async function (data, dispatch, navigate) {
