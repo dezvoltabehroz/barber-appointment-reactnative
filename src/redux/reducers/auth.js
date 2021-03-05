@@ -7,7 +7,9 @@ import {
     LOADING_SUCCESS,
     USER_UPDATE_PROFILE_INFO_SUCCESS,
     USER_EMAIL_AND_PASSWORD_SUCCESS,
-    HEALTH_AND_SEFATY_SUCCESS
+    HEALTH_AND_SEFATY_SUCCESS,
+    WRONG_CODE_ERROR,
+    EXPIRE_CODE_ERROR
 } from '../types';
 
 const initialState = {
@@ -23,7 +25,9 @@ const initialState = {
     verificationCode: '',
     loading: false,
     userToken: '',
-    modal: true
+    modal: true,
+    wrongCode: false,
+    codeExpire: false,
 
 };
 
@@ -62,6 +66,16 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: action.loading
+            }
+        case EXPIRE_CODE_ERROR:
+            return {
+                ...state,
+                codeExpire: action.codeExpire
+            }
+        case WRONG_CODE_ERROR:
+            return {
+                ...state,
+                wrongCode: action.wrongCode
             }
         case USER_UPDATE_PROFILE_INFO_SUCCESS:
             return {

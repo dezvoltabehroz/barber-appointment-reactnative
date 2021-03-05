@@ -7,7 +7,9 @@ import {
     LOADING_SUCCESS,
     USER_UPDATE_PROFILE_INFO_SUCCESS,
     USER_EMAIL_AND_PASSWORD_SUCCESS,
-    HEALTH_AND_SEFATY_SUCCESS
+    HEALTH_AND_SEFATY_SUCCESS,
+    WRONG_CODE_ERROR,
+    EXPIRE_CODE_ERROR
 } from '../types';
 import { RegisterUser } from '../../services';
 import { Alert, Linking, Platform } from 'react-native';
@@ -164,19 +166,36 @@ const verifyCode = (userData, navigate) => {
         var credential = auth.PhoneAuthProvider.credential(userData.id, userData.code);
         if (credential) {
             console.log('User email: ', credential);
-            RegisterUser.verifyTheCode(userData)
-                .then(response => {
-                    if (response.data.status) {
-                        dispatch({ type: IS_USER_VERIFIED_SUCCESS, loading: !loading })
-                        navigate('PhoneVerified');
-                    }
-                    else {
-                        Alert.alert(response.data.message)
-                        dispatch({ type: LOADING_SUCCESS, loading: !loading })
-                    }
-                }).catch(error => {
-                    console.log(error)
+            auth().signInWithCredential(credential)
+                .then((verify) => {
+                    console.log("verify:", verify)
+                    RegisterUser.verifyTheCode(userData)
+                        .then(response => {
+                            if (response.data.status) {
+                                dispatch({ type: IS_USER_VERIFIED_SUCCESS, loading: !loading })
+                                navigate('PhoneVerified');
+                            }
+                            else {
+                                Alert.alert(response.data.message)
+                                dispatch({ type: LOADING_SUCCESS, loading: !loading })
+                            }
+                        }).catch(error => {
+                            console.log(error)
+                        })
                 })
+                .catch(error => {
+                    console.log("error:", error.code)
+                    if (error.code == "auth/invalid-verification-code") {
+                        dispatch({ type: LOADING_SUCCESS, loading: !loading })
+                        dispatch({ type: WRONG_CODE_ERROR, wrongCode: true })
+                    }
+                    else if (error.code == "auth/session-expired") {
+                        dispatch({ type: LOADING_SUCCESS, loading: !loading })
+                        dispatch({ type: EXPIRE_CODE_ERROR,  codeExpire: true })
+                    }
+
+                })
+
         }
     }
 };
@@ -342,6 +361,16 @@ const healthAndSafety = (modal) => {
         dispatch({ type: HEALTH_AND_SEFATY_SUCCESS, modal: modal })
     }
 }
+const wrongCode = (modal) => {
+    return (dispatch) => {
+        dispatch({ type: WRONG_CODE_ERROR, wrongCode: modal })
+    }
+}
+const codeExpire = (modal) => {
+    return (dispatch) => {
+        dispatch({ type: EXPIRE_CODE_ERROR, codeExpire: modal })
+    }
+}
 export const authActions = {
     setUserProfile,
     removeUser,
@@ -352,5 +381,7 @@ export const authActions = {
     UpdateEmailAddressandToken,
     getUserProfile,
     userLogin,
-    healthAndSafety
+    healthAndSafety,
+    codeExpire,
+    wrongCode
 };

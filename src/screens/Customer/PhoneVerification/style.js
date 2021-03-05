@@ -62,7 +62,7 @@ export default StyleSheet.create({
         fontFamily: 'Poppins-Regular'
     },
     termANdConditionTextStyle: {
-        color: THEME.COLOR_WHITE,
+        color: THEME.PRIMARY_COLOR,
         textAlign: 'center',
         fontSize: THEME.FONT_SIZE_SMALL,
         fontFamily: 'Poppins-Regular'

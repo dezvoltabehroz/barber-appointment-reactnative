@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import styles from "./style";
 import CodeInput from 'react-native-confirmation-code-input';
-import { Button } from '../../../components';
+import { Button, Icon } from '../../../components';
 import THEME from "../../../assets/styles/theme.style";
+import { connect } from 'react-redux'
+import { bindActionCreators } from "redux";
+import { authActions } from '../../../redux/actions/auth';
+import Modal from 'react-native-modal';
 
-
-export default class PhoneVerfication extends Component {
+class PhoneVerfication extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,6 +25,7 @@ export default class PhoneVerfication extends Component {
     render() {
         const { number, onVerify, onResend } = this.props
         const { value } = this.state;
+        console.log(this.props.user)
         return (
             <View style={styles.container}>
                 <View style={styles.textContainer}>
@@ -57,7 +61,51 @@ export default class PhoneVerfication extends Component {
                     <Text style={styles.termTextStyle}>to the <Text style={styles.termANdConditionTextStyle} >Term of Service</Text>,<Text style={styles.termANdConditionTextStyle} > Privacy Policy</Text>, and</Text>
                     <Text style={styles.termANdConditionTextStyle}>  Cookies Policy</Text>
                 </View>
+                <Modal isVisible={this.props.user.wrongCode}>
+                <View style={{ backgroundColor: '#171717', paddingVertical: "5%" }}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: "5%", marginHorizontal: '6%' }}>
+                            <View style={{ height: 50, width: 50, borderRadius: 25, justifyContent: "center", alignItems: "center", backgroundColor: "#FF0000" }} >
+                                <Icon.Ionicons name={"close"} size={40} color={'#000'} />
+                            </View>
+                            <Text style={{ fontFamily: "Poppins-Medium", textAlign: "center", paddingTop: "5%", color: "white" }}>You have put the wrong verificationcode. Please retry or press Resend Code to get a new one</Text>
+                        </View>
+                        <View style={{ paddingTop: '5%', marginHorizontal: "25%", paddingBottom: '5%', }}>
+                            <TouchableOpacity onPress={() => { this.props.authActions.wrongCode(false) }} style={{ backgroundColor: THEME.PRIMARY_COLOR, height: 50, justifyContent: 'center' }}>
+                                <Text style={{ color: '#171717', textAlign: 'center', fontFamily: 'Poppins-Bold' }} >Continue</Text>
+                            </TouchableOpacity>
+
+                        </View>
+                    </View>
+                </Modal>
+                <Modal isVisible={this.props.user.codeExpire}>
+                    <View style={{ backgroundColor: '#171717', paddingVertical: "5%" }}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: "5%", marginHorizontal: '6%' }}>
+                            <View style={{ height: 50, width: 50, borderRadius: 25, justifyContent: "center", alignItems: "center", backgroundColor: "#FF0000" }} >
+                                <Icon.FontAwesome5 name={"exclamation"} size={40} color={'#000'} />
+                            </View>
+                            <Text style={{ fontSize: 12, fontFamily: "Poppins-Medium", textAlign: "center", paddingTop: "5%", color: "white" }}>The sms code has expired. Please re-send the verification code to try again!</Text>
+                        </View>
+                        <View style={{ paddingTop: '5%', marginHorizontal: "25%", paddingBottom: '5%', }}>
+                            <TouchableOpacity onPress={() => { this.props.authActions.codeExpire(false) }} style={{ backgroundColor: THEME.PRIMARY_COLOR, height: 50, justifyContent: 'center' }}>
+                                <Text style={{ color: '#171717', textAlign: 'center', fontFamily: 'Poppins-Bold' }} >Continue</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
             </View>
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer || {}
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        authActions: bindActionCreators(authActions, dispatch),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PhoneVerfication);
