@@ -215,9 +215,9 @@ class Booking extends Component {
             stepStrokeFinishedColor: THEME.PRIMARY_BACKGROUND_COLOR,
             stepStrokeUnFinishedColor: THEME.PRIMARY_BACKGROUND_COLOR,
             separatorFinishedColor: '#171717',
-            separatorUnFinishedColor:  THEME.COLOR_GREY,
+            separatorUnFinishedColor: THEME.COLOR_GREY,
             stepIndicatorFinishedColor: THEME.COLOR_GREY,
-            stepIndicatorUnFinishedColor:  THEME.COLOR_GREY,
+            stepIndicatorUnFinishedColor: THEME.COLOR_GREY,
             stepIndicatorCurrentColor: THEME.PRIMARY_COLOR,
             stepIndicatorLabelFontSize: 13,
             currentStepIndicatorLabelFontSize: 13,
@@ -238,7 +238,7 @@ class Booking extends Component {
                     <StepProgress
                         customStyles={customStyles}
                         currentPosition={currentPosition}
-                        // labels={labels}
+                    // labels={labels}
                     // onPress={this.onPageChange}
                     />
                     {
@@ -292,24 +292,24 @@ class Booking extends Component {
 
                     {
                         this.state.currentPosition == 3 ?
-                            <Summary
-                                key="summary"
-                                userdata={userdata}
-                                bookingTime={bookingTime}
-                                totalTime={totalTime}
-                                bookingDate={bookingDate}
-                                addresslocation={(this.state.location)}
-                                // onChangePress={this.handleOnChange}
-                                services={(selectedServices)}
-                            />
-                            // <Payment
-                            //     key="payment"
-                            //     paymentMethod={(paymentMethod) => this.setState({ paymentMethod })}
-                            //     isConfirm={(isDisable, data) => this.setState({ disabled: isDisable == "false" ? false : true, data: data })} />
+                            // <Summary
+                            //     key="summary"
+                            //     userdata={userdata}
+                            //     bookingTime={bookingTime}
+                            //     totalTime={totalTime}
+                            //     bookingDate={bookingDate}
+                            //     addresslocation={(this.state.location)}
+                            //     // onChangePress={this.handleOnChange}
+                            //     services={(selectedServices)}
+                            // />
+                            <Payment
+                                key="payment"
+                                paymentMethod={(paymentMethod) => this.setState({ paymentMethod })}
+                                isConfirm={(isDisable, data) => this.setState({ disabled: isDisable == "false" ? false : true, data: data })} />
                             :
                             null
                     }
-                    {/* {
+                    {
                         this.state.currentPosition == 4 ?
                             <Summary
                                 key="summary"
@@ -323,7 +323,7 @@ class Booking extends Component {
                             />
                             :
                             null
-                    } */}
+                    }
                 </View>
                 <View style={styles.footerStyle}>
                     <View style={styles.lineStyle}></View>
