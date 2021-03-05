@@ -58,8 +58,8 @@ class MyAddresses extends Component {
                 <View style={styles.gapHeight}></View>
                 <View style={styles.row}>
                     <View style={{ flex: 0.8, marginHorizontal: "5%" }}>
-                        <Text style={styles.labelTextStyle}>Label: {item.label_as}</Text>
-                        <Text style={styles.labelTextStyle}>{item.address}</Text>
+                        <Text style={styles.labelTextStyle}><Text style={{fontFamily: 'Poppins-Bold'}}>Label: </Text>{item.label_as}</Text>
+                        <Text style={styles.labelTextStyle}><Text style={{fontFamily: 'Poppins-Bold'}}>Address: </Text>{item.address}</Text>
                     </View>
                     {/* <View style={styles.labelRowContainer}>
                         <Icon.FontAwesome name={item.label_as == 'Home' ? 'home' : item.label_as == 'Work' ? 'building' : 'group'} size={25} color={THEME.COLOR_WHITE} />

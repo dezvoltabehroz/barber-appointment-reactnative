@@ -19,7 +19,7 @@ export default StyleSheet.create({
         justifyContent: "space-between"
     },
     labelTextStyle: {
-        fontSize: THEME.FONT_SIZE_MEDIUM,
+        fontSize: THEME.FONT_SIZE_SMALL,
         color: THEME.PRIMARY_COLOR,
         fontFamily: 'Poppins-Medium'
     },
