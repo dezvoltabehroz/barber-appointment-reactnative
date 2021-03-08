@@ -27,7 +27,8 @@ export default class DateTimeModal extends Component {
             timeStr: '',
             am: true,
             pm: false,
-            disabled: true
+            disabled: true,
+            dayNightMinutes: []
         }
     }
 
@@ -40,13 +41,15 @@ export default class DateTimeModal extends Component {
         let { dayNight } = this.props;
         var set = [];
         var range = 13;
-
+        var dayNightMinutes = []
         for (var i = 0; i < range; i++) {
             if (dayNight) {
                 if (i <= 9) {
                     set[i] = (i.toString());
+                    dayNightMinutes.push("00")
                 } else {
                     set[i] = (i.toString());
+                    dayNightMinutes.push("00")
                 }
             }
             else {
@@ -57,7 +60,7 @@ export default class DateTimeModal extends Component {
                 }
             }
         }
-        this.setState({ timeHourSlot: set })
+        this.setState({ timeHourSlot: set, dayNightMinutes })
     }
 
     minutesArray = () => {
@@ -135,19 +138,22 @@ export default class DateTimeModal extends Component {
                             <ScrollPicker
                                 ref={(sp) => { this.sp = sp }}
                                 dataSource={timeHourSlot}
-                                selectedIndex={0}
+                                selectedIndex={1}
                                 itemHeight={60}
                                 style={{ height: 40 }}
                                 wrapperHeight={screenHeight < 600 ? screenHeight * 0.25 : screenHeight * 0.3}
                                 wrapperColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                highlightColor={THEME.COLOR_WHITE}
+                                highlightColor={THEME.PRIMARY_BACKGROUND_COLOR}
                                 renderItem={(data, index, isSelected) => {
-                                    return (<Text style={[styles.textFlatlistStyle, { color: index == 0 ? THEME.PRIMARY_BACKGROUND_COLOR : 'white' }]}>{dayNight == true ? `${data}:00` : data}</Text>)
+                                    return (
+                                        <Text style={[styles.textFlatlistStyle, { color: index == 0 ? THEME.PRIMARY_BACKGROUND_COLOR : THEME.PRIMARY_COLOR }]}>{dayNight == true ? `${data}` : `${data}  HR`}</Text>
+                                        // <Text style={[styles.textFlatlistStyle, { color: index == 0 ? THEME.PRIMARY_BACKGROUND_COLOR : 'white' }]}>{dayNight == true ? `${data}:00` : data}</Text>
+                                    )
                                 }}
                                 onValueChange={(data, selectedIndex) => {
                                     if (selectedIndex == 0) {
                                         this.setState({ disabled: true })
-                                        // this.handleHours(data)
+                                        this.handleHours(data)
                                     }
                                     else {
                                         this.setState({ disabled: false })
@@ -157,16 +163,43 @@ export default class DateTimeModal extends Component {
                             />
                             {
                                 dayNight ?
-                                    null
+                                    < View style={styles.iconContainer}>
+                                        <Icon.Entypo name="dots-two-vertical" color={THEME.PRIMARY_COLOR} size={THEME.ICON_SIZE} />
+                                    </View>
                                     :
                                     < View style={styles.iconContainer}>
-                                        <Icon.Entypo name="dots-two-vertical" color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
+                                        <Icon.Entypo name="dots-two-vertical" color={THEME.PRIMARY_COLOR} size={THEME.ICON_SIZE} />
                                     </View>
                             }
 
                             {
                                 dayNight ?
-                                    null
+                                    <ScrollPicker
+                                        ref={(sp) => { this.sp = sp }}
+                                        dataSource={this.state.dayNightMinutes}
+                                        selectedIndex={1}
+                                        itemHeight={60}
+                                        style={{ height: 40 }}
+                                        wrapperHeight={screenHeight < 600 ? screenHeight * 0.25 : screenHeight * 0.3}
+                                        wrapperColor={THEME.PRIMARY_BACKGROUND_COLOR}
+                                        highlightColor={THEME.PRIMARY_BACKGROUND_COLOR}
+                                        renderItem={(data, index, isSelected) => {
+                                            return (
+                                                <Text style={[styles.textFlatlistStyle, { color: index == 0 ? THEME.PRIMARY_BACKGROUND_COLOR : THEME.PRIMARY_COLOR }]}>{`${data}`}</Text>
+                                                // <Text style={[styles.textFlatlistStyle, { color: index == 0 ? THEME.PRIMARY_BACKGROUND_COLOR : 'white' }]}>{data}</Text>
+                                            )
+                                        }}
+                                        onValueChange={(data, selectedIndex) => {
+                                            if (selectedIndex == 0 && data == '00') {
+                                                this.setState({ disabled: true })
+                                                this.handleMinutes(data)
+                                            }
+                                            else {
+                                                this.setState({ disabled: data == '00' ? true : false })
+                                                this.handleMinutes(data)
+                                            }
+                                        }}
+                                    />
                                     :
                                     <ScrollPicker
                                         ref={(sp) => { this.sp = sp }}
@@ -176,9 +209,12 @@ export default class DateTimeModal extends Component {
                                         style={{ height: 40 }}
                                         wrapperHeight={screenHeight < 600 ? screenHeight * 0.25 : screenHeight * 0.3}
                                         wrapperColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                        highlightColor={THEME.COLOR_WHITE}
+                                        highlightColor={THEME.PRIMARY_BACKGROUND_COLOR}
                                         renderItem={(data, index, isSelected) => {
-                                            return (<Text style={[styles.textFlatlistStyle, { color: index == 0 ? THEME.PRIMARY_BACKGROUND_COLOR : 'white' }]}>{data}</Text>)
+                                            return (
+                                                <Text style={[styles.textFlatlistStyle, { color: index == 0 ? THEME.PRIMARY_BACKGROUND_COLOR : THEME.PRIMARY_COLOR }]}>{`${data}  M`}</Text>
+                                                // <Text style={[styles.textFlatlistStyle, { color: index == 0 ? THEME.PRIMARY_BACKGROUND_COLOR : 'white' }]}>{data}</Text>
+                                            )
                                         }}
                                         onValueChange={(data, selectedIndex) => {
                                             if (selectedIndex == 0 && data == '00') {
@@ -192,9 +228,48 @@ export default class DateTimeModal extends Component {
                                         }}
                                     />
                             }
+                            {/* {
+                                dayNight ?
+                                    < View style={styles.iconContainer}>
+                                        <Icon.Entypo name="dots-two-vertical" color={THEME.PRIMARY_COLOR} size={THEME.ICON_SIZE} />
+                                    </View>
+                                    :
+                                    null
+                            } */}
+                            {
+                                dayNight ?
 
+                                    <ScrollPicker
+                                        ref={(sp) => { this.sp = sp }}
+                                        dataSource={["", "AM", "PM"]}
+                                        selectedIndex={1}
+                                        itemHeight={60}
+                                        style={{ height: 40 }}
+                                        wrapperHeight={screenHeight < 600 ? screenHeight * 0.25 : screenHeight * 0.3}
+                                        wrapperColor={THEME.PRIMARY_BACKGROUND_COLOR}
+                                        highlightColor={THEME.PRIMARY_BACKGROUND_COLOR}
+                                        renderItem={(data, index, isSelected) => {
+                                            return (
+                                                <Text style={[styles.textFlatlistStyle, { color: index == 0 ? THEME.PRIMARY_BACKGROUND_COLOR : THEME.PRIMARY_COLOR }]}>{`${data}`}</Text>
+                                                // <Text style={[styles.textFlatlistStyle, { color: index == 0 ? THEME.PRIMARY_BACKGROUND_COLOR : 'white' }]}>{data}</Text>
+                                            )
+                                        }}
+                                        onValueChange={(data, selectedIndex) => {
+                                            if (selectedIndex == 0 && data == '') {
+                                                this.setState({ am: false, pm: false })
+                                            }
+                                            else if (selectedIndex == 1) {
+                                                this.setState({ am: true, pm: false })
+                                            } else if (selectedIndex == 2) {
+                                                this.setState({ am: false, pm: true })
+                                            }
+                                        }}
+                                    />
+                                    :
+                                    null
+                            }
                         </View>
-                        {
+                        {/* {
                             dayNight ?
                                 <RadioButton
                                     option1={am}
@@ -205,7 +280,7 @@ export default class DateTimeModal extends Component {
                                     onPressOption2={() => this.setState({ am: false, pm: true })} />
                                 :
                                 null
-                        }
+                        } */}
 
                         <View style={styles.row}>
                             <View style={styles.buttonContainer}>

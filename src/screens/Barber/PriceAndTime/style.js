@@ -58,15 +58,15 @@ export default StyleSheet.create({
     inputContainerStyle: {
         height: 50,
         backgroundColor: '#171717',
-        width: 80,
-        alignItems: "flex-end",
+        width: 60,
+        alignItems: "center",
         borderBottomWidth: 2,
         borderBottomColor: THEME.PRIMARY_COLOR,
         // borderRadius: 5,
     },
     inputStyle: {
         flex: 1,
-        // textAlign: 'center',
+        textAlign: 'center',
         marginLeft: "5%",
         marginBottom: -20,
         fontSize: THEME.FONT_SIZE_LARGE,
@@ -85,10 +85,10 @@ export default StyleSheet.create({
         fontSize: THEME.FONT_SIZE_SMALL,
     },
     timeTextStyle: {
-        color: THEME.COLOR_WHITE,
+        color: THEME.PRIMARY_COLOR,
         textAlign: 'center',
         fontFamily: 'Poppins-Regular',
-        fontSize: THEME.FONT_SIZE_SMALL,
+        fontSize: THEME.FONT_SIZE_MEDIUM,
     },
     headingTextStyle: {
         color: THEME.COLOR_WHITE,
@@ -151,7 +151,7 @@ export default StyleSheet.create({
         fontFamily: 'Poppins-Regular'
     },
     seperatorStyle: {
-        height: 15,
+        height: 5,
     },
     addServiceContainer: {
         justifyContent: 'flex-end',

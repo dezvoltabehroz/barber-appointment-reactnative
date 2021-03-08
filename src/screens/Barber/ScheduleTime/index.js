@@ -11,12 +11,27 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../../redux/actions/auth';
 import moment from 'moment';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import Space from '../../../assets/svg/_.svg';
+import Trash from '../../../assets/svg/deleteblack.svg'
+import TrashColor from '../../../assets/svg/deletecolor.svg'
+import Edit from '../../../assets/svg/editBlack.svg'
+import ModalS from 'react-native-modal';
+var swipeableRef = {}
 class ScheduleTime extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            selectedDays: [],
+            selectedDays: [
+                { id: 1, day: 'Monday', selected: true, startTime: '', endTime: '', isFilled: '' },
+                { id: 2, day: 'Tuesday', selected: true, startTime: '', endTime: '', isFilled: '' },
+                { id: 3, day: 'Wednesday', selected: true, startTime: '', endTime: '', isFilled: '' },
+                { id: 4, day: 'Thursday', selected: true, startTime: '', endTime: '', isFilled: '' },
+                { id: 5, day: 'Friday', selected: true, startTime: '', endTime: '', isFilled: '' },
+                { id: 6, day: 'Saturday', selected: true, startTime: '', endTime: '', isFilled: '' },
+                { id: 7, day: 'Sunday', selected: true, startTime: '', endTime: '', isFilled: '' },
+            ],
             showTimePicker: false,
             indexValue: '',
             item: null,
@@ -26,22 +41,32 @@ class ScheduleTime extends Component {
             buttonLoading: false,
             startTime: '',
             endTime: '',
-            showEditService: false
+            showEditService: false,
+            lastIndex: -1,
+            presentAlertModal: false
         }
     }
 
     componentDidMount = () => {
-        this.setState({ loading: true })
-        let selectedDay = [...this.props.data];
-        let length = 0;
-        selectedDay.forEach(element => {
-            if (element.isFilled == '1') {
-                length = length + 1;
-            }
-
+        this.setState({ loading: true, });
+        let myArray = [...this.state.selectedDays]
+        myArray.map((item, index) => {
+            myArray[index] = { ...myArray[index], startTime: '', endTime: '', }
         });
-        selectedDay.push({ dayCounter: length })
-        this.setState({ selectedDays: selectedDay, loading: false })
+        // myArray.push({ dayCounter: 0 })
+        this.setState({ selectedDays: myArray, loading: false })
+
+        // this.setState({ loading: true })
+        // let selectedDay = [...this.props.data];
+        // let length = 0;
+        // selectedDay.forEach(element => {
+        //     if (element.isFilled == '1') {
+        //         length = length + 1;
+        //     }
+
+        // });
+        // selectedDay.push({ dayCounter: length })
+        // this.setState({ selectedDays: selectedDay, loading: false })
 
     }
 
@@ -84,6 +109,43 @@ class ScheduleTime extends Component {
         }
 
     }
+    renderLeftActions = (progress, dragX, item) => {
+        // console.log("item:", item)
+        return (
+            <View style={{ flexDirection: 'row', height: 53, backgroundColor: THEME.PRIMARY_COLOR }}>
+                <TouchableOpacity
+                    onPress={() => this.on_Press_Edit(item, this.state.index)}
+                    style={{
+                        // backgroundColor: THEME.PRIMARY_COLOR,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        // width: 90,
+                        // height: 90,
+                        paddingRight: 10
+                    }}>
+
+                    <Edit height={30} width={30} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {
+                        this.on_Press_Delete(item)
+                    }}
+                    style={{
+                        // backgroundColor: THEME.PRIMARY_COLOR,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        // width: 50,
+                        // borderRadius: 13,
+                        // height: 50,
+
+                        paddingRight: 10
+                    }}>
+                    <Trash height={25} width={25} />
+                </TouchableOpacity>
+            </View>
+        );
+    };
+
     setEditTimeChange = (item, index) => {
         if (moment.duration(this.state.endTime).asMinutes() > moment.duration(this.state.startTime).asMinutes()) {
             const objIndex = this.state.selectedDays.findIndex((obj => obj.id == item.id));
@@ -100,9 +162,11 @@ class ScheduleTime extends Component {
 
     is_filled_check(dayArray, index) {
         if (dayArray[index].startTime != '' && dayArray[index].endTime != '') {
-            let newDayCounter = dayArray[dayArray.length - 1].dayCounter + 1;
-            dayArray[dayArray.length - 1] = { ...dayArray[dayArray.length - 1], dayCounter: newDayCounter };
             dayArray[index] = { ...dayArray[index], isFilled: '1' };
+            this.setState({ selectedDays: dayArray, startTime: '', endTime: '', });
+        }
+        else {
+            dayArray[index] = { ...dayArray[index], isFilled: '2' };
             this.setState({ selectedDays: dayArray, startTime: '', endTime: '', });
         }
     }
@@ -112,33 +176,32 @@ class ScheduleTime extends Component {
             <View style={styles.seperatorStyle}></View>
         )
     }
-    on_Press_Delete = (itemData, index) => {
-        Alert.alert('Attension', 'Are you sure you want to delete this day',
-            [
-                {
-                    text: "Cancel",
-                    // onPress: () => this.handleCancel(),
-                    style: "cancel"
-                },
-                { text: "OK", onPress: () => this.handleDeleteService(itemData) }
-            ],
+    on_Press_Delete = (itemData) => {
+        this.setState({ presentAlertModal: true })
+        // Alert.alert('Attension', 'Are you sure you want to delete this day',
+        //     [
+        //         {
+        //             text: "Cancel",
+        //             // onPress: () => this.handleCancel(),
+        //             style: "cancel"
+        //         },
+        //         { text: "OK", onPress: () => this.handleDeleteService(itemData, index) }
+        //     ],
 
-        );
+        // );
     }
 
-    handleDeleteService = (itemData) => {
-        this.setState({ loading: true })
+    handleDeleteService = (itemData, index) => {
+        let objIndex = this.state.selectedDays.findIndex((item) => item.id == itemData.id)
         let selectedDays = [...this.state.selectedDays];
-        let newDayCounter = selectedDays[selectedDays.length - 1].dayCounter - 1;
-        selectedDays[selectedDays.length - 1] = { ...selectedDays[selectedDays.length - 1], dayCounter: newDayCounter };
-        this.setState({ selectedDays: selectedDays.filter((obj => obj.id != itemData.id)), loading: false })
+        selectedDays[objIndex] = { ...selectedDays[objIndex], selected: false };
+        swipeableRef[this.state.lastIndex].close()
+        this.setState({ selectedDays: selectedDays, presentAlertModal: false })
     }
 
     on_Press_Edit = (item, index) => {
         let selectedDays = [...this.state.selectedDays];
         this.setState({ item, index, })
-        let newDayCounter = selectedDays[selectedDays.length - 1].dayCounter - 1;
-        selectedDays[selectedDays.length - 1] = { ...selectedDays[selectedDays.length - 1], dayCounter: newDayCounter };
         this.setState({ selectedDays });
         this.setState({ showEditService: true, startTime: selectedDays[index].startTime, endTime: selectedDays[index].endTime })
     }
@@ -154,87 +217,111 @@ class ScheduleTime extends Component {
         const { selectedDays, submit } = this.state;
         let date = moment().format('YYYY-MM-DD');
         let startTime = item.startTime != undefined ? item.startTime != '' ? moment(`${date} ${item.startTime}`).format('hh:mm A') : "" : ""
-
+        console.log(item)
         return (
-            <View style={styles.contentContainer}>
-                <View style={styles.headingContainer}>
-                    {
+
+            <>
+                {
+                    item.selected ?
+                        <View style={styles.contentContainer}>
+                            <View style={styles.headingContainer}>
+                                <View style={styles.dayContainer}>
+                                    <Text style={styles.textStyle}>{item.day}</Text>
+                                </View>
+                                {/* {
                         item.date != undefined && item.day != undefined ?
                             <View style={styles.dayContainer}>
                                 <Text style={styles.textStyle}>{item.date} {this.truncateString(`${item.day}`, 3)}</Text>
                             </View>
                             :
                             null
-                    }
-                    <View style={styles.startTimeContainer} >
-                        {
-                            item.startTime != '' ?
-                                <View style={styles.startTimeContainer}>
-                                    <Text style={styles.textStyle}>{item.startTime != undefined ? item.startTime != '' ? startTime : '' : ''}</Text>
+                    } */}
+                                <View style={styles.startTimeContainer} >
+                                    {
+                                        item.startTime != '' ?
+                                            <View style={styles.startTimeContainer}>
+                                                <Text style={styles.textStyle}>{item.startTime != undefined ? item.startTime != '' ? startTime : '' : ''}</Text>
+                                            </View>
+                                            :
+                                            null
+                                    }
+                                    {
+                                        item.startTime == "" ?
+                                            <TouchableOpacity onPress={() => this.setStartTime(index, item)} >
+                                                <Space width={60} height={30} />
+                                            </TouchableOpacity>
+                                            :
+                                            null
+                                    }
                                 </View>
-                                :
-                                null
-                        }
-                    </View>
-                    <View style={styles.endTimeContainer}>
-                        {
-                            item.endTime != '' ?
-                                <View style={styles.priceAndTimeContainer}>
-                                    <Text style={styles.textStyle}>{item.startTime != undefined ? moment(`${date} ${item.endTime}`).format('hh:mm A') : ''}</Text>
+                                <View style={styles.endTimeContainer}>
+                                    {
+                                        item.endTime != '' ?
+                                            <View style={styles.priceAndTimeContainer}>
+                                                <Text style={styles.textStyle}>{item.startTime != undefined ? moment(`${date} ${item.endTime}`).format('hh:mm A') : ''}</Text>
+                                            </View>
+                                            :
+                                            null
+                                    }
+                                    {
+                                        item.endTime == "" ?
+                                            <TouchableOpacity onPress={() => this.setEndTime(index, item)} >
+                                                <Space width={60} height={30} />
+                                            </TouchableOpacity>
+                                            :
+                                            null
+                                    }
                                 </View>
-                                :
-                                null
-                        }
-                    </View>
-                    <View style={[styles.iconContainer, { alignItems: "flex-end" }]}>
-                        {
-                            item.isFilled == '1' ?
-                                <View style={{ flexDirection: 'row', flex: 1 }}>
-                                    <TouchableOpacity onPress={() => this.on_Press_Edit(item, index)} >
-                                        <Icon.MaterialIcons name='edit' size={25} color={THEME.COLOR_WHITE} />
-                                    </TouchableOpacity>
-                                    <View style={{ width: 5 }}></View>
-                                    <TouchableOpacity onPress={() => this.on_Press_Delete(item, index)}>
-                                        <Icon.MaterialIcons name='delete' size={25} color={THEME.COLOR_WHITE} />
-                                    </TouchableOpacity>
-                                </View>
-                                : null
-                        }
-                    </View>
-                </View>
-                <View style={styles.inputContainer}>
-                    {
-                        item.startTime == '' ?
-                            <View>
-                                <TouchableOpacity onPress={() => this.setStartTime(index, item)} style={[styles.inputDateContainerStyle,
-                                selectedDays[index].startTime == '' ? THEME.inputBorder : {}]}>
-                                    <Text style={styles.titleStyle}>Start Time</Text>
-                                </TouchableOpacity>
-                                {
-                                    submit && !selectedDays[index].startTime ? <Text style={COMMON_STYLE.errorText1}>Please fill this field</Text> : null
-                                }
-                            </View>
+                                {/* <View style={[styles.iconContainer, { alignItems: "flex-end" }]}>
+                                    {
+                                        item.isFilled == '1' ?
+                                            <View style={{ flexDirection: 'row', flex: 1 }}>
 
-                            :
-                            null
-                    }
-                    <View style={styles.viewDatePlaceHolder}></View>
-                    {
-                        item.endTime == '' ?
-                            <View>
-                                <TouchableOpacity onPress={() => this.setEndTime(index, item)} style={[styles.inputDateContainerStyle,
-                                selectedDays[index].endTime == '' ? THEME.inputBorder : {}]}>
-                                    <Text style={styles.titleStyle}>End Time</Text>
-                                </TouchableOpacity>
-                                {
-                                    submit && !selectedDays[index].startTime ? <Text style={COMMON_STYLE.errorText1}>Please fill this field</Text> : null
-                                }
+                                                <View style={{ width: 5 }}></View>
+                                                <TouchableOpacity onPress={() => this.on_Press_Delete(item, index)}>
+                                                    <Icon.MaterialIcons name='delete' size={25} color={THEME.COLOR_WHITE} />
+                                                </TouchableOpacity>
+                                            </View>
+                                            : null
+                                    }
+                                </View> */}
                             </View>
-                            :
-                            null
-                    }
-                </View>
-            </View>
+                            {/* <View style={styles.inputContainer}>
+                                {
+                                    item.startTime == '' ?
+                                        <View>
+                                            <TouchableOpacity onPress={() => this.setStartTime(index, item)} style={[styles.inputDateContainerStyle,
+                                            selectedDays[index].startTime == '' ? THEME.inputBorder : {}]}>
+                                                <Text style={styles.titleStyle}>Start Time</Text>
+                                            </TouchableOpacity>
+                                            {
+                                                submit && !selectedDays[index].startTime ? <Text style={COMMON_STYLE.errorText1}>Please fill this field</Text> : null
+                                            }
+                                        </View>
+
+                                        :
+                                        null
+                                }
+                                <View style={styles.viewDatePlaceHolder}></View>
+                                {
+                                    item.endTime == '' ?
+                                        <View>
+                                            <TouchableOpacity onPress={() => this.setEndTime(index, item)} style={[styles.inputDateContainerStyle,
+                                            selectedDays[index].endTime == '' ? THEME.inputBorder : {}]}>
+                                                <Text style={styles.titleStyle}>End Time</Text>
+                                            </TouchableOpacity>
+                                            {
+                                                submit && !selectedDays[index].startTime ? <Text style={COMMON_STYLE.errorText1}>Please fill this field</Text> : null
+                                            }
+                                        </View>
+                                        :
+                                        null
+                                }
+                            </View> */}
+                        </View>
+                        :
+                        null}
+            </>
         )
     }
 
@@ -311,33 +398,48 @@ class ScheduleTime extends Component {
 
     }
 
-    on_Press_Next = () => {
+    on_Press_Next = async () => {
         this.setState({ submit: true, buttonLoading: true })
         const { onNext } = this.props;
         let days = [];
         const { selectedDays } = this.state;
-        let counter = (selectedDays[(selectedDays.length - 1)].dayCounter);
-        let length = selectedDays.length - 1;
-
+        let counter = 0;
+        await selectedDays.forEach((item, index) => {
+            if (item.isFilled != '2') {
+                counter = counter + 1;
+            }
+        })
+        let length = selectedDays.length;
+        console.log(counter)
+        console.log(length)
         if (counter === length) {
-            if (selectedDays[0].day != undefined) {
-                Alert.alert('Attention', 'Your schedule will be updated and your current bookings will remain saved', [
-                    {
-                        text: "Cancel",
-                        onPress: () => this.setState({ buttonLoading: false }),
-                        style: "cancel"
-                    },
-                    {
-                        text: "OK", onPress: () => {
-                            this.handleSaveFunction()
-                        }
+            selectedDays.forEach((item, index) => {
+                days.push({
+                    schedule_id: item.id,
+                    start_time: item.startTime,
+                    end_time: item.endTime
+                })
+            })
+            let userData = {
+                id: this.props.user.userData.id,
+                token: this.props.user.userData.token,
+                steps_count: 4,
+                working_days: days
+            }
+            Barbers.updateWorkingDaysTime(userData)
+                .then((res) => {
+                    console.log(res.data)
+                    if (res.data.status) {
+                        RegisterUser.userStepCount(userData)
+                            .then((res) => {
+                                if (res.data.status) {
+                                    this.props.authActions.getUserProfile(userData, this.props.navigate);
+                                    this.setState({ buttonLoading: false })
+                                }
+                            })
+                            .catch(err => console.log(err))
                     }
-                ]);
-            }
-            else {
-                Alert.alert("Please go back and again add days to your scheduler")
-                this.setState({ submit: false, buttonLoading: false })
-            }
+                })
         }
         else {
             Alert.alert('Attention', 'All required field should be filled ');
@@ -349,7 +451,7 @@ class ScheduleTime extends Component {
     render() {
         const { onNext } = this.props;
         let date = moment().format('YYYY-MM-DD');
-        const { selectedDays, showTimePicker, loading, buttonLoading, startTime, index, endTime, submit, showEditService, item, indexValue } = this.state;
+        const { selectedDays, showTimePicker, loading, buttonLoading, startTime, lastIndex, index, endTime, submit, showEditService, item, indexValue } = this.state;
         return (
             <>
                 <View style={styles.container}>
@@ -361,41 +463,51 @@ class ScheduleTime extends Component {
                             :
                             <>
                                 <View style={styles.upperContainer}>
-                                    <KeyboardAwareScrollView>
-                                        {selectedDays.length == 0 || selectedDays[0].startTime != '' || selectedDays[0].endTime != '' ?
-                                            <View style={styles.headingContainer}>
-                                                <View style={styles.dayContainer}>
-                                                    <Text style={styles.headingTextStyle}>Days</Text>
-                                                </View>
-                                                <View style={styles.startTimeContainer} >
-                                                    <Text style={styles.headingTextStyle1}>Start Time</Text>
-                                                </View>
-                                                <View style={styles.endTimeContainer}>
-                                                    <Text style={styles.headingTextStyle1}>End Time</Text>
-                                                </View>
-                                                <View style={[styles.iconContainer]}></View>
-                                            </View> : null}
+                                    <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+                                        <View style={styles.headingContainer}>
+                                            <View style={styles.dayContainer}>
+                                                <Text style={styles.headingTextStyle}>Days</Text>
+                                            </View>
+                                            <View style={styles.startTimeContainer} >
+                                                <Text style={styles.headingTextStyle1}>Start Time</Text>
+                                            </View>
+                                            <View style={styles.endTimeContainer}>
+                                                <Text style={styles.headingTextStyle1}>End Time</Text>
+                                            </View>
+                                        </View>
                                         <FlatList
                                             data={selectedDays}
                                             showsVerticalScrollIndicator={false}
                                             ItemSeparatorComponent={this._renderSeparator}
-                                            renderItem={({ item, index }) => this._renderItems({ item, index })}
+                                            renderItem={({ item, index }) => {
+                                                return (<Swipeable
+                                                    enabled={item.startTime != "" && item.endTime != "" ? true : false}
+                                                    useNativeAnimations={true}
+                                                    overshootRight={false}
+                                                    ref={(Swipeable) => swipeableRef[index] = Swipeable}
+                                                    onSwipeableWillOpen={() => {
+                                                        this.setState({ item, index })
+                                                        if (lastIndex == -1) {
+                                                            this.setState({ lastIndex: index });
+                                                        }
+                                                        else {
+                                                            if (index != lastIndex) {
+                                                                if (index != lastIndex) {
+                                                                    swipeableRef[lastIndex]?.close()
+                                                                }
+                                                            }
+                                                            this.setState({ lastIndex: index });
+                                                        }
+                                                    }}
+                                                    renderRightActions={(progress, dragX) => this.renderLeftActions(progress, dragX, item)}
+                                                >
+                                                    {this._renderItems({ item, index })}
+                                                </Swipeable>)
+                                            }}
                                             keyExtractor={item => item} />
                                     </KeyboardAwareScrollView>
                                 </View>
-                                <View style={styles.footerStyle}>
-                                    <View style={styles.lineStyle}></View>
-                                    <View style={styles.gapHeight}></View>
-                                    <View style={[styles.buttonContainer, { flexDirection: "row", justifyContent: 'space-between' }]}>
-                                        <View style={{ flex: 0.45 }}>
-                                            <Button title="Back  " onPress={() => this.props.goBack()} />
-                                        </View>
-                                        <View style={{ flex: 0.45 }}>
-                                            <Button title="Save  " loading={buttonLoading} disabled={this.state.selectedDays.length == 0 ? true : false} onPress={() => this.on_Press_Next()} />
-                                        </View>
-                                    </View>
-                                    <View style={styles.gapHeight1}></View>
-                                </View>
+                                <FooterButton loading={buttonLoading} title='Update & Continue' onPress={this.on_Press_Next} />
                             </>}
                 </View>
                 <DateTimeModal showTimePicker={showTimePicker}
@@ -442,8 +554,6 @@ class ScheduleTime extends Component {
                                         <View style={styles.rowButtonContainer}>
                                             <Button title="Cancel" onPress={() => {
                                                 let dayArray = [...this.state.selectedDays];
-                                                let newDayCounter = dayArray[dayArray.length - 1].dayCounter + 1;
-                                                dayArray[dayArray.length - 1] = { ...dayArray[dayArray.length - 1], dayCounter: newDayCounter };
                                                 this.setState({ selectedDays: dayArray });
                                                 this.setState({ showEditService: false })
                                             }} />
@@ -456,6 +566,22 @@ class ScheduleTime extends Component {
                             </View>
                     }
                 </Modal>
+                <ModalS isVisible={this.state.presentAlertModal}>
+                    <View style={{ backgroundColor: '#171717', paddingVertical: "5%" }}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: "5%", marginHorizontal: '6%' }}>
+                            <TrashColor />
+                            <Text style={{ fontFamily: "Poppins-Medium", textAlign: "center", paddingTop: "5%", color: "white" }}>Are you sure you want to delete this day? This will delete the day permanently.</Text>
+                        </View>
+                        <View style={{ paddingTop: '5%', marginHorizontal: "10%", flexDirection: "row", justifyContent: "space-between", paddingBottom: '5%', }}>
+                            <TouchableOpacity onPress={() => { swipeableRef[this.state.lastIndex]?.close(); this.setState({ presentAlertModal: false }) }} style={{ width: 120, backgroundColor: THEME.PRIMARY_COLOR, height: 50, justifyContent: 'center' }}>
+                                <Text style={{ color: '#171717', textAlign: 'center', fontFamily: 'Poppins-Bold' }} >Cancel</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.handleDeleteService(item, index)} style={{ width: 120, backgroundColor: "#FF6635", height: 50, justifyContent: 'center' }}>
+                                <Text style={{ color: '#171717', textAlign: 'center', fontFamily: 'Poppins-Bold' }} >Delete</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </ModalS>
             </>
         );
     }

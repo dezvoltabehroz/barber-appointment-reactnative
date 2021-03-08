@@ -13,8 +13,8 @@ export default StyleSheet.create({
     },
     modalContainer: {
         height: screenHeight,
-        width: screenWidth ,
-        paddingHorizontal:'10%',
+        width: screenWidth,
+        paddingHorizontal: '10%',
         justifyContent: "center",
         alignSelf: "center",
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
@@ -35,8 +35,8 @@ export default StyleSheet.create({
         alignItems: "center",
     },
     textFlatlistStyle: {
-        color: THEME.COLOR_WHITE,
-        fontFamily: "Poppins-Regular",
+        color: THEME.PRIMARY_COLOR,
+        fontFamily: "Poppins-Bold",
         margin: 7,
         textAlign: "center",
         width: screenWidth * 0.3,

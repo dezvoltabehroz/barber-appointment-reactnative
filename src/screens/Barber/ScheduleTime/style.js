@@ -12,7 +12,7 @@ export default StyleSheet.create({
     },
     upperContainer: {
         flex: 0.8,
-        marginHorizontal: '10%'
+        // paddingHorizontal: '5%'
     },
     dayContainer: {
         flex: 0.4,
@@ -28,17 +28,22 @@ export default StyleSheet.create({
         alignSelf: "flex-end"
     },
     startTimeContainer: {
-        flex: 0.25,
+        flex: 0.3,
         flexDirection: 'column',
         alignItems: 'center'
     },
     endTimeContainer: {
-        flex: 0.25,
+        flex: 0.3,
         flexDirection: 'column',
         alignItems: 'center'
     },
     headingContainer: {
         flexDirection: 'row',
+        height: 54,
+        marginBottom: "5%",
+        alignItems: "center",
+        paddingHorizontal: '5%',
+        backgroundColor: "#171717"
     },
 
     inputContainer: {
@@ -46,17 +51,17 @@ export default StyleSheet.create({
         justifyContent: 'space-between'
     },
     textStyle: {
-        color: THEME.COLOR_WHITE,
+        color: THEME.PRIMARY_COLOR,
         fontFamily: 'Poppins-Medium',
         fontSize: 10,
     },
     headingTextStyle: {
-        color: THEME.COLOR_WHITE,
+        color: THEME.PRIMARY_COLOR,
         fontFamily: 'Poppins-Bold',
         fontSize: THEME.FONT_SIZE_SMALL,
     },
     headingTextStyle1: {
-        color: THEME.COLOR_WHITE,
+        color: THEME.PRIMARY_COLOR,
         fontFamily: 'Poppins-Bold',
         fontSize: 10,
     },
@@ -104,7 +109,7 @@ export default StyleSheet.create({
         fontFamily: 'Poppins-Regular'
     },
     seperatorStyle: {
-        height: 15,
+        height: 5,
     },
     modalContainer: {
         flex: 1,
@@ -133,10 +138,7 @@ export default StyleSheet.create({
         borderRadius: 10,
         alignItems: "center",
     },
-    headingContainer: {
-        flexDirection: 'row',
-        marginBottom: '5%'
-    },
+
     rowButtonContainer: {
         width: '46%',
         paddingHorizontal: '6%'

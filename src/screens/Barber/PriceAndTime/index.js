@@ -9,7 +9,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../../redux/actions/auth';
 import Space from '../../../assets/svg/_.svg';
-import { Input } from "react-native-elements"
+import { Input } from "react-native-elements";
+import Trash from '../../../assets/svg/deleteblack.svg'
+import TrashColor from '../../../assets/svg/deletecolor.svg'
+import Edit from '../../../assets/svg/editBlack.svg'
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import ModalS from 'react-native-modal';
+import moment from 'moment';
+var swipeableRef = {}
+
 class PriceAndTime extends Component {
 
     constructor(props) {
@@ -33,7 +41,9 @@ class PriceAndTime extends Component {
             showEditService: false,
             time: '',
             price: '',
-            showAddPrice: false
+            showAddPrice: false,
+            lastIndex: -1,
+            presentAlertModal: false
         }
     }
     componentDidMount = () => {
@@ -98,6 +108,7 @@ class PriceAndTime extends Component {
         let items = [...selectedArray];
         items[objIndex] = { ...items[objIndex], price: this.state.price };
         items[objIndex] = { ...items[objIndex], time: this.state.time };
+        swipeableRef[this.state.lastIndex].close()
         this.setState({ selectedArray: items, showEditService: false, time: '', price: '' });
         this.is_filled_check(items, objIndex)
     }
@@ -131,6 +142,43 @@ class PriceAndTime extends Component {
         );
     }
 
+    renderLeftActions = (progress, dragX, item) => {
+        // console.log("item:", item)
+        return (
+            <View style={{ flexDirection: 'row', backgroundColor: THEME.PRIMARY_COLOR }}>
+                <TouchableOpacity
+                    onPress={() => this.on_Press_Edit(item, this.state.index)}
+                    style={{
+                        // backgroundColor: THEME.PRIMARY_COLOR,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        // width: 90,
+                        // height: 90,
+                        paddingRight: 10
+                    }}>
+
+                    <Edit height={50} width={50} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {
+                        this.setState({ presentAlertModal: true, item: item })
+                    }}
+                    style={{
+                        // backgroundColor: THEME.PRIMARY_COLOR,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        // width: 50,
+                        // borderRadius: 13,
+                        // height: 50,
+
+                        paddingRight: 10
+                    }}>
+                    <Trash height={40} width={40} />
+                </TouchableOpacity>
+            </View>
+        );
+    };
+
     handleDeleteService = (itemData) => {
 
         let userData = {
@@ -158,23 +206,27 @@ class PriceAndTime extends Component {
     //     this.setState({ selectedArray: selectedArray.filter((obj => obj.id != itemData.id)) })
     // }
 
-    on_Press_Edit = (item, index) => {
+    on_Press_Edit = (item) => {
+        const objIndex = this.state.selectedArray.findIndex((obj => obj.id == item.id));
         let selectedArray = [...this.state.selectedArray];
-        this.setState({ item, index, })
+        this.setState({ item, index: objIndex })
         let newServiceCounter = selectedArray[selectedArray.length - 1].serviceCounter - 1;
         selectedArray[selectedArray.length - 1] = { ...selectedArray[selectedArray.length - 1], serviceCounter: newServiceCounter };
         this.setState({ selectedArray });
         setTimeout(() => {
             console.log(this.state.item)
             console.log(this.state.index)
-            console.log(this.state.selectedArray[index].price)
-            this.setState({ showEditService: true, price: this.state.selectedArray[index].price, time: this.state.selectedArray[index].time })
+            console.log(this.state.selectedArray[objIndex].price)
+            this.setState({ showEditService: true, price: this.state.selectedArray[objIndex].price, time: this.state.selectedArray[objIndex].time })
         }, 1);
 
     }
 
     _renderItems = ({ item, index }) => {
         const { selectedArray, submit } = this.state;
+        var h = parseInt(moment.duration(item.time).asMinutes()) / 60 | 0;
+        var m = parseInt(moment.duration(item.time).asMinutes()) % 60 | 0;
+        const timeInHour = moment.utc().hours(h).minutes(m).format("HH:mm")
         return (
             <>
                 {
@@ -199,15 +251,32 @@ class PriceAndTime extends Component {
                                             <Space width={60} height={30} />
                                         </TouchableOpacity>
                                         : null}
-                                    {
+                                    {/* {
                                         submit && !selectedArray[index].price ? <Text style={COMMON_STYLE.errorText1}>Please fill this field</Text> : null
-                                    }
+                                    } */}
                                 </View>
                                 <View style={styles.viewDatePlaceHolder}></View>
                                 <View style={[styles.timeContainer, { alignItems: "center" }]}>
                                     {item.time != '' ?
                                         <View style={styles.priceAndTimeContainer}>
-                                            <Text style={styles.timeTextStyle}>{item.time}</Text>
+                                            {/* <Text style={styles.timeTextStyle}>{item.time}</Text> */}
+                                            <Text style={styles.timeTextStyle}>
+                                                {timeInHour[0] == 0 && timeInHour[1] == 0 ? "" : timeInHour[0] + timeInHour[1]}
+                                                {
+                                                    timeInHour[0] == 0 && timeInHour[1] == 0 ?
+                                                        null
+                                                        :
+                                                        <Text style={styles.timeTextStyle}> hr</Text>
+                                                }
+                                                {timeInHour[3] == 0 && timeInHour[4] == 0 ? "" : ` ${timeInHour[3]}${timeInHour[4]}`}
+                                                {
+                                                    timeInHour[3] == 0 && timeInHour[4] == 0 ?
+                                                        null
+                                                        :
+                                                        <Text style={styles.timeTextStyle}> m</Text>
+                                                }
+                                                {/* {item.quantity != '' && item.quantity > 1 ? `${(parseInt(moment.duration(item.time_duration).asMinutes()) * item.quantity)}` : parseInt(moment.duration(item.time_duration).asMinutes())} */}
+                                            </Text>
                                         </View>
                                         :
                                         null
@@ -218,9 +287,9 @@ class PriceAndTime extends Component {
                                         :
                                         null
                                     }
-                                    {
+                                    {/* {
                                         submit && !selectedArray[index].time ? <Text style={COMMON_STYLE.errorText1}>Please select time</Text> : null
-                                    }
+                                    } */}
                                 </View>
                                 {/* <View style={[styles.priceContainer, { alignItems: "flex-end" }]}>
                                     {
@@ -308,7 +377,7 @@ class PriceAndTime extends Component {
         let userData = {
             id: this.props.user.userData.id,
             token: this.props.user.userData.token,
-            steps_count: 2,
+            steps_count: 3,
             services: array
         }
         if (counter === length) {
@@ -336,7 +405,7 @@ class PriceAndTime extends Component {
 
     render() {
         const { onNext } = this.props;
-        const { selectedArray, showTimePicker, loading, showEditService, item, index, submit, time, price, showAddPrice } = this.state;
+        const { selectedArray, showTimePicker, lastIndex, loading, showEditService, item, index, submit, time, price, showAddPrice } = this.state;
 
         return (
             <>
@@ -369,7 +438,33 @@ class PriceAndTime extends Component {
                                     data={selectedArray}
                                     showsVerticalScrollIndicator={false}
                                     ItemSeparatorComponent={this._renderSeparator}
-                                    renderItem={({ item, index }) => this._renderItems({ item, index })}
+                                    renderItem={({ item, index }) => {
+                                        return (
+                                            <Swipeable
+                                                enabled={item.price != "" && item.time != "" ? true : false}
+                                                useNativeAnimations={true}
+                                                overshootRight={false}
+                                                ref={(Swipeable) => swipeableRef[index] = Swipeable}
+                                                onSwipeableWillOpen={() => {
+                                                    this.setState({ item, index })
+                                                    if (lastIndex == -1) {
+                                                        this.setState({ lastIndex: index });
+                                                    }
+                                                    else {
+                                                        if (index != lastIndex) {
+                                                            if (index != lastIndex) {
+                                                                swipeableRef[lastIndex]?.close()
+                                                            }
+                                                        }
+                                                        this.setState({ lastIndex: index });
+                                                    }
+                                                }}
+                                                renderRightActions={(progress, dragX) => this.renderLeftActions(progress, dragX, item)}
+                                            >
+                                                {   this._renderItems({ item, index })}
+                                            </Swipeable>
+                                        )
+                                    }}
                                     keyExtractor={item => item} />
                             </View>
                     }
@@ -449,10 +544,10 @@ class PriceAndTime extends Component {
                                         <View>
                                             <Icon.FontAwesome name="dollar" size={25} color={THEME.PRIMARY_COLOR} />
                                         </View>
-                                        <View style={{marginTop:5}}>
+                                        <View style={{ marginTop: 5 }}>
                                             <Input
                                                 value={price}
-                                                keyboardtype="number-pad"
+                                                keyboardType="number-pad"
                                                 leftIconContainerStyle={{ paddingLeft: 10 }}
                                                 inputStyle={styles.inputStyle}
                                                 containerStyle={styles.containerStyle}
@@ -498,6 +593,22 @@ class PriceAndTime extends Component {
                             </View>
                     }
                 </Modal>
+                <ModalS isVisible={this.state.presentAlertModal}>
+                    <View style={{ backgroundColor: '#171717', paddingVertical: "5%" }}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: "5%", marginHorizontal: '6%' }}>
+                            <TrashColor />
+                            <Text style={{ fontFamily: "Poppins-Medium", textAlign: "center", paddingTop: "5%", color: "white" }}>Are you sure you want to delete this service? This will delete the service permanently.</Text>
+                        </View>
+                        <View style={{ paddingTop: '5%', marginHorizontal: "10%", flexDirection: "row", justifyContent: "space-between", paddingBottom: '5%', }}>
+                            <TouchableOpacity onPress={() => { swipeableRef[this.state.lastIndex]?.close(); this.setState({ presentAlertModal: false }) }} style={{ width: 120, backgroundColor: THEME.PRIMARY_COLOR, height: 50, justifyContent: 'center' }}>
+                                <Text style={{ color: '#171717', textAlign: 'center', fontFamily: 'Poppins-Bold' }} >Cancel</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.handleDeleteService(this.state.item)} style={{ width: 120, backgroundColor: "#FF6635", height: 50, justifyContent: 'center' }}>
+                                <Text style={{ color: '#171717', textAlign: 'center', fontFamily: 'Poppins-Bold' }} >Delete</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </ModalS>
             </>
         );
     }
