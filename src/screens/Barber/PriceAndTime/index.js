@@ -8,7 +8,8 @@ import { Barbers, RegisterUser } from '../../../services';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../../redux/actions/auth';
-
+import Space from '../../../assets/svg/_.svg';
+import { Input } from "react-native-elements"
 class PriceAndTime extends Component {
 
     constructor(props) {
@@ -29,7 +30,10 @@ class PriceAndTime extends Component {
             minutes: '',
             index: null,
             item: null,
-            showEditService: false, time: '', price: ''
+            showEditService: false,
+            time: '',
+            price: '',
+            showAddPrice: false
         }
     }
     componentDidMount = () => {
@@ -79,14 +83,15 @@ class PriceAndTime extends Component {
     }
 
     addPrice = ({ index, item }) => {
-        const { selectedArray } = this.state;
+        const { selectedArray, price } = this.state;
         const objIndex = selectedArray.findIndex((obj => obj.id == item.id));
         let items = [...selectedArray];
-        items[objIndex] = { ...items[objIndex], price: selectedArray[index].price };
+        items[objIndex] = { ...items[objIndex], price: price };
 
-        this.setState({ selectedArray: items, showEditService: false });
+        this.setState({ selectedArray: items, showAddPrice: false, price: "", item: null, index: null, showEditService: false });
         this.is_filled_check(items, objIndex)
     }
+
     addPriceUpdate = ({ index, item }) => {
         const { selectedArray } = this.state;
         const objIndex = selectedArray.findIndex((obj => obj.id == item.id));
@@ -171,31 +176,53 @@ class PriceAndTime extends Component {
     _renderItems = ({ item, index }) => {
         const { selectedArray, submit } = this.state;
         return (
-            <View style={styles.contentContainer}>
+            <>
                 {
                     item.id ?
-                        <>
+
+                        <View style={styles.contentContainer}>
+
                             <View style={styles.row}>
                                 <View style={styles.nameContainer}>
                                     <Text style={styles.textStyle}>{item.service_name}</Text>
                                 </View>
-                                <View style={styles.priceContainer} >
+                                <View style={[styles.priceContainer, { alignItems: "center" }]} >
                                     {item.price != '' ?
                                         <View style={styles.priceAndTimeContainer}>
                                             <Text style={styles.timeTextStyle}>${item.price}</Text>
                                         </View>
-                                        : null
+                                        :
+                                        null
+                                    }
+                                    {item.price == '' ?
+                                        <TouchableOpacity onPress={() => this.setState({ index: index, item: item, showAddPrice: true })} >
+                                            <Space width={60} height={30} />
+                                        </TouchableOpacity>
+                                        : null}
+                                    {
+                                        submit && !selectedArray[index].price ? <Text style={COMMON_STYLE.errorText1}>Please fill this field</Text> : null
                                     }
                                 </View>
-                                <View style={styles.timeContainer}>
+                                <View style={styles.viewDatePlaceHolder}></View>
+                                <View style={[styles.timeContainer, { alignItems: "center" }]}>
                                     {item.time != '' ?
                                         <View style={styles.priceAndTimeContainer}>
                                             <Text style={styles.timeTextStyle}>{item.time}</Text>
                                         </View>
-                                        : null
+                                        :
+                                        null
+                                    }
+                                    {item.time == '' ? <TouchableOpacity onPress={() => this.setTime(index, item)} >
+                                        <Space width={60} height={30} />
+                                    </TouchableOpacity>
+                                        :
+                                        null
+                                    }
+                                    {
+                                        submit && !selectedArray[index].time ? <Text style={COMMON_STYLE.errorText1}>Please select time</Text> : null
                                     }
                                 </View>
-                                <View style={[styles.priceContainer, { alignItems: "flex-end" }]}>
+                                {/* <View style={[styles.priceContainer, { alignItems: "flex-end" }]}>
                                     {
                                         item.isFilled == '1' ?
                                             <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -209,9 +236,11 @@ class PriceAndTime extends Component {
                                             </View>
                                             : null
                                     }
-                                </View>
+                                </View> */}
+
+
                             </View>
-                            <View style={styles.inputContainer}>
+                            {/* <View style={styles.inputContainer}>
                                 {item.price == '' ?
                                     <View style={[styles.inputContainerStyle,
                                     selectedArray[index].price == '' ? THEME.inputBorder : {}]}>
@@ -229,7 +258,7 @@ class PriceAndTime extends Component {
                                     null
 
                                 }
-                                <View style={styles.viewDatePlaceHolder}></View>
+
                                 {item.time == '' ?
                                     <>
                                         <View>
@@ -247,13 +276,14 @@ class PriceAndTime extends Component {
                                     null
                                 }
 
-                            </View>
-                        </>
+                            </View> */}
+
+                        </View>
+
                         :
                         null
                 }
-
-            </View>
+            </>
         )
     }
 
@@ -306,7 +336,7 @@ class PriceAndTime extends Component {
 
     render() {
         const { onNext } = this.props;
-        const { selectedArray, showTimePicker, loading, showEditService, item, index, submit, time, price } = this.state;
+        const { selectedArray, showTimePicker, loading, showEditService, item, index, submit, time, price, showAddPrice } = this.state;
 
         return (
             <>
@@ -318,24 +348,22 @@ class PriceAndTime extends Component {
                             </View>
                             :
                             <View style={styles.upperContainer}>
-                                {
-                                    selectedArray.length == 0 || selectedArray[0].price != '' || selectedArray[0].time != '' || selectedArray[1].price != '' || selectedArray[1].time != '' ?
-                                        <View style={styles.headingContainer}>
-                                            <View style={styles.nameContainer}>
-                                                <Text style={styles.headingTextStyle1}>Services</Text>
-                                            </View>
-                                            <View style={styles.priceContainer} >
-                                                <Text style={styles.headingTextStyle2}>Price</Text>
-                                            </View>
-                                            <View style={styles.timeContainer}>
-                                                <Text style={styles.headingTextStyle2}>Est. Duration</Text>
-                                            </View>
-                                            <View style={styles.priceContainer}>
-                                            </View>
-                                        </View>
-                                        :
-                                        null
-                                }
+
+                                <View style={styles.headingContainer}>
+                                    <View style={styles.nameContainer}>
+                                        <Text style={styles.headingTextStyle1}>Services</Text>
+                                    </View>
+                                    <View style={styles.priceContainer} >
+                                        <Text style={styles.headingTextStyle2}>Price</Text>
+                                    </View>
+                                    <View style={styles.viewDatePlaceHolder}></View>
+                                    <View style={styles.timeContainer}>
+                                        <Text style={styles.headingTextStyle2}>Est. Duration</Text>
+                                    </View>
+                                    {/* <View style={styles.priceContainer}>
+                                    </View> */}
+                                </View>
+
                                 <FlatList
                                     contentContainerStyle={{ paddingBottom: '5%' }}
                                     data={selectedArray}
@@ -399,6 +427,71 @@ class PriceAndTime extends Component {
                                         </View>
                                         <View style={styles.rowButtonContainer}>
                                             <Button title="Update" onPress={() => this.addPriceUpdate({ item, index })} />
+                                        </View>
+                                    </View>
+                                </View>
+                            </View>
+                    }
+                </Modal>
+                <Modal visible={showAddPrice}
+                    animationType="slide">
+                    {
+                        item == null || index == null ?
+                            null
+                            :
+                            <View style={styles.modalContainer}  >
+                                <View style={styles.modalInputContainer}>
+                                    <View style={{ marginBottom: '10%' }}>
+                                        <Text style={styles.headingTextStyle}>Price</Text>
+                                    </View>
+
+                                    <View style={{ flexDirection: "row", height: 70, paddingLeft: "35%", width: "100%", alignItems: "center", backgroundColor: "#171717" }}>
+                                        <View>
+                                            <Icon.FontAwesome name="dollar" size={25} color={THEME.PRIMARY_COLOR} />
+                                        </View>
+                                        <View style={{marginTop:5}}>
+                                            <Input
+                                                value={price}
+                                                keyboardtype="number-pad"
+                                                leftIconContainerStyle={{ paddingLeft: 10 }}
+                                                inputStyle={styles.inputStyle}
+                                                containerStyle={styles.containerStyle}
+                                                placeholderTextColor={THEME.PRIMARY_COLOR}
+                                                inputContainerStyle={styles.inputContainerStyle}
+                                                // onBlur={() => this.addPrice(item, index)}
+                                                onChangeText={(price) => this.setState({ price })} />
+                                            {
+                                                submit && !price ? <Text style={COMMON_STYLE.errorText1}>Please fill this field</Text> : null
+                                            }
+                                        </View>
+                                    </View>
+
+
+                                    {/* <View>
+                                        <TouchableOpacity onPress={() => this.setTime(index, item)} style={[styles.inputModalContainerStyle,
+                                        time != '' ? THEME.inputBorder : {}]}>
+                                            <View style={{ marginLeft: '3.5%' }}>
+                                                <Text style={styles.titleStyle}>Time</Text>
+                                                <Text style={{ fontFamily: 'Poppins-Medium' }}>{this.state.time}</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                        {
+                                            submit && !time ? <Text style={COMMON_STYLE.errorText1}>Please select time</Text> : null
+                                        }
+                                    </View> */}
+
+                                    <View style={{ flexDirection: "row", alignItems: "center", marginTop: "25%" }}>
+                                        <View style={styles.rowButtonContainer}>
+                                            <Button title="Cancel" onPress={() => {
+                                                let selectedArray = [...this.state.selectedArray];
+                                                let newServiceCounter = selectedArray[selectedArray.length - 1].serviceCounter + 1;
+                                                selectedArray[selectedArray.length - 1] = { ...selectedArray[selectedArray.length - 1], serviceCounter: newServiceCounter };
+                                                this.setState({ selectedArray });
+                                                this.setState({ showEditService: false })
+                                            }} />
+                                        </View>
+                                        <View style={styles.rowButtonContainer}>
+                                            <Button disabled={price != "" ? false : true} title="Set" onPress={() => this.addPrice({ item, index })} />
                                         </View>
                                     </View>
                                 </View>
