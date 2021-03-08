@@ -11,7 +11,7 @@ export default StyleSheet.create({
     },
     contentContainer: {
         backgroundColor: "#171717",
-        marginHorizontal: '5%'
+        paddingHorizontal: '5%'
     },
     row: {
         flex: 1,
