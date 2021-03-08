@@ -9,6 +9,7 @@ import { SearchBar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../../redux/actions/auth';
+import Search from '../../../assets/svg/search.svg'
 class AddServices extends Component {
     constructor(props) {
         super(props);
@@ -100,14 +101,14 @@ class AddServices extends Component {
                             <Text style={styles.idTextLabel}>{index + 1}.</Text>
                         </View>
                         <View>
-                            <Text style={[styles.textStyle, { color: THEME.COLOR_WHITE }]}>{item.service_name}</Text>
+                            <Text style={[styles.textStyle, { color: THEME.PRIMARY_COLOR }]}>{item.service_name}</Text>
                         </View>
                     </View>
                     <View style={styles.iconContainer}>
                         <TouchableOpacity onPress={() => this.handleSelected(item)}>
                             <Icon.MaterialCommunityIcons
-                                name={item.selected == true ? 'checkbox-marked-circle' : 'checkbox-blank-circle-outline'}
-                                color={THEME.COLOR_WHITE} size={THEME.ICON_SIZE} />
+                                name={item.selected == true ? 'radiobox-marked' : 'radiobox-blank'}
+                                color={THEME.PRIMARY_COLOR} size={THEME.ICON_SIZE} />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -207,17 +208,19 @@ class AddServices extends Component {
                             </View>
                             :
                             <>
-                                <SearchBar
-                                    placeholder='Search...'
-                                    round
-                                    onChangeText={text => this.searchFilterBarber(text)}
-                                    value={this.state.value}
-                                    autoCorrect={false}
-                                    inputStyle={{ fontSize: 14, }}
-                                    leftIconContainerStyle={{ paddingLeft: 10 }}
-                                    rightIconContainerStyle={{ paddingRight: 10 }}
-                                    containerStyle={styles.containerStyle}
-                                    inputContainerStyle={styles.inputSearchContainerStyle}
+                               <SearchBar
+                                        placeholder='Search...'
+                                        // round
+                                        placeholderTextColor={THEME.PRIMARY_COLOR}
+                                        searchIcon={() => (<Search height={20} width={20} />)}
+                                        onChangeText={text => this.searchFilterBarber(text)}
+                                        value={this.state.value}
+                                        autoCorrect={false}
+                                        inputStyle={{ fontSize: 14, }}
+                                        leftIconContainerStyle={{ paddingLeft: 10 }}
+                                        rightIconContainerStyle={{ paddingRight: 10 }}
+                                        containerStyle={styles.containerStyle}
+                                        inputContainerStyle={styles.inputSearchContainerStyle} 
                                 />
                                 <View style={styles.upperContainer}>
                                     <FlatList

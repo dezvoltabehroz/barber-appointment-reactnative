@@ -19,7 +19,7 @@ export default StyleSheet.create({
         marginHorizontal: '10%'
     },
     inputSearchContainerStyle: {
-        backgroundColor: 'white',
+        backgroundColor: '#171717',
         // height: 40,
         // elevation: 3,
         // width: '90%',
@@ -54,7 +54,7 @@ export default StyleSheet.create({
         alignItems: 'flex-end'
     },
     idTextLabel: {
-        color: THEME.COLOR_WHITE,
+        color: THEME.PRIMARY_COLOR,
         fontFamily: 'Poppins-Bold'
     },
     textStyle: {

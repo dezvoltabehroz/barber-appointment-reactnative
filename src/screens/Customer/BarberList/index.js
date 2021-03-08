@@ -245,6 +245,7 @@ class BarberList extends Component {
                                     <SearchBar
                                         placeholder='Search...'
                                         round
+                                        placeholderTextColor={THEME.PRIMARY_COLOR}
                                         onChangeText={text => this.searchFilterBarber(text)}
                                         value={this.state.value}
                                         autoCorrect={false}

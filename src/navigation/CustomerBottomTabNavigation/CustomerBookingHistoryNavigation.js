@@ -35,31 +35,34 @@ function CustomerBookingHistoryRoutes() {
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
-                headerLeft: props => (<TouchableOpacity onPress={() => navigation.goBack()} style={{ marginLeft: 10 }}><Icon.Ionicons name={Platform.OS == 'ios' ? "ios-arrow-back" : "md-arrow-back"} size={25} color="white" /></TouchableOpacity>),
+                headerLeft: props => (<TouchableOpacity onPress={() => navigation.goBack()} style={{ marginLeft: 10 }}><Icon.AntDesign name="caretleft" size={25} color="white" /></TouchableOpacity>),
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Reschedule Booking</Text></View>),
                 headerTitleAlign: 'center',
             })} />
-            <Stack.Screen name="Chat" component={CustomerChatScreen} options={{
+            <Stack.Screen name="Chat" component={CustomerChatScreen} options={({ navigation, route }) => ({
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitleAlign: 'center',
+                headerLeft: props => (<TouchableOpacity onPress={() => navigation.goBack()} style={{ marginLeft: 15 }}><Icon.AntDesign name="caretleft" size={25} color="white" /></TouchableOpacity>),
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Chat</Text></View>),
-            }} />
-             <Stack.Screen name="CustomerServices" component={CustomerServicesScreen} options={{
+            })} />
+             <Stack.Screen name="CustomerServices" component={CustomerServicesScreen} options={({ navigation, route }) => ({
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitleAlign: 'center',
+                headerLeft: props => (<TouchableOpacity onPress={() => navigation.goBack()} style={{ marginLeft: 15 }}><Icon.AntDesign name="caretleft" size={25} color="white" /></TouchableOpacity>),
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>List of Customer Services</Text></View>),
-            }} />
-            <Stack.Screen name="ServiceComplete" component={ServiceCompleteScreen} options={{
+            })} />
+            <Stack.Screen name="ServiceComplete" component={ServiceCompleteScreen} options={({ navigation, route }) => ({
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitleAlign: 'center',
+                headerLeft: props => (<TouchableOpacity onPress={() => navigation.goBack()} style={{ marginLeft: 15 }}><Icon.AntDesign name="caretleft" size={25} color="white" /></TouchableOpacity>),
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Review and Rate</Text></View>),
-            }} />
+            })} />
         </Stack.Navigator>
     )
 
