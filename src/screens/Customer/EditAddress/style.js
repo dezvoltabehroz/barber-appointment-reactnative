@@ -22,7 +22,7 @@ export default StyleSheet.create({
 
     },
     buttonContainer: {
-        marginHorizontal: '5%'
+        marginHorizontal: '2.5%'
     },
     inputContainerStyle: {
         height: 49,
@@ -39,8 +39,8 @@ export default StyleSheet.create({
         backgroundColor: THEME.COLOR_WHITE
     },
     addressContainer: {
-        backgroundColor: THEME.COLOR_WHITE,
-        borderRadius: 5,
+        backgroundColor: '#171717',
+        // borderRadius: 5,
         marginHorizontal: '5%',
         marginVertical: '5%'
     },
@@ -51,13 +51,13 @@ export default StyleSheet.create({
     imageContainer: {
         flexDirection: 'row',
         paddingVertical: "5%",
-        paddingHorizontal: '5%',
+        paddingHorizontal: '1%',
         alignItems: "center"
     },
     addressTextContainer: {
         marginLeft: '5%',
         justifyContent: 'center',
-        width: '70%'
+        width: '80%'
     },
     editContainer: {
         alignItems: 'flex-end',
@@ -66,7 +66,7 @@ export default StyleSheet.create({
     },
     addressTextStyle: {
         fontFamily: 'Poppins-Bold',
-        fontSize: 12
+        fontSize: 15
     },
     addressTextStyle1: {
         fontFamily: 'Poppins-Bold',
@@ -77,27 +77,28 @@ export default StyleSheet.create({
         color: THEME.COLOR_WHITE
     },
     labelButtonContainer: {
-        backgroundColor: THEME.COLOR_WHITE,
+        // backgroundColor: THEME.COLOR_WHITE,
         alignItems: 'center',
         justifyContent: 'center',
         height: 35,
         width: 100,
-        borderRadius: 20
+        // borderRadius: 20
     },
     labelRowContainer: {
         flexDirection: 'row',
         paddingVertical: "5%",
-        paddingHorizontal: '5%',
+        paddingHorizontal: '2.5%',
         justifyContent: 'space-evenly',
         alignItems: "center"
     },
     selectedButton: {
-        borderColor: THEME.PRIMARY_COLOR,
-        borderWidth: 1
+        backgroundColor: THEME.PRIMARY_COLOR,
+        // borderColor: THEME.PRIMARY_COLOR,
+        // borderWidth: 1
     },
     nonSelectedButton: {
-        borderColor: THEME.COLOR_GREY,
-        borderWidth: 1
+        backgroundColor: '#171717',
+        // borderWidth: 1
     },
     lineStyle: {
         borderColor: '#44495C',
@@ -119,6 +120,6 @@ export default StyleSheet.create({
         justifyContent: 'flex-end',
         marginTop: Platform.OS == 'ios' ? 0 : '3%',
         paddingBottom: '8%',
-        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
+        backgroundColor: "#171717"
     },
 })

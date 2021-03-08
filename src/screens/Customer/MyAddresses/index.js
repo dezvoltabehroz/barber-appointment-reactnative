@@ -49,7 +49,8 @@ class MyAddresses extends Component {
 
     handleOnDelete = (item) => {
         this.props.onDelete(item);
-        this.setState({ addresses: this.state.addresses.filter((obj => obj.id != item.id)), presentAlertModal: false })
+        swipeableRef[this.state.lastIndex]?.close()
+        this.setState({ lastIndex: -1, addresses: this.state.addresses.filter((obj => obj.id != item.id)), presentAlertModal: false, })
     }
 
     _renderSeparator = () => {
@@ -205,7 +206,7 @@ class MyAddresses extends Component {
                             <Text style={{ fontFamily: "Poppins-Medium", textAlign: "center", paddingTop: "5%", color: "white" }}>Are you sure you want to delete this address? This will delete the address permanently.</Text>
                         </View>
                         <View style={{ paddingTop: '5%', marginHorizontal: "10%", flexDirection: "row", justifyContent: "space-between", paddingBottom: '5%', }}>
-                            <TouchableOpacity onPress={() => { this.setState({ presentAlertModal: false }) }} style={{ width: 120, backgroundColor: THEME.PRIMARY_COLOR, height: 50, justifyContent: 'center' }}>
+                            <TouchableOpacity onPress={() => {  swipeableRef[this.state.lastIndex]?.close(); this.setState({ presentAlertModal: false }) }} style={{ width: 120, backgroundColor: THEME.PRIMARY_COLOR, height: 50, justifyContent: 'center' }}>
                                 <Text style={{ color: '#171717', textAlign: 'center', fontFamily: 'Poppins-Bold' }} >Cancel</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => this.handleOnDelete(this.state.item)} style={{ width: 120, backgroundColor: "#FF6635", height: 50, justifyContent: 'center' }}>

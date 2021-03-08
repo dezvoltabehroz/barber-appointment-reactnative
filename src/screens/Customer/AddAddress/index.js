@@ -6,6 +6,7 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import THEME from '../../../assets/styles/theme.style';
 import Config from '../../../config/config.json';
 import styles from './style';
+import LocationPin from '../../../assets/svg/location-pin.svg'
 class AddAddress extends Component {
     constructor(props) {
         super(props);
@@ -36,6 +37,7 @@ class AddAddress extends Component {
     render() {
         return (
             <View style={[styles.container, { alignItems: 'center' }]}>
+            <View style={{ flexDirection: "row", marginHorizontal: "5%" }}>
                 <GooglePlacesAutocomplete
                     placeholder='Search'
                     minLength={2} // minimum length of text to search
@@ -57,13 +59,14 @@ class AddAddress extends Component {
                     query={Config.googleMaps}
                     styles={{
                         container: { backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, },
-                        textInput: { marginHorizontal: "5%", height: 54, color: 'grey', },
+                        textInput: { marginHorizontal: "5%", height: 54, color: 'grey', backgroundColor: '#171717' },
                         textInputContainer: {
-                            width: '80%',
-                            height: 54,
+                            // width: '100%',
+                            height: 70,
                             borderBottomWidth: 0,
                             borderTopWidth: 0,
-                            backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, borderWidth: 0
+                            backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
+                            borderWidth: 0
                         },
                         description: { fontWeight: 'bold', color: THEME.COLOR_WHITE },
                         poweredContainer: { backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR }
@@ -81,7 +84,13 @@ class AddAddress extends Component {
                     }}
                     debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
                 />
+                <View style={{ justifyContent: "center", height: 70 }}>
+                    <LocationPin height={30} width={30} />
+                </View>
+
             </View>
+
+        </View>
         )
     }
 }
