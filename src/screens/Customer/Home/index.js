@@ -328,7 +328,7 @@ class Home extends Component {
                                     Fleek provider duty
                                     </Text>
                                 <Text style={styles.modalTextStyle} >
-                                    - As a safety precaution, all Fleek providers are required to:
+                                    As a safety precaution, all Fleek providers are required to:
                                     </Text>
                                 <Text style={styles.modalTextStyle}>
                                     - Wear a face covering throughout the entire appointment.
