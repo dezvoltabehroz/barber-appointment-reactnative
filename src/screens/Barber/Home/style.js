@@ -139,7 +139,7 @@ export default StyleSheet.create({
         fontSize: 14,
     },
     modalTextStyle: {
-        fontSize: 10,
+        fontSize: 7,
         textAlign: 'justify',
         fontFamily: 'Poppins-Regular',
         color:"white"

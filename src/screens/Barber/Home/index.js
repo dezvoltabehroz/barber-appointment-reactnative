@@ -243,16 +243,16 @@ class BarberHome extends Component {
                                     Fleek provider duty
                                     </Text>
                                 <Text style={styles.modalTextStyle} >
-                                    - As a safety precaution, all Fleek providers are required to:
+                                    As a safety precaution, all Fleek providers are required to:
                                     </Text>
                                 <Text style={styles.modalTextStyle}>
-                                    - "Wear a face covering throughout the entire appointment."
+                                    - Wear a face covering throughout the entire appointment.
                                     </Text>
                                 <Text style={styles.modalTextStyle}>
-                                    - "Wear rubber gloves while conducting the service."
+                                    - Wear rubber gloves while conducting the service.
                                     </Text>
                                 <Text style={styles.modalTextStyle}>
-                                    - "Maintain sanitary equipment for the health and safety of our customers"
+                                    - Maintain sanitary equipment for the health and safety of our customers
                                     </Text>
                             </ScrollView>
                         </View>
