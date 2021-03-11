@@ -36,7 +36,7 @@ class UpdateProfile extends Component {
             avatar: require('../../../assets/images/avatar.png'),
             location: '',
             date: '',
-            minDistance: 5,
+            minDistance: null,
             maxDistance: 20,
             gender: "",
             showDatePicker: false,
@@ -45,7 +45,8 @@ class UpdateProfile extends Component {
             filePath: 'https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Bearded_Man-17-512.png',
             uploading: false,
             isImageChaged: false,
-            other: false
+            other: false,
+            initialLowValue: this.props.user.userData.barber_max_distance_radius
         };
     }
 
@@ -313,6 +314,7 @@ class UpdateProfile extends Component {
                                         style={styles.sliderStyle}
                                         gravity={"top"}
                                         min={1}
+                                        initialLowValue={this.state.initialLowValue}
                                         max={20}
                                         step={1}
                                         rangeEnabled={false}
@@ -323,7 +325,10 @@ class UpdateProfile extends Component {
                                         selectionColor={THEME.PRIMARY_COLOR}
                                         blankColor={THEME.PRIMARY_BACKGROUND_COLOR}
                                         onValueChanged={(low, high, fromUser) => {
-                                            this.setState({ minDistance: low, maxDistance: high })
+                                            if (fromUser) {
+                                                this.setState({ minDistance: low, maxDistance: high })
+                                            }
+
                                         }} />
                                     <Text style={styles.distanceStyle}>{minDistance} Miles</Text>
                                 </View>
