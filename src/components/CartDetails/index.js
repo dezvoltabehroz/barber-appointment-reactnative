@@ -160,11 +160,7 @@ class CartDetail extends Component {
                     <View style={styles.marginVertical}>
                         <View style={[styles.generalMargin, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }]}>
                             <Text style={styles.colorTextStyle}>Cart Items</Text>
-                            {/* <View style={{ alignSelf: 'center' }}>
-                                <TouchableOpacity onPress={() => this.handleMultipleBooking()} style={{ backgroundColor: THEME.PRIMARY_COLOR, justifyContent: "center", alignItems: 'center', height: 45, width: screenWidth * 0.34, borderRadius: 5 }}>
-                                    <Text style={styles.textStyle}>Multi Booking</Text>
-                                </TouchableOpacity>
-                            </View> */}
+
                         </View>
                         <View style={styles.container}>
 
@@ -176,15 +172,12 @@ class CartDetail extends Component {
                             </View>
                         </View>
                         <View style={{ marginHorizontal: "5%", }}>
-                            <View style={[styles.rowContainer, { marginHorizontal: "5%", }]}>
-                                {/* <View style={styles.columnChange}>
-                                <Text style={styles.colorTextStyle}></Text>
-                            </View> */}
-                                <View style={[styles.columnChange,{alignItems:"flex-start"}]}>
+                            <View style={styles.rowContainer}>
+                                <View style={styles.columnChange}>
                                     <Text style={[styles.textStyle, { fontFamily: "Poppins-Bold" }]}>Total</Text>
                                 </View>
                                 <View style={styles.columnChange}>
-                                    <Text style={styles.colorTextStyle}>
+                                    <Text style={styles.textStyle}>
                                         {timeInHour[0] == 0 && timeInHour[1] == 0 ? "" : timeInHour[0] + timeInHour[1]}
                                         {
                                             timeInHour[0] == 0 && timeInHour[1] == 0 ?
@@ -198,14 +191,14 @@ class CartDetail extends Component {
                                                 null
                                                 :
                                                 <Text style={styles.textStyles}> Minutes</Text>
-                                        }</Text>
+                                        }
+                                    </Text>
                                 </View>
-                                <View style={[styles.columnChange, { flex: 0.2 }]}>
-                                    <Text style={styles.colorTextStyle}>${totalPrice}</Text>
+                                <View style={styles.columnChange}>
+                                    <Text style={[styles.textStyle, { marginLeft: "8%" }]}>${totalPrice}</Text>
                                 </View>
                             </View>
                         </View>
-
                     </View>
                 </ScrollView>
             </>

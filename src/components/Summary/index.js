@@ -49,7 +49,7 @@ class Summary extends Component {
             <>
                 {/* <View style={styles.lineStyle}></View> */}
                 <View style={styles.rowContainer}>
-                    <View style={[styles.columnChange,{alignItems:"flex-start"}]}>
+                    <View style={[styles.columnChange, { alignItems: "flex-start" }]}>
                         <Text style={styles.textStyle}>{item.service_name} {item.quantity == '1' ? '' : `(${item.quantity})`}</Text>
                     </View>
                     <View style={styles.column} >
@@ -162,8 +162,9 @@ class Summary extends Component {
                                             <Text style={styles.textStyle}>{barberName}</Text>
                                         </View>
                                     </View>
-                                    <View style={styles.rowContainer}>
+                                    <View style={[styles.rowContainer, { justifyContent: "flex-start" }]}>
                                         <Text style={styles.colorTextStyle}>Age: </Text>
+                                        <View style={{ width: 25}}></View>
                                         <View style={styles.textFlex}>
                                             <Text style={styles.textStyle}>{barberAge}</Text>
                                         </View>

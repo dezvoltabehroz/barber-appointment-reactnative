@@ -45,6 +45,10 @@ class PersonalInfo extends Component {
                     })
                     this.setState({ drivingLicense: drivingLicenseArr, passportImage: passportArr, loading: false, selectActions: false, selectedArray: [] })
                 }
+                else {
+                    Alert.alert(res.data.message);
+                    this.setState({ loading: false, })
+                }
             })
             .catch((err) => {
                 console.log(err)
