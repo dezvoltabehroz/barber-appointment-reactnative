@@ -1,6 +1,7 @@
 
 import axiosInstance from './Interceptor';
 import axios from 'axios';
+import { BASE_URL } from '../enviroments/index'
 let configToken = (token) => {
     return {
         headers: {
@@ -62,9 +63,10 @@ const Api = {
                 'Accept': 'application/json',
             }
         };
-        return axios.post('http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/barber/uploadBarberPic', formData, config)
+        return axios.post(`${BASE_URL}barber/uploadBarberPic`, formData, config)
     },
     updateBarberPersonalInfo: function (userData) {
+        console.log(userData.max_distance_radius)
         let formData = new FormData();
         formData.append('full_name', userData.name);
         formData.append('max_distance_radius', userData.max_distance_radius);
@@ -80,7 +82,7 @@ const Api = {
                 'Accept': 'application/json',
             }
         };
-        return axios.post('http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/barber/updatePersonalInfo', formData, config)
+        return axios.post(`${BASE_URL}barber/updatePersonalInfo`, formData, config)
     },
     uploadBarberPortfolio: function (userData) {
         let formData = new FormData();
@@ -99,7 +101,7 @@ const Api = {
                 'Accept': 'application/json',
             }
         };
-        return axios.post('http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/barber/uploadPortfolio', formData, config)
+        return axios.post(`${BASE_URL}barber/uploadPortfolio`, formData, config)
 
     },
     uploadBarberCertificates: function (userData) {
@@ -119,7 +121,7 @@ const Api = {
                 'Accept': 'application/json',
             }
         };
-        return axios.post('http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/barber/uploadCertificates', formData, config)
+        return axios.post(`${BASE_URL}barber/uploadCertificates`, formData, config)
 
     },
     uploadBarberResumes: function (userData) {
@@ -139,7 +141,7 @@ const Api = {
                 'Accept': 'application/json',
             }
         };
-        return axios.post('http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/barber/uploadResume', formData, config)
+        return axios.post(`${BASE_URL}barber/uploadResume`, formData, config)
 
     },
     uploadBarberDrivingLicence: function (userData) {
@@ -159,7 +161,7 @@ const Api = {
                 'Accept': 'application/json',
             }
         };
-        return axios.post('http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/barber/uploadDrivingLicense', formData, config)
+        return axios.post(`${BASE_URL}barber/uploadDrivingLicense`, formData, config)
 
     },
     uploadBarberPassport: function (userData) {
@@ -179,7 +181,7 @@ const Api = {
                 'Accept': 'application/json',
             }
         };
-        return axios.post('http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/barber/uploadPassport', formData, config)
+        return axios.post(`${BASE_URL}barber/uploadPassport`, formData, config)
 
     },
     getBarberAllPortfolio: function (userData) {

@@ -1,6 +1,7 @@
 import axiosInstance from './Interceptor';
 import axios from 'axios';
 import { Platform } from 'react-native';
+import { BASE_URL } from '../enviroments/index'
 let config = { headers: { 'Content-Type': 'application/json' } };
 let configToken = (token) => {
     return {
@@ -45,7 +46,7 @@ const Api = {
                 'Accept': 'application/json',
             }
         };
-        return axios.post("http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/registration/updatePersonalInfo", formData, config);
+        return axios.post(`${BASE_URL}registration/updatePersonalInfo`, formData, config);
     },
     updateProfileInfo: function (userData) {
         return axiosInstance.post('registration/updateProfileInfo', {
@@ -73,7 +74,7 @@ const Api = {
                 'Accept': 'application/json',
             }
         };
-        return axios.post("http://ec2-18-204-20-183.compute-1.amazonaws.com:3000/api/registration/updateProfilePic", formData, config);
+        return axios.post(`${BASE_URL}registration/updateProfilePic`, formData, config);
     },
 
     updateEmailAndPassword: function (userData) {

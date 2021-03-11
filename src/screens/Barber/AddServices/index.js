@@ -7,7 +7,7 @@ import COMMON_STYLE from '../../../assets/styles/common.style';
 import { Barbers, Categories } from '../../../services';
 import { SearchBar } from 'react-native-elements';
 import { connect } from 'react-redux';
-
+import Search from '../../../assets/svg/search.svg'
 class AddServices extends Component {
     constructor(props) {
         super(props);
