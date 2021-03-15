@@ -21,3 +21,6 @@ export const Notifications = _Notifications;
 
 import _Scheduler from './scheduler';
 export const SchedulerServices = _Scheduler;
+
+import _Wallet from './wallet';
+export const WalletServices = _Wallet;

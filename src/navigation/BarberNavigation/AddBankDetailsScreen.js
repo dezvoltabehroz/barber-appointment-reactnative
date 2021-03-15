@@ -9,7 +9,7 @@ export default class AddBankDetailsScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation;
         return (
-            <MainScreenPaths.Barber.AddBankDetails />
+            <MainScreenPaths.Barber.AddBankDetails goBack={()=>{goBack();goBack();}} />
         )
     }
 }

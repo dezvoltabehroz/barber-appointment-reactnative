@@ -8,6 +8,12 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        paddingTop: Platform.OS == 'ios' && screenHeight >= 812 ? '20%' : Platform.OS == 'ios' ? '13%' : '10%'
+        paddingTop: Platform.OS == 'ios' ? screenHeight >= 812 ? '25%' : '18%' : '18%'
     },
+    generalMarginTop: {
+        marginTop: "5%"
+    },
+    generalMarginHorizontal: {
+        marginHorizontal: "5%",
+    }
 })
