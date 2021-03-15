@@ -9,7 +9,9 @@ export default class BarberEditWalletScreen extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation;
         return (
-            <MainScreenPaths.Barber.BarberEditWallet />
+            <MainScreenPaths.Barber.BarberEditWallet
+                onBank={() => navigate("AddBankDetails")}
+                onPayment={() => navigate("AddPaymentDetails")} />
         )
     }
 }
