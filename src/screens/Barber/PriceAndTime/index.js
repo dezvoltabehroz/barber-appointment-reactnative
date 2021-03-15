@@ -72,6 +72,7 @@ class PriceAndTime extends Component {
         // });
 
     }
+    
     componentWillUnmount = () => {
         let data = []
         this.setState({ selectedArray: data })

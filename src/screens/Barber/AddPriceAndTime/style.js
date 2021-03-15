@@ -12,14 +12,14 @@ export default StyleSheet.create({
     },
     upperContainer: {
         flex: 0.8,
-        marginHorizontal: '10%'
+        // marginHorizontal: '10%'
     },
     row: {
         flexDirection: 'row',
         justifyContent: "space-between"
     },
     nameContainer: {
-        flex: 0.6,
+        flex: 0.5,
         flexDirection: 'column',
         justifyContent: 'center'
     },
@@ -29,13 +29,17 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     timeContainer: {
-        flex: 0.25,
+        flex: 0.35,
         width: screenWidth * 0.2,
         flexDirection: 'column',
         justifyContent: 'center',
     },
     headingContainer: {
         flexDirection: 'row',
+        height: 54,
+        marginBottom: "5%",
+        paddingHorizontal: '5%',
+        backgroundColor: "#171717"
     },
     idTextLabel: {
         color: THEME.COLOR_WHITE,
@@ -43,10 +47,34 @@ export default StyleSheet.create({
     },
     inputContainer: {
         flexDirection: 'row',
+        // alignSelf: 'flex-end',
+
         justifyContent: 'space-between'
     },
+    containerStyle: {
+        height: 50,
+        marginBottom: 20
+    },
+    inputContainerStyle: {
+        height: 50,
+        backgroundColor: '#171717',
+        width: 60,
+        alignItems: "center",
+        borderBottomWidth: 2,
+        borderBottomColor: THEME.PRIMARY_COLOR,
+        // borderRadius: 5,
+    },
+    inputStyle: {
+        flex: 1,
+        textAlign: 'center',
+        marginLeft: "5%",
+        marginBottom: -20,
+        fontSize: THEME.FONT_SIZE_LARGE,
+        fontFamily: 'Poppins-Regular',
+        color: THEME.PRIMARY_COLOR,
+    },
     textStyle: {
-        color: THEME.COLOR_WHITE,
+        color: THEME.PRIMARY_COLOR,
         fontFamily: 'Poppins-Medium',
         fontSize: 11,
     },
@@ -57,10 +85,10 @@ export default StyleSheet.create({
         fontSize: THEME.FONT_SIZE_SMALL,
     },
     timeTextStyle: {
-        color: THEME.COLOR_WHITE,
+        color: THEME.PRIMARY_COLOR,
         textAlign: 'center',
         fontFamily: 'Poppins-Regular',
-        fontSize: THEME.FONT_SIZE_SMALL,
+        fontSize: THEME.FONT_SIZE_MEDIUM,
     },
     headingTextStyle: {
         color: THEME.COLOR_WHITE,
@@ -68,25 +96,30 @@ export default StyleSheet.create({
         fontSize: THEME.FONT_SIZE_SMALL,
     },
     headingTextStyle1: {
-        color: THEME.COLOR_WHITE,
+        fontSize: 16,
+        color: THEME.PRIMARY_COLOR,
         // textAlign: 'center',
         fontFamily: 'Poppins-Bold',
         fontSize: THEME.FONT_SIZE_SMALL,
     },
     headingTextStyle2: {
-        color: THEME.COLOR_WHITE,
+        color: THEME.PRIMARY_COLOR,
         textAlign: 'center',
         fontFamily: 'Poppins-Bold',
-        fontSize: 9,
+        fontSize: 12,
+    },
+    // inputContainerStyle: {
+    //     height: 54,
+    //     width: screenWidth * 0.45,
+    //     borderRadius: 5,
+    //     backgroundColor: THEME.COLOR_WHITE,
+    // },
+    viewPlaceHolder: {
+        height: 54,
+        width: screenWidth * 0.45,
     },
     viewDatePlaceHolder: {
         width: screenWidth * 0.05,
-    },
-    inputContainerStyle: {
-        height: 54,
-        width: screenWidth * 0.45,
-        borderRadius: 5,
-        backgroundColor: THEME.COLOR_WHITE
     },
     inputDateContainerStyle: {
         justifyContent: "center",
@@ -118,7 +151,7 @@ export default StyleSheet.create({
         fontFamily: 'Poppins-Regular'
     },
     seperatorStyle: {
-        height: 15,
+        height: 5,
     },
     addServiceContainer: {
         justifyContent: 'flex-end',
@@ -155,5 +188,11 @@ export default StyleSheet.create({
         borderRadius: 10,
         alignItems: "center",
     },
+    contentContainer: {
+        paddingHorizontal: "5%",
+        height: 54,
+        justifyContent: "center",
+        backgroundColor: "#171717"
+    }
 
 })
