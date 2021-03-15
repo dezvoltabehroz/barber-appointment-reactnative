@@ -60,7 +60,7 @@ class BarberEditProfile extends Component {
                                 () => this.props.onCertificate()
                                 : item.name == 'Wallet' ?
                                     () => {
-                                        //  this.props.onManageSchedule()
+                                         this.props.onEditWallet()
                                     }
                                     : null} />
         )

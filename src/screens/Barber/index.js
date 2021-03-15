@@ -35,6 +35,9 @@ import _AddLeave from './AddLeave';
 import ManageScheduler from './ManageScheduler';
 import ManageSchedulerDetails from './ManageSchedulerDetails';
 import _ManageEditScheduler from './ManageEditScheduler';
+import _BarberEditWallet from './EditWallet';
+import _AddBankDetails from './AddBankDetails';
+import _AddPaymentDetails from './AddPaymentDetails';
 export const BarberScreenPaths = {
     BarberPhoneNumber: _BarberPhoneNumber,
     BarberPhoneVerification: _BarberPhoneVerification,
@@ -72,5 +75,8 @@ export const BarberScreenPaths = {
     BarberAddLeave: _AddLeave,
     BarberManageScheduler: ManageScheduler,
     BarberManageSchedulerDetails: ManageSchedulerDetails,
-    BarberManageEditScheduler: _ManageEditScheduler
+    BarberManageEditScheduler: _ManageEditScheduler,
+    BarberEditWallet: _BarberEditWallet,
+    AddBankDetails: _AddBankDetails,
+    AddPaymentDetails: _AddPaymentDetails
 }

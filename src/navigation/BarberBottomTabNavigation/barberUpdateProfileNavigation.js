@@ -17,6 +17,9 @@ import BaberManageScheduleScreen from '../BarberNavigation/BarberManageScheduleS
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import { Icon } from '../../components';
+import BarberEditWalletScreen from '../BarberNavigation/BarberEditWalletScreen';
+import AddPaymentDetailsScreen from '../BarberNavigation/AddPaymentDetailsScreen';
+import AddBankDetailsScreen from '../BarberNavigation/AddBankDetailsScreen';
 const Stack = createStackNavigator();
 
 
@@ -114,6 +117,27 @@ function BarberProfileRoutes() {
                 headerTransparent: true,
                 headerTitleAlign: 'center',
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Price and Duration</Text></View>),
+            }} />
+              <Stack.Screen name="EditWallet" component={BarberEditWalletScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitleAlign: 'center',
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Edit Wallet</Text></View>),
+            }} />
+             <Stack.Screen name="AddBankDetails" component={AddBankDetailsScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitleAlign: 'center',
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Add Bank Details</Text></View>),
+            }} />
+             <Stack.Screen name="AddPaymentDetails" component={AddPaymentDetailsScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitleAlign: 'center',
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Add Payment Details</Text></View>),
             }} />
         </Stack.Navigator>
     )
