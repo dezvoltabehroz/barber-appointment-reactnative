@@ -38,8 +38,15 @@ const Api = {
         }, configToken(userData.token))
     },
     getBalance: function (userData) {
-        return axiosInstance.post('wallet/barberBalance',{
+        return axiosInstance.post('wallet/barberBalance', {
             id: userData.id
+        }, configToken(userData.token))
+    },
+    barberWithDrawRequest: function (userData) {
+        return axiosInstance.post('wallet/barberWithDrawRequest', {
+            id: userData.id,
+            amount: userData.amount,
+            type: userData.type
         }, configToken(userData.token))
     }
 

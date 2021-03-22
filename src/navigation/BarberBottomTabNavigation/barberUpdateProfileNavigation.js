@@ -118,21 +118,21 @@ function BarberProfileRoutes() {
                 headerTitleAlign: 'center',
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Price and Duration</Text></View>),
             }} />
-              <Stack.Screen name="EditWallet" component={BarberEditWalletScreen} options={{
+            <Stack.Screen name="EditWallet" component={BarberEditWalletScreen} options={({ navigation, route }) => ({
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitleAlign: 'center',
-                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Edit Wallet</Text></View>),
-            }} />
-             <Stack.Screen name="AddBankDetails" component={AddBankDetailsScreen} options={{
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>{route.params.title}</Text></View>),
+            })} />
+            <Stack.Screen name="AddBankDetails" component={AddBankDetailsScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitleAlign: 'center',
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Add Bank Details</Text></View>),
             }} />
-             <Stack.Screen name="AddPaymentDetails" component={AddPaymentDetailsScreen} options={{
+            <Stack.Screen name="AddPaymentDetails" component={AddPaymentDetailsScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,

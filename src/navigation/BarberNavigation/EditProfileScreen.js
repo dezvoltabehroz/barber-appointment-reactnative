@@ -31,7 +31,7 @@ class EditProfileScreen extends Component {
                 onProfile={() => navigate('UpdateProfile')}
                 onManageSchedule={() => navigate('ManageSchedule')}
                 onExit={this.handleLogout}
-                onEditWallet={() => navigate("EditWallet")}
+                onEditWallet={() => navigate("EditWallet", { title: "Edit Wallet" })}
                 onAccept={(data) => this.on_Press_Accept(data)} />
         )
     }
