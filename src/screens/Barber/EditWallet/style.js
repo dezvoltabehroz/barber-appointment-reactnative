@@ -26,7 +26,6 @@ export default StyleSheet.create({
     },
     rowStyle: {
         height: 54,
-        marginTop: "5%",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",

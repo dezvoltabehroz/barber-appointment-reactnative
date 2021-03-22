@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Dimensions } from 'react-native';
-import { Icon } from '../../../components';
+import { Button, Icon, Input } from '../../../components';
 import styles from './style'
 import Add from '../../../assets/svg/add-button.svg'
+import Edit from '../../../assets/svg/edit 1.svg'
 import THEME from '../../../assets/styles/theme.style';
 import { TouchableOpacity } from 'react-native';
 import { WalletServices } from '../../../services';
@@ -18,10 +19,12 @@ class EditWallet extends Component {
             monthly: "",
             yearly: "",
             balance: "",
-            bankDetail: true,
+            bankDetail: false,
             paymentDetails: false,
             bankName: "",
-            paymentAddress: ""
+            paymentAddress: "",
+            withdrawalRequest: false,
+            amount: null
         }
     }
 
@@ -37,6 +40,7 @@ class EditWallet extends Component {
                     WalletServices.getBalance(userData)
                         .then((res) => {
                             if (res.data.status) {
+                                console.log(response.data)
                                 this.setState({
                                     monthly: res.data.data.monthly,
                                     yearly: res.data.data.yearly,
@@ -54,7 +58,7 @@ class EditWallet extends Component {
     }
 
     render() {
-        const { bankDetail, paymentDetails, bankName, loading, paymentAddress, monthly, yearly, balance } = this.state;
+        const { bankDetail, paymentDetails, bankName, loading, paymentAddress, amount, monthly, yearly, balance, withdrawalRequest } = this.state;
         const { onBank, onPayment } = this.props;
         return (
             <View style={styles.container}>
@@ -65,34 +69,88 @@ class EditWallet extends Component {
                         </View>
                         :
                         <>
-                            <View style={styles.rowStyle}>
-                                <View style={styles.rowContainer}>
-                                    <Text style={[styles.textStyle, { width: screenWidth * 0.65 }]}>{bankName != "" ? bankName : "Add your bank account"}</Text>
-                                    <TouchableOpacity disabled={!bankDetail} onPress={() => onBank()}>
-                                        <Add height={20} width={20} />
-                                    </TouchableOpacity>
-                                </View>
-                                <TouchableOpacity onPress={() => this.setState({ bankDetail: true, paymentDetails: false })} style={{ justifyContent: "center" }}>
-                                    <Icon.MaterialIcons size={25} name={bankDetail ? "radio-button-checked" : "radio-button-unchecked"} color={THEME.PRIMARY_COLOR} />
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.rowStyle}>
-                                <View style={styles.rowContainer}>
-                                    <Text style={[styles.textStyle, { width: screenWidth * 0.65 }]}>{paymentAddress != "" ? paymentAddress : "Add payment address (physical check)"}</Text>
-                                    <TouchableOpacity disabled={!paymentDetails} onPress={() => onPayment()}>
-                                        <Add height={20} width={20} />
-                                    </TouchableOpacity>
-                                </View>
-                                <TouchableOpacity onPress={() => this.setState({ bankDetail: false, paymentDetails: true })} style={{ justifyContent: "center" }}>
-                                    <Icon.MaterialIcons size={25} name={paymentDetails ? "radio-button-checked" : "radio-button-unchecked"} color={THEME.PRIMARY_COLOR} />
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{ marginTop: "5%", marginHorizontal: "10%" }}>
-                                <Text style={styles.whiteText}>Earnings this month: {monthly}.00 USD</Text>
-                                <Text style={styles.whiteText}>Balance: {balance}.00 USD</Text>
-                                <Text style={styles.whiteText}>Earning this year: {yearly}.00 USD</Text>
-                                <Text style={styles.colorText}>{`Important Note:\nAdd your bank account details if you want payment to be sent in bank account or fill the payment address that will be used to mail the check.\nThe balance always will be transferred every monday.`}</Text>
-                            </View>
+                            {
+                                withdrawalRequest ?
+                                    <>
+                                        <View style={{ marginTop: "5%", marginHorizontal: "5%" }}>
+                                            <Text style={styles.whiteText}>Payment Method: {bankDetail ? "Bank Transfer" : "Mail Check"}</Text>
+                                        </View>
+                                        <View style={styles.rowStyle}>
+                                            <View style={[styles.rowContainer, { width: '100%' }]}>
+                                                <Text style={styles.textStyle}>{bankDetail ? bankName : paymentDetails ? paymentAddress : ""}</Text>
+                                            </View>
+                                        </View>
+                                        <View style={{ marginTop: "5%", }}>
+                                            <View style={{ marginHorizontal: "5%" }}>
+                                                <Text style={styles.whiteText}>Balance: {balance - amount}.00 USD</Text>
+                                            </View>
+                                            <View style={{ marginHorizontal: "2.5%" }}>
+                                                <Input placeholder="Enter Amount" value={amount} keyboardType={"number-pad"} onChangeText={(amount) => this.setState({ amount })} />
+                                            </View>
+                                            <View style={{ marginHorizontal: "5%" }}><Text style={{ fontSize: 8, color: "#ffffff" }}>Amount should be equal to or less than the balance</Text></View>
+                                        </View>
+                                        <View style={{ marginTop: "10%", justifyContent: "center", marginHorizontal: "10%" }}>
+                                            <Button disabled={!paymentDetails && !bankDetail || !paymentDetails && !bankDetail} title="Confirm" onPress={() => this.setState({ withdrawalRequest: true })} />
+                                        </View>
+                                    </>
+                                    :
+                                    <>
+                                        <View style={{ marginTop: "5%", marginHorizontal: "5%" }}>
+                                            <Text style={styles.whiteText}>Bank Account Details:</Text>
+                                        </View>
+                                        <View style={styles.rowStyle}>
+                                            <View style={[styles.rowContainer, { backgroundColor: bankDetail == false && paymentDetails == true ? "#A8A8A8" : "#171717" }]}>
+                                                <Text style={[paymentDetails == true && bankDetail == false ? styles.whiteText : styles.textStyle, { width: screenWidth * 0.65 }]}>{bankName != "" ? bankName : "Add your bank account"}</Text>
+                                                {paymentDetails == true && bankDetail == false ?
+                                                    <View style={{ width: 20 }}></View>
+                                                    :
+                                                    <TouchableOpacity onPress={() => onBank()}>
+                                                        {
+
+                                                            bankName != "" ?
+                                                                <Edit height={20} width={20} />
+                                                                :
+                                                                <Add height={20} width={20} />
+
+                                                        }
+                                                    </TouchableOpacity>}
+                                            </View>
+                                            <TouchableOpacity onPress={() => this.setState({ bankDetail: true, paymentDetails: false })} style={{ justifyContent: "center" }}>
+                                                <Icon.MaterialIcons size={25} name={bankDetail ? "radio-button-checked" : "radio-button-unchecked"} color={THEME.PRIMARY_COLOR} />
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={{ marginTop: "5%", marginHorizontal: "5%" }}>
+                                            <Text style={styles.whiteText}>Address for Check Delivery:</Text>
+                                        </View>
+                                        <View style={styles.rowStyle}>
+                                            <View style={[styles.rowContainer, { backgroundColor: paymentDetails == false && bankDetail == true ? "#A8A8A8" : "#171717" }]}>
+                                                <Text style={[paymentDetails == false && bankDetail == true ? styles.whiteText : styles.textStyle, { width: screenWidth * 0.65 }]}>{paymentAddress != "" ? paymentAddress : "Add payment address (physical check)"}</Text>
+                                                {paymentDetails == false && bankDetail == true ?
+                                                    <View style={{ width: 20 }}></View>
+                                                    :
+                                                    <TouchableOpacity onPress={() => onPayment()}>
+                                                        {
+                                                            paymentAddress != "" ?
+                                                                <Edit height={20} width={20} />
+                                                                :
+                                                                <Add height={20} width={20} />
+                                                        }
+                                                    </TouchableOpacity>}
+                                            </View>
+                                            <TouchableOpacity onPress={() => this.setState({ bankDetail: false, paymentDetails: true })} style={{ justifyContent: "center" }}>
+                                                <Icon.MaterialIcons size={25} name={paymentDetails ? "radio-button-checked" : "radio-button-unchecked"} color={THEME.PRIMARY_COLOR} />
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={{ marginTop: "5%", marginHorizontal: "7.5%" }}>
+                                            <Text style={styles.whiteText}>Earnings this month: {monthly}.00 USD</Text>
+                                            <Text style={styles.whiteText}>Balance: {balance}.00 USD</Text>
+                                            <Text style={styles.whiteText}>Earning this year: {yearly}.00 USD</Text>
+                                            <Text style={styles.colorText}>{`Important Note:\nAdd your bank account details if you want payment to be sent in bank account or fill the payment address that will be used to mail the check.\nThe balance always will be transferred every monday.`}</Text>
+                                        </View>
+                                        <View style={{ marginTop: "10%", justifyContent: "center", marginHorizontal: "10%" }}>
+                                            <Button disabled={!paymentDetails && !bankDetail && bankName != "" || !paymentDetails && !bankDetail && paymentAddress != ""} title="Withdrawal Request" onPress={() => this.setState({ withdrawalRequest: true })} />
+                                        </View>
+                                    </>}
                         </>
                 }
             </View>
