@@ -25,6 +25,7 @@ export default class BarberEditWalletScreen extends Component {
         // console.log(this.props.navigation)
         return (
             <MainScreenPaths.Barber.BarberEditWallet
+                navigation={this.props.navigation}
                 onWithdrawalRequest={(data) => this.props.navigation.setParams({ title: data })}
                 onBank={() => navigate("AddBankDetails")}
                 onPayment={() => navigate("AddPaymentDetails")}

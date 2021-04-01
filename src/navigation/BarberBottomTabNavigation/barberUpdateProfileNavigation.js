@@ -130,6 +130,7 @@ function BarberProfileRoutes() {
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitleAlign: 'center',
+                unmountOnBlur:true,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Add Bank Details</Text></View>),
             }} />
             <Stack.Screen name="AddPaymentDetails" component={AddPaymentDetailsScreen} options={{

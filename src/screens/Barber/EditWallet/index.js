@@ -30,6 +30,12 @@ class EditWallet extends Component {
     }
 
     componentDidMount = () => {
+        this.focusListener = this.props.navigation.addListener('focus', () => {
+            this.getDetails();
+        })
+    }
+
+    getDetails=()=>{
         this.setState({ loading: true })
         let userData = {
             id: this.props.user.userData.id,
@@ -150,7 +156,7 @@ class EditWallet extends Component {
                                                 <Text style={styles.colorText}>{`Important Note:\nAdd your bank account details if you want payment to be sent in bank account or fill the payment address that will be used to mail the check.\nThe balance always will be transferred every monday.`}</Text>
                                             </View>
                                             <View style={{ marginTop: "10%", justifyContent: "center", marginHorizontal: "10%" }}>
-                                                <Button disabled={!paymentDetails && !bankDetail && bankName != "" || !paymentDetails && !bankDetail && paymentAddress != ""} title="Withdrawal Request" onPress={() => { this.props.onWithdrawalRequest("Withdrawal Request"); this.setState({ withdrawalRequest: true }) }} />
+                                                <Button disabled={(paymentDetails == true && paymentAddress != "") ? false : (bankDetail == true && bankName != "") ? false : true} title="Withdrawal Request" onPress={() => { this.props.onWithdrawalRequest("Withdrawal Request"); this.setState({ withdrawalRequest: true }) }} />
                                             </View>
                                         </>}
                             </>
