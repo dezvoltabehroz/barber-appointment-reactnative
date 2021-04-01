@@ -245,7 +245,7 @@ class ServiceDetails extends Component {
                                 history ?
                                     null
                                     :
-                                    <FooterButton disabled={stepCounter == 6 ? false : true} title={'Rate'} onPress={() => onPayment(totalPrice,customerId)} />
+                                    <FooterButton disabled={stepCounter == 6 ? false : true} title={'Done'} onPress={() => onPayment(totalPrice,customerId)} />
                             }
 
                         </View>

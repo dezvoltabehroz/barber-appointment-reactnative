@@ -9,7 +9,7 @@ export default class ServiceDetailsScreen extends Component {
     })
 
     render() {
-        const { navigate } = this.props.navigation;
+        const { navigate, replace } = this.props.navigation;
         const { bookingId, customerId, history, cancelled, notification } = this.props.route.params;
         return (
             <MainScreenPaths.Barber.ServiceDetails
@@ -17,7 +17,9 @@ export default class ServiceDetailsScreen extends Component {
                 history={history}
                 notification={notification ? notification : false}
                 bookingId={bookingId}
-                onPayment={(totalPrice, customerId) => navigate('BarberServiceComplete', { customerId: customerId, totalPrice: totalPrice, bookingId })} />
+                onPayment={(totalPrice, customerId) => replace('BarberBookingHistory')}
+            //  navigate('BarberServiceComplete', { customerId: customerId, totalPrice: totalPrice, bookingId })
+            />
         )
     }
 }
