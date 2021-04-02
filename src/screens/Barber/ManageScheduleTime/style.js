@@ -12,11 +12,12 @@ export default StyleSheet.create({
     },
     upperContainer: {
         flex: 0.8,
-        marginHorizontal: '10%'
+        // marginHorizontal: '10%'
     },
     dayContainer: {
-        flex: 0.4,
-        flexDirection: 'column'
+        flex: 0.5,
+        flexDirection: 'column',
+        justifyContent: 'center'
 
     },
     priceAndTimeContainer: {
@@ -30,15 +31,21 @@ export default StyleSheet.create({
     startTimeContainer: {
         flex: 0.25,
         flexDirection: 'column',
+        justifyContent: 'center',
         alignItems: 'center'
     },
     endTimeContainer: {
         flex: 0.25,
         flexDirection: 'column',
+        justifyContent: 'center',
         alignItems: 'center'
     },
     headingContainer: {
         flexDirection: 'row',
+        height: 54,
+        marginBottom: "5%",
+        paddingHorizontal: '5%',
+        backgroundColor: "#171717"
     },
 
     inputContainer: {
@@ -133,13 +140,13 @@ export default StyleSheet.create({
         borderRadius: 10,
         alignItems: "center",
     },
-    headingContainer: {
-        flexDirection: 'row',
-        marginBottom: '5%'
-    },
     rowButtonContainer: {
         width: '46%',
         paddingHorizontal: '6%'
+    },
+    row: {
+        flexDirection: 'row',
+        justifyContent: "space-between"
     },
     lineStyle: {
         borderColor: '#44495C',
@@ -167,5 +174,11 @@ export default StyleSheet.create({
         justifyContent: 'flex-end',
         paddingBottom: '8%',
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
+    },
+    contentContainer: {
+        paddingHorizontal: "5%",
+        height: 54,
+        justifyContent: "center",
+        backgroundColor: "#171717"
     }
 })

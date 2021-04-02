@@ -11,6 +11,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../../redux/actions/auth';
 import moment from 'moment';
+import Trash from '../../../assets/svg/deleteblack.svg'
+import TrashColor from '../../../assets/svg/deletecolor.svg'
+import Edit from '../../../assets/svg/editBlack.svg'
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import Space from '../../../assets/svg/_.svg';
+import ModalS from 'react-native-modal';
+var swipeableRef = {}
+
 class ManageScheduleTime extends Component {
 
     constructor(props) {
@@ -26,7 +34,9 @@ class ManageScheduleTime extends Component {
             buttonLoading: false,
             startTime: '',
             endTime: '',
-            showEditService: false
+            showEditService: false,
+            lastIndex: -1,
+            presentAlertModal: false
         }
     }
 
@@ -90,6 +100,7 @@ class ManageScheduleTime extends Component {
             let items = [...this.state.selectedDays];
             items[objIndex] = { ...items[objIndex], startTime: this.state.startTime, endTime: this.state.endTime };
             this.setState({ showTimePicker: false, selectedDays: items, indexValue: null, showEditService: false });
+            swipeableRef[this.state.lastIndex]?.close()
             this.is_filled_check(items, objIndex)
         }
         else {
@@ -131,7 +142,8 @@ class ManageScheduleTime extends Component {
         let selectedDays = [...this.state.selectedDays];
         let newDayCounter = selectedDays[selectedDays.length - 1].dayCounter - 1;
         selectedDays[selectedDays.length - 1] = { ...selectedDays[selectedDays.length - 1], dayCounter: newDayCounter };
-        this.setState({ selectedDays: selectedDays.filter((obj => obj.id != itemData.id)), loading: false })
+        this.setState({ selectedDays: selectedDays.filter((obj => obj.id != itemData.id)), loading: false, presentAlertModal: false })
+        swipeableRef[this.state.lastIndex]?.close()
     }
 
     on_Press_Edit = (item, index) => {
@@ -150,43 +162,87 @@ class ManageScheduleTime extends Component {
         return str.slice(0, num)
     }
 
+    renderLeftActions = (progress, dragX, item) => {
+        // console.log("item:", item)
+        return (
+            <View style={{ flexDirection: 'row', backgroundColor: THEME.PRIMARY_COLOR }}>
+                <TouchableOpacity
+                    onPress={() => this.on_Press_Edit(item, this.state.index)}
+                    style={{
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        paddingRight: 10
+                    }}>
+
+                    <Edit height={50} width={50} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {
+                        this.setState({ presentAlertModal: true, item: item })
+                    }}
+                    style={{
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        paddingRight: 10
+                    }}>
+                    <Trash height={40} width={40} />
+                </TouchableOpacity>
+            </View>
+        );
+    };
+
     _renderItems = ({ item, index }) => {
         const { selectedDays, submit } = this.state;
         let date = moment().format('YYYY-MM-DD');
         let startTime = item.startTime != undefined ? item.startTime != '' ? moment(`${date} ${item.startTime}`).format('hh:mm A') : "" : ""
 
         return (
-            <View style={styles.contentContainer}>
-                <View style={styles.headingContainer}>
-                    {
-                        item.date != undefined && item.day != undefined ?
-                            <View style={styles.dayContainer}>
-                                <Text style={styles.textStyle}>{item.date} {this.truncateString(`${item.day}`, 3)}</Text>
-                            </View>
-                            :
-                            null
-                    }
-                    <View style={styles.startTimeContainer} >
-                        {
-                            item.startTime != '' ?
-                                <View style={styles.startTimeContainer}>
-                                    <Text style={styles.textStyle}>{item.startTime != undefined ? item.startTime != '' ? startTime : '' : ''}</Text>
+            <>
+                {
+                    item.id ?
+                        <View style={styles.contentContainer}>
+                            <View style={styles.row}>
+                                {
+                                    item.date != undefined && item.day != undefined ?
+                                        <View style={styles.dayContainer}>
+                                            <Text style={styles.textStyle}>{item.date} {this.truncateString(`${item.day}`, 3)}</Text>
+                                        </View>
+                                        :
+                                        null
+                                }
+                                <View style={styles.startTimeContainer} >
+                                    {
+                                        item.startTime != '' ?
+                                            <View style={styles.startTimeContainer}>
+                                                <Text style={styles.textStyle}>{item.startTime != undefined ? item.startTime != '' ? startTime : '' : ''}</Text>
+                                            </View>
+                                            :
+                                            null
+                                    }
+                                    {item.startTime == '' ? <TouchableOpacity onPress={() => this.setStartTime(index, item)} >
+                                        <Space width={60} height={30} />
+                                    </TouchableOpacity>
+                                        :
+                                        null
+                                    }
                                 </View>
-                                :
-                                null
-                        }
-                    </View>
-                    <View style={styles.endTimeContainer}>
-                        {
-                            item.endTime != '' ?
-                                <View style={styles.priceAndTimeContainer}>
-                                    <Text style={styles.textStyle}>{item.startTime != undefined ? moment(`${date} ${item.endTime}`).format('hh:mm A') : ''}</Text>
+                                <View style={styles.endTimeContainer}>
+                                    {
+                                        item.endTime != '' ?
+                                            <View style={styles.priceAndTimeContainer}>
+                                                <Text style={styles.textStyle}>{item.startTime != undefined ? moment(`${date} ${item.endTime}`).format('hh:mm A') : ''}</Text>
+                                            </View>
+                                            :
+                                            null
+                                    }
+                                    {item.endTime == '' ? <TouchableOpacity onPress={() => this.setEndTime(index, item)} >
+                                        <Space width={60} height={30} />
+                                    </TouchableOpacity>
+                                        :
+                                        null
+                                    }
                                 </View>
-                                :
-                                null
-                        }
-                    </View>
-                    <View style={[styles.iconContainer, { alignItems: "flex-end" }]}>
+                                {/* <View style={[styles.iconContainer, { alignItems: "flex-end" }]}>
                         {
                             item.isFilled == '1' ?
                                 <View style={{ flexDirection: 'row', flex: 1 }}>
@@ -200,9 +256,11 @@ class ManageScheduleTime extends Component {
                                 </View>
                                 : null
                         }
-                    </View>
-                </View>
-                <View style={styles.inputContainer}>
+                    </View> */}
+                            </View>
+
+
+                            {/* <View style={styles.inputContainer}>
                     {
                         item.startTime == '' ?
                             <View>
@@ -233,8 +291,11 @@ class ManageScheduleTime extends Component {
                             :
                             null
                     }
-                </View>
-            </View>
+                </View> */}
+                        </View>
+
+                        : null}
+            </>
         )
     }
 
@@ -341,7 +402,7 @@ class ManageScheduleTime extends Component {
     render() {
         const { onNext } = this.props;
         let date = moment().format('YYYY-MM-DD');
-        const { selectedDays, showTimePicker, loading, buttonLoading, startTime, index, endTime, submit, showEditService, item, indexValue } = this.state;
+        const { selectedDays, showTimePicker, lastIndex, loading, buttonLoading, startTime, index, endTime, submit, showEditService, item, indexValue } = this.state;
         return (
             <>
                 <View style={styles.container}>
@@ -353,27 +414,45 @@ class ManageScheduleTime extends Component {
                             :
                             <>
                                 <View style={styles.upperContainer}>
-                                    <KeyboardAwareScrollView>
-                                        {selectedDays.length == 0 || selectedDays[0].startTime != '' || selectedDays[0].endTime != '' ?
-                                            <View style={styles.headingContainer}>
-                                                <View style={styles.dayContainer}>
-                                                    <Text style={styles.headingTextStyle}>Days</Text>
-                                                </View>
-                                                <View style={styles.startTimeContainer} >
-                                                    <Text style={styles.headingTextStyle1}>Start Time</Text>
-                                                </View>
-                                                <View style={styles.endTimeContainer}>
-                                                    <Text style={styles.headingTextStyle1}>End Time</Text>
-                                                </View>
-                                                <View style={[styles.iconContainer]}></View>
-                                            </View> : null}
-                                        <FlatList
-                                            data={selectedDays}
-                                            showsVerticalScrollIndicator={false}
-                                            ItemSeparatorComponent={this._renderSeparator}
-                                            renderItem={({ item, index }) => this._renderItems({ item, index })}
-                                            keyExtractor={item => item} />
-                                    </KeyboardAwareScrollView>
+                                    <View style={styles.headingContainer}>
+                                        <View style={styles.dayContainer}>
+                                            <Text style={styles.headingTextStyle}>Days</Text>
+                                        </View>
+                                        <View style={styles.startTimeContainer} >
+                                            <Text style={styles.headingTextStyle1}>Start Time</Text>
+                                        </View>
+                                        <View style={styles.endTimeContainer}>
+                                            <Text style={styles.headingTextStyle1}>End Time</Text>
+                                        </View>
+                                    </View>
+                                    <FlatList
+                                        data={selectedDays}
+                                        showsVerticalScrollIndicator={false}
+                                        ItemSeparatorComponent={this._renderSeparator}
+                                        renderItem={({ item, index }) => <Swipeable
+                                            enabled={item.startTime != "" && item.endTime != "" ? true : false}
+                                            useNativeAnimations={true}
+                                            overshootRight={false}
+                                            ref={(Swipeable) => swipeableRef[index] = Swipeable}
+                                            onSwipeableWillOpen={() => {
+                                                this.setState({ item, index })
+                                                if (lastIndex == -1) {
+                                                    this.setState({ lastIndex: index });
+                                                }
+                                                else {
+                                                    if (index != lastIndex) {
+                                                        if (index != lastIndex) {
+                                                            swipeableRef[lastIndex]?.close()
+                                                        }
+                                                    }
+                                                    this.setState({ lastIndex: index });
+                                                }
+                                            }}
+                                            renderRightActions={(progress, dragX) => this.renderLeftActions(progress, dragX, item)}
+                                        >
+                                            {this._renderItems({ item, index })}
+                                        </Swipeable>}
+                                        keyExtractor={item => item} />
                                 </View>
                                 <View style={styles.footerStyle}>
                                     <View style={styles.lineStyle}></View>
@@ -448,6 +527,22 @@ class ManageScheduleTime extends Component {
                             </View>
                     }
                 </Modal>
+                <ModalS isVisible={this.state.presentAlertModal}>
+                    <View style={{ backgroundColor: '#171717', paddingVertical: "5%" }}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: "5%", marginHorizontal: '6%' }}>
+                            <TrashColor />
+                            <Text style={{ fontFamily: "Poppins-Medium", textAlign: "center", paddingTop: "5%", color: "white" }}>Are you sure you want to delete this service? This will delete this day permanently from scheduler.</Text>
+                        </View>
+                        <View style={{ paddingTop: '5%', marginHorizontal: "10%", flexDirection: "row", justifyContent: "space-between", paddingBottom: '5%', }}>
+                            <TouchableOpacity onPress={() => { swipeableRef[this.state.lastIndex]?.close(); this.setState({ presentAlertModal: false }) }} style={{ width: 120, backgroundColor: THEME.PRIMARY_COLOR, height: 50, justifyContent: 'center' }}>
+                                <Text style={{ color: '#171717', textAlign: 'center', fontFamily: 'Poppins-Bold' }} >Cancel</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.handleDeleteService(this.state.item)} style={{ width: 120, backgroundColor: "#FF6635", height: 50, justifyContent: 'center' }}>
+                                <Text style={{ color: '#171717', textAlign: 'center', fontFamily: 'Poppins-Bold' }} >Delete</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </ModalS>
             </>
         );
     }
