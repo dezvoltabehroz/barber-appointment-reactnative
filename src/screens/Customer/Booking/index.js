@@ -7,6 +7,8 @@ import THEME from '../../../assets/styles/theme.style';
 import moment from 'moment'
 import { connect } from 'react-redux';
 import { UserAddresses, BookingServices, Barbers } from '../../../services';
+import stripe from 'react-native-stripe-payments'
+stripe.setOptions({ publishingKey: 'STRIPE_PUBLISHING_KEY' });
 class Booking extends Component {
     constructor(props) {
         super(props);
@@ -130,18 +132,52 @@ class Booking extends Component {
                                         }
                                     })
                                     .catch((err => { console.log(err) }))
-                        } else {
-                            BookingServices.makeCustomerBooking(userData)
-                                .then((res) => {
-                                    console.log(res)
-                                    this.setState({ btnBookingLoading: false })
-                                    this.setState({ currentPosition: this.state.currentPosition + 1 }, () => {
-                                        if (this.state.currentPosition === 4) {
-                                            this.setState({ disabled: false, btnBooking: false })
-                                        } else { this.setState({ disabled: true }) }
+                        } else if (this.state.paymentMethod == "Stripe") {
+                            const isCardValid = stripe.isCardValid({
+                                number: data.card_number,
+                                expMonth: parseInt(data.exp_month),
+                                expYear: parseInt(data.exp_year),
+                                cvc: data.ccv_code,
+                            });
+                            if (isCardValid) {
+                                console.log("isCardValid : ", isCardValid)
+                                const cardDetails = {
+                                    number: data.card_number,
+                                    expMonth: parseInt(data.exp_month),
+                                    expYear: parseInt(data.exp_year),
+                                    cvc: data.ccv_code,
+                                }
+                                stripe.confirmPayment('sk_test_51ITJpDIpwTa712p0s9rUGNhkhXOISLVZ4B0uMF2QDtc4Tg6ZARAhxL3Wx1VVdUJnixo0JJHmOmk6HbheRJb0sAQm00PGJ69TVF', cardDetails)
+                                    .then((resStripe) => {
+                                        console.log("  stripe.confirmPayment =======================>", resStripe)
+                                        this.setState({ btnBookingLoading: false })
+                                        this.setState({ currentPosition: this.state.currentPosition + 1 }, () => {
+                                            if (this.state.currentPosition === 4) {
+                                                this.setState({ disabled: false, btnBooking: false })
+                                            } else { this.setState({ disabled: true }) }
+                                        })
                                     })
+                                    .catch((err) => {
+                                        console.log("Stripe Payment Error=======================>", err);
+                                        this.setState({ btnBookingLoading: false })
+                                    })
+                            }
+                        }
+                        else {
+                            if (res.data.status) {
+                                this.setState({ btnBookingLoading: false })
+                                this.setState({ currentPosition: this.state.currentPosition + 1 }, () => {
+                                    if (this.state.currentPosition === 4) {
+                                        this.setState({ disabled: false, btnBooking: false })
+                                    } else { this.setState({ disabled: true }) }
                                 })
-                                .catch((err => { console.log(err) }))
+                            }
+                            // BookingServices.makeCustomerBooking(userData)
+                            //     .then((res) => {
+                            //         console.log(res)
+
+                            //     })
+                            //     .catch((err => { console.log(err) }))
                         }
                     })
                     .catch((err) => { console.log(err) })
