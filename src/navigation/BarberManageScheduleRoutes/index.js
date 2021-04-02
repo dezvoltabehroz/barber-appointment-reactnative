@@ -53,7 +53,7 @@ function BarberManageScheduleRoutes() {
                         backgroundColor: THEME.PRIMARY_COLOR
                     }
                 }}>
-                {/* <Tab.Screen name="Working Days" component={BarberWorkingDaysRoutes} /> */}
+                <Tab.Screen name="Working Days" component={BarberWorkingDaysRoutes} />
                 <Tab.Screen name="Break Time" component={BaberBreaksRoutes} />
                 <Tab.Screen name="OFF Day" component={BarberOffDaysRoutes} />
             </Tab.Navigator>
