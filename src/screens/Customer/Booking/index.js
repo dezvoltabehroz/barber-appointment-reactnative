@@ -7,12 +7,9 @@ import THEME from '../../../assets/styles/theme.style';
 import moment from 'moment'
 import { connect } from 'react-redux';
 import { UserAddresses, BookingServices, Barbers } from '../../../services';
-import config from '../../../config/config.json';
-import stripe from 'tipsi-stripe';
 import Modal from 'react-native-modal';
 import { ActivityIndicator } from 'react-native';
 //Stripe Initailaization
-stripe.setOptions({ publishableKey: config.stripeCredentials.publishKey })
 
 class Booking extends Component {
     constructor(props) {
