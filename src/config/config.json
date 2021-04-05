@@ -12,5 +12,9 @@
         "messagingSenderId": "823617941270",
         "appId": "1:823617941270:web:bfefcbe30b8b53414a6a37",
         "measurementId": "G-3QX8H8REX4"
+    },
+    "stripeCredentials":{
+        "publishKey":"pk_test_51ITJpDIpwTa712p0QzPVlMEmdqkKqzfdXStX5cUYyzuLgxaJUaVEBiCUBJIpemUn6D2zAVrDYsKfKjbE42bq4pKK00TXAbCD6K",
+        "secretKey":"sk_test_51ITJpDIpwTa712p0s9rUGNhkhXOISLVZ4B0uMF2QDtc4Tg6ZARAhxL3Wx1VVdUJnixo0JJHmOmk6HbheRJb0sAQm00PGJ69TVF"
     }
 }

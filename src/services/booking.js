@@ -36,12 +36,40 @@ const Api = {
             cost: parseInt(userData.booking_price)
         }, configToken(userData.token))
     },
+    verifyPaymentCard: function (userData) {
+        return axiosInstance.post('paypal/verifyPaymentCard', {
+            id: userData.id,
+            number: userData.card_detail.card_number,
+            exp_month: userData.card_detail.exp_month,
+            exp_year: userData.card_detail.exp_year,
+            cvc: userData.card_detail.ccv_code
+        }, configToken(userData.token))
+    },
+    initiateStripePayment: function (userData) {
+        return axiosInstance.post('paypal/initiatePaymentStripe', {
+            id: userData.id,
+            cost: parseInt(userData.booking_price),
+            token_id: userData.token_id
+        }, configToken(userData.token))
+    },
     savePaymentData: function (userData) {
-        // console.log("userData", userData)
         return axiosInstance.post('paypal/savePaymentData', {
             id: userData.id,
             order_id: userData.order_id,
             booking_id: userData.booking_id
+        }, configToken(userData.token))
+    },
+    saveStripePaymentData: function (userData) {
+        return axiosInstance.post('paypal/saveStripePayment', {
+            id: userData.id,
+            token_id: userData.token_id,
+            booking_id: userData.booking_id,
+            client_ip: userData.client_ip,
+            card_id: userData.card_id,
+            charge_id: userData.charge_id,
+            balance_transaction: userData.balance_transaction,
+            payment_method: userData.payment_method,
+            receipt_url: userData.receipt_url,
         }, configToken(userData.token))
     },
     getAllBooking: function (userData) {
