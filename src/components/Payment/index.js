@@ -153,9 +153,6 @@ class Payment extends Component {
                         </View>
                         : payWithStripe ?
                             <>
-                                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                                    <Image style={{ height: 150, width: 250 }} resizeMode="contain" source={require('../../assets/images/stripe.png')} />
-                                </View>
                                 <View style={styles.marginVertical}>
                                     <View style={styles.contentContainer}>
                                         <View style={{ alignItems: "center" }}>
