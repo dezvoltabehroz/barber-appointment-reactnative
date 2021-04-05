@@ -41,7 +41,7 @@ class Payment extends Component {
             let data = {
                 card_number: number,
                 card_holder: name,
-                exp_date: moment(expDate).format('YYYY-MM-DD'),
+                exp_date: moment(date).format('YYYY-MM-DD'),
                 exp_year: moment(date).format('YY'),
                 exp_month: moment(date).format('MM'),
                 ccv_code: cvv
