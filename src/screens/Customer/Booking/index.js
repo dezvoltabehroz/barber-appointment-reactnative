@@ -32,7 +32,7 @@ class Booking extends Component {
             bookingTime: '',
             latitude: '',
             longitude: '',
-            data: null,
+            cardData: null,
             customer_services: [],
             paymentMethod: "",
             btnBookingLoading: false,
@@ -80,7 +80,7 @@ class Booking extends Component {
     }
     onNextPageChange = () => {
         const { userdata, userDetail } = this.props;
-        const { totalPrice, totalTime, latitude, longitude, bookingDate, bookingTime, data, timeInHour } = this.state;
+        const { totalPrice, totalTime, latitude, longitude, bookingDate, bookingTime, cardData, timeInHour } = this.state;
         if (this.state.currentPosition == 4) {
             this.setState({ currentPosition: this.state.currentPosition, disabled: false });
         } else {
@@ -101,7 +101,7 @@ class Booking extends Component {
                     barber_id: userdata.barber_id,
                     customer_id: userdata.id,
                     customer_services: this.state.customer_services,
-                    card_detail: data,
+                    card_detail: cardData,
                     is_accepted: moment(bookingDate).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 0 : 1,
                     is_accepted_time: moment(bookingDate).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? null : moment().format('YYYY-MM-DD') + ' ' + moment().format('HH:mm:ss'),
                 }
@@ -334,7 +334,7 @@ class Booking extends Component {
                                 <Payment
                                     key="payment"
                                     paymentMethod={(paymentMethod) => this.setState({ paymentMethod })}
-                                    isConfirm={(isDisable, data) => this.setState({ disabled: isDisable == "false" ? false : true, data: data })} />
+                                    isConfirm={(isDisable, data) => this.setState({ disabled: isDisable == "false" ? false : true, cardData: data })} />
                                 :
                                 null
                         }
