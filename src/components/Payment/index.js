@@ -37,7 +37,8 @@ class Payment extends Component {
     handleConfirmPayment = () => {
         const { name, expDate, number, cvv, date } = this.state;
         if (name && number && date && cvv) {
-
+            console.log(" exp_year : ===> ", moment(date).format('YY'));
+            console.log(" exp_month : ===> ", moment(date).format('MM'));
             let data = {
                 card_number: number,
                 card_holder: name,
