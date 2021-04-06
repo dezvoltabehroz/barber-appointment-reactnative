@@ -87,7 +87,6 @@ class Booking extends Component {
 
             if (this.state.currentPosition == 3) {
                 if (cardData.card_number != "" && cardData.card_holder != "" && cardData.exp_date != "" && cardData.ccv_code != "") {
-
                     this.setState({ confirmLoading: true })
                     let userData = {
                         token: userdata.token,
@@ -144,7 +143,7 @@ class Booking extends Component {
                                                 booking_id: res.data.booking_id
                                             }
                                             BookingServices.initiateStripePayment(userDetail)
-                                                .then(async (responseData) => {
+                                                .then((responseData) => {
                                                     let paymentDetails = {
                                                         ...userDetail,
                                                         client_ip: resData.data.token_data.client_ip,
@@ -168,10 +167,18 @@ class Booking extends Component {
                                                             })
                                                             .catch((err) => console.log(err))
                                                     }
+                                                }).catch((err) => {
+                                                    this.setState({ confirmLoading: false })
+                                                    alert(err.message)
+                                                    console.log(err)
                                                 })
                                         }
                                     })
-                                    .catch((err => { console.log(err) }))
+                                    .catch((err => {
+                                        this.setState({ confirmLoading: false })
+                                        alert(err.message)
+                                        console.log(err)
+                                    }))
                             }
                             else {
                                 if (res.data.status) {
@@ -184,7 +191,11 @@ class Booking extends Component {
                                 }
                             }
                         })
-                        .catch((err) => { console.log(err) })
+                        .catch((err) => {
+                            this.setState({ confirmLoading: false })
+                            alert(err.message)
+                            console.log(err)
+                        })
                 }
                 else {
                     alert('Please fill all the fields')
