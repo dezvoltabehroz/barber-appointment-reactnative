@@ -86,103 +86,109 @@ class Booking extends Component {
         } else {
 
             if (this.state.currentPosition == 3) {
-                this.setState({ confirmLoading: true })
-                let userData = {
-                    token: userdata.token,
-                    id: userdata.id,
-                    full_name: userDetail.full_name,
-                    booking_price: totalPrice,
-                    booking_time_duration: timeInHour,
-                    customer_lat: latitude,
-                    customer_long: longitude,
-                    customer_address: this.state.location,
-                    booking_date: moment(bookingDate).format('YYYY-MM-DD'),
-                    booking_time: moment(bookingTime, ["h:mm A"]).format('HH:mm'),
-                    barber_id: userdata.barber_id,
-                    customer_id: userdata.id,
-                    customer_services: this.state.customer_services,
-                    card_detail: cardData,
-                    is_accepted: moment(bookingDate).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 0 : 1,
-                    is_accepted_time: moment(bookingDate).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? null : moment().format('YYYY-MM-DD') + ' ' + moment().format('HH:mm:ss'),
-                }
-                BookingServices.makeCustomerBooking(userData)
-                    .then(async (res) => {
-                        if (this.state.paymentMethod == "Paypal") {
-                            if (res.data.status)
-                                BookingServices.initiatePayment(userData)
-                                    .then((response) => {
-                                        if (response.data.status) {
-                                            let orderDetail = {
+                if (cardData.card_number != "" && cardData.card_holder != "" && cardData.exp_date != "" && cardData.ccv_code != "") {
+
+                    this.setState({ confirmLoading: true })
+                    let userData = {
+                        token: userdata.token,
+                        id: userdata.id,
+                        full_name: userDetail.full_name,
+                        booking_price: totalPrice,
+                        booking_time_duration: timeInHour,
+                        customer_lat: latitude,
+                        customer_long: longitude,
+                        customer_address: this.state.location,
+                        booking_date: moment(bookingDate).format('YYYY-MM-DD'),
+                        booking_time: moment(bookingTime, ["h:mm A"]).format('HH:mm'),
+                        barber_id: userdata.barber_id,
+                        customer_id: userdata.id,
+                        customer_services: this.state.customer_services,
+                        card_detail: cardData,
+                        is_accepted: moment(bookingDate).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 0 : 1,
+                        is_accepted_time: moment(bookingDate).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? null : moment().format('YYYY-MM-DD') + ' ' + moment().format('HH:mm:ss'),
+                    }
+                    BookingServices.makeCustomerBooking(userData)
+                        .then(async (res) => {
+                            if (this.state.paymentMethod == "Paypal") {
+                                if (res.data.status)
+                                    BookingServices.initiatePayment(userData)
+                                        .then((response) => {
+                                            if (response.data.status) {
+                                                let orderDetail = {
+                                                    ...userData,
+                                                    order_id: response.data.payment.id,
+                                                    booking_id: res.data.booking_id
+                                                }
+                                                BookingServices.savePaymentData(orderDetail)
+                                                    .then(async (responseData) => {
+                                                        if (responseData.data.status) {
+                                                            await Linking.openURL(`${response.data.payment.links[1].href}`)
+                                                            this.setState({ btnBookingLoading: false })
+                                                            this.setState({ currentPosition: this.state.currentPosition + 1 }, () => {
+                                                                if (this.state.currentPosition === 4) {
+                                                                    this.setState({ disabled: false, btnBooking: false })
+                                                                } else { this.setState({ disabled: true }) }
+                                                            })
+                                                        }
+                                                    })
+                                            }
+                                        })
+                                        .catch((err => { console.log(err) }))
+                            } else if (this.state.paymentMethod == "Stripe") {
+                                BookingServices.verifyPaymentCard(userData)
+                                    .then((resData) => {
+                                        if (resData.data.status) {
+                                            let userDetail = {
                                                 ...userData,
-                                                order_id: response.data.payment.id,
+                                                token_id: resData.data.token_data.id,
                                                 booking_id: res.data.booking_id
                                             }
-                                            BookingServices.savePaymentData(orderDetail)
+                                            BookingServices.initiateStripePayment(userDetail)
                                                 .then(async (responseData) => {
+                                                    let paymentDetails = {
+                                                        ...userDetail,
+                                                        client_ip: resData.data.token_data.client_ip,
+                                                        card_id: resData.data.token_data.card.id,
+                                                        charge_id: responseData.data.charge.id,
+                                                        balance_transaction: responseData.data.charge.balance_transaction,
+                                                        payment_method: responseData.data.charge.payment_method,
+                                                        receipt_url: responseData.data.charge.receipt_url,
+                                                    }
                                                     if (responseData.data.status) {
-                                                        await Linking.openURL(`${response.data.payment.links[1].href}`)
-                                                        this.setState({ btnBookingLoading: false })
-                                                        this.setState({ currentPosition: this.state.currentPosition + 1 }, () => {
-                                                            if (this.state.currentPosition === 4) {
-                                                                this.setState({ disabled: false, btnBooking: false })
-                                                            } else { this.setState({ disabled: true }) }
-                                                        })
+                                                        BookingServices.saveStripePaymentData(paymentDetails)
+                                                            .then((savedData) => {
+                                                                if (savedData.data.status) {
+                                                                    this.setState({ confirmLoading: false })
+                                                                    this.setState({ currentPosition: this.state.currentPosition + 1 }, () => {
+                                                                        if (this.state.currentPosition === 4) {
+                                                                            this.setState({ disabled: false, btnBooking: false })
+                                                                        } else { this.setState({ disabled: true }) }
+                                                                    })
+                                                                }
+                                                            })
+                                                            .catch((err) => console.log(err))
                                                     }
                                                 })
                                         }
                                     })
                                     .catch((err => { console.log(err) }))
-                        } else if (this.state.paymentMethod == "Stripe") {
-                            BookingServices.verifyPaymentCard(userData)
-                                .then((resData) => {
-                                    if (resData.data.status) {
-                                        let userDetail = {
-                                            ...userData,
-                                            token_id: resData.data.token_data.id,
-                                            booking_id: res.data.booking_id
-                                        }
-                                        BookingServices.initiateStripePayment(userDetail)
-                                            .then(async (responseData) => {
-                                                let paymentDetails = {
-                                                    ...userDetail,
-                                                    client_ip: resData.data.token_data.client_ip,
-                                                    card_id: resData.data.token_data.card.id,
-                                                    charge_id: responseData.data.charge.id,
-                                                    balance_transaction: responseData.data.charge.balance_transaction,
-                                                    payment_method: responseData.data.charge.payment_method,
-                                                    receipt_url: responseData.data.charge.receipt_url,
-                                                }
-                                                if (responseData.data.status) {
-                                                    BookingServices.saveStripePaymentData(paymentDetails)
-                                                        .then((savedData) => {
-                                                            if (savedData.data.status) {
-                                                                this.setState({ confirmLoading: false })
-                                                                this.setState({ currentPosition: this.state.currentPosition + 1 }, () => {
-                                                                    if (this.state.currentPosition === 4) {
-                                                                        this.setState({ disabled: false, btnBooking: false })
-                                                                    } else { this.setState({ disabled: true }) }
-                                                                })
-                                                            }
-                                                        })
-                                                        .catch((err) => console.log(err))
-                                                }
-                                            })
-                                    }
-                                })
-                                .catch((err => { console.log(err) }))
-                        }
-                        else {
-                            if (res.data.status) {
-                                this.setState({ btnBookingLoading: false })
-                                this.setState({ currentPosition: this.state.currentPosition + 1 }, () => {
-                                    if (this.state.currentPosition === 4) {
-                                        this.setState({ disabled: false, btnBooking: false })
-                                    } else { this.setState({ disabled: true }) }
-                                })
                             }
-                        }
-                    })
-                    .catch((err) => { console.log(err) })
+                            else {
+                                if (res.data.status) {
+                                    this.setState({ btnBookingLoading: false, confirmLoading: false })
+                                    this.setState({ currentPosition: this.state.currentPosition + 1 }, () => {
+                                        if (this.state.currentPosition === 4) {
+                                            this.setState({ disabled: false, btnBooking: false })
+                                        } else { this.setState({ disabled: true }) }
+                                    })
+                                }
+                            }
+                        })
+                        .catch((err) => { console.log(err) })
+                }
+                else {
+                    alert('Please fill all the fields')
+                }
             }
             else {
                 this.setState({ currentPosition: this.state.currentPosition + 1 }, () => {

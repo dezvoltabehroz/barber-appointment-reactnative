@@ -15,6 +15,7 @@ import { Icon, FloatingInput } from '..';
 import THEME from '../../assets/styles/theme.style';
 import MonthPicker from 'react-native-month-year-picker';
 import moment from 'moment';
+import COMMON_STYLE from '../../assets/styles/common.style';
 class Payment extends Component {
     constructor(prop) {
         super(prop);
@@ -31,12 +32,13 @@ class Payment extends Component {
             date: '',
             payWithCard: false,
             payWithPayPal: false,
-            payWithStripe: false
+            payWithStripe: false,
+            submit: false
         }
     }
-    handleConfirmPayment = () => {
-        const { name, expDate, number, cvv, date } = this.state;
-        if (name && number && date && cvv) {
+    handleConfirmPayment = async () => {
+        const { name, number, cvv, date, submit } = this.state;
+        if (name && number && this.isCardValid(number) && date && cvv && cvv.length == 3 && submit) {
             console.log(" exp_year : ===> ", moment(date).format('YY'));
             console.log(" exp_month : ===> ", moment(date).format('MM'));
             let data = {
@@ -47,7 +49,9 @@ class Payment extends Component {
                 exp_month: moment(date).format('MM'),
                 ccv_code: cvv
             }
-            this.props.isConfirm("false", data)
+            console.log("data:=====> ", data)
+            await this.props.isConfirm("false", data);
+            // this.setState({ name: "", number: "", date: "", cvv: "", submit: false, })
         }
     }
 
@@ -58,11 +62,21 @@ class Payment extends Component {
             expDate,
             date: newDate,
             showDatePicker: false,
-        })
+            submit: true
+        });
+        this.handleConfirmPayment()
     };
 
+    isCardValid = (number) => {
+        return /^\d{16}$/.test(number)
+    }
+
+    isNameValid = (name) => {
+        return /^[A-Za-z\.\s]{3,25}$/.test(name)
+    }
+
     render() {
-        const { name, isNameFocus, number, isNumberFocus, expDate, payWithStripe, isexpDateFocus, cvv, isCvvFocus, showDatePicker, payWithPayPal, payWithCard } = this.state;
+        const { name, isNameFocus, number, isNumberFocus, expDate, submit, date, payWithStripe, isexpDateFocus, cvv, isCvvFocus, showDatePicker, payWithPayPal, payWithCard } = this.state;
         return (
             <>
                 <ScrollView>
@@ -120,6 +134,8 @@ class Payment extends Component {
                                                 card_number: "",
                                                 card_holder: "",
                                                 exp_date: "",
+                                                exp_year: "",
+                                                exp_month: "",
                                                 ccv_code: ""
                                             })
                                         })
@@ -135,7 +151,8 @@ class Payment extends Component {
                                             this.props.paymentMethod("Stripe"); this.props.isConfirm("false", {
                                                 card_number: "",
                                                 card_holder: "",
-                                                exp_date: "",
+                                                exp_year: "",
+                                                exp_month: "",
                                                 ccv_code: ""
                                             })
                                         })
@@ -156,14 +173,14 @@ class Payment extends Component {
                             <>
                                 <View style={styles.marginVertical}>
                                     <View style={styles.contentContainer}>
-                                        <View style={{ alignItems: "center" }}>
+                                        <View style={{ marginHorizontal: '5%' }}>
                                             <View style={[styles.inputContainerStyle,
                                             isNumberFocus || number != '' ? THEME.inputBorder : {}]}>
                                                 <FloatingInput
                                                     val={number}
                                                     keyboardtype={"number-pad"}
                                                     onActive={() => this.setState({ isNumberFocus: true })}
-                                                    onInActive={() => this.setState({ isNumberFocus: false }, () => {
+                                                    onInActive={() => this.setState({ isNumberFocus: false, submit: true }, () => {
                                                         this.handleConfirmPayment()
                                                     })}
                                                     label='Card Number'
@@ -175,12 +192,18 @@ class Payment extends Component {
                                                     size={THEME.ICON_SIZE}
                                                     color={THEME.COLOR_GREY} />
                                             </View>
+                                            {
+                                                submit && !number ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Please fill this field</Text> : null
+                                            }
+                                            {
+                                                submit && number.length && !this.isCardValid(number) ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Card number is invalid</Text> : null
+                                            }
                                             <View style={[styles.inputContainerStyle,
                                             isNameFocus || name != '' ? THEME.inputBorder : {}]}>
                                                 <FloatingInput
                                                     val={name}
                                                     onActive={() => this.setState({ isNameFocus: true })}
-                                                    onInActive={() => this.setState({ isNameFocus: false }, () => {
+                                                    onInActive={() => this.setState({ isNameFocus: false, submit: true }, () => {
                                                         this.handleConfirmPayment()
                                                     })}
                                                     label='Card Holder'
@@ -194,39 +217,47 @@ class Payment extends Component {
                                                     size={THEME.ICON_SIZE}
                                                     color={THEME.COLOR_GREY} />
                                             </View>
+                                            {
+                                                submit && !name ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Please fill this field</Text> :
+                                                    submit && !name.length ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Name is invalid</Text> : null
+                                            }
                                         </View>
-                                        <View style={styles.row}>
-                                            <TouchableOpacity onPress={() => this.setState({ isexpDateFocus: true, showDatePicker: true })} style={[styles.inputRowContainerStyle,
-                                            isexpDateFocus || expDate != '' ? THEME.inputBorder : {}]}>
+                                        <View style={[styles.row, { marginTop: 8, marginBottom: 15 }]}>
+                                            <View>
+                                                <TouchableOpacity onPress={() => this.setState({ isexpDateFocus: true, showDatePicker: true })} style={[styles.inputRowContainerStyle,
+                                                isexpDateFocus || expDate != '' ? THEME.inputBorder : {}]}>
+                                                    {
+                                                        expDate ?
+                                                            <Text style={styles.colorTextStyle}>{expDate}</Text>
+                                                            :
+                                                            <Text style={styles.colorTextStyle}>Exp Date</Text>
+                                                    }
+                                                    <Icon.Feather name='calendar' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
+                                                </TouchableOpacity>
                                                 {
-                                                    expDate ?
-                                                        <Text style={styles.colorTextStyle}>{expDate}</Text>
-                                                        :
-                                                        <Text style={styles.colorTextStyle}>Exp Date</Text>
+                                                    submit && !date ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Please fill this field</Text> : null
                                                 }
-                                                <Icon.Feather name='calendar' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
-                                            </TouchableOpacity>
-                                            <View style={[styles.inputRowContainerStyle,
-                                            isCvvFocus || cvv != '' ? THEME.inputBorder : {}]}>
-                                                <FloatingInput
-                                                    val={cvv}
-                                                    maxLength={3}
-                                                    keyboardtype={'number-pad'}
-                                                    onActive={() => this.setState({ isCvvFocus: true })}
-                                                    onInActive={() => this.setState({ isCvvFocus: false }, () => {
-                                                        this.handleConfirmPayment()
-                                                    })}
-                                                    label='CCV Code' iconSmallInput updateText={(cvv) => this.setState({ cvv })} />
-                                                <Icon.Feather name='lock' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
+                                            </View>
+                                            <View  >
+                                                <View style={[styles.inputRowContainerStyle,
+                                                isCvvFocus || cvv != '' ? THEME.inputBorder : {}]}>
+                                                    <FloatingInput
+                                                        val={cvv}
+                                                        maxLength={3}
+                                                        keyboardtype={'number-pad'}
+                                                        onActive={() => this.setState({ isCvvFocus: true })}
+                                                        onInActive={() => this.setState({ isCvvFocus: false, submit: true }, () => {
+                                                            this.handleConfirmPayment()
+                                                        })}
+                                                        label='CCV Code' iconSmallInput updateText={(cvv) => this.setState({ cvv })} />
+                                                    <Icon.Feather name='lock' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
+                                                </View>
+                                                {
+                                                    submit && !cvv ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Please fill this field</Text> :
+                                                        submit && cvv.length != 3 ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Cvv is invalid</Text> : null
+                                                }
                                             </View>
                                         </View>
-
-                                        {/* <View style={[styles.rowStyle, styles.generalMargin]}>
-                                            <Icon.Feather name='lock' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
-                                            <Text style={[styles.colorTextStyle, { width: "90%" }]}>
-                                                Your payment information is safe with us. We use secure transmission and encrypted storage.
-                             </Text>
-                                        </View> */}
                                     </View>
                                 </View>
                             </>
@@ -234,14 +265,14 @@ class Payment extends Component {
                             payWithCard ?
                                 <View style={styles.marginVertical}>
                                     <View style={styles.contentContainer}>
-                                        <View style={{ alignItems: "center" }}>
+                                        <View style={{ marginHorizontal: '5%' }}>
                                             <View style={[styles.inputContainerStyle,
                                             isNumberFocus || number != '' ? THEME.inputBorder : {}]}>
                                                 <FloatingInput
                                                     val={number}
                                                     keyboardtype={"number-pad"}
                                                     onActive={() => this.setState({ isNumberFocus: true })}
-                                                    onInActive={() => this.setState({ isNumberFocus: false }, () => {
+                                                    onInActive={() => this.setState({ isNumberFocus: false, submit: true }, () => {
                                                         this.handleConfirmPayment()
                                                     })}
                                                     label='Card Number'
@@ -253,12 +284,18 @@ class Payment extends Component {
                                                     size={THEME.ICON_SIZE}
                                                     color={THEME.COLOR_GREY} />
                                             </View>
+                                            {
+                                                submit && !number ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Please fill this field</Text> : null
+                                            }
+                                            {
+                                                submit && number.length && !this.isCardValid(number) ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Card number is invalid</Text> : null
+                                            }
                                             <View style={[styles.inputContainerStyle,
                                             isNameFocus || name != '' ? THEME.inputBorder : {}]}>
                                                 <FloatingInput
                                                     val={name}
                                                     onActive={() => this.setState({ isNameFocus: true })}
-                                                    onInActive={() => this.setState({ isNameFocus: false }, () => {
+                                                    onInActive={() => this.setState({ isNameFocus: false, submit: true }, () => {
                                                         this.handleConfirmPayment()
                                                     })}
                                                     label='Card Holder'
@@ -272,30 +309,46 @@ class Payment extends Component {
                                                     size={THEME.ICON_SIZE}
                                                     color={THEME.COLOR_GREY} />
                                             </View>
+                                            {
+                                                submit && !name ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Please fill this field</Text>
+                                                    :
+                                                    submit && !name.length ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Name is invalid</Text> : null
+                                            }
                                         </View>
-                                        <View style={styles.row}>
-                                            <TouchableOpacity onPress={() => this.setState({ isexpDateFocus: true, showDatePicker: true })} style={[styles.inputRowContainerStyle,
-                                            isexpDateFocus || expDate != '' ? THEME.inputBorder : {}]}>
+                                        <View style={[styles.row, { marginTop: 8, marginBottom: 15 }]}>
+                                            <View>
+                                                <TouchableOpacity onPress={() => this.setState({ isexpDateFocus: true, showDatePicker: true })} style={[styles.inputRowContainerStyle,
+                                                isexpDateFocus || expDate != '' ? THEME.inputBorder : {}]}>
+                                                    {
+                                                        expDate ?
+                                                            <Text style={styles.colorTextStyle}>{expDate}</Text>
+                                                            :
+                                                            <Text style={styles.colorTextStyle}>Exp Date</Text>
+                                                    }
+                                                    <Icon.Feather name='calendar' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
+                                                </TouchableOpacity>
                                                 {
-                                                    expDate ?
-                                                        <Text style={styles.colorTextStyle}>{expDate}</Text>
-                                                        :
-                                                        <Text style={styles.colorTextStyle}>Exp Date</Text>
+                                                    submit && !date ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Please fill this field</Text> : null
                                                 }
-                                                <Icon.Feather name='calendar' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
-                                            </TouchableOpacity>
-                                            <View style={[styles.inputRowContainerStyle,
-                                            isCvvFocus || cvv != '' ? THEME.inputBorder : {}]}>
-                                                <FloatingInput
-                                                    val={cvv}
-                                                    maxLength={3}
-                                                    keyboardtype={'number-pad'}
-                                                    onActive={() => this.setState({ isCvvFocus: true })}
-                                                    onInActive={() => this.setState({ isCvvFocus: false }, () => {
-                                                        this.handleConfirmPayment()
-                                                    })}
-                                                    label='CCV Code' iconSmallInput updateText={(cvv) => this.setState({ cvv })} />
-                                                <Icon.Feather name='lock' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
+                                            </View>
+                                            <View  >
+                                                <View style={[styles.inputRowContainerStyle,
+                                                isCvvFocus || cvv != '' ? THEME.inputBorder : {}]}>
+                                                    <FloatingInput
+                                                        val={cvv}
+                                                        maxLength={3}
+                                                        keyboardtype={'number-pad'}
+                                                        onActive={() => this.setState({ isCvvFocus: true })}
+                                                        onInActive={() => this.setState({ isCvvFocus: false, submit: true }, () => {
+                                                            this.handleConfirmPayment()
+                                                        })}
+                                                        label='CCV Code' iconSmallInput updateText={(cvv) => this.setState({ cvv })} />
+                                                    <Icon.Feather name='lock' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
+                                                </View>
+                                                {
+                                                    submit && !cvv ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Please fill this field</Text> :
+                                                        submit && cvv.length != 3 ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Cvv is invalid</Text> : null
+                                                }
                                             </View>
                                         </View>
 
