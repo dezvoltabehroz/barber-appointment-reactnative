@@ -111,7 +111,7 @@ class Payment extends Component {
                                 <Text style={[styles.colorTextStyle, { textAlign: "center" }]}>Pay With: </Text>
                             </View>
                             <View style={[styles.rowStyle, { marginHorizontal: '10%', marginBottom: "5%", justifyContent: "center" }]}>
-                                <Icon.FontAwesome
+                                {/* <Icon.FontAwesome
                                     onPress={() => {
                                         this.setState({ payWithPayPal: false, payWithCard: true }, () => {
                                             this.props.paymentMethod("Credit"); this.props.isConfirm("true", {
@@ -126,7 +126,7 @@ class Payment extends Component {
                                     style={styles.iconStyle}
                                     size={50}
                                     color={payWithCard ? THEME.PRIMARY_COLOR : THEME.COLOR_GREY} />
-                                <View style={{ width: 30 }} />
+                                <View style={{ width: 30 }} /> */}
                                 <Icon.FontAwesome
                                     onPress={() => {
                                         this.setState({ payWithPayPal: true, payWithCard: false, payWithStripe: false }, () => {
@@ -157,7 +157,7 @@ class Payment extends Component {
                                             })
                                         })
                                     }}
-                                    name='cc-stripe'
+                                    name='credit-card'
                                     style={styles.iconStyle}
                                     size={50}
                                     color={payWithStripe ? THEME.PRIMARY_COLOR : THEME.COLOR_GREY} />
