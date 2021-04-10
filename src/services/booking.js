@@ -59,6 +59,16 @@ const Api = {
             booking_id: userData.booking_id
         }, configToken(userData.token))
     },
+    getCardDetails: function (userData) {
+        return axiosInstance.post('paypal/getCardDetails', {
+            id: userData.id
+        }, configToken(userData.token))
+    },
+    listReceipt: function (userData) {
+        return axiosInstance.post('paypal/listReceipt', {
+            id: userData.id
+        }, configToken(userData.token))
+    },
     saveStripePaymentData: function (userData) {
         return axiosInstance.post('paypal/saveStripePayment', {
             id: userData.id,
