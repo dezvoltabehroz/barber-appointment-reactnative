@@ -7,7 +7,7 @@ import {
     ScrollView,
     Text,
     TouchableOpacity,
-    Modal, Image,
+    Image,
     FlatList
 } from 'react-native';
 import styles from './style'
@@ -16,6 +16,10 @@ import THEME from '../../assets/styles/theme.style';
 import MonthPicker from 'react-native-month-year-picker';
 import moment from 'moment';
 import COMMON_STYLE from '../../assets/styles/common.style';
+import { connect } from 'react-redux';
+import { BookingServices } from '../../services';
+import Modal from 'react-native-modal';
+
 class Payment extends Component {
     constructor(prop) {
         super(prop);
@@ -33,7 +37,9 @@ class Payment extends Component {
             payWithCard: false,
             payWithPayPal: false,
             payWithStripe: false,
-            submit: false
+            submit: false,
+            previousBillingModal: true,
+            billingLoading: false
         }
     }
     handleConfirmPayment = async () => {
@@ -73,6 +79,35 @@ class Payment extends Component {
 
     isNameValid = (name) => {
         return /^[A-Za-z\.\s]{3,25}$/.test(name)
+    }
+
+    handlePreviousBillingDetail = () => {
+        this.setState({ billingLoading: true })
+        let userData = {
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token
+        }
+        BookingServices.getCardDetails(userData)
+            .then((response) => {
+                if (response.data.status) {
+                    console.log("response.data.data : ", response.data.data)
+                    this.setState({ previousBillingModal: false })
+                    // this.setState({}, () => {
+                    //     this.props.paymentMethod("Stripe"); this.props.isConfirm("false", {
+                    //         card_number: "",
+                    //         card_holder: "",
+                    //         exp_year: "",
+                    //         exp_month: "",
+                    //         ccv_code: ""
+                    //     })
+                    // })
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                alert(err);
+                this.setState({ billingLoading: false })
+            })
     }
 
     render() {
@@ -372,11 +407,39 @@ class Payment extends Component {
                         enableAutoDarkMode={false}
                     />
                     : null}
+                <Modal isVisible={this.state.previousBillingModal}>
+                    <View style={{ backgroundColor: '#171717', paddingVertical: "5%" }}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: "5%", marginHorizontal: '6%' }}>
+                            <Text style={{ fontFamily: "Poppins-Medium", textAlign: "center", color: "white" }}>Do you want to use previous billing {`\n`}details?</Text>
+                        </View>
+                        <View style={{ paddingTop: '7.5%', marginHorizontal: "10%", flexDirection: "row", justifyContent: "space-between", paddingBottom: '5%', }}>
+                            <TouchableOpacity onPress={() => {
+                                this.setState({ previousBillingModal: false, payWithStripe: true }, () => {
+                                    this.props.paymentMethod("Stripe"); this.props.isConfirm("false", {
+                                        card_number: "",
+                                        card_holder: "",
+                                        exp_year: "",
+                                        exp_month: "",
+                                        ccv_code: ""
+                                    })
+                                })
+                            }} style={{ width: 120, backgroundColor: THEME.PRIMARY_COLOR, height: 50, justifyContent: 'center' }}>
+                                <Text style={{ color: '#171717', textAlign: 'center', fontFamily: 'Poppins-Bold' }} >No, Add New</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.handlePreviousBillingDetail()} style={{ width: 120, backgroundColor: THEME.PRIMARY_COLOR, height: 50, justifyContent: 'center' }}>
+                                <Text style={{ color: '#171717', textAlign: 'center', fontFamily: 'Poppins-Bold' }} >Yes</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
             </>
         );
     }
 };
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer || {}
+    };
+};
 
-
-
-export default Payment;
+export default connect(mapStateToProps)(Payment);

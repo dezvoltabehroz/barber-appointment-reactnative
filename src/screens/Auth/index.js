@@ -7,6 +7,7 @@ import COMMON_STYLE from '../../assets/styles/common.style';
 import AsyncStorage from '@react-native-community/async-storage';
 import LinearGradient from 'react-native-radial-gradient';
 import { ActivityIndicator } from 'react-native';
+import Modal from 'react-native-modal';
 class AuthScreen extends Component {
     constructor(props) {
         super(props);
@@ -17,7 +18,10 @@ class AuthScreen extends Component {
             isPasswordFocus: null,
             emailValid: true,
             submiting: true,
-            staySignIn: true
+            staySignIn: true,
+            signInModal: false,
+            provider: false,
+            costumer: false
         }
     }
 
@@ -46,7 +50,7 @@ class AuthScreen extends Component {
 
     render() {
         const { onPhone, onForgetPassword, onPressBarber, customer, barber, signUpAsBarber, onContinueWithOutLogin, onFacebook, submit, isSubmit, onGoogle } = this.props
-        const { email, password, isEmailFocus, isPasswordFocus, staySignIn } = this.state;
+        const { email, password, isEmailFocus, costumer, provider, isPasswordFocus, staySignIn } = this.state;
         return (
             <>
                 <View style={styles.container}>
@@ -104,8 +108,11 @@ class AuthScreen extends Component {
                                     }
                                     <Text style={styles.forgetPasswordTextStyle}>Stay signed in</Text>
                                 </View>
-                                <TouchableOpacity onPress={() => { this.props.isSubmit(); this.handleLogin() }}>
-                                    <View  style={styles.loginButton}>
+                                <TouchableOpacity onPress={() => {
+                                    this.setState({ signInModal: true })
+                                    // this.props.isSubmit(); this.handleLogin() 
+                                }}>
+                                    <View style={styles.loginButton}>
                                         {
                                             this.props.loading ?
                                                 <ActivityIndicator size={20} color="white" />
@@ -124,7 +131,7 @@ class AuthScreen extends Component {
                             <Text style={styles.signUpAndLoginTextStyle}>Sign up using</Text>
 
                             <TouchableOpacity onPress={onFacebook()}>
-                                <View 
+                                <View
                                     style={styles.faceBookButton}>
                                     <View style={styles.row}>
                                         <View style={styles.iconContainer}>
@@ -141,7 +148,7 @@ class AuthScreen extends Component {
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={onGoogle()} >
-                                <View 
+                                <View
                                     style={styles.googleButton}>
                                     <View style={styles.row}>
                                         <View style={styles.iconContainer}>
@@ -200,6 +207,40 @@ class AuthScreen extends Component {
                         </View>
                     </ScrollView>
                 </View>
+                <Modal isVisible={this.state.signInModal}>
+                    <View style={{ backgroundColor: '#171717', paddingVertical: "5%" }}>
+
+                        <View style={{ paddingVertical: '7.5%', marginHorizontal: "10%", flexDirection: "row", justifyContent: "space-between", paddingBottom: '5%', }}>
+                            <TouchableOpacity onPress={() => { this.setState({ provider: true, costumer: false, }) }} style={{ width: 120, height: 50, flexDirection: "row", justifyContent: 'center', alignItems: "center" }}>
+                                <Icon.MaterialCommunityIcons
+                                    name={provider ? 'radiobox-marked' : 'radiobox-blank'}
+                                    color={THEME.PRIMARY_COLOR} size={THEME.ICON_SIZE} />
+                                <Text style={{ color: '#FFF', textAlign: 'center', marginHorizontal: 10, fontFamily: 'Poppins-Bold' }} >Provider</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.setState({ provider: false, costumer: true, })} style={{ width: 120, height: 50, flexDirection: "row", justifyContent: 'center', alignItems: "center" }}>
+                                <Icon.MaterialCommunityIcons
+                                    name={costumer ? 'radiobox-marked' : 'radiobox-blank'}
+                                    color={THEME.PRIMARY_COLOR} size={THEME.ICON_SIZE} />
+                                <Text style={{ color: '#FFF', textAlign: 'center', marginHorizontal: 10, fontFamily: 'Poppins-Bold' }} >Customer</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', marginHorizontal: '6%', paddingBottom: '7.5%' }}>
+                            <Text style={{ fontFamily: "Poppins-Medium", textAlign: "center", color: "white" }}>Select one of the two options above</Text>
+                        </View>
+                        <TouchableOpacity onPress={() => {
+                            if (costumer || provider) {
+                                this.props.isSubmit(); this.handleLogin()
+                            }
+                        }} style={{ width: 120, paddingVertical: "5%", backgroundColor: THEME.PRIMARY_COLOR, height: 50, justifyContent: 'center', alignItems: "center", alignSelf: "center" }}>
+                            {
+                                this.props.loading ?
+                                    <ActivityIndicator size={20} color="white" />
+                                    :
+                                    <Text style={{ color: '#171717', textAlign: 'center', fontFamily: 'Poppins-Bold' }} >Sign In</Text>
+                            }
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
             </>
         )
     }
