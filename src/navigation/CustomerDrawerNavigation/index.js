@@ -6,7 +6,8 @@ import { Avatar } from 'react-native-elements';
 import { authActions } from '../../redux/actions/auth';
 import { useDispatch, connect } from 'react-redux';
 import CustomerBottomTabNavigation from '../CustomerBottomTabNavigation';
-import THEME from '../../assets/styles/theme.style'
+import THEME from '../../assets/styles/theme.style';
+import Invoice from '../../assets/svg/invoice.svg';
 import { Linking } from 'react-native';
 const Drawer = createDrawerNavigator();
 function CustomerDrawerNavigationRoutes(props) {
@@ -45,6 +46,10 @@ function CustomDrawerContent({ navigation, props }) {
                     <TouchableOpacity onPress={() => alert("This screen is Under Development Coming Soon")} style={styles.itemStyle}>
                         <Icon.MaterialIcons name="payment" color="#fff" size={25} />
                         <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Poppins-Medium', fontSize: 12 }} >Payment Method</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate("Receipt")} style={styles.itemStyle}>
+                        <Invoice height={25} width={25} />
+                        <Text style={{ color: THEME.PRIMARY_COLOR, marginLeft: "10%", fontFamily: 'Poppins-Medium', fontSize: 12 }} >Receipt</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => Linking.openURL('https://fleekservices.com/')} style={styles.itemStyle}>
                         <Icon.Ionicons name="information-circle-outline" color="#fff" size={25} />

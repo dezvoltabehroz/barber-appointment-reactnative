@@ -19,6 +19,7 @@ import _EditAddress from './EditAddress';
 import _MyAddresses from './MyAddresses';
 import _Notification from './Notification';
 import _EditProfile from './EditProfile';
+import _Receipt from './Receipt';
 import _CustomerChat from './CustomerChat';
 import _RescheduleBooking from './RescheduleBooking';
 export const CustomerScreenPaths = {
@@ -29,6 +30,7 @@ export const CustomerScreenPaths = {
     EmailandPassword: _EmailandPassword,
     Notification: _Notification,
     EditProfile: _EditProfile,
+    Receipt:_Receipt,
     SubCategory: _SubCategory,
     SubCategoryServices: _SubCategoryServices,
     BarberList: _BarberList,

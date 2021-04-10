@@ -19,6 +19,7 @@ import AddAddress from './AddAddress';
 import { Icon } from '../../components';
 import CustomerChatScreen from './CustomerChatscreen';
 import EditProfileScreen from './EditProfileScreen';
+import ReceiptScreen from './RecieptScreen';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
@@ -130,6 +131,13 @@ function CustomerRoutes() {
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Edit Profile</Text></View>),
+                headerTitleAlign: 'center',
+            }} />
+             <Stack.Screen name="Receipt" component={EditProfileScreen} options={{
+                headerBackTitleVisible: false,
+                headerTintColor: 'white',
+                headerTransparent: true,
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Reciept</Text></View>),
                 headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="BarberProfile" component={BarberProfileScreen} options={{

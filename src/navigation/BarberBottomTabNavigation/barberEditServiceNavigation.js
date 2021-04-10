@@ -15,7 +15,7 @@ function BarberEditServiceRoutes() {
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
-                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Barber Edit Services</Text></View>),
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Provider Services</Text></View>),
                 headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="AddServices" component={AddServicesScreen} options={{
