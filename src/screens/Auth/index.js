@@ -36,7 +36,7 @@ class AuthScreen extends Component {
     handleLogin = () => {
         const { onLogin } = this.props
         let { email, password } = this.state;
-        let userData = { email: email, password: password };
+        let userData = { email: email, password: password ,type:this.state.provider?'barber':'customer'};
         if (email && password) {
             if (this.isEmailValid(email)) {
                 onLogin(userData);

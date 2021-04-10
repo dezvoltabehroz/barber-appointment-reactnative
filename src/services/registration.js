@@ -106,6 +106,7 @@ const Api = {
         return axiosInstance.post('registration/login', {
             email: userData.email,
             password: userData.password,
+            type: userData.type
         }, config)
     },
     userStepCount: function (userData) {
