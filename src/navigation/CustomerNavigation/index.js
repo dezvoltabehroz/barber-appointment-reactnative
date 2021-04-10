@@ -133,7 +133,7 @@ function CustomerRoutes() {
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Edit Profile</Text></View>),
                 headerTitleAlign: 'center',
             }} />
-             <Stack.Screen name="Receipt" component={EditProfileScreen} options={{
+             <Stack.Screen name="Receipt" component={ReceiptScreen} options={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,

@@ -16,7 +16,11 @@ class Receipt extends Component {
     }
 
     componentDidMount = () => {
-        BookingServices.listReceipt()
+        let userData = {
+            id: this.props.user.userData.id,
+            token: this.props.user.userData.token
+        }
+        BookingServices.listReceipt(userData)
             .then((response) => {
                 if (response.data.status) {
                     this.setState({ list: response.data.data, isLoading: false })
@@ -27,8 +31,8 @@ class Receipt extends Component {
 
     _renderItems = (item) => {
         return (
-            <TouchableOpacity onPress={() => Linking.openURL(`${item.receipt_url}`)}>
-                <Invoice />
+            <TouchableOpacity style={{ padding: '2.5%' }} onPress={() => Linking.openURL(`${item.receipt_url}`)}>
+                <Invoice height={100} width={100} />
             </TouchableOpacity>
         )
     }
@@ -56,7 +60,7 @@ class Receipt extends Component {
                                 <FlatList data={list}
                                     keyExtractor={item => item}
                                     ItemSeparatorComponent={this.renderSeparator}
-                                    numColumns={4}
+                                    numColumns={3}
                                     showsVerticalScrollIndicator={false}
                                     contentContainerStyle={styles.contentContainer}
                                     renderItem={({ index, item }) => this._renderItems(item)} />}
