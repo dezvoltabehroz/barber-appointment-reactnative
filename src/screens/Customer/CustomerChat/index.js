@@ -265,61 +265,127 @@ class barberChat extends Component {
                             <ActivityIndicator />
                         </View>
                         :
-                        <GiftedChat
-                            messages={this.state.messages}
-                            onSend={this.onSend}
-                            placeholder={'Type a message'}
-                            maxComposerHeight={50}
-                            scrollToBottom
-                            alignTop
-                            // minInputToolbarHeight={200}
-                            // maxInputLength={200}
-                            renderSend={this._renderSend}
-                            renderBubble={this._renderBubble}
-                            // renderAvatar={this._renderAvatar}
-                            renderAvatar={() => null}
-                            renderInputToolbar={props => (
+                        <>
+                            {
+                                Platform.OS == 'android' ?
+                                    <GiftedChat
+                                        messages={this.state.messages}
+                                        onSend={this.onSend}
+                                        placeholder={'Type a message'}
+                                        maxComposerHeight={50}
+                                        scrollToBottom
+                                        alignTop
+                                        // minInputToolbarHeight={200}
+                                        // maxInputLength={200}
+                                        renderSend={this._renderSend}
+                                        renderBubble={this._renderBubble}
+                                        // renderAvatar={this._renderAvatar}
+                                        renderAvatar={() => null}
+                                        renderInputToolbar={props => (
 
-                                <InputToolbar
-                                    {...props}
-                                    multiline={false}
-                                    textInputStyle={{
-                                        color: "white",
-                                        // fontFamily: 'Poppins-Regular',
-                                        paddingTop: Platform.OS == 'ios' ? 0 : '5%'
-                                    }}
-                                    containerStyle={{
-                                        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-                                        // borderTopWidth: 0,
-                                        // paddingTop:'5%'
-                                    }}
-                                // renderComposer={props1 =>
-                                //     (
-                                //         //                 <KeyboardAwareScrollView>
-                                //         <Composer
-                                //             {...props1}
-                                //             multiline={false}
-                                //             textInputStyle={{
-                                //                 // height: 54,
-                                //                 color: "white",
-                                //                 fontFamily: 'Poppins-Regular',
-                                //                 // paddingTop: '5%'
-                                //             }} />
-                                //                 </KeyboardAwareScrollView>
-                                />
-                            )}
-                            // renderInputToolbar={this._renderInputToolbar}
-                            // showUserAvatar={fasle}
-                            showAvatarForEveryMessage={true}
-                            // renderCustomView={this._renderCustomView}
-                            user={{
-                                _id: this.currentUserId,
-                                name: user.last_name || user.first_name,
-                                // avatar: this.props.barberData.profile_picture
-                            }}
-                            bottomOffset={0}
-                            listViewProps={{ marginTop: '7%' }}
-                        />}
+                                            <InputToolbar
+                                                {...props}
+                                                multiline={false}
+                                                textInputStyle={{
+                                                    color: "white",
+                                                    // fontFamily: 'Poppins-Regular',
+                                                    paddingTop: Platform.OS == 'ios' ? 0 : '5%'
+                                                }}
+                                                containerStyle={{
+                                                    backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
+                                                    // borderTopWidth: 0,
+                                                    // paddingTop:'5%'
+                                                }}
+                                            // renderComposer={props1 =>
+                                            //     (
+                                            //         //                 <KeyboardAwareScrollView>
+                                            //         <Composer
+                                            //             {...props1}
+                                            //             multiline={false}
+                                            //             textInputStyle={{
+                                            //                 // height: 54,
+                                            //                 color: "white",
+                                            //                 fontFamily: 'Poppins-Regular',
+                                            //                 // paddingTop: '5%'
+                                            //             }} />
+                                            //                 </KeyboardAwareScrollView>
+                                            />
+                                        )}
+                                        // renderInputToolbar={this._renderInputToolbar}
+                                        // showUserAvatar={fasle}
+                                        showAvatarForEveryMessage={true}
+                                        // renderCustomView={this._renderCustomView}
+                                        renderChatEmpty={<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}><Text style={{ color: "white", fontFamily: 'Poppins-Regular', }}>No messages found!</Text></View>}
+                                        user={{
+                                            _id: this.currentUserId,
+                                            name: user.last_name || user.first_name,
+                                            // avatar: this.props.barberData.profile_picture
+                                        }}
+                                        bottomOffset={0}
+                                        listViewProps={{ marginTop: '7%' }}
+                                    />
+                                    :
+                                    <KeyboardAwareScrollView>
+                                        <GiftedChat
+                                            messages={this.state.messages}
+                                            onSend={this.onSend}
+                                            placeholder={'Type a message'}
+                                            maxComposerHeight={50}
+                                            scrollToBottom
+                                            alignTop
+                                            // minInputToolbarHeight={200}
+                                            // maxInputLength={200}
+                                            renderSend={this._renderSend}
+                                            renderBubble={this._renderBubble}
+                                            // renderAvatar={this._renderAvatar}
+                                            renderAvatar={() => null}
+                                            renderInputToolbar={props => (
+
+                                                <InputToolbar
+                                                    {...props}
+                                                    multiline={false}
+                                                    textInputStyle={{
+                                                        color: "white",
+                                                        // fontFamily: 'Poppins-Regular',
+                                                        paddingTop: Platform.OS == 'ios' ? 0 : '5%'
+                                                    }}
+                                                    containerStyle={{
+                                                        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
+                                                        // borderTopWidth: 0,
+                                                        // paddingTop:'5%'
+                                                    }}
+                                                // renderComposer={props1 =>
+                                                //     (
+                                                //         //                 <KeyboardAwareScrollView>
+                                                //         <Composer
+                                                //             {...props1}
+                                                //             multiline={false}
+                                                //             textInputStyle={{
+                                                //                 // height: 54,
+                                                //                 color: "white",
+                                                //                 fontFamily: 'Poppins-Regular',
+                                                //                 // paddingTop: '5%'
+                                                //             }} />
+                                                //                 </KeyboardAwareScrollView>
+                                                />
+                                            )}
+                                            // renderInputToolbar={this._renderInputToolbar}
+                                            // showUserAvatar={fasle}
+                                            showAvatarForEveryMessage={true}
+                                            // renderCustomView={this._renderCustomView}
+                                            renderChatEmpty={<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}><Text style={{ color: "white", fontFamily: 'Poppins-Regular', }}>No messages found!</Text></View>}
+                                            user={{
+                                                _id: this.currentUserId,
+                                                name: user.last_name || user.first_name,
+                                                // avatar: this.props.barberData.profile_picture
+                                            }}
+                                            bottomOffset={0}
+                                            listViewProps={{ marginTop: '7%' }}
+                                        />
+                                    </KeyboardAwareScrollView>
+                            }
+                        </>
+                }
             </View>
         );
     }

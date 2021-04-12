@@ -380,6 +380,7 @@ class customerChat extends Component {
                                             }}
                                             bottomOffset={1}
                                             listViewProps={{ marginTop: '7%' }}
+                                            renderChatEmpty={<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}><Text style={{ color: "white", fontFamily: 'Poppins-Regular', }}>No messages found!</Text></View>}
                                         />
                                     </KeyboardAwareScrollView>
                             }
