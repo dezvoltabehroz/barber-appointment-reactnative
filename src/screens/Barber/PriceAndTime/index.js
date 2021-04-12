@@ -193,7 +193,7 @@ class PriceAndTime extends Component {
                     let selectedArray = [...this.state.selectedArray];
                     let newServiceCounter = selectedArray[selectedArray.length - 1].serviceCounter - 1;
                     selectedArray[selectedArray.length - 1] = { ...selectedArray[selectedArray.length - 1], serviceCounter: newServiceCounter };
-                    this.setState({ selectedArray: selectedArray.filter((obj => obj.id != itemData.id)) })
+                    this.setState({ selectedArray: selectedArray.filter((obj => obj.id != itemData.id)),presentAlertModal:false })
                 }
             })
             .catch((err) => {
