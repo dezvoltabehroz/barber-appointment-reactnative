@@ -80,8 +80,8 @@ export default StyleSheet.create({
     },
     colorTextStyle: {
         color: THEME.COLOR_GREY,
-        fontFamily: "Poppins-Regular",
-        fontSize: THEME.FONT_SIZE_SMALL
+        fontFamily: "Poppins-Medium",
+        // fontSize: THEME.FONT_SIZE_SMALL
     },
     pointTExtStyle: {
         color: THEME.PRIMARY_COLOR,
@@ -103,12 +103,12 @@ export default StyleSheet.create({
         marginHorizontal: "5%",
         flex: 1
     },
-    inputContainerStyle: {
+    inputContainer: {
         marginTop: "3%",
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        height: 54,
+        // height: 54,
         width: screenWidth * 0.8,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
@@ -118,13 +118,33 @@ export default StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-evenly",
         alignItems: "center",
-        height: 54,
+        height: 60,
         width: screenWidth * 0.4,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
     },
     iconStyle: {
         marginHorizontal: 5
+    },
+    containerStyle: { height: 60, },
+    labelStyle: {
+        paddingLeft: 9,
+        color: THEME.COLOR_GREY,
+        fontSize: 12,
+        fontFamily: 'Poppins-Regular'
+    },
+    inputContainerStyle: {
+        height: 54,
+        width: '100%',
+        borderBottomWidth: 0,
+    },
+    inputStyle: {
+        fontSize: 14,
+        paddingLeft: 10,
+        marginTop: 10,
+        borderBottomWidth: 0,
+        // color: THEME.PRIMARY_COLOR,
+        fontFamily: 'Poppins-Medium'
     },
 })
 

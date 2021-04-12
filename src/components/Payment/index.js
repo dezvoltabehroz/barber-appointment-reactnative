@@ -19,6 +19,7 @@ import COMMON_STYLE from '../../assets/styles/common.style';
 import { connect } from 'react-redux';
 import { BookingServices } from '../../services';
 import Modal from 'react-native-modal';
+import { Input } from 'react-native-elements';
 
 class Payment extends Component {
     constructor(prop) {
@@ -192,7 +193,7 @@ class Payment extends Component {
                                 <Icon.FontAwesome
                                     onPress={() => {
                                         this.setState({ payWithStripe: true, payWithPayPal: false, payWithCard: false, }, () => {
-                                            this.props.paymentMethod("Stripe"); this.props.isConfirm("false", {
+                                            this.props.paymentMethod("Stripe"); this.props.isConfirm("true", {
                                                 card_number: "",
                                                 card_holder: "",
                                                 exp_date: "",
@@ -219,7 +220,7 @@ class Payment extends Component {
                                 <View style={styles.marginVertical}>
                                     <View style={styles.contentContainer}>
                                         <View style={{ marginHorizontal: '5%' }}>
-                                            <View style={[styles.inputContainerStyle,
+                                            {/* <View style={[styles.inputContainerStyle,
                                             isNumberFocus || number != '' ? THEME.inputBorder : {}]}>
                                                 <FloatingInput
                                                     val={number}
@@ -236,6 +237,33 @@ class Payment extends Component {
                                                     style={styles.iconStyle}
                                                     size={THEME.ICON_SIZE}
                                                     color={THEME.COLOR_GREY} />
+                                            </View> */}
+                                            <View style={[styles.inputContainer,
+                                            isNumberFocus || number != '' ? THEME.inputBorder : {}]}>
+                                                <Input
+                                                    value={number}
+                                                    label={isNumberFocus && number.length ? "Card Number" : ""}
+                                                    maxLength={16}
+                                                    keyboardType={"number-pad"}
+                                                    onFocus={() => this.setState({ isNumberFocus: true })}
+                                                    onBlur={() => this.setState({ isNumberFocus: false, submit: true }, () => {
+                                                        this.handleConfirmPayment()
+                                                    })}
+                                                    containerStyle={styles.containerStyle}
+                                                    labelStyle={styles.labelStyle}
+                                                    inputContainerStyle={styles.inputContainerStyle}
+                                                    inputStyle={styles.inputStyle}
+                                                    rightIcon={
+                                                        <Icon.Feather
+                                                            name='credit-card'
+                                                            style={styles.iconStyle}
+                                                            size={THEME.ICON_SIZE}
+                                                            color={THEME.COLOR_GREY} />
+                                                    }
+                                                    placeholder="Card Number"
+                                                    onChangeText={(number) => this.setState({ number }, () => {
+                                                        this.handleConfirmPayment()
+                                                    })} />
                                             </View>
                                             {
                                                 submit && !number ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Please fill this field</Text> : null
@@ -243,24 +271,32 @@ class Payment extends Component {
                                             {
                                                 submit && number.length && !this.isCardValid(number) ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Card number is invalid</Text> : null
                                             }
-                                            <View style={[styles.inputContainerStyle,
+                                            <View style={[styles.inputContainer,
                                             isNameFocus || name != '' ? THEME.inputBorder : {}]}>
-                                                <FloatingInput
-                                                    val={name}
-                                                    onActive={() => this.setState({ isNameFocus: true })}
-                                                    onInActive={() => this.setState({ isNameFocus: false, submit: true }, () => {
+                                             
+                                             <Input
+                                                    value={name}
+                                                    label={isNameFocus && name.length ? "Card Holder" : ""}
+                                                    maxLength={16}
+                                                    onFocus={() => this.setState({ isNameFocus: true })}
+                                                    onBlur={() => this.setState({ isNameFocus: false, submit: true }, () => {
                                                         this.handleConfirmPayment()
                                                     })}
-                                                    label='Card Holder'
-                                                    iconInput
-                                                    updateText={(name) => this.setState({ name }, () => {
+                                                    containerStyle={styles.containerStyle}
+                                                    labelStyle={styles.labelStyle}
+                                                    inputContainerStyle={styles.inputContainerStyle}
+                                                    inputStyle={styles.inputStyle}
+                                                    rightIcon={
+                                                        <Icon.Feather
+                                                        name='user'
+                                                        style={styles.iconStyle}
+                                                        size={THEME.ICON_SIZE}
+                                                        color={THEME.COLOR_GREY} />
+                                                    }
+                                                    placeholder="Card Holder"
+                                                    onChangeText={(name) => this.setState({ name }, () => {
                                                         this.handleConfirmPayment()
                                                     })} />
-                                                <Icon.Feather
-                                                    name='user'
-                                                    style={styles.iconStyle}
-                                                    size={THEME.ICON_SIZE}
-                                                    color={THEME.COLOR_GREY} />
                                             </View>
                                             {
                                                 submit && !name ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Please fill this field</Text> :
@@ -286,16 +322,29 @@ class Payment extends Component {
                                             <View  >
                                                 <View style={[styles.inputRowContainerStyle,
                                                 isCvvFocus || cvv != '' ? THEME.inputBorder : {}]}>
-                                                    <FloatingInput
-                                                        val={cvv}
-                                                        maxLength={3}
-                                                        keyboardtype={'number-pad'}
-                                                        onActive={() => this.setState({ isCvvFocus: true })}
-                                                        onInActive={() => this.setState({ isCvvFocus: false, submit: true }, () => {
-                                                            this.handleConfirmPayment()
-                                                        })}
-                                                        label='CCV Code' iconSmallInput updateText={(cvv) => this.setState({ cvv })} />
-                                                    <Icon.Feather name='lock' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
+                                                    <Input
+                                                    value={cvv}
+                                                    label={isCvvFocus && cvv.length ? "CCV Code" : ""}
+                                                    maxLength={16}
+                                                    onFocus={() => this.setState({ isCvvFocus: true })}
+                                                    onBlur={() => this.setState({ isCvvFocus: false, submit: true }, () => {
+                                                        this.handleConfirmPayment()
+                                                    })}
+                                                    containerStyle={styles.containerStyle}
+                                                    labelStyle={styles.labelStyle}
+                                                    inputContainerStyle={styles.inputContainerStyle}
+                                                    inputStyle={styles.inputStyle}
+                                                    rightIcon={
+                                                        <Icon.Feather
+                                                        name='lock'
+                                                        style={styles.iconStyle}
+                                                        size={THEME.ICON_SIZE}
+                                                        color={THEME.COLOR_GREY} />
+                                                    }
+                                                    placeholder="CCV Code"
+                                                    onChangeText={(cvv) => this.setState({ cvv }, () => {
+                                                        this.handleConfirmPayment()
+                                                    })} />
                                                 </View>
                                                 {
                                                     submit && !cvv ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Please fill this field</Text> :
