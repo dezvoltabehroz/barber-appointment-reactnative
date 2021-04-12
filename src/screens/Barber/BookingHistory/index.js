@@ -207,21 +207,24 @@ class BarberBookingHistory extends Component {
                             this.state.loading ?
                                 <ActivityIndicator />
                                 :
-                                <FlatList
-                                    refreshControl={
-                                        <RefreshControl
-                                            refreshing={this.state.loading}
-                                            onRefresh={() => this.componentDidMount()}
-                                            tintColor={THEME.COLOR_WHITE}
-                                            colors={[THEME.PRIMARY_COLOR]}
-                                        />
-                                    }
-                                    data={bookingList}
-                                    initialNumToRender={50}
-                                    showsVerticalScrollIndicator={false}
-                                    ItemSeparatorComponent={this._renderSeparator}
-                                    renderItem={({ item, index }) => this._renderBookingItems(item, index)}
-                                    keyExtractor={item => item} />}
+                                bookingList.length == 0 ?
+                                    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }} ><Text style={{ color: "white", textAlign: "center",fontFamily:"Poppins-Regular" }}>No appointment found :(</Text></View>
+                                    :
+                                    <FlatList
+                                        refreshControl={
+                                            <RefreshControl
+                                                refreshing={this.state.loading}
+                                                onRefresh={() => this.componentDidMount()}
+                                                tintColor={THEME.COLOR_WHITE}
+                                                colors={[THEME.PRIMARY_COLOR]}
+                                            />
+                                        }
+                                        data={bookingList}
+                                        initialNumToRender={50}
+                                        showsVerticalScrollIndicator={false}
+                                        ItemSeparatorComponent={this._renderSeparator}
+                                        renderItem={({ item, index }) => this._renderBookingItems(item, index)}
+                                        keyExtractor={item => item} />}
                     </View>
                 </View>
             </>
