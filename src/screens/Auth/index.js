@@ -231,7 +231,7 @@ class AuthScreen extends Component {
                             if (costumer || provider) {
                                 this.props.isSubmit(); this.handleLogin()
                             }
-                        }} style={{ width: 120, paddingVertical: "5%", backgroundColor: THEME.PRIMARY_COLOR, height: 50, justifyContent: 'center', alignItems: "center", alignSelf: "center" }}>
+                        }} style={{ width: 120, marginVertical: "5%", backgroundColor: THEME.PRIMARY_COLOR, height: 50, justifyContent: 'center', alignItems: "center", alignSelf: "center" }}>
                             {
                                 this.props.loading ?
                                     <ActivityIndicator size={20} color="white" />
