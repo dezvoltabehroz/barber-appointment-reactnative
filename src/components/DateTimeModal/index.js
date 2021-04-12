@@ -138,7 +138,7 @@ export default class DateTimeModal extends Component {
                             <ScrollPicker
                                 ref={(sp) => { this.sp = sp }}
                                 dataSource={timeHourSlot}
-                                selectedIndex={1}
+                                selectedIndex={0}
                                 itemHeight={60}
                                 style={{ height: 40 }}
                                 wrapperHeight={screenHeight < 600 ? screenHeight * 0.25 : screenHeight * 0.3}
@@ -177,7 +177,7 @@ export default class DateTimeModal extends Component {
                                     <ScrollPicker
                                         ref={(sp) => { this.sp = sp }}
                                         dataSource={this.state.dayNightMinutes}
-                                        selectedIndex={0}
+                                        selectedIndex={1}
                                         itemHeight={60}
                                         style={{ height: 40 }}
                                         wrapperHeight={screenHeight < 600 ? screenHeight * 0.25 : screenHeight * 0.3}
@@ -242,7 +242,7 @@ export default class DateTimeModal extends Component {
                                     <ScrollPicker
                                         ref={(sp) => { this.sp = sp }}
                                         dataSource={["", "AM", "PM"]}
-                                        selectedIndex={0}
+                                        selectedIndex={1}
                                         itemHeight={60}
                                         style={{ height: 40 }}
                                         wrapperHeight={screenHeight < 600 ? screenHeight * 0.25 : screenHeight * 0.3}
