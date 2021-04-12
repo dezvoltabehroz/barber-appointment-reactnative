@@ -325,7 +325,7 @@ class Payment extends Component {
                                                     <Input
                                                     value={cvv}
                                                     label={isCvvFocus && cvv.length ? "CCV Code" : ""}
-                                                    maxLength={16}
+                                                    maxLength={3}
                                                     onFocus={() => this.setState({ isCvvFocus: true })}
                                                     onBlur={() => this.setState({ isCvvFocus: false, submit: true }, () => {
                                                         this.handleConfirmPayment()
