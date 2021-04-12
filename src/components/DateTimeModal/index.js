@@ -78,12 +78,10 @@ export default class DateTimeModal extends Component {
     handleSet = () => {
         const { onSet, dayNight } = this.props;
         const { am, pm, hours, minutes } = this.state;
-        // console.log(hours);
         if (dayNight) {
             if (am == true && pm == false) {
                 let time = hours.split(':');
-                var value = `${hours == '12' ? '00' : parseInt(hours) < 10 ? `0${hours}` : hours}:${minutes}`;
-                // console.log(value)
+                var value = `${hours == '12' ? '00' : parseInt(hours) < 10 ? `0${hours}` : hours}:${minutes == "" ? "00" : "0" + parseInt(minutes)}`;
                 if (hours == '' || hours == '00') {
                     Alert.alert("Attention", "Please select correct Hour")
                 }
@@ -94,7 +92,11 @@ export default class DateTimeModal extends Component {
             }
             else {
                 let time = hours.split(':');
-                var value = `${time[0] == '12' ? 12 : (parseInt(time[0]) + 12)}:${minutes}`;
+                console.log("time :", time)
+                console.log("hours :", hours)
+                console.log("minutes :", minutes)
+                var value = `${time[0] == '12' ? 12 : (parseInt(time[0]) + 12)}:${minutes == "" ? "00" : "0" + parseInt(minutes)}`;
+                console.log("value : ", value)
                 if (hours == '' || hours == '00') {
                     Alert.alert("Attention", "Please select correct Hour")
                 }
@@ -177,7 +179,7 @@ export default class DateTimeModal extends Component {
                                     <ScrollPicker
                                         ref={(sp) => { this.sp = sp }}
                                         dataSource={this.state.timeMinutesSlot}
-                                        selectedIndex={1}
+                                        selectedIndex={0}
                                         itemHeight={60}
                                         style={{ height: 40 }}
                                         wrapperHeight={screenHeight < 600 ? screenHeight * 0.25 : screenHeight * 0.3}
@@ -242,7 +244,7 @@ export default class DateTimeModal extends Component {
                                     <ScrollPicker
                                         ref={(sp) => { this.sp = sp }}
                                         dataSource={["", "AM", "PM"]}
-                                        selectedIndex={1}
+                                        selectedIndex={0}
                                         itemHeight={60}
                                         style={{ height: 40 }}
                                         wrapperHeight={screenHeight < 600 ? screenHeight * 0.25 : screenHeight * 0.3}
