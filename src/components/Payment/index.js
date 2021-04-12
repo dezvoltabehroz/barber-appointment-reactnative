@@ -315,6 +315,7 @@ class Payment extends Component {
                                             isNumberFocus || number != '' ? THEME.inputBorder : {}]}>
                                                 <FloatingInput
                                                     val={number}
+                                                    maxLength={16}
                                                     keyboardtype={"number-pad"}
                                                     onActive={() => this.setState({ isNumberFocus: true })}
                                                     onInActive={() => this.setState({ isNumberFocus: false, submit: true }, () => {

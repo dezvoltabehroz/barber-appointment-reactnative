@@ -81,7 +81,7 @@ export default class DateTimeModal extends Component {
         if (dayNight) {
             if (am == true && pm == false) {
                 let time = hours.split(':');
-                var value = `${hours == '12' ? '00' : parseInt(hours) < 10 ? `0${hours}` : hours}:${minutes == "" ? "00" : "0" + parseInt(minutes)}`;
+                var value = `${hours == '12' ? '00' : parseInt(hours) < 10 ? `0${hours}` : hours}:${minutes == "" ? "00" : minutes > 9 ? parseInt(minutes) : "0" + parseInt(minutes)}`;
                 if (hours == '' || hours == '00') {
                     Alert.alert("Attention", "Please select correct Hour")
                 }
@@ -95,7 +95,7 @@ export default class DateTimeModal extends Component {
                 console.log("time :", time)
                 console.log("hours :", hours)
                 console.log("minutes :", minutes)
-                var value = `${time[0] == '12' ? 12 : (parseInt(time[0]) + 12)}:${minutes == "" ? "00" : "0" + parseInt(minutes)}`;
+                var value = `${time[0] == '12' ? 12 : (parseInt(time[0]) + 12)}:${minutes == "" ? "00" : minutes > 9 ? parseInt(minutes) : "0" + parseInt(minutes)}`;
                 console.log("value : ", value)
                 if (hours == '' || hours == '00') {
                     Alert.alert("Attention", "Please select correct Hour")
