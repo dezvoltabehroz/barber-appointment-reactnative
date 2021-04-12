@@ -82,7 +82,7 @@ export default class DateTimeModal extends Component {
         if (dayNight) {
             if (am == true && pm == false) {
                 let time = hours.split(':');
-                var value = `${hours == '12' ? '00' : parseInt(hours) < 10 ? `0${hours}` : hours}:00`;
+                var value = `${hours == '12' ? '00' : parseInt(hours) < 10 ? `0${hours}` : hours}:${minutes}`;
                 // console.log(value)
                 if (hours == '' || hours == '00') {
                     Alert.alert("Attention", "Please select correct Hour")
@@ -94,7 +94,7 @@ export default class DateTimeModal extends Component {
             }
             else {
                 let time = hours.split(':');
-                var value = `${time[0] == '12' ? 12 : (parseInt(time[0]) + 12)}:00`;
+                var value = `${time[0] == '12' ? 12 : (parseInt(time[0]) + 12)}:${minutes}`;
                 if (hours == '' || hours == '00') {
                     Alert.alert("Attention", "Please select correct Hour")
                 }
@@ -176,7 +176,7 @@ export default class DateTimeModal extends Component {
                                 dayNight ?
                                     <ScrollPicker
                                         ref={(sp) => { this.sp = sp }}
-                                        dataSource={this.state.dayNightMinutes}
+                                        dataSource={this.state.timeMinutesSlot}
                                         selectedIndex={1}
                                         itemHeight={60}
                                         style={{ height: 40 }}
