@@ -378,7 +378,7 @@ class PriceAndTime extends Component {
         let userData = {
             id: this.props.user.userData.id,
             token: this.props.user.userData.token,
-            steps_count: 3,
+            steps_count: 2,
             services: array
         }
         if (counter === length) {
