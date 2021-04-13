@@ -90,7 +90,7 @@ class EditWallet extends Component {
                                             </View>
                                             <View style={{ marginTop: "5%", }}>
                                                 <View style={{ marginHorizontal: "5%", marginBottom: 10 }}>
-                                                    <Text style={styles.whiteText}>Balance: {balance - amount}.00 USD</Text>
+                                                    <Text style={styles.whiteText}>Balance: {balance - (amount<=balance?amount:alert("Please enter amount should be equal to or less than the balance!"))}.00 USD</Text>
                                                 </View>
                                                 <View style={{ marginHorizontal: "2.5%" }}>
                                                     <Input placeholder="Enter Amount" value={amount} keyboardType={"number-pad"} onChangeText={(amount) => this.setState({ amount })} />
