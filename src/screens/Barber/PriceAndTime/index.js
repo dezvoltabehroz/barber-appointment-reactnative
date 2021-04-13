@@ -72,7 +72,7 @@ class PriceAndTime extends Component {
         // });
 
     }
-    
+
     componentWillUnmount = () => {
         let data = []
         this.setState({ selectedArray: data })
@@ -80,12 +80,11 @@ class PriceAndTime extends Component {
 
     setTime = (index, item) => {
         console.log("item:", item)
-        this.setState({ showTimePicker: true, indexValue: index, item: item })
+        this.setState({ showEditService: false, showTimePicker: true, indexValue: index, item: item })
     }
 
     setTimeChange = (data) => {
         const { item } = this.state;
-
         const objIndex = this.state.selectedArray.findIndex((obj => obj.id == item.id));
         let items = [...this.state.selectedArray];
         items[objIndex] = { ...items[objIndex], time: data };
@@ -193,7 +192,7 @@ class PriceAndTime extends Component {
                     let selectedArray = [...this.state.selectedArray];
                     let newServiceCounter = selectedArray[selectedArray.length - 1].serviceCounter - 1;
                     selectedArray[selectedArray.length - 1] = { ...selectedArray[selectedArray.length - 1], serviceCounter: newServiceCounter };
-                    this.setState({ selectedArray: selectedArray.filter((obj => obj.id != itemData.id)),presentAlertModal:false })
+                    this.setState({ selectedArray: selectedArray.filter((obj => obj.id != itemData.id)), presentAlertModal: false })
                 }
             })
             .catch((err) => {
@@ -474,7 +473,7 @@ class PriceAndTime extends Component {
                 </View>
                 <DateTimeModal showTimePicker={showTimePicker}
                     onCancel={() => this.setState({ showTimePicker: false })}
-                    onSet={(time) => { this.state.time != '' ? this.setState({ time, showTimePicker: false }) : this.setTimeChange(time) }} />
+                    onSet={(time) => { this.state.time != '' ? this.setState({ time, showTimePicker: false, showEditService: true }) : this.setTimeChange(time) }} />
                 <Modal visible={showEditService}
                     animationType="slide">
                     {
