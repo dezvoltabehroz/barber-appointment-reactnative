@@ -43,7 +43,8 @@ class PriceAndTime extends Component {
             price: '',
             showAddPrice: false,
             lastIndex: -1,
-            presentAlertModal: false
+            presentAlertModal: false,
+            btnLoading: false
         }
     }
     componentDidMount = () => {
@@ -180,7 +181,7 @@ class PriceAndTime extends Component {
     };
 
     handleDeleteService = (itemData) => {
-
+        this.setState({ btnLoading: true })
         let userData = {
             id: this.props.user.userData.id,
             token: this.props.user.userData.token,
@@ -192,7 +193,7 @@ class PriceAndTime extends Component {
                     let selectedArray = [...this.state.selectedArray];
                     let newServiceCounter = selectedArray[selectedArray.length - 1].serviceCounter - 1;
                     selectedArray[selectedArray.length - 1] = { ...selectedArray[selectedArray.length - 1], serviceCounter: newServiceCounter };
-                    this.setState({ selectedArray: selectedArray.filter((obj => obj.id != itemData.id)), presentAlertModal: false })
+                    this.setState({ selectedArray: selectedArray.filter((obj => obj.id != itemData.id)), presentAlertModal: false, btnLoading: false })
                     swipeableRef[this.state.lastIndex].close()
                 }
             })
@@ -406,7 +407,7 @@ class PriceAndTime extends Component {
 
     render() {
         const { onNext } = this.props;
-        const { selectedArray, showTimePicker, lastIndex, loading, showEditService, item, index, submit, time, price, showAddPrice } = this.state;
+        const { selectedArray, btnLoading, showTimePicker, lastIndex, loading, showEditService, item, index, submit, time, price, showAddPrice } = this.state;
 
         return (
             <>
@@ -583,7 +584,7 @@ class PriceAndTime extends Component {
                                                 let newServiceCounter = selectedArray[selectedArray.length - 1].serviceCounter + 1;
                                                 selectedArray[selectedArray.length - 1] = { ...selectedArray[selectedArray.length - 1], serviceCounter: newServiceCounter };
                                                 this.setState({ selectedArray });
-                                                this.setState({ showEditService: false })
+                                                this.setState({ showAddPrice: false,price:"" })
                                             }} />
                                         </View>
                                         <View style={styles.rowButtonContainer}>
@@ -596,18 +597,25 @@ class PriceAndTime extends Component {
                 </Modal>
                 <ModalS isVisible={this.state.presentAlertModal}>
                     <View style={{ backgroundColor: '#171717', paddingVertical: "5%" }}>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: "5%", marginHorizontal: '6%' }}>
-                            <TrashColor />
-                            <Text style={{ fontFamily: "Poppins-Medium", textAlign: "center", paddingTop: "5%", color: "white" }}>Are you sure you want to delete this service? This will delete the service permanently.</Text>
-                        </View>
-                        <View style={{ paddingTop: '5%', marginHorizontal: "10%", flexDirection: "row", justifyContent: "space-between", paddingBottom: '5%', }}>
-                            <TouchableOpacity onPress={() => { swipeableRef[this.state.lastIndex]?.close(); this.setState({ presentAlertModal: false }) }} style={{ width: 120, backgroundColor: THEME.PRIMARY_COLOR, height: 50, justifyContent: 'center' }}>
-                                <Text style={{ color: '#171717', textAlign: 'center', fontFamily: 'Poppins-Bold' }} >Cancel</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.handleDeleteService(this.state.item)} style={{ width: 120, backgroundColor: "#FF6635", height: 50, justifyContent: 'center' }}>
-                                <Text style={{ color: '#171717', textAlign: 'center', fontFamily: 'Poppins-Bold' }} >Delete</Text>
-                            </TouchableOpacity>
-                        </View>
+                        {btnLoading ?
+                            <View style={{ marginVertical: "5%", justifyContent: "center", alignItems: "center" }}>
+                                <ActivityIndicator size={"small"} color={THEME.PRIMARY_COLOR} />
+                            </View>
+                            :
+                            <>
+                                <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: "5%", marginHorizontal: '6%' }}>
+                                    <TrashColor />
+                                    <Text style={{ fontFamily: "Poppins-Medium", textAlign: "center", paddingTop: "5%", color: "white" }}>Are you sure you want to delete this service? This will delete the service permanently.</Text>
+                                </View>
+                                <View style={{ paddingTop: '5%', marginHorizontal: "10%", flexDirection: "row", justifyContent: "space-between", paddingBottom: '5%', }}>
+                                    <TouchableOpacity onPress={() => { swipeableRef[this.state.lastIndex]?.close(); this.setState({ presentAlertModal: false }) }} style={{ width: 120, backgroundColor: THEME.PRIMARY_COLOR, height: 50, justifyContent: 'center' }}>
+                                        <Text style={{ color: '#171717', textAlign: 'center', fontFamily: 'Poppins-Bold' }} >Cancel</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => this.handleDeleteService(this.state.item)} style={{ width: 120, backgroundColor: "#FF6635", height: 50, justifyContent: 'center' }}>
+                                        <Text style={{ color: '#171717', textAlign: 'center', fontFamily: 'Poppins-Bold' }} >Delete</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </>}
                     </View>
                 </ModalS>
             </>
