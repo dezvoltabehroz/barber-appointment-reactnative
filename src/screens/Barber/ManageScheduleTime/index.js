@@ -213,7 +213,7 @@ class ManageScheduleTime extends Component {
                                 <View style={styles.startTimeContainer} >
                                     {
                                         item.startTime != '' ?
-                                            <View style={styles.startTimeContainer}>
+                                            <View style={styles.priceAndTimeContainer}>
                                                 <Text style={styles.textStyle}>{item.startTime != undefined ? item.startTime != '' ? startTime : '' : ''}</Text>
                                             </View>
                                             :
