@@ -281,12 +281,12 @@ const UpdateEmailAddressandToken = (userData, navigate) => {
 const removeUser = (navigate, userData) => {
     return (dispatch) => {
         RegisterUser.removeFcmToken(userData)
-        .then((res) => {console.log(res.data); navigate('Auth') })
-        .catch((err) => console.log(err))
+            .then((res) => { console.log(res.data); navigate('Auth') })
+            .catch((err) => console.log(err))
         dispatch({ type: USER_LOGOUT_SUCCESS })
         AsyncStorage.removeItem('USER');
-        
-       
+
+
     }
 };
 
@@ -309,7 +309,8 @@ const userLogin = (userData, navigate) => {
                 }
             })
             .catch(err => {
-                Alert.alert("Your account is not verified")
+                console.log(err.message)
+                Alert.alert("Alert ", err.message)
                 dispatch({ type: LOADING_SUCCESS, loading: !loading })
             })
     }

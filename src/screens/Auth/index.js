@@ -36,7 +36,7 @@ class AuthScreen extends Component {
     handleLogin = () => {
         const { onLogin } = this.props
         let { email, password } = this.state;
-        let userData = { email: email, password: password ,type:this.state.provider?'barber':'customer'};
+        let userData = { email: email, password: password, type: this.state.provider ? 'barber' : 'customer' };
         if (email && password) {
             if (this.isEmailValid(email)) {
                 onLogin(userData);
@@ -209,7 +209,11 @@ class AuthScreen extends Component {
                 </View>
                 <Modal isVisible={this.state.signInModal}>
                     <View style={{ backgroundColor: '#171717', paddingVertical: "5%" }}>
-
+                        <View style={{ marginHorizontal: "5%", justifyContent: "center", alignItems: "flex-end" }} >
+                            <Icon.MaterialCommunityIcons
+                                name={"close-circle"}
+                                onPress={() => this.setState({ signInModal: false, provider: false, costumer: false })}
+                                color={THEME.PRIMARY_COLOR} size={THEME.ICON_SIZE} /></View>
                         <View style={{ paddingVertical: '7.5%', marginHorizontal: "10%", flexDirection: "row", justifyContent: "space-between", paddingBottom: '5%', }}>
                             <TouchableOpacity onPress={() => { this.setState({ provider: true, costumer: false, }) }} style={{ width: 120, height: 50, flexDirection: "row", justifyContent: 'center', alignItems: "center" }}>
                                 <Icon.MaterialCommunityIcons
