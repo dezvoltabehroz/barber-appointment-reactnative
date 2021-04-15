@@ -35,7 +35,7 @@ class EditWallet extends Component {
         })
     }
 
-    getDetails=()=>{
+    getDetails = () => {
         this.setState({ loading: true })
         let userData = {
             id: this.props.user.userData.id,
@@ -90,15 +90,19 @@ class EditWallet extends Component {
                                             </View>
                                             <View style={{ marginTop: "5%", }}>
                                                 <View style={{ marginHorizontal: "5%", marginBottom: 10 }}>
-                                                    <Text style={styles.whiteText}>Balance: {balance - (amount<=balance?amount:alert("Please enter amount should be equal to or less than the balance!"))}.00 USD</Text>
+                                                    <Text style={styles.whiteText}>Balance: {balance - (amount <= balance ? amount : 0)}.00 USD</Text>
                                                 </View>
                                                 <View style={{ marginHorizontal: "2.5%" }}>
-                                                    <Input placeholder="Enter Amount" value={amount} keyboardType={"number-pad"} onChangeText={(amount) => this.setState({ amount })} />
+                                                    <Input placeholder="Enter Amount" value={amount} keyboardType={"number-pad"} onChangeText={(amount) => {
+                                                        this.setState({ amount }); if (amount > balance) {
+                                                            alert("Please enter amount should be equal to or less than the balance!")
+                                                        }
+                                                    }} />
                                                 </View>
                                                 <View style={{ marginHorizontal: "5%" }}><Text style={{ fontSize: 8, color: "#ffffff" }}>Amount should be equal to or less than the balance</Text></View>
                                             </View>
                                             <View style={{ marginTop: "10%", justifyContent: "center", marginHorizontal: "10%" }}>
-                                                <Button disabled={amount != null ? false : true} title="Confirm" onPress={() => this.props.onConfirm({ id: this.props.user.userData.id, amount: amount, type: bankDetail ? "bank_address" : "payment_address", token: this.props.user.userData.token })} />
+                                                <Button disabled={amount != null && amount <= balance ? false : true} title="Confirm" onPress={() => this.props.onConfirm({ id: this.props.user.userData.id, amount: amount, type: bankDetail ? "bank_address" : "payment_address", token: this.props.user.userData.token })} />
                                             </View>
                                         </>
                                         :
