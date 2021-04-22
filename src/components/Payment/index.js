@@ -273,8 +273,8 @@ class Payment extends Component {
                                             }
                                             <View style={[styles.inputContainer,
                                             isNameFocus || name != '' ? THEME.inputBorder : {}]}>
-                                             
-                                             <Input
+
+                                                <Input
                                                     value={name}
                                                     label={isNameFocus && name.length ? "Card Holder" : ""}
                                                     maxLength={16}
@@ -288,10 +288,10 @@ class Payment extends Component {
                                                     inputStyle={styles.inputStyle}
                                                     rightIcon={
                                                         <Icon.Feather
-                                                        name='user'
-                                                        style={styles.iconStyle}
-                                                        size={THEME.ICON_SIZE}
-                                                        color={THEME.COLOR_GREY} />
+                                                            name='user'
+                                                            style={styles.iconStyle}
+                                                            size={THEME.ICON_SIZE}
+                                                            color={THEME.COLOR_GREY} />
                                                     }
                                                     placeholder="Card Holder"
                                                     onChangeText={(name) => this.setState({ name }, () => {
@@ -323,28 +323,28 @@ class Payment extends Component {
                                                 <View style={[styles.inputRowContainerStyle,
                                                 isCvvFocus || cvv != '' ? THEME.inputBorder : {}]}>
                                                     <Input
-                                                    value={cvv}
-                                                    label={isCvvFocus && cvv.length ? "CCV Code" : ""}
-                                                    maxLength={3}
-                                                    onFocus={() => this.setState({ isCvvFocus: true })}
-                                                    onBlur={() => this.setState({ isCvvFocus: false, submit: true }, () => {
-                                                        this.handleConfirmPayment()
-                                                    })}
-                                                    containerStyle={styles.containerStyle}
-                                                    labelStyle={styles.labelStyle}
-                                                    inputContainerStyle={styles.inputContainerStyle}
-                                                    inputStyle={styles.inputStyle}
-                                                    rightIcon={
-                                                        <Icon.Feather
-                                                        name='lock'
-                                                        style={styles.iconStyle}
-                                                        size={THEME.ICON_SIZE}
-                                                        color={THEME.COLOR_GREY} />
-                                                    }
-                                                    placeholder="CCV Code"
-                                                    onChangeText={(cvv) => this.setState({ cvv }, () => {
-                                                        this.handleConfirmPayment()
-                                                    })} />
+                                                        value={cvv}
+                                                        label={isCvvFocus && cvv.length ? "CCV Code" : ""}
+                                                        maxLength={3}
+                                                        onFocus={() => this.setState({ isCvvFocus: true })}
+                                                        onBlur={() => this.setState({ isCvvFocus: false, submit: true }, () => {
+                                                            this.handleConfirmPayment()
+                                                        })}
+                                                        containerStyle={styles.containerStyle}
+                                                        labelStyle={styles.labelStyle}
+                                                        inputContainerStyle={styles.inputContainerStyle}
+                                                        inputStyle={styles.inputStyle}
+                                                        rightIcon={
+                                                            <Icon.Feather
+                                                                name='lock'
+                                                                style={styles.iconStyle}
+                                                                size={THEME.ICON_SIZE}
+                                                                color={THEME.COLOR_GREY} />
+                                                        }
+                                                        placeholder="CCV Code"
+                                                        onChangeText={(cvv) => this.setState({ cvv }, () => {
+                                                            this.handleConfirmPayment()
+                                                        })} />
                                                 </View>
                                                 {
                                                     submit && !cvv ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Please fill this field</Text> :
@@ -474,7 +474,7 @@ class Payment extends Component {
                         </View>
                         <View style={{ paddingTop: '7.5%', marginHorizontal: "10%", flexDirection: "row", justifyContent: "space-between", paddingBottom: '5%', }}>
                             <TouchableOpacity onPress={() => {
-                                this.setState({ previousBillingModal: false })
+                                this.setState({ previousBillingModal: false, number: "", name: "", expDate: "", cvv: "" })
                             }} style={{ width: 120, backgroundColor: THEME.PRIMARY_COLOR, height: 50, justifyContent: 'center' }}>
                                 <Text style={{ color: '#171717', textAlign: 'center', fontFamily: 'Poppins-Bold' }} >No, Add New</Text>
                             </TouchableOpacity>
