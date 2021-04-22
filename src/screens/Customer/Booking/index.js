@@ -98,6 +98,7 @@ class Booking extends Component {
             customer_id: userdata.id,
             customer_services: this.state.customer_services,
             card_detail: cardData,
+            is_paypal: true,
             is_accepted: moment(bookingDate).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 0 : 1,
             is_accepted_time: moment(bookingDate).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? null : moment().format('YYYY-MM-DD') + ' ' + moment().format('HH:mm:ss'),
         }
@@ -142,6 +143,7 @@ class Booking extends Component {
                     this.handlePaypalPayment()
                 }
                 else {
+                    console.log("cardData :===============>", cardData)
                     if (cardData.card_number != "" && cardData.card_holder != "" && cardData.exp_date != "" && cardData.ccv_code != "") {
                         this.setState({ confirmLoading: true })
                         let userData = {
@@ -159,12 +161,13 @@ class Booking extends Component {
                             customer_id: userdata.id,
                             customer_services: this.state.customer_services,
                             card_detail: cardData,
+                            is_paypal: false,
                             is_accepted: moment(bookingDate).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 0 : 1,
                             is_accepted_time: moment(bookingDate).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? null : moment().format('YYYY-MM-DD') + ' ' + moment().format('HH:mm:ss'),
                         }
                         BookingServices.makeCustomerBooking(userData)
                             .then(async (res) => {
-                               if (this.state.paymentMethod == "Stripe") {
+                                if (this.state.paymentMethod == "Stripe") {
                                     BookingServices.verifyPaymentCard(userData)
                                         .then((resData) => {
                                             if (resData.data.status) {

@@ -27,7 +27,8 @@ const Api = {
             customer_address: userData.customer_address,
             card_detail: userData.card_detail,
             is_accepted: userData.is_accepted,
-            is_accepted_time: userData.is_accepted_time
+            is_accepted_time: userData.is_accepted_time,
+            is_paypal: userData.is_paypal
         }, configToken(userData.token))
     },
     initiatePayment: function (userData) {

@@ -36,15 +36,17 @@ class Payment extends Component {
             showDatePicker: false,
             date: '',
             payWithCard: false,
-            payWithPayPal: false,
+            payWithPayPal: true,
             payWithStripe: false,
             submit: false,
             previousBillingModal: false,
-            billingLoading: false
+            billingLoading: false,
+            cardData: {}
         }
     }
 
     componentDidMount = () => {
+
         let userData = {
             id: this.props.user.userData.id,
             token: this.props.user.userData.token
@@ -53,19 +55,22 @@ class Payment extends Component {
             .then((response) => {
                 if (response.data.status) {
                     console.log("response.data.data : ", response.data.data)
-                    if (response.data.data.card_holder != "") {
-                        this.setState({
-                            previousBillingModal: true,
-                            name: response.data.data.card_holder,
-                            number: response.data.data.card_number,
-                            expDate: response.data.data.exp_date,
-                            cvv: response.data.data.ccv_code,
-                        })
-                    }
-                }
-                else {
                     this.setState({
-                        previousBillingModal: false,
+                        name: response.data.data.card_holder,
+                        number: response.data.data.card_number,
+                        expDate: response.data.data.exp_date,
+                        cvv: response.data.data.ccv_code,
+                        cardData: response.data.data
+                    }, () => {
+                        this.props.paymentMethod("Paypal");
+                        this.props.isConfirm("false", {
+                            card_number: "",
+                            card_holder: "",
+                            exp_date: "",
+                            exp_year: "",
+                            exp_month: "",
+                            ccv_code: ""
+                        })
                     })
                 }
             })
@@ -99,7 +104,6 @@ class Payment extends Component {
         var expDate = moment(newDate).format('MM/YY');
         console.log(moment(newDate).format('YY'))
         this.setState({
-            date: newDate,
             expDate: newDate,
             showDatePicker: false,
             submit: true
@@ -121,7 +125,7 @@ class Payment extends Component {
     }
 
     render() {
-        const { name, isNameFocus, number, isNumberFocus, expDate, submit, date, payWithStripe, isexpDateFocus, cvv, isCvvFocus, showDatePicker, payWithPayPal, payWithCard } = this.state;
+        const { cardData, name, isNameFocus, number, isNumberFocus, expDate, submit, date, payWithStripe, isexpDateFocus, cvv, isCvvFocus, showDatePicker, payWithPayPal, payWithCard } = this.state;
         return (
             <>
                 <ScrollView>
@@ -192,15 +196,15 @@ class Payment extends Component {
                                 <View style={{ width: 30 }} />
                                 <Icon.FontAwesome
                                     onPress={() => {
-                                        this.setState({ payWithStripe: true, payWithPayPal: false, payWithCard: false, }, () => {
-                                            this.props.paymentMethod("Stripe"); this.props.isConfirm("true", {
-                                                card_number: "",
-                                                card_holder: "",
-                                                exp_date: "",
-                                                exp_year: "",
-                                                exp_month: "",
-                                                ccv_code: ""
-                                            })
+                                        this.setState({ payWithStripe: true, previousBillingModal: cardData.card_holder != "" ? true : false, payWithPayPal: false, payWithCard: false, }, () => {
+                                            // this.props.paymentMethod("Stripe"); this.props.isConfirm("true", {
+                                            //     card_number: "",
+                                            //     card_holder: "",
+                                            //     exp_date: "",
+                                            //     exp_year: "",
+                                            //     exp_month: "",
+                                            //     ccv_code: ""
+                                            // })
                                         })
                                     }}
                                     name='credit-card'
@@ -316,7 +320,7 @@ class Payment extends Component {
                                                     <Icon.Feather name='calendar' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
                                                 </TouchableOpacity>
                                                 {
-                                                    submit && !date ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Please fill this field</Text> : null
+                                                    submit && !expDate ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Please fill this field</Text> : null
                                                 }
                                             </View>
                                             <View  >
@@ -474,22 +478,38 @@ class Payment extends Component {
                         </View>
                         <View style={{ paddingTop: '7.5%', marginHorizontal: "10%", flexDirection: "row", justifyContent: "space-between", paddingBottom: '5%', }}>
                             <TouchableOpacity onPress={() => {
-                                this.setState({ previousBillingModal: false, number: "", name: "", expDate: "", cvv: "" })
+                                this.setState({ previousBillingModal: false, number: "", name: "", expDate: "", cvv: "", submit: false }, () => {
+                                    this.props.paymentMethod("Stripe"); this.props.isConfirm("true", {
+                                        card_number: "",
+                                        card_holder: "",
+                                        exp_date: "",
+                                        exp_year: "",
+                                        exp_month: "",
+                                        ccv_code: ""
+                                    })
+                                })
                             }} style={{ width: 120, backgroundColor: THEME.PRIMARY_COLOR, height: 50, justifyContent: 'center' }}>
                                 <Text style={{ color: '#171717', textAlign: 'center', fontFamily: 'Poppins-Bold' }} >No, Add New</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.setState({ previousBillingModal: false, payWithStripe: true }, () => {
+                            <TouchableOpacity onPress={() => this.setState({
+                                previousBillingModal: false, payWithStripe: true,
+                                name: cardData.card_holder,
+                                number: cardData.card_number,
+                                expDate: cardData.exp_date,
+                                cvv: cardData.ccv_code,
+                                submit: true
+                            }, () => {
                                 this.props.paymentMethod("Stripe");
-                                if (name && number && this.isCardValid(number) && expDate && cvv && cvv.length == 3) {
-                                    console.log(" exp_year : ===> ", moment(expDate).format('YY'));
-                                    console.log(" exp_month : ===> ", moment(expDate).format('MM'));
+                                if (cardData.card_holder && cardData.card_number && this.isCardValid(cardData.card_number) && cardData.exp_date && cardData.ccv_code && cardData.ccv_code.length == 3) {
+                                    console.log(" exp_year : ===> ", moment(cardData.exp_date).format('YY'));
+                                    console.log(" exp_month : ===> ", moment(cardData.exp_date).format('MM'));
                                     let data = {
-                                        card_number: number,
-                                        card_holder: name,
-                                        exp_date: moment(expDate).format('YYYY-MM'),
-                                        exp_year: moment(expDate).format('YYYY'),
-                                        exp_month: moment(expDate).format('MM'),
-                                        ccv_code: cvv
+                                        card_number: cardData.card_number,
+                                        card_holder: cardData.card_holder,
+                                        exp_date: moment(cardData.exp_date).format('YYYY-MM'),
+                                        exp_year: moment(cardData.exp_date).format('YYYY'),
+                                        exp_month: moment(cardData.exp_date).format('MM'),
+                                        ccv_code: cardData.ccv_code
                                     }
                                     console.log("data:=====> ", data)
                                     this.props.isConfirm("false", data);
