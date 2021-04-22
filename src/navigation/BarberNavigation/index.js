@@ -90,13 +90,14 @@ function BarberRoutes() {
                 headerTitleAlign: 'center',
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>End Service</Text></View>),
             }} />
-            <Stack.Screen name="ServiceDetails" component={ServiceDetailsScreen} options={{
+            <Stack.Screen name="ServiceDetails" component={ServiceDetailsScreen} options={({ navigation, route }) => ({
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitleAlign: 'center',
+                headerLeft: props => (<TouchableOpacity onPress={() => navigation.replace('BarberBookingHistory')} style={{ marginLeft: 10 }}><Icon.Ionicons name={Platform.OS == 'ios' ? "ios-arrow-back" : "md-arrow-back"} size={25} color="white" /></TouchableOpacity>),
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>List of Services & Details</Text></View>),
-            }} />
+            })} />
             <Stack.Screen name="EditProfile" component={BarberProfileRoutes} options={{
                 headerShown: false
             }} />
