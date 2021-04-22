@@ -143,7 +143,6 @@ class Booking extends Component {
                     this.handlePaypalPayment()
                 }
                 else {
-                    console.log("cardData :===============>", cardData)
                     if (cardData.card_number != "" && cardData.card_holder != "" && cardData.exp_date != "" && cardData.ccv_code != "") {
                         this.setState({ confirmLoading: true })
                         let userData = {

@@ -121,7 +121,7 @@ class EmailandPassword extends Component {
                     }
                     {
                         password.length && !this.isPasswordValid(password) ?
-                            <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Password must be 8 letters along which must contain one special character, one capital, and one digit</Text> : null
+                            <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>At lease 8 characters with 1 upper case letter, 1 digit, and 1 special character (Admin12$)</Text> : null
                     }
                     <Input
                         value={confirmPassword}
