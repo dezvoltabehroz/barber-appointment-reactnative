@@ -4,12 +4,14 @@ import { Button, Icon, Input } from '../../../components';
 import styles from './style'
 import Add from '../../../assets/svg/add-button.svg'
 import Edit from '../../../assets/svg/edit 1.svg'
+import Tick from '../../../assets/svg/tick.svg'
 import THEME from '../../../assets/styles/theme.style';
 import { TouchableOpacity } from 'react-native';
 import { WalletServices } from '../../../services';
 import { connect } from 'react-redux';
 import { ActivityIndicator } from 'react-native';
 import { ScrollView } from 'react-native';
+import Modal from 'react-native-modal';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
@@ -25,7 +27,9 @@ class EditWallet extends Component {
             bankName: "",
             paymentAddress: "",
             withdrawalRequest: false,
-            amount: null
+            amount: null,
+            fundModal: false,
+            modalLoading: false
         }
     }
 
@@ -65,7 +69,7 @@ class EditWallet extends Component {
     }
 
     render() {
-        const { bankDetail, paymentDetails, bankName, loading, paymentAddress, amount, monthly, yearly, balance, withdrawalRequest } = this.state;
+        const { bankDetail, paymentDetails, modalLoading, bankName, fundModal, loading, paymentAddress, amount, monthly, yearly, balance, withdrawalRequest } = this.state;
         const { onBank, onPayment } = this.props;
         return (
             <View style={styles.container}>
@@ -102,7 +106,7 @@ class EditWallet extends Component {
                                                 <View style={{ marginHorizontal: "5%" }}><Text style={{ fontSize: 8, color: "#ffffff" }}>Amount should be equal to or less than the balance</Text></View>
                                             </View>
                                             <View style={{ marginTop: "10%", justifyContent: "center", marginHorizontal: "10%" }}>
-                                                <Button disabled={amount != null && amount <= balance ? false : true} title="Confirm" onPress={() => this.props.onConfirm({ id: this.props.user.userData.id, amount: amount, type: bankDetail ? "bank_address" : "payment_address", token: this.props.user.userData.token })} />
+                                                <Button disabled={amount != null && amount <= balance ? false : true} title="Confirm" onPress={() => this.setState({ fundModal: true })} />
                                             </View>
                                         </>
                                         :
@@ -166,6 +170,23 @@ class EditWallet extends Component {
                             </>
                     }
                 </ScrollView>
+                <Modal isVisible={fundModal}>
+                    <View style={{ backgroundColor: '#171717', paddingVertical: "5%" }}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: "5%", marginHorizontal: '10%' }}>
+                            <Tick height={100} width={100} />
+                            <Text style={{ fontFamily: "Poppins-Medium", textAlign: "center", paddingTop: "5%", color: "white" }}>Your request is submitted. Funds will be transfered with in 5 working days. You will get reciept and detailed calculations via email.{`\n`}Thanks</Text>
+                        </View>
+                        <View style={{ paddingTop: '5%', marginHorizontal: "10%", paddingBottom: '5%', }}>
+                            {
+                                modalLoading ?
+                                    <ActivityIndicator size={'large'} color={THEME.PRIMARY_COLOR} />
+                                    :
+                                    <TouchableOpacity onPress={() => { this.setState({ modalLoading: true }); this.props.onConfirm({ id: this.props.user.userData.id, amount: amount, type: bankDetail ? "bank_address" : "payment_address", token: this.props.user.userData.token });}} style={{ backgroundColor: THEME.PRIMARY_COLOR, height: 50, justifyContent: 'center', width: "100%" }}>
+                                        <Text style={{ color: '#171717', textAlign: 'center', fontFamily: 'Poppins-Bold' }} >Ok</Text>
+                                    </TouchableOpacity>}
+                        </View>
+                    </View>
+                </Modal>
             </View>
         )
     }
