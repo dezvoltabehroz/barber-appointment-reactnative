@@ -54,13 +54,30 @@ class Payment extends Component {
         BookingServices.getCardDetails(userData)
             .then((response) => {
                 if (response.data.status) {
-                    console.log("response.data.data : ", response.data.data)
                     this.setState({
                         name: response.data.data.card_holder,
                         number: response.data.data.card_number,
                         expDate: response.data.data.exp_date,
                         cvv: response.data.data.ccv_code,
                         cardData: response.data.data
+                    }, () => {
+                        this.props.paymentMethod("Paypal");
+                        this.props.isConfirm("false", {
+                            card_number: "",
+                            card_holder: "",
+                            exp_date: "",
+                            exp_year: "",
+                            exp_month: "",
+                            ccv_code: ""
+                        })
+                    })
+                } else {
+                    this.setState({
+                        name: "",
+                        number: "",
+                        expDate: "",
+                        cvv: "",
+                        cardData: ""
                     }, () => {
                         this.props.paymentMethod("Paypal");
                         this.props.isConfirm("false", {
@@ -196,15 +213,19 @@ class Payment extends Component {
                                 <View style={{ width: 30 }} />
                                 <Icon.FontAwesome
                                     onPress={() => {
-                                        this.setState({ payWithStripe: true, previousBillingModal: cardData.card_holder != "" ? true : false, payWithPayPal: false, payWithCard: false, }, () => {
-                                            // this.props.paymentMethod("Stripe"); this.props.isConfirm("true", {
-                                            //     card_number: "",
-                                            //     card_holder: "",
-                                            //     exp_date: "",
-                                            //     exp_year: "",
-                                            //     exp_month: "",
-                                            //     ccv_code: ""
-                                            // })
+                                        this.setState({ payWithStripe: true, previousBillingModal: cardData.card_holder != undefined ? true : false, payWithPayPal: false, payWithCard: false, }, () => {
+                                            if (cardData.card_holder == undefined) {
+                                                this.props.paymentMethod("Stripe");
+                                                this.props.isConfirm("true", {
+                                                    card_number: "",
+                                                    card_holder: "",
+                                                    exp_date: "",
+                                                    exp_year: "",
+                                                    exp_month: "",
+                                                    ccv_code: ""
+                                                })
+                                            }
+
                                         })
                                     }}
                                     name='credit-card'
@@ -497,7 +518,6 @@ class Payment extends Component {
                                 number: cardData.card_number,
                                 expDate: cardData.exp_date,
                                 cvv: cardData.ccv_code,
-                                submit: true
                             }, () => {
                                 this.props.paymentMethod("Stripe");
                                 if (cardData.card_holder && cardData.card_number && this.isCardValid(cardData.card_number) && cardData.exp_date && cardData.ccv_code && cardData.ccv_code.length == 3) {

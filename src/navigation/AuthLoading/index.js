@@ -31,13 +31,13 @@ class AuthLoadingScreen extends React.Component {
 
         const userToken = await AsyncStorage.getItem('USER');
         if (userToken) {
-            let loggedInUser = JSON.parse(userToken);
-            socket.on("updateNotification", async (socketData) => {
-                if (socketData.receiver_id === loggedInUser.id) {
-                    await this.props.notification.getNotification(loggedInUser);
-                }
-            });
-            this.requestUserPermission(loggedInUser)
+            // let loggedInUser = JSON.parse(userToken);
+            // socket.on("updateNotification", async (socketData) => {
+            //     if (socketData.receiver_id === loggedInUser.id) {
+            //         await this.props.notification.getNotification(loggedInUser,this.props.navigation.replace);
+            //     }
+            // });
+            this.requestUserPermission(JSON.parse(userToken))
 
         } else {
             this.props.navigation.replace('Auth');
@@ -72,19 +72,23 @@ class AuthLoadingScreen extends React.Component {
             }
             RegisterUser.updateFCMToken(data)
                 .then(async (res) => {
+                    console.log("res.data :", res.data)
                     if (res.data.status) {
                         if (userData.type == 'customer') {
                             await this.props.actions.getUserProfile(userData, this.props.navigation.replace);
                             await this.props.notification.getNotification(userData);
-                            // this.props.address.allAddresses(data);
+                            this.props.address.allAddresses(data);
                         }
                         else {
                             await this.props.actions.getUserProfile(userData, this.props.navigation.replace);
                             // this.props.address.allAddresses(data);
                             await this.props.notification.getNotification(userData);
                         }
+                    }else{
+                        this.props.actions.removeUser(this.props.navigation.replace)
                     }
                 })
+                .catch((err) => { console.log("err : ",err); this.props.actions.removeUser(this.props.navigation.replace) })
         } else {
             console.log("Failed", "No token received");
         }

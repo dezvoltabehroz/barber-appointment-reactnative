@@ -280,11 +280,15 @@ const UpdateEmailAddressandToken = (userData, navigate) => {
 
 const removeUser = (navigate, userData) => {
     return (dispatch) => {
-        RegisterUser.removeFcmToken(userData)
-            .then((res) => { console.log(res.data); navigate('Auth') })
-            .catch((err) => console.log(err))
+        if (userData) {
+            RegisterUser.removeFcmToken(userData)
+                .then((res) => { console.log(res.data); navigate('Auth') })
+                .catch((err) => { console.log(err); })
+        }
+        navigate('Auth')
         dispatch({ type: USER_LOGOUT_SUCCESS })
         AsyncStorage.removeItem('USER');
+        AsyncStorage.removeItem('Email');
 
 
     }
