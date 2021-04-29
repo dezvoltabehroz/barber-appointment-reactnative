@@ -34,7 +34,7 @@ class Receipt extends Component {
         return (
             <TouchableOpacity style={{ padding: '5%', flexDirection: "row", alignItems: "center", backgroundColor: "#171717" }} onPress={() => Linking.openURL(`${item.receipt_url}`)}>
                 <Invoice height={50} width={50} />
-                <Text style={{ color: themeStyle.PRIMARY_COLOR, marginLeft: "5%" }} >{moment().format('DD/MM/YYYY hh:mm A')}</Text>
+                <Text style={{ color: themeStyle.PRIMARY_COLOR, marginLeft: "5%" }} >{moment(item.created_at).format('DD/MM/YYYY hh:mm A')}</Text>
             </TouchableOpacity>
         )
     }
