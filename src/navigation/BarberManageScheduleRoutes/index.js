@@ -33,8 +33,8 @@ function BarberManageScheduleRoutes() {
                 tabBarLabel: ({ focused, color }) => {
                     let tabName;
 
-                    if (route.name === 'Working Days') {
-                        tabName = "Working Days"
+                    if (route.name === 'Schedule') {
+                        tabName = "Schedule"
                     } else if (route.name === `Break Time`) {
                         tabName = "Break Time";
                     } else if (route.name === 'OFF Day') {
@@ -53,7 +53,7 @@ function BarberManageScheduleRoutes() {
                         backgroundColor: THEME.PRIMARY_COLOR
                     }
                 }}>
-                <Tab.Screen name="Working Days" component={BarberWorkingDaysRoutes} />
+                <Tab.Screen name="Schedule" component={BarberWorkingDaysRoutes} />
                 <Tab.Screen name="Break Time" component={BaberBreaksRoutes} />
                 <Tab.Screen name="OFF Day" component={BarberOffDaysRoutes} />
             </Tab.Navigator>

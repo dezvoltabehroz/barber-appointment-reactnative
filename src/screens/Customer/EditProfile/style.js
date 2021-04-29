@@ -134,5 +134,7 @@ export default StyleSheet.create({
         textAlign: 'center',
         fontFamily: 'Poppins-Bold'
     },
+    genderColorText:{ color: THEME.PRIMARY_COLOR,marginLeft:"5%" },
+    genderText:{ color: THEME.COLOR_GREY,marginLeft:"5%" }
 
 })

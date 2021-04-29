@@ -11,8 +11,12 @@ export default StyleSheet.create({
     },
     getDirectionText: {
         marginRight: '5%',
-        color: THEME.COLOR_WHITE,
+        color: THEME.PRIMARY_COLOR,
         textAlign: 'right',
+        fontFamily: 'Poppins-Medium'
+    },
+    addressText: {
+        color: THEME.COLOR_WHITE,
         fontFamily: 'Poppins-Medium'
     },
     customerLocationContainer: {

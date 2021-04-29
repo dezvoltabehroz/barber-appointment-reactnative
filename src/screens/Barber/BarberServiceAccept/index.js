@@ -65,7 +65,7 @@ class BarberServiceAccept extends Component {
     }
 
     render() {
-        let { bookingDate, bookingTime, arrivedAtlocation, onChat, bookingDuration } = this.props;
+        let { bookingDate, bookingTime, arrivedAtlocation, onChat, bookingDuration, customerAddress } = this.props;
         const { region, userData } = this.state;
         const location = `${region.latitude},${region.longitude}`;
         const url = Platform.select({
@@ -100,9 +100,13 @@ class BarberServiceAccept extends Component {
         return (
             <View style={styles.container}>
                 <View style={{ flex: 0.5 }}>
+                    <View style={{ width: "100%", marginHorizontal: "5%", flexDirection: "row" }}>
+                        <Text style={[styles.addressText, { fontSize: 16 }]}>Address:</Text>
+                        <Text style={[styles.addressText, { width: "70%", marginLeft: "2.5%" }]}>{customerAddress}</Text>
+                    </View>
                     <View>
                         <TouchableOpacity onPress={() => Linking.openURL(url)}>
-                            <Text style={styles.getDirectionText}>Get Direction</Text>
+                            <Text style={[styles.getDirectionText, { textAlign: 'right' }]}>Get Direction?</Text>
                         </TouchableOpacity>
                     </View>
                     <View>
@@ -117,7 +121,7 @@ class BarberServiceAccept extends Component {
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
                             disabled={enable()}
-                            onPress={arrivedAtlocation} style={[styles.customerLocationContainer, { backgroundColor: enable() ? 'lightgrey' : "#171717" }]}>
+                            onPress={()=>arrivedAtlocation(userData)} style={[styles.customerLocationContainer, { backgroundColor: enable() ? 'lightgrey' : "#171717" }]}>
                             <Text style={styles.buttonText}>Arrived</Text>
                         </TouchableOpacity>
                         {/* <View style={{ flexDirection: "row", alignItems: 'center' }}>

@@ -56,7 +56,7 @@ class StartService extends Component {
 
 
     render() {
-        const { onStartService } = this.props;
+        const { onStartService,customerName } = this.props;
         const { serviceList, timeInHour, totalPrice } = this.state;
         return (
             <>
@@ -152,7 +152,7 @@ class StartService extends Component {
                                     </View>
                                 </View>
                             </View>
-                            <FooterButton title='Start Service' onPress={() => onStartService(this.state.customerId)} />
+                            <FooterButton  customer={customerName}   title='Start Service' onPress={() => onStartService(this.state.customerId)} />
                         </View>
                 }
             </>

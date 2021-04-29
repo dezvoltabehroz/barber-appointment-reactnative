@@ -334,13 +334,22 @@ class UpdateProfile extends Component {
                                 </View>
                             </View>
                         </View>
-                        <View style={{ marginTop: "5%", flexDirection: 'row', justifyContent: "center" }}>
+                        <View style={{ marginTop: "5%", flexDirection: 'row', justifyContent: "center", marginBottom: "5%" }}>
                             <TouchableOpacity onPress={() => this.setState({ male: true, female: false, other: false, gender: "Male" })}>
                                 {
                                     this.state.male == true && this.state.female == false && this.state.other == false ?
-                                        <Beard height={80} width={80} />
+                                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                            <Icon.Ionicons name="radio-button-on-sharp" color={THEME.PRIMARY_COLOR} size={30} />
+                                            <Text style={styles.genderColorText} >Male</Text>
+                                        </View>
                                         :
-                                        <BeardGray height={80} width={80} />
+                                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                            <Icon.Ionicons name="radio-button-off-sharp" color={THEME.COLOR_GREY} size={30} />
+                                            <Text style={styles.genderText} >Male</Text>
+                                        </View>
+                                    // <Beard height={80} width={80} />
+                                    // :
+                                    // <BeardGray height={80} width={80} />
                                 }
 
                             </TouchableOpacity>
@@ -348,9 +357,19 @@ class UpdateProfile extends Component {
                             <TouchableOpacity onPress={() => this.setState({ female: true, male: false, other: false, gender: "Female" })}>
                                 {
                                     this.state.female == true && this.state.male == false && this.state.other == false ?
-                                        <Female height={80} width={80} />
+
+                                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                            <Icon.Ionicons name="radio-button-on-sharp" color={THEME.PRIMARY_COLOR} size={30} />
+                                            <Text style={styles.genderColorText} >Female</Text>
+                                        </View>
                                         :
-                                        <FemaleGray height={80} width={80} />
+                                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                            <Icon.Ionicons name="radio-button-off-sharp" color={THEME.COLOR_GREY} size={30} />
+                                            <Text style={styles.genderText} >Female</Text>
+                                        </View>
+                                    // <Female height={80} width={80} />
+                                    // :
+                                    // <FemaleGray height={80} width={80} />
                                 }
 
                             </TouchableOpacity>
@@ -358,9 +377,19 @@ class UpdateProfile extends Component {
                             <TouchableOpacity onPress={() => this.setState({ other: true, female: false, male: false, gender: "Other" })}>
                                 {
                                     this.state.other == true && this.state.male == false && this.state.female == false ?
-                                        <Other height={80} width={80} />
+                                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                            <Icon.Ionicons name="radio-button-on-sharp" color={THEME.PRIMARY_COLOR} size={30} />
+                                            <Text style={styles.genderColorText} >Other</Text>
+                                        </View>
                                         :
-                                        <OtherGray height={80} width={80} />
+                                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                            <Icon.Ionicons name="radio-button-off-sharp" color={THEME.COLOR_GREY} size={30} />
+                                            <Text style={styles.genderText} >Other</Text>
+                                        </View>
+
+                                    // <Other height={80} width={80} />
+                                    // :
+                                    // <OtherGray height={80} width={80} />
                                 }
 
                             </TouchableOpacity>

@@ -168,4 +168,6 @@ export default StyleSheet.create({
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
     },
+    genderColorText:{ color: THEME.PRIMARY_COLOR,marginLeft:"5%" },
+    genderText:{ color: THEME.COLOR_GREY,marginLeft:"5%" }
 })

@@ -12,7 +12,7 @@ class BarberStartServiceScreen extends Component {
     })
 
     handleStartService = (id) => {
-        const { bookingId, customerId } = this.props.route.params;
+        const { bookingId, customerId, customerName } = this.props.route.params;
         const { navigate, goBack } = this.props.navigation
         const { user } = this.props;
         Alert.alert('Attention', 'Are you sure you want to start service?',
@@ -49,9 +49,11 @@ class BarberStartServiceScreen extends Component {
 
     render() {
         const { navigate, goBack } = this.props.navigation
-        const { bookingId } = this.props.route.params
+        const { bookingId,customerName } = this.props.route.params;
         return (
-            <MainScreenPaths.Barber.BarberStartService bookingId={bookingId} onStartService={(id) => this.handleStartService(id)} />
+            <MainScreenPaths.Barber.BarberStartService
+                customerName={customerName}
+                bookingId={bookingId} onStartService={(id) => this.handleStartService(id)} />
         )
     }
 }

@@ -80,12 +80,13 @@ class BarberBookingHistory extends Component {
                             region: {
                                 latitude: parseFloat(item.customer_lat),
                                 longitude: parseFloat(item.customer_long),
-                                latitudeDelta: 0.9922,
-                                longitudeDelta: 0.9421,
+                                latitudeDelta: 0.075,
+                                longitudeDelta: 0.042,
                             },
                             bookingDate: item.booking_date,
                             bookingTime: item.booking_time,
                             customerId: item.customer_id,
+                            customerAddress: item.customer_address,
                             totalPrice: item.booking_price,
                             barberId: item.barber_id,
                             bookingDuration: item.booking_time_duration
@@ -93,22 +94,35 @@ class BarberBookingHistory extends Component {
                         this.props.navigation(caseOneData)
                         break;
                     case 2:
-                        let caseTwoData = {
-                            route: 'BarberStartService',
-                            region: {
-                                latitude: parseFloat(item.customer_lat),
-                                longitude: parseFloat(item.customer_long),
-                                latitudeDelta: 0.9922,
-                                longitudeDelta: 0.9421,
-                            },
-                            bookingId: item.id,
-                            bookingDate: item.booking_date,
-                            bookingTime: item.booking_time,
-                            customerId: item.customer_id,
-                            totalPrice: item.booking_price,
-                            barberId: item.barber_id
+                        let userData = {
+                            id: this.props.user.userData.id,
+                            token: this.props.user.userData.token,
+                            booking_id: item.id
                         }
-                        this.props.navigation(caseTwoData)
+                        BookingServices.getCustomerDetails(userData)
+                            .then((res) => {
+                                if (res.data.status) {
+                                    let caseTwoData = {
+                                        route: 'BarberStartService',
+                                        region: {
+                                            latitude: parseFloat(item.customer_lat),
+                                            longitude: parseFloat(item.customer_long),
+                                            latitudeDelta: 0.9922,
+                                            longitudeDelta: 0.9421,
+                                        },
+                                        bookingId: item.id,
+                                        bookingDate: item.booking_date,
+                                        bookingTime: item.booking_time,
+                                        customerId: item.customer_id,
+                                        customerName:res.data.custProfile[0].full_name,
+                                        totalPrice: item.booking_price,
+                                        barberId: item.barber_id
+                                    }
+                                    this.props.navigation(caseTwoData)
+                                }
+                            })
+                            .catch((err) => console.log(err))
+                     
                         break;
                     case 3:
                         let caseThreeData = {
@@ -208,7 +222,7 @@ class BarberBookingHistory extends Component {
                                 <ActivityIndicator />
                                 :
                                 bookingList.length == 0 ?
-                                    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }} ><Text style={{ color: "white", textAlign: "center",fontFamily:"Poppins-Regular" }}>No appointment found :(</Text></View>
+                                    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }} ><Text style={{ color: "white", textAlign: "center", fontFamily: "Poppins-Regular" }}>No appointment found :(</Text></View>
                                     :
                                     <FlatList
                                         refreshControl={

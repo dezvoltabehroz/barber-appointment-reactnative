@@ -308,13 +308,12 @@ const userLogin = (userData, navigate) => {
                     AsyncStorage.setItem('Email', JSON.stringify(userData))
                 }
                 else {
-                    Alert.alert("Email and/or Password is Incorrect")
+                    Alert.alert(responseData.data.message)
                     dispatch({ type: LOADING_SUCCESS, loading: !loading })
                 }
             })
             .catch(err => {
                 console.log(err.message)
-                Alert.alert("Alert ", err.message)
                 dispatch({ type: LOADING_SUCCESS, loading: !loading })
             })
     }

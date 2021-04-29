@@ -10,7 +10,7 @@ class BarberServiceAcceptScreen extends Component {
 
 
 
-    handleArrivedLocation = () => {
+    handleArrivedLocation = (data) => {
         const { bookingId, customerId } = this.props.route.params;
         const { navigate } = this.props.navigation;
         const { user } = this.props
@@ -25,7 +25,7 @@ class BarberServiceAcceptScreen extends Component {
         BookingServices.arrivedAtCustomerLocation(userData)
             .then((res) => {
                 if (res.data.status) {
-                    navigate('BarberStartService', { bookingId: bookingId, customerId: customerId })
+                    navigate('BarberStartService', { bookingId: bookingId, customerId: customerId,customerName:data.full_name })
                 }
             })
             .catch((err) => console.log(err))
@@ -33,16 +33,17 @@ class BarberServiceAcceptScreen extends Component {
 
     render() {
         const { navigate } = this.props.navigation
-        const { item, bookingId, bookingDate,bookingDuration, bookingTime } = this.props.route.params;
+        const { item, bookingId,customerAddress, bookingDate,bookingDuration, bookingTime } = this.props.route.params;
         return (
             <MainScreenPaths.Barber.BarberServiceAccept
                 item={(item)}
                 bookingId={bookingId}
                 bookingDuration={bookingDuration}
                 bookingDate={bookingDate}
+                customerAddress={customerAddress}
                 bookingTime={bookingTime}
                 onChat={(data) => navigate('BarberChat', { userData: data })}
-                arrivedAtlocation={this.handleArrivedLocation} />
+                arrivedAtlocation={(data)=>this.handleArrivedLocation(data)} />
         )
     }
 }

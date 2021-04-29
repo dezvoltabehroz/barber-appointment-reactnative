@@ -128,5 +128,6 @@ export default StyleSheet.create({
         marginLeft: 11,
         fontFamily: 'Poppins-Regular'
     },
-
+    genderColorText:{ color: THEME.PRIMARY_COLOR,marginLeft:"5%" },
+    genderText:{ color: THEME.COLOR_GREY,marginLeft:"5%" }
 })
