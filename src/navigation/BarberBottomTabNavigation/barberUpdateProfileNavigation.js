@@ -73,7 +73,7 @@ function BarberProfileRoutes() {
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
-                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Working Days</Text></View>),
+                headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Schedule</Text></View>),
                 headerTitleAlign: 'center',
             }} />
             <Stack.Screen name="ScheduleTime" component={ScheduleTimeScreen} options={{

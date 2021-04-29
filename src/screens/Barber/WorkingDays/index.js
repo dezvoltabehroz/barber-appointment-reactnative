@@ -301,7 +301,7 @@ class WorkingDays extends Component {
                             <View style={styles.upperContainer}>
                                 {schedulerArray.length == 0 ?
                                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                        <Text style={styles.textStyle}>{'No Scheduler Found'}</Text>
+                                        <Text style={styles.textStyle}>{'Please Create Your Schedule.'}</Text>
                                     </View>
 
                                     :
