@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Invoice from '../../../assets/svg/invoice.svg';
 import themeStyle from '../../../assets/styles/theme.style';
 import { BookingServices } from '../../../services';
+import moment from 'moment';
 class Receipt extends Component {
     constructor(props) {
         super(props);
@@ -31,8 +32,9 @@ class Receipt extends Component {
 
     _renderItems = (item) => {
         return (
-            <TouchableOpacity style={{ padding: '2.5%' }} onPress={() => Linking.openURL(`${item.receipt_url}`)}>
-                <Invoice height={100} width={100} />
+            <TouchableOpacity style={{ padding: '5%', flexDirection: "row", alignItems: "center", backgroundColor: "#171717" }} onPress={() => Linking.openURL(`${item.receipt_url}`)}>
+                <Invoice height={50} width={50} />
+                <Text style={{ color: themeStyle.PRIMARY_COLOR, marginLeft: "5%" }} >{moment().format('DD/MM/YYYY hh:mm A')}</Text>
             </TouchableOpacity>
         )
     }
@@ -60,9 +62,9 @@ class Receipt extends Component {
                                 <FlatList data={list}
                                     keyExtractor={item => item}
                                     ItemSeparatorComponent={this.renderSeparator}
-                                    numColumns={3}
+                                    // numColumns={3}
                                     showsVerticalScrollIndicator={false}
-                                    contentContainerStyle={styles.contentContainer}
+                                    // contentContainerStyle={styles.contentContainer}
                                     renderItem={({ index, item }) => this._renderItems(item)} />}
                 </View>
             </>);
