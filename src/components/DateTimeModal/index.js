@@ -148,7 +148,7 @@ export default class DateTimeModal extends Component {
                                 highlightColor={THEME.PRIMARY_BACKGROUND_COLOR}
                                 renderItem={(data, index, isSelected) => {
                                     return (
-                                        <Text style={[styles.textFlatlistStyle, { color: index == 0 ? THEME.PRIMARY_BACKGROUND_COLOR : THEME.PRIMARY_COLOR }]}>{dayNight == true ? `${data}` : `${data}  HR`}</Text>
+                                        <Text style={[styles.textFlatlistStyle, { color:  THEME.PRIMARY_COLOR }]}>{dayNight == true ? `${data}` : `${data}  HR`}</Text>
                                         // <Text style={[styles.textFlatlistStyle, { color: index == 0 ? THEME.PRIMARY_BACKGROUND_COLOR : 'white' }]}>{dayNight == true ? `${data}:00` : data}</Text>
                                     )
                                 }}
@@ -187,7 +187,7 @@ export default class DateTimeModal extends Component {
                                         highlightColor={THEME.PRIMARY_BACKGROUND_COLOR}
                                         renderItem={(data, index, isSelected) => {
                                             return (
-                                                <Text style={[styles.textFlatlistStyle, { color: index == 0 ? THEME.PRIMARY_BACKGROUND_COLOR : THEME.PRIMARY_COLOR }]}>{`${data}`}</Text>
+                                                <Text style={[styles.textFlatlistStyle, { color:  THEME.PRIMARY_COLOR }]}>{`${data}`}</Text>
                                                 // <Text style={[styles.textFlatlistStyle, { color: index == 0 ? THEME.PRIMARY_BACKGROUND_COLOR : 'white' }]}>{data}</Text>
                                             )
                                         }}
@@ -214,7 +214,7 @@ export default class DateTimeModal extends Component {
                                         highlightColor={THEME.PRIMARY_BACKGROUND_COLOR}
                                         renderItem={(data, index, isSelected) => {
                                             return (
-                                                <Text style={[styles.textFlatlistStyle, { color: index == 0 ? THEME.PRIMARY_BACKGROUND_COLOR : THEME.PRIMARY_COLOR }]}>{`${data}  M`}</Text>
+                                                <Text style={[styles.textFlatlistStyle, { color:  THEME.PRIMARY_COLOR }]}>{`${data}  M`}</Text>
                                                 // <Text style={[styles.textFlatlistStyle, { color: index == 0 ? THEME.PRIMARY_BACKGROUND_COLOR : 'white' }]}>{data}</Text>
                                             )
                                         }}
@@ -252,7 +252,7 @@ export default class DateTimeModal extends Component {
                                         highlightColor={THEME.PRIMARY_BACKGROUND_COLOR}
                                         renderItem={(data, index, isSelected) => {
                                             return (
-                                                <Text style={[styles.textFlatlistStyle, { color: index == 0 ? THEME.PRIMARY_BACKGROUND_COLOR : THEME.PRIMARY_COLOR }]}>{`${data}`}</Text>
+                                                <Text style={[styles.textFlatlistStyle, { color: THEME.PRIMARY_COLOR }]}>{`${data}`}</Text>
                                                 // <Text style={[styles.textFlatlistStyle, { color: index == 0 ? THEME.PRIMARY_BACKGROUND_COLOR : 'white' }]}>{data}</Text>
                                             )
                                         }}
