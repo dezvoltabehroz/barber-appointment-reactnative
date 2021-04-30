@@ -99,7 +99,7 @@ class EditWallet extends Component {
                                                 <View style={{ marginHorizontal: "2.5%" }}>
                                                     <Input placeholder="Enter Amount" value={amount} keyboardType={"number-pad"} onChangeText={(amount) => {
                                                         this.setState({ amount }); if (amount > balance) {
-                                                            alert("Please enter amount should be equal to or less than the balance!")
+                                                            alert("Your withdrawal amount cannot exceed current balance")
                                                         }
                                                     }} />
                                                 </View>
