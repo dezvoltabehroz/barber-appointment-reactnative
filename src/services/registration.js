@@ -101,7 +101,12 @@ const Api = {
             }
         })
     },
-
+    userIsLogin: function (userData) {
+        return axiosInstance.post('registration/isLogin', {
+            email: userData.email,
+            password: userData.password,
+        }, config)
+    },
     userLogin: function (userData) {
         return axiosInstance.post('registration/login', {
             email: userData.email,

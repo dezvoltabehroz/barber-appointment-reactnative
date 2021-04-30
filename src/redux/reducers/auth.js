@@ -9,7 +9,8 @@ import {
     USER_EMAIL_AND_PASSWORD_SUCCESS,
     HEALTH_AND_SEFATY_SUCCESS,
     WRONG_CODE_ERROR,
-    EXPIRE_CODE_ERROR
+    EXPIRE_CODE_ERROR,
+    USER_LOGIN_MODAL_SUCCESS
 } from '../types';
 
 const initialState = {
@@ -28,11 +29,17 @@ const initialState = {
     modal: true,
     wrongCode: false,
     codeExpire: false,
+    userModal: false,
 
 };
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
+        case USER_LOGIN_MODAL_SUCCESS :
+        return{
+            ...state,
+            userModal:action.modal
+        }
         case USER_LOGIN_SUCCESS:
             return {
                 ...state,

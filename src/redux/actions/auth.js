@@ -9,7 +9,8 @@ import {
     USER_EMAIL_AND_PASSWORD_SUCCESS,
     HEALTH_AND_SEFATY_SUCCESS,
     WRONG_CODE_ERROR,
-    EXPIRE_CODE_ERROR
+    EXPIRE_CODE_ERROR,
+    USER_LOGIN_MODAL_SUCCESS
 } from '../types';
 import { RegisterUser } from '../../services';
 import { Alert, Linking, Platform } from 'react-native';
@@ -282,7 +283,7 @@ const removeUser = (navigate, userData) => {
     return (dispatch) => {
         if (userData) {
             RegisterUser.removeFcmToken(userData)
-                .then((res) => { console.log(res.data); navigate('Auth') })
+                .then((res) => { console.log(res.data); })
                 .catch((err) => { console.log(err); })
         }
         navigate('Auth')
@@ -291,6 +292,71 @@ const removeUser = (navigate, userData) => {
         AsyncStorage.removeItem('Email');
 
 
+    }
+};
+
+const userIsLogin = (userData, navigate) => {
+    return (dispatch) => {
+        let loading = true;
+        if (loading) {
+            dispatch({ type: LOADING_SUCCESS, loading: loading })
+        }
+        RegisterUser.userIsLogin(userData)
+            .then(async (response) => {
+                if (response.data.status) {
+                    if (response.data.userData.length == 1) {
+                        let data = {
+                            ...userData,
+                            type: response.data.userData[0].type
+                        }
+                        RegisterUser.userLogin(data)
+                            .then(async (responseData) => {
+                                if (responseData.data.status) {
+                                    await requestUserPermission(responseData.data.userData[0], dispatch, navigate)
+
+                                    AsyncStorage.setItem('Email', JSON.stringify(userData))
+                                }
+                                else {
+                                    Alert.alert(responseData.data.message)
+                                    dispatch({ type: LOADING_SUCCESS, loading: !loading })
+                                }
+                            })
+                            .catch(err => {
+                                console.log(err.message)
+                                dispatch({ type: LOADING_SUCCESS, loading: !loading })
+                            })
+                    }
+                    else {
+                        dispatch({ type: USER_LOGIN_MODAL_SUCCESS, modal: true })
+                        dispatch({ type: LOADING_SUCCESS, loading: !loading })
+                    }
+
+                }
+                else {
+                    Alert.alert(responseData.data.message)
+                    dispatch({ type: LOADING_SUCCESS, loading: !loading })
+                }
+            })
+            .catch(err => {
+                console.log(err.message)
+                dispatch({ type: LOADING_SUCCESS, loading: !loading })
+            })
+        // RegisterUser.userLogin(userData)
+        //     .then(async (responseData) => {
+        //         if (responseData.data.status) {
+        //             await requestUserPermission(responseData.data.userData[0], dispatch, navigate)
+
+        //             AsyncStorage.setItem('Email', JSON.stringify(userData))
+        //         }
+        //         else {
+        //             Alert.alert(responseData.data.message)
+        //             dispatch({ type: LOADING_SUCCESS, loading: !loading })
+        //         }
+        //     })
+        //     .catch(err => {
+        //         console.log(err.message)
+        //         dispatch({ type: LOADING_SUCCESS, loading: !loading })
+        //     })
     }
 };
 
@@ -318,6 +384,7 @@ const userLogin = (userData, navigate) => {
             })
     }
 };
+
 const requestUserPermission = async function (data, dispatch, navigate) {
     const authorizationStatus = await messaging().requestPermission({
         alert: true,
@@ -374,6 +441,11 @@ const healthAndSafety = (modal) => {
         dispatch({ type: HEALTH_AND_SEFATY_SUCCESS, modal: modal })
     }
 }
+const onCloseModal = () => {
+    return (dispatch) => {
+        dispatch({ type: USER_LOGIN_MODAL_SUCCESS, modal: false })
+    }
+}
 const wrongCode = (modal) => {
     return (dispatch) => {
         dispatch({ type: WRONG_CODE_ERROR, wrongCode: modal })
@@ -396,5 +468,7 @@ export const authActions = {
     userLogin,
     healthAndSafety,
     codeExpire,
-    wrongCode
+    wrongCode,
+    userIsLogin,
+    onCloseModal
 };

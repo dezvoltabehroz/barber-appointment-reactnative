@@ -37,12 +37,23 @@ class AuthScreen extends Component {
         const { onLogin } = this.props
         let { email, password } = this.state;
         let userData = { email: email, password: password, type: this.state.provider ? 'barber' : 'customer' };
-        if (email && password) {
+        if (email && password && userData.type) {
             if (this.isEmailValid(email)) {
                 onLogin(userData);
             }
         }
     };
+
+    handleIsLogin = () => {
+        const { onIsLogin } = this.props
+        let { email, password } = this.state;
+        let userData = { email: email, password: password };
+        if (email && password) {
+            if (this.isEmailValid(email)) {
+                onIsLogin(userData);
+            }
+        }
+    }
 
     isEmailValid(email) {
         return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)
@@ -109,8 +120,7 @@ class AuthScreen extends Component {
                                     <Text style={styles.forgetPasswordTextStyle}>Stay signed in</Text>
                                 </View>
                                 <TouchableOpacity onPress={() => {
-                                    this.setState({ signInModal: true })
-                                    // this.props.isSubmit(); this.handleLogin() 
+                                    this.props.isSubmit(); this.handleIsLogin()
                                 }}>
                                     <View style={styles.loginButton}>
                                         {
@@ -207,12 +217,12 @@ class AuthScreen extends Component {
                         </View>
                     </ScrollView>
                 </View>
-                <Modal isVisible={this.state.signInModal}>
+                <Modal isVisible={this.props.userModal}>
                     <View style={{ backgroundColor: '#171717', paddingVertical: "5%" }}>
                         <View style={{ marginHorizontal: "5%", justifyContent: "center", alignItems: "flex-end" }} >
                             <Icon.MaterialCommunityIcons
                                 name={"close-circle"}
-                                onPress={() => this.setState({ signInModal: false, provider: false, costumer: false })}
+                                onPress={() => this.props.onCloseUserModal()}
                                 color={THEME.PRIMARY_COLOR} size={THEME.ICON_SIZE} /></View>
                         <View style={{ paddingVertical: '7.5%', marginHorizontal: "10%", flexDirection: "row", justifyContent: "space-between", paddingBottom: '5%', }}>
                             <TouchableOpacity onPress={() => { this.setState({ provider: true, costumer: false, }) }} style={{ width: 120, height: 50, flexDirection: "row", justifyContent: 'center', alignItems: "center" }}>

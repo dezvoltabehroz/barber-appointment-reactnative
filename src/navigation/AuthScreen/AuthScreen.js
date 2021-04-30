@@ -122,15 +122,22 @@ class AuthScreen extends Component {
         this.setState({ submit: false })
     }
 
+    handleIsLogin = async (userData) => {
+        const { replace } = this.props.navigation
+        await this.props.authActions.userIsLogin(userData, replace);
+        this.setState({ submit: false })
+    }
+
 
     render() {
         const { navigate, replace } = this.props.navigation
         const { customer, barber, submit, loading } = this.state;
         return (
             <MainScreenPaths.Auth
-                onForgetPassword={()=>navigate('Forget') }
+                onForgetPassword={() => navigate('Forget')}
                 loading={this.props?.user?.loading}
                 onLogin={(userData) => this.handleLogin(userData)}
+                onIsLogin={(userData) => this.handleIsLogin(userData)}
                 onPhone={() => customer ?
                     replace('Register', {
                         screen: 'PhoneNumber',
@@ -143,6 +150,8 @@ class AuthScreen extends Component {
                 customer={customer}
                 barber={barber}
                 submit={(submit)}
+                userModal={this.props?.user?.userModal}
+                onCloseUserModal={() => this.props.authActions.onCloseModal()}
                 isSubmit={() => this.setState({ submit: true })}
                 onGoogle={() => this._signIn}
                 signUpAsBarber={() => navigate('Barber', { screen: 'PhoneNumber' })}
