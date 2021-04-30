@@ -47,7 +47,7 @@ function BarberNotificationRoutes() {
             }} />
             <Stack.Screen name="BarberServiceAccept" component={BarberServiceAcceptScreen} options={{
                 headerBackTitleVisible: false,
-                headerBackImage: () => (<View><Text style={styles.headerBackTitle}>Cancel</Text></View>),
+                headerBackImage: () => (<View><Text style={[styles.headerBackTitle, { marginLeft: Platform.OS == 'ios' ? 10 : 0 }]}>Cancel</Text></View>),
                 headerTintColor: 'white',
                 headerTransparent: true,
                 headerTitle: () => (<View><Text style={styles.headerTitleStyle}>Customer Location</Text></View>),
@@ -61,6 +61,11 @@ function BarberNotificationRoutes() {
 const styles = StyleSheet.create({
     headerTitleStyle: {
         fontSize: 16,
+        color: "#fff",
+        fontFamily: 'Poppins-Bold'
+    },
+    headerBackTitle: {
+        fontSize: 12,
         color: "#fff",
         fontFamily: 'Poppins-Bold'
     }

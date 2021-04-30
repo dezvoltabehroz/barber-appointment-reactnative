@@ -16,7 +16,8 @@ class StartService extends Component {
             timeInHour: '',
             totalPrice: '',
             loading: false,
-            customerId: ""
+            customerId: "",
+            customerName: ""
         }
     }
     componentDidMount = () => {
@@ -32,6 +33,7 @@ class StartService extends Component {
                 if (res.data.status) {
                     this.setState({
                         customerId: res.data.booking_service_details.customer_id,
+                        customerName: res.data.booking_service_details.customer_name,
                         serviceList: res.data.booking_service_details.services,
                         totalPrice: res.data.booking_service_details.booking_price,
                         totalTime: res.data.booking_service_details.booking_time_duration
@@ -56,8 +58,8 @@ class StartService extends Component {
 
 
     render() {
-        const { onStartService,customerName } = this.props;
-        const { serviceList, timeInHour, totalPrice } = this.state;
+        const { onStartService, } = this.props;
+        const { serviceList, timeInHour, totalPrice, customerName } = this.state;
         return (
             <>
                 {
@@ -102,7 +104,7 @@ class StartService extends Component {
                                                         <View style={styles.timeContainer}>
                                                             <View style={styles.priceAndTimeContainer}>
                                                                 <Text style={styles.timeTextStyle}>
-                                                                    {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " +  timeInHour[1]}
+                                                                    {timeInHour[0] == '0' && timeInHour[1] == '0' ? "" : " " + timeInHour[1]}
                                                                     {
                                                                         timeInHour[0] == '0' && timeInHour[1] == '0' ?
                                                                             null
@@ -152,7 +154,7 @@ class StartService extends Component {
                                     </View>
                                 </View>
                             </View>
-                            <FooterButton  customer={customerName}   title='Start Service' onPress={() => onStartService(this.state.customerId)} />
+                            <FooterButton customer={customerName} title='Start Service' onPress={() => onStartService(this.state.customerId)} />
                         </View>
                 }
             </>
