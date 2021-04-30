@@ -102,20 +102,29 @@ export default class BookAppointment extends Component {
   _renderItems = ({ index, item }) => {
     return (
       <TouchableOpacity onPress={() => {
+        let time = moment(`${this.state.bookingDate} ${item.slotStartTime}`);
+        let current = moment()//.add(6,'hours')
+        console.log(time.isAfter(current))
         const { onBookingPress } = this.props;
-        let items = [...this.state.slots];
-        for (var i = 0; i < items.length; i++) {
-          if (items[i].isBooked) {
-            items[i] = { ...items[i], isBooked: false };
+        if (time > current) {
+          let items = [...this.state.slots];
+          for (var i = 0; i < items.length; i++) {
+            if (items[i].isBooked) {
+              items[i] = { ...items[i], isBooked: false };
+            }
           }
-        }
-        items[index] = { ...items[index], isBooked: true };
-        this.setState({ slots: items, bookedSlot: items[index].slotStartTime }, () => {
-          onBookingPress("false")
-          this.props.bookingDate(this.state.bookingDate)
-          this.props.bookingTime(this.state.bookedSlot)
+          items[index] = { ...items[index], isBooked: true };
+          this.setState({ slots: items, bookedSlot: items[index].slotStartTime }, () => {
+            onBookingPress("false")
+            this.props.bookingDate(this.state.bookingDate)
+            this.props.bookingTime(this.state.bookedSlot)
 
-        });
+          });
+        }
+        else {
+          alert("You cannot select past time")
+        }
+
       }} style={[styles.flatlistContainer, { backgroundColor: item.isBooked ? THEME.PRIMARY_COLOR : "#171717" }]}>
         <Text style={[styles.textFlatlistStyle, { color: item.isBooked ? "#171717" : THEME.PRIMARY_COLOR }]} >{item.slotStartTime}</Text>
       </TouchableOpacity>
