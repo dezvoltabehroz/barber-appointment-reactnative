@@ -328,9 +328,9 @@ class Payment extends Component {
                                                     submit && !name.length ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Name is invalid</Text> : null
                                             }
                                         </View>
-                                        <View style={[styles.row, { marginTop: 8, marginBottom: 15 }]}>
+                                        <View style={[styles.row, { marginTop: 8,}]}>
                                             <View>
-                                                <TouchableOpacity onPress={() => this.setState({ isexpDateFocus: true, showDatePicker: true })} style={[styles.inputRowContainerStyle,
+                                                <TouchableOpacity onPress={() => this.setState({ isexpDateFocus: true, showDatePicker: true })} style={[styles.inputRowContainerStyle, { height: 60 },
                                                 isexpDateFocus || expDate != '' ? THEME.inputBorder : {}]}>
                                                     {
                                                         expDate ?
@@ -340,9 +340,7 @@ class Payment extends Component {
                                                     }
                                                     <Icon.Feather name='calendar' style={styles.iconStyle} size={THEME.ICON_SIZE} color={THEME.COLOR_GREY} />
                                                 </TouchableOpacity>
-                                                {
-                                                    submit && !expDate ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Please fill this field</Text> : null
-                                                }
+
                                             </View>
                                             <View  >
                                                 <View style={[styles.inputRowContainerStyle,
@@ -371,11 +369,22 @@ class Payment extends Component {
                                                             this.handleConfirmPayment()
                                                         })} />
                                                 </View>
+
+                                            </View>
+                                        </View>
+                                        <View style={[styles.rowStyle, { flex: 1, justifyContent: "space-evenly", marginHorizontal: "5%" }]}>
+                                            <View style={[styles.witdh, { flex: 0.5 }]}>
+                                                {
+                                                    submit && !expDate ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Please fill this field</Text> : null
+                                                }
+                                            </View>
+                                            <View style={[styles.witdh, { flex: 0.5 }]}>
                                                 {
                                                     submit && !cvv ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Please fill this field</Text> :
                                                         submit && cvv.length != 3 ? <Text style={[COMMON_STYLE.errorText, { marginVertical: '2%', color: "white" }]}>Cvv is invalid</Text> : null
                                                 }
                                             </View>
+
                                         </View>
                                     </View>
                                 </View>

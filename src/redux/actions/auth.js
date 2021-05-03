@@ -333,7 +333,7 @@ const userIsLogin = (userData, navigate) => {
 
                 }
                 else {
-                    Alert.alert(responseData.data.message)
+                    Alert.alert(response.data.message)
                     dispatch({ type: LOADING_SUCCESS, loading: !loading })
                 }
             })

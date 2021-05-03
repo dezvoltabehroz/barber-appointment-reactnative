@@ -93,7 +93,7 @@ export default StyleSheet.create({
     },
     marginVertical: {
         marginVertical: "2%",
-        flex: 1
+        // flex: 1
     },
     generalMargin: {
         marginVertical: "3%",
@@ -118,7 +118,7 @@ export default StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-evenly",
         alignItems: "center",
-        height: 60,
+        // height: 60,
         width: screenWidth * 0.4,
         borderRadius: 5,
         backgroundColor: THEME.COLOR_WHITE
@@ -146,6 +146,9 @@ export default StyleSheet.create({
         // color: THEME.PRIMARY_COLOR,
         fontFamily: 'Poppins-Medium'
     },
+    width: {
+        width: screenWidth * 0.4,
+    }
 })
 
 
