@@ -85,5 +85,13 @@ export default StyleSheet.create({
         fontFamily: 'Poppins-Medium',
         fontSize: THEME.FONT_SIZE_MEDIUM,
     },
-
+    footerStyle: {
+        flex: 0.2,
+        justifyContent: 'flex-end',
+        paddingBottom: '8%',
+        backgroundColor: "#171717"
+    },
+    buttonContainer: {
+        marginHorizontal: '10%',
+    },
 })

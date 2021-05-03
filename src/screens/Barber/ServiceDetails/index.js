@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, ActivityIndicator, } from 'react-native';
-import { FooterButton, Icon } from '../../../components';
+import { FooterButton, Icon, Button } from '../../../components';
 import styles from './style';
 import THEME from '../../../assets/styles/theme.style';
 import { connect } from 'react-redux'
@@ -115,7 +115,7 @@ class ServiceDetails extends Component {
 
     render() {
         const { onPayment, history, cancelled } = this.props;
-        const { serviceList, timeInHour, totalPrice, stepCounter, bookingEndingTime, bookingStartingTime, bookingDate,customerId } = this.state;
+        const { serviceList, timeInHour, totalPrice, stepCounter, bookingEndingTime, bookingStartingTime, bookingDate, customerId } = this.state;
 
         return (
             <>
@@ -245,7 +245,12 @@ class ServiceDetails extends Component {
                                 history ?
                                     null
                                     :
-                                    <FooterButton disabled={stepCounter == 6 ? false : true} title={'Done'} onPress={() => onPayment(totalPrice,customerId)} />
+                                    <View style={styles.footerStyle}>
+                                        <View style={styles.buttonContainer}>
+                                            <Button disabled={stepCounter == 6 ? false : true} title={'Done'} onPress={() => this.props.onPayment(totalPrice, customerId)} />
+                                        </View>
+                                    </View>
+
                             }
 
                         </View>

@@ -44,7 +44,6 @@ class BarberServiceAccept extends Component {
                 if (res.data.status) {
                     BookingServices.getBookingDetails(userData)
                         .then((response) => {
-                            console.log
                             if (response.data.status) {
                                 this.setState({
                                     data: res.data.custProfile[0].phone,
