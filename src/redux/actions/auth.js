@@ -37,6 +37,7 @@ const setUserProfile = (userData) => {
 };
 
 const getUserProfile = (userData, navigate) => {
+    console.log("navigate : ", navigate);
     return (dispatch) => {
         let loading = true;
         if (loading) {
@@ -253,21 +254,23 @@ const UpdateEmailAddressandToken = (userData, navigate) => {
                         password: userData.password,
                         loading: !loading
                     })
-                    RegisterUser.userLogin(userData)
-                        .then(async responseData => {
-                            if (responseData.data.status) {
-                                await requestUserPermission(responseData.data.userData[0], dispatch, navigate)
-                                AsyncStorage.setItem('Email', JSON.stringify(userData))
-                                // AsyncStorage.removeItem('Phone');
-                                // dispatch({ type: USER_LOGIN_SUCCESS, userData: responseData.data.userData[0], loading: loading })
-                                // dispatch(getUserProfile(responseData.data.userData[0], navigate))
-                            }
-                            else {
-                                Alert.alert(response.data.message)
-                                dispatch({ type: LOADING_SUCCESS, loading: !loading })
-                            }
-                        })
-                        .catch(err => { console.log(err) })
+                    dispatch(userIsLogin(userData, navigate))
+                    // RegisterUser.userLogin(userData)
+                    //     .then(async responseData => {
+                    //         console.log(responseData.data)
+                    //         if (responseData.data.status) {
+                    //             await requestUserPermission(responseData.data.userData[0], dispatch, navigate)
+                    //             AsyncStorage.setItem('Email', JSON.stringify(userData))
+                    //             // AsyncStorage.removeItem('Phone');
+                    //             // dispatch({ type: USER_LOGIN_SUCCESS, userData: responseData.data.userData[0], loading: loading })
+                    //             // dispatch(getUserProfile(responseData.data.userData[0], navigate))
+                    //         }
+                    //         else {
+                    //             Alert.alert(responseData.data.message)
+                    //             dispatch({ type: LOADING_SUCCESS, loading: !loading })
+                    //         }
+                    //     })
+                    //     .catch(err => { console.log(err) })
                 }
                 else {
                     Alert.alert(response.data.message)
