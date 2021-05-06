@@ -356,6 +356,7 @@ class ManageScheduleTime extends Component {
         SchedulerServices.createScheduler(userData)
             .then((res) => {
                 if (!res.data.status) {
+                    Alert.alert(res.data.message);
                     this.props.navigation.replace("ManageScheduler")
                     this.setState({ submit: false, buttonLoading: false })
                 }
