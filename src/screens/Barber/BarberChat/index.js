@@ -322,67 +322,65 @@ class customerChat extends Component {
                                             avatar: this.props.customerData.profile_picture
 
                                         }}
-                                        bottomOffset={1}
+                                        bottomOffset={0}
                                         listViewProps={{ marginTop: '7%' }}
                                     />
                                     :
-                                    <KeyboardAwareScrollView>
-                                        <GiftedChat
-                                            messages={this.state.messages}
-                                            onSend={this.onSend}
-                                            placeholder={'Type a message'}
-                                            maxComposerHeight={50}
-                                            renderSend={this._renderSend}
-                                            renderBubble={this._renderBubble}
-                                            renderAvatar={() => null}
-                                            isKeyboardInternallyHandled={false}
-                                            renderInputToolbar={props => (
+                                    <GiftedChat
+                                        messages={this.state.messages}
+                                        onSend={this.onSend}
+                                        placeholder={'Type a message'}
+                                        maxComposerHeight={50}
+                                        renderSend={this._renderSend}
+                                        renderBubble={this._renderBubble}
+                                        renderAvatar={() => null}
+                                        isKeyboardInternallyHandled={false}
+                                        renderInputToolbar={props => (
 
 
-                                                <InputToolbar
-                                                    {...props}
-                                                    multiline={false}
-                                                    textInputStyle={{
-                                                        color: "white",
-                                                        fontFamily: 'Poppins-Regular',
-                                                        paddingTop: Platform.OS == 'ios' ? 0 : '5%'
-                                                    }}
-                                                    containerStyle={{
-                                                        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-                                                        // borderTopWidth: 0,
-                                                        // paddingTop:'5%'
-                                                    }}
-                                                // renderComposer={props1 =>
-                                                //     (
-                                                //         //                 <KeyboardAwareScrollView>
-                                                //         <Composer
-                                                //             {...props1}
-                                                //             multiline={false}
-                                                //             textInputStyle={{
-                                                //                 // height: 54,
-                                                //                 color: "white",
-                                                //                 fontFamily: 'Poppins-Regular',
-                                                //                 // paddingTop: '5%'
-                                                //             }} />
-                                                //                 </KeyboardAwareScrollView>
-                                                />
-                                            )}
-                                            // renderInputToolbar={this._renderInputToolbar}
-                                            // showUserAvatar={true}
-                                            style={{ flex: 1 }}
-                                            showAvatarForEveryMessage={true}
-                                            // renderCustomView={this._renderCustomView}
-                                            user={{
-                                                _id: this.currentUserId,
-                                                name: user.last_name || user.first_name,
-                                                avatar: this.props.customerData.profile_picture
+                                            <InputToolbar
+                                                {...props}
+                                                multiline={false}
+                                                textInputStyle={{
+                                                    color: "white",
+                                                    fontFamily: 'Poppins-Regular',
+                                                    paddingTop: Platform.OS == 'ios' ? 0 : '5%'
+                                                }}
+                                                containerStyle={{
+                                                    backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
+                                                    // borderTopWidth: 0,
+                                                    // paddingTop:'5%'
+                                                }}
+                                            // renderComposer={props1 =>
+                                            //     (
+                                            //         //                 <KeyboardAwareScrollView>
+                                            //         <Composer
+                                            //             {...props1}
+                                            //             multiline={false}
+                                            //             textInputStyle={{
+                                            //                 // height: 54,
+                                            //                 color: "white",
+                                            //                 fontFamily: 'Poppins-Regular',
+                                            //                 // paddingTop: '5%'
+                                            //             }} />
+                                            //                 </KeyboardAwareScrollView>
+                                            />
+                                        )}
+                                        // renderInputToolbar={this._renderInputToolbar}
+                                        // showUserAvatar={true}
+                                        style={{ flex: 1 }}
+                                        showAvatarForEveryMessage={true}
+                                        // renderCustomView={this._renderCustomView}
+                                        user={{
+                                            _id: this.currentUserId,
+                                            name: user.last_name || user.first_name,
+                                            avatar: this.props.customerData.profile_picture
 
-                                            }}
-                                            bottomOffset={1}
-                                            listViewProps={{ marginTop: '7%' }}
-                                            renderChatEmpty={<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}><Text style={{ color: "white", fontFamily: 'Poppins-Regular', }}>No messages found!</Text></View>}
-                                        />
-                                    </KeyboardAwareScrollView>
+                                        }}
+                                        bottomOffset={0}
+                                        listViewProps={{ marginTop: '7%' }}
+                                        renderChatEmpty={<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}><Text style={{ color: "white", fontFamily: 'Poppins-Regular', }}>No messages found!</Text></View>}
+                                    />
                             }
                         </>
 
