@@ -54,7 +54,7 @@ export default class DateTimeModal extends Component {
             }
             else {
                 if (i <= 9) {
-                    set[i] = (i.toString());
+                    set[i] = ("0" + i.toString());
                 } else {
                     set[i] = (i.toString());
                 }
