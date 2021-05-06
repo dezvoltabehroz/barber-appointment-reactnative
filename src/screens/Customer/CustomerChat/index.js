@@ -267,7 +267,7 @@ class barberChat extends Component {
                         :
                         <>
                             {
-                                !Platform.OS == 'android' ?
+                                Platform.OS == 'android' ?
                                     <GiftedChat
                                         messages={this.state.messages}
                                         onSend={this.onSend}
