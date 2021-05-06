@@ -292,9 +292,6 @@ const removeUser = (navigate, userData) => {
         navigate('Auth')
         dispatch({ type: USER_LOGOUT_SUCCESS })
         AsyncStorage.removeItem('USER');
-        AsyncStorage.removeItem('Email');
-
-
     }
 };
 
